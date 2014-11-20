@@ -28,10 +28,12 @@
 
 script to create OMOP common data model, version 5.0 for PostgreSQL database
 
-last revised: 12 Oct 2014
+last revised: 20 NOV 2014
 
 author:  Patrick Ryan
 
+Updatd cdm_source table column entry vocabulary_version from VARCHAR(20) to VARCHAR(255), subsequently aligning 
+with the vocabulary table vocabulary_name column
 
 *************************/
 
@@ -203,7 +205,7 @@ CREATE TABLE cdm_source
 	 source_release_date				DATE			NULL,
 	 cdm_release_date					DATE			NULL,
 	 cdm_version						VARCHAR(10)		NULL,
-	 vocabulary_version					VARCHAR(20)		NULL
+	 vocabulary_version					VARCHAR(255)		NULL
     ) 
 ;
 
