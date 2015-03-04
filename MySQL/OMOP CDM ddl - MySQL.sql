@@ -26,12 +26,12 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  
                                                                               
 
-script to create OMOP common data model, version 5.0 for PostgreSQL database
+script to create OMOP common data model, version 5.0 for MySQL database
 
-last revised: 12 Oct 2014
+last revised: 03 Mar 2015
 
-author:  Patrick Ryan
-
+original author:  Patrick Ryan
+modified by Colin Erdman for MySQL;
 
 *************************/
 
