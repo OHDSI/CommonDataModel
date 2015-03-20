@@ -1,7 +1,7 @@
-Common-Data-Model / Oracle
+Common-Data-Model / SQL Server
 =================
 
-This folder contains the SQL scripts for Oracle. 
+This folder contains the SQL scripts for SQL Server. 
 
 In order to create your instantiation of the Common Data Model, we recommend following these steps:
 

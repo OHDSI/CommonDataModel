@@ -8,7 +8,7 @@ trailing nullcols
 (
   source_code,
   source_vocabulary_id,
-  source_code_description,
+  source_code_description CHAR(256),
   target_concept_id,
   target_vocabulary_id,
   mapping_type,

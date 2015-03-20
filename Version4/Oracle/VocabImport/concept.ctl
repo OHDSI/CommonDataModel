@@ -7,7 +7,7 @@ fields terminated by '\t'
 trailing nullcols
 (
   concept_id,
-  concept_name,
+  concept_name CHAR(256),
   concept_level,
   concept_class,
   vocabulary_id,
