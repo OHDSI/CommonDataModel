@@ -51,9 +51,9 @@ TemplateSQL File Instructions
 -----------------------------
  
  1. Set parameter name of schema that contains CDMv4 instance 
-    ([SOURCE_CDMV4], [SOURCE_CDMV4].[SCHEMA])
+    (sandbox, sandbox.cdmv4)
  2. Set parameter name of schema that contains CDMv5 instance 
-    ([TARGET_CDMV5], [TARGET_CDMV5].[SCHEMA])
+    (sandbox, sandbox.cdmv5)
  3. Run this script through SqlRender to produce a script that will work in your
     source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
  4. Run the script produced by SQL Render on your target RDBDMS.
@@ -77,12 +77,22 @@ TemplateSQL File Instructions
 *********************************************************************************/
 
 /* SCRIPT PARAMETERS */
+--					-- The CDMv4 database name
+--	-- The CDMv4 database plus schema
+--					-- The target CDMv5 database name
+--	-- the target CDMv5 database plus schema
+/* LOCAL SQL Server */
+--					-- The CDMv4 database name
+--	-- The CDMv4 database plus schema
+--					-- The target CDMv5 database name
+--	-- the target CDMv5 database plus schema
+/* PostgreSQL Settings */
 					-- The CDMv4 database name
 	-- The CDMv4 database plus schema
 					-- The target CDMv5 database name
 	-- the target CDMv5 database plus schema
  
-ALTER SESSION SET current_schema =  [TARGET_CDMV5];
+ALTER SESSION SET current_schema =  sandbox;
 
 /*
  * The #concept_map table will hold the mapping of source_concept_ids to target_concept_ids
@@ -129,7 +139,7 @@ SELECT
 	NULL as source_concept_mapping_occurrence 
 
 FROM
-  dbo.concept
+  sandbox.cdmv5.concept
   WHERE  standard_concept = 'S'
 and invalid_reason is null
 
@@ -143,16 +153,16 @@ SELECT   distinct c1.concept_id as source_concept_id,
  FROM 
 (
 select concept_id
-from dbo.concept
+from sandbox.cdmv5.concept
 where ((standard_concept <> 'S' or standard_concept is null)
 or invalid_reason is not null
 )
 ) c1
 inner join
-dbo.concept_relationship cr1
+sandbox.cdmv5.concept_relationship cr1
 on c1.concept_id = cr1.concept_id_1
 inner join
-dbo.concept c2
+sandbox.cdmv5.concept c2
 on cr1.concept_id_2 = c2.concept_id
   WHERE  c2.standard_concept = 'S'
 and c2.invalid_reason is null
@@ -170,7 +180,7 @@ SELECT   distinct c1.concept_id as source_concept_id,
  FROM 
 (
 select concept_id
-from dbo.concept
+from sandbox.cdmv5.concept
 where ((standard_concept <> 'S' or standard_concept is null)
 or invalid_reason is not null
 )
@@ -179,16 +189,16 @@ and concept_id not in (
 	from
 	(
 	select concept_id
-	from dbo.concept
+	from sandbox.cdmv5.concept
 	where ((standard_concept <> 'S' or standard_concept is null)
 		or invalid_reason is not null
 		)
 	) c1
 	inner join
-	dbo.concept_relationship cr1
+	sandbox.cdmv5.concept_relationship cr1
 	on c1.concept_id = cr1.concept_id_1
 	inner join
-	dbo.concept c2
+	sandbox.cdmv5.concept c2
 	on cr1.concept_id_2 = c2.concept_id
 	where c2.standard_concept = 'S'
 	and c2.invalid_reason is null
@@ -198,10 +208,10 @@ and concept_id not in (
 
 ) c1
 inner join
-dbo.concept_relationship cr1
+sandbox.cdmv5.concept_relationship cr1
 on c1.concept_id = cr1.concept_id_1
 inner join
-dbo.concept c2
+sandbox.cdmv5.concept c2
 on cr1.concept_id_2 = c2.concept_id
   WHERE  c2.standard_concept = 'S'
 and c2.invalid_reason is null
@@ -226,7 +236,7 @@ SELECT   distinct c1.concept_id as source_concept_id,
  FROM 
 (
 select concept_id
-from dbo.concept
+from sandbox.cdmv5.concept
 where ((standard_concept <> 'S' or standard_concept is null)
 	or invalid_reason is not null
 	)
@@ -235,16 +245,16 @@ and concept_id not in (
 	from
 	(
 	select concept_id
-	from dbo.concept
+	from sandbox.cdmv5.concept
 	where ((standard_concept <> 'S' or standard_concept is null)
 		or invalid_reason is not null
 		)
 	) c1
 	inner join
-	dbo.concept_relationship cr1
+	sandbox.cdmv5.concept_relationship cr1
 	on c1.concept_id = cr1.concept_id_1
 	inner join
-	dbo.concept c2
+	sandbox.cdmv5.concept c2
 	on cr1.concept_id_2 = c2.concept_id
 	where c2.standard_concept = 'S'
 	and c2.invalid_reason is null
@@ -263,10 +273,10 @@ and concept_id not in (
 
 ) c1
 inner join
-dbo.concept_relationship cr1
+sandbox.cdmv5.concept_relationship cr1
 on c1.concept_id = cr1.concept_id_1
 inner join
-dbo.concept c2
+sandbox.cdmv5.concept c2
 on cr1.concept_id_2 = c2.concept_id
   WHERE  c2.standard_concept = 'S'
 and c2.invalid_reason is null
@@ -279,17 +289,17 @@ and cr1.invalid_reason is null;
 -- the script to ensure that we generate new primary keys
 -- for the target tables when applicable 
  UPDATE fviywowuconcept_map
- SET fviywowuconcept_map.source_concept_mapping_occurrence = A.[Rowcount]
+ SET fviywowuconcept_map.source_concept_mapping_occurrence = A.CountOfRows
  FROM 
 	fviywowuconcept_map, 
 	(
- 		 select source_concept_id, domain_id, count(*) as "rowcount"
+ 		 select source_concept_id, domain_id, count(*) as "CountOfRows"
 		 from fviywowuconcept_map
 		 group by source_concept_id, domain_id
 	) AS A
-WHERE fviywowuconcept_map.source_concept_id = A.source_concept_id AND fviywowuconcept_map.domain_id = A.domain_id
+WHERE fviywowuconcept_map.source_concept_id = A.source_concept_id AND fviywowuconcept_map.domain_id = A.domain_id;
  
- BEGIN
+BEGIN
   EXECUTE IMMEDIATE 'TRUNCATE TABLE  fviywowuconcept_map_distinct';
   EXECUTE IMMEDIATE 'DROP TABLE  fviywowuconcept_map_distinct';
 EXCEPTION
@@ -307,15 +317,22 @@ SELECT
  
 FROM
  fviywowuconcept_map
- GROUP BY source_concept_id, domain_id
+ GROUP BY source_concept_id, domain_id;
 
  
- IF OBJECT_ID('[TARGET_CDMV5].[SCHEMA].ETL_WARNINGS') IS NOT NULL
-	DROP TABLE [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS
+BEGIN
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE  ETL_WARNINGS';
+  EXECUTE IMMEDIATE 'DROP TABLE  ETL_WARNINGS';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+    END IF;
+END;
 
-CREATE TABLE [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS
+CREATE TABLE ETL_WARNINGS
 (
-WARNING_MESSAGE varchar(8000)
+	WARNING_MESSAGE varchar(8000)
 );
  
 /****
@@ -324,9 +341,9 @@ CDM_SOURCE
  
  ****/
 
-INSERT INTO dbo.cdm_source (cdm_source_name, cdm_version, vocabulary_version, cdm_release_date)
-SELECT   '[TARGET_CDMV5]', 'V5', v.vocabulary_version, SYSDATE
- FROM  dbo.vocabulary v
+INSERT INTO sandbox.cdmv5.cdm_source (cdm_source_name, cdm_version, vocabulary_version, cdm_release_date)
+SELECT   'sandbox', 'V5', v.vocabulary_version, SYSDATE
+ FROM  sandbox.cdmv5.vocabulary v
   WHERE  vocabulary_id = 'Vocabulary';
 
 /****
@@ -335,9 +352,9 @@ LOCATION
 
  ****/
 
-insert into dbo.location
+insert into sandbox.cdmv5.location
 select location_id, address_1, address_2, city, state, zip, county, location_source_value
-from [SOURCE_CDMV4].[SCHEMA].LOCATION;
+from sandbox.cdmv4.LOCATION;
 
 /****
 
@@ -345,9 +362,9 @@ CARE_SITE
 
  ****/
 
-insert into dbo.care_site
+insert into sandbox.cdmv5.care_site
 select care_site_id, TO_CHAR(null ) as care_site_name, place_of_service_concept_id, location_id, care_site_source_value, place_of_service_source_value
-from [SOURCE_CDMV4].[SCHEMA].CARE_SITE;
+from sandbox.cdmv4.CARE_SITE;
 
 /****
 
@@ -355,11 +372,11 @@ Provider
 
 ****/
 
-insert dbo.provider
+insert into sandbox.cdmv5.provider
 select provider_id, TO_CHAR(null ) as provider_name, NPI, DEA, specialty_concept_id, care_site_id, cast(null as integer) as year_of_birth,
 	cast(null as integer) as gender_concept_id, provider_source_value, specialty_source_value, 0 as specialty_source_concept_id, 
 	TO_CHAR(null ) as gender_source_value, cast(null as integer) as gender_source_concept_id
-from [SOURCE_CDMV4].[SCHEMA].provider
+from sandbox.cdmv4.provider
 ;
 
 
@@ -369,7 +386,7 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  
  ****/
  
- INSERT dbo.person 
+ INSERT into sandbox.cdmv5.person 
  SELECT 
 	person_id, 
 	coalesce(gender.target_concept_id, 0) as gender_concept_id, 
@@ -389,21 +406,21 @@ from [SOURCE_CDMV4].[SCHEMA].provider
 	CAST(null as integer) race_source_concept_id, 
 	ethnicity_source_value,
 	CAST(null as integer) ethnicity_source_concept_id
- FROM [SOURCE_CDMV4].[SCHEMA].PERSON p
+ FROM sandbox.cdmv4.PERSON p
 	 left JOIN fviywowuconcept_map gender on LOWER(gender.DOMAIN_ID) IN ('gender') and p.gender_concept_id = gender.source_concept_id
 	 left JOIN fviywowuconcept_map race on LOWER(race.DOMAIN_ID) IN ('race') and p.race_concept_id = race.source_concept_id
 	 LEFT JOIN fviywowuconcept_map ethnicity on LOWER(ethnicity.DOMAIN_ID) IN ('ethnicity') and p.ETHNICITY_CONCEPT_ID = ethnicity.source_concept_id;
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'PERSON: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid GENDER_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].PERSON
+ FROM sandbox.cdmv4.PERSON
  WHERE GENDER_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -414,16 +431,16 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  ) warn
  ;
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'PERSON: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid RACE_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].PERSON
+ FROM sandbox.cdmv4.PERSON
  WHERE RACE_CONCEPT_ID IS NOT NULL 
  AND RACE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -434,16 +451,16 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  ;
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'PERSON: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid ETHNICITY_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].PERSON
+ FROM sandbox.cdmv4.PERSON
  WHERE ETHNICITY_CONCEPT_ID IS NOT NULL 
  AND ETHNICITY_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -459,9 +476,9 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  
  ****/
 
- INSERT dbo.observation_period
+ INSERT INTO sandbox.cdmv5.observation_period
  SELECT observation_period_id, person_id, observation_period_start_date, observation_period_end_date, 44814722 as period_type_concept_id
- FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION_PERIOD;
+ FROM sandbox.cdmv4.OBSERVATION_PERIOD;
  
  /****
  
@@ -469,28 +486,28 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  
  ****/
  
- INSERT dbo.death
+ INSERT INTO sandbox.cdmv5.death
  SELECT person_id, 
 	death_date, 
 	COALESCE(death_type_concept_id,0) AS death_type_concept_id, 
 	cause_of_death_concept_id as cause_concept_id, 
 	cause_of_death_source_value as cause_source_value, 
 	CAST(null as integer) as cause_source_concept_id
- FROM [SOURCE_CDMV4].[SCHEMA].DEATH
+ FROM sandbox.cdmv4.DEATH
  LEFT JOIN fviywowuconcept_map_distinct cm1
  ON DEATH.DEATH_TYPE_CONCEPT_ID = CM1.SOURCE_CONCEPT_ID 
  AND LOWER(DOMAIN_ID) IN ('death type');
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'DEATH: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid DEATH_TYPE_CONCEPT_ID'
  FROM
  (
 	 SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
-	 FROM [SOURCE_CDMV4].[SCHEMA].DEATH
+	 FROM sandbox.cdmv4.DEATH
 	 WHERE DEATH_TYPE_CONCEPT_ID NOT IN (
 	 SELECT CONCEPT_ID
-	 FROM CONCEPT
+	 FROM sandbox.cdmv5.CONCEPT
 	 WHERE CONCEPT_ID = 0
 	 OR
 	 (STANDARD_CONCEPT = 'S'
@@ -507,7 +524,7 @@ from [SOURCE_CDMV4].[SCHEMA].provider
  
  ****/
  
- INSERT dbo.visit_occurrence
+ INSERT INTO sandbox.cdmv5.visit_occurrence
  SELECT visit_occurrence_id, person_id, 
 	COALESCE(cm1.target_concept_id,0) as visit_concept_id, 
 	visit_start_date, TO_CHAR(null ) visit_start_time, 
@@ -516,20 +533,20 @@ from [SOURCE_CDMV4].[SCHEMA].provider
 	CAST(null as integer) provider_id, 
 	care_site_id, place_of_service_source_value as visit_source_value, 
 	CAST(null as integer) visit_source_concept_id
- FROM [SOURCE_CDMV4].[SCHEMA].VISIT_OCCURRENCE
+ FROM sandbox.cdmv4.VISIT_OCCURRENCE
  LEFT JOIN fviywowuconcept_map cm1
  ON VISIT_OCCURRENCE.PLACE_OF_SERVICE_CONCEPT_ID = cm1.source_concept_id
  AND LOWER(cm1.domain_id) IN ('visit');
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'VISIT_OCCURRENCE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid VISIT_CONCEPT_ID (from the CDMv4 PLACE_OF_SERVICE_CONCEPT_ID field)'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].VISIT_OCCURRENCE
+ FROM sandbox.cdmv4.VISIT_OCCURRENCE
  WHERE PLACE_OF_SERVICE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -584,7 +601,7 @@ SELECT
 	 CAST(null as NUMBER(19)) as origional_drug_id
  
 FROM
- [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+ sandbox.cdmv4.PROCEDURE_OCCURRENCE
  INNER JOIN fviywowuconcept_map cm1
  ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
  AND LOWER(cm1.domain_id) IN ('procedure') 
@@ -611,7 +628,7 @@ UNION ALL
 	 CAST(null as integer) procedure_source_concept_id, 
 	 TO_CHAR(null ) qualifier_source_value,
 	 CAST(null as NUMBER(19)) as origional_drug_id
- FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+ FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
   FROM
   DUAL
  FROM
@@ -635,7 +652,7 @@ UNION ALL
 	 CAST(null as integer) procedure_source_concept_id, 
 	 TO_CHAR(null ) qualifier_source_value,
 	 CAST(null as NUMBER(19)) as origional_drug_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+  FROM  sandbox.cdmv4.PROCEDURE_OCCURRENCE
  LEFT JOIN fviywowuconcept_map cm1
  ON procedure_concept_id = cm1.source_concept_id
  LEFT JOIN fviywowuconcept_map cm2
@@ -678,7 +695,7 @@ UNION ALL
 		 TO_CHAR(null ) qualifier_source_value,
 		 CAST(null as NUMBER(19)) as origional_drug_id,
 		 NULL as OCCURRENCE_ID
-	 FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	 FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	 INNER JOIN fviywowuconcept_map cm1
 	 ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
 	 AND LOWER(cm1.domain_id) IN ('procedure') 
@@ -704,7 +721,7 @@ UNION ALL
 		TO_CHAR(null ) qualifier_source_value,
 		CAST(null as NUMBER(19)) origional_drug_id, 
 		condition_occurrence_id as OCCURRENCE_ID
-	 FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+	 FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	  INNER JOIN fviywowuconcept_map cm1
 		 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('procedure') 
@@ -725,7 +742,7 @@ UNION ALL
 		TO_CHAR(null ) qualifier_source_value,
 		drug_exposure_id as origional_drug_id, 
 		drug_exposure_id as OCCURRENCE_ID
-	 FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+	 FROM sandbox.cdmv4.DRUG_EXPOSURE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('procedure') 
@@ -741,54 +758,54 @@ UNION ALL
 		CAST(null as integer) procedure_source_concept_id, TO_CHAR(null ) qualifier_source_value,
 		CAST(null as NUMBER(19)) as origional_drug_id, 
 		OBSERVATION_ID as OCCURRENCE_ID
-	 FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+	 FROM sandbox.cdmv4.OBSERVATION
 	 INNER JOIN fviywowuconcept_map cm1
 		 ON observation.observation_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('procedure') 
 	 
 	 
-	) OTHERS,(SELECT MAX(PROCEDURE_OCCURRENCE_ID) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE) MAXROW 
+	) OTHERS,(SELECT MAX(PROCEDURE_OCCURRENCE_ID) AS MAXROWID FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE) MAXROW 
 ;
  
-INSERT INTO [dbo].[procedure_occurrence]
-           ([procedure_occurrence_id]
-           ,[person_id]
-           ,[procedure_concept_id]
-           ,[procedure_date]
-           ,[procedure_type_concept_id]
-           ,[modifier_concept_id]
-           ,[quantity]
-           ,[provider_id]
-           ,[visit_occurrence_id]
-           ,[procedure_source_value]
-           ,[procedure_source_concept_id]
-           ,[qualifier_source_value])
+INSERT INTO procedure_occurrence
+           (procedure_occurrence_id
+           ,person_id
+           ,procedure_concept_id
+           ,procedure_date
+           ,procedure_type_concept_id
+           ,modifier_concept_id
+           ,quantity
+           ,provider_id
+           ,visit_occurrence_id
+           ,procedure_source_value
+           ,procedure_source_concept_id
+           ,qualifier_source_value)
 SELECT 
-           [procedure_occurrence_id]
-           ,[person_id]
-           ,[procedure_concept_id]
-           ,[procedure_date]
-           ,[procedure_type_concept_id]
-           ,[modifier_concept_id]
-           ,[quantity]
-           ,[provider_id]
-           ,[visit_occurrence_id]
-           ,[procedure_source_value]
-           ,[procedure_source_concept_id]
-           ,[qualifier_source_value]
-FROM fviywowuprocedure_occurrence_map
+           procedure_occurrence_id
+           ,person_id
+           ,procedure_concept_id
+           ,procedure_date
+           ,procedure_type_concept_id
+           ,modifier_concept_id
+           ,quantity
+           ,provider_id
+           ,visit_occurrence_id
+           ,procedure_source_value
+           ,procedure_source_concept_id
+           ,qualifier_source_value
+FROM fviywowuprocedure_occurrence_map;
 
  --warnings of invalid records
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'PROCEDURE_OCCURRENCE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid PROCOEDURE_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+ FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
  WHERE PROCEDURE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  STANDARD_CONCEPT = 'S'
@@ -798,15 +815,15 @@ FROM fviywowuprocedure_occurrence_map
  ;
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'PROCEDURE_OCCURRENCE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid PROCOEDURE_TYPE_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+ FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
  WHERE PROCEDURE_TYPE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -862,7 +879,7 @@ SELECT
 	CAST(null as NUMBER(19)) origional_procedure_id
  
 FROM
-  [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+  sandbox.cdmv4.DRUG_EXPOSURE
  INNER JOIN fviywowuconcept_map cm1
  ON drug_exposure.drug_concept_id = cm1.source_concept_id
  AND LOWER(cm1.domain_id) IN ('drug') 
@@ -898,7 +915,7 @@ UNION ALL
 	TO_CHAR(null ) route_source_value, 
 	TO_CHAR(null ) dose_unit_source_value,
 	CAST(null as NUMBER(19)) origional_procedure_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+  FROM  sandbox.cdmv4.DRUG_EXPOSURE
    WHERE  drug_concept_id = 0 
 
 UNION ALL
@@ -926,7 +943,7 @@ UNION ALL
 	TO_CHAR(null ) route_source_value, 
 	TO_CHAR(null ) dose_unit_source_value,
 	CAST(null as NUMBER(19)) origional_procedure_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+  FROM  sandbox.cdmv4.DRUG_EXPOSURE
  LEFT JOIN fviywowuconcept_map cm1
  ON drug_concept_id = cm1.source_concept_id
  LEFT JOIN fviywowuconcept_map cm2
@@ -968,7 +985,7 @@ FROM
 		TO_CHAR(null ) dose_unit_source_value,
 		CAST(null as NUMBER(19)) origional_procedure_id,
 		NULL as OCCURRENCE_ID
-	 FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+	 FROM sandbox.cdmv4.DRUG_EXPOSURE
 	 INNER JOIN fviywowuconcept_map cm1
 	 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 	 AND LOWER(cm1.domain_id) IN ('drug') 
@@ -987,7 +1004,7 @@ FROM
 	null as provider_id, visit_occurrence_id, condition_source_value as drug_source_value,
 	CAST(null as integer) drug_source_concept_id, TO_CHAR(null ) route_source_value, TO_CHAR(null ) dose_unit_source_value,
 	CAST(null as NUMBER(19)) origional_procedure_id, condition_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+	FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('drug')  
@@ -1002,7 +1019,7 @@ FROM
 	null as provider_id, visit_occurrence_id, procedure_source_value as drug_source_value,
 	CAST(null as integer) drug_source_concept_id, TO_CHAR(null ) route_source_value, TO_CHAR(null ) dose_unit_source_value,
 	procedure_occurrence_id as origional_procedure_id, procedure_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('drug')  
@@ -1016,69 +1033,69 @@ FROM
 	null as provider_id, visit_occurrence_id, observation_source_value as drug_source_value,
 	CAST(null as integer) drug_source_concept_id, TO_CHAR(null ) route_source_value, TO_CHAR(null ) dose_unit_source_value,
 	CAST(null as NUMBER(19)) origional_procedure_id, observation_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+	FROM sandbox.cdmv4.OBSERVATION
 	INNER JOIN fviywowuconcept_map cm1
 		 ON observation.observation_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('drug')  
-) OTHERS,(SELECT MAX(DRUG_EXPOSURE_ID) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE) MAXROW 
+) OTHERS,(SELECT MAX(DRUG_EXPOSURE_ID) AS MAXROWID FROM sandbox.cdmv4.DRUG_EXPOSURE) MAXROW 
 ;
-INSERT INTO [dbo].[drug_exposure]
-           ([drug_exposure_id]
-           ,[person_id]
-           ,[drug_concept_id]
-           ,[drug_exposure_start_date]
-           ,[drug_exposure_end_date]
-           ,[drug_type_concept_id]
-           ,[stop_reason]
-           ,[refills]
-           ,[quantity]
-           ,[days_supply]
-           ,[sig]
-           ,[route_concept_id]
-           ,[effective_drug_dose]
-           ,[dose_unit_concept_id]
-           ,[lot_number]
-           ,[provider_id]
-           ,[visit_occurrence_id]
-           ,[drug_source_value]
-           ,[drug_source_concept_id]
-           ,[route_source_value]
-           ,[dose_unit_source_value])
+INSERT INTO drug_exposure
+           (drug_exposure_id
+           ,person_id
+           ,drug_concept_id
+           ,drug_exposure_start_date
+           ,drug_exposure_end_date
+           ,drug_type_concept_id
+           ,stop_reason
+           ,refills
+           ,quantity
+           ,days_supply
+           ,sig
+           ,route_concept_id
+           ,effective_drug_dose
+           ,dose_unit_concept_id
+           ,lot_number
+           ,provider_id
+           ,visit_occurrence_id
+           ,drug_source_value
+           ,drug_source_concept_id
+           ,route_source_value
+           ,dose_unit_source_value)
 SELECT
-	[drug_exposure_id]
-    ,[person_id]
-    ,[drug_concept_id]
-    ,[drug_exposure_start_date]
-    ,[drug_exposure_end_date]
-    ,[drug_type_concept_id]
-    ,[stop_reason]
-    ,[refills]
-    ,[quantity]
-    ,[days_supply]
-    ,[sig]
-    ,[route_concept_id]
-    ,[effective_drug_dose]
-    ,[dose_unit_concept_id]
-    ,[lot_number]
-    ,[provider_id]
-    ,[visit_occurrence_id]
-    ,[drug_source_value]
-    ,[drug_source_concept_id]
-    ,[route_source_value]
-    ,[dose_unit_source_value]
-FROM fviywowudrug_exposure_map
+	drug_exposure_id
+    ,person_id
+    ,drug_concept_id
+    ,drug_exposure_start_date
+    ,drug_exposure_end_date
+    ,drug_type_concept_id
+    ,stop_reason
+    ,refills
+    ,quantity
+    ,days_supply
+    ,sig
+    ,route_concept_id
+    ,effective_drug_dose
+    ,dose_unit_concept_id
+    ,lot_number
+    ,provider_id
+    ,visit_occurrence_id
+    ,drug_source_value
+    ,drug_source_concept_id
+    ,route_source_value
+    ,dose_unit_source_value
+FROM fviywowudrug_exposure_map;
  
  --warnings of invalid records
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'DRUG_EXPOSURE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid DRUG_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+ FROM sandbox.cdmv4.DRUG_EXPOSURE
  WHERE DRUG_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  STANDARD_CONCEPT = 'S'
@@ -1088,15 +1105,15 @@ FROM fviywowudrug_exposure_map
  ;
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'DRUG_EXPOSURE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid DRUG_TYPE_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+ FROM sandbox.cdmv4.DRUG_EXPOSURE
  WHERE DRUG_TYPE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -1114,7 +1131,7 @@ FROM fviywowudrug_exposure_map
  ****/
  
  --find valid conditions from condition_occurrence table
- INSERT dbo.condition_occurrence
+ INSERT INTO sandbox.cdmv5.condition_occurrence
  SELECT   condition_occurrence_id, 
 	person_id, 
 	COALESCE(cm1.target_concept_id, 0) AS condition_concept_id, 
@@ -1123,7 +1140,7 @@ FROM fviywowudrug_exposure_map
 	COALESCE(cm2.target_concept_id,0) AS condition_type_concept_id, 
 	stop_reason, associated_provider_id as provider_id, visit_occurrence_id, 
 	condition_source_value, CAST(null as integer) condition_source_concept_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+  FROM  sandbox.cdmv4.CONDITION_OCCURRENCE
  INNER JOIN fviywowuconcept_map cm1
  ON condition_occurrence.condition_concept_id = cm1.source_concept_id
  AND LOWER(cm1.domain_id) IN ('condition') 
@@ -1147,7 +1164,7 @@ UNION ALL
 	visit_occurrence_id, 
 	condition_source_value, 
 	CAST(null as integer) condition_source_concept_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+  FROM  sandbox.cdmv4.CONDITION_OCCURRENCE
    WHERE  condition_concept_id = 0 
 
 UNION ALL
@@ -1164,7 +1181,7 @@ UNION ALL
 	visit_occurrence_id, 
 	condition_source_value, 
 	CAST(null as integer) condition_source_concept_id
-  FROM  [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+  FROM  sandbox.cdmv4.CONDITION_OCCURRENCE
  LEFT JOIN fviywowuconcept_map cm1
  ON condition_occurrence.condition_concept_id = cm1.source_concept_id
  LEFT JOIN fviywowuconcept_map cm2
@@ -1188,8 +1205,9 @@ FROM (
 		condition_end_date, 
 		COALESCE(cm2.target_concept_id,0) AS condition_type_concept_id, 
 		stop_reason, associated_provider_id as provider_id, visit_occurrence_id, 
-		condition_source_value, CAST(null as integer) condition_source_concept_id
-	 FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+		condition_source_value, CAST(null as integer) condition_source_concept_id,
+		NULL as OCCURRENCE_ID
+	 FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	 INNER JOIN fviywowuconcept_map cm1
 	 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 	 AND LOWER(cm1.domain_id) IN ('condition') 
@@ -1208,7 +1226,7 @@ FROM (
 	0 as condition_type_concept_id, null as stop_reason, associated_provider_id as provider_id, visit_occurrence_id, 
 	procedure_source_value as condition_source_value, CAST(null as integer) condition_source_concept_id,
 	procedure_occurrence_id as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('condition')  
@@ -1221,7 +1239,7 @@ FROM (
 		0 as condition_type_concept_id, null as stop_reason, prescribing_provider_id as provider_id, visit_occurrence_id, 
 		drug_source_value as condition_source_value, CAST(null as integer) condition_source_concept_id,
 		drug_exposure_id as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+	FROM sandbox.cdmv4.DRUG_EXPOSURE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('condition')  
@@ -1234,25 +1252,25 @@ FROM (
 		0 as condition_type_concept_id, null as stop_reason, associated_provider_id as provider_id, visit_occurrence_id, 
 		observation_source_value as condition_source_value, CAST(null as integer) condition_source_concept_id,
 		observation_id as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+	FROM sandbox.cdmv4.OBSERVATION
 	INNER JOIN fviywowuconcept_map cm1
 		 ON observation.observation_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('condition') 
-) OTHERS,(SELECT MAX(condition_occurrence_id) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE) MAXROW 
+) OTHERS,(SELECT MAX(condition_occurrence_id) AS MAXROWID FROM sandbox.cdmv4.CONDITION_OCCURRENCE) MAXROW 
 ;
  
  
  --warnings of invalid records
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'CONDITION_OCCURRENCE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid CONDITION_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+ FROM sandbox.cdmv4.CONDITION_OCCURRENCE
  WHERE CONDITION_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  STANDARD_CONCEPT = 'S'
@@ -1262,15 +1280,15 @@ FROM (
  ;
  
  
- INSERT ETL_WARNINGS (WARNING_MESSAGE)
+ INSERT INTO ETL_WARNINGS (WARNING_MESSAGE)
  SELECT 'CONDIITON_OCCURRENCE: ' || TO_CHAR(NUM_INVALID_RECORDS ) || ' records in the source CDMv4 database have invalid CONDITION_TYPE_CONCEPT_ID'
  FROM
  (
  SELECT COUNT(PERSON_ID) AS NUM_INVALID_RECORDS
- FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+ FROM sandbox.cdmv4.CONDITION_OCCURRENCE
  WHERE CONDITION_TYPE_CONCEPT_ID NOT IN (
  SELECT CONCEPT_ID
- FROM CONCEPT
+ FROM sandbox.cdmv5.CONCEPT
  WHERE CONCEPT_ID = 0
  OR
  (STANDARD_CONCEPT = 'S'
@@ -1289,7 +1307,7 @@ FROM (
  
  ****/
  
-INSERT dbo.device_exposure
+INSERT INTO sandbox.cdmv5.device_exposure
 select row_number() over (order by OCCURRENCE_ID) AS device_exposure_id, 
 	person_id, device_concept_id, device_exposure_start_date, device_exposure_end_date, device_type_concept_id,
 	unique_device_id, quantity, provider_id, visit_occurrence_id, device_source_value, device_source_concept_id
@@ -1303,7 +1321,7 @@ FROM
 		CAST(null as integer) quantity, ASSOCIATED_PROVIDER_ID AS PROVIDER_ID, 
 		VISIT_OCCURRENCE_ID, PROCEDURE_SOURCE_VALUE AS DEVICE_SOURCE_VALUE, 0 as device_source_concept_id,
 		PROCEDURE_OCCURRENCE_ID as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('device')  
@@ -1317,7 +1335,7 @@ FROM
 		quantity, PRESCRIBING_PROVIDER_ID AS PROVIDER_ID, 
 		VISIT_OCCURRENCE_ID, DRUG_SOURCE_VALUE AS DEVICE_SOURCE_VALUE, 0 as device_source_concept_id,
 		DRUG_EXPOSURE_ID as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+	FROM sandbox.cdmv4.DRUG_EXPOSURE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('device')  
@@ -1331,7 +1349,7 @@ FROM
 		CAST(NULL as integer) quantity, ASSOCIATED_PROVIDER_ID AS PROVIDER_ID, 
 		VISIT_OCCURRENCE_ID, CONDITION_SOURCE_VALUE AS DEVICE_SOURCE_VALUE, 0 as device_source_concept_id,
 		CONDITION_OCCURRENCE_ID as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+	FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('device')  
@@ -1345,7 +1363,7 @@ FROM
 		CAST(null as integer) quantity, ASSOCIATED_PROVIDER_ID AS PROVIDER_ID,
 		VISIT_OCCURRENCE_ID, OBSERVATION_SOURCE_VALUE AS DEVICE_SOURCE_VALUE, 0 as device_source_concept_id,
 		OBSERVATION_ID as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+	FROM sandbox.cdmv4.OBSERVATION
 	INNER JOIN fviywowuconcept_map cm1
 		 ON observation.observation_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('device')  
@@ -1360,7 +1378,7 @@ FROM
  ****/
  
 --find valid measurements from observation table
-INSERT dbo.measurement
+INSERT INTO sandbox.cdmv5.measurement
 SELECT row_number() over (order by occurrence_id) AS measurement_id,  
 	person_id, measurement_concept_id, measurement_date, measurement_time, measurement_type_concept_id, operator_concept_id, value_as_number, value_as_concept_id, unit_concept_id, range_low, range_high, 
 	provider_id, visit_occurrence_id, measurement_source_value, measurement_source_concept_id, unit_source_value, value_source_value
@@ -1381,7 +1399,7 @@ from
 		unit_source_value AS unit_source_value, 
 		TO_CHAR(null ) as value_source_value,
 		observation_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+	FROM sandbox.cdmv4.OBSERVATION
 	INNER JOIN fviywowuconcept_map cm1
 			 ON observation.observation_concept_id = cm1.source_concept_id
 			 AND LOWER(cm1.domain_id) IN ('measurement')  
@@ -1409,7 +1427,7 @@ from
 		TO_CHAR(null ) as unit_source_value, 
 		TO_CHAR(null ) as value_source_value,
 		procedure_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('measurement') 
@@ -1434,7 +1452,7 @@ from
 		TO_CHAR(null ) as unit_source_value, 
 		TO_CHAR(null ) as value_source_value,
 		condition_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+	FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('measurement') 
@@ -1459,7 +1477,7 @@ from
 		TO_CHAR(null ) as unit_source_value, 
 		TO_CHAR(null ) as value_source_value,
 		drug_exposure_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].drug_exposure
+	FROM sandbox.cdmv4.drug_exposure
 	INNER JOIN fviywowuconcept_map cm1
 		 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('measurement') 	 
@@ -1478,13 +1496,13 @@ from
  
  
  --find valid observation from observation table
- INSERT dbo.observation
+ INSERT INTO sandbox.cdmv5.observation
  SELECT   observation_id, person_id, observation_concept_id, observation_date, observation_time, observation_type_concept_id, 
 	value_as_number, value_as_string, value_as_concept_id, CAST(null as integer) qualifier_concept_id,
 	unit_concept_id, associated_provider_id as provider_id, 
 	visit_occurrence_id, observation_source_value, CAST(null as integer) observation_source_concept_id,
 	unit_source_value, TO_CHAR(null ) qualifier_source_value
-  FROM  [SOURCE_CDMV4].[SCHEMA].OBSERVATION
+  FROM  sandbox.cdmv4.OBSERVATION
    WHERE  observation_concept_id NOT IN (SELECT source_concept_id FROM fviywowuconcept_map_distinct WHERE LOWER(domain_id) IN ('condition','drug','procedure','device','measurement')) 
 
  
@@ -1505,7 +1523,7 @@ FROM
 		visit_occurrence_id, procedure_source_value as observation_source_value, CAST(null as integer) observation_source_concept_id,
 		null as unit_source_value, TO_CHAR(null ) qualifier_source_value,
 		procedure_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('observation') 
@@ -1520,7 +1538,7 @@ FROM
 		visit_occurrence_id, condition_source_value as observation_source_value, CAST(null as integer) observation_source_concept_id,
 		null as unit_source_value, TO_CHAR(null ) qualifier_source_value,
 		condition_occurrence_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
+	FROM sandbox.cdmv4.CONDITION_OCCURRENCE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('observation') 
@@ -1535,11 +1553,11 @@ FROM
 		visit_occurrence_id, drug_source_value as observation_source_value, CAST(null as integer) observation_source_concept_id,
 		null as unit_source_value, TO_CHAR(null ) qualifier_source_value,
 		drug_exposure_id as occurrence_id
-	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
+	FROM sandbox.cdmv4.DRUG_EXPOSURE
 	INNER JOIN fviywowuconcept_map cm1
 		 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		 AND LOWER(cm1.domain_id) IN ('observation') 
- ) OTHERS,(SELECT MAX(OBSERVATION_ID) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION) MAXROW 
+ ) OTHERS,(SELECT MAX(OBSERVATION_ID) AS MAXROWID FROM sandbox.cdmv4.OBSERVATION) MAXROW 
  ;
  
  
@@ -1550,10 +1568,10 @@ FROM
  
  ****/
 
-INSERT dbo.payer_plan_period
+INSERT INTO sandbox.cdmv5.payer_plan_period
 SELECT payer_plan_period_id, person_id, payer_plan_period_start_date, payer_plan_period_end_date, 
 	payer_source_value, plan_source_value, family_source_value
-FROM [SOURCE_CDMV4].[SCHEMA].PAYER_PLAN_PERIOD;
+FROM sandbox.cdmv4.PAYER_PLAN_PERIOD;
  
  /****
  
@@ -1563,15 +1581,15 @@ FROM [SOURCE_CDMV4].[SCHEMA].PAYER_PLAN_PERIOD;
  
  ****/
 
-INSERT dbo.drug_cost
+INSERT INTO sandbox.cdmv5.drug_cost
 SELECT drug_cost_id, dc.drug_exposure_id, cast(null as integer) currency_concept_id, paid_copay, paid_coinsurance, paid_toward_deductible, paid_by_payer, 
 	paid_by_coordination_benefits, total_out_of_pocket, total_paid, ingredient_cost, dispensing_fee, 
 	average_wholesale_price, payer_plan_period_id
-FROM [SOURCE_CDMV4].[SCHEMA].DRUG_COST dc
+FROM sandbox.cdmv4.DRUG_COST dc
 ;
 
 -- insert procedure costs for procedures that were inserted into the drug_exposure table
-INSERT INTO dbo.drug_cost
+INSERT INTO sandbox.cdmv5.drug_cost
 select CASE WHEN MAXROW.MAXROWID IS NULL THEN 0 ELSE MAXROW.MAXROWID END + row_number() over (order by OCCURRENCE_ID) AS drug_cost_id, 
 	drug_exposure_id, cast(null as integer) currency_concept_id, paid_copay, paid_coinsurance, paid_toward_deductible, paid_by_payer, 
 	paid_by_coordination_benefits, total_out_of_pocket, total_paid, ingredient_cost, dispensing_fee, 
@@ -1580,11 +1598,11 @@ FROM (
 	SELECT drug_exposure_id, po.person_id, paid_copay, paid_coinsurance, paid_toward_deductible, paid_by_payer, 
 		paid_by_coordination_benefits, total_out_of_pocket, total_paid, null as ingredient_cost, null as dispensing_fee, 
 		null as average_wholesale_price, payer_plan_period_id, procedure_cost_id as OCCURRENCE_ID
-	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE po
-	join [SOURCE_CDMV4].[SCHEMA].PROCEDURE_COST pc on po.procedure_occurrence_id = pc.procedure_occurrence_id
+	FROM sandbox.cdmv4.PROCEDURE_OCCURRENCE po
+	join sandbox.cdmv4.PROCEDURE_COST pc on po.procedure_occurrence_id = pc.procedure_occurrence_id
 	--JOIN dbo.drug_exposure de on de.person_id = po.person_id and pc.procedure_occurrence_id = de.origional_procedure_id
 	JOIN fviywowudrug_exposure_map de on de.person_id = po.person_id and pc.procedure_occurrence_id = de.origional_procedure_id
-) OTHERS ,(SELECT MAX(drug_cost_id) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].DRUG_COST) MAXROW 
+) OTHERS ,(SELECT MAX(drug_cost_id) AS MAXROWID FROM sandbox.cdmv4.DRUG_COST) MAXROW 
 ;
  
  /****
@@ -1596,15 +1614,15 @@ FROM (
  
  ****/
 
-INSERT INTO dbo.procedure_cost
+INSERT INTO sandbox.cdmv5.procedure_cost
 SELECT procedure_cost_id, procedure_occurrence_id, cast(null as integer) currency_concept_id, paid_copay, paid_coinsurance, paid_toward_deductible, 
 	paid_by_payer, paid_by_coordination_benefits, total_out_of_pocket, total_paid, 
 	payer_plan_period_id, revenue_code_concept_id, revenue_code_source_value
-FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_COST;
+FROM sandbox.cdmv4.PROCEDURE_COST;
 
 
 -- insert drug costs for drugs that were inserted into the procedure_occurrence table
-INSERT INTO dbo.procedure_cost
+INSERT INTO sandbox.cdmv5.procedure_cost
 SELECT CASE WHEN MAXROW.MAXROWID IS NULL THEN 0 ELSE MAXROW.MAXROWID END + row_number() over (order by OCCURRENCE_ID) AS procedure_cost_id, 
 	procedure_occurrence_id, cast(null as integer) currency_concept_id, paid_copay, paid_coinsurance, paid_toward_deductible, 
 	paid_by_payer, paid_by_coordination_benefits, total_out_of_pocket, total_paid, 
@@ -1613,11 +1631,11 @@ SELECT CASE WHEN MAXROW.MAXROWID IS NULL THEN 0 ELSE MAXROW.MAXROWID END + row_n
 		SELECT po.procedure_occurrence_id, po.person_id, paid_copay, paid_coinsurance, paid_toward_deductible, paid_by_payer, 
 			paid_by_coordination_benefits, total_out_of_pocket, total_paid, null as ingredient_cost, null as dispensing_fee, 
 			null as average_wholesale_price, payer_plan_period_id, null as revenue_code_concept_id, null as revenue_code_source_value, drug_cost_id as OCCURRENCE_ID
-		FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE de
-		join [SOURCE_CDMV4].[SCHEMA].DRUG_COST dc on de.drug_exposure_id = dc.drug_exposure_id
+		FROM sandbox.cdmv4.DRUG_EXPOSURE de
+		join sandbox.cdmv4.DRUG_COST dc on de.drug_exposure_id = dc.drug_exposure_id
 		--JOIN dbo.procedure_occurrence po on de.person_id = po.person_id and de.drug_exposure_id = po.origional_drug_id
 		JOIN fviywowuprocedure_occurrence_map po on de.person_id = po.person_id and de.drug_exposure_id = po.origional_drug_id
-	) OTHERS,(SELECT MAX(drug_cost_id) AS MAXROWID FROM [SOURCE_CDMV4].[SCHEMA].DRUG_COST) MAXROW 
+	) OTHERS,(SELECT MAX(drug_cost_id) AS MAXROWID FROM sandbox.cdmv4.DRUG_COST) MAXROW 
 ;
  
 /****
@@ -1628,16 +1646,16 @@ Note: Eras derived from DRUG_EXPOSURE table, using 30d gap
  ****/
 
 -- drop table dbo.drug_era
-INSERT INTO  dbo.drug_era
+INSERT INTO  sandbox.cdmv5.drug_era
  WITH  cteDrugTarget (DRUG_EXPOSURE_ID, PERSON_ID, DRUG_CONCEPT_ID, DRUG_TYPE_CONCEPT_ID, DRUG_EXPOSURE_START_DATE, DRUG_EXPOSURE_END_DATE, INGREDIENT_CONCEPT_ID)  AS 
 (
 	-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date
 	select d.DRUG_EXPOSURE_ID, d. PERSON_ID, c.CONCEPT_ID, d.DRUG_TYPE_CONCEPT_ID, DRUG_EXPOSURE_START_DATE, 
 		COALESCE(DRUG_EXPOSURE_END_DATE, (DRUG_EXPOSURE_START_DATE + DAYS_SUPPLY), (DRUG_EXPOSURE_START_DATE + 1)) as DRUG_EXPOSURE_END_DATE,
 		c.CONCEPT_ID as INGREDIENT_CONCEPT_ID
-	FROM [TARGET_CDMV5].[SCHEMA].DRUG_EXPOSURE d
-		join dbo.CONCEPT_ANCESTOR ca on ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
-		join dbo.CONCEPT c on ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
+	FROM sandbox.cdmv5.DRUG_EXPOSURE d
+		join sandbox.cdmv5.CONCEPT_ANCESTOR ca on ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
+		join sandbox.cdmv5.CONCEPT c on ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
 		where c.VOCABULARY_ID = 'RxNorm'
 		and c.CONCEPT_CLASS_ID = 'Ingredient'
 ),
@@ -1717,7 +1735,7 @@ WITH  cteConditionTarget (PERSON_ID, CONDITION_CONCEPT_ID, CONDITION_START_DATE,
 	-- create base eras from the concepts found in condition_occurrence
   select co.PERSON_ID, co.condition_concept_id, co.CONDITION_START_DATE,
         COALESCE(co.CONDITION_END_DATE, (CONDITION_START_DATE + 1)) as CONDITION_END_DATE
-  FROM [TARGET_CDMV5].[SCHEMA].CONDITION_OCCURRENCE co
+  FROM sandbox.cdmv5.CONDITION_OCCURRENCE co
 ),
 cteEndDates (PERSON_ID, CONDITION_CONCEPT_ID, END_DATE) as -- the magic
 (
@@ -1772,13 +1790,13 @@ FROM
 GROUP BY person_id, CONDITION_CONCEPT_ID, ERA_END_DATE
 ;
 
-INSERT INTO [dbo].[condition_era]
-           ([condition_era_id]
-           ,[person_id]
-           ,[condition_concept_id]
-           ,[condition_era_start_date]
-           ,[condition_era_end_date]
-           ,[condition_occurrence_count])
+INSERT INTO condition_era
+           (condition_era_id
+           ,person_id
+           ,condition_concept_id
+           ,condition_era_start_date
+           ,condition_era_end_date
+           ,condition_occurrence_count)
 SELECT
 	condition_era_id,
 	PERSON_ID,

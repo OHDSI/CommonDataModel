@@ -55,7 +55,8 @@ INSTRUCTIONS
  2. Run the resulting script on your target RDBDMS.
 
 *********************************************************************************/
-USE [TARGET_CDMV5]
+--USE [TARGET_CDMV5]
+USE [CDMV5_Conversion_Target]
 GO
 
 IF OBJECT_ID('tempdb..#v5_stats', 'U') IS NOT NULL
@@ -83,7 +84,8 @@ GROUP BY
 ORDER BY 
     object_name(i.object_id) 
 
-USE [SOURCE_CDMV4]
+--USE [SOURCE_CDMV4]
+USE [CDM_TRUVEN_CCAE_6k]
 GO
 
 IF OBJECT_ID('tempdb..#v4_stats', 'U') IS NOT NULL
