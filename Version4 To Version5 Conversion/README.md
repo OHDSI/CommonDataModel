@@ -3,13 +3,25 @@ Conversion from CDM v4 to CDM v5
 
 The scripts in this directory will aid you in moving your data from the Common Data Model (CDM) version 4 to version 5.
 
-Usage & Assumptions
+Assumptions
 ==============================================================
 
 We have created a directory per RDBMS that contains the conversion script for that database platform. All of the script assume the following:
 
 1. Your source CDM V4 database is on the same sever as your target CDM v5 database.
 2. You have read rights to the CDM V4 database and database owner privileges on the target V5 database as this script will create an "ETL_WARNINGS" table in the process.
+
+Usage
+=====
+
+ 1. The conversion script will hold a number of placeholders for your CDM V4 and CDMV5 database/schema. In order to make this file work in your environment, you should plan to do a global "FIND AND REPLACE" on the conversion script to fill in the file with values that pertain to your environment. The following are the tokens you should use when doing your "FIND AND REPLACE" operation:
+ 
+	 * [SOURCE_CDMV4]
+	 * [SOURCE_CDMV4].[SCHEMA]
+     * [TARGET_CDMV5]
+	 * [TARGET_CDMV5].[SCHEMA]
+
+2. Run the resulting script on your target RDBDMS.
 
 ** **NOTE** ** If you are running the Oracle script via Sql Developer or similar, you may need to alter the script to include the appropriate "/" symbols to mark the end of the anonymous code blocks. 
 
