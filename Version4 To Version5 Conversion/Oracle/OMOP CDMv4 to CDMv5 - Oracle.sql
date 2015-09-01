@@ -109,8 +109,8 @@ ALTER SESSION SET current_schema =  [TARGET_CDMV5];
  * Also, as of the date which this script was authored, no source_concept_ids map to multiple domains
  */
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0oconcept_map';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0oconcept_map';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78aconcept_map';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78aconcept_map';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -118,9 +118,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0oconcept_map
+CREATE GLOBAL TEMPORARY TABLE ra2pz78aconcept_map
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -132,9 +132,9 @@ FROM
   [TARGET_CDMV5].[SCHEMA].concept
   WHERE  1 = 0;
 
-/
+/* / */
 
-INSERT INTO q7a3ac0oconcept_map
+INSERT INTO ra2pz78aconcept_map
 --standard concepts
 SELECT   concept_id AS source_concept_id
 	,concept_id AS target_concept_id
@@ -279,8 +279,8 @@ INNER JOIN [TARGET_CDMV5].[SCHEMA].concept c2 ON cr1.concept_id_2 = c2.concept_i
 	AND cr1.invalid_reason IS NULL;
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0oconcept_map_distinct';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0oconcept_map_distinct';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78aconcept_map_distinct';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78aconcept_map_distinct';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -288,9 +288,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0oconcept_map_distinct
+CREATE GLOBAL TEMPORARY TABLE ra2pz78aconcept_map_distinct
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -299,18 +299,18 @@ SELECT
 	,COUNT(*) AS targetConceptCount
 
 FROM
-  q7a3ac0oconcept_map
+  ra2pz78aconcept_map
   WHERE  1 = 0
 GROUP BY source_concept_id
 	,domain_id;
 
-/
+/* / */
 
-INSERT INTO q7a3ac0oconcept_map_distinct
+INSERT INTO ra2pz78aconcept_map_distinct
 SELECT source_concept_id
 	,domain_id
 	,COUNT(*)
-FROM q7a3ac0oconcept_map
+FROM ra2pz78aconcept_map
 GROUP BY source_concept_id
 	,domain_id;
 
@@ -324,10 +324,10 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 CREATE TABLE [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE VARCHAR(4000));
-/
+/* / */
 
 /****
  
@@ -423,11 +423,11 @@ SELECT person_id
 	,ethnicity_source_value
 	,CAST(NULL AS INT) ethnicity_source_concept_id
 FROM [SOURCE_CDMV4].[SCHEMA].PERSON p
-LEFT JOIN q7a3ac0oconcept_map gender ON LOWER(gender.DOMAIN_ID) IN ('gender')
+LEFT JOIN ra2pz78aconcept_map gender ON LOWER(gender.DOMAIN_ID) IN ('gender')
 	AND p.gender_concept_id = gender.source_concept_id
-LEFT JOIN q7a3ac0oconcept_map race ON LOWER(race.DOMAIN_ID) IN ('race')
+LEFT JOIN ra2pz78aconcept_map race ON LOWER(race.DOMAIN_ID) IN ('race')
 	AND p.race_concept_id = race.source_concept_id
-LEFT JOIN q7a3ac0oconcept_map ethnicity ON LOWER(ethnicity.DOMAIN_ID) IN ('ethnicity')
+LEFT JOIN ra2pz78aconcept_map ethnicity ON LOWER(ethnicity.DOMAIN_ID) IN ('ethnicity')
 	AND p.ETHNICITY_CONCEPT_ID = ethnicity.source_concept_id;
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
@@ -509,7 +509,7 @@ SELECT person_id
 	,cause_of_death_source_value AS cause_source_value
 	,CAST(NULL AS INT) AS cause_source_concept_id
 FROM [SOURCE_CDMV4].[SCHEMA].DEATH
-LEFT JOIN q7a3ac0oconcept_map_distinct cm1 ON DEATH.DEATH_TYPE_CONCEPT_ID = CM1.SOURCE_CONCEPT_ID
+LEFT JOIN ra2pz78aconcept_map_distinct cm1 ON DEATH.DEATH_TYPE_CONCEPT_ID = CM1.SOURCE_CONCEPT_ID
 	AND LOWER(DOMAIN_ID) IN ('death type');
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
@@ -548,7 +548,7 @@ SELECT visit_occurrence_id
 	,place_of_service_source_value AS visit_source_value
 	,CAST(NULL AS INT) visit_source_concept_id
 FROM [SOURCE_CDMV4].[SCHEMA].VISIT_OCCURRENCE
-LEFT JOIN q7a3ac0oconcept_map cm1 ON VISIT_OCCURRENCE.PLACE_OF_SERVICE_CONCEPT_ID = cm1.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm1 ON VISIT_OCCURRENCE.PLACE_OF_SERVICE_CONCEPT_ID = cm1.source_concept_id
 	AND LOWER(cm1.domain_id) IN ('visit');
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
@@ -574,8 +574,8 @@ FROM (
  
  ****/
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0opo_map';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0opo_map';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78apo_map';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78apo_map';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -583,9 +583,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0opo_map
+CREATE GLOBAL TEMPORARY TABLE ra2pz78apo_map
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -608,10 +608,10 @@ FROM
 LEFT JOIN [TARGET_CDMV5].[SCHEMA].drug_exposure de ON 1 = 0
   WHERE  0 = 1;
 
-/
+/* / */
 
 --find valid procedures from procedure table
-INSERT INTO q7a3ac0opo_map
+INSERT INTO ra2pz78apo_map
 SELECT  procedure_occurrence_id
 	,person_id
 	,COALESCE(cm1.target_concept_id, 0) AS procedure_concept_id
@@ -626,14 +626,14 @@ SELECT  procedure_occurrence_id
 	,NULL AS qualifier_source_value
 	,CAST(NULL AS INT) AS origional_drug_id
 FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-INNER JOIN q7a3ac0oconcept_map cm1 ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
+INNER JOIN ra2pz78aconcept_map cm1 ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
 	AND LOWER(cm1.domain_id) IN ('procedure')
-INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
-LEFT JOIN q7a3ac0oconcept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('procedure type')
-LEFT JOIN q7a3ac0oconcept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
 	AND cm2.domain_id = cmdis2.domain_id
 	AND cmdis2.targetConceptCount = 1
 
@@ -654,11 +654,15 @@ SELECT  procedure_occurrence_id
 	,NULL qualifier_source_value
 	,CAST(NULL AS INT) AS origional_drug_id
 FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
+ FROM
+  DUAL
+ FROM
+  DUAL
 WHERE procedure_concept_id = 0
 
 UNION ALL
 
--- All drug exposures that do not map to a standard concept in V5 should also carry over with condition_concept_id = 0
+-- All PROCEDURE_OCCURRENCE that do not map to a standard concept in V5 should also carry over with procedure_concept_id = 0
 SELECT   procedure_occurrence_id
 	,person_id
 	,0 AS procedure_concept_id
@@ -673,8 +677,8 @@ SELECT   procedure_occurrence_id
 	,NULL qualifier_source_value
 	,CAST(NULL AS INT) AS origional_drug_id
  FROM  [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-LEFT JOIN q7a3ac0oconcept_map cm1 ON procedure_concept_id = cm1.source_concept_id
-LEFT JOIN q7a3ac0oconcept_map cm2 ON procedure_concept_id = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm1 ON procedure_concept_id = cm1.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON procedure_concept_id = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('procedure type')
   WHERE  procedure_concept_id <> 0
 	AND cm1.domain_id IS NULL
@@ -717,12 +721,12 @@ FROM (
 		,CAST(NULL AS INT) AS origional_drug_id
 		,CAST(NULL AS INT) AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('procedure')
-	INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+	INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
-	LEFT JOIN q7a3ac0oconcept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
 		AND LOWER(cm2.domain_id) IN ('procedure type')
 	
 	UNION ALL
@@ -742,7 +746,7 @@ FROM (
 		,CAST(NULL AS INT) AS origional_drug_id
 		,condition_occurrence_id AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('procedure')
 	
 	UNION ALL
@@ -762,7 +766,7 @@ FROM (
 		,drug_exposure_id AS origional_drug_id
 		,drug_exposure_id AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('procedure')
 	--find procedures that were previously classified as observation
 	
@@ -782,7 +786,7 @@ FROM (
 		,CAST(NULL AS INT) AS origional_drug_id
 		,OBSERVATION_ID AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
-	INNER JOIN q7a3ac0oconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('procedure')
 	) OTHERS
 	,(
@@ -816,7 +820,7 @@ SELECT procedure_occurrence_id
 	,procedure_source_value
 	,procedure_source_concept_id
 	,qualifier_source_value
-FROM q7a3ac0opo_map;
+FROM ra2pz78apo_map;
 
 --warnings of invalid records
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
@@ -857,8 +861,8 @@ FROM (
  ****/
 --find valid drugs from drug_exposure table
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0odrgexp_map';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0odrgexp_map';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78adrgexp_map';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78adrgexp_map';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -866,9 +870,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0odrgexp_map
+CREATE GLOBAL TEMPORARY TABLE ra2pz78adrgexp_map
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -900,9 +904,9 @@ FROM
 LEFT JOIN [TARGET_CDMV5].[SCHEMA].procedure_occurrence po ON 1 = 0
   WHERE  0 = 1;
 
-/
+/* / */
 
-INSERT INTO q7a3ac0odrgexp_map
+INSERT INTO ra2pz78adrgexp_map
 SELECT   drug_exposure_id
 	,person_id
 	,COALESCE(cm1.target_concept_id, 0) AS drug_concept_id
@@ -926,14 +930,14 @@ SELECT   drug_exposure_id
 	,NULL AS dose_unit_source_value
 	,CAST(NULL AS INT) AS origional_procedure_id
  FROM  [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 	AND LOWER(cm1.domain_id) IN ('drug')
-INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
-LEFT JOIN q7a3ac0oconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('drug type')
-INNER JOIN q7a3ac0oconcept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
+INNER JOIN ra2pz78aconcept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
 	AND cm2.domain_id = cmdis2.domain_id
 	AND cmdis2.targetConceptCount = 1
   WHERE  drug_concept_id > 0 -- This condition will map those concepts that were mapped to valid concepts in V4
@@ -992,8 +996,8 @@ SELECT   drug_exposure_id
 	,NULL AS dose_unit_source_value
 	,CAST(NULL AS INT) AS origional_procedure_id
  FROM  [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-LEFT JOIN q7a3ac0oconcept_map cm1 ON drug_concept_id = cm1.source_concept_id
-LEFT JOIN q7a3ac0oconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm1 ON drug_concept_id = cm1.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('drug type')
   WHERE  drug_concept_id <> 0
 	AND cm1.domain_id IS NULL
@@ -1053,12 +1057,12 @@ FROM (
 		,CAST(NULL AS INT) AS origional_procedure_id
 		,CAST(NULL AS INT) AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('drug')
-	INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+	INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
-	LEFT JOIN q7a3ac0oconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
 		AND LOWER(cm2.domain_id) IN ('drug type')
 	
 	UNION ALL
@@ -1087,7 +1091,7 @@ FROM (
 		,CAST(NULL AS INT) AS origional_procedure_id
 		,condition_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('drug')
 	--find drugs that were previously classified as procedure
 	
@@ -1116,7 +1120,7 @@ FROM (
 		,procedure_occurrence_id AS origional_procedure_id
 		,procedure_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('drug')
 	--find drugs that were previously classified as observation
 	
@@ -1145,7 +1149,7 @@ FROM (
 		,CAST(NULL AS INT) AS origional_procedure_id
 		,observation_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
-	INNER JOIN q7a3ac0oconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('drug')
 	) OTHERS
 	,(
@@ -1197,7 +1201,7 @@ SELECT drug_exposure_id
 	,drug_source_concept_id
 	,route_source_value
 	,dose_unit_source_value
-FROM q7a3ac0odrgexp_map;
+FROM ra2pz78adrgexp_map;
 
 --warnings of invalid records
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
@@ -1250,12 +1254,12 @@ SELECT   condition_occurrence_id
 	,condition_source_value
 	,CAST(NULL AS INT) condition_source_concept_id
  FROM  [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 	AND LOWER(cm1.domain_id) IN ('condition')
-INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
-LEFT JOIN q7a3ac0oconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('condition type')
   WHERE  condition_concept_id > 0 -- This condition will map those concepts that were mapped to valid concepts in V4
 
@@ -1291,8 +1295,8 @@ SELECT   condition_occurrence_id
 	,condition_source_value
 	,CAST(NULL AS INT) condition_source_concept_id
  FROM  [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-LEFT JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
-LEFT JOIN q7a3ac0oconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+LEFT JOIN ra2pz78aconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
 	AND LOWER(cm2.domain_id) IN ('condition type')
   WHERE  condition_concept_id <> 0
 	AND cm1.domain_id IS NULL
@@ -1330,12 +1334,12 @@ FROM (
 		,CAST(NULL AS INT) condition_source_concept_id
 		,NULL AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('condition')
-	INNER JOIN q7a3ac0oconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
+	INNER JOIN ra2pz78aconcept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_concept_id
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
-	LEFT JOIN q7a3ac0oconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
 		AND LOWER(cm2.domain_id) IN ('condition type')
 	WHERE condition_concept_id > 0 -- This condition will map those concepts that were mapped to valid concepts in V4
 	
@@ -1354,7 +1358,7 @@ FROM (
 		,CAST(NULL AS INT) condition_source_concept_id
 		,procedure_occurrence_id AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('condition')
 	--find conditions that were previously classified as drug
 	
@@ -1372,7 +1376,7 @@ FROM (
 		,CAST(NULL AS INT) condition_source_concept_id
 		,drug_exposure_id AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('condition')
 	--find conditions that were previously classified as observation
 	
@@ -1390,7 +1394,7 @@ FROM (
 		,CAST(NULL AS INT) condition_source_concept_id
 		,observation_id AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
-	INNER JOIN q7a3ac0oconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('condition')
 	) OTHERS
 	,(
@@ -1465,7 +1469,7 @@ FROM (
 		,0 AS device_source_concept_id
 		,PROCEDURE_OCCURRENCE_ID AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('device')
 	--find devices that were previously classified as drug exposure
 	
@@ -1484,7 +1488,7 @@ FROM (
 		,0 AS device_source_concept_id
 		,DRUG_EXPOSURE_ID AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('device')
 	--find devices that were previously classified as conditions
 	
@@ -1503,7 +1507,7 @@ FROM (
 		,0 AS device_source_concept_id
 		,CONDITION_OCCURRENCE_ID AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('device')
 	--find devices that were previously classified as observations
 	
@@ -1522,7 +1526,7 @@ FROM (
 		,0 AS device_source_concept_id
 		,OBSERVATION_ID AS OCCURRENCE_ID
 	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
-	INNER JOIN q7a3ac0oconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('device')
 	) OTHERS;
 
@@ -1574,9 +1578,9 @@ FROM (
 		,TO_CHAR(NULL ) AS value_source_value
 		,observation_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].OBSERVATION
-	INNER JOIN q7a3ac0oconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
-	LEFT JOIN q7a3ac0oconcept_map cm2 ON observation.unit_concept_id = cm2.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map cm2 ON observation.unit_concept_id = cm2.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('unit')
 	
 	UNION ALL
@@ -1600,7 +1604,7 @@ FROM (
 		,TO_CHAR(NULL ) AS value_source_value
 		,procedure_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
 	
 	UNION ALL
@@ -1624,7 +1628,7 @@ FROM (
 		,TO_CHAR(NULL ) AS value_source_value
 		,condition_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
 	
 	UNION ALL
@@ -1648,7 +1652,7 @@ FROM (
 		,TO_CHAR(NULL ) AS value_source_value
 		,drug_exposure_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].drug_exposure
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
 	) OTHERS;
 
@@ -1679,7 +1683,7 @@ SELECT   observation_id
  FROM  [SOURCE_CDMV4].[SCHEMA].OBSERVATION
   WHERE  observation_concept_id NOT IN (
 		SELECT source_concept_id
-		FROM q7a3ac0oconcept_map_distinct
+		FROM ra2pz78aconcept_map_distinct
 		WHERE LOWER(domain_id) IN (
 				'condition'
 				,'drug'
@@ -1734,7 +1738,7 @@ FROM (
 		,TO_CHAR(NULL ) qualifier_source_value
 		,procedure_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON procedure_occurrence.procedure_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('observation')
 	--find observations that were previously classified as condition
 	
@@ -1758,7 +1762,7 @@ FROM (
 		,TO_CHAR(NULL ) qualifier_source_value
 		,condition_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('observation')
 
 	UNION ALL
@@ -1783,7 +1787,7 @@ FROM (
 		,po.procedure_occurrence_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_COST pc
 	INNER JOIN [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE po ON pc.PROCEDURE_OCCURRENCE_ID = po.PROCEDURE_OCCURRENCE_ID
-	INNER JOIN q7a3ac0oconcept_map cm1 ON pc.disease_class_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON pc.disease_class_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('observation')
 	
 	UNION ALL
@@ -1807,7 +1811,7 @@ FROM (
 		,TO_CHAR(NULL ) qualifier_source_value
 		,drug_exposure_id AS occurrence_id
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
-	INNER JOIN q7a3ac0oconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
+	INNER JOIN ra2pz78aconcept_map cm1 ON drug_exposure.drug_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('observation')
 	) OTHERS
 	,(
@@ -1894,7 +1898,7 @@ FROM (
 	FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE po
 	INNER JOIN [SOURCE_CDMV4].[SCHEMA].PROCEDURE_COST pc ON po.procedure_occurrence_id = pc.procedure_occurrence_id
 	--JOIN dbo.drug_exposure de on de.person_id = po.person_id and pc.procedure_occurrence_id = de.origional_procedure_id
-	INNER JOIN q7a3ac0odrgexp_map de ON de.person_id = po.person_id
+	INNER JOIN ra2pz78adrgexp_map de ON de.person_id = po.person_id
 		AND pc.procedure_occurrence_id = de.origional_procedure_id
 	) OTHERS
 	,(
@@ -1967,7 +1971,7 @@ FROM (
 	FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE de
 	INNER JOIN [SOURCE_CDMV4].[SCHEMA].DRUG_COST dc ON de.drug_exposure_id = dc.drug_exposure_id
 	--JOIN dbo.procedure_occurrence po on de.person_id = po.person_id and de.drug_exposure_id = po.origional_drug_id
-	INNER JOIN q7a3ac0opo_map po ON de.person_id = po.person_id
+	INNER JOIN ra2pz78apo_map po ON de.person_id = po.person_id
 		AND de.drug_exposure_id = po.origional_drug_id
 	) OTHERS
 	,(
@@ -1982,8 +1986,8 @@ Note: Eras derived from DRUG_EXPOSURE table, using 30d gap
 
  ****/
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeDrugTarget';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeDrugTarget';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteDrugTarget';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteDrugTarget';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -1991,10 +1995,10 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 -- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeDrugTarget
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteDrugTarget
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2013,11 +2017,11 @@ INNER JOIN [TARGET_CDMV5].[SCHEMA].CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCE
   WHERE  c.VOCABULARY_ID = 'RxNorm'
 	AND c.CONCEPT_CLASS_ID = 'Ingredient';
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeEndDates';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeEndDates';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteEndDates';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteEndDates';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2025,9 +2029,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeEndDates
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteEndDates
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2063,7 +2067,7 @@ FROM
 					PARTITION BY PERSON_ID
 					,INGREDIENT_CONCEPT_ID ORDER BY DRUG_EXPOSURE_START_DATE
 					) AS START_ORDINAL
-			FROM q7a3ac0octeDrugTarget
+			FROM ra2pz78acteDrugTarget
 			
 			UNION ALL
 			
@@ -2073,7 +2077,7 @@ FROM
 				,( DRUG_EXPOSURE_END_DATE +  30)
 				,1 AS EVENT_TYPE
 				,NULL
-			FROM q7a3ac0octeDrugTarget
+			FROM ra2pz78acteDrugTarget
 			) RAWDATA
 		) E1
 	INNER JOIN (
@@ -2084,10 +2088,10 @@ FROM
 				PARTITION BY PERSON_ID
 				,INGREDIENT_CONCEPT_ID ORDER BY DRUG_EXPOSURE_START_DATE
 				) AS START_ORDINAL
-		FROM q7a3ac0octeDrugTarget
+		FROM ra2pz78acteDrugTarget
 		) E2 ON E1.PERSON_ID = E2.PERSON_ID
 		AND E1.INGREDIENT_CONCEPT_ID = E2.INGREDIENT_CONCEPT_ID
-		AND E2.EVENT_DATE < E1.EVENT_DATE
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
 	GROUP BY E1.PERSON_ID
 		,E1.INGREDIENT_CONCEPT_ID
 		,E1.EVENT_DATE
@@ -2096,11 +2100,11 @@ FROM
 	) E
   WHERE  2 * E.START_ORDINAL - E.OVERALL_ORD = 0;
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeDrugExpEnds';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeDrugExpEnds';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteDrugExpEnds';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteDrugExpEnds';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2108,9 +2112,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeDrugExpEnds
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteDrugExpEnds
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2121,8 +2125,8 @@ SELECT
 	,MIN(e.END_DATE) AS ERA_END_DATE
 
 FROM
- q7a3ac0octeDrugTarget d
-INNER JOIN q7a3ac0octeEndDates e ON d.PERSON_ID = e.PERSON_ID
+ ra2pz78acteDrugTarget d
+INNER JOIN ra2pz78acteEndDates e ON d.PERSON_ID = e.PERSON_ID
 	AND d.INGREDIENT_CONCEPT_ID = e.INGREDIENT_CONCEPT_ID
 	AND e.END_DATE >= d.DRUG_EXPOSURE_START_DATE
 GROUP BY d.PERSON_ID
@@ -2130,7 +2134,7 @@ GROUP BY d.PERSON_ID
 	,d.DRUG_TYPE_CONCEPT_ID
 	,d.DRUG_EXPOSURE_START_DATE;
 
-/
+/* / */
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].drug_era
 SELECT row_number() OVER (
@@ -2142,7 +2146,7 @@ SELECT row_number() OVER (
 	,ERA_END_DATE
 	,COUNT(*) AS DRUG_EXPOSURE_COUNT
 	,30 AS gap_days
-FROM q7a3ac0octeDrugExpEnds
+FROM ra2pz78acteDrugExpEnds
 GROUP BY person_id
 	,INGREDIENT_CONCEPT_ID
 	,drug_type_concept_id
@@ -2155,8 +2159,8 @@ Note: Eras derived from CONDITION_OCCURRENCE table, using 30d gap
 
  ****/
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0ocondition_era_phase_1';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0ocondition_era_phase_1';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acondition_era_phase_1';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acondition_era_phase_1';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2164,11 +2168,11 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeConditionTarget';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeConditionTarget';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteConditionTarget';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteConditionTarget';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2176,10 +2180,10 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 -- create base eras from the concepts found in condition_occurrence
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeConditionTarget
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteConditionTarget
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2191,11 +2195,11 @@ SELECT
 FROM
  [TARGET_CDMV5].[SCHEMA].CONDITION_OCCURRENCE co;
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeCondEndDates';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeCondEndDates';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteCondEndDates';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteCondEndDates';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2203,9 +2207,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeCondEndDates
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteCondEndDates
   ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2241,7 +2245,7 @@ FROM
 					PARTITION BY PERSON_ID
 					,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
 					) AS START_ORDINAL
-			FROM q7a3ac0octeConditionTarget
+			FROM ra2pz78acteConditionTarget
 			
 			UNION ALL
 			
@@ -2251,7 +2255,7 @@ FROM
 				,( CONDITION_END_DATE +  30)
 				,1 AS EVENT_TYPE
 				,NULL
-			FROM q7a3ac0octeConditionTarget
+			FROM ra2pz78acteConditionTarget
 			) RAWDATA
 		) E1
 	INNER JOIN (
@@ -2262,10 +2266,10 @@ FROM
 				PARTITION BY PERSON_ID
 				,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
 				) AS START_ORDINAL
-		FROM q7a3ac0octeConditionTarget
+		FROM ra2pz78acteConditionTarget
 		) E2 ON E1.PERSON_ID = E2.PERSON_ID
 		AND E1.CONDITION_CONCEPT_ID = E2.CONDITION_CONCEPT_ID
-		AND E2.EVENT_DATE < E1.EVENT_DATE
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
 	GROUP BY E1.PERSON_ID
 		,E1.CONDITION_CONCEPT_ID
 		,E1.EVENT_DATE
@@ -2274,11 +2278,11 @@ FROM
 	) E
   WHERE  (2 * E.START_ORDINAL) - E.OVERALL_ORD = 0;
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0octeConditionEnds';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0octeConditionEnds';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78acteConditionEnds';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78acteConditionEnds';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2286,9 +2290,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0octeConditionEnds
+CREATE GLOBAL TEMPORARY TABLE ra2pz78acteConditionEnds
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2298,15 +2302,15 @@ SELECT
 	,MIN(e.END_DATE) AS ERA_END_DATE
 
 FROM
- q7a3ac0octeConditionTarget c
-INNER JOIN q7a3ac0octeCondEndDates e ON c.PERSON_ID = e.PERSON_ID
+ ra2pz78acteConditionTarget c
+INNER JOIN ra2pz78acteCondEndDates e ON c.PERSON_ID = e.PERSON_ID
 	AND c.CONDITION_CONCEPT_ID = e.CONDITION_CONCEPT_ID
 	AND e.END_DATE >= c.CONDITION_START_DATE
 GROUP BY c.PERSON_ID
 	,c.CONDITION_CONCEPT_ID
 	,c.CONDITION_START_DATE;
 
-/
+/* / */
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].condition_era (
 	condition_era_id
@@ -2324,7 +2328,7 @@ SELECT row_number() OVER (
 	,min(CONDITION_START_DATE) AS CONDITION_ERA_START_DATE
 	,ERA_END_DATE AS CONDITION_ERA_END_DATE
 	,COUNT(*) AS CONDITION_OCCURRENCE_COUNT
-FROM q7a3ac0octeConditionEnds
+FROM ra2pz78acteConditionEnds
 GROUP BY person_id
 	,CONDITION_CONCEPT_ID
 	,ERA_END_DATE;
@@ -2339,8 +2343,8 @@ Note: These queries are used to provide some basic stats around row counts betwe
  ****/
  
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0ov5_stats';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0ov5_stats';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78av5_stats';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78av5_stats';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2348,11 +2352,11 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0ov4_stats';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0ov4_stats';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78av4_stats';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78av4_stats';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2360,10 +2364,10 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
 -- Get the row counts for each table that is in scope for the migration
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0ov4_stats
+CREATE GLOBAL TEMPORARY TABLE ra2pz78av4_stats
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2405,9 +2409,9 @@ FROM
 	SELECT '[SOURCE_CDMV4]' AS DBName, 'visit_occurrence' AS TableName, COUNT(*) as row_count FROM [SOURCE_CDMV4].[SCHEMA].visit_occurrence
 ) v4_stats;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0ov5_stats
+CREATE GLOBAL TEMPORARY TABLE ra2pz78av5_stats
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2453,7 +2457,7 @@ FROM
 	SELECT '[TARGET_CDMV5]' AS DBName, 'visit_occurrence' AS TableName, COUNT(*) as row_count FROM [TARGET_CDMV5].[SCHEMA].visit_occurrence
 ) v5_stats;
 
-/
+/* / */
 
 -- Show the results
 select
@@ -2465,8 +2469,8 @@ select
 	v5.TableName v5_table_name,
 	v5.row_count v5_row_count,
 	NVL(v5.row_count, 0) - NVL(v4.row_count, 0) row_count_change
-from q7a3ac0ov4_stats v4
-full outer join q7a3ac0ov5_stats v5 ON v4.TableName = v5.TableName
+from ra2pz78av4_stats v4
+full outer join ra2pz78av5_stats v5 ON v4.TableName = v5.TableName
 order by v5.TableName;
 
 /*
@@ -2474,8 +2478,8 @@ order by v5.TableName;
  * tables to the V5 destinations
  */
 BEGIN
-  EXECUTE IMMEDIATE 'TRUNCATE TABLE q7a3ac0oclassification_map';
-  EXECUTE IMMEDIATE 'DROP TABLE q7a3ac0oclassification_map';
+  EXECUTE IMMEDIATE 'TRUNCATE TABLE ra2pz78aclassification_map';
+  EXECUTE IMMEDIATE 'DROP TABLE ra2pz78aclassification_map';
 EXCEPTION
   WHEN OTHERS THEN
     IF SQLCODE != -942 THEN
@@ -2483,9 +2487,9 @@ EXCEPTION
     END IF;
 END;
 
-/
+/* / */
 
-CREATE GLOBAL TEMPORARY TABLE q7a3ac0oclassification_map
+CREATE GLOBAL TEMPORARY TABLE ra2pz78aclassification_map
  ON COMMIT PRESERVE ROWS
 AS
 SELECT
@@ -2496,33 +2500,33 @@ FROM
 (
 	SELECT 'Condition_Occurrence' TableName, NVL(LOWER(cm.domain_id), 'condition') domain_id, COUNT(*) row_count
 	FROM [SOURCE_CDMV4].[SCHEMA].Condition_Occurrence CO
-	LEFT JOIN q7a3ac0oconcept_map CM ON co.condition_concept_id = cm.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map CM ON co.condition_concept_id = cm.source_concept_id
 	GROUP BY NVL(LOWER(cm.domain_id), 'condition')
 	UNION
 	SELECT 'Drug_Exposure' TableName, NVL(LOWER(cm.domain_id), 'drug') domain_id, COUNT(*) row_count
 	FROM [SOURCE_CDMV4].[SCHEMA].Drug_Exposure de
-	LEFT JOIN q7a3ac0oconcept_map CM ON de.drug_concept_id = cm.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map CM ON de.drug_concept_id = cm.source_concept_id
 	GROUP BY NVL(LOWER(cm.domain_id), 'drug')
 	UNION
 	SELECT 'Observation' TableName, NVL(LOWER(cm.domain_id), 'observation') domain_id, COUNT(*) row_count
 	FROM [SOURCE_CDMV4].[SCHEMA].Observation o
-	LEFT JOIN q7a3ac0oconcept_map CM ON o.observation_concept_id = cm.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map CM ON o.observation_concept_id = cm.source_concept_id
 	GROUP BY NVL(LOWER(cm.domain_id), 'observation')
 	UNION
 	SELECT 'Procedure_Occurrence' TableName, NVL(LOWER(cm.domain_id), 'procedure') domain_id, COUNT(*) row_count
 	FROM [SOURCE_CDMV4].[SCHEMA].Procedure_Occurrence po
-	LEFT JOIN q7a3ac0oconcept_map CM ON po.PROCEDURE_CONCEPT_ID = cm.source_concept_id
+	LEFT JOIN ra2pz78aconcept_map CM ON po.PROCEDURE_CONCEPT_ID = cm.source_concept_id
 	GROUP BY NVL(LOWER(cm.domain_id), 'procedure')
 ) A
 ORDER by A.TableName, A.domain_id;
 
-/
+/* / */
 
 select *
-from q7a3ac0oclassification_map
+from ra2pz78aclassification_map
 order by tablename, domain_id;
 
 select domain_id, SUM(row_count) 
-from q7a3ac0oclassification_map
+from ra2pz78aclassification_map
 group by domain_id
 order by domain_id;

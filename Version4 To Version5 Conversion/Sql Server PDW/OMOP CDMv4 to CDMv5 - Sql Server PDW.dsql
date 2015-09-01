@@ -108,16 +108,19 @@ USE [TARGET_CDMV5];
  *
  * Also, as of the date which this script was authored, no source_concept_ids map to multiple domains
  */
-IF OBJECT_ID('tempdb..#concept_map', 'U') IS NOT NULL
-	DROP TABLE #concept_map;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#concept_map', 'U') IS NOT NULL  DROP TABLE  #concept_map;
 
 /* / */
 
-SELECT concept_id AS source_concept_id
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #concept_map
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  REPLICATE) AS
+SELECT
+ concept_id AS source_concept_id
 	,concept_id AS target_concept_id
 	,domain_id AS domain_id
-INTO #concept_map
-FROM [TARGET_CDMV5].[SCHEMA].concept
+
+FROM
+ [TARGET_CDMV5].[SCHEMA].concept
 WHERE 1 = 0;
 
 /* / */
@@ -266,16 +269,19 @@ WHERE c2.standard_concept = 'S'
 	AND cr1.relationship_id IN ('Is a')
 	AND cr1.invalid_reason IS NULL;
 
-IF OBJECT_ID('tempdb..#concept_map_distinct', 'U') IS NOT NULL
-	DROP TABLE #concept_map_distinct;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#concept_map_distinct', 'U') IS NOT NULL  DROP TABLE  #concept_map_distinct;
 
 /* / */
 
-SELECT source_concept_id
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #concept_map_distinct
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  REPLICATE) AS
+SELECT
+ source_concept_id
 	,domain_id
 	,COUNT(*) AS targetConceptCount
-INTO #concept_map_distinct
-FROM #concept_map
+
+FROM
+ #concept_map
 WHERE 1 = 0
 GROUP BY source_concept_id
 	,domain_id;
@@ -290,12 +296,12 @@ FROM #concept_map
 GROUP BY source_concept_id
 	,domain_id;
 
-IF OBJECT_ID('[TARGET_CDMV5].[SCHEMA].ETL_WARNINGS', 'U') IS NOT NULL
-	DROP TABLE [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('[TARGET_CDMV5].[SCHEMA].ETL_WARNINGS', 'U') IS NOT NULL  DROP TABLE  [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS;
 
 /* / */
 
-CREATE TABLE [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE VARCHAR(4000));
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE   [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS  (WARNING_MESSAGE VARCHAR(4000))
+WITH (DISTRIBUTION = REPLICATE);
 /* / */
 
 /****
@@ -542,14 +548,15 @@ FROM (
  PROCEDURE_OCCURRENCE
  
  ****/
-IF OBJECT_ID('tempdb..#po_map', 'U') IS NOT NULL
-	DROP TABLE #po_map;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#po_map', 'U') IS NOT NULL  DROP TABLE  #po_map;
 
 /* / */
 
-SELECT po.procedure_occurrence_id
-	,po.person_id
-	,po.procedure_concept_id
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #po_map
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ po.procedure_occurrence_id
+	,po. person_id, po.procedure_concept_id
 	,po.procedure_date
 	,po.procedure_type_concept_id
 	,po.modifier_concept_id
@@ -560,8 +567,9 @@ SELECT po.procedure_occurrence_id
 	,po.procedure_source_concept_id
 	,po.qualifier_source_value
 	,de.drug_exposure_id AS origional_drug_id
-INTO #po_map
-FROM [TARGET_CDMV5].[SCHEMA].procedure_occurrence po
+
+FROM
+ [TARGET_CDMV5].[SCHEMA].procedure_occurrence po
 LEFT JOIN [TARGET_CDMV5].[SCHEMA].drug_exposure de ON 1 = 0
 WHERE 0 = 1;
 
@@ -813,14 +821,15 @@ FROM (
  
  ****/
 --find valid drugs from drug_exposure table
-IF OBJECT_ID('tempdb..#drgexp_map', 'U') IS NOT NULL
-	DROP TABLE #drgexp_map;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#drgexp_map', 'U') IS NOT NULL  DROP TABLE  #drgexp_map;
 
 /* / */
 
-SELECT de.drug_exposure_id
-	,de.person_id
-	,de.drug_concept_id
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #drgexp_map
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ de.drug_exposure_id
+	,de. person_id, de.drug_concept_id
 	,de.drug_exposure_start_date
 	,de.drug_exposure_end_date
 	,de.drug_type_concept_id
@@ -840,8 +849,9 @@ SELECT de.drug_exposure_id
 	,de.route_source_value
 	,de.dose_unit_source_value
 	,po.procedure_occurrence_id AS origional_procedure_id
-INTO #drgexp_map
-FROM [TARGET_CDMV5].[SCHEMA].drug_exposure de
+
+FROM
+ [TARGET_CDMV5].[SCHEMA].drug_exposure de
 LEFT JOIN [TARGET_CDMV5].[SCHEMA].procedure_occurrence po ON 1 = 0
 WHERE 0 = 1;
 
@@ -1926,21 +1936,23 @@ DRUG ERA
 Note: Eras derived from DRUG_EXPOSURE table, using 30d gap
 
  ****/
-IF OBJECT_ID('tempdb..#cteDrugTarget', 'U') IS NOT NULL
-	DROP TABLE #cteDrugTarget;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteDrugTarget', 'U') IS NOT NULL  DROP TABLE  #cteDrugTarget;
 
 /* / */
 
 -- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date
-SELECT d.DRUG_EXPOSURE_ID
-	,d.PERSON_ID
-	,c.CONCEPT_ID
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteDrugTarget
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ d.DRUG_EXPOSURE_ID
+	,d. person_id, c.CONCEPT_ID
 	,d.DRUG_TYPE_CONCEPT_ID
 	,DRUG_EXPOSURE_START_DATE
 	,COALESCE(DRUG_EXPOSURE_END_DATE, DATEADD(day, DAYS_SUPPLY, DRUG_EXPOSURE_START_DATE), DATEADD(day, 1, DRUG_EXPOSURE_START_DATE)) AS DRUG_EXPOSURE_END_DATE
 	,c.CONCEPT_ID AS INGREDIENT_CONCEPT_ID
-INTO #cteDrugTarget
-FROM [TARGET_CDMV5].[SCHEMA].DRUG_EXPOSURE d
+
+FROM
+ [TARGET_CDMV5].[SCHEMA].DRUG_EXPOSURE d
 INNER JOIN [TARGET_CDMV5].[SCHEMA].CONCEPT_ANCESTOR ca ON ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
 INNER JOIN [TARGET_CDMV5].[SCHEMA].CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
 WHERE c.VOCABULARY_ID = 'RxNorm'
@@ -1948,16 +1960,18 @@ WHERE c.VOCABULARY_ID = 'RxNorm'
 
 /* / */
 
-IF OBJECT_ID('tempdb..#cteEndDates', 'U') IS NOT NULL
-	DROP TABLE #cteEndDates;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteEndDates', 'U') IS NOT NULL  DROP TABLE  #cteEndDates;
 
 /* / */
 
-SELECT PERSON_ID
-	,INGREDIENT_CONCEPT_ID
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteEndDates
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+  person_id, INGREDIENT_CONCEPT_ID
 	,DATEADD(day, - 30, EVENT_DATE) AS END_DATE -- unpad the end date
-INTO #cteEndDates
-FROM (
+
+FROM
+ (
 	SELECT E1.PERSON_ID
 		,E1.INGREDIENT_CONCEPT_ID
 		,E1.EVENT_DATE
@@ -2019,18 +2033,20 @@ WHERE 2 * E.START_ORDINAL - E.OVERALL_ORD = 0;
 
 /* / */
 
-IF OBJECT_ID('tempdb..#cteDrugExpEnds', 'U') IS NOT NULL
-	DROP TABLE #cteDrugExpEnds;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteDrugExpEnds', 'U') IS NOT NULL  DROP TABLE  #cteDrugExpEnds;
 
 /* / */
 
-SELECT d.PERSON_ID
-	,d.INGREDIENT_CONCEPT_ID
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteDrugExpEnds
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ d. person_id, d.INGREDIENT_CONCEPT_ID
 	,d.DRUG_TYPE_CONCEPT_ID
 	,d.DRUG_EXPOSURE_START_DATE
 	,MIN(e.END_DATE) AS ERA_END_DATE
-INTO #cteDrugExpEnds
-FROM #cteDrugTarget d
+
+FROM
+ #cteDrugTarget d
 INNER JOIN #cteEndDates e ON d.PERSON_ID = e.PERSON_ID
 	AND d.INGREDIENT_CONCEPT_ID = e.INGREDIENT_CONCEPT_ID
 	AND e.END_DATE >= d.DRUG_EXPOSURE_START_DATE
@@ -2063,36 +2079,39 @@ CONDITION ERA
 Note: Eras derived from CONDITION_OCCURRENCE table, using 30d gap
 
  ****/
-IF OBJECT_ID('tempdb..#condition_era_phase_1', 'U') IS NOT NULL
-	DROP TABLE #condition_era_phase_1;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#condition_era_phase_1', 'U') IS NOT NULL  DROP TABLE  #condition_era_phase_1;
 
 /* / */
 
-IF OBJECT_ID('tempdb..#cteConditionTarget', 'U') IS NOT NULL
-	DROP TABLE #cteConditionTarget;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteConditionTarget', 'U') IS NOT NULL  DROP TABLE  #cteConditionTarget;
 
 /* / */
 
 -- create base eras from the concepts found in condition_occurrence
-SELECT co.PERSON_ID
-	,co.condition_concept_id
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteConditionTarget
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ co. person_id, co.condition_concept_id
 	,co.CONDITION_START_DATE
 	,COALESCE(co.CONDITION_END_DATE, DATEADD(day, 1, CONDITION_START_DATE)) AS CONDITION_END_DATE
-INTO #cteConditionTarget
-FROM [TARGET_CDMV5].[SCHEMA].CONDITION_OCCURRENCE co;
+
+FROM
+ [TARGET_CDMV5].[SCHEMA].CONDITION_OCCURRENCE co;
 
 /* / */
 
-IF OBJECT_ID('tempdb..#cteCondEndDates', 'U') IS NOT NULL
-	DROP TABLE #cteCondEndDates;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteCondEndDates', 'U') IS NOT NULL  DROP TABLE  #cteCondEndDates;
 
 /* / */
 
-SELECT PERSON_ID
-	,CONDITION_CONCEPT_ID
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteCondEndDates
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+  person_id, CONDITION_CONCEPT_ID
 	,DATEADD(day, - 30, EVENT_DATE) AS END_DATE -- unpad the end date
-INTO #cteCondEndDates
-FROM (
+
+FROM
+ (
 	SELECT E1.PERSON_ID
 		,E1.CONDITION_CONCEPT_ID
 		,E1.EVENT_DATE
@@ -2154,17 +2173,19 @@ WHERE (2 * E.START_ORDINAL) - E.OVERALL_ORD = 0;
 
 /* / */
 
-IF OBJECT_ID('tempdb..#cteConditionEnds', 'U') IS NOT NULL
-	DROP TABLE #cteConditionEnds;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#cteConditionEnds', 'U') IS NOT NULL  DROP TABLE  #cteConditionEnds;
 
 /* / */
 
-SELECT c.PERSON_ID
-	,c.CONDITION_CONCEPT_ID
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #cteConditionEnds
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  HASH(person_id)) AS
+SELECT
+ c. person_id, c.CONDITION_CONCEPT_ID
 	,c.CONDITION_START_DATE
 	,MIN(e.END_DATE) AS ERA_END_DATE
-INTO #cteConditionEnds
-FROM #cteConditionTarget c
+
+FROM
+ #cteConditionTarget c
 INNER JOIN #cteCondEndDates e ON c.PERSON_ID = e.PERSON_ID
 	AND c.CONDITION_CONCEPT_ID = e.CONDITION_CONCEPT_ID
 	AND e.END_DATE >= c.CONDITION_START_DATE
@@ -2204,20 +2225,22 @@ Note: These queries are used to provide some basic stats around row counts betwe
 
  ****/
  
-IF OBJECT_ID('tempdb..#v5_stats', 'U') IS NOT NULL
-	DROP TABLE #v5_stats;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#v5_stats', 'U') IS NOT NULL  DROP TABLE  #v5_stats;
 
 /* / */
 
-IF OBJECT_ID('tempdb..#v4_stats', 'U') IS NOT NULL
-	DROP TABLE #v4_stats;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#v4_stats', 'U') IS NOT NULL  DROP TABLE  #v4_stats;
 
 /* / */
 
 -- Get the row counts for each table that is in scope for the migration
-SELECT *
-INTO #v4_stats
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #v4_stats
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  REPLICATE) AS
+SELECT
+ *
+
 FROM
+
 (
 	SELECT '[SOURCE_CDMV4]' AS DBName, 'care_site' AS TableName, COUNT(*) as row_count FROM [SOURCE_CDMV4].[SCHEMA].care_site
 	UNION
@@ -2254,9 +2277,13 @@ FROM
 
 /* / */
 
-SELECT *
-INTO #v5_stats
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #v5_stats
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  REPLICATE) AS
+SELECT
+ *
+
 FROM
+
 (
 	SELECT '[TARGET_CDMV5]' AS DBName, 'care_site' AS TableName, COUNT(*) as row_count FROM [TARGET_CDMV5].[SCHEMA].care_site
 	UNION
@@ -2315,14 +2342,17 @@ order by v5.TableName;
  * Determine how the vocabulary/domains helped to map from the V4 source
  * tables to the V5 destinations
  */
-IF OBJECT_ID('tempdb..#classification_map', 'U') IS NOT NULL
-	DROP TABLE #classification_map;
+IF XACT_STATE() = 1 COMMIT; IF OBJECT_ID('tempdb..#classification_map', 'U') IS NOT NULL  DROP TABLE  #classification_map;
 
 /* / */
 
-SELECT *
-INTO #classification_map
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  #classification_map
+  WITH (LOCATION = USER_DB, DISTRIBUTION =  REPLICATE) AS
+SELECT
+ *
+
 FROM
+
 (
 	SELECT 'Condition_Occurrence' TableName, ISNULL(LOWER(cm.domain_id), 'condition') domain_id, COUNT(*) row_count
 	FROM [SOURCE_CDMV4].[SCHEMA].Condition_Occurrence CO

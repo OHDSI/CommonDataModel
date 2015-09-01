@@ -24,6 +24,8 @@ Usage
 
 1. **Create your V5 Target Database:** Create a CDM V5 database on the same server as your CDM V4 database by using the **[Common Data Model Scripts](https://github.com/OHDSI/CommonDataModel "Common Data Model Scripts")** for your RDBMS. **NOTE: Please review the data types that exist on your V4 database and ensure you carry forward any data type changes from V4 to V5. For example, if you converted columns from an INT to a BIGINT to accommodate tables with > 2.1 Billion Rows, you will need to make the corresponding changes in your V5 Database and potentially to this conversion script** 
  
+2. **Load the V5 Vocabulary**: Download the V5 vocabulary from **[Athena](http://www.ohdsi.org/web/athena/ "Athena")** and load them into the V5 database created in step 1 above.
+
 2. **Download the conversion script:** The **[CDM V4 to V5 Conversion](https://github.com/OHDSI/CommonDataModel/tree/master/Version4%20To%20Version5%20Conversion "CDM V4 to V5 Conversion Directory")** folder has subfolders with scripts that will work on each RDBMS.  In order to make this file work in your environment, you will need to perform a global "FIND AND REPLACE" on the conversion script to fill in the file with values that pertain to your environment. The following are the tokens you should use when doing your "FIND AND REPLACE" operation:
  
 	 * [SOURCE_CDMV4] - Your V4 database name
