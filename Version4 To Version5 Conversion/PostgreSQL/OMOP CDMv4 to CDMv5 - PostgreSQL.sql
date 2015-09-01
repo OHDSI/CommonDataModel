@@ -626,7 +626,7 @@ WHERE procedure_concept_id = 0
 
 UNION ALL
 
--- All drug exposures that do not map to a standard concept in V5 should also carry over with condition_concept_id = 0
+-- All PROCEDURE_OCCURRENCE that do not map to a standard concept in V5 should also carry over with procedure_concept_id = 0
 SELECT procedure_occurrence_id
 	,person_id
 	,0 AS procedure_concept_id
@@ -2031,7 +2031,7 @@ FROM
 		FROM cteDrugTarget
 		) E2 ON E1.PERSON_ID = E2.PERSON_ID
 		AND E1.INGREDIENT_CONCEPT_ID = E2.INGREDIENT_CONCEPT_ID
-		AND E2.EVENT_DATE < E1.EVENT_DATE
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
 	GROUP BY E1.PERSON_ID
 		,E1.INGREDIENT_CONCEPT_ID
 		,E1.EVENT_DATE
@@ -2177,7 +2177,7 @@ FROM
 		FROM cteConditionTarget
 		) E2 ON E1.PERSON_ID = E2.PERSON_ID
 		AND E1.CONDITION_CONCEPT_ID = E2.CONDITION_CONCEPT_ID
-		AND E2.EVENT_DATE < E1.EVENT_DATE
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
 	GROUP BY E1.PERSON_ID
 		,E1.CONDITION_CONCEPT_ID
 		,E1.EVENT_DATE
