@@ -1522,7 +1522,7 @@ FROM (
 	INNER JOIN #concept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
 	LEFT JOIN #concept_map cm2 ON observation.unit_concept_id = cm2.source_concept_id
-		AND LOWER(cm1.domain_id) IN ('unit')
+		AND LOWER(cm2.domain_id) IN ('unit')
 	
 	UNION ALL
 	
