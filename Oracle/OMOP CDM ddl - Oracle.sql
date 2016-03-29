@@ -28,10 +28,12 @@
 
 script to create OMOP common data model, version 5.0 for Oracle database
 
-last revised: 12 Oct 2014
+last revised: 20 NOV 2014
 
 author:  Patrick Ryan
 
+Update to cdm_source table column vocabulary_version from VARCHAR(20) to VARCHAR(255), 
+to align with the vocabulary table vocabulary_name length - CD
 
 *************************/
 
