@@ -12,6 +12,7 @@ trailing nullcols
   amount_unit_concept_id,
   numerator_value,
   numerator_unit_concept_id,
+  denominator_value,
   denominator_unit_concept_id,
   valid_start_date DATE 'YYYYMMDD',
   valid_end_date DATE 'YYYYMMDD',
