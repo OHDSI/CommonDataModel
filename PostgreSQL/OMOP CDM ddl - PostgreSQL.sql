@@ -1,5 +1,5 @@
 /*********************************************************************************
-# Copyright 2014 Observational Health Data Sciences and Informatics
+# Copyright 2014-6 Observational Health Data Sciences and Informatics
 #
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,9 +28,9 @@
 
 script to create OMOP common data model, version 5.0 for PostgreSQL database
 
-last revised: 12 Oct 2014
+last revised: 1-May-2016
 
-author:  Patrick Ryan
+Authors:  Patrick Ryan, Christian Reich
 
 
 *************************/
@@ -551,6 +551,7 @@ CREATE TABLE payer_plan_period
 ;
 
 
+/* The individual cost tables are being phased out and will disappear soon
 
 CREATE TABLE visit_cost 
     ( 
@@ -628,6 +629,34 @@ CREATE TABLE device_cost
      payer_plan_period_id			INTEGER			NULL
     ) 
 ;
+*/
+
+
+CREATE TABLE cost 
+    (
+     cost_id					INTEGER	    NOT NULL , 
+     cost_event_id       INTEGER     NOT NULL ,
+     cost_domain_id       VARCHAR(20)    NOT NULL ,
+     cost_type_concept_id       INTEGER     NOT NULL ,
+     currency_concept_id			INTEGER			NULL ,
+     total_charge						NUMERIC			NULL , 
+     total_cost						NUMERIC			NULL , 
+     total_paid						NUMERIC			NULL , 
+     paid_by_payer					NUMERIC			NULL , 
+     paid_by_patient						NUMERIC			NULL , 
+     paid_patient_copay						NUMERIC			NULL , 
+     paid_patient_coinsurance				NUMERIC			NULL , 
+     paid_patient_deductible			NUMERIC			NULL , 
+     paid_by_primary						NUMERIC			NULL , 
+     paid_ingredient_cost				NUMERIC			NULL , 
+     paid_dispensing_fee					NUMERIC			NULL , 
+     payer_plan_period_id			INTEGER			NULL ,
+     amount_allowed		NUMERIC			NULL , 
+     revenue_code_concept_id		INTEGER			NULL , 
+     reveue_code_source_value    VARCHAR(50)   NULL
+    ) 
+;
+
 
 
 
