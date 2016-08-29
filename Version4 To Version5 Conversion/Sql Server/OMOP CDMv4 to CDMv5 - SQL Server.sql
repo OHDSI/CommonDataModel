@@ -479,7 +479,7 @@ SELECT person_id
 	,CAST(NULL AS INT) AS cause_source_concept_id
 FROM [SOURCE_CDMV4].[SCHEMA].DEATH
 LEFT JOIN #concept_map_distinct cm1 ON DEATH.DEATH_TYPE_CONCEPT_ID = CM1.SOURCE_CONCEPT_ID
-	AND LOWER(DOMAIN_ID) IN ('death type');
+	AND LOWER(DOMAIN_ID) IN ('death type', 'Type Concept');
 
 INSERT INTO [TARGET_CDMV5].[SCHEMA].ETL_WARNINGS (WARNING_MESSAGE)
 SELECT 'DEATH: ' + CAST(NUM_INVALID_RECORDS AS VARCHAR) + ' records in the source CDMv4 database have invalid DEATH_TYPE_CONCEPT_ID'
@@ -492,7 +492,7 @@ FROM (
 			WHERE CONCEPT_ID = 0
 				OR (
 					STANDARD_CONCEPT = 'S'
-					AND LOWER(DOMAIN_ID) IN ('death type')
+					AND LOWER(DOMAIN_ID) IN ('death type', 'Type Concept')
 					)
 			)
 	HAVING COUNT(PERSON_ID) > 0
@@ -589,7 +589,7 @@ INNER JOIN #concept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_c
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
 LEFT JOIN #concept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('procedure type')
+	AND LOWER(cm2.domain_id) IN ('procedure type', 'Type Concept')
 LEFT JOIN #concept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
 	AND cm2.domain_id = cmdis2.domain_id
 	AND cmdis2.targetConceptCount = 1
@@ -632,7 +632,7 @@ SELECT procedure_occurrence_id
 FROM [SOURCE_CDMV4].[SCHEMA].PROCEDURE_OCCURRENCE
 LEFT JOIN #concept_map cm1 ON procedure_concept_id = cm1.source_concept_id
 LEFT JOIN #concept_map cm2 ON procedure_concept_id = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('procedure type')
+	AND LOWER(cm2.domain_id) IN ('procedure type', 'Type Concept')
 WHERE procedure_concept_id <> 0
 	AND cm1.domain_id IS NULL
 
@@ -680,7 +680,7 @@ FROM (
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
 	LEFT JOIN #concept_map cm2 ON PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID = cm2.source_concept_id
-		AND LOWER(cm2.domain_id) IN ('procedure type')
+		AND LOWER(cm2.domain_id) IN ('procedure type', 'Type Concept')
 	
 	UNION ALL
 	
@@ -801,7 +801,7 @@ FROM (
 			WHERE CONCEPT_ID = 0
 				OR (
 					STANDARD_CONCEPT = 'S'
-					AND LOWER(DOMAIN_ID) IN ('procedure type')
+					AND LOWER(DOMAIN_ID) IN ('procedure type', 'Type Concept')
 					)
 			)
 	HAVING COUNT(PERSON_ID) > 0
@@ -877,7 +877,7 @@ INNER JOIN #concept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_c
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
 LEFT JOIN #concept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('drug type')
+	AND LOWER(cm2.domain_id) IN ('drug type', 'Type Concept')
 INNER JOIN #concept_map_distinct cmdis2 ON cm2.source_concept_id = cmdis2.source_concept_id
 	AND cm2.domain_id = cmdis2.domain_id
 	AND cmdis2.targetConceptCount = 1
@@ -939,7 +939,7 @@ SELECT drug_exposure_id
 FROM [SOURCE_CDMV4].[SCHEMA].DRUG_EXPOSURE
 LEFT JOIN #concept_map cm1 ON drug_concept_id = cm1.source_concept_id
 LEFT JOIN #concept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('drug type')
+	AND LOWER(cm2.domain_id) IN ('drug type', 'Type Concept')
 WHERE drug_concept_id <> 0
 	AND cm1.domain_id IS NULL
 
@@ -1004,7 +1004,7 @@ FROM (
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
 	LEFT JOIN #concept_map cm2 ON drug_exposure.drug_type_concept_id = cm2.source_concept_id
-		AND LOWER(cm2.domain_id) IN ('drug type')
+		AND LOWER(cm2.domain_id) IN ('drug type', 'Type Concept')
 	
 	UNION ALL
 	
@@ -1170,7 +1170,7 @@ FROM (
 			WHERE CONCEPT_ID = 0
 				OR (
 					STANDARD_CONCEPT = 'S'
-					AND LOWER(DOMAIN_ID) IN ('drug type')
+					AND LOWER(DOMAIN_ID) IN ('drug type', 'Type Concept')
 					)
 			)
 	HAVING COUNT(PERSON_ID) > 0
@@ -1201,7 +1201,7 @@ INNER JOIN #concept_map_distinct cmdis ON cm1.source_concept_id = cmdis.source_c
 	AND cm1.domain_id = cmdis.domain_id
 	AND cmdis.targetConceptCount = 1
 LEFT JOIN #concept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('condition type')
+	AND LOWER(cm2.domain_id) IN ('condition type', 'Type Concept')
 WHERE condition_concept_id > 0 -- This condition will map those concepts that were mapped to valid concepts in V4
 
 UNION ALL
@@ -1238,7 +1238,7 @@ SELECT condition_occurrence_id
 FROM [SOURCE_CDMV4].[SCHEMA].CONDITION_OCCURRENCE
 LEFT JOIN #concept_map cm1 ON condition_occurrence.condition_concept_id = cm1.source_concept_id
 LEFT JOIN #concept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
-	AND LOWER(cm2.domain_id) IN ('condition type')
+	AND LOWER(cm2.domain_id) IN ('condition type', 'Type Concept')
 WHERE condition_concept_id <> 0
 	AND cm1.domain_id IS NULL
 
@@ -1281,7 +1281,7 @@ FROM (
 		AND cm1.domain_id = cmdis.domain_id
 		AND cmdis.targetConceptCount > 1
 	LEFT JOIN #concept_map cm2 ON condition_occurrence.condition_type_concept_id = cm2.source_concept_id
-		AND LOWER(cm2.domain_id) IN ('condition type')
+		AND LOWER(cm2.domain_id) IN ('condition type', 'Type Concept')
 	WHERE condition_concept_id > 0 -- This condition will map those concepts that were mapped to valid concepts in V4
 	
 	UNION ALL
@@ -1369,7 +1369,7 @@ FROM (
 			WHERE CONCEPT_ID = 0
 				OR (
 					STANDARD_CONCEPT = 'S'
-					AND LOWER(DOMAIN_ID) IN ('condition type')
+					AND LOWER(DOMAIN_ID) IN ('condition type', 'Type Concept')
 					)
 			)
 	HAVING COUNT(PERSON_ID) > 0
@@ -1522,7 +1522,7 @@ FROM (
 	INNER JOIN #concept_map cm1 ON observation.observation_concept_id = cm1.source_concept_id
 		AND LOWER(cm1.domain_id) IN ('measurement')
 	LEFT JOIN #concept_map cm2 ON observation.unit_concept_id = cm2.source_concept_id
-		AND LOWER(cm1.domain_id) IN ('unit')
+		AND LOWER(cm2.domain_id) IN ('unit')
 	
 	UNION ALL
 	
