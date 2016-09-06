@@ -156,6 +156,7 @@ CREATE TABLE drug_strength (
   numerator_unit_concept_id		INTEGER		NULL,
   denominator_value				NUMERIC		NULL,
   denominator_unit_concept_id	INTEGER		NULL,
+  box_size						INTEGER		NULL,
   valid_start_date				DATE		NOT NULL,
   valid_end_date				DATE		NOT NULL,
   invalid_reason				VARCHAR(1)	NULL
