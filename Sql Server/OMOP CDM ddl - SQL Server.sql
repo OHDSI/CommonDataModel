@@ -229,7 +229,7 @@ CREATE TABLE person
   year_of_birth					INTEGER		NOT NULL ,
   month_of_birth					INTEGER		NULL,
   day_of_birth					INTEGER		NULL,
-  datetime_of_birth					DATETIME2	NULL,
+  birth_datetime					DATETIME2	NULL,
   race_concept_id				INTEGER		NOT NULL,
   ethnicity_concept_id			INTEGER		NOT NULL,
   location_id					INTEGER		NULL,
