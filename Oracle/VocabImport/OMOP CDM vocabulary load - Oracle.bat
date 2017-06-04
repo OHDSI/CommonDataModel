@@ -1,52 +1,51 @@
-REM *********************************************************************************
-REM  Copyright 2014 Observational Health Data Sciences and Informatics
-REM 
-REM  
-REM  Licensed under the Apache License, Version 2.0 (the "License");
-REM  you may not use this file except in compliance with the License.
-REM  You may obtain a copy of the License at
-REM  
-REM      http://www.apache.org/licenses/LICENSE-2.0
-REM  
-REM  Unless required by applicable law or agreed to in writing, software
-REM  distributed under the License is distributed on an "AS IS" BASIS,
-REM  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-REM  See the License for the specific language governing permissions and
-REM  limitations under the License.
-REM *******************************************************************************/
+/*********************************************************************************
+# Copyright 2015 Observational Health Data Sciences and Informatics
+#
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.4
+********************************************************************************/
 
-REM ************************
-REM 
-REM  ####### #     # ####### ######      #####  ######  #     #           ####### 
-REM  #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #       
-REM  #     # # # # # #     # #     #    #       #     # # # # #    #    # #       
-REM  #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######  
-REM  #     # #     # #     # #          #       #     # #     #    #    #       # 
-REM  #     # #     # #     # #          #     # #     # #     #     #  #  #     # 
-REM  ####### #     # ####### #           #####  ######  #     #      ##    #####  
-REM                                                                               
-REM 
-REM Script to load the common data model, version 5.0 vocabulary tables for PostgreSQL database on Windows (MS-DOS style file paths)
-REM 
-REM Notes
-REM 
-REM 1) There is no data file load for the SOURCE_TO_CONCEPT_MAP table because that table is deprecated in CDM version 5.0
-REM 2) This script assumes the CDM version 5 vocabulary zip file has been unzipped into the "C:\CDMV5VOCAB" directory. 
-REM 3) If you unzipped your CDM version 5 vocabulary files into a different directory then replace all file paths below, with your directory path.
-REM 
-REM last revised: 26 Nov 2014
-REM 
-REM author:  Lee Evans
-REM 
-REM 
-REM *************************/
+/************************
 
-sqlldr CDMV5/<password> CONTROL=CONCEPT.ctl LOG=C:\CDMV5VOCAB\CONCEPT.log BAD=C:\CDMV5VOCAB\CONCEPT.bad  
-sqlldr CDMV5/<password> CONTROL=CONCEPT_ANCESTOR.ctl LOG=C:\CDMV5VOCAB\CONCEPT_ANCESTOR.log BAD=C:\CDMV5VOCAB\CONCEPT_ANCESTOR.bad  
-sqlldr CDMV5/<password> CONTROL=CONCEPT_CLASS.ctl LOG=C:\CDMV5VOCAB\CONCEPT_CLASS.log BAD=C:\CDMV5VOCAB\CONCEPT_CLASS.bad  
-sqlldr CDMV5/<password> CONTROL=CONCEPT_RELATIONSHIP.ctl LOG=C:\CDMV5VOCAB\CONCEPT_RELATIONSHIP.log BAD=C:\CDMV5VOCAB\CONCEPT_RELATIONSHIP.bad
-sqlldr CDMV5/<password> CONTROL=CONCEPT_SYNONYM.ctl LOG=C:\CDMV5VOCAB\CONCEPT_SYNONYM.log BAD=C:\CDMV5VOCAB\CONCEPT_SYNONYM.bad
-sqlldr CDMV5/<password> CONTROL=DOMAIN.ctl LOG=C:\CDMV5VOCAB\DOMAIN.log BAD=C:\CDMV5VOCAB\DOMAIN.bad
-sqlldr CDMV5/<password> CONTROL=DRUG_STRENGTH.ctl LOG=C:\CDMV5VOCAB\DRUG_STRENGTH.log BAD=C:\CDMV5VOCAB\DRUG_STRENGTH.bad
-sqlldr CDMV5/<password> CONTROL=RELATIONSHIP.ctl LOG=C:\CDMV5VOCAB\RELATIONSHIP.log BAD=C:\CDMV5VOCAB\RELATIONSHIP.bad
-sqlldr CDMV5/<password> CONTROL=VOCABULARY.ctl LOG=C:\CDMV5VOCAB\VOCABULARY.log BAD=C:\CDMV5VOCAB\VOCABULARY.bad 
+ ####### #     # ####### ######      #####  ######  #     #              ##   ####### 
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    #   # #   #       
+ #     # # # # # #     # #     #    #       #     # # # # #    #    #  #  #   #       
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ####### #######  
+ #     # #     # #     # #          #       #     # #     #    #    #     #         # 
+ #     # #     # #     # #          #     # #     # #     #     #  #      #   #     # 
+ ####### #     # ####### #           #####  ######  #     #      ##       # #  #####  
+                                                                              
+
+script to load the Vocabulary related tables in the OMOP common data model, version 4.5 for Oracle database
+
+last revised: 19 Mar 2015
+
+author:  Lee Evans
+
+Notes
+
+1) This script assumes the CDM version 4.5 vocabulary zip file has been unzipped into the "C:\CDM" directory. 
+2) If you unzipped your CDM version 4.5 vocabulary files into a different directory then replace all file paths below, with your directory path.
+3) If you have existing data in your CDM vocabulary tables then backup that data (if needed) and truncate those tables before loading
+
+
+*************************/
+
+sqlldr CDM/<password> CONTROL=CONCEPT.ctl LOG=C:\CDM\CONCEPT.log BAD=C:\CDM\CONCEPT.bad  
+sqlldr CDM/<password> CONTROL=CONCEPT_ANCESTOR.ctl LOG=C:\CDM\CONCEPT_ANCESTOR.log BAD=C:\CDM\CONCEPT_ANCESTOR.bad  
+sqlldr CDM/<password> CONTROL=CONCEPT_RELATIONSHIP.ctl LOG=C:\CDM\CONCEPT_RELATIONSHIP.log BAD=C:\CDM\CONCEPT_RELATIONSHIP.bad
+sqlldr CDM/<password> CONTROL=CONCEPT_SYNONYM.ctl LOG=C:\CDM\CONCEPT_SYNONYM.log BAD=C:\CDM\CONCEPT_SYNONYM.bad
+sqlldr CDM/<password> CONTROL=DRUG_STRENGTH.ctl LOG=C:\CDM\DRUG_STRENGTH.log BAD=C:\CDM\DRUG_STRENGTH.bad
+sqlldr CDM/<password> CONTROL=RELATIONSHIP.ctl LOG=C:\CDM\RELATIONSHIP.log BAD=C:\CDM\RELATIONSHIP.bad
+sqlldr CDM/<password> CONTROL=VOCABULARY.ctl LOG=C:\CDM\VOCABULARY.log BAD=C:\CDM\VOCABULARY.bad 
+sqlldr CDM/<password> CONTROL=SOURCE_TO_CONCEPT_MAP.ctl LOG=C:\CDM\SOURCE_TO_CONCEPT_MAP.log BAD=C:\CDM\SOURCE_TO_CONCEPT_MAP.bad 

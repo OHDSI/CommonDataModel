@@ -6,7 +6,7 @@ replace
 fields terminated by '\t'
 trailing nullcols
 (
+  concept_synonym_id,
   concept_id,
-  concept_synonym_name CHAR(1000),
-  language_concept_id
+  concept_synonym_name CHAR(1000)
 )
