@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##       # #  #####  
                                                                               
 
-script to create OMOP common data model, version 5.0 for Oracle database
+script to create OMOP common data model, version 4.0 for Oracle database
 
 last revised: 1 Mar 2015
 
