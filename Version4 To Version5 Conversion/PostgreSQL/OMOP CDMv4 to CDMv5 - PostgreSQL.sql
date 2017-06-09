@@ -2394,7 +2394,7 @@ FROM
 	LEFT JOIN concept_map CM ON po.PROCEDURE_CONCEPT_ID = cm.source_concept_id
 	GROUP BY COALESCE(LOWER(cm.domain_id), 'procedure')
 ) A
-ORDER by A.TableName, A.domain_id;
+;
 
 /* / */
 
