@@ -1,14 +1,14 @@
 *OMOP Common Data Model v5.1 Specifications*
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
-<br>*Release date **needed***
+<br>***Release date needed***
 
 [Back to Table of Contents](TableofContents.md)
 
 ---
 
- ====== License ======
+# License 
 
-© 2014  Observational Health Data Sciences and Informatics
+Â© 2014  Observational Health Data Sciences and Informatics
 
 This work is based on work by the Observational Medical Outcomes Partnership (OMOP) and used under license from the FNIH at http://omop.fnih.org/publiclicense. 
 
