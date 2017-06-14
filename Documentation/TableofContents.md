@@ -13,9 +13,9 @@
 <br>  [1.2 Design Principles](Background/DesignPrinciples.md)
 <br>  [1.3 Data Model Conventions](Background/DataModelConventions.md)
 <br>
-<br>**2 [Glossary of Terms](GlossaryofTerms.md)**
+<br>**[2 Glossary of Terms](GlossaryofTerms.md)**
 <br>
-<br>**3 Standardized Vocabularies**
+<br>**[3 Standardized Vocabularies](StandardizedVocabularies/StandardizedVocabularies.md)**
 <br>3.1 CONCEPT
 <br>3.2 VOCABULARY
 <br>3.3 DOMAIN
