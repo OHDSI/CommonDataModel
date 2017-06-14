@@ -21,7 +21,8 @@ In most cases, the first field in each table ends in "_id", containing a record 
 
 Variable names across all tables follow one convention:
 
-^Notation^Description^
+Notation|Description
+--------|-----------
 |<entity>_SOURCE_VALUE|Verbatim information from the source data, typically used in ETL to map to CONCEPT_ID, and not to be used by any standard analytics. For example, condition_source_value = ‘787.02’ was the ICD-9 code captured as a diagnosis from the administrative claim|
 |<entity>_ID|Unique identifiers for key entities, which can serve as foreign keys to establish relationships across entities For example, person_id uniquely identifies each individual. visit_occurrence_id uniquely identifies a PERSON encounter at a point of care.|
 |<entity>_CONCEPT_ID|Foreign key into the Standardized Vocabularies (i.e. the standard_concept attribute for the corresponding term is true), which serves as the primary basis for all standardized analytics For example, condition_concept_id = 31967 contains reference value for SNOMED concept of ‘Nausea’|
@@ -69,7 +70,9 @@ When processing data where the source value is either free text or a reference t
 
   - Map all source values directly to standard concept_ids. Store these mappings in the SOURCE_TO_CONCEPT_MAP table. 
     - If the source code is not mappable to a vocabulary term, the source_concept_id field is set to 0
+
 When processing your data where source value is a reference to a coding scheme contained within the Standardized Vocabularies:
+  
   - Map all your source values to the corresponding concept_ids in the source vocabulary. Store the result in the source_concept_id field. 
     - If the source code follows the same formatting as the distributed vocabulary, the mapping can be directly obtained from the CONCEPT table using the CONCEPT_CODE field. 
     - If the source code uses alternative formatting (ex. format has removed decimal point from ICD-9 codes), you will need to perform the formatting transformation within the ETL. In this case, you may wish to store the mappings from original codes to source concept ids in the SOURCE_TO_CONCEPT_MAP table.

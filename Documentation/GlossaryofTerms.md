@@ -9,7 +9,8 @@
 
 # 2 Glossary of Terms
 
-^Term^Abbr.^Description^
+Term|Abbr.|Description|
+----|-----|------------
 |Ancestor| |The higher level Concept in a hierarchical relationship. Note that ancestors and descendants can be many levels apart from each other.|
 |Average Wholesale Price|AWP|The price manufacturers set for prescription drugs to be purchased at the wholesale level to pharmacies and healthcare provider.|
 |Centers for Disease Control and Prevention|CDC|The Centers for Disease Control and Prevention is a United States federal agency under the Department of Health and Human Services. It works to protect public health and safety by providing information to enhance health decisions.|
