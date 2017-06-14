@@ -8,10 +8,10 @@
 
 **[License](License.md)**
 <br>
-<br>**1 [Background](Background/Background.md)**
-<br>  1.1 [The Role of the Common Data Model](Background/TheRoleoftheCommonDataModel.md)
-<br>  1.2 [Design Principles](Background/DesignPrinciples.md)
-<br>  1.3 [Data Model Conventions](Background/DataModelConventions.md)
+<br>**[1 Background](Background/Background.md)**
+<br>  [1.1 The Role of the Common Data Model](Background/TheRoleoftheCommonDataModel.md)
+<br>  [1.2 Design Principles](Background/DesignPrinciples.md)
+<br>  [1.3 Data Model Conventions](Background/DataModelConventions.md)
 <br>
 <br>**2 [Glossary of Terms](GlossaryofTerms.md)**
 <br>
