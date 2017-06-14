@@ -28,7 +28,7 @@ Field|Required|Type|Description
   * Each Vocabulary has an entry in the CONCEPT table, which is recorded in the vocabulary_concept_id field. This is for purposes of creating a closed Information Model, where all entities in the OMOP CDM are covered by a unique Concept.
   * In past versions of the VOCABULARY table, the vocabulary_id used to be a numerical value. A conversion table between these old and new IDs is given below:
 
-vocabulary_id previously|vocabulary_id Version 5
+Previous VOCABULARY_ID|Version 5 VOCABULARY_ID 
 -----|-----
 |0|None|
 |1|[SNOMED](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:vocabulary:snomed)|
