@@ -18,8 +18,8 @@
 <br>**[3 Standardized Vocabularies](StandardizedVocabularies/StandardizedVocabularies.md)**
 <br>[3.1 CONCEPT](StandardizedVocabularies/CONCEPT.md)
 <br>[3.2 VOCABULARY](StandardizedVocabularies/VOCABULARY.md)
-<br>3.3 DOMAIN
-<br>3.4 CONCEPT_CLASS
+<br>[3.3 DOMAIN](StandardizedVocabularies/DOMAIN.md)
+<br>[3.4 CONCEPT_CLASS]StandardizedVocabularies/CONCEPT_CLASS.md)
 <br>3.5 CONCEPT_RELATIONSHIP
 <br>3.6 RELATIONSHIP
 <br>3.7 CONCEPT_SYNONYM
