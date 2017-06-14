@@ -8,7 +8,7 @@
 
 # 3 Standardized Vocabularies
 
-<br>3.1 CONCEPT
+<br>[3.1 CONCEPT](CONCEPT.md)
 <br>3.2 VOCABULARY
 <br>3.3 DOMAIN
 <br>3.4 CONCEPT_CLASS
