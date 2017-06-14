@@ -8,9 +8,9 @@
 
 # 1 Background
 
-<br>1.1 [The Role of the Common Data Model](TheRoleoftheCommonDataModel.md)
-<br>1.2 [Design Principles](DesignPrinciples.md)
-<br>1.3  [Data Model Conventions](DataModelConventions.md)
+<br>[1.1 The Role of the Common Data Model](TheRoleoftheCommonDataModel.md)
+<br>[1.2 Design Principles](DesignPrinciples.md)
+<br>[1.3 Data Model Conventions](DataModelConventions.md)
 
 The Observational Medical Outcomes Partnership (OMOP) was a public-private partnership established to inform the appropriate use of observational healthcare databases for studying the effects of medical products. Over the course of the 5-year project and through its community of researchers from industry, government, and academia, OMOP successfully achieved its aims to:
 
