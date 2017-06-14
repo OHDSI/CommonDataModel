@@ -2,7 +2,7 @@
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
 <br>***Release date needed***
 
-[Back to Table of Contents](TableofContents.md)
+[Back to Table of Contents](Documentation/TableofContents.md)
 <br>[Back to Background](Background.md)
 
 ---
@@ -15,7 +15,7 @@ Therefore, the CDM is designed to store observational data to allow for research
   - **Suitability for purpose.** The CDM aims at providing data organized in a way optimal for analysis, rather than for the purpose of operational needs of health care providers or payers. 
   - **Data protection.** All data that might jeopardize the identity and protection of patients, such as names, precise birthdays etc. are limited. Exceptions are possible where the research expressly requires more detailed information, such as precise birth dates for the study of infants.
   - **Design of domains.** The domains are modeled in a person-centric relational data model, where for each record the identity of the person and a date is captured as a minimum.
-  - **Rationale for domains. ** Domains are identified and separately defined in an Entity-relationship model if they have an analysis use case and the domain has specific attributes that are not otherwise applicable.  All other data can be preserved as an observation in an entity-attribute-value structure.
+  - **Rationale for domains.** Domains are identified and separately defined in an Entity-relationship model if they have an analysis use case and the domain has specific attributes that are not otherwise applicable.  All other data can be preserved as an observation in an entity-attribute-value structure.
   - **Standardized Vocabularies.** To standardize the content of those records, the CDM relies on the Standardized Vocabularies containing all necessary and appropriate corresponding standard healthcare concepts.
   - **Reuse of existing vocabularies.** If possible, these concepts are leveraged from national or industry standardization or vocabulary definition organizations or initiatives, such as the National Library of Medicine, the Department of Veterans' Affairs, the Center of Disease Control and Prevention, etc.
   - **Maintaining source codes.** Even though all codes are mapped to the Standardized Vocabularies, the model also stores the original source code to ensure no information is lost.
