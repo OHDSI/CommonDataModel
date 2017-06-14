@@ -17,7 +17,7 @@ Concepts can represent broad categories (like “Cardiovascular disease”), det
 Records in the Standardized Vocabularies tables are derived from national or international vocabularies such as SNOMED-CT, RxNorm, and LOINC, or custom Concepts defined to cover various aspects of observational data analysis. For a detailed description of these vocabularies, their use in the OMOP CDM and their relationships to each other please refer to the [specifications](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:vocabulary).
 
 Field|Required|Type|Description 
------|--------|----|-----------
+:-----|:--------|:----|:-----------
 |concept_id|Yes|integer|A unique identifier for each Concept across all domains.|
 |concept_name|Yes|varchar(255)|An unambiguous, meaningful and descriptive name for the Concept.|
 |domain_id|Yes|varchar(20)|A foreign key to the [[documentation:cdm:domain|DOMAIN]] table the Concept belongs to.|
