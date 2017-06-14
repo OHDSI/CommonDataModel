@@ -2,7 +2,7 @@
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
 <br>***Release date needed***
 
-[Back to Table of Contents](Documentation/TableofContents.md)
+[Back to Table of Contents](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/TableofContents.md)
 <br>[Back to Background](Background.md)
 
 ---
