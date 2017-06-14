@@ -3,7 +3,6 @@
 <br>***Release date needed***
 
 [Back to Table of Contents](TableofContents.md)
-<br>[Back to Background](Background.md)
 
 ---
 
