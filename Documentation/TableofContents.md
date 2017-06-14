@@ -6,7 +6,8 @@
 
 # Table of Contents
 
-1 [Background](Background/Background.md)
+[License](License.md)
+<br>  1 [Background](Background/Background.md)
 <br>  1.1 [The Role of the Common Data Model](Background/TheRoleoftheCommonDataModel.md)
 <br>  1.2 [Design Principles](Background/DesignPrinciples.md)
 <br>  1.3 [Data Model Conventions](Background/DataModelConventions.md)
