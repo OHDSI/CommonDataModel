@@ -12,14 +12,14 @@
 <br>[3.2 VOCABULARY](VOCABULARY.md)
 <br>[3.3 DOMAIN](DOMAIN.md)
 <br>[3.4 CONCEPT_CLASS](CONCEPT_CLASS.md)
-<br>3.5 CONCEPT_RELATIONSHIP
-<br>3.6 RELATIONSHIP
-<br>3.7 CONCEPT_SYNONYM
-<br>3.8 CONCEPT_ANCESTOR
-<br>3.9 SOURCE_TO_CONCEPT_MAP
-<br>3.10 DRUG_STRENGTH
-<br>3.11 COHORT_DEFINITION
-<br>3.12 ATTRIBUTE_DEFINITION
+<br>[3.5 CONCEPT_RELATIONSHIP](CONCEPT_RELATIONSHIP.md)
+<br>[3.6 RELATIONSHIP](RELATIONSHIP.md)
+<br>[3.7 CONCEPT_SYNONYM](CONCEPT_SYNONYM.md)
+<br>[3.8 CONCEPT_ANCESTOR](CONCEPT_ANCESTOR.md)
+<br>[3.9 SOURCE_TO_CONCEPT_MAP](SOURCE_TO_CONCEPT_MAP.md)
+<br>[3.10 DRUG_STRENGTH](DRUG_STRENGTH.md)
+<br>[3.11 COHORT_DEFINITION](COHORT_DEFINITION.md)
+<br>[3.12 ATTRIBUTE_DEFINITION](ATTRIBUTE_DEFINITION.md)
 
 These tables contain detailed information about the Concepts used in all of the CDM fact tables. The content of the Standardized Vocabularies tables is not generated anew by each CDM implementation. Instead, it is maintained centrally as a service to the community.
 
