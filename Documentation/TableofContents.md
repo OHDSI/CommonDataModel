@@ -20,14 +20,14 @@
 <br>[3.2 VOCABULARY](StandardizedVocabularies/VOCABULARY.md)
 <br>[3.3 DOMAIN](StandardizedVocabularies/DOMAIN.md)
 <br>[3.4 CONCEPT_CLASS](StandardizedVocabularies/CONCEPT_CLASS.md)
-<br>3.5 CONCEPT_RELATIONSHIP
-<br>3.6 RELATIONSHIP
-<br>3.7 CONCEPT_SYNONYM
-<br>3.8 CONCEPT_ANCESTOR
-<br>3.9 SOURCE_TO_CONCEPT_MAP
-<br>3.10 DRUG_STRENGTH
-<br>3.11 COHORT_DEFINITION
-<br>3.12 ATTRIBUTE_DEFINITION
+<br>[3.5 CONCEPT_RELATIONSHIP](StandardizedVocabularies/CONCEPT_RELATIONSHIP.md)
+<br>[3.6 RELATIONSHIP](StandardizedVocabularies/RELATIONSHIP.md)
+<br>[3.7 CONCEPT_SYNONYM](StandardizedVocabularies/CONCEPT_SYNONYM.md)
+<br>[3.8 CONCEPT_ANCESTOR](StandardizedVocabularies/CONCEPT_ANCESTOR.md)
+<br>[3.9 SOURCE_TO_CONCEPT_MAP](StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md)
+<br>[3.10 DRUG_STRENGTH](StandardizedVocabularies/DRUG_STRENGTH.md)
+<br>[3.11 COHORT_DEFINITION](StandardizedVocabularies/COHORT_DEFINITION.md)
+<br>[3.12 ATTRIBUTE_DEFINITION](StandardizedVocabularies/ATTRIBUTE_DEFINITION.md)
 <br>
 <br>**4 Standardized Metadata**
 <br>4.1 CDM_SOURCE
