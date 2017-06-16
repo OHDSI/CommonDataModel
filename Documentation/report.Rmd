@@ -1,0 +1,12 @@
+---
+  title: Common Data Model
+  output: 
+    pdf_document:
+      toc: yes
+---
+
+```{r child = 'License.md'}
+```
+
+```{r child = 'Background/TheRoleoftheCommonDataModel.md'}
+```
