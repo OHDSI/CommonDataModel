@@ -1,5 +1,4 @@
 # License 
-[Go to Table of Contents on Github](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/TableofContents.md)
 
 © 2014  Observational Health Data Sciences and Informatics
 
@@ -9,3 +8,5 @@ All derivative work after the OMOP CDM v4 specification is dedicated to the publ
 
 ![](http://www.ohdsi.org/web/wiki/lib/exe/fetch.php?cache=&w=88&h=31&tok=3977bb&media=documentation:cdm:cdm:public_domain.png)
 http://creativecommons.org/publicdomain/zero/1.0/ 
+
+[Table of Contents*](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/TableofContents.md)
