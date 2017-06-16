@@ -1,12 +1,5 @@
-*OMOP Common Data Model v5.1 Specifications*
-<br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
-<br>***Release date needed***
-
-[Back to Table of Contents](TableofContents.md)
-
----
-
 # License 
+[Go to Table of Contents on Github](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/TableofContents.md)
 
 © 2014  Observational Health Data Sciences and Informatics
 
