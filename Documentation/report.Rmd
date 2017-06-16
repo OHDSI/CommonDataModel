@@ -1,11 +1,12 @@
 ---
-  title: "OMOP Common Data Model Specifications"
-  author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
-  date: "`r Sys.Date()`"
-    output: 
-    pdf_document:
-      number_sections: yes
-      toc: yes
+title: "OMOP Common Data Model Specifications"
+author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+linkcolor: blue
 ---
 
 ```{r child = 'License.md'}
@@ -13,3 +14,5 @@
 
 ```{r child = 'Background/TheRoleoftheCommonDataModel.md'}
 ```
+
+Will it add the footer?
