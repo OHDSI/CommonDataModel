@@ -2,7 +2,7 @@
   title: "OMOP Common Data Model Specifications"
   author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
   date: "`r Sys.Date()`"
-  output: 
+    output: 
     pdf_document:
       number_sections: yes
       toc: yes
