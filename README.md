@@ -5,7 +5,7 @@ See full CDM specification file on our github [wiki](https://github.com/OHDSI/Co
 
 Release Notes
 =============
-This version is bases on this CDM working group  [proposal](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm:time). The proposed and accepted changes include adding a datetime field to every table that had a date column. These were the new columns added:
+This version is bases on this CDM working group proposal [#60](https://github.com/OHDSI/CommonDataModel/issues/60) and [#59](https://github.com/OHDSI/CommonDataModel/issues/59). The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
 
 **PERSON**  
 * birth_datetime, not required
@@ -26,6 +26,9 @@ This version is bases on this CDM working group  [proposal](http://www.ohdsi.org
 **DRUG_EXPOSURE**  
 * drug_exposure_start_datetime, not required
 * drug_exposure_end_datetime, not required
+
+**DRUG_STRENGTH**
+* DENOMINATOR_VALUE, not required
 
 **DEVICE_EXPOSURE**  
 * device_exposure_start_datetime, not required
