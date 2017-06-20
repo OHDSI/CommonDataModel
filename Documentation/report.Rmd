@@ -1,5 +1,5 @@
 ---
-title: "OMOP Common Data Model Specifications"
+title: "OMOP Common Data Model v5.1 Specifications"
 author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
 date: "`r Sys.Date()`"
 output:
@@ -9,10 +9,11 @@ output:
 linkcolor: blue
 ---
 
-```{r child = 'License.md'}
+# License
+
+```{r child = 'C:/Git/CommonDataModel.wiki/License.md'}
 ```
 
-```{r child = 'Background/TheRoleoftheCommonDataModel.md'}
+# The Role of the Common Data Model
+```{r child = 'C:/Git/CommonDataModel.wiki/Background/The-Role-of-the-Common-Data-Model.md'}
 ```
-
-Will it add the footer?
