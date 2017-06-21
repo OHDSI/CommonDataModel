@@ -43,9 +43,16 @@ hadoop fs -chmod +w synpuf
 impala-shell -d omop_cdm -f DataImport/OMOP_CDM_synpuf_load_Impala.sql --var=OMOP_SYNPUF_PATH=/user/$USER/synpuf
 ```
 
-4. Run simple queries to sanity check.
+4. Convert to Parquet format.
 
 ```bash
-impala-shell -d omop_cdm -q 'SELECT COUNT(1) FROM concept'
-impala-shell -d omop_cdm -q 'SELECT COUNT(1) FROM person'
+impala-shell -q 'CREATE DATABASE omop_cdm_parquet'
+impala-shell -f OMOP_Parquet.sql
+```
+
+5. Run simple queries to sanity check.
+
+```bash
+impala-shell -d omop_cdm_parquet -q 'SELECT COUNT(1) FROM concept'
+impala-shell -d omop_cdm_parquet -q 'SELECT COUNT(1) FROM person'
 ```
