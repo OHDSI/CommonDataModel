@@ -30,6 +30,14 @@ ttb<-SqlRender::translateSql(tta$sql,targetDialect = 'postgresql')
 cat(ttb$sql,file='c:/temp/drug_era_2017.sql')
 sql<-ttb$sql
 
+
+
+
+
+
+
+#loop for making flavors
+
 fname<-'GenerateEra.sql'
 flavors<-c(
 'oracle'

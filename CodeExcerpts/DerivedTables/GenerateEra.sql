@@ -22,6 +22,31 @@ last revised: Jun 2017
 authors:  Patrick Ryan, Chris Knoll, Anthony Sena, Vojtech Huser
 
 
+OHDSI-SQL File Instructions
+-----------------------------
+
+ 1. Set parameter name of schema that contains CDMv4 instance
+    (@SOURCE_CDMV4, @SOURCE_CDMV4_SCHEMA)
+ 2. Set parameter name of schema that contains CDMv5 instance
+    (@TARGET_CDMV5, @TARGET_CDMV5_SCHEMA)
+ 3. Run this script through SqlRender to produce a script that will work in your
+    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
+ 4. Run the script produced by SQL Render on your target RDBDMS.
+
+<RDBMS> File Instructions
+-------------------------
+
+ 1. This script will hold a number of placeholders for your CDM V4 and CDMV5
+    database/schema. In order to make this file work in your environment, you
+	should plan to do a global "FIND AND REPLACE" on this file to fill in the
+	file with values that pertain to your environment. The following are the
+	tokens you should use when doing your "FIND AND REPLACE" operation:
+
+	
+     [CMD]
+	 [CDM].[CDMSCHEMA]
+	
+
 *********************************************************************************/
 /* SCRIPT PARAMETERS */
 
