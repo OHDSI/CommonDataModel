@@ -30,5 +30,29 @@ ttb<-SqlRender::translateSql(tta$sql,targetDialect = 'postgresql')
 cat(ttb$sql,file='c:/temp/drug_era_2017.sql')
 sql<-ttb$sql
 
+fname<-'GenerateEra.sql'
+flavors<-c(
+'oracle'
+,'postgresql'
+,'pdw'
+,'redshift'
+,'impala'
+,'netezza'
+,'bigquery')
+#,'sql server')
 
+
+
+for (flavor in flavors){
+  print(flavor)
+  sql<-readChar(fname, file.info(fname)$size)
+  tta<-SqlRender::renderSql(sql,results_database_schema='results',vocab_database_schema='vocab')
+  ttb<-SqlRender::translateSql(tta$sql,targetDialect = flavor)
+  dir.create(flavor)
+  cat(ttb$sql,file=file.path(flavor,paste0(fname)))
+  # sql<-ttb$sql
+  
+}
+  
+  
 

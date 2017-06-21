@@ -16,73 +16,20 @@
 ********************************************************************************/
 /*******************************************************************************
 
-PURPOSE: Use this script to convert your OMOP V4 common data model to CDM V5.
+PURPOSE: Generate Era table (based on conversion script from V4  V5).
 
 last revised: Jun 2017
 authors:  Patrick Ryan, Chris Knoll, Anthony Sena, Vojtech Huser
 
-!!!!!!!!!!!!!!!!!!!!! PLEASE READ THESE INSTRUCTIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-This script was authored using OHDSI-SQL which will require you to run this
-script through SqlRender to creat a version that is compatible with your target
-RDBMS. We have pre-generated these scripts using SQL Render and have placed
-them in folders for each RDBMS. Depending on which script you are viewing, your
-instructions will be slightly different.
-
-General Assumptions
--------------------
-
-This script assumes that your V4 and V5 database are located on the same
-RDBMS server. It also assumes that the V4 and V5 databases were created
-using the standard data definition scripts for these databases. If you
-altered your V4 database in any way, this script will likely require
-some mo
-
-Getting Started
----------------
-
-Before you can use this script, there are some prerequisites:
-
- 1. Create a target CDMv5 database on your database server using the
-    appropriate script from https://github.com/OHDSI/CommonDataModel
- 2. Load VocabV5 into the target database/schema that will contain CDMv5 using
-    Athena: http://ohdsi.org/web/ATHENA
-
-OHDSI-SQL File Instructions
------------------------------
-
- 1. Set parameter name of schema that contains CDMv4 instance
-    ([SOURCE_CDMV4], [SOURCE_CDMV4].[SCHEMA])
- 2. Set parameter name of schema that contains CDMv5 instance
-    ([TARGET_CDMV5], [TARGET_CDMV5].[SCHEMA])
- 3. Run this script through SqlRender to produce a script that will work in your
-    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
- 4. Run the script produced by SQL Render on your target RDBDMS.
-
-<RDBMS> File Instructions
--------------------------
-
- 1. This script will hold a number of placeholders for your CDM V4 and CDMV5
-    database/schema. In order to make this file work in your environment, you
-	should plan to do a global "FIND AND REPLACE" on this file to fill in the
-	file with values that pertain to your environment. The following are the
-	tokens you should use when doing your "FIND AND REPLACE" operation:
-
-	a. [SOURCE_CDMV4]
-	b. [SOURCE_CDMV4].[SCHEMA]
-    c. [TARGET_CDMV5]
-	d. [TARGET_CDMV5].[SCHEMA]
-
- 2. Run the resulting script on your target RDBDMS.
 
 *********************************************************************************/
 /* SCRIPT PARAMETERS */
- -- The CDMv4 database name
-	 -- The CDMv4 database plus schema
+
+	
 	 -- The target CDMv5 database name
 	 -- the target CDMv5 database plus schema
 
-SET search_path TO [TARGET_CDMV5];
+SET search_path TO [CDM];
 
 
 
@@ -110,9 +57,9 @@ d.DRUG_EXPOSURE_ID
 	,c.CONCEPT_ID AS INGREDIENT_CONCEPT_ID
 
 FROM
-[TARGET_CDMV5].[SCHEMA].DRUG_EXPOSURE d
-INNER JOIN [TARGET_CDMV5].[SCHEMA].CONCEPT_ANCESTOR ca ON ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
-INNER JOIN [TARGET_CDMV5].[SCHEMA].CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
+[CDM].[CDMSCHEMA].DRUG_EXPOSURE d
+INNER JOIN [CDM].[CDMSCHEMA].CONCEPT_ANCESTOR ca ON ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
+INNER JOIN [CDM].[CDMSCHEMA].CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
 WHERE c.VOCABULARY_ID = 'RxNorm'
 	AND c.CONCEPT_CLASS_ID = 'Ingredient';
 
@@ -219,7 +166,7 @@ GROUP BY d.PERSON_ID
 
 /* / */
 
-INSERT INTO [TARGET_CDMV5].[SCHEMA].drug_era
+INSERT INTO [CDM].[CDMSCHEMA].drug_era
 SELECT row_number() OVER (
 		ORDER BY person_id
 		) AS drug_era_id
@@ -288,7 +235,7 @@ co.PERSON_ID
 	,COALESCE(co.CONDITION_END_DATE, (CONDITION_START_DATE + 1*INTERVAL'1 day')) AS CONDITION_END_DATE
 
 FROM
-[TARGET_CDMV5].[SCHEMA].CONDITION_OCCURRENCE co;
+[CDM].[CDMSCHEMA].CONDITION_OCCURRENCE co;
 
 /* / */
 
@@ -391,7 +338,7 @@ GROUP BY c.PERSON_ID
 
 /* / */
 
-INSERT INTO [TARGET_CDMV5].[SCHEMA].condition_era (
+INSERT INTO [CDM].[CDMSCHEMA].condition_era (
 	condition_era_id
 	,person_id
 	,condition_concept_id
