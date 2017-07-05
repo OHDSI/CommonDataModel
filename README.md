@@ -47,6 +47,8 @@ This version is based on the CDM working group proposal [#60](https://github.com
 **NOTE**  
 * note_datetime, not required
 
+There are additional changes listed on the [OHDSI wiki](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm) that have been accepted but are not listed in this version because after being accepted they were never added to the DDL. Version 5.1.0 as it is now is being used by members of the community and any changes would cause problems so the additional accepted proposals will be added in subsequent versions. 
+
 ---------
   
 This repo contains the definition of the OMOP Common Data Model. It supports the 4 SQL technologies: Impala, Oracle, Postgres and SQL Server. For each, the DDL, constraints and indexes (if appropriate) are defined. 
