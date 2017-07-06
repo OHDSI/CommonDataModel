@@ -15,7 +15,7 @@ SELECT
  concept_code,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_start_date AS STRING), 1, 4), SUBSTR(CAST(valid_start_date AS STRING), 5, 2), SUBSTR(CAST(valid_start_date AS STRING), 7, 2)), 'UTC') AS valid_start_date,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_end_date AS STRING), 1, 4), SUBSTR(CAST(valid_end_date AS STRING), 5, 2), SUBSTR(CAST(valid_end_date AS STRING), 7, 2)), 'UTC') AS valid_end_date,
- invalid_reason
+ nullif(invalid_reason, '') AS invalid_reason
 FROM omop_cdm.concept;
 
 CREATE TABLE omop_cdm_parquet.vocabulary
@@ -42,7 +42,7 @@ SELECT
  relationship_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_start_date AS STRING), 1, 4), SUBSTR(CAST(valid_start_date AS STRING), 5, 2), SUBSTR(CAST(valid_start_date AS STRING), 7, 2)), 'UTC') AS valid_start_date,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_end_date AS STRING), 1, 4), SUBSTR(CAST(valid_end_date AS STRING), 5, 2), SUBSTR(CAST(valid_end_date AS STRING), 7, 2)), 'UTC') AS valid_end_date,
- invalid_reason
+ nullif(invalid_reason, '') AS invalid_reason
 FROM omop_cdm.concept_relationship;
 
 CREATE TABLE omop_cdm_parquet.relationship
@@ -72,7 +72,7 @@ SELECT
  target_vocabulary_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_start_date AS STRING), 1, 4), SUBSTR(CAST(valid_start_date AS STRING), 5, 2), SUBSTR(CAST(valid_start_date AS STRING), 7, 2)), 'UTC') AS valid_start_date,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_end_date AS STRING), 1, 4), SUBSTR(CAST(valid_end_date AS STRING), 5, 2), SUBSTR(CAST(valid_end_date AS STRING), 7, 2)), 'UTC') AS valid_end_date,
- invalid_reason
+ nullif(invalid_reason, '') AS invalid_reason
 FROM omop_cdm.source_to_concept_map;
 
 CREATE TABLE omop_cdm_parquet.drug_strength
@@ -90,7 +90,7 @@ SELECT
  box_size,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_start_date AS STRING), 1, 4), SUBSTR(CAST(valid_start_date AS STRING), 5, 2), SUBSTR(CAST(valid_start_date AS STRING), 7, 2)), 'UTC') AS valid_start_date,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(valid_end_date AS STRING), 1, 4), SUBSTR(CAST(valid_end_date AS STRING), 5, 2), SUBSTR(CAST(valid_end_date AS STRING), 7, 2)), 'UTC') AS valid_end_date,
- invalid_reason
+ nullif(invalid_reason, '') AS invalid_reason
 FROM omop_cdm.drug_strength;
 
 CREATE TABLE omop_cdm_parquet.cohort_definition
