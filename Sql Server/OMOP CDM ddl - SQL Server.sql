@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ### 
                                                                               
 
-script to create OMOP common data model, version 5.1.0 for SQL Server database
+DDL script to create OMOP common data model, version 5.1.0 for SQL Server database
 
 last revised: 1-May-2016
 
