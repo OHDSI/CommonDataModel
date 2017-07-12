@@ -1,7 +1,7 @@
 Common Data Model v5.1.1
 =================
 
-See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.1.0 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_1_0.pdf)
+See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.1.1 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_1_1.pdf)
 
 Release Notes for v5.1.1
 =============
