@@ -1,57 +1,17 @@
-Common Data Model v5.1.1
+Common Data Model v5.2
 =================
 
-See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.1.1 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_1_1.pdf)
+See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.2 PDF](**link needed**)
 
-Release Notes for v5.1.1
+
+Release Notes for v5.2.0
 =============
-This version has a small bug-fix for impala to make it compatible with ATLAS cohort generation.
+This version is based on the CDM working group proposals:
+* [#71](https://github.com/OHDSI/CommonDataModel/issues/71) 
+  * Adds the field VERBATIM_END_DATE to DRUG_EXPOSURE and makes DRUG_EXPOSURE_END_DATE a required field
 
-Release Notes for v5.1.0
-=============
-This version is based on the CDM working group proposal [#60](https://github.com/OHDSI/CommonDataModel/issues/60) and [#59](https://github.com/OHDSI/CommonDataModel/issues/59) and is **backwards compatibile with v5.0.1**. The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
+and is **backwards compatibile with v5.0.1**. The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
 
-**PERSON**  
-* birth_datetime, not required
-
-**SPECIMEN**  
-* specimen_datetime, not required
-
-**DEATH**  
-* death_datetime, not required
-
-**VISIT_OCCURRENCE**  
-* visit_start_datetime, not required
-* visit_end_datetime, not required
-
-**PROCEDURE_OCCURRENCE**  
-* procedure_datetime, not required
-
-**DRUG_EXPOSURE**  
-* drug_exposure_start_datetime, not required
-* drug_exposure_end_datetime, not required
-
-**DRUG_STRENGTH**
-* DENOMINATOR_VALUE, not required
-
-**DEVICE_EXPOSURE**  
-* device_exposure_start_datetime, not required
-* device_exposure_end_datetime, not required
-
-**CONDITION_OCCURRENCE**  
-* condition_start_datetime, not required
-* condition_end_datetime, not required
-
-**MEASUREMENT**  
-* measurement_datetime as time, not required
-
-**OBSERVATION**  
-* observation_datetime, not required
-
-**NOTE**  
-* note_datetime, not required
-
-There are additional changes listed on the [OHDSI wiki](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm) that have been accepted but are not listed in this version because after being accepted they were never added to the DDL. Version 5.1.0 as it is now is being used by members of the community and any changes would cause problems so the additional accepted proposals will be added in subsequent versions. 
 
 ---------
   

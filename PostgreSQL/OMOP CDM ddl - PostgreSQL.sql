@@ -17,18 +17,18 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######       #         ###   
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #            ##        #   #  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #           # #       #     # 
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######        #       #     # 
- #     # #     # #     # #          #       #     # #     #    #    #       # ###   #   ### #     # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###   #   ###  #   #  
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ### 
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####     
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #    
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #    
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####     
+ #     # #     # #     # #          #       #     # #     #    #    #       # ### #          
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #          
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ### #######  
                                                                               
 
-script to create OMOP common data model, version 5.1.0 for PostgreSQL database
+script to create OMOP common data model, version 5.2 for PostgreSQL database
 
-last revised: 1-May-2016
+last revised: 14 July 2017
 
 Authors:  Patrick Ryan, Christian Reich
 
@@ -344,10 +344,11 @@ CREATE TABLE drug_exposure
      person_id						INTEGER			NOT NULL , 
      drug_concept_id				INTEGER			NOT NULL , 
      drug_exposure_start_date		DATE			NOT NULL , 
-     drug_exposure_start_datetime		TIMESTAMP			NOT NULL ,
-     drug_exposure_end_date			DATE			NULL ,
-     drug_exposure_end_datetime			TIMESTAMP			NULL ,
-     drug_type_concept_id			INTEGER			NOT NULL ,
+     drug_exposure_start_datetime	TIMESTAMP		NOT NULL ,
+     drug_exposure_end_date			DATE			NOT NULL ,
+     drug_exposure_end_datetime		TIMESTAMP		NULL ,
+     verbatim_end_date				DATE			NULL ,
+	 drug_type_concept_id			INTEGER			NOT NULL ,
      stop_reason					VARCHAR(20)		NULL , 
      refills						INTEGER			NULL , 
      quantity						NUMERIC			NULL , 

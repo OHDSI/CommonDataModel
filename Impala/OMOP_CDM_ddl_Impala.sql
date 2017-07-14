@@ -17,16 +17,16 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######       #         ###   
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #            ##        #   #  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #           # #       #     # 
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######        #       #     # 
- #     # #     # #     # #          #       #     # #     #    #    #       # ###   #   ### #     # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###   #   ###  #   #  
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ###   
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####     
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #    
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #    
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####     
+ #     # #     # #     # #          #       #     # #     #    #    #       # ### #          
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #          
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ### #######   
                                                                                                     
 
-script to create OMOP common data model, version 5.1.0 for Hadoop (Hive/Impala) database
+script to create OMOP common data model, version 5.2 for Hadoop (Hive/Impala) database
 
 Based on the PostgreSQL version, with the following changes:
 * NULL/NOT NULL is not used.
@@ -248,7 +248,7 @@ CREATE TABLE person (
  year_of_birth INTEGER,
  month_of_birth INTEGER,
  day_of_birth INTEGER,
- time_of_birth VARCHAR(10),
+ birth_datetime VARCHAR(10),
  race_concept_id INTEGER,
  ethnicity_concept_id INTEGER,
  location_id INTEGER,
@@ -364,6 +364,7 @@ CREATE TABLE drug_exposure (
  drug_concept_id INTEGER,
  drug_exposure_start_date VARCHAR(8), -- DATE
  drug_exposure_end_date VARCHAR(8), -- DATE
+ verbatim_end_date VARCHAR(8), --DATE
  drug_type_concept_id INTEGER,
  stop_reason VARCHAR(20),
  refills INTEGER,
