@@ -405,7 +405,9 @@ CREATE TABLE condition_occurrence
      provider_id					INTEGER			NULL , 
      visit_occurrence_id			INTEGER			NULL , 
      condition_source_value			VARCHAR(50)		NULL ,
-	 condition_source_concept_id	INTEGER			NULL
+	 condition_source_concept_id	INTEGER			NULL ,
+	 condition_status_source_value	VARCHAR(50)		NULL ,
+     condition_status_concept_id	INTEGER			NULL 
     ) 
 ;
 

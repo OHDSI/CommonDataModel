@@ -420,7 +420,9 @@ CREATE TABLE condition_occurrence (
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
  condition_source_value VARCHAR(50),
- condition_source_concept_id INTEGER
+ condition_source_concept_id INTEGER,
+ condition_status_source_value VARCHAR(50),
+ condition_status_concept_id INTEGER
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 TBLPROPERTIES ("skip.header.line.count"="1")

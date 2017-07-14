@@ -304,7 +304,9 @@ SELECT
  provider_id,
  visit_occurrence_id,
  condition_source_value,
- condition_source_concept_id
+ condition_source_concept_id,
+ condition_status_source_value,
+ condition_status_concept_id
 FROM omop_cdm.condition_occurrence;
 
 CREATE TABLE omop_cdm_parquet.measurement
