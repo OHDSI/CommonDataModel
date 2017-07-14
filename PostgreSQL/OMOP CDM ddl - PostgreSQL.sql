@@ -355,8 +355,6 @@ CREATE TABLE drug_exposure
      days_supply					INTEGER			NULL , 
      sig							TEXT	NULL , 
 	 route_concept_id				INTEGER			NULL ,
-	 effective_drug_dose			NUMERIC			NULL ,
-	 dose_unit_concept_id			INTEGER			NULL ,
 	 lot_number						VARCHAR(50)		NULL ,
      provider_id					INTEGER			NULL , 
      visit_occurrence_id			INTEGER			NULL , 

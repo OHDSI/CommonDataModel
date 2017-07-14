@@ -254,8 +254,6 @@ SELECT
  days_supply,
  sig, -- TEXT
  route_concept_id,
- effective_drug_dose, -- NUMERIC
- dose_unit_concept_id,
  lot_number,
  provider_id,
  visit_occurrence_id,

@@ -372,8 +372,6 @@ CREATE TABLE drug_exposure (
  days_supply INTEGER,
  sig STRING, -- TEXT
  route_concept_id INTEGER,
- effective_drug_dose DOUBLE, -- NUMERIC
- dose_unit_concept_id INTEGER,
  lot_number VARCHAR(50),
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
