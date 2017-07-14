@@ -213,7 +213,12 @@ SELECT
  provider_id,
  care_site_id,
  visit_source_value,
- visit_source_concept_id
+ visit_source_concept_id,
+ admitting_source_concept_id,
+ admitting_source_value,
+ discharge_to_concept_id,
+ discharge_to_source_value,
+ preceding_visit_occurrence_id
 FROM omop_cdm.visit_occurrence;
 
 CREATE TABLE omop_cdm_parquet.procedure_occurrence
