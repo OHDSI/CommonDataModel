@@ -405,29 +405,6 @@ SELECT
 FROM omop_cdm.payer_plan_period;
 
 
-/* The individual cost tables are being phased out and will disappear soon
-
-CREATE TABLE omop_cdm_parquet.visit_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.visit_cost;
-
-CREATE TABLE omop_cdm_parquet.procedure_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.procedure_cost;
-
-CREATE TABLE omop_cdm_parquet.drug_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.drug_cost;
-
-CREATE TABLE omop_cdm_parquet.device_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.device_cost;
-*/
-
 CREATE TABLE omop_cdm_parquet.cost
 STORED AS PARQUET
 AS

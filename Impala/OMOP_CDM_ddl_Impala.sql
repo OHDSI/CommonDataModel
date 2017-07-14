@@ -587,83 +587,6 @@ CREATE TABLE payer_plan_period (
 ;
 
 
-/* The individual cost tables are being phased out and will disappear soon
-
-CREATE TABLE visit_cost (
- visit_cost_id INTEGER,
- visit_occurrence_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-
-
-
-CREATE TABLE procedure_cost (
- procedure_cost_id INTEGER,
- procedure_occurrence_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- revenue_code_concept_id INTEGER,
- payer_plan_period_id INTEGER,
- revenue_code_source_value VARCHAR(50)
-)
-;
-
-
-
-CREATE TABLE drug_cost (
- drug_cost_id INTEGER,
- drug_exposure_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- ingredient_cost DECIMAL(19,4), -- NUMERIC
- dispensing_fee DECIMAL(19,4), -- NUMERIC
- average_wholesale_price DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-
-
-
-
-
-CREATE TABLE device_cost (
- device_cost_id INTEGER,
- device_exposure_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-*/
-
-
 CREATE TABLE cost (
  cost_id INTEGER,
  cost_event_id INTEGER,
@@ -684,7 +607,9 @@ CREATE TABLE cost (
  payer_plan_period_id INTEGER,
  amount_allowed DECIMAL(19,4), -- NUMERIC
  revenue_code_concept_id INTEGER,
- reveue_code_source_value VARCHAR(50) 
+ reveue_code_source_value VARCHAR(50),
+ drg_concept_id			INTEGER,
+ drg_source_value		VARCHAR(3)
 )
 ;
 

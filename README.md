@@ -19,6 +19,9 @@ This version is based on the CDM working group proposals:
 * [#84](https://github.com/OHDSI/CommonDataModel/issues/84) Adds the following fields to CONDITION_OCCURRENCE:
   * CONDITION_STATUS_CONCEPT_ID
   * CONDITION_STATUS_SOURCE_VALUE
+* [#69](https://github.com/OHDSI/CommonDataModel/issues/69) Adds the following fields to COST:
+  * DRG_CONCEPT_ID
+  * DRG_SOURCE_VALUE
   
   and is **backwards compatibile with v5.0.1**. The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
 
