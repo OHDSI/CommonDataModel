@@ -462,7 +462,11 @@ CREATE TABLE note (
  note_date VARCHAR(8), -- DATE
  note_time VARCHAR(10),
  note_type_concept_id INTEGER,
+ note_class_concept_id INTEGER,
+ note_title VARCHAR(250),
  note_text STRING, -- TEXT
+ encoding_concept_id INTEGER,
+ language_concept_id INTEGER,
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
  note_source_value VARCHAR(50)
@@ -470,7 +474,25 @@ CREATE TABLE note (
 ;
 
 
-
+CREATE TABLE note_nlp (
+ note_nlp_id BIGINT,
+ note_id INTEGER,
+ section_concept_id INTEGER,
+ snippet VARCHAR(250),
+ offset VARCHAR(250),
+ lexical_variant VARCHAR(250),
+ note_nlp_concept_id INTEGER,
+ note_nlp_source_concept_id INTEGER,
+ nlp_system VARCHAR(250),
+ nlp_date VARCHAR(8),
+ nlp_time VARCHAR(10),
+ term_exists VARCHAR(1),
+ term_temporal VARCHAR(50),
+ term_modifiers VARCHAR(2000)
+ )
+ ;
+ 
+ 
 CREATE TABLE observation (
  observation_id INTEGER,
  person_id INTEGER,

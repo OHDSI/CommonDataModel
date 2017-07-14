@@ -342,11 +342,39 @@ SELECT
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(note_date AS STRING), 1, 4), SUBSTR(CAST(note_date AS STRING), 5, 2), SUBSTR(CAST(note_date AS STRING), 7, 2)), 'UTC') AS note_date,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(note_date AS STRING), 1, 4), SUBSTR(CAST(note_date AS STRING), 5, 2), SUBSTR(CAST(note_date AS STRING), 7, 2)), 'UTC') AS note_datetime,
  note_type_concept_id,
+ note_class_concept_id,
+ note_title,
  note_text, -- TEXT
+ encoding_concept_id,
+ language_concept_id,
  provider_id,
  visit_occurrence_id,
  note_source_value
 FROM omop_cdm.note;
+
+CREATE TABLE omop_cdm_parquet.note_nlp 
+STORED AS PARQUET
+AS
+SELECT 
+ note_nlp_id,
+ note_id,
+ section_concept_id,
+ snippet,
+ offset,
+ lexical_variant,
+ note_nlp_concept_id,
+ note_nlp_source_concept_id,
+ nlp_system,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(nlp_date AS STRING), 1, 4), SUBSTR(CAST(nlp_date AS STRING), 5, 2), SUBSTR(CAST(nlp_date AS STRING), 7, 2)), 'UTC') AS nlp_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(nlp_date AS STRING), 1, 4), SUBSTR(CAST(nlp_date AS STRING), 5, 2), SUBSTR(CAST(nlp_date AS STRING), 7, 2)), 'UTC') AS nlp_datetime,
+ term_exists,
+ term_temporal,
+ term_modifiers
+FROM omop_cdm.note_nlp;
+
+
+
+
 
 CREATE TABLE omop_cdm_parquet.observation
 STORED AS PARQUET

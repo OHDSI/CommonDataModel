@@ -22,8 +22,13 @@ This version is based on the CDM working group proposals:
 * [#69](https://github.com/OHDSI/CommonDataModel/issues/69) Adds the following fields to COST:
   * DRG_CONCEPT_ID
   * DRG_SOURCE_VALUE
+* [#85](https://github.com/OHDSI/CommonDataModel/issues/85) Adds the NOTE_NLP table and the following fields to NOTE:
+  * NOTE_CLASS_CONCEPT_ID
+  * NOTE_TITLE
+  * ENCODING_CONCEPT_ID
+  * LANGUAGE_CONCEPT_ID
   
-  and is **backwards compatibile with v5.0.1**. The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
+This version is **backwards compatibile with v5.0.1**. 
 
 
 ---------
