@@ -1,4 +1,4 @@
-***OMOP Common Data Model v5.2 Specifications***
+***OMOP Common Data Model v5.1.1 Specifications***
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
 <br>*12 July 2017*
 
@@ -44,7 +44,6 @@ Welcome to the Common Data Model wiki! This wiki houses all of the documentation
 <br>[CONDITION_OCCURRENCE](wiki/CONDITION_OCCURRENCE)
 <br>[MEASUREMENT](wiki/MEASUREMENT)
 <br>[NOTE](wiki/NOTE)
-<br>[NOTE](wiki/NOTE_NLP)
 <br>[OBSERVATION](wiki/OBSERVATION)
 <br>[FACT_RELATIONSHIP](wiki/FACT_RELATIONSHIP)
 <br>
