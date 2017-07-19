@@ -16,8 +16,10 @@ Field|Required|Type|Description
 | stop_reason                    | No        | varchar(20)  | The reason that the condition was no longer present, as indicated in the source data.                                                                                                                            |
 | provider_id                    | No        | integer      | A foreign key to the Provider in the PROVIDER table who was responsible for capturing (diagnosing) the Condition.                                                                                                |
 | visit_occurrence_id            | No        | integer      | A foreign key to the visit in the VISIT table during which the Condition was determined (diagnosed).                                                                                                             |
-| condition_source_concept_id    | No        | integer      | A foreign key to a Condition Concept that refers to the code used in the source.                                                                                                                                 |
 | condition_source_value         | No        | varchar(50)  | The source code for the condition as it appears in the source data. This code is mapped to a standard condition concept in the Standardized Vocabularies and the original code is stored here for reference.     |
+| condition_source_concept_id    | No        | integer      | A foreign key to a Condition Concept that refers to the code used in the source.                                                                                                                                 |
+| condition_status_source_value  | No        | varchar(50)  | The source code for the condition status as it appears in the source data.    |
+| condition_status_concept_id    | No        | integer      | A foreign key to the predefined concept in the standard vocabulary reflecting the condition status |                                                                                                                               |
 
 ### Conventions 
 
@@ -32,3 +34,7 @@ Field|Required|Type|Description
     * Diagnoses or problems recorded in an EHR.
   * The Stop Reason indicates why a Condition is no longer valid with respect to the purpose within the source data. Typical values include "Discharged", "Resolved", etc.  Note that a Stop Reason does not necessarily imply that the condition is no longer occurring.
   * Condition source codes are typically ICD-9-CM, Read or ICD-10 diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
+  * Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:
+    * Admitting diagnosis: 4203942
+    * Final diagnosis: 4230359 – should also be used for ‘Discharge diagnosis’
+    * Preliminary diagnosis: 4033240

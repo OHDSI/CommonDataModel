@@ -10,6 +10,7 @@ Field|Required|Type|Description
 |numerator_unit_concept_id|No|integer|A foreign key to the Concept in the CONCEPT table representing the identifier for the numerator Unit for the concentration of active ingredient.|
 |denominator_value|No|float|The amount of total liquid (or other divisible product, such as ointment, gel, spray, etc.).|
 |denominator_unit_concept_id|No|integer|A foreign key to the Concept in the CONCEPT table representing the identifier for the denominator Unit for the concentration of active ingredient.|
+|box_size|No|integer|The number of units of Clinical of Branded Drug, or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient|
 |valid_start_date|Yes|date|The date when the Concept was first recorded. The default value is 1-Jan-1970.|
 |valid_end_date|Yes|date|The date when the concept became invalid because it was deleted or superseded (updated) by a new Concept. The default value is 31-Dec-2099.|
 |invalid_reason|No|varchar(1)|Reason the concept was invalidated. Possible values are 'D' (deleted), 'U' (replaced with an update) or NULL when valid_end_date has the default value.|
@@ -26,3 +27,4 @@ Field|Required|Type|Description
   * Sometimes, one Ingredient is listed with different units within the same drug. This is very rare, and usually this happens if there are more than one Precise Ingredient. For example, 'Penicillin G, Benzathine 150000 UNT/ML / Penicillin G, Procaine 150000 MEQ/ML Injectable Suspension' contains Penicillin G in two different forms.
   * Sometimes, different ingredients in liquid drugs are listed with different units in the denominator_unit_concept_id. This is usually the case if the ingredients are liquids themselves (concentration provided as mL/mL) or solid substances (mg/mg). In these cases, the general assumptions is made that the density of the drug is that of water, and one can assume 1 g = 1 mL.
   * All Drug vocabularies containing Standard Concepts have entries in the DRUG_STRENGTH table. 
+  * There is now a Concept Class for supplier information whose relationships can be found in CONCEPT_RELATIONSHIP with a relationship_id of 'Has supplier' and 'Supplier of' 
