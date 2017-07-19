@@ -1,5 +1,5 @@
 ---
-title: "OMOP Common Data Model v5.1 Specifications"
+title: "OMOP Common Data Model v5.2 Specifications"
 author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
 date: "`r Sys.Date()`"
 output:
@@ -11,193 +11,197 @@ linkcolor: blue
 
 # License
 
-```{r child = '.../CommonDataModel_Wiki_Files/License.md'}
+```{r child = '../CommonDataModel_Wiki_Files/License.md'}
 ```
 
 # Background
-```{r child = 'C:/Git/CommonDataModel.wiki/Background/Background.md'}
+```{r child = '../CommonDataModel_Wiki_Files/Background/Background.md'}
 ```
 
 ## The Role of the Common Data Model
-```{r child = 'C:/Git/CommonDataModel.wiki/Background/The-Role-of-the-Common-Data-Model.md'}
+```{r child = '../CommonDataModel_Wiki_Files/Background/The-Role-of-the-Common-Data-Model.md'}
 ```
 
 ## Design Principles
-```{r child = 'C:/Git/CommonDataModel.wiki/Background/Design-Principles.md'}
+```{r child = '../CommonDataModel_Wiki_Files/Background/Design-Principles.md'}
 ```
 
 ## Data Model Conventions
-```{r child = 'C:/Git/CommonDataModel.wiki/Background/Data-Model-Conventions.md'}
+```{r child = '../CommonDataModel_Wiki_Files/Background/Data-Model-Conventions.md'}
 ```
 
 # Glossary of Terms
-```{r child = 'C:/Git/CommonDataModel.wiki/Glossary-of-Terms.md'}
+```{r child = '../CommonDataModel_Wiki_Files/Glossary-of-Terms.md'}
 ```
 
 # Standardized Vocabularies
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/Standardized-Vocabularies.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/Standardized-Vocabularies.md'}
 ```
 
 ## CONCEPT
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/CONCEPT.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT.md'}
 ```
 
 ## VOCABULARY
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/VOCABULARY.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/VOCABULARY.md'}
 ```
 
 ## DOMAIN
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/DOMAIN.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/DOMAIN.md'}
 ```
 
 ## CONCEPT_CLASS
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/CONCEPT_CLASS.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_CLASS.md'}
 ```
 
 ## CONCEPT_RELATIONSHIP
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/CONCEPT_RELATIONSHIP.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_RELATIONSHIP.md'}
 ```
 
 ## RELATIONSHIP
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/RELATIONSHIP.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/RELATIONSHIP.md'}
 ```
 
 ## CONCEPT_SYNONYM
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/CONCEPT_SYNONYM.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_SYNONYM.md'}
 ```
 
 ## CONCEPT_ANCESTOR
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/CONCEPT_ANCESTOR.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_ANCESTOR.md'}
 ```
 
 ## SOURCE_TO_CONCEPT_MAP
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md'}
 ```
 
 ## DRUG_STRENGTH
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/DRUG_STRENGTH.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/DRUG_STRENGTH.md'}
 ```
 
 ## COHORT_DEFINITION
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/COHORT_DEFINITION.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/COHORT_DEFINITION.md'}
 ```
 
 ## ATTRIBUTE_DEFINITION
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedVocabularies/ATTRIBUTE_DEFINITION.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/ATTRIBUTE_DEFINITION.md'}
 ```
 
 # Standardized Metadata
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedMetadata/Standardized-Metadata.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedMetadata/Standardized-Metadata.md'}
 ```
 
 ## CDM_SOURCE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedMetadata/CDM_SOURCE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedMetadata/CDM_SOURCE.md'}
 ```
 
 # Standardized Clinical Data Tables
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/Standardized-clinical-Data-Tables.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/Standardized-clinical-Data-Tables.md'}
 ```
 
 ## PERSON
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/PERSON.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/PERSON.md'}
 ```
 
 ## OBSERVATION_PERIOD
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/OBSERVATION_PERIOD.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/OBSERVATION_PERIOD.md'}
 ```
 
 ## SPECIMEN
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/SPECIMEN.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/SPECIMEN.md'}
 ```
 
 ## DEATH
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/DEATH.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DEATH.md'}
 ```
 
 ## VISIT_OCCURRENCE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md'}
 ```
 
 ## PROCEDURE_OCCURRENCE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md'}
 ```
 
 ## DRUG_EXPOSURE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/DRUG_EXPOSURE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DRUG_EXPOSURE.md'}
 ```
 
 ## DEVICE_EXPOSURE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/DEVICE_EXPOSURE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DEVICE_EXPOSURE.md'}
 ```
 
 ## CONDITION_OCCURRENCE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/CONDITION_OCCURRENCE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/CONDITION_OCCURRENCE.md'}
 ```
 
 ## MEASUREMENT
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/MEASUREMENT.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/MEASUREMENT.md'}
 ```
 
 ## NOTE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/NOTE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/NOTE.md'}
+```
+
+## NOTE_NLP
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/NOTE_NLP.md'}
 ```
 
 ## OBSERVATION
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/OBSERVATION.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/OBSERVATION.md'}
 ```
 
 ## FACT_RELATIONSHIP
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedclinicalDataTables/FACT_RELATIONSHIP.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/FACT_RELATIONSHIP.md'}
 ```
 
 # Standardized Health System Data Tables
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthSystemDataTables/Standardized-Health-System-Data-Tables.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/Standardized-Health-System-Data-Tables.md'}
 ```
 
 ## LOCATION
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthSystemDataTables/LOCATION.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/LOCATION.md'}
 ```
 
 ## CARE_SITE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthSystemDataTables/CARE_SITE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/CARE_SITE.md'}
 ```
 
 ## PROVIDER
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthSystemDataTables/PROVIDER.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/PROVIDER.md'}
 ```
 
 # Standardized Health Economics Data Tables
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthEconomicsDataTables/Standardized-Health-Economics-Data-Tables.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/Standardized-Health-Economics-Data-Tables.md'}
 ```
 
 ## PAYER_PLAN_PERIOD
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthEconomicsDataTables/PAYER_PLAN_PERIOD.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/PAYER_PLAN_PERIOD.md'}
 ```
 
 ## COST
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedHealthEconomicsDataTables/COST.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/COST.md'}
 ```
 
 # Standardized Derived Elements
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/Standardized-Derived-Elements.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/Standardized-Derived-Elements.md'}
 ```
 
 ## COHORT
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/COHORT.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/COHORT.md'}
 ```
 
 ## COHORT_ATTRIBUTE
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/COHORT_ATTRIBUTE.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/COHORT_ATTRIBUTE.md'}
 ```
 
 ## DRUG_ERA
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/DRUG_ERA.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/DRUG_ERA.md'}
 ```
 
 ## DOSE_ERA
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/DOSE_ERA.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/DOSE_ERA.md'}
 ```
 
 ## CONDITION_ERA
-```{r child = 'C:/Git/CommonDataModel.wiki/StandardizedDerivedElements/CONDITION_ERA.md'}
+```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/CONDITION_ERA.md'}
 ```
