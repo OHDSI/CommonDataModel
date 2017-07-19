@@ -1,11 +1,15 @@
-Common Data Model v5.1.0
+Common Data Model v5.1.1
 =================
 
-See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.1.0 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_1_0.pdf)
+See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.1.1 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_1_1.pdf)
 
-Release Notes
+Release Notes for v5.1.1
 =============
-This version is based on this CDM working group proposal [#60](https://github.com/OHDSI/CommonDataModel/issues/60) and [#59](https://github.com/OHDSI/CommonDataModel/issues/59). The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
+This version has a small bug-fix for impala to make it compatible with ATLAS cohort generation.
+
+Release Notes for v5.1.0
+=============
+This version is based on the CDM working group proposal [#60](https://github.com/OHDSI/CommonDataModel/issues/60) and [#59](https://github.com/OHDSI/CommonDataModel/issues/59) and is **backwards compatibile with v5.0.1**. The proposed and accepted changes include adding a datetime field to every table that had a date column and adding field DENOMINATOR_VALUE to the DRUG_STRENGTH table. These were the new columns added:
 
 **PERSON**  
 * birth_datetime, not required
@@ -46,6 +50,8 @@ This version is based on this CDM working group proposal [#60](https://github.co
 
 **NOTE**  
 * note_datetime, not required
+
+There are additional changes listed on the [OHDSI wiki](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm) that have been accepted but are not listed in this version because after being accepted they were never added to the DDL. Version 5.1.0 as it is now is being used by members of the community and any changes would cause problems so the additional accepted proposals will be added in subsequent versions. 
 
 ---------
   
