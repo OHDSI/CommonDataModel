@@ -17,7 +17,7 @@ term_exists | No | varchar(1) | A summary modifier that signifies presence or ab
 term_temporal | No | varchar(50) | An optional time modifier associated with the extracted term. (for now “past” or “present” only). Standardize it later.
 term_modifiers | No | varchar(2000) | A compact description of all the modifiers of the specific term extracted by the NLP system. (e.g. “son has rash” ? “negated=no,subject=family,certainty=undef,conditional=false,general=false”).
 
-## Conventions
+### Conventions
 
 **Term_exists**
 Term_exists is defined as a flag that indicates if the patient actually has or had the condition. Any of the following modifiers would make Term_exists false:

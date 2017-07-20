@@ -23,7 +23,7 @@ Field|Required|Type|Description
   * The type of note_text is CLOB or varchar(MAX) depending on RDBMS
   * note_class_concept_id is a foreign key to the CONCEPT table to describe a standardized combination of five LOINC axes (role, domain, setting, type of service, and document kind). See below for description.
   
-## Mapping of clinical documents to Clinical Document Ontology (CDO) and standard terminology
+### Mapping of clinical documents to Clinical Document Ontology (CDO) and standard terminology
 
 HL7/LOINC CDO is a standard for consistent naming of documents to support a range of use cases: retrieval, organization, display, and exchange. It guides the creation of LOINC codes for clinical notes. CDO annotates each document with 5 dimensions:
 * **Kind of Document:** Characterizes the generalc structure of the document at a macro level (e.g. Anesthesia Consent)
