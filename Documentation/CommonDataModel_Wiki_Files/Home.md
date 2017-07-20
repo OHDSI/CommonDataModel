@@ -1,4 +1,5 @@
 ***OMOP Common Data Model v5.2 Specifications***
+
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
 <br>*12 July 2017*
 

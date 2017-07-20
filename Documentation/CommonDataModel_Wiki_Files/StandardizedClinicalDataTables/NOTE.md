@@ -29,7 +29,7 @@ HL7/LOINC CDO is a standard for consistent naming of documents to support a rang
 
 * **Kind of Document:** Characterizes the generalc structure of the document at a macro level (e.g. Anesthesia Consent)
 * **Type of Service**: Characterizes the kind of service or activity (e.g. evaluations, consultations, and summaries). The notion of time sequence, e.g., at the beginning (admission) at the end (discharge) is subsumed in this axis. Example: Discharge Teaching.
-* **Setting:** Setting is an extension of CMS’s definitions (e.g. Inpatient, Outpatient)
+* **Setting:** Setting is an extension of CMSï¿½s definitions (e.g. Inpatient, Outpatient)
 * **Subject Matter Domain (SMD):** Characterizes the subject matter domain of a note (e.g. Anesthesiology)
 * **Role:** Characterizes the training or professional level of the author of the document, but does not break down to specialty or subspecialty (e.g. Physician)
 
@@ -49,7 +49,7 @@ concept_name | Administrative note | Against medical advice note
 concept_code | LP173418-7 | LP173388-2
 vocabulary_id | LOINC | LOINC
 
-#### 2. Represent CDO hierarchy in the Concept_Relationship table using the “Subsumes” – “Is a” relationship pair. For example:
+#### 2. Represent CDO hierarchy in the Concept_Relationship table using the ï¿½Subsumesï¿½ ï¿½ ï¿½Is aï¿½ relationship pair. For example:
 
 Field | Record 1 | Record 2
 :-- | :-- | :--
@@ -68,7 +68,7 @@ vocabulary_id | LOINC | LOINC
 
 #### 4.  Represent dimensions of each document concept in Concept_Relationship table by its relationships to the respective concepts from CDO. 
 
-* Use the “Member Of” – “Has Member”  (new) relationship pair. 
+* Use the ï¿½Member Ofï¿½ ï¿½ ï¿½Has Memberï¿½  (new) relationship pair. 
 * Using example from the Dentistry Hygienist Outpatient Progress note (LOINC code 34127-1):
 
 concept_id_1 | concept_id_1 | relationship_id
@@ -92,14 +92,14 @@ Content | Description
 55443322132 | Corresponds to LOINC LP173418-7, Kind of Document = Note
 55443322175 | Corresponds to LOINC LP173213-2, Type of Service = Progress
 55443322166 | Corresponds to LOINC LP173051-6, Setting = Outpatient
-55443322107 | Corresponds to LOINC LP172934-4, Subject Matter Domain  = Dentistry
+55443322107 | Corresponds to LOINC LP172934-4, Subject Matter Domain ï¿½= Dentistry
 55443322146 | Corresponds to LOINC LP173071-4, Role = Hygienist
 
 Most of the codes will not have all 5 dimensions. Therefore, they may be represented by 2-5 relationship pairs.
 
 #### 5. If LOINC does not have a code corresponding to a permutation of the 5 CDO encountered in the source, this code will be generated as OMOP vocabulary code. 
 
-* Its relationships to the CDO dimensions will be represented exactly as those of existing LOINC concepts (as described above). If/when a proper LOINC code for this permutation is released, the old code should be deprecated.  Transition between the old and new codes should be represented by “Concept replaces” – “Concept replaced by” pairs.
+* Its relationships to the CDO dimensions will be represented exactly as those of existing LOINC concepts (as described above). If/when a proper LOINC code for this permutation is released, the old code should be deprecated.  Transition between the old and new codes should be represented by ï¿½Concept replacesï¿½ ï¿½ ï¿½Concept replaced byï¿½ pairs.
 
 #### 6.  Mapping from the source data will be performed to the 2-5 CDO dimensions.
 
@@ -108,7 +108,7 @@ Query below finds LOINC code for Dentistry Hygienist Outpatient Progress note (s
 ```sql	
 	SELECT   
 	FROM Concept_Relationship  
-	WHERE relationship_id = ‘Has Member’ AND
+	WHERE relationship_id = ï¿½Has Memberï¿½ AND
 		(concept_id_1 = 55443322132 
 		OR concept_id_1 = 55443322175
 		OR concept_id_1 = 55443322166
@@ -122,7 +122,7 @@ If less than 5 dimensions are available, `HAVING COUNT(n)` clause should be adde
 ```sql
 	SELECT  
 	FROM Concept_Relationship  
-	WHERE relationship_id = ‘Has Member’ AND  
+	WHERE relationship_id = ï¿½Has Memberï¿½ AND  
 		(concept_id_1 = 55443322132  
 		OR concept_id_1 = 55443322175  
 		OR concept_id_1 = 55443322146)  

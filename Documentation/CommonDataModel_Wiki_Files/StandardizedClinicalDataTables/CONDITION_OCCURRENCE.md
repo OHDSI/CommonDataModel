@@ -36,5 +36,5 @@ Field|Required|Type|Description
   * Condition source codes are typically ICD-9-CM, Read or ICD-10 diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
   * Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:
     * Admitting diagnosis: 4203942
-    * Final diagnosis: 4230359 – should also be used for ‘Discharge diagnosis’
+    * Final diagnosis: 4230359 ï¿½ should also be used for ï¿½Discharge diagnosisï¿½
     * Preliminary diagnosis: 4033240
