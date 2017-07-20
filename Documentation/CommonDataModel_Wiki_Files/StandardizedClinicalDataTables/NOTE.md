@@ -26,13 +26,15 @@ Field|Required|Type|Description
 ### Mapping of clinical documents to Clinical Document Ontology (CDO) and standard terminology
 
 HL7/LOINC CDO is a standard for consistent naming of documents to support a range of use cases: retrieval, organization, display, and exchange. It guides the creation of LOINC codes for clinical notes. CDO annotates each document with 5 dimensions:
+
 * **Kind of Document:** Characterizes the generalc structure of the document at a macro level (e.g. Anesthesia Consent)
-* **Type of Service:** Characterizes the kind of service or activity (e.g. evaluations, consultations, and summaries). The notion of time sequence, e.g., at the beginning (admission) at the end (discharge) is subsumed in this axis. Example: Discharge Teaching.
+* **Type of Service**: Characterizes the kind of service or activity (e.g. evaluations, consultations, and summaries). The notion of time sequence, e.g., at the beginning (admission) at the end (discharge) is subsumed in this axis. Example: Discharge Teaching.
 * **Setting:** Setting is an extension of CMS’s definitions (e.g. Inpatient, Outpatient)
 * **Subject Matter Domain (SMD):** Characterizes the subject matter domain of a note (e.g. Anesthesiology)
 * **Role:** Characterizes the training or professional level of the author of the document, but does not break down to specialty or subspecialty (e.g. Physician)
 
 Each combination of these 5 dimensions should roll up to a unique LOINC code. For example, Dentistry Hygienist Outpatient Progress note (LOINC code 34127-1) has the following dimensions:
+
 * According to CDO requirements, only 2 of the 5 dimensions are required to properly annotate a document: Kind of Document and any one of the other 4 dimensions.
 * However, not all the permutations of the CDO dimensions will necessarily yield an existing LOINC code.2 HL7/LOINC workforce is committed to establish new LOINC codes for each new encountered combination of CDO dimensions. 3
  
@@ -65,6 +67,7 @@ concept_code | 34127-1 | 11488-4
 vocabulary_id | LOINC | LOINC
 
 #### 4.  Represent dimensions of each document concept in Concept_Relationship table by its relationships to the respective concepts from CDO. 
+
 * Use the “Member Of” – “Has Member”  (new) relationship pair. 
 * Using example from the Dentistry Hygienist Outpatient Progress note (LOINC code 34127-1):
 
@@ -84,7 +87,7 @@ concept_id_1 | concept_id_1 | relationship_id
 Where concept codes represent the following concepts:
 
 Content | Description
-:-- | :--
+:---------- | :--------------------------------------------------------------------
 193240 | Corresponds to LOINC 34127-1, Dentistry Hygienist Outpatient Progress note
 55443322132 | Corresponds to LOINC LP173418-7, Kind of Document = Note
 55443322175 | Corresponds to LOINC LP173213-2, Type of Service = Progress
@@ -95,30 +98,34 @@ Content | Description
 Most of the codes will not have all 5 dimensions. Therefore, they may be represented by 2-5 relationship pairs.
 
 #### 5. If LOINC does not have a code corresponding to a permutation of the 5 CDO encountered in the source, this code will be generated as OMOP vocabulary code. 
+
 * Its relationships to the CDO dimensions will be represented exactly as those of existing LOINC concepts (as described above). If/when a proper LOINC code for this permutation is released, the old code should be deprecated.  Transition between the old and new codes should be represented by “Concept replaces” – “Concept replaced by” pairs.
 
 #### 6.  Mapping from the source data will be performed to the 2-5 CDO dimensions.
 
 Query below finds LOINC code for Dentistry Hygienist Outpatient Progress note (see example above) that has all 5 dimensions:
 
-`SELECT 
-FROM Concept_Relationship
-WHERE relationship_id = ‘Has Member’ AND
-(concept_id_1 = 55443322132
-OR concept_id_1 = 55443322175
-OR concept_id_1 = 55443322166
-OR concept_id_1 = 55443322107
-OR concept_id_1 = 55443322146)
-GROUP BY concept_ID_2
-`
-If less than 5 dimensions are available, HAVING COUNT(n) clause should be added to get a unique record at the intersection of these dimensions. n is the number of dimensions available:
+```sql	
+	SELECT   
+	FROM Concept_Relationship  
+	WHERE relationship_id = ‘Has Member’ AND
+		(concept_id_1 = 55443322132 
+		OR concept_id_1 = 55443322175
+		OR concept_id_1 = 55443322166
+		OR concept_id_1 = 55443322107
+		OR concept_id_1 = 55443322146)
+	GROUP BY concept_ID_2
+```
 
-`SELECT
-FROM Concept_Relationship
-WHERE relationship_id = ‘Has Member’ AND
-(concept_id_1 = 55443322132
-OR concept_id_1 = 55443322175
-OR concept_id_1 = 55443322146)
-GROUP BY concept_ID_2
-HAVING COUNT(*) = 3
-`
+If less than 5 dimensions are available, `HAVING COUNT(n)` clause should be added to get a unique record at the intersection of these dimensions. n is the number of dimensions available:
+
+```sql
+	SELECT  
+	FROM Concept_Relationship  
+	WHERE relationship_id = ‘Has Member’ AND  
+		(concept_id_1 = 55443322132  
+		OR concept_id_1 = 55443322175  
+		OR concept_id_1 = 55443322146)  
+	GROUP BY concept_ID_2  
+	HAVING COUNT(*) = 3  
+```

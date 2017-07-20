@@ -1,5 +1,5 @@
-[LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION)
-[CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)
+[LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION)  
+[CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)  
 [PROVIDER](https://github.com/OHDSI/CommonDataModel/wiki/PROVIDER)      
 
 These tables describe the healthcare provider system responsible for administering the healthcare of the patient, rather than the demographic or clinical events the patient experienced.
