@@ -17,16 +17,16 @@
 
 /************************
 
-  ####### #     # ####### ######      #####  ######  #     #           #######       #         ###   
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #            ##        #   #  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #           # #       #     # 
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######        #       #     # 
- #     # #     # #     # #          #       #     # #     #    #    #       # ###   #   ### #     # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###   #   ###  #   #  
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ### 
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####  
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     # 
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 # 
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####  
+ #     # #     # #     # #          #       #     # #     #    #    #       # ### #       
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #       
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ### #######
                                                                               
 
-script to create OMOP common data model, version 5.1.0 for Amazon Redshift database
+script to create OMOP common data model, version 5.2.0 for Amazon Redshift database
 
 last revised: 20-July-2017
 
@@ -309,7 +309,12 @@ create table visit_occurrence
   provider_id					integer			null,
   care_site_id					integer			null,
   visit_source_value			varchar(50)		null,
-  visit_source_concept_id		integer			null
+  visit_source_concept_id		integer			null,
+  admitting_source_concept_id	integer			null,
+  admitting_source_value		varchar(50)		null,
+  discharge_to_concept_id		integer			null,
+  discharge_to_source_value		varchar(50)		null,
+  preceding_visit_occurrence_id	integer			null
 )
 distkey(payer_plan_period_id)
 sortkey(payer_plan_period_id);
@@ -347,6 +352,7 @@ create table drug_exposure
   drug_exposure_start_datetime	timestamp		not null ,
   drug_exposure_end_date		date			null ,
   drug_exposure_end_datetime	timestamp		null ,
+  verbatim_end_date				date			null,
   drug_type_concept_id			integer			not null ,
   stop_reason					varchar(20)		null ,
   refills						integer			null ,
@@ -354,8 +360,6 @@ create table drug_exposure
   days_supply					integer			null ,
   sig							varchar(8000)	null ,
   route_concept_id				integer			null ,
-  effective_drug_dose			float			null ,
-  dose_unit_concept_id			integer			null ,
   lot_number					varchar(50)		null ,
   provider_id					integer			null ,
   visit_occurrence_id			integer			null ,
@@ -403,7 +407,9 @@ create table condition_occurrence
   provider_id					integer			null ,
   visit_occurrence_id			integer			null ,
   condition_source_value		varchar(50)		null ,
-  condition_source_concept_id	integer			null
+  condition_source_concept_id	integer			null ,
+  condition_status_source_value	varchar(50)		null ,
+  condition_status_concept_id	integer			null 
 )
 distkey(person_id)
 interleaved sortkey(person_id, condition_concept_id, condition_start_date, condition_end_date);
@@ -452,6 +458,28 @@ create table note
 distkey(person_id)
 sortkey(person_id);
 
+
+
+/*This table is new in CDM v5.2*/
+CREATE TABLE note_nlp
+(
+  note_nlp_id					bigint			not null ,
+  note_id						integer			not null ,
+  section_concept_id			integer			null ,
+  snippet						varchar(250)	null ,
+  offset						varchar(250)	null ,
+  lexical_variant				varchar(250)	not null ,
+  note_nlp_concept_id			integer			null ,
+  note_nlp_source_concept_id	integer			null ,
+  nlp_system					varchar(250)	null ,
+  nlp_date						date			not null ,
+  nlp_datetime					timestamp		null ,
+  term_exists					varchar(1)		null ,
+  term_temporal					varchar(50)		null ,
+  term_modifiers				varchar(2000)	null
+)
+distkey(note_id)
+sortkey(note_id);
 
 
 create table observation
@@ -675,7 +703,9 @@ create table cost
   payer_plan_period_id		integer			null ,
   amount_allowed			float			null ,
   revenue_code_concept_id	integer			null ,
-  reveue_code_source_value  varchar(50)		null
+  reveue_code_source_value  varchar(50)		null ,
+  drg_concept_id			integer			null,
+  drg_source_value			varchar(3)		null
 )
 distkey(payer_plan_period_id)
 sortkey(payer_plan_period_id);
