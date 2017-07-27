@@ -17,19 +17,19 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######       #         ###       #####                                                                 
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #            ##        #   #     #     #  ####  #    #  ####  ##### #####    ##   # #    # #####  ####  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #           # #       #     #    #       #    # ##   # #        #   #    #  #  #  # ##   #   #   #      
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######        #       #     #    #       #    # # #  #  ####    #   #    # #    # # # #  #   #    ####  
- #     # #     # #     # #          #       #     # #     #    #    #       # ###   #   ### #     #    #       #    # #  # #      #   #   #####  ###### # #  # #   #        # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###   #   ###  #   #     #     # #    # #   ## #    #   #   #   #  #    # # #   ##   #   #    # 
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ###       #####   ####  #    #  ####    #   #    # #    # # #    #   #    ####  
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####      #####                                                                 
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #    #     #  ####  #    #  ####  ##### #####    ##   # #    # #####  ####  
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #    #       #    # ##   # #        #   #    #  #  #  # ##   #   #   #      
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####     #       #    # # #  #  ####    #   #    # #    # # # #  #   #    ####  
+ #     # #     # #     # #          #       #     # #     #    #    #       # ### #          #       #    # #  # #      #   #   #####  ###### # #  # #   #        # 
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #          #     # #    # #   ## #    #   #   #   #  #    # # #   ##   #   #    # 
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ### #######     #####   ####  #    #  ####    #   #    # #    # # #    #   #    #### 
                                                                                                                                                                               
                                                                               
 
-script to create constraints within OMOP common data model, version 5.1.0 for Oracle database
+script to create constraints within OMOP common data model, version 5.2 for Oracle database
 
-last revised: 12 Oct 2014
+last revised: 14 July 2017
 
 author:  Patrick Ryan
 
@@ -125,6 +125,8 @@ ALTER TABLE condition_occurrence ADD CONSTRAINT xpk_condition_occurrence PRIMARY
 ALTER TABLE measurement ADD CONSTRAINT xpk_measurement PRIMARY KEY ( measurement_id ) ;
 
 ALTER TABLE note ADD CONSTRAINT xpk_note PRIMARY KEY ( note_id ) ;
+
+ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY ( note_nlp_id ) ;
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY ( observation_id ) ;
 
@@ -323,6 +325,10 @@ ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_care_site FOREIGN KEY (car
 
 ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_concept_s FOREIGN KEY (visit_source_concept_id)  REFERENCES concept (concept_id);
 
+ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_source_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_discharge FOREIGN KEY (discharge_to_concept_id) REFERENCES concept (concept_id);
+
 
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
 
@@ -381,6 +387,8 @@ ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_visit FOREIGN KEY 
 
 ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_concept_s FOREIGN KEY (condition_source_concept_id)  REFERENCES concept (concept_id);
 
+ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_status_concept FOREIGN KEY (condition_status_concept_id) REFERENCES concept (concept_id);
+
 
 ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
 
@@ -405,9 +413,22 @@ ALTER TABLE note ADD CONSTRAINT fpk_note_person FOREIGN KEY (person_id)  REFEREN
 
 ALTER TABLE note ADD CONSTRAINT fpk_note_type_concept FOREIGN KEY (note_type_concept_id)  REFERENCES concept (concept_id);
 
+ALTER TABLE note ADD CONSTRAINT fpk_note_class_concept FOREIGN KEY (note_class_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE note ADD CONSTRAINT fpk_note_encoding_concept FOREIGN KEY (encoding_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE note ADD CONSTRAINT fpk_language_concept FOREIGN KEY (language_concept_id) REFERENCES concept (concept_id);
+
 ALTER TABLE note ADD CONSTRAINT fpk_note_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
 ALTER TABLE note ADD CONSTRAINT fpk_note_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
+
+
+ALTER TABLE note_nlp ADD CONSTRAINT fpk_note_nlp_note FOREIGN KEY (note_id) REFERENCES note (note_id);
+
+ALTER TABLE note_nlp ADD CONSTRAINT fpk_note_nlp_section_concept FOREIGN KEY (section_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE note_nlp ADD CONSTRAINT fpk_note_nlp_concept FOREIGN KEY (note_nlp_concept_id) REFERENCES concept (concept_id); 
 
 
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
@@ -458,7 +479,7 @@ ALTER TABLE provider ADD CONSTRAINT fpk_provider_specialty_s FOREIGN KEY (specia
 
 ALTER TABLE provider ADD CONSTRAINT fpk_provider_gender_s FOREIGN KEY (gender_source_concept_id)  REFERENCES concept (concept_id);
 
-
+ALTER TABLE cost ADD CONSTRAINT fpk_drg_concept FOREIGN KEY (drg_concept_id) REFERENCES concept (concept_id);
 
 
 /************************
@@ -472,6 +493,8 @@ ALTER TABLE payer_plan_period ADD CONSTRAINT fpk_payer_plan_period FOREIGN KEY (
 ALTER TABLE cost ADD CONSTRAINT fpk_visit_cost_currency FOREIGN KEY (currency_concept_id)  REFERENCES concept (concept_id);
 
 ALTER TABLE cost ADD CONSTRAINT fpk_visit_cost_period FOREIGN KEY (payer_plan_period_id)  REFERENCES payer_plan_period (payer_plan_period_id);
+
+
 
 
 /************************

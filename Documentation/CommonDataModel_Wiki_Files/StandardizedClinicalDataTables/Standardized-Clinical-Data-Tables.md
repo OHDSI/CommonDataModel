@@ -9,6 +9,7 @@
 [CONDITION_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE)  
 [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)  
 [NOTE](https://github.com/OHDSI/CommonDataModel/wiki/NOTE)  
+[NOTE_NLP](https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP)  
 [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)  
 [FACT_RELATIONSHIP](https://github.com/OHDSI/CommonDataModel/wiki/FACT_RELATIONSHIP)  
   

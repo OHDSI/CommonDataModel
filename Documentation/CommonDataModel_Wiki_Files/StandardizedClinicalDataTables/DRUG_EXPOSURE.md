@@ -14,8 +14,9 @@ Field|Required|Type|Description
 |drug_concept_id|Yes|integer|A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the Drug concept.|
 |drug_exposure_start_date|Yes|date|The start date for the current instance of Drug utilization. Valid entries include a start date of a prescription, the date a prescription was filled, or the date on which a Drug administration procedure was recorded.|
 |drug_exposure_start_datetime|No|datetime|The start date and time for the current instance of Drug utilization. Valid entries include a start date of a prescription, the date a prescription was filled, or the date on which a Drug administration procedure was recorded.|
-|drug_exposure_end_date|No|date|The end date for the current instance of Drug utilization. It is not available from all sources.|
+|drug_exposure_end_date|Yes|date|The end date for the current instance of Drug utilization. It is not available from all sources.|
 |drug_exposure_end_datetime|No|datetime|The end date and time for the current instance of Drug utilization. It is not available from all sources.|
+|verbatim_end_date|No|date|The known end date of a drug_exposure as provided by the source|
 |drug_type_concept_id|Yes|integer| A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of Drug Exposure recorded. It indicates how the Drug Exposure was represented in the source data.|
 |stop_reason|No|varchar(20)|The reason the Drug was stopped. Reasons include regimen completed, changed, removed, etc.|
 |refills|No|integer|The number of refills after the initial prescription. The initial prescription is not counted, values start with 0.|
@@ -23,8 +24,6 @@ Field|Required|Type|Description
 |days_supply|No|integer|The number of days of supply of the medication as recorded in the original prescription or dispensing record.|
 |sig|No|clob|The directions ("signetur") on the Drug prescription as recorded in the original prescription (and printed on the container) or dispensing record.|
 |route_concept_id|No|integer|A foreign key to a predefined concept in the Standardized Vocabularies reflecting the route of administration.|
-|effective_drug_dose|No|float|Numerical value of Drug dose for this Drug Exposure record.|
-|dose_unit_concept_ id|No|integer|A foreign key to a predefined concept in the Standardized Vocabularies reflecting the unit the effective_drug_dose value is expressed.|
 |lot_number|No|varchar(50)|An identifier assigned to a particular quantity or lot of Drug product from the manufacturer.|
 |provider_id|No|integer|A foreign key to the provider in the provider table who initiated (prescribed or administered) the Drug Exposure.|
 |visit_occurrence_id|No|integer|A foreign key to the visit in the visit table during which the Drug Exposure was initiated.|
@@ -41,7 +40,7 @@ Field|Required|Type|Description
   * A Drug Type is assigned to each Drug Exposure to track from what source the information was drawn or inferred from. The valid domain_id for these Concepts is "Drug Type".
   * The content of the refills field determines the current number of refills, not the number of remaining refills. For example, for a drug prescription with 2 refills, the content of this field for the 3 Drug Exposure events are null, 1 and 2.
   * The route_concept_id refers to a Standard Concepts of the "Route" domain. Note: Route information can also be inferred from the Drug product itself by determining the Drug Form of the Concept, creating some partial overlap of the same type of information. However, the route_concept_id could resolve ambiguities of how a certain Drug Form is actually applied. For example, a "Solution" could be used orally or parentherally, and this field will make this determination. 
-  * The Effective Drug Dose and the Dose Unit Concepts are provided in cases when dose information is explicitly provided, as it is typically for pediatric and chemotherapeutic treatments. The domain_id for the Dose Unit Concept is "Unit". Note: this information can only be present if the Drug contains a single active ingredient. Combination products which have doses for each ingredient need to be recorded as separate records.
   * The lot_number field contains an identifier assigned from the manufacturer of the Drug product. 
   * If possible, the visit in which the drug was prescribed or delivered is recorded in the visit_occurrence_id field through a reference to the visit table.
   * If possible, the prescribing or administering provider (physician or nurse) is recorded in the provider_id field through a reference to the provider table.
+  * The drug_exposure_end_date denotes the day the drug exposure ended for the patient. This could be that the duration of drug_supply was reached (in which case drug_exposure_end_date = drug_exposure_start_date + days_supply -1), or because the exposure was stopped (medication changed, medication discontinued, etc.)

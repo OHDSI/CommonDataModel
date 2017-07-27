@@ -130,7 +130,26 @@ FROM omop_cdm.cdm_source;
 CREATE TABLE omop_cdm_parquet.person
 STORED AS PARQUET
 AS
-SELECT * from omop_cdm.person;
+SELECT
+ person_id,
+ gender_concept_id,
+ year_of_birth,
+ month_of_birth,
+ day_of_birth,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', CAST(year_of_birth AS STRING), SUBSTR(CONCAT('0', CAST(month_of_birth AS STRING)), -2), SUBSTR(CONCAT('0', CAST(day_of_birth AS STRING)), -2)), 'UTC') AS birth_datetime,
+ race_concept_id,
+ ethnicity_concept_id,
+ location_id,
+ provider_id,
+ care_site_id,
+ person_source_value,
+ gender_source_value,
+ gender_source_concept_id,
+ race_source_value,
+ race_source_concept_id,
+ ethnicity_source_value,
+ ethnicity_source_concept_id
+FROM omop_cdm.person;
 
 CREATE TABLE omop_cdm_parquet.observation_period
 STORED AS PARQUET
@@ -139,7 +158,9 @@ SELECT
  observation_period_id,
  person_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_start_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_start_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_start_date AS STRING), 7, 2)), 'UTC') AS observation_period_start_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_start_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_start_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_start_date AS STRING), 7, 2)), 'UTC') AS observation_period_start_datetime,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_end_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_end_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_end_date AS STRING), 7, 2)), 'UTC') AS observation_period_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_end_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_end_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_end_date AS STRING), 7, 2)), 'UTC') AS observation_period_end_datetime,
  period_type_concept_id
 FROM omop_cdm.observation_period;
 
@@ -152,7 +173,7 @@ SELECT
  specimen_concept_id,
  specimen_type_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(specimen_date AS STRING), 1, 4), SUBSTR(CAST(specimen_date AS STRING), 5, 2), SUBSTR(CAST(specimen_date AS STRING), 7, 2)), 'UTC') AS specimen_date,
- specimen_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(specimen_date AS STRING), 1, 4), SUBSTR(CAST(specimen_date AS STRING), 5, 2), SUBSTR(CAST(specimen_date AS STRING), 7, 2)), 'UTC') AS specimen_datetime,
  quantity, -- NUMERIC
  unit_concept_id,
  anatomic_site_concept_id,
@@ -170,6 +191,7 @@ AS
 SELECT
  person_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(death_date AS STRING), 1, 4), SUBSTR(CAST(death_date AS STRING), 5, 2), SUBSTR(CAST(death_date AS STRING), 7, 2)), 'UTC') AS death_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(death_date AS STRING), 1, 4), SUBSTR(CAST(death_date AS STRING), 5, 2), SUBSTR(CAST(death_date AS STRING), 7, 2)), 'UTC') AS death_datetime,
  death_type_concept_id,
  cause_concept_id,
  cause_source_value,
@@ -184,14 +206,19 @@ SELECT
  person_id,
  visit_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(visit_start_date AS STRING), 1, 4), SUBSTR(CAST(visit_start_date AS STRING), 5, 2), SUBSTR(CAST(visit_start_date AS STRING), 7, 2)), 'UTC') AS visit_start_date,
- visit_start_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(visit_start_date AS STRING), 1, 4), SUBSTR(CAST(visit_start_date AS STRING), 5, 2), SUBSTR(CAST(visit_start_date AS STRING), 7, 2)), 'UTC') AS visit_start_datetime,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(visit_end_date AS STRING), 1, 4), SUBSTR(CAST(visit_end_date AS STRING), 5, 2), SUBSTR(CAST(visit_end_date AS STRING), 7, 2)), 'UTC') AS visit_end_date,
- visit_end_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(visit_end_date AS STRING), 1, 4), SUBSTR(CAST(visit_end_date AS STRING), 5, 2), SUBSTR(CAST(visit_end_date AS STRING), 7, 2)), 'UTC') AS visit_end_datetime,
  visit_type_concept_id,
  provider_id,
  care_site_id,
  visit_source_value,
- visit_source_concept_id
+ visit_source_concept_id,
+ admitting_source_concept_id,
+ admitting_source_value,
+ discharge_to_concept_id,
+ discharge_to_source_value,
+ preceding_visit_occurrence_id
 FROM omop_cdm.visit_occurrence;
 
 CREATE TABLE omop_cdm_parquet.procedure_occurrence
@@ -202,6 +229,7 @@ SELECT
  person_id,
  procedure_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(procedure_date AS STRING), 1, 4), SUBSTR(CAST(procedure_date AS STRING), 5, 2), SUBSTR(CAST(procedure_date AS STRING), 7, 2)), 'UTC') AS procedure_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(procedure_date AS STRING), 1, 4), SUBSTR(CAST(procedure_date AS STRING), 5, 2), SUBSTR(CAST(procedure_date AS STRING), 7, 2)), 'UTC') AS procedure_datetime,
  procedure_type_concept_id,
  modifier_concept_id,
  quantity,
@@ -220,7 +248,10 @@ SELECT
  person_id,
  drug_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_start_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_start_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_start_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_start_date,
- TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_end_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_end_date, TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(verbatim_end_date AS STRING), 1, 4), SUBSTR(CAST(verbatim_end_date AS STRING), 5, 2), SUBSTR(CAST(verbatim_end_date AS STRING), 7, 2)), 'UTC') AS verbatim_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_start_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_start_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_start_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_start_datetime,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_end_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_end_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_end_datetime,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(verbatim_end_date AS STRING), 1, 4), SUBSTR(CAST(verbatim_end_date AS STRING), 5, 2), SUBSTR(CAST(verbatim_end_date AS STRING), 7, 2)), 'UTC') AS verbatim_end_date,
  drug_type_concept_id,
  stop_reason,
  refills,
@@ -228,8 +259,6 @@ SELECT
  days_supply,
  sig, -- TEXT
  route_concept_id,
- effective_drug_dose, -- NUMERIC
- dose_unit_concept_id,
  lot_number,
  provider_id,
  visit_occurrence_id,
@@ -247,7 +276,9 @@ SELECT
  person_id,
  device_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(device_exposure_start_date AS STRING), 1, 4), SUBSTR(CAST(device_exposure_start_date AS STRING), 5, 2), SUBSTR(CAST(device_exposure_start_date AS STRING), 7, 2)), 'UTC') AS device_exposure_start_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(device_exposure_start_date AS STRING), 1, 4), SUBSTR(CAST(device_exposure_start_date AS STRING), 5, 2), SUBSTR(CAST(device_exposure_start_date AS STRING), 7, 2)), 'UTC') AS device_exposure_start_datetime,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(device_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(device_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(device_exposure_end_date AS STRING), 7, 2)), 'UTC') AS device_exposure_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(device_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(device_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(device_exposure_end_date AS STRING), 7, 2)), 'UTC') AS device_exposure_end_datetime,
  device_type_concept_id,
  unique_device_id,
  quantity,
@@ -265,13 +296,17 @@ SELECT
  person_id,
  condition_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(condition_start_date AS STRING), 1, 4), SUBSTR(CAST(condition_start_date AS STRING), 5, 2), SUBSTR(CAST(condition_start_date AS STRING), 7, 2)), 'UTC') AS condition_start_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(condition_start_date AS STRING), 1, 4), SUBSTR(CAST(condition_start_date AS STRING), 5, 2), SUBSTR(CAST(condition_start_date AS STRING), 7, 2)), 'UTC') AS condition_start_datetime,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(condition_end_date AS STRING), 1, 4), SUBSTR(CAST(condition_end_date AS STRING), 5, 2), SUBSTR(CAST(condition_end_date AS STRING), 7, 2)), 'UTC') AS condition_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(condition_end_date AS STRING), 1, 4), SUBSTR(CAST(condition_end_date AS STRING), 5, 2), SUBSTR(CAST(condition_end_date AS STRING), 7, 2)), 'UTC') AS condition_end_datetime,
  condition_type_concept_id,
  stop_reason,
  provider_id,
  visit_occurrence_id,
  condition_source_value,
- condition_source_concept_id
+ condition_source_concept_id,
+ condition_status_source_value,
+ condition_status_concept_id
 FROM omop_cdm.condition_occurrence;
 
 CREATE TABLE omop_cdm_parquet.measurement
@@ -282,7 +317,7 @@ SELECT
  person_id,
  measurement_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(measurement_date AS STRING), 1, 4), SUBSTR(CAST(measurement_date AS STRING), 5, 2), SUBSTR(CAST(measurement_date AS STRING), 7, 2)), 'UTC') AS measurement_date,
- measurement_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(measurement_date AS STRING), 1, 4), SUBSTR(CAST(measurement_date AS STRING), 5, 2), SUBSTR(CAST(measurement_date AS STRING), 7, 2)), 'UTC') AS measurement_datetime,
  measurement_type_concept_id,
  operator_concept_id,
  value_as_number, -- NUMERIC
@@ -305,13 +340,41 @@ SELECT
  note_id,
  person_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(note_date AS STRING), 1, 4), SUBSTR(CAST(note_date AS STRING), 5, 2), SUBSTR(CAST(note_date AS STRING), 7, 2)), 'UTC') AS note_date,
- note_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(note_date AS STRING), 1, 4), SUBSTR(CAST(note_date AS STRING), 5, 2), SUBSTR(CAST(note_date AS STRING), 7, 2)), 'UTC') AS note_datetime,
  note_type_concept_id,
+ note_class_concept_id,
+ note_title,
  note_text, -- TEXT
+ encoding_concept_id,
+ language_concept_id,
  provider_id,
  visit_occurrence_id,
  note_source_value
 FROM omop_cdm.note;
+
+CREATE TABLE omop_cdm_parquet.note_nlp 
+STORED AS PARQUET
+AS
+SELECT 
+ note_nlp_id,
+ note_id,
+ section_concept_id,
+ snippet,
+ offset,
+ lexical_variant,
+ note_nlp_concept_id,
+ note_nlp_source_concept_id,
+ nlp_system,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(nlp_date AS STRING), 1, 4), SUBSTR(CAST(nlp_date AS STRING), 5, 2), SUBSTR(CAST(nlp_date AS STRING), 7, 2)), 'UTC') AS nlp_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(nlp_date AS STRING), 1, 4), SUBSTR(CAST(nlp_date AS STRING), 5, 2), SUBSTR(CAST(nlp_date AS STRING), 7, 2)), 'UTC') AS nlp_datetime,
+ term_exists,
+ term_temporal,
+ term_modifiers
+FROM omop_cdm.note_nlp;
+
+
+
+
 
 CREATE TABLE omop_cdm_parquet.observation
 STORED AS PARQUET
@@ -321,7 +384,7 @@ SELECT
  person_id,
  observation_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_date AS STRING), 1, 4), SUBSTR(CAST(observation_date AS STRING), 5, 2), SUBSTR(CAST(observation_date AS STRING), 7, 2)), 'UTC') AS observation_date,
- observation_time,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_date AS STRING), 1, 4), SUBSTR(CAST(observation_date AS STRING), 5, 2), SUBSTR(CAST(observation_date AS STRING), 7, 2)), 'UTC') AS observation_datetime,
  observation_type_concept_id,
  value_as_number, -- NUMERIC
  value_as_string,
@@ -369,29 +432,6 @@ SELECT
  family_source_value
 FROM omop_cdm.payer_plan_period;
 
-
-/* The individual cost tables are being phased out and will disappear soon
-
-CREATE TABLE omop_cdm_parquet.visit_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.visit_cost;
-
-CREATE TABLE omop_cdm_parquet.procedure_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.procedure_cost;
-
-CREATE TABLE omop_cdm_parquet.drug_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.drug_cost;
-
-CREATE TABLE omop_cdm_parquet.device_cost
-STORED AS PARQUET
-AS
-SELECT * from omop_cdm.device_cost;
-*/
 
 CREATE TABLE omop_cdm_parquet.cost
 STORED AS PARQUET
