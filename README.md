@@ -31,7 +31,7 @@ This version is based on the CDM working group proposals:
 Additional Updates
 ==================
 
-* Files to generate the '_ERA' tables are now availalbe in the [CodeExcerpts](https://github.com/OHDSI/CommonDataModel/tree/master/CodeExcerpts) folder
+* Files to generate the '_ERA' tables are now available in the [CodeExcerpts](https://github.com/OHDSI/CommonDataModel/tree/master/CodeExcerpts) folder
 * Redshift DDLs are now available
 
 This version is **backwards compatibile with v5.0.1**. 
