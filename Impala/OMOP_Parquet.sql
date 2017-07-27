@@ -220,7 +220,7 @@ SELECT
  person_id,
  drug_concept_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_start_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_start_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_start_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_start_date,
- TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_end_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_end_date,
+ TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(drug_exposure_end_date AS STRING), 1, 4), SUBSTR(CAST(drug_exposure_end_date AS STRING), 5, 2), SUBSTR(CAST(drug_exposure_end_date AS STRING), 7, 2)), 'UTC') AS drug_exposure_end_date, TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(verbatim_end_date AS STRING), 1, 4), SUBSTR(CAST(verbatim_end_date AS STRING), 5, 2), SUBSTR(CAST(verbatim_end_date AS STRING), 7, 2)), 'UTC') AS verbatim_end_date,
  drug_type_concept_id,
  stop_reason,
  refills,

@@ -17,16 +17,16 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######       #         ###   
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #            ##        #   #  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #           # #       #     # 
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######        #       #     # 
- #     # #     # #     # #          #       #     # #     #    #    #       # ###   #   ### #     # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###   #   ###  #   #  
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ### ##### ###   ###   
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####     
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #    
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #    
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####     
+ #     # #     # #     # #          #       #     # #     #    #    #       # ### #          
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #          
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ### #######   
                                                                                                     
 
-script to create OMOP common data model, version 5.1.0 for Hadoop (Hive/Impala) database
+script to create OMOP common data model, version 5.2 for Hadoop (Hive/Impala) database
 
 Based on the PostgreSQL version, with the following changes:
 * NULL/NOT NULL is not used.
@@ -248,7 +248,7 @@ CREATE TABLE person (
  year_of_birth INTEGER,
  month_of_birth INTEGER,
  day_of_birth INTEGER,
- time_of_birth VARCHAR(10),
+ birth_datetime VARCHAR(10),
  race_concept_id INTEGER,
  ethnicity_concept_id INTEGER,
  location_id INTEGER,
@@ -289,7 +289,7 @@ CREATE TABLE specimen (
  specimen_concept_id INTEGER,
  specimen_type_concept_id INTEGER,
  specimen_date VARCHAR(8), -- DATE
- specimen_time VARCHAR(10),
+ specimen_datetime VARCHAR(10),
  quantity DOUBLE, -- NUMERIC
  unit_concept_id INTEGER,
  anatomic_site_concept_id INTEGER,
@@ -323,14 +323,19 @@ CREATE TABLE visit_occurrence (
  person_id INTEGER,
  visit_concept_id INTEGER,
  visit_start_date VARCHAR(8), -- DATE
- visit_start_time VARCHAR(10),
+ visit_start_datetime VARCHAR(10),
  visit_end_date VARCHAR(8), -- DATE
- visit_end_time VARCHAR(10),
+ visit_end_datetime VARCHAR(10),
  visit_type_concept_id INTEGER,
  provider_id INTEGER,
  care_site_id INTEGER,
  visit_source_value VARCHAR(50),
- visit_source_concept_id INTEGER
+ visit_source_concept_id INTEGER,
+ admitting_source_concept_id	INTEGER,
+ admitting_source_value			VARCHAR(50),
+ discharge_to_concept_id		INTEGER(50),
+ discharge_to_source_value		VARCHAR(50),
+ preceding_visit_occurrence_id	INTEGER	
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -364,6 +369,7 @@ CREATE TABLE drug_exposure (
  drug_concept_id INTEGER,
  drug_exposure_start_date VARCHAR(8), -- DATE
  drug_exposure_end_date VARCHAR(8), -- DATE
+ verbatim_end_date VARCHAR(8), --DATE
  drug_type_concept_id INTEGER,
  stop_reason VARCHAR(20),
  refills INTEGER,
@@ -371,8 +377,6 @@ CREATE TABLE drug_exposure (
  days_supply INTEGER,
  sig STRING, -- TEXT
  route_concept_id INTEGER,
- effective_drug_dose DOUBLE, -- NUMERIC
- dose_unit_concept_id INTEGER,
  lot_number VARCHAR(50),
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
@@ -416,7 +420,9 @@ CREATE TABLE condition_occurrence (
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
  condition_source_value VARCHAR(50),
- condition_source_concept_id INTEGER
+ condition_source_concept_id INTEGER,
+ condition_status_source_value VARCHAR(50),
+ condition_status_concept_id INTEGER
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -429,7 +435,7 @@ CREATE TABLE measurement (
  person_id INTEGER,
  measurement_concept_id INTEGER,
  measurement_date VARCHAR(8), -- DATE
- measurement_time VARCHAR(10),
+ measurement_datetime VARCHAR(10),
  measurement_type_concept_id INTEGER,
  operator_concept_id INTEGER,
  value_as_number DOUBLE, -- NUMERIC
@@ -454,9 +460,13 @@ CREATE TABLE note (
  note_id INTEGER,
  person_id INTEGER,
  note_date VARCHAR(8), -- DATE
- note_time VARCHAR(10),
+ note_datetime VARCHAR(10),
  note_type_concept_id INTEGER,
+ note_class_concept_id INTEGER,
+ note_title VARCHAR(250),
  note_text STRING, -- TEXT
+ encoding_concept_id INTEGER,
+ language_concept_id INTEGER,
  provider_id INTEGER,
  visit_occurrence_id INTEGER,
  note_source_value VARCHAR(50)
@@ -464,13 +474,31 @@ CREATE TABLE note (
 ;
 
 
-
+CREATE TABLE note_nlp (
+ note_nlp_id BIGINT,
+ note_id INTEGER,
+ section_concept_id INTEGER,
+ snippet VARCHAR(250),
+ offset VARCHAR(250),
+ lexical_variant VARCHAR(250),
+ note_nlp_concept_id INTEGER,
+ note_nlp_source_concept_id INTEGER,
+ nlp_system VARCHAR(250),
+ nlp_date VARCHAR(8),
+ nlp_datetime VARCHAR(10),
+ term_exists VARCHAR(1),
+ term_temporal VARCHAR(50),
+ term_modifiers VARCHAR(2000)
+ )
+ ;
+ 
+ 
 CREATE TABLE observation (
  observation_id INTEGER,
  person_id INTEGER,
  observation_concept_id INTEGER,
  observation_date VARCHAR(8), -- DATE
- observation_time VARCHAR(10),
+ observation_datetime VARCHAR(10),
  observation_type_concept_id INTEGER,
  value_as_number DOUBLE, -- NUMERIC
  value_as_string VARCHAR(60),
@@ -581,83 +609,6 @@ CREATE TABLE payer_plan_period (
 ;
 
 
-/* The individual cost tables are being phased out and will disappear soon
-
-CREATE TABLE visit_cost (
- visit_cost_id INTEGER,
- visit_occurrence_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-
-
-
-CREATE TABLE procedure_cost (
- procedure_cost_id INTEGER,
- procedure_occurrence_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- revenue_code_concept_id INTEGER,
- payer_plan_period_id INTEGER,
- revenue_code_source_value VARCHAR(50)
-)
-;
-
-
-
-CREATE TABLE drug_cost (
- drug_cost_id INTEGER,
- drug_exposure_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- ingredient_cost DECIMAL(19,4), -- NUMERIC
- dispensing_fee DECIMAL(19,4), -- NUMERIC
- average_wholesale_price DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-
-
-
-
-
-CREATE TABLE device_cost (
- device_cost_id INTEGER,
- device_exposure_id INTEGER,
- currency_concept_id INTEGER,
- paid_copay DECIMAL(19,4), -- NUMERIC
- paid_coinsurance DECIMAL(19,4), -- NUMERIC
- paid_toward_deductible DECIMAL(19,4), -- NUMERIC
- paid_by_payer DECIMAL(19,4), -- NUMERIC
- paid_by_coordination_benefits DECIMAL(19,4), -- NUMERIC
- total_out_of_pocket DECIMAL(19,4), -- NUMERIC
- total_paid DECIMAL(19,4), -- NUMERIC
- payer_plan_period_id INTEGER
-)
-;
-*/
-
-
 CREATE TABLE cost (
  cost_id INTEGER,
  cost_event_id INTEGER,
@@ -678,7 +629,9 @@ CREATE TABLE cost (
  payer_plan_period_id INTEGER,
  amount_allowed DECIMAL(19,4), -- NUMERIC
  revenue_code_concept_id INTEGER,
- reveue_code_source_value VARCHAR(50) 
+ reveue_code_source_value VARCHAR(50),
+ drg_concept_id			INTEGER,
+ drg_source_value		VARCHAR(3)
 )
 ;
 
