@@ -289,7 +289,7 @@ CREATE TABLE specimen (
  specimen_concept_id INTEGER,
  specimen_type_concept_id INTEGER,
  specimen_date VARCHAR(8), -- DATE
- specimen_time VARCHAR(10),
+ specimen_datetime VARCHAR(10),
  quantity DOUBLE, -- NUMERIC
  unit_concept_id INTEGER,
  anatomic_site_concept_id INTEGER,
@@ -323,9 +323,9 @@ CREATE TABLE visit_occurrence (
  person_id INTEGER,
  visit_concept_id INTEGER,
  visit_start_date VARCHAR(8), -- DATE
- visit_start_time VARCHAR(10),
+ visit_start_datetime VARCHAR(10),
  visit_end_date VARCHAR(8), -- DATE
- visit_end_time VARCHAR(10),
+ visit_end_datetime VARCHAR(10),
  visit_type_concept_id INTEGER,
  provider_id INTEGER,
  care_site_id INTEGER,
@@ -435,7 +435,7 @@ CREATE TABLE measurement (
  person_id INTEGER,
  measurement_concept_id INTEGER,
  measurement_date VARCHAR(8), -- DATE
- measurement_time VARCHAR(10),
+ measurement_datetime VARCHAR(10),
  measurement_type_concept_id INTEGER,
  operator_concept_id INTEGER,
  value_as_number DOUBLE, -- NUMERIC
@@ -460,7 +460,7 @@ CREATE TABLE note (
  note_id INTEGER,
  person_id INTEGER,
  note_date VARCHAR(8), -- DATE
- note_time VARCHAR(10),
+ note_datetime VARCHAR(10),
  note_type_concept_id INTEGER,
  note_class_concept_id INTEGER,
  note_title VARCHAR(250),
@@ -485,7 +485,7 @@ CREATE TABLE note_nlp (
  note_nlp_source_concept_id INTEGER,
  nlp_system VARCHAR(250),
  nlp_date VARCHAR(8),
- nlp_time VARCHAR(10),
+ nlp_datetime VARCHAR(10),
  term_exists VARCHAR(1),
  term_temporal VARCHAR(50),
  term_modifiers VARCHAR(2000)
@@ -498,7 +498,7 @@ CREATE TABLE observation (
  person_id INTEGER,
  observation_concept_id INTEGER,
  observation_date VARCHAR(8), -- DATE
- observation_time VARCHAR(10),
+ observation_datetime VARCHAR(10),
  observation_type_concept_id INTEGER,
  value_as_number DOUBLE, -- NUMERIC
  value_as_string VARCHAR(60),
