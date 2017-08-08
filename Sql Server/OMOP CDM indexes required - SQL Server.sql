@@ -131,8 +131,7 @@ CREATE CLUSTERED INDEX idx_note_person_id ON note (person_id ASC);
 CREATE INDEX idx_note_concept_id ON note (note_type_concept_id ASC);
 CREATE INDEX idx_note_visit_id ON note (visit_occurrence_id ASC);
 
-CREATE CLUSTERED INDEX idx_note_nlp_person_id ON note_nlp (person_id ASC);
-CREATE INDEX idx_note_nlp_note_id ON note_nlp (note_id ASC);
+CREATE CLUSTERED INDEX idx_note_nlp_note_id ON note_nlp (note_id ASC);
 CREATE INDEX idx_note_nlp_concept_id ON note_nlp (note_nlp_concept_id ASC);
 
 CREATE CLUSTERED INDEX idx_observation_person_id ON observation (person_id ASC);

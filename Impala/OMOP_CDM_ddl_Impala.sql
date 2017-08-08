@@ -333,7 +333,7 @@ CREATE TABLE visit_occurrence (
  visit_source_concept_id INTEGER,
  admitting_source_concept_id	INTEGER,
  admitting_source_value			VARCHAR(50),
- discharge_to_concept_id		INTEGER(50),
+ discharge_to_concept_id		INTEGER,
  discharge_to_source_value		VARCHAR(50),
  preceding_visit_occurrence_id	INTEGER	
 )
