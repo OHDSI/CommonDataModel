@@ -465,7 +465,7 @@ CREATE TABLE note_nlp
   note_id						INTEGER			NOT NULL ,
   section_concept_id			INTEGER			NULL ,
   snippet						VARCHAR(250)	NULL ,
-  offset						VARCHAR(250)	NULL ,
+  "offset"						VARCHAR(250)	NULL ,
   lexical_variant				VARCHAR(250)	NOT NULL ,
   note_nlp_concept_id			INTEGER			NULL ,
   note_nlp_source_concept_id	INTEGER			NULL ,

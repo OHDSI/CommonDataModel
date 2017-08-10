@@ -126,7 +126,7 @@ ALTER TABLE measurement ADD CONSTRAINT xpk_measurement PRIMARY KEY ( measurement
 
 ALTER TABLE note ADD CONSTRAINT xpk_note PRIMARY KEY ( note_id ) ;
 
-ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY NONCLUSTERED ( note_nlp_id ) ;
+ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY ( note_nlp_id ) ;
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY ( observation_id ) ;
 
@@ -351,8 +351,6 @@ ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_concept FOREIGN KEY (drug_conc
 ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_type_concept FOREIGN KEY (drug_type_concept_id)  REFERENCES concept (concept_id);
 
 ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_route_concept FOREIGN KEY (route_concept_id)  REFERENCES concept (concept_id);
-
-ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_dose_unit_concept FOREIGN KEY (dose_unit_concept_id)  REFERENCES concept (concept_id);
 
 ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
