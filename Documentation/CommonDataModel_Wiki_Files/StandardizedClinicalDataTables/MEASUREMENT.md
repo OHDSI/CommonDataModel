@@ -16,6 +16,7 @@ Field|Required|Type|Description
 |range_high|No|float|The upper limit of the normal range of the Measurement. The upper range is assumed to be of the same unit of measure as the Measurement value.|
 |provider_id|No|integer|A foreign key to the provider in the PROVIDER table who was responsible for initiating or obtaining the measurement.|
 |visit_occurrence_id|No|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Measurement was recorded.|
+|visit_detail_id|No|integer|A foreign key to the Visit in the VISIT_DETAIL table during which the Measurement was recorded.|
 |measurement_source_value|No|varchar(50)|The Measurement name as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is stored here for reference.|
 |measurement_source_concept_id|No|integer|A foreign key to a Concept in the Standard Vocabularies that refers to the code used in the source.|
 |unit_source_value|No|varchar(50)|The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is stored here for reference.|
