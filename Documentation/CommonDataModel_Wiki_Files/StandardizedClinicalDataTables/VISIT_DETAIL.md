@@ -36,8 +36,8 @@ Field|Required|Type|Description
   * One visit may involve multiple Care Sites, in which case, in visit_occurrence, the ETL must specify how a single care_site id is selected or leave the care_site_id field null. Visit_detail allows for ETL to speicify multiple child records per visit_occurrence - and each of these child may represent different care_sites.
   * Just like in visit_occurrence, records in visit_detail may be sequentially related to each. These sequential relations are represented using preceding_visit_detail_id
   * Unlike visit_occurrence, visit_detail may have nested visits with hierarchial relationships to each other. 
+  * Representation of US claim data: US claims data generally has two-levels. Header/summary data that summarizes the entire claim; Line/detail that details a claim. Detail is thus a child of the summary, and for every record in summary there is one or more records in detail. i.e. there will be atleast one FK link from visit_detail to visit_occurrence.
  
  Example: an entire inpatient stay maybe one record in visit_occurrence table. This may have one or more detail information such as ER, ICU, medical floor, rehabilitation floor etc. Each of these visit_details may have different start/end date-times, different concept_id's and fact_id's - that would be separate record in visit_detail with a FK link to visit_occurrence. Each record within visit_detail maybe related to each other, sequentially –> ER leading to ICU leading to medical floor, leading to rehabilitation, or in hierarchical parent-child visit –> a visit for dialysis while in ICU.
 
 
-Reference: https://github.com/OHDSI/CommonDataModel/issues/70
