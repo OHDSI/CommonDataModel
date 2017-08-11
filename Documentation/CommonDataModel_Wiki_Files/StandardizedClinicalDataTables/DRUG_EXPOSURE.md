@@ -31,6 +31,7 @@ Field|Required|Type|Description
 |drug_source_concept_id|No|integer|A foreign key to a Drug Concept that refers to the code used in the source.|
 |route_source_value|No|varchar(50)|The information about the route of administration as detailed in the source.|
 |dose_unit_source_value|No|varchar(50)|The information about the dose unit as detailed in the source.|
+|visit_detail_id|No|integer|A foreign key to the visit in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 
 ### Conventions 
 
