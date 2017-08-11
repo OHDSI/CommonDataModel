@@ -1,4 +1,5 @@
-The VISIT_DETAIL table is an optional table used to represents details of each record in the parent visit_occurrence table. For every record in visit_occurrence table there may be 0 or more records in the visit_detail table with a 1:n relationship where n may be 0. The visit_detail table is structurally very similar to visit_occurrence table and belongs to the same visit-domain in OMOP CDM. The two key difference from visit_occurrence is the presence of new foreign keys pointing to itself (visit_detail_parent_id) and to visit_occurrence table (visit_occurrence_id)
+The VISIT_DETAIL table is an optional table used to represents details of each record in the parent visit_occurrence table. For every record in visit_occurrence table there may be 0 or more records in the visit_detail table with a 1:n relationship where n may be 0. The visit_detail table is structurally very similar to visit_occurrence table and belongs to the similar domain as the visit. 
+
 
 Field|Required|Type|Description
 :------------------------|:--------|:-----|:-------------------------------------------------
@@ -40,4 +41,6 @@ Field|Required|Type|Description
  
  Example: an entire inpatient stay maybe one record in visit_occurrence table. This may have one or more detail information such as ER, ICU, medical floor, rehabilitation floor etc. Each of these visit_details may have different start/end date-times, different concept_id's and fact_id's - that would be separate record in visit_detail with a FK link to visit_occurrence. Each record within visit_detail maybe related to each other, sequentially –> ER leading to ICU leading to medical floor, leading to rehabilitation, or in hierarchical parent-child visit –> a visit for dialysis while in ICU.
 
-
+Note the concept-id for visits is 9, and is shared between visit_occurrence and visit_detail in OMOP CDM. The key deviation from visit_occurrence is
+- self-referencing key: a new foreign key visit_detail_parent_id allows self referencing for nested visits.
+- visit_detail points to its parent record in visit_occurrence table (visit_occurrence_id)
