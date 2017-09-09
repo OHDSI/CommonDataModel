@@ -15,6 +15,7 @@ Field|Required|Type|Description
 |unit_concept_id|No|integer|A foreign key to a Standard Concept ID of measurement units in the Standardized Vocabularies.|
 |provider_id|No|integer|A foreign key to the provider in the PROVIDER table who was responsible for making the observation.|
 |visit_occurrence_id|No|integer|A foreign key to the visit in the VISIT_OCCURRENCE table during which the observation was recorded.|
+|visit_detail_id|No|integer|A foreign key to the visit in the VISIT_DETAIL table during which the observation was recorded.|
 |observation_source_value|No|varchar(50)|The observation code as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is, stored here for reference.|
 |observation_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
 |unit_source_value|No|varchar(50)|The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is, stored here for reference.|

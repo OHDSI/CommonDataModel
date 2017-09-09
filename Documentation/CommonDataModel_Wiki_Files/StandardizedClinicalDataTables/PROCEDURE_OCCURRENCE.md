@@ -18,6 +18,7 @@ Field|Required|Type|Description
 |procedure_source_value|No|varchar(50)|The source code for the Procedure as it appears in the source data. This code is mapped to a standard procedure Concept in the Standardized Vocabularies and the original code is, stored here for reference. Procedure source codes are typically ICD-9-Proc, CPT-4, HCPCS or OPCS-4 codes.|
 |procedure_source_concept_id|No|integer|A foreign key to a Procedure Concept that refers to the code used in the source.|
 |qualifier_source_value|No|varchar(50)|The source code for the qualifier as it appears in the source data.|
+|visit_detail_id|No|integer|A foreign key to the visit in the visit table during which the Procedure was carried out.|
 
 ### Conventions 
 
