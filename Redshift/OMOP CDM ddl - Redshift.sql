@@ -54,7 +54,7 @@ create table concept
     concept_code 		varchar(50)		null, 
     valid_start_date 	date			not null, 
     valid_end_date 		date			not null, 
-    invalid_reason 		varchar(1)		null
+    invalid_reason 		char(1)		null
 )
 diststyle all;
 
@@ -92,7 +92,7 @@ create table concept_relationship
     relationship_id		varchar(20) not null, 
     valid_start_date	date 		not null, 
     valid_end_date 		date 		not null, 
-    invalid_reason 		varchar(1) 	null
+    invalid_reason 		char(1) 	null
 )
 diststyle all;
 
@@ -101,8 +101,8 @@ create table relationship
 (
   relationship_id			varchar(20)		not null,
   relationship_name			varchar(255)	not null,
-  is_hierarchical			varchar(1)		not null,
-  defines_ancestry			varchar(1)		not null,
+  is_hierarchical			char(1)		not null,
+  defines_ancestry			char(1)		not null,
   reverse_relationship_id	varchar(20)		not null,
   relationship_concept_id	integer			not null
 )
@@ -137,7 +137,7 @@ create table source_to_concept_map
   target_vocabulary_id		varchar(20)		not null,
   valid_start_date			date			not null,
   valid_end_date			date			not null,
-  invalid_reason			varchar(1)		null
+  invalid_reason			char(1)		null
 )
 diststyle all;
 
@@ -154,7 +154,7 @@ create table drug_strength
   box_size						integer		null,
   valid_start_date				date		not null,
   valid_end_date				date		not null,
-  invalid_reason				varchar(1)	null
+  invalid_reason				char(1)	null
 )
 diststyle all;
 
@@ -474,7 +474,7 @@ CREATE TABLE note_nlp
   nlp_system					varchar(250)	null ,
   nlp_date						date			not null ,
   nlp_datetime					timestamp		null ,
-  term_exists					varchar(1)		null ,
+  term_exists					char(1)		null ,
   term_temporal					varchar(50)		null ,
   term_modifiers				varchar(2000)	null
 )
@@ -534,7 +534,7 @@ create table location
   address_1						varchar(50)		null ,
   address_2						varchar(50)		null ,
   city							varchar(50)		null ,
-  state							varchar(2)		null ,
+  state							char(2)		null ,
   zip							varchar(9)		null ,
   county						varchar(20)		null ,
   location_source_value			varchar(50)		null
@@ -705,7 +705,7 @@ create table cost
   revenue_code_concept_id	integer			null ,
   reveue_code_source_value  varchar(50)		null ,
   drg_concept_id			integer			null,
-  drg_source_value			varchar(3)		null
+  drg_source_value			char(3)		null
 )
 distkey(payer_plan_period_id)
 sortkey(payer_plan_period_id);

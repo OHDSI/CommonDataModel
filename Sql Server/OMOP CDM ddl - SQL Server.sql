@@ -529,7 +529,7 @@ CREATE TABLE location
   address_1						VARCHAR(50)		NULL ,
   address_2						VARCHAR(50)		NULL ,
   city							VARCHAR(50)		NULL ,
-  state							VARCHAR(2)		NULL ,
+  state							CHAR(2)		NULL ,
   zip							VARCHAR(9)		NULL ,
   county							VARCHAR(20)		NULL ,
   location_source_value			VARCHAR(50)		NULL
@@ -615,7 +615,7 @@ CREATE TABLE cost
   revenue_code_concept_id		INTEGER			NULL ,
   reveue_code_source_value    VARCHAR(50)    NULL,
   drg_concept_id			INTEGER		NULL,
-  drg_source_value			VARCHAR(3)		NULL
+  drg_source_value			CHAR(3)		NULL
 )
 ;
 
