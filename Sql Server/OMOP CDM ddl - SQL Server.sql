@@ -312,7 +312,7 @@ CREATE TABLE visit_occurrence
   provider_id					INTEGER			NULL,
   care_site_id					INTEGER			NULL,
   visit_source_value				VARCHAR(50)		NULL,
-  visit_source_concept_id		INTEGER			NULL
+  visit_source_concept_id		INTEGER			NULL ,
   admitting_source_concept_id	INTEGER			NULL ,
   admitting_source_value		VARCHAR(50)		NULL ,
   discharge_to_concept_id		INTEGER			NULL ,
