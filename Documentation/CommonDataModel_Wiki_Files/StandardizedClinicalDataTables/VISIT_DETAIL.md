@@ -21,7 +21,7 @@ Field|Required|Type|Description
 |discharge_to_concept_id|	Integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
 |preceding_visit_detail_id	|Integer|	No	|A foreign key to the VISIT_DETAIL table of the visit immediately preceding this visit|
 |visit_detail_parent_id	|Integer|	No	|A foreign key to the VISIT_DETAIL table record to represent the immediate parent visit-detail record.|
-|visit_occurrence_id	|Integer|	No	|A foreign key that refers to the record in the VISIT_OCCURRENCE table|
+|visit_occurrence_id	|Integer|	Yes	|A foreign key that refers to the record in the VISIT_OCCURRENCE table. This is a required field, because for every visit_detail is a child of visit_occurrence and cannot exist without a corresponding parent record in visit_occurrence.|
 
 ### Conventions 
 
