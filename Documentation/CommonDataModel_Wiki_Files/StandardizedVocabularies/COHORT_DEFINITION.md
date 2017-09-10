@@ -8,7 +8,7 @@ Field|Required|Type|Description
 |definition_type_concept_id|Yes|integer|Type defining what kind of Cohort Definition the record represents and how the syntax may be executed|
 |cohort_definition_syntax|No|CLOB|Syntax or code to operationalize the Cohort definition|
 |subject_concept_id|Yes|integer|A foreign key to the Concept to which defines the domain of subjects that are members of the cohort (e.g., Person, Provider, Visit).|
-|cohort_instantiation_date|No|Date|A date to indicate when the Cohort was instantiated in the COHORT table|
+|cohort_initiation_date|No|Date|A date to indicate when the Cohort was initiated in the COHORT table|
 
 ### Conventions
   * The cohort_definition_syntax does not prescribe any specific syntax or programming language. Typically, it would be any flavor SQL, a cohort definition language, or a free-text description of the algorithm. 
