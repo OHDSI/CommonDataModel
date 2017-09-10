@@ -114,6 +114,8 @@ ALTER TABLE death ADD CONSTRAINT xpk_death PRIMARY KEY ( person_id ) ;
 
 ALTER TABLE visit_occurrence ADD CONSTRAINT xpk_visit_occurrence PRIMARY KEY ( visit_occurrence_id ) ;
 
+ALTER TABLE visit_detail ADD CONSTRAINT xpk_visit_detail PRIMARY KEY ( visit_detail_id ) ;
+
 ALTER TABLE procedure_occurrence ADD CONSTRAINT xpk_procedure_occurrence PRIMARY KEY ( procedure_occurrence_id ) ;
 
 ALTER TABLE drug_exposure ADD CONSTRAINT xpk_drug_exposure PRIMARY KEY ( drug_exposure_id ) ;
@@ -329,6 +331,27 @@ ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (a
 ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_discharge FOREIGN KEY (discharge_to_concept_id) REFERENCES concept (concept_id);
 
 
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_detail_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_detail_concept FOREIGN KEY (visit_detail_concept_id)  REFERENCES concept (concept_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_type_concept FOREIGN KEY (visit_type_concept_id)  REFERENCES concept (concept_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_care_site FOREIGN KEY (care_site_id)  REFERENCES care_site (care_site_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_concept_s FOREIGN KEY (visit_source_concept_id)  REFERENCES concept (concept_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_source_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_discharge FOREIGN KEY (discharge_to_concept_id) REFERENCES concept (concept_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_detail_parent FOREIGN KEY (visit_detail_parent_id) REFERENCES visit_detail (visit_detail_id);
+
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_occurrence FOREIGN KEY (visit_occurrence_id) REFERENCES visit_occurrence (visit_occurrence_id);
+
+
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
 
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_concept FOREIGN KEY (procedure_concept_id)  REFERENCES concept (concept_id);
@@ -340,6 +363,8 @@ ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_modifier FOREIGN K
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
+
+ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
 
 ALTER TABLE procedure_occurrence ADD CONSTRAINT fpk_procedure_concept_s FOREIGN KEY (procedure_source_concept_id)  REFERENCES concept (concept_id);
 
@@ -356,6 +381,8 @@ ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_provider FOREIGN KEY (provider
 
 ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
 
+ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
+
 ALTER TABLE drug_exposure ADD CONSTRAINT fpk_drug_concept_s FOREIGN KEY (drug_source_concept_id)  REFERENCES concept (concept_id);
 
 
@@ -369,6 +396,8 @@ ALTER TABLE device_exposure ADD CONSTRAINT fpk_device_provider FOREIGN KEY (prov
 
 ALTER TABLE device_exposure ADD CONSTRAINT fpk_device_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
 
+ALTER TABLE device_exposure ADD CONSTRAINT fpk_device_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
+
 ALTER TABLE device_exposure ADD CONSTRAINT fpk_device_concept_s FOREIGN KEY (device_source_concept_id)  REFERENCES concept (concept_id);
 
 
@@ -381,6 +410,8 @@ ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_type_concept FOREI
 ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
 ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
+
+ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
 
 ALTER TABLE condition_occurrence ADD CONSTRAINT fpk_condition_concept_s FOREIGN KEY (condition_source_concept_id)  REFERENCES concept (concept_id);
 
@@ -403,6 +434,8 @@ ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_provider FOREIGN KEY (pro
 
 ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
 
+ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
+
 ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_concept_s FOREIGN KEY (measurement_source_concept_id)  REFERENCES concept (concept_id);
 
 
@@ -419,6 +452,8 @@ ALTER TABLE note ADD CONSTRAINT fpk_language_concept FOREIGN KEY (language_conce
 ALTER TABLE note ADD CONSTRAINT fpk_note_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
 ALTER TABLE note ADD CONSTRAINT fpk_note_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
+
+ALTER TABLE note ADD CONSTRAINT fpk_note_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
 
 
 ALTER TABLE note_nlp ADD CONSTRAINT fpk_note_nlp_note FOREIGN KEY (note_id) REFERENCES note (note_id);
@@ -443,6 +478,8 @@ ALTER TABLE observation ADD CONSTRAINT fpk_observation_unit FOREIGN KEY (unit_co
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_provider FOREIGN KEY (provider_id)  REFERENCES provider (provider_id);
 
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_visit FOREIGN KEY (visit_occurrence_id)  REFERENCES visit_occurrence (visit_occurrence_id);
+
+ALTER TABLE observation ADD CONSTRAINT fpk_observation_visit_detail FOREIGN KEY (visit_detail_id)  REFERENCES visit_detail (visit_detail_id);
 
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_concept_s FOREIGN KEY (observation_source_concept_id)  REFERENCES concept (concept_id);
 
