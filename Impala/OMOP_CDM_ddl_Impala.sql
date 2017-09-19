@@ -50,11 +50,11 @@ CREATE TABLE concept (
  domain_id VARCHAR(20),
  vocabulary_id VARCHAR(20),
  concept_class_id VARCHAR(20),
- standard_concept VARCHAR(1),
+ standard_concept CHAR(1),
  concept_code VARCHAR(50),
  valid_start_date VARCHAR(8), -- DATE
  valid_end_date VARCHAR(8), -- DATE
- invalid_reason VARCHAR(1)
+ invalid_reason CHAR(1)
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -106,7 +106,7 @@ CREATE TABLE concept_relationship (
  relationship_id VARCHAR(20),
  valid_start_date VARCHAR(8), -- DATE
  valid_end_date VARCHAR(8), -- DATE
- invalid_reason VARCHAR(1)
+ invalid_reason CHAR(1)
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -117,8 +117,8 @@ TBLPROPERTIES ("skip.header.line.count"="1")
 CREATE TABLE relationship (
  relationship_id VARCHAR(20),
  relationship_name VARCHAR(255),
- is_hierarchical VARCHAR(1),
- defines_ancestry VARCHAR(1),
+ is_hierarchical CHAR(1),
+ defines_ancestry CHAR(1),
  reverse_relationship_id VARCHAR(20),
  relationship_concept_id INTEGER
 )
@@ -158,7 +158,7 @@ CREATE TABLE source_to_concept_map (
  target_vocabulary_id VARCHAR(20),
  valid_start_date VARCHAR(8), -- DATE
  valid_end_date VARCHAR(8), -- DATE
- invalid_reason VARCHAR(1)
+ invalid_reason CHAR(1)
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -179,7 +179,7 @@ CREATE TABLE drug_strength (
  box_size INTEGER,
  valid_start_date VARCHAR(8), -- DATE
  valid_end_date VARCHAR(8), -- DATE
- invalid_reason VARCHAR(1)
+ invalid_reason CHAR(1)
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
 TBLPROPERTIES ("skip.header.line.count"="1")
@@ -486,7 +486,7 @@ CREATE TABLE note_nlp (
  nlp_system VARCHAR(250),
  nlp_date VARCHAR(8),
  nlp_datetime VARCHAR(10),
- term_exists VARCHAR(1),
+ term_exists CHAR(1),
  term_temporal VARCHAR(50),
  term_modifiers VARCHAR(2000)
  )
@@ -543,7 +543,7 @@ CREATE TABLE `location` (
  address_1 VARCHAR(50),
  address_2 VARCHAR(50),
  city VARCHAR(50),
- state VARCHAR(2),
+ state CHAR(2),
  zip VARCHAR(9),
  county VARCHAR(20),
  location_source_value VARCHAR(50)
@@ -631,7 +631,7 @@ CREATE TABLE cost (
  revenue_code_concept_id INTEGER,
  reveue_code_source_value VARCHAR(50),
  drg_concept_id			INTEGER,
- drg_source_value		VARCHAR(3)
+ drg_source_value		CHAR(3)
 )
 ;
 

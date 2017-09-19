@@ -49,11 +49,11 @@ CREATE TABLE concept (
   domain_id				VARCHAR(20)		NOT NULL,
   vocabulary_id			VARCHAR(20)		NOT NULL,
   concept_class_id		VARCHAR(20)		NOT NULL,
-  standard_concept		VARCHAR(1)		NULL,
+  standard_concept		CHAR(1)		NULL,
   concept_code			VARCHAR(50)		NOT NULL,
   valid_start_date		DATE			NOT NULL,
   valid_end_date		DATE			NOT NULL,
-  invalid_reason		VARCHAR(1)		NULL
+  invalid_reason		CHAR(1)		NULL
 )
 ;
 
@@ -97,7 +97,7 @@ CREATE TABLE concept_relationship (
   relationship_id		VARCHAR(20)		NOT NULL,
   valid_start_date		DATE			NOT NULL,
   valid_end_date		DATE			NOT NULL,
-  invalid_reason		VARCHAR(1)		NULL)
+  invalid_reason		CHAR(1)		NULL)
 ;
 
 
@@ -105,8 +105,8 @@ CREATE TABLE concept_relationship (
 CREATE TABLE relationship (
   relationship_id			VARCHAR(20)		NOT NULL,
   relationship_name			VARCHAR(255)	NOT NULL,
-  is_hierarchical			VARCHAR(1)		NOT NULL,
-  defines_ancestry			VARCHAR(1)		NOT NULL,
+  is_hierarchical			CHAR(1)		NOT NULL,
+  defines_ancestry			CHAR(1)		NOT NULL,
   reverse_relationship_id	VARCHAR(20)		NOT NULL,
   relationship_concept_id	INTEGER			NOT NULL
 )
@@ -140,7 +140,7 @@ CREATE TABLE source_to_concept_map (
   target_vocabulary_id		VARCHAR(20)		NOT NULL,
   valid_start_date			DATE			NOT NULL,
   valid_end_date			DATE			NOT NULL,
-  invalid_reason			VARCHAR(1)		NULL
+  invalid_reason			CHAR(1)		NULL
 )
 ;
 
@@ -159,7 +159,7 @@ CREATE TABLE drug_strength (
   box_size						INTEGER		NULL,
   valid_start_date				DATE		NOT NULL,
   valid_end_date				DATE		NOT NULL,
-  invalid_reason				VARCHAR(1)	NULL
+  invalid_reason				CHAR(1)	NULL
 )
 ;
 
@@ -472,7 +472,7 @@ CREATE TABLE note_nlp
   nlp_system					VARCHAR(250)	NULL ,
   nlp_date						DATE			NOT NULL ,
   nlp_datetime					TIMESTAMP		NULL ,
-  term_exists					VARCHAR(1)		NULL ,
+  term_exists					CHAR(1)		NULL ,
   term_temporal					VARCHAR(50)		NULL ,
   term_modifiers				VARCHAR(2000)	NULL
 )
@@ -530,7 +530,7 @@ CREATE TABLE location
      address_1						VARCHAR(50)		NULL , 
      address_2						VARCHAR(50)		NULL , 
      city							VARCHAR(50)		NULL , 
-     state							VARCHAR(2)		NULL , 
+     state							CHAR(2)		NULL , 
      zip							VARCHAR(9)		NULL , 
      county							VARCHAR(20)		NULL , 
      location_source_value			VARCHAR(50)		NULL
@@ -618,7 +618,7 @@ CREATE TABLE cost
      revenue_code_concept_id		INTEGER			NULL , 
      reveue_code_source_value    VARCHAR(50)   NULL ,
 	 drg_concept_id			INTEGER		NULL,
-     drg_source_value		VARCHAR(3)		NULL
+     drg_source_value		CHAR(3)		NULL
     ) 
 ;
 
