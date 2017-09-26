@@ -27,7 +27,7 @@ Field|Required|Type|Description
 
   * All conventions used in Visit occurrence apply to visit detail, some notable exceptions:
   * A Visit Detail is an optional detail record for each visit-occurrence to a healthcare facility. For every record in visit_detail there has to be a parent visit_occurrence record.
-  * One record is visit_detail can only have one visit_occurrence parent.
+  * One record in visit_detail can only have one visit_occurrence parent.
   * A single visit_occurrence record may have many child visit_detail records.
   * Valid Visit Concepts belong to the "Visit" domain. Standard Visit Concepts are yet to be defined, but will represent a detail of the standard visit concept in visit-occurrence.
   * Handling of death: Is same as visit_occurrence
