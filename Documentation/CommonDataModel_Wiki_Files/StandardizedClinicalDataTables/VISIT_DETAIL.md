@@ -5,7 +5,7 @@ Field|Required|Type|Description
 :------------------------|:--------|:-----|:-------------------------------------------------
 |visit_detail_id|Yes|integer|A unique identifier for each Person's visit or encounter at a healthcare provider.|
 |person_id|Yes|integer|A foreign key identifier to the Person for whom the visit is recorded. The demographic details of that Person are stored in the PERSON table.|
-|visit_detail_concept_id|Yes|integer|A foreign key that refers to a visit Concept identifier in the Standardized Vocabularies.|
+|visit_concept_id|Yes|integer|A foreign key that refers to a visit Concept identifier in the Standardized Vocabularies.|
 |visit_start_date|Yes|date|The start date of the visit.|
 |visit_start_datetime|No|datetime|The date and time of the visit started.|
 |visit_end_date|Yes|date|The end date of the visit. If this is a one-day visit the end date should match the start date.|
