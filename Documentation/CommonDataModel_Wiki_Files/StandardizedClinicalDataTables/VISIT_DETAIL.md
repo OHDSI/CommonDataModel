@@ -25,22 +25,24 @@ Field|Required|Type|Description
 
 ### Conventions 
 
-  * All conventions used in Visit occurrence apply to visit detail, some notable exceptions:
-  * A Visit Detail is an optional detail record for each visit-occurrence to a healthcare facility. For every record in visit_detail there has to be a parent visit_occurrence record.
-  * One record in visit_detail can only have one visit_occurrence parent.
-  * A single visit_occurrence record may have many child visit_detail records.
-  * Valid Visit Concepts belong to the "Visit" domain. Standard Visit Concepts are yet to be defined, but will represent a detail of the standard visit concept in visit-occurrence.
-  * Handling of death: Is same as visit_occurrence
-  * Source Concepts from place of service vocabularies are mapped into these standard visit Concepts in the Standardized Vocabularies. 
-  * At any one day, there could be more than one visit. Visit_occurrence allows for more than one visit within single day. Visit_detail is to be used to only capture details within the visit_occurrence.
-  * One visit may involve multiple providers, in which case, in visit_occurrence, the ETL must specify how a single provider id is selected or leave the provider_id field null. Visit_detail allows for ETL to speicify multiple child records per visit_occurrence - and each of these child may represent different provider_ids.
-  * One visit may involve multiple Care Sites, in which case, in visit_occurrence, the ETL must specify how a single care_site id is selected or leave the care_site_id field null. Visit_detail allows for ETL to speicify multiple child records per visit_occurrence - and each of these child may represent different care_sites.
-  * Just like in visit_occurrence, records in visit_detail may be sequentially related to each. These sequential relations are represented using preceding_visit_detail_id
-  * Unlike visit_occurrence, visit_detail may have nested visits with hierarchial relationships to each other. 
-  * Representation of US claim data: US claims data generally has two-levels. Header/summary data that summarizes the entire claim; Line/detail that details a claim. Detail is thus a child of the summary, and for every record in summary there is one or more records in detail. i.e. there will be atleast one FK link from visit_detail to visit_occurrence.
+  * All conventions used in VISIT_OCCURRENCE apply to VISIT_DETAIL, some notable exceptions:
+  * A Visit Detail is an optional detail record for each Visit Occurrence to a healthcare facility. For every record in VISIT_DETAIL there has to be a parent VISIT_OCCURRENCE record.
+  * One record in VISIT_DETAIL can only have one VISIT_OCCURRENCE parent.
+  * A single VISIT_OCCURRENCE record may have many child VISIT_DETAIL records.
+  * Valid Visit Concepts belong to the "Visit" domain. Standard Visit Concepts are yet to be defined, but will represent a detail of the Standard Visit Concept in VISIT_OCCURRENCE.
+  * Handling of death: In the case when a patient died during admission (VISIT_OCCURRENCE.DISCHARGE_DISPOSITION_CONCEPT_ID = 4216643 'Patient died'), a record in the Death table should be created with DEATH_TYPE_CONCEPT_ID = 44818516 (EHR discharge status "Expired").
+  * Source Concepts from place of service vocabularies are mapped into these Standard Visit Concepts in the Standardized Vocabularies. 
+  * At any one day, there could be more than one visit. VISIT_OCCURRENCE allows for more than one visit within a single day. VISIT_DETAIL is to be used to only capture details within the visit.
+  * One visit may involve multiple providers, in which case, in VISIT_OCCURRENCE, the ETL must specify how a single provider id is selected or leave the provider_id field null. VISIT_DETAIL allows for ETL to speicify multiple child records per visit occurrence - and each of these child records may represent different provider_ids.
+  * One visit may involve multiple Care Sites, in which case, in VISIT_OCCURRENCE, the ETL must specify how a single care_site id is selected or leave the care_site_id field null. VISIT_DETAIL allows for ETL to speicify multiple child records per visit occurrence - and each of these child records may represent different care_sites.
+  * Just like in VISIT_OCCURRENCE, records in VISIT_DETAIL may be sequentially related to each. These sequential relations are represented using preceding_visit_detail_id
+  * Unlike VISIT_OCCURRENCE, VISIT_DETAIL may have nested visits with hierarchial relationships to each other. 
+  * Representation of US claim data: US claims data generally has two-levels. Header/summary data that summarizes the entire claim; Line/detail that details a claim. Detail is thus a child of the summary, and for every record in summary there is one or more records in detail. i.e. there will be atleast one FK link from VISIT_DETAIL to VISIT_OCCURRENCE.
  
- Example: an entire inpatient stay maybe one record in visit_occurrence table. This may have one or more detail information such as ER, ICU, medical floor, rehabilitation floor etc. Each of these visit_details may have different start/end date-times, different concept_id's and fact_id's - that would be separate record in visit_detail with a FK link to visit_occurrence. Each record within visit_detail maybe related to each other, sequentially –> ER leading to ICU leading to medical floor, leading to rehabilitation, or in hierarchical parent-child visit –> a visit for dialysis while in ICU.
+ Example: an entire inpatient stay maybe one record in the VISIT_OCCURRENCE table. This may have one or more detail records such as ER, ICU, medical floor, rehabilitation floor etc. Each of these visit details may have different start/end date-times, different concept_ids and fact_ids. These would become separate records in VISIT_DETAIL with a FK link to VISIT_OCCURRENCE. 
+ 
+ Each record within VISIT_DETAIL may be related to each other, sequentially –> ER leading to ICU leading to medical floor, leading to rehabilitation, or in hierarchical parent-child visit –> a visit for dialysis while in ICU.
 
-Note the concept-id for visits is 9, and is shared between visit_occurrence and visit_detail in OMOP CDM. The key deviation from visit_occurrence is
+Note the CONCEPT_ID for visits is 8, and is shared between VISIT_OCCURRENCE and VISIT_DETAIL in OMOP CDM. The key deviation from VISIT_OCCURRENCE is
 - self-referencing key: a new foreign key visit_detail_parent_id allows self referencing for nested visits.
-- visit_detail points to its parent record in visit_occurrence table (visit_occurrence_id)
+- VISIT_DETAIL points to its parent record in the VISIT_OCCURRENCE table (visit_occurrence_id)

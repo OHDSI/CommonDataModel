@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####
 
 
-@targetdialect script to create OMOP common data model version 5.3
+impala script to create OMOP common data model version 5.3
 
 last revised: 6-Nov-2017
 
@@ -45,12 +45,12 @@ Standardized vocabulary
 
 CREATE TABLE concept (
   concept_id			    INTEGER			  NOT NULL ,
-  concept_name			  VARCHAR(255)	NOT NULL ,
-  domain_id				    VARCHAR(20)		NOT NULL ,
-  vocabulary_id			  VARCHAR(20)		NOT NULL ,
-  concept_class_id		VARCHAR(20)		NOT NULL ,
+  concept_name			  VARCHAR(255) ,
+  domain_id				    VARCHAR(20) ,
+  vocabulary_id			  VARCHAR(20) ,
+  concept_class_id		VARCHAR(20) ,
   standard_concept		VARCHAR(1)		NULL ,
-  concept_code			  VARCHAR(50)		NOT NULL ,
+  concept_code			  VARCHAR(50) ,
   valid_start_date		DATE			    NOT NULL ,
   valid_end_date		  DATE			    NOT NULL ,
   invalid_reason		  VARCHAR(1)		NULL
@@ -59,26 +59,26 @@ CREATE TABLE concept (
 
 
 CREATE TABLE vocabulary (
-  vocabulary_id			    VARCHAR(20)		NOT NULL,
-  vocabulary_name		    VARCHAR(255)	NOT NULL,
-  vocabulary_reference	VARCHAR(255)	NOT NULL,
-  vocabulary_version	  VARCHAR(255)	NOT NULL,
+  vocabulary_id			    VARCHAR(20),
+  vocabulary_name		    VARCHAR(255),
+  vocabulary_reference	VARCHAR(255),
+  vocabulary_version	  VARCHAR(255),
   vocabulary_concept_id	INTEGER			  NOT NULL
 )
 ;
 
 
 CREATE TABLE domain (
-  domain_id			    VARCHAR(20)		NOT NULL,
-  domain_name		    VARCHAR(255)	NOT NULL,
+  domain_id			    VARCHAR(20),
+  domain_name		    VARCHAR(255),
   domain_concept_id	INTEGER			  NOT NULL
 )
 ;
 
 
 CREATE TABLE concept_class (
-  concept_class_id			    VARCHAR(20)		NOT NULL,
-  concept_class_name		    VARCHAR(255)	NOT NULL,
+  concept_class_id			    VARCHAR(20),
+  concept_class_name		    VARCHAR(255),
   concept_class_concept_id	INTEGER			  NOT NULL
 )
 ;
@@ -87,7 +87,7 @@ CREATE TABLE concept_class (
 CREATE TABLE concept_relationship (
   concept_id_1			INTEGER			NOT NULL,
   concept_id_2			INTEGER			NOT NULL,
-  relationship_id		VARCHAR(20)	NOT NULL,
+  relationship_id		VARCHAR(20),
   valid_start_date	DATE			  NOT NULL,
   valid_end_date		DATE			  NOT NULL,
   invalid_reason		VARCHAR(1)	NULL
@@ -96,11 +96,11 @@ CREATE TABLE concept_relationship (
 
 
 CREATE TABLE relationship (
-  relationship_id			    VARCHAR(20)		NOT NULL,
-  relationship_name			  VARCHAR(255)	NOT NULL,
-  is_hierarchical			    VARCHAR(1)		NOT NULL,
-  defines_ancestry			  VARCHAR(1)		NOT NULL,
-  reverse_relationship_id	VARCHAR(20)		NOT NULL,
+  relationship_id			    VARCHAR(20),
+  relationship_name			  VARCHAR(255),
+  is_hierarchical			    VARCHAR(1),
+  defines_ancestry			  VARCHAR(1),
+  reverse_relationship_id	VARCHAR(20),
   relationship_concept_id	INTEGER			  NOT NULL
 )
 ;
@@ -108,7 +108,7 @@ CREATE TABLE relationship (
 
 CREATE TABLE concept_synonym (
   concept_id			      INTEGER			  NOT NULL,
-  concept_synonym_name	VARCHAR(1000)	NOT NULL,
+  concept_synonym_name	VARCHAR(1000),
   language_concept_id	  INTEGER			  NOT NULL
 )
 ;
@@ -124,12 +124,12 @@ CREATE TABLE concept_ancestor (
 
 
 CREATE TABLE source_to_concept_map (
-  source_code				      VARCHAR(50)		NOT NULL,
+  source_code				      VARCHAR(50),
   source_concept_id			  INTEGER			  NOT NULL,
-  source_vocabulary_id		VARCHAR(20)		NOT NULL,
+  source_vocabulary_id		VARCHAR(20),
   source_code_description	VARCHAR(255)	NULL,
   target_concept_id			  INTEGER			  NOT NULL,
-  target_vocabulary_id		VARCHAR(20)		NOT NULL,
+  target_vocabulary_id		VARCHAR(20),
   valid_start_date			  DATE			    NOT NULL,
   valid_end_date			    DATE			    NOT NULL,
   invalid_reason			    VARCHAR(1)		NULL
@@ -159,7 +159,7 @@ CREATE TABLE drug_strength (
 
 CREATE TABLE cohort_definition (
   cohort_definition_id				    INTEGER			  NOT NULL,
-  cohort_definition_name			    VARCHAR(255)	NOT NULL,
+  cohort_definition_name			    VARCHAR(255),
   cohort_definition_description		VARCHAR(MAX)	NULL,
   definition_type_concept_id		  INTEGER			  NOT NULL,
   cohort_definition_syntax			  VARCHAR(MAX)	NULL,
@@ -171,7 +171,7 @@ CREATE TABLE cohort_definition (
 
 CREATE TABLE attribute_definition (
   attribute_definition_id		  INTEGER			  NOT NULL,
-  attribute_name				      VARCHAR(255)	NOT NULL,
+  attribute_name				      VARCHAR(255),
   attribute_description			  VARCHAR(MAX)	NULL,
   attribute_type_concept_id		INTEGER			  NOT NULL,
   attribute_syntax				    VARCHAR(MAX)	NULL
@@ -188,7 +188,7 @@ Standardized meta-data
 
 CREATE TABLE cdm_source
 (
-  cdm_source_name					        VARCHAR(255)	NOT NULL ,
+  cdm_source_name					        VARCHAR(255) ,
   cdm_source_abbreviation			    VARCHAR(25)		NULL ,
   cdm_holder							        VARCHAR(255)	NULL ,
   source_description					    VARCHAR(MAX)	NULL ,
@@ -206,7 +206,7 @@ CREATE TABLE metadata
 (
   metadata_concept_id       INTEGER       NOT NULL ,
   metadata_type_concept_id  INTEGER       NOT NULL ,
-  name                      VARCHAR(250)  NOT NULL ,
+  name                      VARCHAR(250) ,
   value_as_string           NVARCHAR      NULL ,
   value_as_concept_id       INTEGER       NULL ,
   metadata_date             DATE          NULL ,
@@ -482,12 +482,12 @@ CREATE TABLE note
 
 CREATE TABLE note_nlp
 (
-  note_nlp_id					        BIGINT			  NOT NULL ,
+  note_nlp_id					        BIGINT ,
   note_id						          INTEGER			  NOT NULL ,
   section_concept_id			    INTEGER			  NULL ,
   snippet						          VARCHAR(250)	NULL ,
   offset						          VARCHAR(250)	NULL ,
-  lexical_variant				      VARCHAR(250)	NOT NULL ,
+  lexical_variant				      VARCHAR(250) ,
   note_nlp_concept_id			    INTEGER			  NULL ,
   note_nlp_source_concept_id  INTEGER			  NULL ,
   nlp_system					        VARCHAR(250)	NULL ,
@@ -630,7 +630,7 @@ CREATE TABLE cost
 (
   cost_id					          INTEGER	    NOT NULL ,
   cost_event_id             INTEGER     NOT NULL ,
-  cost_domain_id            VARCHAR(20) NOT NULL ,
+  cost_domain_id            VARCHAR(20) ,
   cost_type_concept_id      INTEGER     NOT NULL ,
   currency_concept_id			  INTEGER			NULL ,
   total_charge						  FLOAT			  NULL ,
@@ -707,7 +707,7 @@ CREATE TABLE dose_era
   person_id						  INTEGER			NOT NULL ,
   drug_concept_id				INTEGER			NOT NULL ,
   unit_concept_id				INTEGER			NOT NULL ,
-  dose_value						FLOAT			  NOT NULL ,
+  dose_value						FLOAT ,
   dose_era_start_date		DATE			  NOT NULL ,
   dose_era_end_date	    DATE			  NOT NULL
 )

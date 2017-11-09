@@ -25,7 +25,7 @@ Field|Required|Type|Description
   * A Visit Occurrence is recorded for each visit to a healthcare facility. 
   * Valid Visit Concepts belong to the "Visit" domain. 
   * Standard Visit Concepts are defined as Inpatient Visit, Outpatient Visit, Emergency Room Visit, Long Term Care Visit and combined ER and Inpatient Visit. The latter is necessary because it is close to impossible to separate the two in many EHR system, treating them interchangeably. To annotate this correctly, the visit concept "Emergency Room and Inpatient Visit" (concept_id=262) should be used.
-  * Handling of death: In case when patient died during admission (Visit_Occurrence. discharge_disposition_concept_id = 4216643 'Patient died'), a record in the Death table should be created with death_type_concept_id = 44818516 (EHR discharge status "Expired").
+  * Handling of death: In the case when a patient died during admission (Visit_Occurrence. discharge_disposition_concept_id = 4216643 'Patient died'), a record in the Death table should be created with death_type_concept_id = 44818516 (EHR discharge status "Expired").
   * Source Concepts from place of service vocabularies are mapped into these standard visit Concepts in the Standardized Vocabularies. 
   * At any one day, there could be more than one visit.
   * One visit may involve multiple providers, in which case the ETL must specify how a single provider id is selected or leave the provider_id field null.

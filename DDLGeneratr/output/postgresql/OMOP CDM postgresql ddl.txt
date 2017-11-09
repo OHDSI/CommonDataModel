@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####
 
 
-@targetdialect script to create OMOP common data model version 5.3
+postgresql script to create OMOP common data model version 5.3
 
 last revised: 6-Nov-2017
 
@@ -142,11 +142,11 @@ CREATE TABLE source_to_concept_map (
 CREATE TABLE drug_strength (
   drug_concept_id				      INTEGER		  NOT NULL,
   ingredient_concept_id			  INTEGER		  NOT NULL,
-  amount_value					      FLOAT		    NULL,
+  amount_value					      NUMERIC		    NULL,
   amount_unit_concept_id		  INTEGER		  NULL,
-  numerator_value				      FLOAT		    NULL,
+  numerator_value				      NUMERIC		    NULL,
   numerator_unit_concept_id		INTEGER		  NULL,
-  denominator_value				    FLOAT		    NULL,
+  denominator_value				    NUMERIC		    NULL,
   denominator_unit_concept_id	INTEGER		  NULL,
   box_size						        INTEGER		  NULL,
   valid_start_date				    DATE		    NOT NULL,
@@ -160,9 +160,9 @@ CREATE TABLE drug_strength (
 CREATE TABLE cohort_definition (
   cohort_definition_id				    INTEGER			  NOT NULL,
   cohort_definition_name			    VARCHAR(255)	NOT NULL,
-  cohort_definition_description		VARCHAR(MAX)	NULL,
+  cohort_definition_description		TEXT	NULL,
   definition_type_concept_id		  INTEGER			  NOT NULL,
-  cohort_definition_syntax			  VARCHAR(MAX)	NULL,
+  cohort_definition_syntax			  TEXT	NULL,
   subject_concept_id				      INTEGER			  NOT NULL,
   cohort_initiation_date			    DATE			    NULL
 )
@@ -172,9 +172,9 @@ CREATE TABLE cohort_definition (
 CREATE TABLE attribute_definition (
   attribute_definition_id		  INTEGER			  NOT NULL,
   attribute_name				      VARCHAR(255)	NOT NULL,
-  attribute_description			  VARCHAR(MAX)	NULL,
+  attribute_description			  TEXT	NULL,
   attribute_type_concept_id		INTEGER			  NOT NULL,
-  attribute_syntax				    VARCHAR(MAX)	NULL
+  attribute_syntax				    TEXT	NULL
 )
 ;
 
@@ -191,7 +191,7 @@ CREATE TABLE cdm_source
   cdm_source_name					        VARCHAR(255)	NOT NULL ,
   cdm_source_abbreviation			    VARCHAR(25)		NULL ,
   cdm_holder							        VARCHAR(255)	NULL ,
-  source_description					    VARCHAR(MAX)	NULL ,
+  source_description					    TEXT	NULL ,
   source_documentation_reference	VARCHAR(255)	NULL ,
   cdm_etl_reference					      VARCHAR(255)	NULL ,
   source_release_date				      DATE			    NULL ,
@@ -265,7 +265,7 @@ CREATE TABLE specimen
   specimen_type_concept_id		INTEGER			NOT NULL ,
   specimen_date						    DATE			  NOT NULL ,
   specimen_datetime					  DATETIME2		NULL ,
-  quantity							      FLOAT			  NULL ,
+  quantity							      NUMERIC			  NULL ,
   unit_concept_id					    INTEGER			NULL ,
   anatomic_site_concept_id		INTEGER			NULL ,
   disease_status_concept_id		INTEGER			NULL ,
@@ -373,9 +373,9 @@ CREATE TABLE drug_exposure
   drug_type_concept_id			    INTEGER			  NOT NULL ,
   stop_reason					          VARCHAR(20)		NULL ,
   refills						            INTEGER		  	NULL ,
-  quantity						          FLOAT			    NULL ,
+  quantity						          NUMERIC			    NULL ,
   days_supply					          INTEGER		  	NULL ,
-  sig							              VARCHAR(MAX)	NULL ,
+  sig							              TEXT	NULL ,
   route_concept_id				      INTEGER			  NULL ,
   lot_number					          VARCHAR(50)	  NULL ,
   provider_id					          INTEGER			  NULL ,
@@ -442,11 +442,11 @@ CREATE TABLE measurement
   measurement_datetime			    DATETIME2		NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
-  value_as_number				        FLOAT			  NULL ,
+  value_as_number				        NUMERIC			  NULL ,
   value_as_concept_id			      INTEGER			NULL ,
   unit_concept_id				        INTEGER			NULL ,
-  range_low					          	FLOAT			  NULL ,
-  range_high					          FLOAT			  NULL ,
+  range_low					          	NUMERIC			  NULL ,
+  range_high					          NUMERIC			  NULL ,
   provider_id					          INTEGER			NULL ,
   visit_occurrence_id			      INTEGER			NULL ,
   visit_detail_id               INTEGER     NULL ,
@@ -468,7 +468,7 @@ CREATE TABLE note
   note_type_concept_id	INTEGER			  NOT NULL ,
   note_class_concept_id INTEGER			  NOT NULL ,
   note_title					  VARCHAR(250)	NULL ,
-  note_text						  VARCHAR(MAX)  NULL ,
+  note_text						  TEXT  NULL ,
   encoding_concept_id		INTEGER			  NOT NULL ,
   language_concept_id		INTEGER			  NOT NULL ,
   provider_id					  INTEGER			  NULL ,
@@ -509,7 +509,7 @@ CREATE TABLE observation
   observation_date				      DATE			  NOT NULL ,
   observation_datetime				  DATETIME2		NULL ,
   observation_type_concept_id	  INTEGER			NOT NULL ,
-  value_as_number				        FLOAT			  NULL ,
+  value_as_number				        NUMERIC			  NULL ,
   value_as_string				        VARCHAR(60)	NULL ,
   value_as_concept_id			      INTEGER			NULL ,
   qualifier_concept_id			    INTEGER			NULL ,
@@ -633,19 +633,19 @@ CREATE TABLE cost
   cost_domain_id            VARCHAR(20) NOT NULL ,
   cost_type_concept_id      INTEGER     NOT NULL ,
   currency_concept_id			  INTEGER			NULL ,
-  total_charge						  FLOAT			  NULL ,
-  total_cost						    FLOAT			  NULL ,
-  total_paid						    FLOAT			  NULL ,
-  paid_by_payer					    FLOAT			  NULL ,
-  paid_by_patient						FLOAT			  NULL ,
-  paid_patient_copay				FLOAT			  NULL ,
-  paid_patient_coinsurance  FLOAT			  NULL ,
-  paid_patient_deductible		FLOAT			  NULL ,
-  paid_by_primary						FLOAT			  NULL ,
-  paid_ingredient_cost			FLOAT			  NULL ,
-  paid_dispensing_fee				FLOAT			  NULL ,
+  total_charge						  NUMERIC			  NULL ,
+  total_cost						    NUMERIC			  NULL ,
+  total_paid						    NUMERIC			  NULL ,
+  paid_by_payer					    NUMERIC			  NULL ,
+  paid_by_patient						NUMERIC			  NULL ,
+  paid_patient_copay				NUMERIC			  NULL ,
+  paid_patient_coinsurance  NUMERIC			  NULL ,
+  paid_patient_deductible		NUMERIC			  NULL ,
+  paid_by_primary						NUMERIC			  NULL ,
+  paid_ingredient_cost			NUMERIC			  NULL ,
+  paid_dispensing_fee				NUMERIC			  NULL ,
   payer_plan_period_id			INTEGER			NULL ,
-  amount_allowed		        FLOAT			  NULL ,
+  amount_allowed		        NUMERIC			  NULL ,
   revenue_code_concept_id		INTEGER			NULL ,
   reveue_code_source_value  VARCHAR(50) NULL,
   drg_concept_id			      INTEGER		  NULL,
@@ -680,7 +680,7 @@ CREATE TABLE cohort_attribute
   cohort_end_date				  DATE			NOT NULL ,
   subject_id						  INTEGER		NOT NULL ,
   attribute_definition_id INTEGER		NOT NULL ,
-  value_as_number				  FLOAT			NULL ,
+  value_as_number				  NUMERIC			NULL ,
   value_as_concept_id			INTEGER		NULL
 )
 ;
@@ -707,7 +707,7 @@ CREATE TABLE dose_era
   person_id						  INTEGER			NOT NULL ,
   drug_concept_id				INTEGER			NOT NULL ,
   unit_concept_id				INTEGER			NOT NULL ,
-  dose_value						FLOAT			  NOT NULL ,
+  dose_value						NUMERIC			  NOT NULL ,
   dose_era_start_date		DATE			  NOT NULL ,
   dose_era_end_date	    DATE			  NOT NULL
 )

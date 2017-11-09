@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####
 
 
-@targetdialect script to create OMOP common data model version 5.3
+oracle script to create OMOP common data model version 5.3
 
 last revised: 6-Nov-2017
 
@@ -160,9 +160,9 @@ CREATE TABLE drug_strength (
 CREATE TABLE cohort_definition (
   cohort_definition_id				    INTEGER			  NOT NULL,
   cohort_definition_name			    VARCHAR(255)	NOT NULL,
-  cohort_definition_description		VARCHAR(MAX)	NULL,
+  cohort_definition_description		CLOB	NULL,
   definition_type_concept_id		  INTEGER			  NOT NULL,
-  cohort_definition_syntax			  VARCHAR(MAX)	NULL,
+  cohort_definition_syntax			  CLOB	NULL,
   subject_concept_id				      INTEGER			  NOT NULL,
   cohort_initiation_date			    DATE			    NULL
 )
@@ -172,9 +172,9 @@ CREATE TABLE cohort_definition (
 CREATE TABLE attribute_definition (
   attribute_definition_id		  INTEGER			  NOT NULL,
   attribute_name				      VARCHAR(255)	NOT NULL,
-  attribute_description			  VARCHAR(MAX)	NULL,
+  attribute_description			  CLOB	NULL,
   attribute_type_concept_id		INTEGER			  NOT NULL,
-  attribute_syntax				    VARCHAR(MAX)	NULL
+  attribute_syntax				    CLOB	NULL
 )
 ;
 
@@ -191,7 +191,7 @@ CREATE TABLE cdm_source
   cdm_source_name					        VARCHAR(255)	NOT NULL ,
   cdm_source_abbreviation			    VARCHAR(25)		NULL ,
   cdm_holder							        VARCHAR(255)	NULL ,
-  source_description					    VARCHAR(MAX)	NULL ,
+  source_description					    CLOB	NULL ,
   source_documentation_reference	VARCHAR(255)	NULL ,
   cdm_etl_reference					      VARCHAR(255)	NULL ,
   source_release_date				      DATE			    NULL ,
@@ -375,7 +375,7 @@ CREATE TABLE drug_exposure
   refills						            INTEGER		  	NULL ,
   quantity						          FLOAT			    NULL ,
   days_supply					          INTEGER		  	NULL ,
-  sig							              VARCHAR(MAX)	NULL ,
+  sig							              CLOB	NULL ,
   route_concept_id				      INTEGER			  NULL ,
   lot_number					          VARCHAR(50)	  NULL ,
   provider_id					          INTEGER			  NULL ,
@@ -468,7 +468,7 @@ CREATE TABLE note
   note_type_concept_id	INTEGER			  NOT NULL ,
   note_class_concept_id INTEGER			  NOT NULL ,
   note_title					  VARCHAR(250)	NULL ,
-  note_text						  VARCHAR(MAX)  NULL ,
+  note_text						  CLOB  NULL ,
   encoding_concept_id		INTEGER			  NOT NULL ,
   language_concept_id		INTEGER			  NOT NULL ,
   provider_id					  INTEGER			  NULL ,
@@ -482,7 +482,7 @@ CREATE TABLE note
 
 CREATE TABLE note_nlp
 (
-  note_nlp_id					        BIGINT			  NOT NULL ,
+  note_nlp_id					        NUMBER(19)			  NOT NULL ,
   note_id						          INTEGER			  NOT NULL ,
   section_concept_id			    INTEGER			  NULL ,
   snippet						          VARCHAR(250)	NULL ,
