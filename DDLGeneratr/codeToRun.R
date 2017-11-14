@@ -14,6 +14,10 @@ writeDDL("postgresql")
 writeDDL("redshift")
 writeDDL("sql server")
 
+# Step 3: Run the following code to create indices for Oracle, Postgres, PDW and Sql Server
+
+writeIndex("oracle")
+
 # Step 3: Update the .md wiki files with the changes for the new version
 
 # step 4: Run the following code to create the pdf documentation. It will be written to the reports folder.
