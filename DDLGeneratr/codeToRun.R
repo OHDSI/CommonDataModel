@@ -17,9 +17,17 @@ writeDDL("sql server")
 # Step 3: Run the following code to create indices for Oracle, Postgres, PDW and Sql Server
 
 writeIndex("oracle")
+writeIndex("postgresql")
+writeIndex("pdw")
+writeIndex("sql server")
 
-# Step 3: Update the .md wiki files with the changes for the new version
+# Step 4: Run the following code to create constraints for Oracle, Postgres, PDW and Sql Server
 
-# step 4: Run the following code to create the pdf documentation. It will be written to the reports folder.
+writeConstraints("oracle")
+writeConstraints("postgresql")
+writeConstraints("pdw")
+writeConstraints("sql server")
+
+# step 5: Run the following code to create the pdf documentation. It will be written to the reports folder.
 
 writePDF(mdFilesLocation = "../../Documentation/CommonDataModel_Wiki_Files", cdmVersion = "v5_3")

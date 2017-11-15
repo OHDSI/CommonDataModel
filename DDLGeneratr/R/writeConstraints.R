@@ -14,12 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#' Write Index script
+#' Write constraint script
 #'
 #' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
 #'
 #' @export
-writeIndex <- function(targetdialect) {
+writeConstraints <- function(targetdialect) {
 if(!dir.exists("output")){
   dir.create("output")
 }
@@ -28,12 +28,12 @@ if(!dir.exists(paste0("output/",targetdialect))){
   dir.create(paste0("output/",targetdialect))
 }
 
-sql <- SqlRender::loadRenderTranslateSql(sqlFilename = "OMOP CDM indexes required.sql",
+sql <- SqlRender::loadRenderTranslateSql(sqlFilename = "OMOP CDM constraints.sql",
                                          packageName = "DDLGeneratr",
                                          dbms = targetdialect,
                                          targetdialect = targetdialect)
 
 SqlRender::writeSql(sql = sql,
-                    targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," indexes.txt"))
+                    targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," constraints.txt"))
 
 }
