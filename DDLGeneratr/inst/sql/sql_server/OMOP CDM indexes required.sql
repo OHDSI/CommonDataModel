@@ -1,13 +1,13 @@
 /*********************************************************************************
 # Copyright 2014 Observational Health Data Sciences and Informatics
 #
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,16 +17,16 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######      #####     ###                                           
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #     #  #    # #####  ###### #    # ######  ####  
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #     #  ##   # #    # #       #  #  #      #      
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####      #  # #  # #    # #####    ##   #####   ####  
- #     # #     # #     # #          #       #     # #     #    #    #       # ###       #     #  #  # # #    # #        ##   #           # 
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #     #     #  #   ## #    # #       #  #  #      #    # 
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####     ### #    # #####  ###### #    # ######  ####  
-                                                                              
+ ####### #     # ####### ######      #####  ######  #     #           #######      #####     ###
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #     #  #    # #####  ###### #    # ######  ####
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #     #  ##   # #    # #       #  #  #      #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####      #  # #  # #    # #####    ##   #####   ####
+ #     # #     # #     # #          #       #     # #     #    #    #       # ###       #     #  #  # # #    # #        ##   #           #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #     #     #  #   ## #    # #       #  #  #      #    #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####     ### #    # #####  ###### #    # ######  ####
 
-@targetdialect script to create the required indexes within OMOP common data model, version 5.3 
+
+@targetdialect script to create the required indexes within OMOP common data model, version 5.3
 
 last revised: 14-November-2017
 
@@ -55,9 +55,9 @@ CREATE UNIQUE CLUSTERED INDEX idx_domain_domain_id ON domain (domain_id ASC);
 
 CREATE UNIQUE CLUSTERED INDEX idx_concept_class_class_id ON concept_class (concept_class_id ASC);
 
-CREATE INDEX idx_concept_relationship_id_1 ON concept_relationship (concept_id_1 ASC); 
-CREATE INDEX idx_concept_relationship_id_2 ON concept_relationship (concept_id_2 ASC); 
-CREATE INDEX idx_concept_relationship_id_3 ON concept_relationship (relationship_id ASC); 
+CREATE INDEX idx_concept_relationship_id_1 ON concept_relationship (concept_id_1 ASC);
+CREATE INDEX idx_concept_relationship_id_2 ON concept_relationship (concept_id_2 ASC);
+CREATE INDEX idx_concept_relationship_id_3 ON concept_relationship (relationship_id ASC);
 
 CREATE UNIQUE CLUSTERED INDEX idx_relationship_rel_id ON relationship (relationship_id ASC);
 
@@ -106,6 +106,9 @@ CREATE CLUSTERED INDEX idx_death_person_id ON death (person_id ASC);
 
 CREATE CLUSTERED INDEX idx_visit_person_id ON visit_occurrence (person_id ASC);
 CREATE INDEX idx_visit_concept_id ON visit_occurrence (visit_concept_id ASC);
+
+CREATE CLUSTERED INDEX idx_visit_detail_person_id ON visit_detail (person_id ASC);
+CREATE INDEX idx_visit_detail_concept_id ON visit_detail (visit_detail_concept_id ASC);
 
 CREATE CLUSTERED INDEX idx_procedure_person_id ON procedure_occurrence (person_id ASC);
 CREATE INDEX idx_procedure_concept_id ON procedure_occurrence (procedure_concept_id ASC);
