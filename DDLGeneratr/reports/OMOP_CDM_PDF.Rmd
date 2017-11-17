@@ -2,6 +2,8 @@
 title: "OMOP Common Data Model Specifications"
 author: "Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair Blacketer"
 date: "`r Sys.Date()`"
+params:
+  mdFilesLocation:"../../Documentation/CommonDataModel_Wiki_Files"
 output:
   pdf_document:
     number_sections: yes
@@ -10,198 +12,197 @@ linkcolor: blue
 ---
 
 # License
-
-```{r child = '../CommonDataModel_Wiki_Files/License.md'}
+```{r child = paste0(params$mdFilesLocation,'/License.md')}
 ```
 
 # Background
-```{r child = '../CommonDataModel_Wiki_Files/Background/Background.md'}
+```{r child = '@mdFilesLocation/Background/Background.md'}
 ```
 
 ## The Role of the Common Data Model
-```{r child = '../CommonDataModel_Wiki_Files/Background/The-Role-of-the-Common-Data-Model.md'}
+```{r child = '@mdFilesLocation/Background/The-Role-of-the-Common-Data-Model.md'}
 ```
 
 ## Design Principles
-```{r child = '../CommonDataModel_Wiki_Files/Background/Design-Principles.md'}
+```{r child = '@mdFilesLocation/Background/Design-Principles.md'}
 ```
 
 ## Data Model Conventions
-```{r child = '../CommonDataModel_Wiki_Files/Background/Data-Model-Conventions.md'}
+```{r child = '@mdFilesLocation/Background/Data-Model-Conventions.md'}
 ```
 
 # Glossary of Terms
-```{r child = '../CommonDataModel_Wiki_Files/Glossary-of-Terms.md'}
+```{r child = '@mdFilesLocation/Glossary-of-Terms.md'}
 ```
 
 # Standardized Vocabularies
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/Standardized-Vocabularies.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/Standardized-Vocabularies.md'}
 ```
 
 ## CONCEPT
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/CONCEPT.md'}
 ```
 
 ## VOCABULARY
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/VOCABULARY.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/VOCABULARY.md'}
 ```
 
 ## DOMAIN
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/DOMAIN.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/DOMAIN.md'}
 ```
 
 ## CONCEPT_CLASS
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_CLASS.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/CONCEPT_CLASS.md'}
 ```
 
 ## CONCEPT_RELATIONSHIP
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_RELATIONSHIP.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/CONCEPT_RELATIONSHIP.md'}
 ```
 
 ## RELATIONSHIP
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/RELATIONSHIP.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/RELATIONSHIP.md'}
 ```
 
 ## CONCEPT_SYNONYM
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_SYNONYM.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/CONCEPT_SYNONYM.md'}
 ```
 
 ## CONCEPT_ANCESTOR
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/CONCEPT_ANCESTOR.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/CONCEPT_ANCESTOR.md'}
 ```
 
 ## SOURCE_TO_CONCEPT_MAP
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md'}
 ```
 
 ## DRUG_STRENGTH
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/DRUG_STRENGTH.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/DRUG_STRENGTH.md'}
 ```
 
 ## COHORT_DEFINITION
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/COHORT_DEFINITION.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/COHORT_DEFINITION.md'}
 ```
 
 ## ATTRIBUTE_DEFINITION
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedVocabularies/ATTRIBUTE_DEFINITION.md'}
+```{r child = '@mdFilesLocation/StandardizedVocabularies/ATTRIBUTE_DEFINITION.md'}
 ```
 
 # Standardized Metadata
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedMetadata/Standardized-Metadata.md'}
+```{r child = '@mdFilesLocation/StandardizedMetadata/Standardized-Metadata.md'}
 ```
 
 ## CDM_SOURCE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedMetadata/CDM_SOURCE.md'}
+```{r child = '@mdFilesLocation/StandardizedMetadata/CDM_SOURCE.md'}
 ```
 
 # Standardized Clinical Data Tables
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/Standardized-clinical-Data-Tables.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/Standardized-clinical-Data-Tables.md'}
 ```
 
 ## PERSON
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/PERSON.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/PERSON.md'}
 ```
 
 ## OBSERVATION_PERIOD
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/OBSERVATION_PERIOD.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/OBSERVATION_PERIOD.md'}
 ```
 
 ## SPECIMEN
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/SPECIMEN.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/SPECIMEN.md'}
 ```
 
 ## DEATH
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DEATH.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/DEATH.md'}
 ```
 
 ## VISIT_OCCURRENCE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md'}
 ```
 
 ## PROCEDURE_OCCURRENCE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md'}
 ```
 
 ## DRUG_EXPOSURE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DRUG_EXPOSURE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/DRUG_EXPOSURE.md'}
 ```
 
 ## DEVICE_EXPOSURE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/DEVICE_EXPOSURE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/DEVICE_EXPOSURE.md'}
 ```
 
 ## CONDITION_OCCURRENCE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/CONDITION_OCCURRENCE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/CONDITION_OCCURRENCE.md'}
 ```
 
 ## MEASUREMENT
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/MEASUREMENT.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/MEASUREMENT.md'}
 ```
 
 ## NOTE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/NOTE.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/NOTE.md'}
 ```
 
 ## NOTE_NLP
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/NOTE_NLP.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/NOTE_NLP.md'}
 ```
 
 ## OBSERVATION
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/OBSERVATION.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/OBSERVATION.md'}
 ```
 
 ## FACT_RELATIONSHIP
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedclinicalDataTables/FACT_RELATIONSHIP.md'}
+```{r child = '@mdFilesLocation/StandardizedclinicalDataTables/FACT_RELATIONSHIP.md'}
 ```
 
 # Standardized Health System Data Tables
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/Standardized-Health-System-Data-Tables.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthSystemDataTables/Standardized-Health-System-Data-Tables.md'}
 ```
 
 ## LOCATION
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/LOCATION.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthSystemDataTables/LOCATION.md'}
 ```
 
 ## CARE_SITE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/CARE_SITE.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthSystemDataTables/CARE_SITE.md'}
 ```
 
 ## PROVIDER
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthSystemDataTables/PROVIDER.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthSystemDataTables/PROVIDER.md'}
 ```
 
 # Standardized Health Economics Data Tables
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/Standardized-Health-Economics-Data-Tables.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthEconomicsDataTables/Standardized-Health-Economics-Data-Tables.md'}
 ```
 
 ## PAYER_PLAN_PERIOD
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/PAYER_PLAN_PERIOD.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthEconomicsDataTables/PAYER_PLAN_PERIOD.md'}
 ```
 
 ## COST
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedHealthEconomicsDataTables/COST.md'}
+```{r child = '@mdFilesLocation/StandardizedHealthEconomicsDataTables/COST.md'}
 ```
 
 # Standardized Derived Elements
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/Standardized-Derived-Elements.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/Standardized-Derived-Elements.md'}
 ```
 
 ## COHORT
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/COHORT.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/COHORT.md'}
 ```
 
 ## COHORT_ATTRIBUTE
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/COHORT_ATTRIBUTE.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/COHORT_ATTRIBUTE.md'}
 ```
 
 ## DRUG_ERA
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/DRUG_ERA.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/DRUG_ERA.md'}
 ```
 
 ## DOSE_ERA
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/DOSE_ERA.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/DOSE_ERA.md'}
 ```
 
 ## CONDITION_ERA
-```{r child = '../CommonDataModel_Wiki_Files/StandardizedDerivedElements/CONDITION_ERA.md'}
+```{r child = '@mdFilesLocation/StandardizedDerivedElements/CONDITION_ERA.md'}
 ```

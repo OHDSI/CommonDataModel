@@ -14,14 +14,14 @@ writeDDL("postgresql")
 writeDDL("redshift")
 writeDDL("sql server")
 
-# Step 3: Run the following code to create indices for Oracle, Postgres, PDW and Sql Server
+# Step 3: Run the following code to create the primary key constraints and index files for Oracle, Postgres, PDW and Sql Server
 
 writeIndex("oracle")
 writeIndex("postgresql")
 writeIndex("pdw")
 writeIndex("sql server")
 
-# Step 4: Run the following code to create constraints for Oracle, Postgres, PDW and Sql Server
+# Step 4: Run the following code to create foreign key constraints for Oracle, Postgres, PDW and Sql Server
 
 writeConstraints("oracle")
 writeConstraints("postgresql")

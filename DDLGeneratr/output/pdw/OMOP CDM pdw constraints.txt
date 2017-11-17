@@ -26,7 +26,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####      #####   ####  #    #  ####    #   #    # #    # # #    #   #    ####
 
 
-@targetdialect script to create foreign key constraints within OMOP common data model, version 5.3.0
+pdw script to create foreign key constraints within OMOP common data model, version 5.3.0
 
 last revised: 15-November-2017
 
