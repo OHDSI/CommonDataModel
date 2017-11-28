@@ -11,7 +11,8 @@ LazyData: true
 VignetteBuilder: knitr
 Imports: 
   SqlRender, 
-  rmarkdown
+  rmarkdown,
+  stringr
 NeedsCompilation: no
 RoxygenNote: 6.0.1
 
