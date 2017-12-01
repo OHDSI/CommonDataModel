@@ -207,9 +207,9 @@ Standardized clinical data
 
 ************************/
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE person
- ( person_id INTEGER	  	NOT NULL ,
+ (person_id						        INTEGER	  	NOT NULL ,
   gender_concept_id				    INTEGER	  	NOT NULL ,
   year_of_birth					      INTEGER	  	NOT NULL ,
   month_of_birth				      INTEGER	  	NULL,
@@ -231,9 +231,10 @@ CREATE TABLE person
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE observation_period
  (observation_period_id				      INTEGER		NOT NULL ,
-   person_id INTEGER		NOT NULL ,
+  person_id							            INTEGER		NOT NULL ,
   observation_period_start_date		  DATE		  NOT NULL ,
   observation_period_end_date		    DATE		  NOT NULL ,
   period_type_concept_id			      INTEGER		NOT NULL
@@ -241,9 +242,10 @@ CREATE TABLE observation_period
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE specimen
  (specimen_id						      INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id							      INTEGER			NOT NULL ,
   specimen_concept_id				  INTEGER			NOT NULL ,
   specimen_type_concept_id		INTEGER			NOT NULL ,
   specimen_date						    DATE			  NOT NULL ,
@@ -261,9 +263,9 @@ CREATE TABLE specimen
 DISTKEY(person_id);
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE death
- ( person_id INTEGER			NOT NULL ,
+ (person_id							  INTEGER			NOT NULL ,
   death_date							DATE			  NOT NULL ,
   death_datetime					TIMESTAMP		NULL ,
   death_type_concept_id   INTEGER			NOT NULL ,
@@ -274,9 +276,10 @@ CREATE TABLE death
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE visit_occurrence
  (visit_occurrence_id			      INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						          INTEGER			NOT NULL ,
   visit_concept_id				      INTEGER			NOT NULL ,
   visit_start_date				      DATE			  NOT NULL ,
   visit_start_datetime				  TIMESTAMP		NULL ,
@@ -296,9 +299,10 @@ CREATE TABLE visit_occurrence
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE visit_detail
  (visit_detail_id             INTEGER     NOT NULL ,
-   person_id INTEGER     NOT NULL ,
+  person_id                   INTEGER     NOT NULL ,
   visit_detail_concept_id     INTEGER     NOT NULL ,
   visit_start_date            DATE        NOT NULL ,
   visit_start_datetime        TIMESTAMP   NULL ,
@@ -320,9 +324,10 @@ CREATE TABLE visit_detail
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE procedure_occurrence
  (procedure_occurrence_id		  INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						        INTEGER			NOT NULL ,
   procedure_concept_id			  INTEGER			NOT NULL ,
   procedure_date				      DATE			  NOT NULL ,
   procedure_datetime			    TIMESTAMP		NULL ,
@@ -339,9 +344,10 @@ CREATE TABLE procedure_occurrence
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE drug_exposure
  (drug_exposure_id				      INTEGER			  NOT NULL ,
-   person_id INTEGER			  NOT NULL ,
+  person_id						          INTEGER			  NOT NULL ,
   drug_concept_id				        INTEGER			  NOT NULL ,
   drug_exposure_start_date		  DATE			    NOT NULL ,
   drug_exposure_start_datetime  TIMESTAMP		  NULL ,
@@ -367,9 +373,10 @@ CREATE TABLE drug_exposure
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE device_exposure
  (device_exposure_id			        INTEGER		  	NOT NULL ,
-   person_id INTEGER			  NOT NULL ,
+  person_id						            INTEGER			  NOT NULL ,
   device_concept_id			        	INTEGER			  NOT NULL ,
   device_exposure_start_date	    DATE			    NOT NULL ,
   device_exposure_start_datetime  TIMESTAMP		  NULL ,
@@ -387,9 +394,10 @@ CREATE TABLE device_exposure
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE condition_occurrence
  (condition_occurrence_id		    INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						          INTEGER			NOT NULL ,
   condition_concept_id			    INTEGER			NOT NULL ,
   condition_start_date			    DATE			  NOT NULL ,
   condition_start_datetime		  TIMESTAMP		NULL ,
@@ -408,9 +416,10 @@ CREATE TABLE condition_occurrence
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE measurement
  (measurement_id				        INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
   measurement_time              VARCHAR(10) NULL ,
@@ -433,10 +442,10 @@ CREATE TABLE measurement
 DISTKEY(person_id);
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE note
  (note_id						    INTEGER			  NOT NULL ,
-   person_id INTEGER			  NOT NULL ,
+  person_id						  INTEGER			  NOT NULL ,
   note_date						  DATE			    NOT NULL ,
   note_datetime					TIMESTAMP		  NULL ,
   note_type_concept_id	INTEGER			  NOT NULL ,
@@ -473,10 +482,10 @@ CREATE TABLE note_nlp
 DISTSTYLE ALL;
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE observation
  (observation_id					      INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						          INTEGER			NOT NULL ,
   observation_concept_id			  INTEGER			NOT NULL ,
   observation_date				      DATE			  NOT NULL ,
   observation_datetime				  TIMESTAMP		NULL ,
@@ -497,7 +506,6 @@ CREATE TABLE observation
 DISTKEY(person_id);
 
 
-
 CREATE TABLE fact_relationship
  (domain_concept_id_1			INTEGER			NOT NULL ,
   fact_id_1						    INTEGER			NOT NULL ,
@@ -509,13 +517,11 @@ DISTSTYLE ALL;
 
 
 
-
 /************************
 
 Standardized health system data
 
 ************************/
-
 
 
 CREATE TABLE location
@@ -531,7 +537,6 @@ CREATE TABLE location
 DISTSTYLE ALL;
 
 
-
 CREATE TABLE care_site
  (care_site_id						      INTEGER			  NOT NULL ,
   care_site_name						    VARCHAR(255)  NULL ,
@@ -541,7 +546,6 @@ CREATE TABLE care_site
   place_of_service_source_value VARCHAR(50)		NULL
 )
 DISTSTYLE ALL;
-
 
 
 CREATE TABLE provider
@@ -562,8 +566,6 @@ CREATE TABLE provider
 DISTSTYLE ALL;
 
 
-
-
 /************************
 
 Standardized health economics
@@ -571,9 +573,10 @@ Standardized health economics
 ************************/
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE payer_plan_period
  (payer_plan_period_id			    INTEGER			  NOT NULL ,
-   person_id INTEGER			  NOT NULL ,
+  person_id						          INTEGER			  NOT NULL ,
   payer_plan_period_start_date  DATE			    NOT NULL ,
   payer_plan_period_end_date		DATE			    NOT NULL ,
   payer_concept_id              INTEGER       NULL ,
@@ -620,29 +623,29 @@ CREATE TABLE cost
 DISTSTYLE ALL;
 
 
-
-
-
 /************************
 
 Standardized derived elements
 
 ************************/
 
+
+--HINT DISTRIBUTE_ON_KEY(subject_id) 
 CREATE TABLE cohort
  (cohort_definition_id	INTEGER		NOT NULL ,
-   subject_id INTEGER		NOT NULL ,
+  subject_id						INTEGER		NOT NULL ,
   cohort_start_date			DATE			NOT NULL ,
   cohort_end_date				DATE			NOT NULL
 )
 DISTKEY(subject_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(subject_id) 
 CREATE TABLE cohort_attribute
  (cohort_definition_id		INTEGER		NOT NULL ,
+  subject_id						  INTEGER		NOT NULL ,
   cohort_start_date				DATE			NOT NULL ,
   cohort_end_date				  DATE			NOT NULL ,
-   subject_id INTEGER		NOT NULL ,
   attribute_definition_id INTEGER		NOT NULL ,
   value_as_number				  FLOAT			NULL ,
   value_as_concept_id			INTEGER		NULL
@@ -650,11 +653,10 @@ CREATE TABLE cohort_attribute
 DISTKEY(subject_id);
 
 
-
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE drug_era
  (drug_era_id					INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						INTEGER			NOT NULL ,
   drug_concept_id			INTEGER			NOT NULL ,
   drug_era_start_date	DATE			  NOT NULL ,
   drug_era_end_date		DATE			  NOT NULL ,
@@ -664,9 +666,10 @@ CREATE TABLE drug_era
 DISTKEY(person_id);
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE dose_era
  (dose_era_id					  INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						  INTEGER			NOT NULL ,
   drug_concept_id				INTEGER			NOT NULL ,
   unit_concept_id				INTEGER			NOT NULL ,
   dose_value						FLOAT			  NOT NULL ,
@@ -676,21 +679,13 @@ CREATE TABLE dose_era
 DISTKEY(person_id);
 
 
-
-
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE condition_era
  (condition_era_id				    INTEGER			NOT NULL ,
-   person_id INTEGER			NOT NULL ,
+  person_id						        INTEGER			NOT NULL ,
   condition_concept_id			  INTEGER			NOT NULL ,
   condition_era_start_date		DATE			  NOT NULL ,
   condition_era_end_date			DATE			  NOT NULL ,
   condition_occurrence_count	INTEGER			NULL
 )
 DISTKEY(person_id);
-
-
-
-
-
-
-

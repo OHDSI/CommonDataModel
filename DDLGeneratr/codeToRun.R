@@ -27,14 +27,18 @@ writeIndex("postgresql")
 writeIndex("pdw")
 writeIndex("sql server")
 
-# Step 4: Run the following code to create foreign key constraints for Oracle, Postgres, PDW and Sql Server
+# Step 4: Run the following code to create primary key constraints for Netezza
+
+writePrimaryKeys("netezza")
+
+# Step 5: Run the following code to create foreign key constraints for Oracle, Postgres, PDW and Sql Server
 
 writeConstraints("oracle")
 writeConstraints("postgresql")
 writeConstraints("pdw")
 writeConstraints("sql server")
 
-# step 5: Run the following code to create the pdf documentation. It will be written to the reports folder.
+# step 6: Run the following code to create the pdf documentation. It will be written to the reports folder.
 
 rmarkdown::render("reports/OMOP_CDM_PDF.Rmd",
                   output_format = "pdf_document",
