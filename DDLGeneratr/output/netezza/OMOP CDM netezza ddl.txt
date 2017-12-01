@@ -243,6 +243,7 @@ CREATE TABLE person
   ethnicity_source_value		  VARCHAR(50) NULL,
   ethnicity_source_concept_id	INTEGER		  NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -255,6 +256,7 @@ CREATE TABLE observation_period
   observation_period_end_date		    DATE		  NOT NULL ,
   period_type_concept_id			      INTEGER		NOT NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -277,6 +279,7 @@ CREATE TABLE specimen
   anatomic_site_source_value	VARCHAR(50)	NULL ,
   disease_status_source_value VARCHAR(50)	NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -291,6 +294,7 @@ CREATE TABLE death
   cause_source_value			VARCHAR(50)	NULL,
   cause_source_concept_id INTEGER			NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -315,6 +319,7 @@ CREATE TABLE visit_occurrence
   discharge_to_source_value		  VARCHAR(50)	NULL ,
   preceding_visit_occurrence_id	INTEGER			NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -341,6 +346,7 @@ CREATE TABLE visit_detail
   visit_detail_parent_id      INTEGER     NULL ,
   visit_occurrence_id         INTEGER     NOT NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -362,6 +368,7 @@ CREATE TABLE procedure_occurrence
   procedure_source_concept_id	INTEGER			NULL ,
   modifier_source_value		   VARCHAR(50)	NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -392,6 +399,7 @@ CREATE TABLE drug_exposure
   route_source_value			      VARCHAR(50)	  NULL ,
   dose_unit_source_value		    VARCHAR(50)	  NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -414,6 +422,7 @@ CREATE TABLE device_exposure
   device_source_value			        VARCHAR(100)	NULL ,
   device_source_concept_id		    INTEGER			  NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -437,6 +446,7 @@ CREATE TABLE condition_occurrence
   condition_status_source_value	VARCHAR(50)	NULL ,
   condition_status_concept_id	  INTEGER			NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -464,6 +474,7 @@ CREATE TABLE measurement
   unit_source_value				      VARCHAR(50)	NULL ,
   value_source_value			      VARCHAR(50)	NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -485,6 +496,7 @@ CREATE TABLE note
   visit_detail_id       INTEGER       NULL ,
   note_source_value			VARCHAR(50)		NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -531,6 +543,7 @@ CREATE TABLE observation
   unit_source_value				      VARCHAR(50)	NULL ,
   qualifier_source_value			  VARCHAR(50)	NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -626,6 +639,7 @@ CREATE TABLE payer_plan_period
   stop_reason_source_value      INTEGER       NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -672,6 +686,7 @@ CREATE TABLE cohort
   cohort_start_date			DATE			NOT NULL ,
   cohort_end_date				DATE			NOT NULL
 )
+DISTRIBUTE ON (subject_id)
 ;
 
 
@@ -686,6 +701,7 @@ CREATE TABLE cohort_attribute
   value_as_number				  NUMERIC			NULL ,
   value_as_concept_id			INTEGER		NULL
 )
+DISTRIBUTE ON (subject_id)
 ;
 
 
@@ -700,6 +716,7 @@ CREATE TABLE drug_era
   drug_exposure_count	INTEGER			NULL ,
   gap_days						INTEGER			NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -714,6 +731,7 @@ CREATE TABLE dose_era
   dose_era_start_date		DATE			  NOT NULL ,
   dose_era_end_date	    DATE			  NOT NULL
 )
+DISTRIBUTE ON (person_id)
 ;
 
 
@@ -727,4 +745,5 @@ CREATE TABLE condition_era
   condition_era_end_date			DATE			  NOT NULL ,
   condition_occurrence_count	INTEGER			NULL
 )
+DISTRIBUTE ON (person_id)
 ;
