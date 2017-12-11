@@ -19,6 +19,7 @@
 #' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
 #'
 #' @export
+
 writePrimaryKeys <- function(targetdialect) {
   if(!dir.exists("output")){
     dir.create("output")
