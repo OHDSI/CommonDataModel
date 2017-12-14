@@ -80,6 +80,7 @@ ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY N
 
 ALTER TABLE attribute_definition ADD CONSTRAINT xpk_attribute_definition PRIMARY KEY NONCLUSTERED (attribute_definition_id);
 
+ALTER TABLE concept_synonym ADD CONSTRAINT uq_concept_synonym UNIQUE (concept_id, concept_synonym_name, language_concept_id);
 
 /**************************
 
