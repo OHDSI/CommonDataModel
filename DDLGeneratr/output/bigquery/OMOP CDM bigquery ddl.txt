@@ -207,10 +207,10 @@ create table metadata
   metadata_concept_id       integer       not null ,
   metadata_type_concept_id  integer       not null ,
   name                      varchar(250)  not null ,
-  value_as_string           nvarchar      null ,
+  value_as_string           varchar(max)  null ,
   value_as_concept_id       integer       null ,
   metadata_date             date          null ,
-  metadata_datetime         datetime2     null
+  metadata_datetime         datetime      null
 )
 ;
 
@@ -221,7 +221,7 @@ Standardized clinical data
 
 ************************/
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table person
 (
   person_id						        integer	  	not null ,
@@ -229,7 +229,7 @@ create table person
   year_of_birth					      integer	  	not null ,
   month_of_birth				      integer	  	null,
   day_of_birth					      integer	  	null,
-  birth_datetime				      datetime2	  null,
+  birth_datetime				      datetime	  null,
   race_concept_id				      integer		  not null,
   ethnicity_concept_id			  integer	  	not null,
   location_id					        integer		  null,
@@ -246,6 +246,7 @@ create table person
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table observation_period
 (
   observation_period_id				      integer		not null ,
@@ -257,6 +258,7 @@ create table observation_period
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table specimen
 (
   specimen_id						      integer			not null ,
@@ -264,7 +266,7 @@ create table specimen
   specimen_concept_id				  integer			not null ,
   specimen_type_concept_id		integer			not null ,
   specimen_date						    date			  not null ,
-  specimen_datetime					  datetime2		null ,
+  specimen_datetime					  datetime		null ,
   quantity							      float			  null ,
   unit_concept_id					    integer			null ,
   anatomic_site_concept_id		integer			null ,
@@ -278,12 +280,12 @@ create table specimen
 ;
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table death
 (
   person_id							  integer			not null ,
   death_date							date			  not null ,
-  death_datetime					datetime2		null ,
+  death_datetime					datetime		null ,
   death_type_concept_id   integer			not null ,
   cause_concept_id			  integer			null ,
   cause_source_value			varchar(50)	null,
@@ -292,38 +294,40 @@ create table death
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table visit_occurrence
 (
   visit_occurrence_id			      integer			not null ,
   person_id						          integer			not null ,
   visit_concept_id				      integer			not null ,
   visit_start_date				      date			  not null ,
-  visit_start_datetime				  datetime2		null ,
+  visit_start_datetime				  datetime		null ,
   visit_end_date					      date			  not null ,
-  visit_end_datetime					  datetime2		null ,
+  visit_end_datetime					  datetime		null ,
   visit_type_concept_id			    integer			not null ,
   provider_id					          integer			null,
   care_site_id					        integer			null,
   visit_source_value				    varchar(50)	null,
-  visit_source_concept_id		    integer			null
+  visit_source_concept_id		    integer			null ,
   admitting_source_concept_id	  integer			null ,
   admitting_source_value		    varchar(50)	null ,
-  discharge_to_concept_id		    integer(50)	null ,
+  discharge_to_concept_id		    integer   	null ,
   discharge_to_source_value		  varchar(50)	null ,
   preceding_visit_occurrence_id	integer			null
 )
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table visit_detail
 (
   visit_detail_id             integer     not null ,
   person_id                   integer     not null ,
   visit_detail_concept_id     integer     not null ,
   visit_start_date            date        not null ,
-  visit_start_datetime        datetime2   null ,
+  visit_start_datetime        datetime   null ,
   visit_end_date              date        not null ,
-  visit_end_datetime          datetime2   null ,
+  visit_end_datetime          datetime   null ,
   visit_type_concept_id       integer     not null ,
   provider_id                 integer     null ,
   care_site_id                integer     null ,
@@ -340,13 +344,14 @@ create table visit_detail
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table procedure_occurrence
 (
   procedure_occurrence_id		  integer			not null ,
   person_id						        integer			not null ,
   procedure_concept_id			  integer			not null ,
   procedure_date				      date			  not null ,
-  procedure_datetime			    datetime2		null ,
+  procedure_datetime			    datetime		null ,
   procedure_type_concept_id		integer			not null ,
   modifier_concept_id			    integer			null ,
   quantity						        integer			null ,
@@ -360,15 +365,16 @@ create table procedure_occurrence
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table drug_exposure
 (
   drug_exposure_id				      integer			  not null ,
   person_id						          integer			  not null ,
   drug_concept_id				        integer			  not null ,
   drug_exposure_start_date		  date			    not null ,
-  drug_exposure_start_datetime  datetime2		  null ,
+  drug_exposure_start_datetime  datetime		  null ,
   drug_exposure_end_date		    date			    not null ,
-  drug_exposure_end_datetime	  datetime2		  null ,
+  drug_exposure_end_datetime	  datetime		  null ,
   verbatim_end_date				      date			    null ,
   drug_type_concept_id			    integer			  not null ,
   stop_reason					          varchar(20)		null ,
@@ -389,15 +395,16 @@ create table drug_exposure
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table device_exposure
 (
   device_exposure_id			        integer		  	not null ,
   person_id						            integer			  not null ,
   device_concept_id			        	integer			  not null ,
   device_exposure_start_date	    date			    not null ,
-  device_exposure_start_datetime  datetime2		  null ,
+  device_exposure_start_datetime  datetime		  null ,
   device_exposure_end_date		    date			    null ,
-  device_exposure_end_datetime    datetime2		  null ,
+  device_exposure_end_datetime    datetime		  null ,
   device_type_concept_id		      integer			  not null ,
   unique_device_id			        	varchar(50)		null ,
   quantity						            integer			  null ,
@@ -410,15 +417,16 @@ create table device_exposure
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table condition_occurrence
 (
   condition_occurrence_id		    integer			not null ,
   person_id						          integer			not null ,
   condition_concept_id			    integer			not null ,
   condition_start_date			    date			  not null ,
-  condition_start_datetime		  datetime2		null ,
+  condition_start_datetime		  datetime		null ,
   condition_end_date			      date			  null ,
-  condition_end_datetime		    datetime2		null ,
+  condition_end_datetime		    datetime		null ,
   condition_type_concept_id		  integer			not null ,
   stop_reason					          varchar(20)	null ,
   provider_id					          integer			null ,
@@ -432,6 +440,7 @@ create table condition_occurrence
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table measurement
 (
   measurement_id				        integer			not null ,
@@ -439,7 +448,7 @@ create table measurement
   measurement_concept_id		    integer			not null ,
   measurement_date				      date			  not null ,
   measurement_time              varchar(10) null ,
-  measurement_datetime			    datetime2		null ,
+  measurement_datetime			    datetime		null ,
   measurement_type_concept_id	  integer			not null ,
   operator_concept_id			      integer			null ,
   value_as_number				        float			  null ,
@@ -458,13 +467,13 @@ create table measurement
 ;
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table note
 (
   note_id						    integer			  not null ,
   person_id						  integer			  not null ,
   note_date						  date			    not null ,
-  note_datetime					datetime2		  null ,
+  note_datetime					datetime		  null ,
   note_type_concept_id	integer			  not null ,
   note_class_concept_id integer			  not null ,
   note_title					  varchar(250)	null ,
@@ -486,13 +495,13 @@ create table note_nlp
   note_id						          integer			  not null ,
   section_concept_id			    integer			  null ,
   snippet						          varchar(250)	null ,
-  offset						          varchar(250)	null ,
+  "offset"					          varchar(250)	null ,
   lexical_variant				      varchar(250)	not null ,
   note_nlp_concept_id			    integer			  null ,
   note_nlp_source_concept_id  integer			  null ,
   nlp_system					        varchar(250)	null ,
   nlp_date						        date			    not null ,
-  nlp_datetime					      datetime2		  null ,
+  nlp_datetime					      datetime		  null ,
   term_exists					        varchar(1)		null ,
   term_temporal					      varchar(50)		null ,
   term_modifiers				      varchar(2000)	null
@@ -500,14 +509,14 @@ create table note_nlp
 ;
 
 
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table observation
 (
   observation_id					      integer			not null ,
   person_id						          integer			not null ,
   observation_concept_id			  integer			not null ,
   observation_date				      date			  not null ,
-  observation_datetime				  datetime2		null ,
+  observation_datetime				  datetime		null ,
   observation_type_concept_id	  integer			not null ,
   value_as_number				        float			  null ,
   value_as_string				        varchar(60)	null ,
@@ -525,7 +534,6 @@ create table observation
 ;
 
 
-
 create table fact_relationship
 (
   domain_concept_id_1			integer			not null ,
@@ -538,13 +546,11 @@ create table fact_relationship
 
 
 
-
 /************************
 
 Standardized health system data
 
 ************************/
-
 
 
 create table location
@@ -561,7 +567,6 @@ create table location
 ;
 
 
-
 create table care_site
 (
   care_site_id						      integer			  not null ,
@@ -572,7 +577,6 @@ create table care_site
   place_of_service_source_value varchar(50)		null
 )
 ;
-
 
 
 create table provider
@@ -594,8 +598,6 @@ create table provider
 ;
 
 
-
-
 /************************
 
 Standardized health economics
@@ -603,6 +605,7 @@ Standardized health economics
 ************************/
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table payer_plan_period
 (
   payer_plan_period_id			    integer			  not null ,
@@ -654,15 +657,14 @@ create table cost
 ;
 
 
-
-
-
 /************************
 
 Standardized derived elements
 
 ************************/
 
+
+--HINT DISTRIBUTE_ON_KEY(subject_id)
 create table cohort
 (
   cohort_definition_id	integer		not null ,
@@ -673,12 +675,13 @@ create table cohort
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(subject_id)
 create table cohort_attribute
 (
   cohort_definition_id		integer		not null ,
+  subject_id						  integer		not null ,
   cohort_start_date				date			not null ,
   cohort_end_date				  date			not null ,
-  subject_id						  integer		not null ,
   attribute_definition_id integer		not null ,
   value_as_number				  float			null ,
   value_as_concept_id			integer		null
@@ -686,8 +689,7 @@ create table cohort_attribute
 ;
 
 
-
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table drug_era
 (
   drug_era_id					integer			not null ,
@@ -701,6 +703,7 @@ create table drug_era
 ;
 
 
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table dose_era
 (
   dose_era_id					  integer			not null ,
@@ -714,8 +717,7 @@ create table dose_era
 ;
 
 
-
-
+--HINT DISTRIBUTE_ON_KEY(person_id)
 create table condition_era
 (
   condition_era_id				    integer			not null ,
@@ -726,10 +728,3 @@ create table condition_era
   condition_occurrence_count	integer			null
 )
 ;
-
-
-
-
-
-
-

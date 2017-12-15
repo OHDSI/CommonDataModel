@@ -42,7 +42,7 @@ Standardized vocabulary
 
 ************************/
 
-
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept (
   concept_id			    INTEGER			  NOT NULL ,
   concept_name			  VARCHAR(255)	NOT NULL ,
@@ -55,9 +55,11 @@ CREATE TABLE concept (
   valid_end_date		  DATE			    NOT NULL ,
   invalid_reason		  VARCHAR(1)		NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE vocabulary (
   vocabulary_id			    VARCHAR(20)		NOT NULL,
   vocabulary_name		    VARCHAR(255)	NOT NULL,
@@ -65,25 +67,31 @@ CREATE TABLE vocabulary (
   vocabulary_version	  VARCHAR(255)	NOT NULL,
   vocabulary_concept_id	INTEGER			  NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE domain (
   domain_id			    VARCHAR(20)		NOT NULL,
   domain_name		    VARCHAR(255)	NOT NULL,
   domain_concept_id	INTEGER			  NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept_class (
   concept_class_id			    VARCHAR(20)		NOT NULL,
   concept_class_name		    VARCHAR(255)	NOT NULL,
   concept_class_concept_id	INTEGER			  NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept_relationship (
   concept_id_1			INTEGER			NOT NULL,
   concept_id_2			INTEGER			NOT NULL,
@@ -92,9 +100,11 @@ CREATE TABLE concept_relationship (
   valid_end_date		DATE			  NOT NULL,
   invalid_reason		VARCHAR(1)	NULL
   )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE relationship (
   relationship_id			    VARCHAR(20)		NOT NULL,
   relationship_name			  VARCHAR(255)	NOT NULL,
@@ -106,23 +116,28 @@ CREATE TABLE relationship (
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept_synonym (
   concept_id			      INTEGER			  NOT NULL,
   concept_synonym_name	VARCHAR(1000)	NOT NULL,
   language_concept_id	  INTEGER			  NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept_ancestor (
   ancestor_concept_id		    INTEGER		NOT NULL,
   descendant_concept_id		  INTEGER		NOT NULL,
   min_levels_of_separation	INTEGER		NOT NULL,
   max_levels_of_separation	INTEGER		NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE source_to_concept_map (
   source_code				      VARCHAR(50)		NOT NULL,
   source_concept_id			  INTEGER			  NOT NULL,
@@ -134,29 +149,30 @@ CREATE TABLE source_to_concept_map (
   valid_end_date			    DATE			    NOT NULL,
   invalid_reason			    VARCHAR(1)		NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
-
-
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE drug_strength (
   drug_concept_id				      INTEGER		  NOT NULL,
   ingredient_concept_id			  INTEGER		  NOT NULL,
-  amount_value					      NUMERIC		    NULL,
+  amount_value					      REAL		    NULL,
   amount_unit_concept_id		  INTEGER		  NULL,
-  numerator_value				      NUMERIC		    NULL,
+  numerator_value				      REAL		    NULL,
   numerator_unit_concept_id		INTEGER		  NULL,
-  denominator_value				    NUMERIC		    NULL,
+  denominator_value				    REAL		    NULL,
   denominator_unit_concept_id	INTEGER		  NULL,
   box_size						        INTEGER		  NULL,
   valid_start_date				    DATE		    NOT NULL,
   valid_end_date				      DATE		    NOT NULL,
   invalid_reason				      VARCHAR(1)  NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
-
+-HINT DISTRIBUTE ON RANDOM
 CREATE TABLE cohort_definition (
   cohort_definition_id				    INTEGER			  NOT NULL,
   cohort_definition_name			    VARCHAR(255)	NOT NULL,
@@ -166,9 +182,11 @@ CREATE TABLE cohort_definition (
   subject_concept_id				      INTEGER			  NOT NULL,
   cohort_initiation_date			    DATE			    NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE attribute_definition (
   attribute_definition_id		  INTEGER			  NOT NULL,
   attribute_name				      VARCHAR(255)	NOT NULL,
@@ -176,6 +194,7 @@ CREATE TABLE attribute_definition (
   attribute_type_concept_id		INTEGER			  NOT NULL,
   attribute_syntax				    VARCHAR(1000)	NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -185,7 +204,7 @@ Standardized meta-data
 
 ***************************/
 
-
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE cdm_source
 (
   cdm_source_name					        VARCHAR(255)	NOT NULL ,
@@ -199,19 +218,22 @@ CREATE TABLE cdm_source
   cdm_version						          VARCHAR(10)		NULL ,
   vocabulary_version					    VARCHAR(20)		NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE metadata
 (
   metadata_concept_id       INTEGER       NOT NULL ,
   metadata_type_concept_id  INTEGER       NOT NULL ,
   name                      VARCHAR(250)  NOT NULL ,
-  value_as_string           NVARCHAR      NULL ,
+  value_as_string           VARCHAR(1000) NULL ,
   value_as_concept_id       INTEGER       NULL ,
   metadata_date             DATE          NULL ,
-  metadata_datetime         DATETIME2     NULL
+  metadata_datetime         DATETIME      NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -229,7 +251,7 @@ CREATE TABLE person
   year_of_birth					      INTEGER	  	NOT NULL ,
   month_of_birth				      INTEGER	  	NULL,
   day_of_birth					      INTEGER	  	NULL,
-  birth_datetime				      DATETIME2	  NULL,
+  birth_datetime				      DATETIME	  NULL,
   race_concept_id				      INTEGER		  NOT NULL,
   ethnicity_concept_id			  INTEGER	  	NOT NULL,
   location_id					        INTEGER		  NULL,
@@ -268,8 +290,8 @@ CREATE TABLE specimen
   specimen_concept_id				  INTEGER			NOT NULL ,
   specimen_type_concept_id		INTEGER			NOT NULL ,
   specimen_date						    DATE			  NOT NULL ,
-  specimen_datetime					  DATETIME2		NULL ,
-  quantity							      NUMERIC			  NULL ,
+  specimen_datetime					  DATETIME		NULL ,
+  quantity							      REAL			  NULL ,
   unit_concept_id					    INTEGER			NULL ,
   anatomic_site_concept_id		INTEGER			NULL ,
   disease_status_concept_id		INTEGER			NULL ,
@@ -288,7 +310,7 @@ CREATE TABLE death
 (
   person_id							  INTEGER			NOT NULL ,
   death_date							DATE			  NOT NULL ,
-  death_datetime					DATETIME2		NULL ,
+  death_datetime					DATETIME		NULL ,
   death_type_concept_id   INTEGER			NOT NULL ,
   cause_concept_id			  INTEGER			NULL ,
   cause_source_value			VARCHAR(50)	NULL,
@@ -305,17 +327,17 @@ CREATE TABLE visit_occurrence
   person_id						          INTEGER			NOT NULL ,
   visit_concept_id				      INTEGER			NOT NULL ,
   visit_start_date				      DATE			  NOT NULL ,
-  visit_start_datetime				  DATETIME2		NULL ,
+  visit_start_datetime				  DATETIME		NULL ,
   visit_end_date					      DATE			  NOT NULL ,
-  visit_end_datetime					  DATETIME2		NULL ,
+  visit_end_datetime					  DATETIME		NULL ,
   visit_type_concept_id			    INTEGER			NOT NULL ,
   provider_id					          INTEGER			NULL,
   care_site_id					        INTEGER			NULL,
   visit_source_value				    VARCHAR(50)	NULL,
-  visit_source_concept_id		    INTEGER			NULL
+  visit_source_concept_id		    INTEGER			NULL,
   admitting_source_concept_id	  INTEGER			NULL ,
   admitting_source_value		    VARCHAR(50)	NULL ,
-  discharge_to_concept_id		    INTEGER(50)	NULL ,
+  discharge_to_concept_id		    INTEGER   	NULL ,
   discharge_to_source_value		  VARCHAR(50)	NULL ,
   preceding_visit_occurrence_id	INTEGER			NULL
 )
@@ -330,9 +352,9 @@ CREATE TABLE visit_detail
   person_id                   INTEGER     NOT NULL ,
   visit_detail_concept_id     INTEGER     NOT NULL ,
   visit_start_date            DATE        NOT NULL ,
-  visit_start_datetime        DATETIME2   NULL ,
+  visit_start_datetime        DATETIME    NULL ,
   visit_end_date              DATE        NOT NULL ,
-  visit_end_datetime          DATETIME2   NULL ,
+  visit_end_datetime          DATETIME    NULL ,
   visit_type_concept_id       INTEGER     NOT NULL ,
   provider_id                 INTEGER     NULL ,
   care_site_id                INTEGER     NULL ,
@@ -357,7 +379,7 @@ CREATE TABLE procedure_occurrence
   person_id						        INTEGER			NOT NULL ,
   procedure_concept_id			  INTEGER			NOT NULL ,
   procedure_date				      DATE			  NOT NULL ,
-  procedure_datetime			    DATETIME2		NULL ,
+  procedure_datetime			    DATETIME		NULL ,
   procedure_type_concept_id		INTEGER			NOT NULL ,
   modifier_concept_id			    INTEGER			NULL ,
   quantity						        INTEGER			NULL ,
@@ -379,14 +401,14 @@ CREATE TABLE drug_exposure
   person_id						          INTEGER			  NOT NULL ,
   drug_concept_id				        INTEGER			  NOT NULL ,
   drug_exposure_start_date		  DATE			    NOT NULL ,
-  drug_exposure_start_datetime  DATETIME2		  NULL ,
+  drug_exposure_start_datetime  DATETIME		  NULL ,
   drug_exposure_end_date		    DATE			    NOT NULL ,
-  drug_exposure_end_datetime	  DATETIME2		  NULL ,
+  drug_exposure_end_datetime	  DATETIME		  NULL ,
   verbatim_end_date				      DATE			    NULL ,
   drug_type_concept_id			    INTEGER			  NOT NULL ,
   stop_reason					          VARCHAR(20)		NULL ,
   refills						            INTEGER		  	NULL ,
-  quantity						          NUMERIC			    NULL ,
+  quantity						          REAL			    NULL ,
   days_supply					          INTEGER		  	NULL ,
   sig							              VARCHAR(1000)	NULL ,
   route_concept_id				      INTEGER			  NULL ,
@@ -410,9 +432,9 @@ CREATE TABLE device_exposure
   person_id						            INTEGER			  NOT NULL ,
   device_concept_id			        	INTEGER			  NOT NULL ,
   device_exposure_start_date	    DATE			    NOT NULL ,
-  device_exposure_start_datetime  DATETIME2		  NULL ,
+  device_exposure_start_datetime  DATETIME		  NULL ,
   device_exposure_end_date		    DATE			    NULL ,
-  device_exposure_end_datetime    DATETIME2		  NULL ,
+  device_exposure_end_datetime    DATETIME		  NULL ,
   device_type_concept_id		      INTEGER			  NOT NULL ,
   unique_device_id			        	VARCHAR(50)		NULL ,
   quantity						            INTEGER			  NULL ,
@@ -433,9 +455,9 @@ CREATE TABLE condition_occurrence
   person_id						          INTEGER			NOT NULL ,
   condition_concept_id			    INTEGER			NOT NULL ,
   condition_start_date			    DATE			  NOT NULL ,
-  condition_start_datetime		  DATETIME2		NULL ,
+  condition_start_datetime		  DATETIME		NULL ,
   condition_end_date			      DATE			  NULL ,
-  condition_end_datetime		    DATETIME2		NULL ,
+  condition_end_datetime		    DATETIME		NULL ,
   condition_type_concept_id		  INTEGER			NOT NULL ,
   stop_reason					          VARCHAR(20)	NULL ,
   provider_id					          INTEGER			NULL ,
@@ -457,15 +479,14 @@ CREATE TABLE measurement
   person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
-  measurement_time              VARCHAR(10) NULL ,
-  measurement_datetime			    DATETIME2		NULL ,
+  measurement_datetime			    DATETIME		NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
-  value_as_number				        NUMERIC			  NULL ,
+  value_as_number				        REAL			  NULL ,
   value_as_concept_id			      INTEGER			NULL ,
   unit_concept_id				        INTEGER			NULL ,
-  range_low					          	NUMERIC			  NULL ,
-  range_high					          NUMERIC			  NULL ,
+  range_low					          	REAL			  NULL ,
+  range_high					          REAL			  NULL ,
   provider_id					          INTEGER			NULL ,
   visit_occurrence_id			      INTEGER			NULL ,
   visit_detail_id               INTEGER     NULL ,
@@ -484,7 +505,7 @@ CREATE TABLE note
   note_id						    INTEGER			  NOT NULL ,
   person_id						  INTEGER			  NOT NULL ,
   note_date						  DATE			    NOT NULL ,
-  note_datetime					DATETIME2		  NULL ,
+  note_datetime					DATETIME		  NULL ,
   note_type_concept_id	INTEGER			  NOT NULL ,
   note_class_concept_id INTEGER			  NOT NULL ,
   note_title					  VARCHAR(250)	NULL ,
@@ -500,24 +521,25 @@ DISTRIBUTE ON (person_id)
 ;
 
 
-
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE note_nlp
 (
   note_nlp_id					        BIGINT			  NOT NULL ,
   note_id						          INTEGER			  NOT NULL ,
   section_concept_id			    INTEGER			  NULL ,
   snippet						          VARCHAR(250)	NULL ,
-  offset						          VARCHAR(250)	NULL ,
+  "offset"						        VARCHAR(250)	NULL ,
   lexical_variant				      VARCHAR(250)	NOT NULL ,
   note_nlp_concept_id			    INTEGER			  NULL ,
   note_nlp_source_concept_id  INTEGER			  NULL ,
   nlp_system					        VARCHAR(250)	NULL ,
   nlp_date						        DATE			    NOT NULL ,
-  nlp_datetime					      DATETIME2		  NULL ,
+  nlp_datetime					      DATETIME		  NULL ,
   term_exists					        VARCHAR(1)		NULL ,
   term_temporal					      VARCHAR(50)		NULL ,
   term_modifiers				      VARCHAR(2000)	NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -528,9 +550,9 @@ CREATE TABLE observation
   person_id						          INTEGER			NOT NULL ,
   observation_concept_id			  INTEGER			NOT NULL ,
   observation_date				      DATE			  NOT NULL ,
-  observation_datetime				  DATETIME2		NULL ,
+  observation_datetime				  DATETIME		NULL ,
   observation_type_concept_id	  INTEGER			NOT NULL ,
-  value_as_number				        NUMERIC			  NULL ,
+  value_as_number				        REAL			  NULL ,
   value_as_string				        VARCHAR(60)	NULL ,
   value_as_concept_id			      INTEGER			NULL ,
   qualifier_concept_id			    INTEGER			NULL ,
@@ -547,6 +569,7 @@ DISTRIBUTE ON (person_id)
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE fact_relationship
 (
   domain_concept_id_1			INTEGER			NOT NULL ,
@@ -555,6 +578,7 @@ CREATE TABLE fact_relationship
   fact_id_2						    INTEGER			NOT NULL ,
   relationship_concept_id	INTEGER			NOT NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -565,7 +589,7 @@ Standardized health system data
 
 ************************/
 
-
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE location
 (
   location_id					  INTEGER			  NOT NULL ,
@@ -577,9 +601,11 @@ CREATE TABLE location
   county							  VARCHAR(20)		NULL ,
   location_source_value VARCHAR(50)		NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE care_site
 (
   care_site_id						      INTEGER			  NOT NULL ,
@@ -589,9 +615,11 @@ CREATE TABLE care_site
   care_site_source_value			  VARCHAR(50)		NULL ,
   place_of_service_source_value VARCHAR(50)		NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE provider
 (
   provider_id					        INTEGER			  NOT NULL ,
@@ -608,6 +636,7 @@ CREATE TABLE provider
   gender_source_value			    VARCHAR(50)		NULL ,
   gender_source_concept_id		INTEGER			  NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -643,6 +672,7 @@ DISTRIBUTE ON (person_id)
 ;
 
 
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE cost
 (
   cost_id					          INTEGER	    NOT NULL ,
@@ -650,24 +680,25 @@ CREATE TABLE cost
   cost_domain_id            VARCHAR(20) NOT NULL ,
   cost_type_concept_id      INTEGER     NOT NULL ,
   currency_concept_id			  INTEGER			NULL ,
-  total_charge						  NUMERIC			  NULL ,
-  total_cost						    NUMERIC			  NULL ,
-  total_paid						    NUMERIC			  NULL ,
-  paid_by_payer					    NUMERIC			  NULL ,
-  paid_by_patient						NUMERIC			  NULL ,
-  paid_patient_copay				NUMERIC			  NULL ,
-  paid_patient_coinsurance  NUMERIC			  NULL ,
-  paid_patient_deductible		NUMERIC			  NULL ,
-  paid_by_primary						NUMERIC			  NULL ,
-  paid_ingredient_cost			NUMERIC			  NULL ,
-  paid_dispensing_fee				NUMERIC			  NULL ,
+  total_charge						  REAL			  NULL ,
+  total_cost						    REAL			  NULL ,
+  total_paid						    REAL			  NULL ,
+  paid_by_payer					    REAL			  NULL ,
+  paid_by_patient						REAL			  NULL ,
+  paid_patient_copay				REAL			  NULL ,
+  paid_patient_coinsurance  REAL			  NULL ,
+  paid_patient_deductible		REAL			  NULL ,
+  paid_by_primary						REAL			  NULL ,
+  paid_ingredient_cost			REAL			  NULL ,
+  paid_dispensing_fee				REAL			  NULL ,
   payer_plan_period_id			INTEGER			NULL ,
-  amount_allowed		        NUMERIC			  NULL ,
+  amount_allowed		        REAL			  NULL ,
   revenue_code_concept_id		INTEGER			NULL ,
   reveue_code_source_value  VARCHAR(50) NULL,
   drg_concept_id			      INTEGER		  NULL,
   drg_source_value			    VARCHAR(3)	NULL
 )
+DISTRIBUTE ON RANDOM
 ;
 
 
@@ -698,7 +729,7 @@ CREATE TABLE cohort_attribute
   cohort_start_date				DATE			NOT NULL ,
   cohort_end_date				  DATE			NOT NULL ,
   attribute_definition_id INTEGER		NOT NULL ,
-  value_as_number				  NUMERIC			NULL ,
+  value_as_number				  REAL			NULL ,
   value_as_concept_id			INTEGER		NULL
 )
 DISTRIBUTE ON (subject_id)
@@ -727,7 +758,7 @@ CREATE TABLE dose_era
   person_id						  INTEGER			NOT NULL ,
   drug_concept_id				INTEGER			NOT NULL ,
   unit_concept_id				INTEGER			NOT NULL ,
-  dose_value						NUMERIC			  NOT NULL ,
+  dose_value						REAL			  NOT NULL ,
   dose_era_start_date		DATE			  NOT NULL ,
   dose_era_end_date	    DATE			  NOT NULL
 )

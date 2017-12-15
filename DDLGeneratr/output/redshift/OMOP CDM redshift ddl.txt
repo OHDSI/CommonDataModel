@@ -193,10 +193,10 @@ CREATE TABLE metadata
  (metadata_concept_id       INTEGER       NOT NULL ,
   metadata_type_concept_id  INTEGER       NOT NULL ,
   name                      VARCHAR(250)  NOT NULL ,
-  value_as_string           NVARCHAR      NULL ,
+  value_as_string           VARCHAR(MAX)  NULL ,
   value_as_concept_id       INTEGER       NULL ,
   metadata_date             DATE          NULL ,
-  metadata_datetime         TIMESTAMP     NULL
+  metadata_datetime         TIMESTAMP      NULL
 )
 DISTSTYLE ALL;
 
@@ -289,10 +289,10 @@ CREATE TABLE visit_occurrence
   provider_id					          INTEGER			NULL,
   care_site_id					        INTEGER			NULL,
   visit_source_value				    VARCHAR(50)	NULL,
-  visit_source_concept_id		    INTEGER			NULL
+  visit_source_concept_id		    INTEGER			NULL ,
   admitting_source_concept_id	  INTEGER			NULL ,
   admitting_source_value		    VARCHAR(50)	NULL ,
-  discharge_to_concept_id		    INTEGER(50)	NULL ,
+  discharge_to_concept_id		    INTEGER   	NULL ,
   discharge_to_source_value		  VARCHAR(50)	NULL ,
   preceding_visit_occurrence_id	INTEGER			NULL
 )
@@ -468,7 +468,7 @@ CREATE TABLE note_nlp
   note_id						          INTEGER			  NOT NULL ,
   section_concept_id			    INTEGER			  NULL ,
   snippet						          VARCHAR(250)	NULL ,
-  offset						          VARCHAR(250)	NULL ,
+  "offset"					          VARCHAR(250)	NULL ,
   lexical_variant				      VARCHAR(250)	NOT NULL ,
   note_nlp_concept_id			    INTEGER			  NULL ,
   note_nlp_source_concept_id  INTEGER			  NULL ,
