@@ -1,3 +1,5 @@
+# COST
+
 The COST table captures records containing the cost of any medical entity recorded in one of the DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, VISIT_OCCURRENCE, DEVICE_OCCURRENCE, OBSERVATION, MEASUREMENT of SPECIMEN tables.
 
 The information about the cost is defined by the amount of money paid by the Person and Payer, or as the charged cost by the healthcare provider. So, the COST table can be used to represent both cost and revenue perspectives. The cost_type_concept_id field will use concepts in the Standardized Vocabularies to designate the source of the cost data. A reference to the health plan information in the PAYER_PLAN_PERIOD table is stored in the record that is responsible for the determination of the cost as well as some of the payments. 
