@@ -1,1 +1,0 @@
-***OMOP Common Data Model v5.2 Specifications***
