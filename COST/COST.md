@@ -38,13 +38,12 @@ One cost record is generated for each money or currency amount associated with a
 Will create four lines in the COST table:
 
 
-|cost_id	|person_id|	cost_event_id|	cost_domain_id|	cost_event_table_concept_id*|	cost_concept_id**|	cost_type_concept_id|	cost_source_concept_id	|currency_concept_id|	cost|	incurred_date|	billed_date|	paid_date	|revenue_code_concept_id|	drg_concept_id	|revenue_code_source_value|	drg_source_value	|payer_plan_period_id|
-:-------|:----------|:-------|:-----------|:----------|:-------|:-----------|:----------|:-------|:-----------|:----------|:----------|
-
-|1|	175127601|	1002|	Procedure|	*TBD*|	1234*|	5032|	0|	44818668|	22	|1/1/2000|		2/28/2000|	0	|0	|		3045|
-|2	|175127601|	1002|	Procedure|	*TBD*|	2345*|	5032|	0|	44818668|	3	|1/1/2000|		2/28/2000|	0	|0|			3045|
-|3	|175127601|	1002|	Procedure|	*TBD*|	3456*|	5032|	0|	44818668|	88	|1/1/2000|		2/28/2000|	0	|0|			3045|
-|4	|175127601|	1002|	Procedure|	*TBD*|	4567*|	5032|	0|	44818668|	113	|1/1/2000|		2/28/2000|	0	|0|			3045|
+cost_id	|person_id|	cost_event_id|	cost_domain_id|	cost_event_table_concept_id*|	cost_concept_id**|	cost_type_concept_id|	cost_source_concept_id	|currency_concept_id|	cost|	incurred_date|	billed_date|	paid_date	|revenue_code_concept_id|	drg_concept_id	|revenue_code_source_value|	drg_source_value	|payer_plan_period_id
+:-------|:-------|:-------|:-----|:----------|:-------|:------|:--------|:-------|:-----|:-------|:----|:-----|:-------|:----|:-----|:-------|:----
+|1|	175127601|	1002|	Procedure|	*TBD*|	1234|	5032|	0|	44818668|	22	|1/1/2000|		|2/28/2000|	0	|0	|	||	3045|
+|2	|175127601|	1002|	Procedure|	*TBD*|	2345|	5032|	0|	44818668|	3	|1/1/2000|		|2/28/2000|	0	|0|		||	3045|
+|3	|175127601|	1002|	Procedure|	*TBD*|	3456|	5032|	0|	44818668|	88	|1/1/2000|	|	2/28/2000|	0	|0|		||	3045|
+|4	|175127601|	1002|	Procedure|	*TBD*|	4567|	5032|	0|	44818668|	113	|1/1/2000|	|	2/28/2000|	0	|0|		||	3045|
 
 *The Cost_event_table_concept_id field is still in discussion as to whether it is needed or if the cost_domain_id is sufficient
 **The Cost_concept_ids are still in production and will be released with a future vocabulary version so the ones used here are placeholders. 
