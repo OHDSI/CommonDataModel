@@ -4,28 +4,28 @@ The information about the cost is defined by the amount of money paid by the Per
 
 Field|Required|Type|Description
 :-----------------------------|:--------|:------------|:----------------------------------------------------
-|cost_id|Yes|integer|A unique identifier for each COST record.|
-|cost_event_id|Yes|integer|A foreign key identifier to the event (e.g. Measurement, Procedure, Visit, Drug Exposure, etc) record for which cost data are recorded.|
-|cost_domain_id|Yes|string(20)|The concept representing the domain of the cost event, from which the corresponding table can be inferred that contains the entity for which cost information is recorded.|
-|cost_type_concept_id|Yes|integer|A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data: Calculated from insurance claim information, provider revenue, calculated from cost-to-charge ratio, reported from accounting database, etc.|
-|currency_concept_id|No|integer|A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar.|
-|total_charge|No|float|The total amount charged by some provider of goods or services (e.g. hospital, physician pharmacy, dme provider) to payers (insurance companies, the patient).|
-|total_cost|No|float|The cost incurred by the provider of goods or services.|
-|total_paid|No|float|The total amount actually paid from all payers for goods or services of the provider.|
-|paid_by_payer|No|float|The amount paid by the Payer for the goods or services.|
-|paid_by_patient|No|float|The total amount paid by the Person as a share of the expenses.|
-|paid_patient_copay|No|float|The amount paid by the Person as a fixed contribution to the expenses.|
-|paid_patient_coinsurance|No|float|The amount paid by the Person as a joint assumption of risk. Typically, this is a percentage of the expenses defined by the Payer Plan after the Person's deductible is exceeded.|
-|paid_patient_deductible|No|float|The amount paid by the Person that is counted toward the deductible defined by the Payer Plan. paid_patient_deductible does contribute to the paid_by_patient variable.|
-|paid_by_primary|No|float|The amount paid by a primary Payer through the coordination of benefits.|
-|paid_ingredient_cost|No|float|The amount paid by the Payer to a pharmacy for the drug, excluding the amount paid for dispensing the drug.  paid_ingredient_cost contributes to the paid_by_payer field if this field is populated with a nonzero value.|
-|paid_dispensing_fee|No|float|The amount paid by the Payer to a pharmacy for dispensing a drug, excluding the amount paid for the drug ingredient. paid_dispensing_fee contributes to the paid_by_payer field if this field is populated with a nonzero value.|
-|payer_plan_period_id|No|integer|A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored.  Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field.|
-|amount_allowed|No|float|The contracted amount agreed between the payer and provider.|
-|revenue_code_concept_id|No|integer|A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes.|
-|revenue_code_source_value|No|string(50)|The source code for the Revenue code as it appears in the source data, stored here for reference.|
-|drg_concept_id|	integer|	No	|A foreign key to the predefined concept in the DRG Vocabulary reflecting the DRG for a visit.|
-|drg_source_value|	varchar(3)|	No|	The 3-digit DRG source code as it appears in the source data.|
+|cost_id						|Yes|integer|A unique identifier for each COST record.|
+|cost_event_id					|Yes|integer|A foreign key identifier to the event (e.g. Measurement, Procedure, Visit, Drug Exposure, etc) record for which cost data are recorded.|
+|cost_domain_id					|Yes|varchar(20)|The concept representing the domain of the cost event, from which the corresponding table can be inferred that contains the entity for which cost information is recorded.|
+|cost_type_concept_id			|Yes|integer|A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data: Calculated from insurance claim information, provider revenue, calculated from cost-to-charge ratio, reported from accounting database, etc.|
+|currency_concept_id			|No|integer|A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar.|
+|total_charge					|No|float|The total amount charged by some provider of goods or services (e.g. hospital, physician pharmacy, dme provider) to payers (insurance companies, the patient).|
+|total_cost						|No|float|The cost incurred by the provider of goods or services.|
+|total_paid						|No|float|The total amount actually paid from all payers for goods or services of the provider.|
+|paid_by_payer					|No|float|The amount paid by the Payer for the goods or services.|
+|paid_by_patient				|No|float|The total amount paid by the Person as a share of the expenses.|
+|paid_patient_copay				|No|float|The amount paid by the Person as a fixed contribution to the expenses.|
+|paid_patient_coinsurance		|No|float|The amount paid by the Person as a joint assumption of risk. Typically, this is a percentage of the expenses defined by the Payer Plan after the Person's deductible is exceeded.|
+|paid_patient_deductible		|No|float|The amount paid by the Person that is counted toward the deductible defined by the Payer Plan. paid_patient_deductible does contribute to the paid_by_patient variable.|
+|paid_by_primary				|No|float|The amount paid by a primary Payer through the coordination of benefits.|
+|paid_ingredient_cost			|No|float|The amount paid by the Payer to a pharmacy for the drug, excluding the amount paid for dispensing the drug.  paid_ingredient_cost contributes to the paid_by_payer field if this field is populated with a nonzero value.|
+|paid_dispensing_fee			|No|float|The amount paid by the Payer to a pharmacy for dispensing a drug, excluding the amount paid for the drug ingredient. paid_dispensing_fee contributes to the paid_by_payer field if this field is populated with a nonzero value.|
+|payer_plan_period_id			|No|integer|A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored.  Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field.|
+|amount_allowed					|No|float|The contracted amount agreed between the payer and provider.|
+|revenue_code_concept_id		|No|integer|A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes.|
+|revenue_code_source_value		|No|varchar(50)|The source code for the Revenue code as it appears in the source data, stored here for reference.|
+|drg_concept_id					|No|integer|A foreign key to the predefined concept in the DRG Vocabulary reflecting the DRG for a visit.|
+|drg_source_value				|No|varchar(3)|	The 3-digit DRG source code as it appears in the source data.|
 
 ### Conventions 
 The COST table will store information reporting money or currency amounts. There are three types of cost data, defined in the cost_type_concept_id: 1) paid or reimbursed amounts, 2) charges or list prices (such as Average Wholesale Prices), and 3) costs or expenses incurred by the provider. The defined fields are variables found in almost all U.S.-based claims data sources, which is the most common data source for researchers. Non-U.S.-based data holders are encouraged to engage with OHDSI to adjust these tables to their needs.

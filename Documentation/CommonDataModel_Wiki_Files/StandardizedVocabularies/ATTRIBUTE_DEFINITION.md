@@ -4,9 +4,9 @@ Field|Required|Type|Description
 :-------------------------|:--------|:-----|:--------------------------------------
 |attribute_definition_id|Yes|integer|A unique identifier for each Attribute.|
 |attribute_name|Yes|varchar(255)|A short description of the Attribute.|
-|attribute_description|No|CLOB|A complete description of the Attribute definition|
+|attribute_description|No|varchar(MAX)|A complete description of the Attribute definition|
 |attribute_type_concept_id|Yes|integer|Type defining what kind of Attribute Definition the record represents and how the syntax may be executed|
-|attribute_syntax|No|CLOB|Syntax or code to operationalize the Attribute definition|
+|attribute_syntax|No|varchar(MAX)|Syntax or code to operationalize the Attribute definition|
 
 
 ### Conventions

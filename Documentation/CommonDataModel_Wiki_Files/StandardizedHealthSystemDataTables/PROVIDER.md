@@ -3,7 +3,7 @@ The PROVIDER table contains a list of uniquely identified healthcare providers. 
 Field|Required|Type|Description
 :-------------------------|:--------|:------------|:-------------------------------------
 |provider_id|Yes|integer|A unique identifier for each Provider.|
-|provider_name|No|varchar(50)|A description of the Provider.|
+|provider_name|No|varchar(255)|A description of the Provider.|
 |npi|No|varchar(20)|The National Provider Identifier (NPI) of the provider.|
 |dea|No|varchar(20)|The Drug Enforcement Administration (DEA) number of the provider.|
 |specialty_concept_id|No|integer|A foreign key to a Standard Specialty Concept ID in the Standardized Vocabularies.|
