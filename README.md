@@ -10,7 +10,7 @@ This version is based on the pull requests and CDM proposals:
 * [#64](https://github.com/OHDSI/CommonDataModel/pull/64) This removes the datetime fields from OBSERVATION_PERIOD
 * [#70](https://github.com/OHDSI/CommonDataModel/issues/70) Adds the VISIT_DETAIL table
 * [#79](https://github.com/OHDSI/CommonDataModel/issues/79) Adds the METADATA table
-* [#92](https://github.com/OHDSI/CommonDataModel/issues/92) Fixes modifier typo in PROCEDURE_OCCURRENCE
+* [#92](https://github.com/OHDSI/CommonDataModel/issues/92) Fixes qualifier typo in PROCEDURE_OCCURRENCE
 * [#120](https://github.com/OHDSI/CommonDataModel/issues/120) Adds the following fields to PAYER_PLAN_PERIOD:
 	* PAYER_CONCEPT_ID
 	* PAYER_SOURCE_CONCEPT_ID
