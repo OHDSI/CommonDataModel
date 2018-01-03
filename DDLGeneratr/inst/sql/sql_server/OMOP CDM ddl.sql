@@ -490,7 +490,7 @@ CREATE TABLE note
 
 CREATE TABLE note_nlp
 (
-  note_nlp_id					        BIGINT			  NOT NULL ,
+  note_nlp_id					        INTEGER			  NOT NULL ,
   note_id						          INTEGER			  NOT NULL ,
   section_concept_id			    INTEGER			  NULL ,
   snippet						          VARCHAR(250)	NULL ,
