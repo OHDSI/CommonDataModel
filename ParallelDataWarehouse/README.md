@@ -11,6 +11,6 @@ n order to create your instantiation of the Common Data Model, we recommend foll
 
 3. Load your data into the schema.
 
-4. Execute the script `OMOP CDM pdw constraints.txt` to add the constraints (primary keys). 
+4. Execute the script `OMOP CDM pdw indexes.txt` to add the minimum set of indices and primary keys we recommend.
 
-5. Execute the script `OMOP CDM pdw indexes.txt` to add the minimum set of indexes and foreign keys we recommend.
+5. Execute the script `OMOP CDM pdw constraints.txt` to add the foreign key constraints.
