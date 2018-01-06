@@ -11,10 +11,10 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 impala-shell -q 'CREATE DATABASE omop_cdm'
 ```
 
-2. Execute the script `OMOP_CDM_ddl_Impala.sql` to create the tables and fields.
+2. Execute the script `OMOP CDM impala ddl.txt` (you will need to convert it to a sql file first) to create the tables and fields.
 
 ```bash
-impala-shell -d omop_cdm -f OMOP_CDM_ddl_Impala.sql
+impala-shell -d omop_cdm -f OMOP_CDM_impala_ddl.sql
 ```
 
 3. Load your data into the schema.

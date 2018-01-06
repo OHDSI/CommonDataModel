@@ -20,7 +20,7 @@ Field|Required|Type|Description
 | condition_source_value         | No        | varchar(50)  | The source code for the condition as it appears in the source data. This code is mapped to a standard condition concept in the Standardized Vocabularies and the original code is stored here for reference.     |
 | condition_source_concept_id    | No        | integer      | A foreign key to a Condition Concept that refers to the code used in the source.                                                                                                                                 |
 | condition_status_source_value  | No        | varchar(50)  | The source code for the condition status as it appears in the source data.    |
-| condition_status_concept_id    | No        | integer      | A foreign key to the predefined concept in the standard vocabulary reflecting the condition status |                                                                                                                               |
+| condition_status_concept_id    | No        | integer      | A foreign key to the predefined Concept in the Standard Vocabulary reflecting the condition status |                                                                                                                               |
 
 ### Conventions 
 
@@ -37,5 +37,5 @@ Field|Required|Type|Description
   * Condition source codes are typically ICD-9-CM, Read or ICD-10 diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
   * Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:
     * Admitting diagnosis: 4203942
-    * Final diagnosis: 4230359 � should also be used for �Discharge diagnosis�
+    * Final diagnosis: 4230359 (should also be used for discharge diagnosis)
     * Preliminary diagnosis: 4033240

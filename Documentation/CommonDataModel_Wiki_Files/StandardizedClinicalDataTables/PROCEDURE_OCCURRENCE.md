@@ -13,12 +13,12 @@ Field|Required|Type|Description
 |procedure_type_concept_id|Yes|integer|A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the procedure record is derived.|
 |modifier_concept_id|No|integer|A foreign key to a Standard Concept identifier for a modifier to the Procedure (e.g. bilateral)|
 |quantity|No|integer|The quantity of procedures ordered or administered.|
-|provider_id|No|integer|A foreign key to the provider in the provider table who was responsible for carrying out the procedure.|
-|visit_occurrence_id|No|integer|A foreign key to the visit in the visit table during which the Procedure was carried out.|
+|provider_id|No|integer|A foreign key to the provider in the PROVIDER table who was responsible for carrying out the procedure.|
+|visit_occurrence_id|No|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Procedure was carried out.|
+|visit_detail_id|No|integer|A foreign key to the Visit Detail in the VISIT_DETAIL table during which the Procedure was carried out.|
 |procedure_source_value|No|varchar(50)|The source code for the Procedure as it appears in the source data. This code is mapped to a standard procedure Concept in the Standardized Vocabularies and the original code is, stored here for reference. Procedure source codes are typically ICD-9-Proc, CPT-4, HCPCS or OPCS-4 codes.|
 |procedure_source_concept_id|No|integer|A foreign key to a Procedure Concept that refers to the code used in the source.|
-|qualifier_source_value|No|varchar(50)|The source code for the qualifier as it appears in the source data.|
-|visit_detail_id|No|integer|A foreign key to the visit in the visit table during which the Procedure was carried out.|
+|modifier_source_value|No|varchar(50)|The source code for the qualifier as it appears in the source data.|
 
 ### Conventions 
 
@@ -28,4 +28,5 @@ Field|Required|Type|Description
   * If the quantity value is omitted, a single procedure is assumed.
   * The Procedure Type defines from where the Procedure Occurrence is drawn or inferred. For administrative claims records the type indicates whether a Procedure was primary or secondary and their relative positioning within a claim. 
   * The Visit during which the procedure was performed is recorded through a reference to the VISIT_OCCURRENCE table. This information is not always available.
+  * The Visit Detail during with the procedure was performed is recorded through a reference to the VISIT_DETAIL table. This information is not always available.
   * The Provider carrying out the procedure is recorded through a reference to the PROVIDER table. This information is not always available.

@@ -22,16 +22,16 @@ Field|Required|Type|Description
 |refills|No|integer|The number of refills after the initial prescription. The initial prescription is not counted, values start with 0.|
 |quantity |No|float|The quantity of drug as recorded in the original prescription or dispensing record.|
 |days_supply|No|integer|The number of days of supply of the medication as recorded in the original prescription or dispensing record.|
-|sig|No|clob|The directions ("signetur") on the Drug prescription as recorded in the original prescription (and printed on the container) or dispensing record.|
+|sig|No|varchar(MAX)|The directions ("signetur") on the Drug prescription as recorded in the original prescription (and printed on the container) or dispensing record.|
 |route_concept_id|No|integer|A foreign key to a predefined concept in the Standardized Vocabularies reflecting the route of administration.|
 |lot_number|No|varchar(50)|An identifier assigned to a particular quantity or lot of Drug product from the manufacturer.|
-|provider_id|No|integer|A foreign key to the provider in the provider table who initiated (prescribed or administered) the Drug Exposure.|
-|visit_occurrence_id|No|integer|A foreign key to the visit in the visit table during which the Drug Exposure was initiated.|
+|provider_id|No|integer|A foreign key to the provider in the PROVIDER table who initiated (prescribed or administered) the Drug Exposure.|
+|visit_occurrence_id|No|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Drug Exposure was initiated.|
+|visit_detail_id|No|integer|A foreign key to the Visit Detail in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 |drug_source_value|No|varchar(50)|The source code for the Drug as it appears in the source data. This code is mapped to a Standard Drug concept in the Standardized Vocabularies and the original code is, stored here for reference.|
 |drug_source_concept_id|No|integer|A foreign key to a Drug Concept that refers to the code used in the source.|
 |route_source_value|No|varchar(50)|The information about the route of administration as detailed in the source.|
 |dose_unit_source_value|No|varchar(50)|The information about the dose unit as detailed in the source.|
-|visit_detail_id|No|integer|A foreign key to the visit in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 
 ### Conventions 
 
