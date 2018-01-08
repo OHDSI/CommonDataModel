@@ -28,7 +28,7 @@
 
 netezza script to create OMOP common data model version 5.3
 
-last revised: 6-Nov-2017
+last revised: 8-Jan-2018
 
 Authors:  Patrick Ryan, Christian Reich, Clair Blacketer
 
@@ -665,7 +665,7 @@ CREATE TABLE payer_plan_period
   sponsor_source_concept_id     INTEGER       NULL ,
   family_source_value			      VARCHAR(50)	  NULL ,
   stop_reason_concept_id        INTEGER       NULL ,
-  stop_reason_source_value      INTEGER       NULL ,
+  stop_reason_source_value      VARCHAR(50)   NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
 DISTRIBUTE ON (person_id)
