@@ -447,8 +447,7 @@ CREATE TABLE measurement
   person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
-  measurement_time              VARCHAR(10) NULL ,
-  measurement_datetime			    TIMESTAMP		NULL ,
+  measurement_time			        VARCHAR(10)	NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
   value_as_number				        NUMERIC			  NULL ,
@@ -623,7 +622,7 @@ CREATE TABLE payer_plan_period
   sponsor_source_concept_id     INTEGER       NULL ,
   family_source_value			      VARCHAR(50)	  NULL ,
   stop_reason_concept_id        INTEGER       NULL ,
-  stop_reason_source_value      INTEGER       NULL ,
+  stop_reason_source_value      VARCHAR(50)      NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
 ;
