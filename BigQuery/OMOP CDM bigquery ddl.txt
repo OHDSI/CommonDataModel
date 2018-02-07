@@ -390,7 +390,7 @@ create table measurement
   person_id						          integer			not null ,
   measurement_concept_id		    integer			not null ,
   measurement_date				      date			  not null ,
-  measurement_time              varchar(10) null ,
+  measurement_datetime          datetime    null ,
   measurement_type_concept_id	  integer			not null ,
   operator_concept_id			      integer			null ,
   value_as_number				        float			  null ,

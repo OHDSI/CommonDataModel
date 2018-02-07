@@ -422,7 +422,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  measurement
   person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
-  measurement_time			        VARCHAR(10)	NULL ,
+  measurement_datetime			    DATETIME  	NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
   value_as_number				        FLOAT			  NULL ,
