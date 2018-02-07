@@ -5,7 +5,7 @@ Field|Required|Type|Description
 |vocabulary_id|Yes|varchar(20)|A unique identifier for each Vocabulary, such as ICD9CM, SNOMED, Visit.|
 |vocabulary_name|Yes|varchar(255)|The name describing the vocabulary, for example "International Classification of Diseases, Ninth Revision, Clinical Modification, Volume 1 and 2 (NCHS)" etc.|
 |vocabulary_reference|Yes|varchar(255)|External reference to documentation or available download of the about the vocabulary.|
-|vocabulary_version|Yes|varchar(255)|Version of the Vocabulary as indicated in the source.|
+|vocabulary_version|No|varchar(255)|Version of the Vocabulary as indicated in the source.|
 |vocabulary_concept_id|Yes|integer|A foreign key that refers to a standard concept identifier in the CONCEPT table for the Vocabulary the VOCABULARY record belongs to.|
 
 ### Conventions

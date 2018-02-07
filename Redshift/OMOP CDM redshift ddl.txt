@@ -60,7 +60,7 @@ DISTSTYLE ALL;
 CREATE TABLE vocabulary  (vocabulary_id			    VARCHAR(20)		NOT NULL,
   vocabulary_name		    VARCHAR(255)	NOT NULL,
   vocabulary_reference	VARCHAR(255)	NOT NULL,
-  vocabulary_version	  VARCHAR(255)	NOT NULL,
+  vocabulary_version	  VARCHAR(255)	NULL,
   vocabulary_concept_id	INTEGER			  NOT NULL
 )
 DISTSTYLE ALL;
@@ -207,7 +207,7 @@ Standardized clinical data
 
 ************************/
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE person
  (person_id						        INTEGER	  	NOT NULL ,
   gender_concept_id				    INTEGER	  	NOT NULL ,
@@ -231,7 +231,7 @@ CREATE TABLE person
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE observation_period
  (observation_period_id				      INTEGER		NOT NULL ,
   person_id							            INTEGER		NOT NULL ,
@@ -242,7 +242,7 @@ CREATE TABLE observation_period
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE specimen
  (specimen_id						      INTEGER			NOT NULL ,
   person_id							      INTEGER			NOT NULL ,
@@ -263,7 +263,7 @@ CREATE TABLE specimen
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE death
  (person_id							  INTEGER			NOT NULL ,
   death_date							DATE			  NOT NULL ,
@@ -276,7 +276,7 @@ CREATE TABLE death
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE visit_occurrence
  (visit_occurrence_id			      INTEGER			NOT NULL ,
   person_id						          INTEGER			NOT NULL ,
@@ -299,7 +299,7 @@ CREATE TABLE visit_occurrence
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE visit_detail
  (visit_detail_id             INTEGER     NOT NULL ,
   person_id                   INTEGER     NOT NULL ,
@@ -324,7 +324,7 @@ CREATE TABLE visit_detail
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE procedure_occurrence
  (procedure_occurrence_id		  INTEGER			NOT NULL ,
   person_id						        INTEGER			NOT NULL ,
@@ -344,7 +344,7 @@ CREATE TABLE procedure_occurrence
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE drug_exposure
  (drug_exposure_id				      INTEGER			  NOT NULL ,
   person_id						          INTEGER			  NOT NULL ,
@@ -373,7 +373,7 @@ CREATE TABLE drug_exposure
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE device_exposure
  (device_exposure_id			        INTEGER		  	NOT NULL ,
   person_id						            INTEGER			  NOT NULL ,
@@ -394,7 +394,7 @@ CREATE TABLE device_exposure
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE condition_occurrence
  (condition_occurrence_id		    INTEGER			NOT NULL ,
   person_id						          INTEGER			NOT NULL ,
@@ -416,14 +416,14 @@ CREATE TABLE condition_occurrence
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE measurement
  (measurement_id				        INTEGER			NOT NULL ,
   person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
+  measurement_datetime			    TIMESTAMP  	NULL ,
   measurement_time              VARCHAR(10) NULL ,
-  measurement_datetime			    TIMESTAMP		NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
   value_as_number				        FLOAT			  NULL ,
@@ -442,7 +442,7 @@ CREATE TABLE measurement
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE note
  (note_id						    INTEGER			  NOT NULL ,
   person_id						  INTEGER			  NOT NULL ,
@@ -482,7 +482,7 @@ CREATE TABLE note_nlp
 DISTSTYLE ALL;
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE observation
  (observation_id					      INTEGER			NOT NULL ,
   person_id						          INTEGER			NOT NULL ,
@@ -573,7 +573,7 @@ Standardized health economics
 ************************/
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE payer_plan_period
  (payer_plan_period_id			    INTEGER			  NOT NULL ,
   person_id						          INTEGER			  NOT NULL ,
@@ -590,7 +590,7 @@ CREATE TABLE payer_plan_period
   sponsor_source_concept_id     INTEGER       NULL ,
   family_source_value			      VARCHAR(50)	  NULL ,
   stop_reason_concept_id        INTEGER       NULL ,
-  stop_reason_source_value      INTEGER       NULL ,
+  stop_reason_source_value      VARCHAR(50)      NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
 DISTKEY(person_id);
@@ -630,7 +630,7 @@ Standardized derived elements
 ************************/
 
 
---HINT DISTRIBUTE_ON_KEY(subject_id)
+--HINT DISTRIBUTE_ON_KEY(subject_id) 
 CREATE TABLE cohort
  (cohort_definition_id	INTEGER		NOT NULL ,
   subject_id						INTEGER		NOT NULL ,
@@ -640,7 +640,7 @@ CREATE TABLE cohort
 DISTKEY(subject_id);
 
 
---HINT DISTRIBUTE_ON_KEY(subject_id)
+--HINT DISTRIBUTE_ON_KEY(subject_id) 
 CREATE TABLE cohort_attribute
  (cohort_definition_id		INTEGER		NOT NULL ,
   subject_id						  INTEGER		NOT NULL ,
@@ -653,7 +653,7 @@ CREATE TABLE cohort_attribute
 DISTKEY(subject_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE drug_era
  (drug_era_id					INTEGER			NOT NULL ,
   person_id						INTEGER			NOT NULL ,
@@ -666,7 +666,7 @@ CREATE TABLE drug_era
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE dose_era
  (dose_era_id					  INTEGER			NOT NULL ,
   person_id						  INTEGER			NOT NULL ,
@@ -679,7 +679,7 @@ CREATE TABLE dose_era
 DISTKEY(person_id);
 
 
---HINT DISTRIBUTE_ON_KEY(person_id)
+--HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE condition_era
  (condition_era_id				    INTEGER			NOT NULL ,
   person_id						        INTEGER			NOT NULL ,
