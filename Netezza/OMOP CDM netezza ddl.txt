@@ -28,7 +28,7 @@
 
 netezza script to create OMOP common data model version 5.3
 
-last revised: 6-Nov-2017
+last revised: 8-Jan-2018
 
 Authors:  Patrick Ryan, Christian Reich, Clair Blacketer
 
@@ -64,7 +64,7 @@ CREATE TABLE vocabulary (
   vocabulary_id			    VARCHAR(20)		NOT NULL,
   vocabulary_name		    VARCHAR(255)	NOT NULL,
   vocabulary_reference	VARCHAR(255)	NOT NULL,
-  vocabulary_version	  VARCHAR(255)	NOT NULL,
+  vocabulary_version	  VARCHAR(255)	NULL,
   vocabulary_concept_id	INTEGER			  NOT NULL
 )
 DISTRIBUTE ON RANDOM
@@ -479,7 +479,8 @@ CREATE TABLE measurement
   person_id						          INTEGER			NOT NULL ,
   measurement_concept_id		    INTEGER			NOT NULL ,
   measurement_date				      DATE			  NOT NULL ,
-  measurement_datetime			    DATETIME		NULL ,
+  measurement_datetime			    DATETIME	  NULL ,
+  measurement_time              VARCHAR(10) NULL ,
   measurement_type_concept_id	  INTEGER			NOT NULL ,
   operator_concept_id			      INTEGER			NULL ,
   value_as_number				        REAL			  NULL ,
@@ -665,7 +666,7 @@ CREATE TABLE payer_plan_period
   sponsor_source_concept_id     INTEGER       NULL ,
   family_source_value			      VARCHAR(50)	  NULL ,
   stop_reason_concept_id        INTEGER       NULL ,
-  stop_reason_source_value      INTEGER       NULL ,
+  stop_reason_source_value      VARCHAR(50)   NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
 DISTRIBUTE ON (person_id)
@@ -694,7 +695,7 @@ CREATE TABLE cost
   payer_plan_period_id			INTEGER			NULL ,
   amount_allowed		        REAL			  NULL ,
   revenue_code_concept_id		INTEGER			NULL ,
-  reveue_code_source_value  VARCHAR(50) NULL,
+  revenue_code_source_value  VARCHAR(50) NULL,
   drg_concept_id			      INTEGER		  NULL,
   drg_source_value			    VARCHAR(3)	NULL
 )

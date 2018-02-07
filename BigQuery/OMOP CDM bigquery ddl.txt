@@ -17,7 +17,7 @@ create table vocabulary (
   vocabulary_id			    varchar(20)		not null,
   vocabulary_name		    varchar(255)	not null,
   vocabulary_reference	varchar(255)	not null,
-  vocabulary_version	  varchar(255)	not null,
+  vocabulary_version	  varchar(255)	null,
   vocabulary_concept_id	integer			  not null
 )
 ;
@@ -390,8 +390,8 @@ create table measurement
   person_id						          integer			not null ,
   measurement_concept_id		    integer			not null ,
   measurement_date				      date			  not null ,
+  measurement_datetime          datetime    null ,
   measurement_time              varchar(10) null ,
-  measurement_datetime			    datetime		null ,
   measurement_type_concept_id	  integer			not null ,
   operator_concept_id			      integer			null ,
   value_as_number				        float			  null ,
@@ -551,7 +551,7 @@ create table payer_plan_period
   sponsor_source_concept_id     integer       null ,
   family_source_value			      varchar(50)	  null ,
   stop_reason_concept_id        integer       null ,
-  stop_reason_source_value      integer       null ,
+  stop_reason_source_value      varchar(50)   null ,
   stop_reason_source_concept_id integer       null
 )
 ;
@@ -578,7 +578,7 @@ create table cost
   payer_plan_period_id			integer			null ,
   amount_allowed		        float			  null ,
   revenue_code_concept_id		integer			null ,
-  reveue_code_source_value  varchar(50) null,
+  revenue_code_source_value  varchar(50) null,
   drg_concept_id			      integer		  null,
   drg_source_value			    varchar(3)	null
 )

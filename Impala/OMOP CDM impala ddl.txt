@@ -818,6 +818,8 @@ CREATE TABLE measurement
 
     measurement_datetime TIMESTAMP,
 
+    measurement_time VARCHAR(10),
+
     measurement_type_concept_id INTEGER,
 
     operator_concept_id INTEGER,
@@ -1134,7 +1136,7 @@ CREATE TABLE payer_plan_period
 
     stop_reason_concept_id INTEGER,
 
-    stop_reason_source_value INTEGER,
+    stop_reason_source_value VARCHAR(50),
 
     stop_reason_source_concept_id INTEGER
 )
@@ -1185,7 +1187,7 @@ CREATE TABLE cost
 
     revenue_code_concept_id INTEGER,
 
-    reveue_code_source_value VARCHAR(50),
+    revenue_code_source_value VARCHAR(50),
 
     drg_concept_id INTEGER,
 
