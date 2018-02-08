@@ -551,7 +551,7 @@ create table payer_plan_period
   sponsor_source_concept_id     integer       null ,
   family_source_value			      varchar(50)	  null ,
   stop_reason_concept_id        integer       null ,
-  stop_reason_source_value      integer       null ,
+  stop_reason_source_value      varchar(50)   null ,
   stop_reason_source_concept_id integer       null
 )
 ;
