@@ -7,6 +7,7 @@ Field|Required|Type|Description
 |measurement_concept_id|Yes|integer|A foreign key to the standard measurement concept identifier in the Standardized Vocabularies.|
 |measurement_date|Yes|date|The date of the Measurement.|
 |measurement_datetime|No|datetime|The date and time of the Measurement. Some database systems don't have a datatype of time. To accomodate all temporal analyses, datatype datetime can be used (combining measurement_date and measurement_time [forum discussion](http://forums.ohdsi.org/t/date-time-and-datetime-problem-and-the-world-of-hours-and-1day/314))|
+|measurement_time |No|varchar(10)|The time of the Measurement. This is present for backwards compatibility and will deprecated in an upcoming version|
 |measurement_type_concept_id|Yes|integer|A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the provenance from where the Measurement record was recorded.|
 |operator_concept_id|No|integer|A foreign key identifier to the predefined Concept in the Standardized Vocabularies reflecting the mathematical operator that is applied to the value_as_number. Operators are <, <=, =, >=, >.|
 |value_as_number|No|float|A Measurement result where the result is expressed as a numeric value.|
