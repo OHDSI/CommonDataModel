@@ -590,7 +590,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  payer_plan_period
   sponsor_source_concept_id     INTEGER       NULL ,
   family_source_value			      VARCHAR(50)	  NULL ,
   stop_reason_concept_id        INTEGER       NULL ,
-  stop_reason_source_value      VARCHAR(50)      NULL ,
+  stop_reason_source_value      VARCHAR(50)   NULL ,
   stop_reason_source_concept_id INTEGER       NULL
 )
 WITH (DISTRIBUTION = HASH(person_id));
