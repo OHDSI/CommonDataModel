@@ -578,7 +578,7 @@ create table cost
   payer_plan_period_id			integer			null ,
   amount_allowed		        float			  null ,
   revenue_code_concept_id		integer			null ,
-  reveue_code_source_value  varchar(50) null,
+  revenue_code_source_value  varchar(50) null,
   drg_concept_id			      integer		  null,
   drg_source_value			    varchar(3)	null
 )
