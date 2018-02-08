@@ -2,9 +2,9 @@ The OBSERVATION table captures clinical facts about a Person obtained in the con
 
 Field|Required|Type|Description
 :----------------------------------|:--------|:------------|:------------------------------------
-|observation_id|Yes|integer|A unique identifier for each observation.|
-|person_id|Yes|integer|A foreign key identifier to the Person about whom the observation was recorded. The demographic details of that Person are stored in the PERSON table.|
-|observation_concept_id|Yes|integer|A foreign key to the standard observation concept identifier in the Standardized Vocabularies.|
+|observation_id						|Yes|integer|A unique identifier for each observation.|
+|person_id							|Yes|integer|A foreign key identifier to the Person about whom the observation was recorded. The demographic details of that Person are stored in the PERSON table.|
+|observation_concept_id				|Yes|integer|A foreign key to the standard observation concept identifier in the Standardized Vocabularies.|
 |observation_date|Yes|date|The date of the observation.|
 |observation_datetime|No|datetime|The date and time of the observation.|
 |observation_type_concept_id|Yes|integer|A foreign key to the predefined concept identifier in the Standardized Vocabularies reflecting the type of the observation.|

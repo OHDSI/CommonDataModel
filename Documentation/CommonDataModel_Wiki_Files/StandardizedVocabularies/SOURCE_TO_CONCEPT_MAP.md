@@ -4,8 +4,8 @@ Field|Required|Type|Description
 :-------------------------|:--------|:------------|:----------------------------
 |source_code|Yes|varchar(50)|The source code being translated into a Standard Concept.|
 |source_concept_id|Yes|integer|A foreign key to the Source Concept that is being translated into a Standard Concept.|
-|source_vocabulary_id|No|varchar(20)|A foreign key to the VOCABULARY table defining the vocabulary of the source code that is being translated to a Standard Concept.|
-|source_code_description|Yes|varchar(255)|An optional description for the source code. This is included as a convenience to compare the description of the source code to the name of the concept.|
+|source_vocabulary_id|Yes|varchar(20)|A foreign key to the VOCABULARY table defining the vocabulary of the source code that is being translated to a Standard Concept.|
+|source_code_description|No|varchar(255)|An optional description for the source code. This is included as a convenience to compare the description of the source code to the name of the concept.|
 |target_concept_id|Yes|integer|A foreign key to the target Concept to which the source code is being mapped.|
 |target_vocabulary_id|Yes|varchar(20)|A foreign key to the VOCABULARY table defining the vocabulary of the target Concept.|
 |valid_start_date|Yes|date|The date when the mapping instance was first recorded.|

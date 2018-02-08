@@ -4,9 +4,9 @@ Field|Required|Type|Description
 :------------------------------|:--------|:-----|:-----------------------------------------------
 |cohort_definition_id|Yes|integer|A unique identifier for each Cohort.|
 |cohort_definition_name|Yes|varchar(255)|A short description of the Cohort.|
-|cohort_definition_description|No|CLOB|A complete description of the Cohort definition|
+|cohort_definition_description|No|varchar(MAX)|A complete description of the Cohort definition|
 |definition_type_concept_id|Yes|integer|Type defining what kind of Cohort Definition the record represents and how the syntax may be executed|
-|cohort_definition_syntax|No|CLOB|Syntax or code to operationalize the Cohort definition|
+|cohort_definition_syntax|No|varchar(MAX)|Syntax or code to operationalize the Cohort definition|
 |subject_concept_id|Yes|integer|A foreign key to the Concept to which defines the domain of subjects that are members of the cohort (e.g., Person, Provider, Visit).|
 |cohort_instantiation_date|No|Date|A date to indicate when the Cohort was instantiated in the COHORT table|
 

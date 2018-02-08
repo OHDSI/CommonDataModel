@@ -13,10 +13,10 @@ Field|Required|Type|Description
 |unique_device_id |No|varchar(50)|A UDI or equivalent identifying the instance of the Device used in the Person.|
 |quantity|No|integer|The number of individual Devices used for the exposure.|
 |provider_id|No|integer|A foreign key to the provider in the PROVIDER table who initiated of administered the Device.|
-|visit_occurrence_id|No|integer|A foreign key to the visit in the VISIT table during which the device was used.|
+|visit_occurrence_id|No|integer|A foreign key to the visit in the VISIT_OCCURRENCE table during which the device was used.|
+|visit_detail_id|No|integer|A foreign key to the visit detail in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 |device_source_value|No|varchar(50)|The source code for the Device as it appears in the source data. This code is mapped to a standard Device Concept in the Standardized Vocabularies and the original code is stored here for reference.|
 |device_source_ concept_id|No|integer|A foreign key to a Device Concept that refers to the code used in the source.|
-|visit_detail_id|No|integer|A foreign key to the visit in the visit-detail table during which the Drug Exposure was initiated.|
 
 ### Conventions 
 
@@ -25,4 +25,5 @@ Field|Required|Type|Description
   * Valid Device Concepts belong to the "Device" domain.  The Concepts of this domain are derived from the DI portion of a UDI or based on other source vocabularies, like HCPCS.
   * A Device Type is assigned to each Device Exposure to track from what source the information was drawn or inferred. The valid domain_id for these Concepts is "Device Type".
   * The Visit during which the Device was first used is recorded through a reference to the VISIT_OCCURRENCE table. This information is not always available.
+  * The Visit Detail during which the Device was first used is recorded through a reference to the VISIT_DETAIL table. This information is not always available.
   * The Provider exposing the patient to the Device is recorded through a reference to the PROVIDER table. This information is not always available.
