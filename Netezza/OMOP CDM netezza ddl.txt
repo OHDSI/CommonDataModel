@@ -172,7 +172,7 @@ DISTRIBUTE ON RANDOM
 ;
 
 
--HINT DISTRIBUTE ON RANDOM
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE cohort_definition (
   cohort_definition_id				    INTEGER			  NOT NULL,
   cohort_definition_name			    VARCHAR(255)	NOT NULL,
