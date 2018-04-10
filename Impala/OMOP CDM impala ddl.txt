@@ -374,7 +374,7 @@ CREATE TABLE cdm_source
 
 
 
-CREATE TABLE "metadata"
+CREATE TABLE `metadata`
 (
 
     metadata_concept_id INTEGER,
@@ -903,7 +903,7 @@ CREATE TABLE note_nlp
 
     snippet VARCHAR(250),
 
-    "offset" VARCHAR(250),
+    `offset` VARCHAR(250),
 
     lexical_variant VARCHAR(250),
 
@@ -1008,7 +1008,7 @@ Standardized health system data
 
 
 
-CREATE TABLE "location"
+CREATE TABLE `location`
 (
 
     location_id INTEGER,
