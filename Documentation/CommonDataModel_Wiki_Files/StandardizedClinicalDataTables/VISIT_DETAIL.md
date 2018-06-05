@@ -15,7 +15,7 @@ Field|Required|Type|Description
 |care_site_id				|No|integer|A foreign key to the care site in the care site table that was visited.|
 |visit_source_value			|No|string(50)|The source code for the visit as it appears in the source data.|
 |visit_source_concept_id	|No|Integer|A foreign key to a Concept that refers to the code used in the source.|
-|admitting_source_value		|Varchar(50)|	No|	The source code for the admitting source as it appears in the source data.|
+|admitting_source_value		|	No|Varchar(50)|	The source code for the admitting source as it appears in the source data.|
 |admitting_source_concept_id	|No	|Integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
 |discharge_to_source_value	|	No|	Varchar(50)|	The source code for the discharge disposition as it appears in the source data.|
 |discharge_to_concept_id	|No	|	Integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
