@@ -14,11 +14,11 @@ Field|Required|Type|Description
 |care_site_id|No|integer|A foreign key to the care site in the care site table that was visited.|
 |visit_source_value|No|varchar(50)|The source code for the visit as it appears in the source data.|
 |visit_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
-|admitting_source_concept_id	|integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
-|admitting_source_value			|varchar(50)|	No|	The source code for the admitting source as it appears in the source data.|
-|discharge_to_concept_id		|	integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
-|discharge_to_source_value		|	varchar(50)|	No|	The source code for the discharge disposition as it appears in the source data.|
-|preceding_visit_occurrence_id	|integer|	No	|A foreign key to the VISIT_OCCURRENCE table of the visit immediately preceding this visit|
+|admitting_source_concept_id	|No	|integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
+|admitting_source_value			|	No|varchar(50)|	The source code for the admitting source as it appears in the source data.|
+|discharge_to_concept_id		|No	|	integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
+|discharge_to_source_value		|	No|	varchar(50)|	The source code for the discharge disposition as it appears in the source data.|
+|preceding_visit_occurrence_id	|	No	|integer|A foreign key to the VISIT_OCCURRENCE table of the visit immediately preceding this visit|
 
 ### Conventions 
 
@@ -37,6 +37,6 @@ Field|Required|Type|Description
     * Patient died: 4216643
 	* Absent without leave: 44814693
 	* Patient self-discharge against medical advice: 4021968
-  * In the case where a patient died during admission (Visit_Occurrence.discharge_disposition_concept_id = 4216643 �Patient died�), a record in the Death table should be created with death_type_concept_id = 44818516 (�EHR discharge status "Expired").
+  * In the case where a patient died during admission (Visit_Occurrence.discharge_disposition_concept_id = 4216643 Patient died), a record in the Death table should be created with death_type_concept_id = 44818516 (EHR discharge status "Expired").
   * PRECEDING_VISIT_ID can be used to link a visit immediately preceding the current visit
   * Some EMR systems combine emergency room followed by inpatient admission into one visit, and it is close to impossible to separate the two. To annotate this visit type, a new visit concept "Emergency Room and Inpatient Visit" was added (CONCEPT_ID 262).
