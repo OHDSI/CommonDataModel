@@ -1,1 +1,1 @@
-***OMOP Common Data Model v5.3 Specifications 14June2018***
+***OMOP Common Data Model v5.3.1 Specifications 14June2018***
