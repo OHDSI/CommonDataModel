@@ -37,6 +37,6 @@ Field|Required|Type|Description
     * Patient died: 4216643
 	* Absent without leave: 44814693
 	* Patient self-discharge against medical advice: 4021968
-  * In the case where a patient died during admission (Visit_Occurrence.discharge_disposition_concept_id = 4216643 Patient died), a record in the Death table should be created with death_type_concept_id = 44818516 (EHR discharge status "Expired").
+  * In the case where a patient died during admission (Visit_Occurrence.discharge_disposition_concept_id = 4216643 "Patient died"), a record in the Death table should be created with death_type_concept_id = 44818516 (EHR discharge status "Expired").
   * PRECEDING_VISIT_ID can be used to link a visit immediately preceding the current visit
   * Some EMR systems combine emergency room followed by inpatient admission into one visit, and it is close to impossible to separate the two. To annotate this visit type, a new visit concept "Emergency Room and Inpatient Visit" was added (CONCEPT_ID 262).
