@@ -16,7 +16,7 @@ Field|Required|Type|Description
 |visit_occurrence_id|No|integer|A foreign key to the visit in the VISIT_OCCURRENCE table during which the device was used.|
 |visit_detail_id|No|integer|A foreign key to the visit detail in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 |device_source_value|No|varchar(50)|The source code for the Device as it appears in the source data. This code is mapped to a standard Device Concept in the Standardized Vocabularies and the original code is stored here for reference.|
-|device_source_ concept_id|No|integer|A foreign key to a Device Concept that refers to the code used in the source.|
+|device_source_concept_id|No|integer|A foreign key to a Device Concept that refers to the code used in the source.|
 
 ### Conventions 
 

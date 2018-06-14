@@ -3,6 +3,7 @@
 [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)  
 [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)  
 [VISIT_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)  
+[VISIT_DETAIL](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL)  
 [PROCEDURE_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/PROCEDURE_OCCURRENCE)  
 [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)  
 [DEVICE_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DEVICE_EXPOSURE)  

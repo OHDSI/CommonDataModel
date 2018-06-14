@@ -1,26 +1,34 @@
-Common Data Model v5.3
+Common Data Model v5.3.1
 =================
 
-See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.3 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_3.pdf)
+See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V5.3.1 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v5_3_1.pdf)
 
 
-Release Notes for v5.3
+Release Notes for v5.3.1
 =============
-This version is based on the pull requests and CDM proposals:
-* [#64](https://github.com/OHDSI/CommonDataModel/pull/64) This removes the datetime fields from OBSERVATION_PERIOD
-* [#70](https://github.com/OHDSI/CommonDataModel/issues/70) Adds the VISIT_DETAIL table
-* [#79](https://github.com/OHDSI/CommonDataModel/issues/79) Adds the METADATA table
-* [#92](https://github.com/OHDSI/CommonDataModel/issues/92) Fixes qualifier typo in PROCEDURE_OCCURRENCE
-* [#120](https://github.com/OHDSI/CommonDataModel/issues/120) Adds the following fields to PAYER_PLAN_PERIOD:
-	* PAYER_CONCEPT_ID
-	* PAYER_SOURCE_CONCEPT_ID
-	* PLAN_CONCEPT_ID
-	* PLAN_SOURCE_CONCEPT_ID
-	* SPONSOR_CONCEPT_ID
-	* SPONSOR_SOURCE_CONCEPT_ID
-	* STOP_REASON_CONCEPT_ID
-	* STOP_REASON_SOURCE_VALUE
-	* STOP_REASON_SOURCE_CONCEPT_ID
+
+### This version address the following issues/pull requests:
+
+* [#183](https://github.com/OHDSI/CommonDataModel/pull/183) Fixes VISIT_DETAIL documentation, 'required' and 'type' columns were switched
+* [#169](https://github.com/OHDSI/CommonDataModel/pull/183) Data type changes for BigQuery
+* [#171](https://github.com/OHDSI/CommonDataModel/issues/171) Datetime formats in Sql Server changed to Datetime2
+* [#173](https://github.com/OHDSI/CommonDataModel/issues/173) Impala reserved words
+* [#177](https://github.com/OHDSI/CommonDataModel/pull/177) Postgres readme
+* [#140](https://github.com/OHDSI/CommonDataModel/issues/140), [#144](https://github.com/OHDSI/CommonDataModel/issues/140), [#135](https://github.com/OHDSI/CommonDataModel/issues/140) 
+  * Typos in readme and documentation
+* [#158](https://github.com/OHDSI/CommonDataModel/pull/158) VOCABULARY.VOCABULARY_VERSION no longer a required field
+* [#157](https://github.com/OHDSI/CommonDataModel/pull/157) Added MEASUREMENT.MEASUREMENT_TIME back to DDL for backwards compatibility
+* [#147](https://github.com/OHDSI/CommonDataModel/issues/147) PAYER_PLAN_PERIOD.STOP_REASON_SOURCE_VALUE varchar instead of integer
+* [#120](https://github.com/OHDSI/CommonDataModel/issues/120) PAYER_PLAN_PERIOD documentation
+* [#160](https://github.com/OHDSI/CommonDataModel/issues/160) Removed errant semicolon in license header
+* **[#145](https://github.com/OHDSI/CommonDataModel/issues/145) VISIT_DETAIL naming convention** 
+  * This is the change with the most potential impact as column names were updated
+* [#67](https://github.com/OHDSI/CommonDataModel/issues/67) Removed COHORT_DEFINITION_ID foreign key constraint from COHORT table
+* [#16](https://github.com/OHDSI/CommonDataModel/issues/16) Added additional foreign key constraints that were missing
+* [#12](https://github.com/OHDSI/CommonDataModel/issues/12) .csv file is now delivered with each version
+* Additional BigQuery updates for compatibility
+* A portion of [#112](https://github.com/OHDSI/CommonDataModel/issues/112) was addressed
+  * VISIT_DETAIL and documentation typos
 
 Additional Updates
 ==================

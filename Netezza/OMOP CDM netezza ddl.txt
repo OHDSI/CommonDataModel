@@ -2,7 +2,7 @@
 # Copyright 2017-11 Observational Health Data Sciences and Informatics
 #
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License")
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
@@ -26,9 +26,9 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####
 
 
-netezza script to create OMOP common data model version 5.3
+netezza script to create OMOP common data model version 5.3.1
 
-last revised: 8-Jan-2018
+last revised: 14-JUNE-2018
 
 Authors:  Patrick Ryan, Christian Reich, Clair Blacketer
 
@@ -348,25 +348,25 @@ DISTRIBUTE ON (person_id)
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE visit_detail
 (
-  visit_detail_id             INTEGER     NOT NULL ,
-  person_id                   INTEGER     NOT NULL ,
-  visit_detail_concept_id     INTEGER     NOT NULL ,
-  visit_start_date            DATE        NOT NULL ,
-  visit_start_datetime        DATETIME    NULL ,
-  visit_end_date              DATE        NOT NULL ,
-  visit_end_datetime          DATETIME    NULL ,
-  visit_type_concept_id       INTEGER     NOT NULL ,
-  provider_id                 INTEGER     NULL ,
-  care_site_id                INTEGER     NULL ,
-  admitting_source_concept_id INTEGER     NULL ,
-  discharge_to_concept_id     INTEGER     NULL ,
-  preceding_visit_detail_id   INTEGER     NULL ,
-  visit_source_value          VARCHAR(50) NULL ,
-  visit_source_concept_id     INTEGER     NULL ,
-  admitting_source_value      VARCHAR(50) NULL ,
-  discharge_to_source_value   VARCHAR(50) NULL ,
-  visit_detail_parent_id      INTEGER     NULL ,
-  visit_occurrence_id         INTEGER     NOT NULL
+  visit_detail_id                    INTEGER     NOT NULL ,
+  person_id                          INTEGER     NOT NULL ,
+  visit_detail_concept_id            INTEGER     NOT NULL ,
+  visit_detail_start_date            DATE        NOT NULL ,
+  visit_detail_start_datetime        DATETIME    NULL ,
+  visit_detail_end_date              DATE        NOT NULL ,
+  visit_detail_end_datetime          DATETIME    NULL ,
+  visit_detail_type_concept_id       INTEGER     NOT NULL ,
+  provider_id                        INTEGER     NULL ,
+  care_site_id                       INTEGER     NULL ,
+  admitting_source_concept_id        INTEGER     NULL ,
+  discharge_to_concept_id            INTEGER     NULL ,
+  preceding_visit_detail_id          INTEGER     NULL ,
+  visit_detail_source_value          VARCHAR(50) NULL ,
+  visit_detail_source_concept_id     INTEGER     NULL ,
+  admitting_source_value             VARCHAR(50) NULL ,
+  discharge_to_source_value          VARCHAR(50) NULL ,
+  visit_detail_parent_id             INTEGER     NULL ,
+  visit_occurrence_id                INTEGER     NOT NULL
 )
 DISTRIBUTE ON (person_id)
 ;

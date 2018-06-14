@@ -1,3 +1,4 @@
+/*OMOP CDM v5.3.1 14June2018*/
 #standardsql
 create table concept (
   concept_id			    INT64			  not null ,
@@ -9,7 +10,7 @@ create table concept (
   concept_code			  STRING  		not null ,
   valid_start_DATE		DATE			  not null ,
   valid_end_DATE		  DATE			  not null ,
-  invalid_reason		  STRING  		
+  invalid_reason		  STRING
 )
 ;
 
@@ -46,7 +47,7 @@ create table concept_relationship (
   relationship_id		STRING  	not null,
   valid_start_DATE	DATE			not null,
   valid_end_DATE		DATE			not null,
-  invalid_reason		STRING  	
+  invalid_reason		STRING
   )
 ;
 
@@ -88,7 +89,7 @@ create table source_to_concept_map (
   target_vocabulary_id		STRING  		not null,
   valid_start_DATE			  DATE		    not null,
   valid_end_DATE			    DATE		    not null,
-  invalid_reason			    STRING  		
+  invalid_reason			    STRING
 )
 ;
 
@@ -107,7 +108,7 @@ create table drug_strength (
   box_size						        INT64		          ,
   valid_start_DATE				    DATE		   not null,
   valid_end_DATE				      DATE		   not null,
-  invalid_reason				      STRING     
+  invalid_reason				      STRING
 )
 ;
 
@@ -120,7 +121,7 @@ create table cohort_definition (
   definition_type_concept_id		  INT64			  not null,
   cohort_definition_syntax			  STRING     	        ,
   subject_concept_id				      INT64			  not null,
-  cohort_initiation_DATE			    DATE			  
+  cohort_initiation_DATE			    DATE
 )
 ;
 
@@ -130,7 +131,7 @@ create table attribute_definition (
   attribute_name				      STRING    	not null,
   attribute_description			  STRING    	        ,
   attribute_type_concept_id		INT64			  not null,
-  attribute_syntax				    STRING    	
+  attribute_syntax				    STRING
 )
 ;
 
@@ -146,7 +147,7 @@ create table cdm_source
   source_release_DATE				      DATE			         ,
   cdm_release_DATE					      DATE			         ,
   cdm_version						          STRING    		     ,
-  vocabulary_version					    STRING    		
+  vocabulary_version					    STRING
 )
 ;
 
@@ -159,7 +160,7 @@ create table metadata
   value_as_string           STRING               ,
   value_as_concept_id       INT64                ,
   metadata_DATE             DATE                 ,
-  metadata_DATETIME         DATETIME      
+  metadata_DATETIME         DATETIME
 )
 ;
 
@@ -185,7 +186,7 @@ create table person
   race_source_value				    STRING             ,
   race_source_concept_id		  INT64		           ,
   ethnicity_source_value		  STRING             ,
-  ethnicity_source_concept_id	INT64		  
+  ethnicity_source_concept_id	INT64
 )
 ;
 
@@ -219,7 +220,7 @@ create table specimen
   specimen_source_value				STRING  	         ,
   unit_source_value					  STRING  	         ,
   anatomic_site_source_value	STRING  	         ,
-  disease_status_source_value STRING  	
+  disease_status_source_value STRING
 )
 ;
 
@@ -233,7 +234,7 @@ create table death
   death_type_concept_id   INT64			not null ,
   cause_concept_id			  INT64			         ,
   cause_source_value			STRING  	         ,
-  cause_source_concept_id INT64			
+  cause_source_concept_id INT64
 )
 ;
 
@@ -257,7 +258,7 @@ create table visit_occurrence
   admitting_source_value		    STRING  	         ,
   discharge_to_concept_id		    INT64   	         ,
   discharge_to_source_value		  STRING  	         ,
-  preceding_visit_occurrence_id	INT64			
+  preceding_visit_occurrence_id	INT64
 )
 ;
 
@@ -265,25 +266,25 @@ create table visit_occurrence
 --HINT DISTRIBUTE_ON_KEY(person_id)
 create table visit_detail
 (
-  visit_detail_id             INT64     not null ,
-  person_id                   INT64     not null ,
-  visit_detail_concept_id     INT64     not null ,
-  visit_start_DATE            DATE      not null ,
-  visit_start_DATETIME        DATETIME           ,
-  visit_end_DATE              DATE      not null ,
-  visit_end_DATETIME          DATETIME           ,
-  visit_type_concept_id       INT64     not null ,
-  provider_id                 INT64              ,
-  care_site_id                INT64              ,
-  admitting_source_concept_id INT64              ,
-  discharge_to_concept_id     INT64              ,
-  preceding_visit_detail_id   INT64              ,
-  visit_source_value          STRING             ,
-  visit_source_concept_id     INT64              ,
-  admitting_source_value      STRING             ,
-  discharge_to_source_value   STRING             ,
-  visit_detail_parent_id      INT64              ,
-  visit_occurrence_id         INT64     not null
+  visit_detail_id                    INT64     not null ,
+  person_id                          INT64     not null ,
+  visit_detail_concept_id            INT64     not null ,
+  visit_detail_start_DATE            DATE      not null ,
+  visit_detail_start_DATETIME        DATETIME           ,
+  visit_detail_end_DATE              DATE      not null ,
+  visit_detail_end_DATETIME          DATETIME           ,
+  visit_deatil_type_concept_id       INT64     not null ,
+  provider_id                        INT64              ,
+  care_site_id                       INT64              ,
+  admitting_source_concept_id        INT64              ,
+  discharge_to_concept_id            INT64              ,
+  preceding_visit_detail_id          INT64              ,
+  visit_detail_source_value          STRING             ,
+  visit_deatil_source_concept_id     INT64              ,
+  admitting_source_value             STRING             ,
+  discharge_to_source_value          STRING             ,
+  visit_detail_parent_id             INT64              ,
+  visit_occurrence_id                INT64     not null
 )
 ;
 
@@ -304,7 +305,7 @@ create table procedure_occurrence
   visit_detail_id             INT64              ,
   procedure_source_value		  STRING  	         ,
   procedure_source_concept_id	INT64			         ,
-  modifier_source_value		   STRING   	  
+  modifier_source_value		   STRING
 )
 ;
 
@@ -334,7 +335,7 @@ create table drug_exposure
   drug_source_value				      STRING  	           ,
   drug_source_concept_id		    INT64			           ,
   route_source_value			      STRING  	           ,
-  dose_unit_source_value		    STRING  	  
+  dose_unit_source_value		    STRING
 )
 ;
 
@@ -356,7 +357,7 @@ create table device_exposure
   visit_occurrence_id			        INT64			           ,
   visit_detail_id                 INT64                ,
   device_source_value			        STRING    	         ,
-  device_source_concept_id		    INT64			  
+  device_source_concept_id		    INT64
 )
 ;
 
@@ -379,7 +380,7 @@ create table condition_occurrence
   condition_source_value		    STRING  	         ,
   condition_source_concept_id	  INT64			         ,
   condition_status_source_value	STRING             ,
-  condition_status_concept_id	  INT64			
+  condition_status_concept_id	  INT64
 )
 ;
 
@@ -406,7 +407,7 @@ create table measurement
   measurement_source_value		  STRING             ,
   measurement_source_concept_id	INT64			         ,
   unit_source_value				      STRING  	         ,
-  value_source_value			      STRING  	
+  value_source_value			      STRING
 )
 ;
 
@@ -427,7 +428,7 @@ create table note
   provider_id					  INT64			           ,
   visit_occurrence_id		INT64			           ,
   visit_detail_id       INT64                ,
-  note_source_value			STRING  		
+  note_source_value			STRING
 )
 ;
 
@@ -448,7 +449,7 @@ create table note_nlp
   nlp_DATETIME					      DATETIME		         ,
   term_exists					        STRING   		         ,
   term_temporal					      STRING   		         ,
-  term_modifiers				      STRING    	
+  term_modifiers				      STRING
 )
 ;
 
@@ -473,7 +474,7 @@ create table observation
   observation_source_value		  STRING  	     ,
   observation_source_concept_id	INT64			     ,
   unit_source_value				      STRING  	     ,
-  qualifier_source_value			  STRING  	
+  qualifier_source_value			  STRING
 )
 ;
 
@@ -498,7 +499,7 @@ create table location
   state							    STRING   		       ,
   zip							      STRING   	         ,
   county							  STRING    		     ,
-  location_source_value STRING    		
+  location_source_value STRING
 )
 ;
 
@@ -510,7 +511,7 @@ create table care_site
   place_of_service_concept_id	  INT64			           ,
   location_id						        INT64			           ,
   care_site_source_value			  STRING    		       ,
-  place_of_service_source_value STRING    		
+  place_of_service_source_value STRING
 )
 ;
 
@@ -529,7 +530,7 @@ create table provider
   specialty_source_value			STRING    		       ,
   specialty_source_concept_id	INT64			           ,
   gender_source_value			    STRING    		       ,
-  gender_source_concept_id		INT64			  
+  gender_source_concept_id		INT64
 )
 ;
 
@@ -553,7 +554,7 @@ create table payer_plan_period
   family_source_value			      STRING    	       ,
   stop_reason_concept_id        INT64              ,
   stop_reason_source_value      STRING             ,
-  stop_reason_source_concept_id INT64       
+  stop_reason_source_concept_id INT64
 )
 ;
 
@@ -581,7 +582,7 @@ create table cost
   revenue_code_concept_id		INT64			         ,
   revenue_code_source_value  STRING            ,
   drg_concept_id			      INT64		           ,
-  drg_source_value			    STRING   	
+  drg_source_value			    STRING
 )
 ;
 
@@ -606,7 +607,7 @@ create table cohort_attribute
   cohort_end_DATE				  DATE			not null ,
   attribute_definition_id INT64		  not null ,
   value_as_number				  FLOAT64			       ,
-  value_as_concept_id			INT64		
+  value_as_concept_id			INT64
 )
 ;
 
@@ -620,7 +621,7 @@ create table drug_era
   drug_era_start_DATE	DATE			not null ,
   drug_era_end_DATE		DATE		  not null ,
   drug_exposure_count	INT64	             ,
-  gap_days						INT64			
+  gap_days						INT64
 )
 ;
 
@@ -647,6 +648,6 @@ create table condition_era
   condition_concept_id			  INT64			not null ,
   condition_era_start_DATE		DATE			not null ,
   condition_era_end_DATE			DATE			not null ,
-  condition_occurrence_count	INT64			
+  condition_occurrence_count	INT64
 )
 ;

@@ -1,7 +1,7 @@
 The ATTRIBUTE_DEFINITION table contains records defining Attributes, or covariates, to members of a Cohort through an associated description and syntax and upon instantiation (execution of the algorithm) placed into the COHORT_ATTRIBUTE table. Attributes are derived elements that can be selected or calculated for a subject in a Cohort. The ATTRIBUTE_DEFINITION table provides a standardized structure for maintaining the rules governing the calculation of covariates for a subject in a Cohort, and can store operational programming code to instantiate the Attributes for a given Cohort within the OMOP Common Data Model.
 
 Field|Required|Type|Description
-:-------------------------|:--------|:-----|:--------------------------------------
+:-------------------------|:------|:--------------|:--------------------------------------
 |attribute_definition_id|Yes|integer|A unique identifier for each Attribute.|
 |attribute_name|Yes|varchar(255)|A short description of the Attribute.|
 |attribute_description|No|varchar(MAX)|A complete description of the Attribute definition|

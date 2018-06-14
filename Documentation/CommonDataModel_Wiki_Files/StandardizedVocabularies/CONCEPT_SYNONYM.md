@@ -1,6 +1,6 @@
 The CONCEPT_SYNONYM table is used to store alternate names and descriptions for Concepts. 
 
-|Field|Required|Type|Description|
+Field|Required|Type|Description
 :---------------------|:---------|:------------|:------------------------
 |concept_id|Yes|Integer|A foreign key to the Concept in the CONCEPT table.|
 |concept_synonym_name|Yes|varchar(1000)|The alternative name for the Concept.|

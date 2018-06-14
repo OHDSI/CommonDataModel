@@ -1,6 +1,6 @@
 The RELATIONSHIP table provides a reference list of all types of relationships that can be used to associate any two concepts in the CONCEPT_RELATIONSHP table. 
 
-|Field|Required|Type|Description|
+Field|Required|Type|Description
 :-----------------------|:--------|:------------|:-----------------------------------------
 |relationship_id|Yes|varchar(20)| The type of relationship captured by the relationship record.|
 |relationship_name|Yes|varchar(255)| The text that describes the relationship type.|
