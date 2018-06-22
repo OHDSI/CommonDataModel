@@ -248,9 +248,7 @@ create table observation_period
   observation_period_id					integer		not null ,
   person_id								integer		not null ,
   observation_period_start_date			date		not null ,
-  observation_period_start_datetime		timestamp	not null ,
   observation_period_end_date			date		not null ,
-  observation_period_end_datetime		timestamp	not null ,
   period_type_concept_id				integer		not null
 )
 distkey(person_id)

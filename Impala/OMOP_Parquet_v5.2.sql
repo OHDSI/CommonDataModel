@@ -158,9 +158,7 @@ SELECT
  observation_period_id,
  person_id,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_start_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_start_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_start_date AS STRING), 7, 2)), 'UTC') AS observation_period_start_date,
- TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_start_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_start_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_start_date AS STRING), 7, 2)), 'UTC') AS observation_period_start_datetime,
  TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_end_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_end_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_end_date AS STRING), 7, 2)), 'UTC') AS observation_period_end_date,
- TO_UTC_TIMESTAMP(CONCAT_WS('-', SUBSTR(CAST(observation_period_end_date AS STRING), 1, 4), SUBSTR(CAST(observation_period_end_date AS STRING), 5, 2), SUBSTR(CAST(observation_period_end_date AS STRING), 7, 2)), 'UTC') AS observation_period_end_datetime,
  period_type_concept_id
 FROM omop_cdm.observation_period;
 
