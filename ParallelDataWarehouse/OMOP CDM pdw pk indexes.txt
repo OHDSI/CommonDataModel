@@ -17,18 +17,18 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######      #####     ###
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #     #  #    # #####  ###### #    # ######  ####
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #     #  ##   # #    # #       #  #  #      #
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####      #  # #  # #    # #####    ##   #####   ####
- #     # #     # #     # #          #       #     # #     #    #    #       # ###       #     #  #  # # #    # #        ##   #           #
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #     #     #  #   ## #    # #       #  #  #      #    #
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####     ### #    # #####  ###### #    # ######  ####
+ ####### #     # ####### ######      #####  ######  #     #            #####        ###      ######  #    #      ##       ###
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #     #      #   #     #     # #   #      #  #       #  #    # #####  #  ####  ######  ####
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #           #     #    #     # #  #        ##        #  ##   # #    # # #    # #      #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######      #     #    ######  ###        ###        #  # #  # #    # # #      #####   ####
+ #     # #     # #     # #          #       #     # #     #    #    # #     # ### #     #    #       #  #      #   # #     #  #  # # #    # # #      #           #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #     #       #   #     #    #      #  #   ## #    # # #    # #      #    #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###      #       #    #     ###  #    ### #    # #####  #  ####  ######  ####
 
 
-pdw script to create the required indexes within OMOP common data model, version 5.3
+pdw script to create the required primary keys and indices within the OMOP common data model, version 6.0
 
-last revised: 14-November-2017
+last revised: 30-Aug-2017
 
 author:  Patrick Ryan, Clair Blacketer
 
@@ -127,7 +127,7 @@ ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY NONCLUSTERED ( note
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY NONCLUSTERED ( observation_id ) ;
 
-
+ALTER TABLE survey ADD CONSTRAINT xpk_survey PRIMARY KEY NONCLUSTERED ( survey_occurrence_id ) ;
 
 
 /************************
@@ -138,6 +138,8 @@ Standardized health system data
 
 
 ALTER TABLE location ADD CONSTRAINT xpk_location PRIMARY KEY NONCLUSTERED ( location_id ) ;
+
+ALTER TABLE location_history ADD CONSTRAINT xpk_location_history PRIMARY KEY NONCLUSTERED ( location_history_id ) ; --Assuming this should be added
 
 ALTER TABLE care_site ADD CONSTRAINT xpk_care_site PRIMARY KEY NONCLUSTERED ( care_site_id ) ;
 
@@ -290,6 +292,8 @@ CREATE CLUSTERED INDEX idx_observation_person_id ON observation (person_id ASC);
 CREATE INDEX idx_observation_concept_id ON observation (observation_concept_id ASC);
 CREATE INDEX idx_observation_visit_id ON observation (visit_occurrence_id ASC);
 
+CREATE CLUSTERED INDEX idx_survey_person_id ON survey (person_id ASC);
+
 CREATE INDEX idx_fact_relationship_id_1 ON fact_relationship (domain_concept_id_1 ASC);
 CREATE INDEX idx_fact_relationship_id_2 ON fact_relationship (domain_concept_id_2 ASC);
 CREATE INDEX idx_fact_relationship_id_3 ON fact_relationship (relationship_concept_id ASC);
@@ -314,8 +318,7 @@ Standardized health economics
 
 CREATE CLUSTERED INDEX idx_period_person_id ON payer_plan_period (person_id ASC);
 
-
-
+CREATE CLUSTERED INDEX idx_cost_person_id ON cost (person_id ASC);
 
 
 /************************
