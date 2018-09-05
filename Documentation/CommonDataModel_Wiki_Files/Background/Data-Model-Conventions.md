@@ -4,7 +4,7 @@ There are a number of implicit and explicit conventions that have been adopted i
 
 The CDM is platform-independent. Data types are defined generically using ANSI SQL data types (VARCHAR, INTEGER, FLOAT, DATE, DATETIME, CLOB). Precision is provided only for VARCHAR. It reflects the minimal required string length and can be expanded within a CDM instantiation. The CDM does not prescribe the date and datetime format. Standard queries against CDM may vary for local instantiations and date/datetime configurations. 
 
-In most cases, the first field in each table ends in "_ID", containing a record identifier that can be used as a foreign key in another table.
+In most cases, the first field in each table ends in '_ID', containing a record identifier that can be used as a foreign key in another table.
 
 ### General conventions of fields 
 
@@ -29,7 +29,7 @@ Records in the CONCEPT table contain all the detailed information about it (name
 Many tables contain equivalent information multiple times: As a Source Value, a Source Concept and as a Standard Concept.  
 
   * Source Values contain the codes from public code systems such as ICD-9-CM, NDC, CPT-4 etc. or locally controlled vocabularies (such as F for female and M for male) copied from the source data. Source Values are stored in the *_SOURCE_VALUE fields in the data tables. 
-  * Concepts are CDM-specific entities that represent the meaning of a clinical fact. Most concepts are based on code systems used in healthcare (called Source Concepts), while others were created de-novo (CONCEPT_CODE = "OMOP generated"). Concepts have unique IDs across all domains. 
+  * Concepts are CDM-specific entities that represent the meaning of a clinical fact. Most concepts are based on code systems used in healthcare (called Source Concepts), while others were created de-novo (CONCEPT_CODE = 'OMOP generated'). Concepts have unique IDs across all domains. 
   * Source Concepts are the concepts that represent the code used in the source. Source Concepts are only used for common healthcare code systems, not for OMOP-generated Concepts. Source Concepts are stored in the *_SOURCE_CONCEPT_ID field in the data tables.
   * Standard Concepts are those concepts that are used to define the unique meaning of a clinical entity. For each entity there is one Standard Concept. Standard Concepts are typically drawn from existing public vocabulary sources. Concepts that have the equivalent meaning to a Standard Concept are mapped to the Standard Concept. Standard Concepts are referred to in the CONCEPT_ID field of the data tables. 
 
@@ -45,7 +45,7 @@ Data tables for clinical data contain a datetime stamp (ending in _DATETIME, _ST
 
 ### Content of each table 
 
-For the tables of the main domains of the CDM it is imperative that concepts used are strictly limited to the domain. For example, the CONDITION_OCCURRENCE table contains only information about conditions (diagnoses, signs, symptoms), but no information about procedures. Not all source coding schemes adhere to such rules. For example, ICD-9-CM codes, which contain mostly diagnoses of human disease, also contain information about the status of patients having received a procedure. The ICD-9-CM code V20.3 "Newborn health supervision" defines a continuous procedure and is therefore stored in the PROCEDURE_OCCURRENCE table.
+For the tables of the main domains of the CDM it is imperative that concepts used are strictly limited to the domain. For example, the CONDITION_OCCURRENCE table contains only information about conditions (diagnoses, signs, symptoms), but no information about procedures. Not all source coding schemes adhere to such rules. For example, ICD-9-CM codes, which contain mostly diagnoses of human disease, also contain information about the status of patients having received a procedure. The ICD-9-CM code V20.3 'Newborn health supervision' defines a continuous procedure and is therefore stored in the PROCEDURE_OCCURRENCE table.
 
 ### Differentiating between source values, source concept ids, and standard concept ids 
 
@@ -68,13 +68,13 @@ When processing your data where source value is a reference to a coding scheme c
     - If the source code uses alternative formatting (ex. format has removed decimal point from ICD-9 codes), you will need to perform the formatting transformation within the ETL. In this case, you may wish to store the mappings from original codes to SOURCE_CONCEPT_IDs in the SOURCE_TO_CONCEPT_MAP table.
     - If the source code is not mappable to a vocabulary term, the SOURCE_CONCEPT_ID field is set to 0
   - Use the CONCEPT_RELATIONSHIP table to identify the Standard CONCEPT_ID that corresponds to the SOURCE_CONCEPT_ID in the domain.
-    - Each SOURCE_CONCEPT_ID can have 1 or more Standard CONCEPT_IDs mapped to it. Each Standard CONCEPT_ID belongs to only one primary domain but when a source CONCEPT_ID maps to multiple Standard CONCEPT_IDs, it is possible for that SOURCE_CONCEPT_ID to result in records being produced across multiple domains. For example, ICD-10-CM code Z34.00 "Encounter for supervision of normal first pregnancy, unspecified trimester" will be mapped to the SNOMED concept 'Routine antenatal care' in the procedure domain and the concept in the condition domain "Primagravida". It is also possible for one SOURCE_CONCEPT_ID to map to multiple Standard CONCEPT_IDs within the same domain. For example, ICD-9-CM code 070.43 "Hepatitis E with hepatic coma" maps to the SNOMED concept for "Acute hepatitis E" and a second SNOMED concept for "Hepatic coma", in which case multiple CONDITION_OCCURRENCE records will be generated for the one source value record.
+    - Each SOURCE_CONCEPT_ID can have 1 or more Standard CONCEPT_IDs mapped to it. Each Standard CONCEPT_ID belongs to only one primary domain but when a source CONCEPT_ID maps to multiple Standard CONCEPT_IDs, it is possible for that SOURCE_CONCEPT_ID to result in records being produced across multiple domains. For example, ICD-10-CM code Z34.00 'Encounter for supervision of normal first pregnancy, unspecified trimester' will be mapped to the SNOMED concept 'Routine antenatal care' in the procedure domain and the concept in the condition domain 'Primagravida'. It is also possible for one SOURCE_CONCEPT_ID to map to multiple Standard CONCEPT_IDs within the same domain. For example, ICD-9-CM code 070.43 'Hepatitis E with hepatic coma' maps to the SNOMED concept for 'Acute hepatitis E' and a second SNOMED concept for 'Hepatic coma', in which case multiple CONDITION_OCCURRENCE records will be generated for the one source value record.
     - If the SOURCE_CONCEPT_ID is not mappable to any Standard CONCEPT_ID, the CONCEPT_ID field is set to 0.
   - Write the data record into the table(s) corresponding to the domain of the Standard CONCEPT_ID(s). 
     - If the source value is mapped to a SOURCE_CONCEPT_ID but the SOURCE_CONCEPT_ID is not mapped to a Standard CONCEPT_ID, then the domain for the data record, and hence it's table location, is determined by the DOMAIN_ID field of the CONCEPT record the SOURCE_CONCEPT_ID refers to. The Standard CONCEPT_ID is set to 0. 
     - If the source value cannot be mapped to a SOURCE_CONCEPT_ID or Standard CONCEPT_ID, then direct the data record to the most appropriate CDM domain based on your local knowledge of the intent of the source data and associated value. For example, if the unmappable source value came from a 'diagnosis' table then, in the absence of other information, you may choose to record that fact in the CONDITION_OCCURRENCE table.
 
-Each Standard CONCEPT_ID field has a set of allowable CONCEPT_ID values. The allowable values are defined by the domain of the concepts. For example, there is a domain concept of 'Gender', for which there are only two allowable standard concepts of practical use (8507 - "Male", 8532- "Female") and one allowable generic concept to represent a standard notion of "no information" (concept_id = 0).
+Each Standard CONCEPT_ID field has a set of allowable CONCEPT_ID values. The allowable values are defined by the domain of the concepts. For example, there is a domain concept of 'Gender', for which there are only two allowable standard concepts of practical use (8507 - 'Male', 8532- 'Female') and one allowable generic concept to represent a standard notion of 'no information' (concept_id = 0).
 
 There is no constraint on allowed CONCEPT_IDs within the SOURCE_CONCEPT_ID fields. 
 
