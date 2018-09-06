@@ -32,14 +32,8 @@ No.|Convention Description
 | 3  | Source Condition identifiers are mapped to Standard Concepts for Conditions in the Standardized Vocabularies. When the source code cannot be translated into a Standard Concept, a CONDITION_OCCURRENCE entry is stored with only the corresponding SOURCE_CONCEPT_ID and SOURCE_VALUE, while the CONDITION_CONCEPT_ID is set to 0. 
 | 4  | Family history and past diagnoses ('history of') are not recorded in the CONDITION_OCCURRENCE table. Instead, they are listed in the OBSERVATION table.
 | 4  | Codes written in the process of establishing the diagnosis, such as 'question of' of and 'rule out', are not represented here.  Instead, they are listed in the OBSERVATION table, if they are used for analyses.
-| 5  | A Condition Occurrence Type is assigned based on the data source and type of condition attribute, for example:
-  * ICD-9-CM Primary Diagnosis from inpatient and outpatient claims
-  * ICD-9-CM Secondary Diagnoses from inpatient and outpatient claims
-  * Diagnoses or problems recorded in an EHR.
+| 5  | A Condition Occurrence Type is assigned based on the data source and type of condition attribute, for example:  * ICD-9-CM Primary Diagnosis from inpatient and outpatient claims  * ICD-9-CM Secondary Diagnoses from inpatient and outpatient claims  * Diagnoses or problems recorded in an EHR. |
 | 6  | Valid Condition Occurrence Type Concepts belong to the 'Condition Type' vocabulary in the 'Type Concept' domain.
 | 7  | The Stop Reason indicates why a Condition is no longer valid with respect to the purpose within the source data. Typical values include 'Discharged', 'Resolved', etc.  Note that a Stop Reason does not necessarily imply that the condition is no longer occurring.
 | 8  | Condition source codes are typically ICD-9-CM, Read or ICD-10-CM diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
-| 9  | Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:
-    * Admitting diagnosis: 4203942
-    * Final diagnosis: 4230359 (should also be used for discharge diagnosis)
-    * Preliminary diagnosis: 4033240
+| 9  | Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:  * Admitting diagnosis: 4203942  * Final diagnosis: 4230359 (should also be used for discharge diagnosis    * Preliminary diagnosis: 4033240
