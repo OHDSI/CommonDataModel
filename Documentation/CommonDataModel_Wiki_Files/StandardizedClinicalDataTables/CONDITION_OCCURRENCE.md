@@ -32,16 +32,8 @@ No.|Convention Description
 | 3  | Source Condition identifiers are mapped to Standard Concepts for Conditions in the Standardized Vocabularies. When the source code cannot be translated into a Standard Concept, a CONDITION_OCCURRENCE entry is stored with only the corresponding SOURCE_CONCEPT_ID and SOURCE_VALUE, while the CONDITION_CONCEPT_ID is set to 0. 
 | 4  | Family history and past diagnoses ('history of') are not recorded in the CONDITION_OCCURRENCE table. Instead, they are listed in the OBSERVATION table.
 | 5  | Codes written in the process of establishing the diagnosis, such as 'question of' of and 'rule out', are not represented here.  Instead, they are listed in the OBSERVATION table, if they are used for analyses.
-<<<<<<< HEAD
-| 6  | A Condition Occurrence Type is assigned based on the data source and type of condition attribute, for example:  * ICD-9-CM Primary Diagnosis from inpatient and outpatient claims  * ICD-9-CM Secondary Diagnoses from inpatient and outpatient claims  * Diagnoses or problems recorded in an EHR. |
-| 7  | Valid Condition Occurrence Type Concepts belong to the 'Condition Type' vocabulary in the 'Type Concept' domain.
-| 8  | The Stop Reason indicates why a Condition is no longer valid with respect to the purpose within the source data. Typical values include 'Discharged', 'Resolved', etc.  Note that a Stop Reason does not necessarily imply that the condition is no longer occurring.
-| 9  | Condition source codes are typically ICD-9-CM, Read or ICD-10-CM diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
-| 10  | Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:  * Admitting diagnosis: 4203942  * Final diagnosis: 4230359 (should also be used for discharge diagnosis    * Preliminary diagnosis: 4033240
-=======
 | 6  | A Condition Occurrence Type is assigned based on the data source and type of condition attribute, for example:<br>  * ICD-9-CM Primary Diagnosis from inpatient and outpatient claims<br>  * ICD-9-CM Secondary Diagnoses from inpatient and outpatient claims<br>  * Diagnoses or problems recorded in an EHR. |
 | 7  | Valid Condition Occurrence Type Concepts belong to the 'Condition Type' vocabulary in the 'Type Concept' domain.
 | 8  | The Stop Reason indicates why a Condition is no longer valid with respect to the purpose within the source data. Typical values include 'Discharged', 'Resolved', etc.  Note that a Stop Reason does not necessarily imply that the condition is no longer occurring.
 | 9  | Condition source codes are typically ICD-9-CM, Read or ICD-10-CM diagnosis codes from medical claims or discharge status/visit diagnosis codes from EHRs.
 | 10 | Presently, there is no designated vocabulary, domain, or class that represents condition status. The following concepts from SNOMED are recommended:<ul><li>Admitting diagnosis: 4203942</li><li>Final diagnosis: 4230359 (should also be used for discharge diagnosis</li><li>Preliminary diagnosis: 4033240</li></ul> |
->>>>>>> 403c763ad0d8f723ad873754fd032d632fc32a1a
