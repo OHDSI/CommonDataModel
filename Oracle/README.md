@@ -7,7 +7,7 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 
 1. Create an empty schema.
 
-2. Execute the script `OMOP CDM oracle ddl.txt` to create the tables and fields.
+2. Execute the script `OMOP CDM oracle ddl.txt`  and `OMOP CDM Results oracle ddl.txt` to create the tables and fields.
 
 3. Load your data into the schema.
 

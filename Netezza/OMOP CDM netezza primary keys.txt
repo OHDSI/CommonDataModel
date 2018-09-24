@@ -77,11 +77,6 @@ ALTER TABLE source_to_concept_map ADD CONSTRAINT xpk_source_to_concept_map PRIMA
 
 ALTER TABLE drug_strength ADD CONSTRAINT xpk_drug_strength PRIMARY KEY (drug_concept_id, ingredient_concept_id);
 
-ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY (cohort_definition_id);
-
-ALTER TABLE attribute_definition ADD CONSTRAINT xpk_attribute_definition PRIMARY KEY (attribute_definition_id);
-
-
 /**************************
 
 Standardized meta-data
@@ -127,7 +122,7 @@ ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY ( note_nlp_id ) ;
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY ( observation_id ) ;
 
-ALTER TABLE survey ADD CONSTRAINT xpk_survey PRIMARY KEY ( survey_occurrence_id ) ;
+ALTER TABLE survey_conduct ADD CONSTRAINT xpk_survey_conduct PRIMARY KEY ( survey_conduct_id ) ;
 
 
 /************************
@@ -139,7 +134,7 @@ Standardized health system data
 
 ALTER TABLE location ADD CONSTRAINT xpk_location PRIMARY KEY ( location_id ) ;
 
-ALTER TABLE location_history ADD CONSTRAINT xpk_location_history PRIMARY KEY ( location_history_id ) ; -- May need to remove this one
+ALTER TABLE location_history ADD CONSTRAINT xpk_location_history PRIMARY KEY ( location_history_id ) ; 
 
 ALTER TABLE care_site ADD CONSTRAINT xpk_care_site PRIMARY KEY ( care_site_id ) ;
 
@@ -164,10 +159,6 @@ ALTER TABLE cost ADD CONSTRAINT xpk_visit_cost PRIMARY KEY ( cost_id ) ;
 Standardized derived elements
 
 ************************/
-
-ALTER TABLE cohort ADD CONSTRAINT xpk_cohort PRIMARY KEY ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date  ) ;
-
-ALTER TABLE cohort_attribute ADD CONSTRAINT xpk_cohort_attribute PRIMARY KEY ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date, attribute_definition_id ) ;
 
 ALTER TABLE drug_era ADD CONSTRAINT xpk_drug_era PRIMARY KEY ( drug_era_id ) ;
 

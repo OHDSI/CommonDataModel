@@ -11,10 +11,11 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 impala-shell -q 'CREATE DATABASE omop_cdm'
 ```
 
-2. Execute the script `OMOP CDM impala ddl.txt` (you will need to convert it to a sql file first) to create the tables and fields.
+2. Execute the scripts `OMOP CDM impala ddl.txt` and `OMOP CDM Results impala ddl.txt` (you will need to convert them to sql files first) to create the tables and fields.
 
 ```bash
 impala-shell -d omop_cdm -f OMOP_CDM_impala_ddl.sql
+impala-shell -d omop_cdm -f OMOP_CDM_Results_impala_ddl.sql
 ```
 
 3. Load your data into the schema.
@@ -42,6 +43,7 @@ hadoop fs -put synpuf synpuf
 hadoop fs -chmod +w synpuf
 impala-shell -d omop_cdm -f DataImport/OMOP_CDM_synpuf_load_Impala.sql --var=OMOP_SYNPUF_PATH=/user/$USER/synpuf
 ```
+* Note that these tables are in CDM v5.2.2 format
 
 4. Convert to Parquet format.
 
