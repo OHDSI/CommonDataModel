@@ -203,7 +203,7 @@ Standardized clinical data
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE person
 (
-  person_id						    BIGINT , --BIGINTs added
+  person_id						    BIGINT , 
   gender_concept_id				    INTEGER ,
   year_of_birth					    INTEGER	,
   month_of_birth				    INTEGER	,
@@ -274,7 +274,7 @@ CREATE TABLE visit_occurrence
   care_site_id					BIGINT	,
   visit_source_value			VARCHAR(50),
   visit_source_concept_id		INTEGER	,
-  admitted_from_concept_id      INTEGER ,   /*Changed from admitting_source_* */
+  admitted_from_concept_id      INTEGER ,   
   admitted_from_source_value    VARCHAR(50),
   discharge_to_source_value		VARCHAR(50) ,
   discharge_to_concept_id		INTEGER ,
@@ -297,7 +297,7 @@ CREATE TABLE visit_detail
   provider_id                        BIGINT   ,
   care_site_id                       BIGINT   ,
   discharge_to_concept_id            INTEGER   ,
-  admitted_from_concept_id           INTEGER   , /*Changed from admitting_source_* */
+  admitted_from_concept_id           INTEGER   , 
   admitted_from_source_value         VARCHAR(50) ,
   visit_detail_source_value          VARCHAR(50) ,
   visit_detail_source_concept_id     INTEGER ,
@@ -496,8 +496,8 @@ CREATE TABLE observation
   observation_source_concept_id		INTEGER	,
   unit_source_value				    VARCHAR(50) ,
   qualifier_source_value		    VARCHAR(50) ,
-  observation_event_id			    BIGINT , /* This will link back to the event table (SURVEY) on SURVEY_OCCURRENCE_ID, changed name to comply with COST and NOTE*/
-  obs_event_field_concept_id		INTEGER	, /* Changed name to comply with COST and NOTE. This should be 'Survey'. Had to use 'obs' for oracle restriction, may be added on 9/4*/
+  observation_event_id			    BIGINT , 
+  obs_event_field_concept_id		INTEGER	, 
   value_as_datetime					TIMESTAMP
 )
 ;
@@ -529,10 +529,9 @@ CREATE TABLE survey_conduct
   survey_version_number			    VARCHAR(20) ,
   visit_occurrence_id				BIGINT ,
   visit_detail_id					BIGINT ,
-  response_to_visit_occurrence_id	BIGINT
+  response_visit_occurrence_id	BIGINT
 )
 ;
-
 
 
 CREATE TABLE fact_relationship
@@ -544,7 +543,6 @@ CREATE TABLE fact_relationship
   relationship_concept_id		INTEGER
 )
 ;
-
 
 
 /************************
@@ -574,7 +572,7 @@ CREATE TABLE location_history
 (
   location_history_id           BIGINT ,
   location_id			        BIGINT ,
-  relationship_type_concept_id	INTEGER	,  --Recent addition based on github discussion
+  relationship_type_concept_id	INTEGER	,  
   domain_id				        VARCHAR(50) ,
   entity_id				        BIGINT ,
   start_date			        TIMESTAMP ,
@@ -654,7 +652,7 @@ CREATE TABLE cost
   cost_id						BIGINT ,
   person_id						BIGINT,
   cost_event_id					BIGINT ,
-  cost_event_field_concept_id	INTEGER	, /*This is still in discussion and most likely will replace cost_domain_id at 9/4 meeting*/
+  cost_event_field_concept_id	INTEGER	, 
   cost_concept_id				INTEGER	,
   cost_type_concept_id		  	INTEGER ,
   currency_concept_id			INTEGER	,

@@ -25,7 +25,7 @@
  #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###
 
-sql server script to create OMOP common data model results schema version 6.0
+postgresql script to create OMOP common data model results schema version 6.0
 
 last revised: 27-Aug-2018
 
@@ -34,12 +34,6 @@ Authors:  Patrick Ryan, Christian Reich, Clair Blacketer
 
 *************************/
 
-
-/************************
-
-Standardized vocabulary
-
-************************/
 
 
 --HINT DISTRIBUTE_ON_KEY(subject_id)
@@ -55,22 +49,24 @@ CREATE TABLE cohort
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE cohort_definition (
-  cohort_definition_id				    INTEGER			  NOT NULL,
-  cohort_definition_name			    VARCHAR(255)	NOT NULL,
-  cohort_definition_description		VARCHAR(MAX)	NULL,
-  definition_type_concept_id		  INTEGER			  NOT NULL,
-  cohort_definition_syntax			  VARCHAR(MAX)	NULL,
-  subject_concept_id				      INTEGER			  NOT NULL,
-  cohort_initiation_date			    DATE			    NULL
+  cohort_definition_id				INTEGER			NOT NULL,
+  cohort_definition_name			VARCHAR(255)	NOT NULL,
+  cohort_definition_description		TEXT			NULL,
+  definition_type_concept_id		INTEGER			NOT NULL,
+  cohort_definition_syntax			TEXT			NULL,
+  subject_concept_id				INTEGER			NOT NULL,
+  cohort_initiation_date			DATE			NULL
 )
 ;
 
-ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY NONCLUSTERED (cohort_definition_id);
 
-ALTER TABLE cohort ADD CONSTRAINT xpk_cohort PRIMARY KEY NONCLUSTERED ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date  ) ;
+ALTER TABLE cohort ADD CONSTRAINT xpk_cohort PRIMARY KEY ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date  ) ;
+
+ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY (cohort_definition_id);
 
 
-CREATE CLUSTERED INDEX idx_cohort_definition_id ON cohort_definition (cohort_definition_id ASC);
+CREATE INDEX idx_cohort_definition_id  ON cohort_definition  (cohort_definition_id ASC);
+CLUSTER cohort_definition  USING idx_cohort_definition_id ;
 
 CREATE INDEX idx_cohort_subject_id ON cohort (subject_id ASC);
 CREATE INDEX idx_cohort_c_definition_id ON cohort (cohort_definition_id ASC);
@@ -82,6 +78,9 @@ ALTER TABLE cohort_definition ADD CONSTRAINT fpk_subject_concept FOREIGN KEY (su
 
 
 ALTER TABLE cohort ADD CONSTRAINT fpk_cohort_definition FOREIGN KEY (cohort_definition_id)  REFERENCES cohort_definition (cohort_definition_id);
+
+
+
 
 
 

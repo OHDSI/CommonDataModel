@@ -352,29 +352,29 @@ ALTER TABLE observation ADD CONSTRAint fpk_observation_v_detail FOREIGN KEY (vis
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_concept_s FOREIGN KEY (observation_source_concept_id)  REFERENCES concept (concept_id);
 
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_concept FOREIGN KEY (survey_concept_id)  REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_concept FOREIGN KEY (survey_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_provider FOREIGN KEY (provider_id) REFERENCES provider (provider_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_provider FOREIGN KEY (provider_id) REFERENCES provider (provider_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_assist FOREIGN KEY (assisted_concept_id)  REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_assist FOREIGN KEY (assisted_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_respondent_type FOREIGN KEY (respondent_type_concept_id)  REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_respondent_type FOREIGN KEY (respondent_type_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_timing FOREIGN KEY (timing_concept_id)  REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_timing FOREIGN KEY (timing_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_collection_method FOREIGN KEY (collection_method_concept_id)  REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_collection_method FOREIGN KEY (collection_method_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_source FOREIGN KEY (survey_source_concept_id) REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_source FOREIGN KEY (survey_source_concept_id) REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_validation FOREIGN KEY (validated_survey_concept_id) REFERENCES concept (concept_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_validation FOREIGN KEY (validated_survey_concept_id) REFERENCES concept (concept_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_visit FOREIGN KEY (visit_occurrence_id) REFERENCES visit (visit_occurrence_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_visit FOREIGN KEY (visit_occurrence_id) REFERENCES visit (visit_occurrence_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_survey_v_detail FOREIGN KEY (visit_detail_id) REFERENCES visit_detail (visit_detail_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_v_detail FOREIGN KEY (visit_detail_id) REFERENCES visit_detail (visit_detail_id);
 
-ALTER TABLE survey ADD CONSTRAINT fpk_response_visit FOREIGN KEY (response_to_visit_occurrence_id) REFERENCES visit (visit_occurrence_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_response_visit FOREIGN KEY (response_visit_occurrence_id) REFERENCES visit (visit_occurrence_id);
 
 
 ALTER TABLE fact_relationship ADD CONSTRAINT fpk_fact_domain_1 FOREIGN KEY (domain_concept_id_1)  REFERENCES concept (concept_id);

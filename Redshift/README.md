@@ -12,3 +12,5 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 3. Execute the script `OMOP CDM redshift ddl.txt` to create the tables and fields.
 
 4. Load your data into the schema using COPY commands from Amazon S3.
+
+5. Repeat to create the results schema, executing the script `OMOP CDM Results redshift ddl.txt`

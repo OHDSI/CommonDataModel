@@ -227,7 +227,7 @@ Standardized clinical data
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE person
 (
-  person_id                     BIGINT      NOT NULL , --BIGINTs added
+  person_id                     BIGINT      NOT NULL , 
   gender_concept_id             INTEGER     NOT NULL ,
   year_of_birth                 INTEGER     NOT NULL ,
   month_of_birth                INTEGER     NULL,
@@ -542,7 +542,7 @@ DISTRIBUTE ON (person_id)
 
 
 --HINT DISTRIBUTE ON KEY(person_id)
-CREATE TABLE survey_conduct /*Should this be SURVEY_OCCURRENCE instead to comply with the other tables?*/
+CREATE TABLE survey_conduct 
 (
   survey_conduct_id                 BIGINT          NOT NULL ,
   person_id                         BIGINT          NOT NULL ,
@@ -568,7 +568,7 @@ CREATE TABLE survey_conduct /*Should this be SURVEY_OCCURRENCE instead to comply
   survey_version_number             VARCHAR(20)     NULL ,
   visit_occurrence_id               BIGINT          NULL ,
   visit_detail_id                   BIGINT          NULL ,
-  response_to_visit_occurrence_id   BIGINT          NULL
+  response_visit_occurrence_id   BIGINT          NULL
 )
 DISTRIBUTE ON (person_id)
 ;
@@ -616,9 +616,9 @@ DISTRIBUTE ON RANDOM
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE location_history
 (
-  location_history_id           BIGINT      NOT NULL , --unauthorized addition based on CDM conventions
+  location_history_id           BIGINT      NOT NULL , 
   location_id                   BIGINT      NOT NULL ,
-  relationship_type_concept_id  INTEGER     NULL ,  --Recent addition based on github discussion
+  relationship_type_concept_id  INTEGER     NULL ,  
   domain_id                     VARCHAR(50) NOT NULL ,
   entity_id                     BIGINT      NOT NULL ,
   start_date                    DATE        NOT NULL ,
