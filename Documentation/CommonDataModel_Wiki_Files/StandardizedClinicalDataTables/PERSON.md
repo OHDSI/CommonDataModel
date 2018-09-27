@@ -38,5 +38,5 @@ No.|Convention Description
 | 10 | Valid Gender, Race and Ethnicity Concepts each belong to their own Domain.
 | 11 | Ethnicity in the OMOP CDM follows the OMB Standards for Data on Race and Ethnicity: Only distinctions between Hispanics and Non-Hispanics are made. 
 | 12 | Additional information is stored through references to other tables, such as the home address (location_id) or the primary care provider.
-| 13 | The Provider refers to the primary care provider (General Practitioner).
-| 14 | The Care Site refers to where the Provider typically provides the primary care.
+| 13 | The Provider refers to the primary care provider (General Practitioner). When the primary provider is unknown for a person then leave the PROVIDER_ID blank.
+| 14 | The Care Site refers to where the Provider typically provides the primary care. When care site for the primary provider is unknown then leave the CARE_SITE_ID blank.
