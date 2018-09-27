@@ -451,7 +451,6 @@ CREATE TABLE note
   note_id						BIGINT			NOT NULL ,
   person_id						BIGINT			NOT NULL ,
   note_event_id         		BIGINT        	NULL , 
-  note_event_domain_id        	VARCHAR(20)		NULL , 
   note_event_field_concept_id	INTEGER 		NULL , 
   note_date						DATE			NULL ,
   note_datetime					DATETIME2		NOT NULL ,
