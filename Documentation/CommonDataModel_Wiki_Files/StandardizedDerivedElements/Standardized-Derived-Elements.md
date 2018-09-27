@@ -1,5 +1,3 @@
-[COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)  
-[COHORT_ATTRIBUTE](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_ATTRIBUTE)  
 [DRUG_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_ERA)  
 [DOSE_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DOSE_ERA)  
 [CONDITION_ERA](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_ERA)  
