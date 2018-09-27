@@ -15,6 +15,8 @@ Field|Required|Type|Description
 
 ### Conventions 
 
-  * If a source database is derived from multiple data feeds, the integration of those disparate sources is expected to be documented in the ETL specifications. The source information on each of the databases can be represented as separate records in the CDM_SOURCE table. 
-  * Currently, there is no mechanism to link individual records in the CDM tables to their source record in the CDM_SOURCE table.
-  * The version of the vocabulary can be obtained from the vocabulary_name field in the VOCABULARY table for the record where vocabulary_id='None'.
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | If a source database is derived from multiple data feeds, the integration of those disparate sources is expected to be documented in the ETL specifications. The source information on each of the databases can be represented as separate records in the CDM_SOURCE table. |
+| 2  | Currently, there is no mechanism to link individual records in the CDM tables to their source record in the CDM_SOURCE table. |
+| 3  | The version of the vocabulary can be obtained from the vocabulary_name field in the VOCABULARY table for the record where vocabulary_id='None'. |

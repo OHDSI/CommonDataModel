@@ -12,4 +12,6 @@ Field					|Required	|Type	|Description
 
 ### Conventions 
 
-  * 
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | One record in the Metadata table is pre-populated in the DDL indicating the CDM version of the database. |

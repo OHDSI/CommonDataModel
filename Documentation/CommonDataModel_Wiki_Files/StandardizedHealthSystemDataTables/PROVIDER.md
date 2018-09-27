@@ -17,8 +17,11 @@ Field|Required|Type|Description
 |gender_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
 
 ### Conventions 
-  * Many sources do not make a distinction between individual and institutional providers. The PROVIDER table contains the individual providers.
-  * If the source, instead of uniquely identifying individual providers, only provides limited information such as specialty, generic or "pooled" Provider records are listed in the PROVIDER table.
-  * A single Provider cannot be listed twice (be duplicated) in the table. If a Provider has more than one Specialty, the main or most often exerted specialty should be recorded.
-  * Valid Specialty Concepts belong to the 'Specialty' domain.
-  * The care_site_id represent a fixed relationship between a Provider and her main Care Site. Providers are also linked to Care Sites through Condition, Procedure and Visit records.
+
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | Many sources do not make a distinction between individual and institutional providers. The PROVIDER table contains the individual providers. |
+| 2  | If the source, instead of uniquely identifying individual providers, only provides limited information such as specialty, generic or 'pooled' Provider records are listed in the PROVIDER table. |
+| 3  | A single Provider cannot be listed twice (be duplicated) in the table. If a Provider has more than one Specialty, the main or most often exerted specialty should be recorded. |
+| 4  | Valid Specialty Concepts belong to the 'Specialty' domain. |
+| 5  | The CARE_SITE_ID represent a fixed relationship between a Provider and her main Care Site. Providers are also linked to Care Sites through Condition, Procedure and Visit records. |
