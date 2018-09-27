@@ -5,7 +5,7 @@
 The Observational Medical Outcomes Partnership (OMOP) was a public-private partnership established to inform the appropriate use of observational healthcare databases for studying the effects of medical products. Over the course of the 5-year project and through its community of researchers from industry, government, and academia, OMOP successfully achieved its aims to:
 
   - Conduct methodological research to empirically evaluate the performance of various analytical methods on their ability to identify true associations and avoid false findings 
-  - Develop tools and capabilities for transforming, characterizing, and analyzing disparate data sources across the health care delivery spectrum 
+  - Develop tools and capabilities for transforming, characterizing, and analysing disparate data sources across the health care delivery spectrum 
   - Establish a shared resource so that the broader research community can collaboratively advance the science
 
 The results of OMOP's research has been widely published and presented at scientific conferences, including [annual symposia](https://www.ohdsi.org/events/2018-ohdsi-symposium/).

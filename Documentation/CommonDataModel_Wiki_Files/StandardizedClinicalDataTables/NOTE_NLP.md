@@ -4,9 +4,9 @@ Field | Required | Type | Description
 :------------------------------- | :-------- | :------------ | :---------------------------------------------------
 |note_nlp_id | Yes | integer | A unique identifier for each term extracted from a note.|
 |note_id | Yes | integer | A foreign key to the Note table note the term was |extracted from.|
-|section_concept_id | No | integer | A foreign key to the predefined Concept in the Standardized |Vocabularies representing the section of the extracted term.|
+|section_concept_id | No | integer | A foreign key to the predefined Concept in the Standardized Vocabularies representing the section of the extracted term.|
 |snippet | No | varchar(250) | A small window of text surrounding the term.|
-|offset | No | varchar(50) | Character offset of the extracted term in the |input note.|
+|offset | No | varchar(50) | Character offset of the extracted term in the input note.|
 |lexical_variant | Yes | varchar(250) | Raw text extracted from the NLP tool.|
 |note_nlp_concept_id | No | integer | A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the normalized concept for the extracted term. Domain of the term is represented as part of the Concept table.|
 |note_nlp_source_concept_id | No | integer | A foreign key to a Concept that refers to the code in the source vocabulary used by the NLP system|
@@ -19,32 +19,8 @@ Field | Required | Type | Description
 
 ### Conventions
 
-**Term_exists**
-Term_exists is defined as a flag that indicates if the patient actually has or had the condition. Any of the following modifiers would make Term_exists false:
-
-* Negation = true
-* Subject = [anything other than the patient]
-* Conditional = true
-* Rule_out = true
-* Uncertain = very low certainty or any lower certainties
- 
-A complete lack of modifiers would make Term_exists true. 
-
-For the modifiers that are there, they would have to have these values:
-
-* Negation = false
-* Subject = patient
-* Conditional = false
-* Rule_out = false
-* Uncertain = true or high or moderate or even low (could argue about low)
-
-**Term_temporal**
-Term_temporal is to indicate if a condition is “present” or just in the “past”.
-
-The following would be past:
- 
-* History = true
-* Concept_date = anything before the time of the report
-
-**Term_modifiers**
-Term_modifiers will concatenate all modifiers for different types of entities (conditions, drugs, labs etc) into one string. Lab values will be saved as one of the modifiers. A list of allowable modifiers (e.g., signature for medications) and their possible values will be standardized later.  
+No.|Convention Description
+:--------|:------------------------------------   
+| 1  | Term_exists is defined as a flag that indicates if the patient actually has or had the condition. Any of the following modifiers would make Term_exists false:<br><ul><li>Negation = true</li><li>Subject = [anything other than the patient]</li><li>Conditional = true/li><li>Rule_out = true</li><li>Uncertain = very low certainty or any lower certainties</li><li>A complete lack of modifiers would make Term_exists true.</li></ul><br>For the modifiers that are there, they would have to have these values:<br><ul><li>Negation = false</li><li>Subject = patient</li><li>Conditional = false</li><li>Rule_out = false</li><li>Uncertain = true or high or moderate or even low (could argue about low)</li></ul>|
+| 2  | Term_temporal is to indicate if a condition is “present” or just in the “past”. The following would be past:<br><ul><li>History = true</li><li>Concept_date = anything before the time of the report</li></ul>|
+| 3  | Term_modifiers will concatenate all modifiers for different types of entities (conditions, drugs, labs etc) into one string. Lab values will be saved as one of the modifiers. A list of allowable modifiers (e.g., signature for medications) and their possible values will be standardized later. | 

@@ -19,4 +19,7 @@ Field|Required|Type|Description
 |disease_status_source_value|No|varchar(50)|The information about the disease status as detailed in the source.|
 
 ### Conventions 
-  * Anatomic site is coded at the most specific level of granularity possible, such that higher level classifications can be derived using the Standardized Vocabularies.
+
+No.|Convention Description
+:--------|:------------------------------------   
+| 1  | Anatomic site is coded at the most specific level of granularity possible, such that higher level classifications can be derived using the Standardized Vocabularies.

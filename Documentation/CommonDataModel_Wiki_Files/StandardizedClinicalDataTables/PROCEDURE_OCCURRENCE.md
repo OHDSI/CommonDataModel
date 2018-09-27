@@ -10,8 +10,8 @@ Field|Required|Type|Description
 |procedure_concept_id|Yes|integer|A foreign key that refers to a standard procedure Concept identifier in the Standardized Vocabularies.|
 |procedure_date|Yes|date|The date on which the Procedure was performed.|
 |procedure_datetime|No|datetime|The date and time on which the Procedure was performed.|
-|procedure_type_concept_id|Yes|integer|A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the procedure record is derived.|
-|modifier_concept_id|No|integer|A foreign key to a Standard Concept identifier for a modifier to the Procedure (e.g. bilateral)|
+|procedure_type_concept_id|Yes|integer|A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the procedure record is derived, belonging to the 'Procedure Type' vocabulary.|
+|modifier_concept_id|No|integer|A foreign key to a Standard Concept identifier for a modifier to the Procedure (e.g. bilateral). These concepts are typically distinguished by 'Modifier' concept classes (e.g., 'CPT4 Modifier' as part of the 'CPT4' vocabulary).|
 |quantity|No|integer|The quantity of procedures ordered or administered.|
 |provider_id|No|integer|A foreign key to the provider in the PROVIDER table who was responsible for carrying out the procedure.|
 |visit_occurrence_id|No|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Procedure was carried out.|
@@ -22,11 +22,15 @@ Field|Required|Type|Description
 
 ### Conventions 
 
-  * Valid Procedure Concepts belong to the "Procedure" domain. Procedure Concepts are based on a variety of vocabularies: SNOMED-CT, ICD-9-Proc, CPT-4, HCPCS and OPCS-4, but also atypical Vocabularies such as ICD-9-CM or MedDRA.
-  * Procedures are expected to be carried out within one day and therefore have no end date.
-  * Procedures could involve the application of a drug, in which case the procedural component is recorded in the procedure table and simultaneously the administered drug in the drug exposure table when both the procedural component and drug are identifiable. 
-  * If the quantity value is omitted, a single procedure is assumed.
-  * The Procedure Type defines from where the Procedure Occurrence is drawn or inferred. For administrative claims records the type indicates whether a Procedure was primary or secondary and their relative positioning within a claim. 
-  * The Visit during which the procedure was performed is recorded through a reference to the VISIT_OCCURRENCE table. This information is not always available.
-  * The Visit Detail during with the procedure was performed is recorded through a reference to the VISIT_DETAIL table. This information is not always available.
-  * The Provider carrying out the procedure is recorded through a reference to the PROVIDER table. This information is not always available.
+No.|Convention Description
+:--------|:------------------------------------   
+| 1  | Valid Procedure Concepts belong to the 'Procedure' domain. Procedure Concepts are based on a variety of vocabularies: SNOMED-CT, ICD-9-Proc, CPT-4, HCPCS and OPCS-4, but also atypical Vocabularies such as ICD-9-CM or MedDRA.
+| 2  | Procedures are expected to be carried out within one day and therefore have no end date.
+| 3  | Procedures could involve the application of a drug, in which case the procedural component is recorded in the procedure table and simultaneously the administered drug in the drug exposure table when both the procedural component and drug are identifiable. 
+| 4  | If the quantity value is omitted, a single procedure is assumed.
+| 5  | The Procedure Type defines from where the Procedure Occurrence is drawn or inferred. For administrative claims records the type indicates whether a Procedure was primary or secondary and their relative positioning within a claim. 
+| 6  | The Visit during which the procedure was performed is recorded through a reference to the VISIT_OCCURRENCE table. This information is not always available.
+| 7  | The Visit Detail during with the procedure was performed is recorded through a reference to the VISIT_DETAIL table. This information is not always available.
+| 8  | The Provider carrying out the procedure is recorded through a reference to the PROVIDER table. This information is not always available.
+| 9  | When dealing with duplicate records, the ETL must determine whether to sum them up into one record or keep them separate. Things to consider are:<br><ul><li>Same Procedure</li><li>Same PROCEDURE_DATETIME</li><li> Same Visit Occurrence or Visit Detail</li><li>Same Provider</li><li>Same Modifier for Procedures</li><li>Same COST_ID</li></ul> |
+| 10 | If a Procedure has a quantity of '0' in the source, this should default to '1' in the ETL. If there is a record in the source it can be assumed the exposure occurred at least once. |
