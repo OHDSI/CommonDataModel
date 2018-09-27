@@ -11,6 +11,8 @@ Field|Required|Type|Description
 
 ### Conventions 
 
-  * Each concept is also recorded as an ancestor of itself.
-  * Only valid and Standard Concepts participate in the CONCEPT_ANCESTOR table. It is not possible to find ancestors or descendants of deprecated or Source Concepts.
-  * Usually, only Concepts of the same Domain are connected through records of the CONCEPT_ANCESTOR table, but there might be exceptions.
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | Each concept is also recorded as an ancestor of itself. |
+| 2  | Only valid and Standard Concepts participate in the CONCEPT_ANCESTOR table. It is not possible to find ancestors or descendants of deprecated or Source Concepts. |
+| 3  | Usually, only Concepts of the same Domain are connected through records of the CONCEPT_ANCESTOR table, but there might be exceptions. |
