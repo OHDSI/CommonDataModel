@@ -10,12 +10,15 @@ Field|Required|Type|Description
 |place_of_service_source_value|No|varchar(50)|The source code for the Place of Service as it appears in the source data, stored here for reference.|
 
 ### Conventions
-  * Care site is a unique combination of location_id and place_of_service_source_value.
-  * Every record in the visit_occurrence table may have only one care site
-  * Care site does not take into account the provider (human) information such a specialty.
-  * Many source data do not make a distinction between individual and institutional providers. The CARE_SITE table contains the institutional providers.
-  * If the source, instead of uniquely identifying individual Care Sites, only provides limited information such as Place of Service, generic or "pooled" Care Site records are listed in the CARE_SITE table.
-  * There are hierarchical and business relationships between Care Sites. For example,wards can belong to clinics or departments, which can in turn belong to hospitals, which in turn can belong to hospital systems, which in turn can belong to HMOs.
-  * The relationships between Care Sites are defined in the FACT_RELATIONSHIP table.
-  * The Care Site Source Value typically contains the name of the Care Site.
-  * The Place of Service Concepts belongs to the Domain 'Place of Service'.
+
+No.|Convention Description
+:--------|:------------------------------------
+| 1  |  Care site is a unique combination of location_id and place_of_service_source_value. |
+| 2  | Every record in the visit_occurrence table may have only one care site. |
+| 3  | Care site does not take into account the provider (human) information such a specialty. |
+| 4  | Many source data do not make a distinction between individual and institutional providers. The CARE_SITE table contains the institutional providers. |
+| 5  | If the source, instead of uniquely identifying individual Care Sites, only provides limited information such as Place of Service, generic or "pooled" Care Site records are listed in the CARE_SITE table. |
+| 6  | There are hierarchical and business relationships between Care Sites. For example, wards can belong to clinics or departments, which can in turn belong to hospitals, which in turn can belong to hospital systems, which in turn can belong to HMOs. |
+| 7  | The relationships between Care Sites are defined in the FACT_RELATIONSHIP table. |
+| 8  | The Care Site Source Value typically contains the name of the Care Site. |
+| 9  | The Place of Service Concepts belongs to the Domain 'Place of Service'. |
