@@ -25,6 +25,20 @@ Field|Required|Type|Description
 
 
 ### Conventions 
+
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | The cost information is linked through the COST_EVENT_ID field to its entity, which denotes a record in a table referenced by the COST_EVENT_FIELD_CONCEPT_ID field. 
+| 2  | One cost record is generated for each response by a payer. In a claims databases, the payment and payment terms reported by the payer for the goods or services billed will generate one cost record. If the source data has payment information for more than one payer (i.e. primary insurance and secondary insurance payment for one entity), then a cost record is created for each reporting payer. Therefore, it is possible for one procedure to have multiple cost records for each payer, but typically it contains one or no record per entity. Payer reimbursement cost records will be identified by using the PAYER_PLAN_ID field. |
+| 3  | One cost record is generated for each money or currency amount associated with a record in one of the event tables. |
+| 4  | The COST field represents the dollar amount, either incoming or outgoing |
+| 5  | When dealing with summary costs, the cost of the goods or services the provider provides is often not known directly, but derived from the hospital charges multiplied by an average cost-to-charge ratio. This data is currently available for [NIS](https://www.hcup-us.ahrq.gov/db/nation/nis/nisdbdocumentation.jsp) datasets, or any other [HCUP](https://www.hcup-us.ahrq.gov/databases.jsp) datasets. See also cost calculation explanation from AHRQ | 6  | In claims data, total paid is considered the calculated field the payer expects the provider to get reimbursed for goods and services, based on the payer's contractual obligations. |
+| 7  | Drug costs are composed of ingredient cost (the amount charged by the wholesale distributor or manufacturer), the dispensing fee (the amount charged by the pharmacy and the sales tax). |
+| 8  | In claims data, generally there is one field representing the total payment from the payer for the service/device/drug. However, this field could be a calculated field if the source data provides separate payment information for the ingredient cost and the dispensing fee in case of prescription benefits. If there is more than one Payer in the source data, several cost records indicate that fact. The Payer reporting this reimbursement should be indicated under the PAYER_PLAN_ID field. |
+| 10 | REVENUE_CODE_CONCEPT_ID: Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system.
+| 11 | DRG_CONCEPT_ID: Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups. Only the MS-DRG system should be used (mapped to vocabulary_id 'DRG) and all other DRG values should be mapped to 0. |
+
+
 The COST table will store information reporting money or currency amounts. There are three types of cost data, defined in the COST_TYPE_CONCEPT_ID: 
 1) Payer is primary (coordination of benefit) 
 2) Payer is secondary (coordination of benefit) 
