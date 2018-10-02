@@ -63,7 +63,7 @@ CREATE TABLE vocabulary (
   vocabulary_id			VARCHAR(20)		NOT NULL,
   vocabulary_name		VARCHAR(255)	NOT NULL,
   vocabulary_reference	VARCHAR(255)	NOT NULL,
-  vocabulary_version	VARCHAR(255)	NOT NULL,
+  vocabulary_version	VARCHAR(255)	NULL,
   vocabulary_concept_id	INTEGER			NOT NULL
 )
 ;
@@ -704,13 +704,13 @@ Standardized derived elements
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE drug_era
 (
-  drug_era_id			NUMBER(19)		NOT NULL ,
-  person_id				NUMBER(19)		NOT NULL ,
-  drug_concept_id		INTEGER			NOT NULL ,
-  drug_era_start_date	DATE			NOT NULL ,
-  drug_era_end_date		DATE			NOT NULL ,
-  drug_exposure_count	INTEGER			NULL ,
-  gap_days				INTEGER			NULL
+  drug_era_id				NUMBER(19)		NOT NULL ,
+  person_id					NUMBER(19)		NOT NULL ,
+  drug_concept_id			INTEGER			NOT NULL ,
+  drug_era_start_datetime	TIMESTAMP		NOT NULL ,
+  drug_era_end_datetime		TIMESTAMP		NOT NULL ,
+  drug_exposure_count		INTEGER			NULL ,
+  gap_days					INTEGER			NULL
 )
 ;
 
@@ -718,13 +718,13 @@ CREATE TABLE drug_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE dose_era
 (
-  dose_era_id			NUMBER(19)		NOT NULL ,
-  person_id				NUMBER(19)		NOT NULL ,
-  drug_concept_id		INTEGER			NOT NULL ,
-  unit_concept_id		INTEGER			NOT NULL ,
-  dose_value			FLOAT			NOT NULL ,
-  dose_era_start_date	DATE			NOT NULL ,
-  dose_era_end_date	    DATE			NOT NULL
+  dose_era_id				NUMBER(19)		NOT NULL ,
+  person_id					NUMBER(19)		NOT NULL ,
+  drug_concept_id			INTEGER			NOT NULL ,
+  unit_concept_id			INTEGER			NOT NULL ,
+  dose_value				FLOAT			NOT NULL ,
+  dose_era_start_datetime	TIMESTAMP		NOT NULL ,
+  dose_era_end_datetime	    TIMESTAMP		NOT NULL
 )
 ;
 
@@ -732,11 +732,11 @@ CREATE TABLE dose_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE condition_era
 (
-  condition_era_id				NUMBER(19)		NOT NULL ,
-  person_id						NUMBER(19)		NOT NULL ,
-  condition_concept_id			INTEGER			NOT NULL ,
-  condition_era_start_date		DATE			NOT NULL ,
-  condition_era_end_date		DATE			NOT NULL ,
-  condition_occurrence_count	INTEGER			NULL
+  condition_era_id					NUMBER(19)		NOT NULL ,
+  person_id							NUMBER(19)		NOT NULL ,
+  condition_concept_id				INTEGER			NOT NULL ,
+  condition_era_start_datetime		TIMESTAMP		NOT NULL ,
+  condition_era_end_datetime		TIMESTAMP		NOT NULL ,
+  condition_occurrence_count		INTEGER			NULL
 )
 ;

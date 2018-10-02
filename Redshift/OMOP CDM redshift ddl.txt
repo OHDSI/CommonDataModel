@@ -63,7 +63,7 @@ CREATE TABLE vocabulary  (
   vocabulary_id			    VARCHAR(20)		NOT NULL,
   vocabulary_name		    VARCHAR(255)	NOT NULL,
   vocabulary_reference		VARCHAR(255)	NOT NULL,
-  vocabulary_version	 	VARCHAR(255)	NOT NULL,
+  vocabulary_version	 	VARCHAR(255)	NULL,
   vocabulary_concept_id		INTEGER			NOT NULL
 )
 DISTSTYLE ALL;
@@ -122,10 +122,10 @@ DISTSTYLE ALL;
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE concept_ancestor  (
-ancestor_concept_id		    INTEGER		NOT NULL,
-  descendant_concept_id		  INTEGER		NOT NULL,
-  min_levels_of_separation	INTEGER		NOT NULL,
-  max_levels_of_separation	INTEGER		NOT NULL
+  ancestor_concept_id		    INTEGER		NOT NULL,
+  descendant_concept_id		  	INTEGER		NOT NULL,
+  min_levels_of_separation		INTEGER		NOT NULL,
+  max_levels_of_separation		INTEGER		NOT NULL
 )
 DISTSTYLE ALL;
 
@@ -680,37 +680,37 @@ Standardized derived elements
 
 --HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE drug_era  (
-  drug_era_id			BIGINT			NOT NULL ,
-  person_id				BIGINT			NOT NULL ,
-  drug_concept_id		INTEGER			NOT NULL ,
-  drug_era_start_date	DATE			NOT NULL ,
-  drug_era_end_date		DATE			NOT NULL ,
-  drug_exposure_count	INTEGER			NULL ,
-  gap_days				INTEGER			NULL
+  drug_era_id				BIGINT			NOT NULL ,
+  person_id					BIGINT			NOT NULL ,
+  drug_concept_id			INTEGER			NOT NULL ,
+  drug_era_start_datetime	TIMESTAMP		NOT NULL ,
+  drug_era_end_datetime		TIMESTAMP		NOT NULL ,
+  drug_exposure_count		INTEGER			NULL ,
+  gap_days					INTEGER			NULL
 )
 DISTKEY(person_id);
 
 
 --HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE dose_era  (
-  dose_era_id			BIGINT		NOT NULL ,
-  person_id				BIGINT		NOT NULL ,
-  drug_concept_id		INTEGER		NOT NULL ,
-  unit_concept_id		INTEGER		NOT NULL ,
-  dose_value			FLOAT		NOT NULL ,
-  dose_era_start_date	DATE		NOT NULL ,
-  dose_era_end_date	    DATE		NOT NULL
+  dose_era_id				BIGINT		NOT NULL ,
+  person_id					BIGINT		NOT NULL ,
+  drug_concept_id			INTEGER		NOT NULL ,
+  unit_concept_id			INTEGER		NOT NULL ,
+  dose_value				FLOAT		NOT NULL ,
+  dose_era_start_datetime	TIMESTAMP	NOT NULL ,
+  dose_era_end_datetime		TIMESTAMP	NOT NULL
 )
 DISTKEY(person_id);
 
 
 --HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE condition_era  (
-  condition_era_id				BIGINT			NOT NULL ,
-  person_id						BIGINT			NOT NULL ,
-  condition_concept_id			INTEGER			NOT NULL ,
-  condition_era_start_date		DATE			NOT NULL ,
-  condition_era_end_date		DATE			NOT NULL ,
-  condition_occurrence_count	INTEGER			NULL
+  condition_era_id					BIGINT			NOT NULL ,
+  person_id							BIGINT			NOT NULL ,
+  condition_concept_id				INTEGER			NOT NULL ,
+  condition_era_start_datetime		TIMESTAMP		NOT NULL ,
+  condition_era_end_datetime		TIMESTAMP		NOT NULL ,
+  condition_occurrence_count		INTEGER			NULL
 )
 DISTKEY(person_id);
