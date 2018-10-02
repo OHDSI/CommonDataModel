@@ -682,13 +682,13 @@ Standardized derived elements
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE drug_era
 (
-  drug_era_id			BIGINT ,
-  person_id				BIGINT ,
-  drug_concept_id		INTEGER	,
-  drug_era_start_date	TIMESTAMP ,
-  drug_era_end_date		TIMESTAMP ,
-  drug_exposure_count	INTEGER	,
-  gap_days				INTEGER
+  drug_era_id				BIGINT ,
+  person_id					BIGINT ,
+  drug_concept_id			INTEGER	,
+  drug_era_start_datetime	TIMESTAMP ,
+  drug_era_end_datetime		TIMESTAMP ,
+  drug_exposure_count		INTEGER	,
+  gap_days					INTEGER
 )
 ;
 
@@ -696,13 +696,13 @@ CREATE TABLE drug_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE dose_era
 (
-  dose_era_id			BIGINT ,
-  person_id				BIGINT ,
-  drug_concept_id		INTEGER	,
-  unit_concept_id		INTEGER	,
-  dose_value			FLOAT ,
-  dose_era_start_date	TIMESTAMP ,
-  dose_era_end_date	    TIMESTAMP
+  dose_era_id				BIGINT ,
+  person_id					BIGINT ,
+  drug_concept_id			INTEGER	,
+  unit_concept_id			INTEGER	,
+  dose_value				FLOAT ,
+  dose_era_start_datetime	TIMESTAMP ,
+  dose_era_end_datetime		TIMESTAMP
 )
 ;
 
@@ -710,11 +710,11 @@ CREATE TABLE dose_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE condition_era
 (
-  condition_era_id				BIGINT ,
-  person_id						BIGINT ,
-  condition_concept_id			INTEGER	,
-  condition_era_start_date		TIMESTAMP ,
-  condition_era_end_date		TIMESTAMP ,
-  condition_occurrence_count	INTEGER
+  condition_era_id					BIGINT ,
+  person_id							BIGINT ,
+  condition_concept_id				INTEGER	,
+  condition_era_start_datetime		TIMESTAMP ,
+  condition_era_end_datetime		TIMESTAMP ,
+  condition_occurrence_count		INTEGER
 )
 ;
