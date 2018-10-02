@@ -548,7 +548,7 @@ create table care_site
 (
   care_site_id					INT64	not null ,
   care_site_name				STRING  null ,
-  place_of_service_concept_id	INT64	null ,
+  place_of_service_concept_id	INT64	not null ,
   location_id					INT64	null ,
   care_site_source_value		STRING	null ,
   place_of_service_source_value STRING	null
