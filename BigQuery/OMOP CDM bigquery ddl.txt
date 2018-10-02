@@ -43,7 +43,7 @@ create table vocabulary (
   vocabulary_id			    STRING		not null,
   vocabulary_name		    STRING		not null,
   vocabulary_reference		STRING		not null,
-  vocabulary_version	  	STRING		not null,
+  vocabulary_version	  	STRING		null,
   vocabulary_concept_id		INT64		not null
 )
 ;
@@ -630,13 +630,13 @@ create table cost
 --HINT DISTRIBUTE_ON_KEY(person_id)
 create table drug_era
 (
-  drug_era_id			INT64			not null ,
-  person_id				INT64			not null ,
-  drug_concept_id		INT64			not null ,
-  drug_era_start_date	date			not null ,
-  drug_era_end_date		date			not null ,
-  drug_exposure_count	INT64			null ,
-  gap_days				INT64			null
+  drug_era_id				INT64			not null ,
+  person_id					INT64			not null ,
+  drug_concept_id			INT64			not null ,
+  drug_era_start_datetime	datetime		not null ,
+  drug_era_end_datetime		datetime		not null ,
+  drug_exposure_count		INT64			null ,
+  gap_days					INT64			null
 )
 ;
 
@@ -644,13 +644,13 @@ create table drug_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 create table dose_era
 (
-  dose_era_id			INT64			not null ,
-  person_id				INT64			not null ,
-  drug_concept_id		INT64			not null ,
-  unit_concept_id		INT64			not null ,
-  dose_value			FLOAT64			not null ,
-  dose_era_start_date	date			not null ,
-  dose_era_end_date	    date			not null
+  dose_era_id				INT64			not null ,
+  person_id					INT64			not null ,
+  drug_concept_id			INT64			not null ,
+  unit_concept_id			INT64			not null ,
+  dose_value				FLOAT64			not null ,
+  dose_era_start_datetime	datetime		not null ,
+  dose_era_end_datetime		datetime		not null
 )
 ;
 
@@ -658,11 +658,11 @@ create table dose_era
 --HINT DISTRIBUTE_ON_KEY(person_id)
 create table condition_era
 (
-  condition_era_id				INT64			not null ,
-  person_id						INT64			not null ,
-  condition_concept_id			INT64			not null ,
-  condition_era_start_date		date			not null ,
-  condition_era_end_date		date			not null ,
-  condition_occurrence_count	INT64			null
+  condition_era_id					INT64			not null ,
+  person_id							INT64			not null ,
+  condition_concept_id				INT64			not null ,
+  condition_era_start_datetime		datetime		not null ,
+  condition_era_end_datetime		datetime		not null ,
+  condition_occurrence_count		INT64			null
 )
 ;

@@ -21,8 +21,6 @@
 * [CONCEPT_ANCESTOR](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT_ANCESTOR)
 * [SOURCE_TO_CONCEPT_MAP](https://github.com/OHDSI/CommonDataModel/wiki/SOURCE_TO_CONCEPT_MAP)
 * [DRUG_STRENGTH](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_STRENGTH)
-* [COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION)
-* [ATTRIBUTE_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/ATTRIBUTE_DEFINITION)  
 
 **[Standardized Metadata](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Metadata)**
 * [CDM_SOURCE](https://github.com/OHDSI/CommonDataModel/wiki/CDM_SOURCE)  
@@ -55,8 +53,10 @@
 * [COST](https://github.com/OHDSI/CommonDataModel/wiki/COST)  
 
 **[Standardized Derived Elements](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Derived-Elements)**
-* [COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)
-* [COHORT_ATTRIBUTE](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_ATTRIBUTE)
 * [DRUG_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_ERA)
 * [DOSE_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DOSE_ERA)
 * [CONDITION_ERA](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_ERA)
+
+**[Results Schema](https://github.com/OHDSI/CommonDataModel/wiki/Results-Schema)**
+* [COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)
+* [COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION)
