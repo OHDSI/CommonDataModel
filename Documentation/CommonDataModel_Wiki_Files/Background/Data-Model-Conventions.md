@@ -1,5 +1,9 @@
 There are a number of implicit and explicit conventions that have been adopted in the CDM. Developers of methods that run against the CDM need to understand these conventions.
 
+### General conventions of schemas
+
+New to CDM v6.0 is the concept of schemas. This allows for more separation between read-only and writeable tables. The clinical data, event, and vocabulary tables are in the 'CDM' schema and tables that need to be manipulated by web-based tools or end users have moved to the 'Results' schema. Currently the only two tables in the 'Results' schema are COHORT and COHORT_DEFINITON, though likely more will be added over the course of v6.0 point releases. 
+
 ### General conventions of data tables
 
 The CDM is platform-independent. Data types are defined generically using ANSI SQL data types (VARCHAR, INTEGER, FLOAT, DATE, DATETIME, CLOB). Precision is provided only for VARCHAR. It reflects the minimal required string length and can be expanded within a CDM instantiation. The CDM does not prescribe the date and datetime format. Standard queries against CDM may vary for local instantiations and date/datetime configurations. 
@@ -20,7 +24,7 @@ Notation|Description
 
 ### Representation of content through Concepts 
 
-In CDM data tables the meaning of the content of each record is represented using Concepts. Concepts are stored with their CONCEPT_ID as foreign keys to the CONCEPT table in the Standardized Vocabularies, which contains Concepts necessary to describe the healthcare experience of a patient. If a Standard Concept does not exist or cannot be identified, the Concept with the CONCEPT_ID 0 is used, representing a non-existing or unmappable concept.
+In CDM data tables the meaning of the content of each record is represented using Concepts. Concepts are stored with their CONCEPT_ID as foreign keys to the CONCEPT table in the Standardized Vocabularies, which contains Concepts necessary to describe the healthcare experience of a patient. If a Standard Concept does not exist or cannot be identified, the Concept with the CONCEPT_ID 0 is used, representing a non-existing or un-mappable concept.
 
 Records in the CONCEPT table contain all the detailed information about it (name, domain, class etc.). Concepts, Concept Relationships and other information relating to Concepts is contained in the tables of the Standardized Vocabularies.
 
@@ -42,7 +46,7 @@ Type Concepts (ending in _TYPE_CONCEPT_ID) and general Concepts (ending in _CONC
 ### Time span of available data 
 
 Data tables for clinical data contain a datetime stamp (ending in _DATETIME, _START_DATETIME or _END_DATETIME), indicating when that clinical event occurred. As a rule, no record can be outside of a valid OBSERVATION_PERIOD time period. Clinical information that relates to events that happened prior to the first OBSERVATION_PERIOD will be captured as a record in the OBSERVATION table as 'Medical history' (CONCEPT_ID = 43054928), with the OBSERVATION_DATETIME set to the first OBSERVATION_PERIOD_START_DATE of that patient, and the VALUE_AS_CONCEPT_ID set to the corresponding CONCEPT_ID for the condition/drug/procedure that occurred in the past. No data occurring after the last OBSERVATION_PERIOD_END_DATE can be valid records in the CDM.
-  * When mapping source data to the CDM, if time is unknown the default time of 00:00:00 should be chosen. If a time of 00:00:00 is given in the source data it should be shifted to 00:00:01.
+  * When mapping source data to the CDM, if time is unknown the default time of 00:00:00 should be chosen. If a time of 00:00:00 is given in the source data it should be shifted to 00:00:01 ([THEMIS issue #10](https://github.com/OHDSI/Themis/issues/10)).
 
 ### Content of each table 
 
@@ -52,28 +56,28 @@ For the tables of the main domains of the CDM it is imperative that concepts use
 
 Each table contains fields for Source Values, Source Concept Ids, and Standard Concept Ids. 
 
-  * Source Values are fields to maintain the verbatim information from the source database, stored as unstructured text, and are generally not to be used by any standardized analytics. There is no standardization for these fields and these columns can be used as the local CDM builders see fit. A typical example would be an ICD-9 code without the decimal from an administrative claim as condition_source_value = '78702' which is how it appeared in the source.
+  * Source Values are fields to maintain the verbatim information from the source database, stored as unstructured text, and are generally not to be used by any standardized analytics. There is no standardization for these fields and these columns can be used as the local CDM builders see fit. A typical example would be an ICD-9 code without the decimal from an administrative claim as condition_source_value = '78702' which is how it appeared in the source ([THEMIS issue #15](https://github.com/OHDSI/Themis/issues/15)).
   * Source Concept Ids provide a repeatable representation of the source concept, when the source data are drawn from a commonly-used, internationally-recognized vocabulary that has been distributed with the OMOP Common Data Model. Specific use cases where source vocabulary-specific analytics are required can be accommodated by the use of the *_SOURCE_CONCEPT_ID fields, but these are generally not applicable across disparate data sources. The standard *_CONCEPT_ID fields are **strongly suggested** to be used in all standardized analytics, as specific vocabularies have been established within each data domain to facilitate standardization of both structure and content within the OMOP Common Data Model.
 
 The following provide conventions for processing source data using these three fields in each domain:
 
 When processing data where the source value is either free text or a reference to a coding scheme that is not contained within the Standardized Vocabularies:
 
-  - Map all Source Values directly to Standard CONCEPT_IDs. Store these mappings in the SOURCE_TO_CONCEPT_MAP table. 
-    - If the source code is not mappable to a vocabulary term, the SOURCE_CONCEPT_ID field is set to 0
+  - Map all Source Values to the corresponding Standard CONCEPT_IDs. Store the CONCEPT_IDs in the TARGET_CONCEPT_ID field of the SOURCE_TO_CONCEPT_MAP table. 
+    - If a CONCEPT_ID is not available for the source code, the TARGET_CONCEPT_ID field is set to 0.
 
 When processing your data where Source Value is a reference to a coding scheme contained within the Standardized Vocabularies:
   
-  - Map all your Source Values to the corresponding CONCEPT_IDs in the Source Vocabulary. Store the result in the SOURCE_CONCEPT_ID field. 
+  - Find all CONCEPT_IDs in the Source Vocabulary that correspond to your Source Values. Store the result in the SOURCE_CONCEPT_ID field. 
     - If the source code follows the same formatting as the distributed vocabulary, the mapping can be directly obtained from the CONCEPT table using the CONCEPT_CODE field. 
     - If the source code uses alternative formatting (ex. format has removed decimal point from ICD-9 codes), you will need to perform the formatting transformation within the ETL. In this case, you may wish to store the mappings from original codes to SOURCE_CONCEPT_IDs in the SOURCE_TO_CONCEPT_MAP table.
-    - If the source code is not mappable to a vocabulary term, the SOURCE_CONCEPT_ID field is set to 0
+    - If the source code is not found in a vocabulary, the SOURCE_CONCEPT_ID field is set to 0
   - Use the CONCEPT_RELATIONSHIP table to identify the Standard CONCEPT_ID that corresponds to the SOURCE_CONCEPT_ID in the domain.
     - Each SOURCE_CONCEPT_ID can have 1 or more Standard CONCEPT_IDs mapped to it. Each Standard CONCEPT_ID belongs to only one primary domain but when a source CONCEPT_ID maps to multiple Standard CONCEPT_IDs, it is possible for that SOURCE_CONCEPT_ID to result in records being produced across multiple domains. For example, ICD-10-CM code Z34.00 'Encounter for supervision of normal first pregnancy, unspecified trimester' will be mapped to the SNOMED concept 'Routine antenatal care' in the procedure domain and the concept in the condition domain 'Primagravida'. It is also possible for one SOURCE_CONCEPT_ID to map to multiple Standard CONCEPT_IDs within the same domain. For example, ICD-9-CM code 070.43 'Hepatitis E with hepatic coma' maps to the SNOMED concept for 'Acute hepatitis E' and a second SNOMED concept for 'Hepatic coma', in which case multiple CONDITION_OCCURRENCE records will be generated for the one source value record.
-    - If the SOURCE_CONCEPT_ID is not mappable to any Standard CONCEPT_ID, the CONCEPT_ID field is set to 0.
+    - If the SOURCE_CONCEPT_ID is not mappable to any Standard CONCEPT_ID, the <entity>_CONCEPT_ID field is set to 0.
   - Write the data record into the table(s) corresponding to the domain of the Standard CONCEPT_ID(s). 
-    - If the Source Value is mapped to a SOURCE_CONCEPT_ID but the SOURCE_CONCEPT_ID is not mapped to a Standard CONCEPT_ID, then the domain for the data record, and hence it's table location, is determined by the DOMAIN_ID field of the CONCEPT record the SOURCE_CONCEPT_ID refers to. The Standard CONCEPT_ID is set to 0. 
-    - If the Source Value cannot be mapped to a SOURCE_CONCEPT_ID or Standard CONCEPT_ID, then direct the data record to the most appropriate CDM domain based on your local knowledge of the intent of the source data and associated value. For example, if the unmappable Source Value came from a 'diagnosis' table then, in the absence of other information, you may choose to record that fact in the CONDITION_OCCURRENCE table.
+    - If the Source Value has a SOURCE_CONCEPT_ID but the SOURCE_CONCEPT_ID is not mapped to a Standard CONCEPT_ID, then the domain for the data record, and hence it's table location, is determined by the DOMAIN_ID field of the CONCEPT record the SOURCE_CONCEPT_ID refers to. The Standard <entity>_CONCEPT_ID is set to 0. 
+    - If the Source Value cannot be mapped to a SOURCE_CONCEPT_ID or Standard CONCEPT_ID, then direct the data record to the most appropriate CDM domain based on your local knowledge of the intent of the source data and associated value. For example, if the un-mappable Source Value came from a 'diagnosis' table then, in the absence of other information, you may choose to record that fact in the CONDITION_OCCURRENCE table.
 
 Each Standard CONCEPT_ID field has a set of allowable CONCEPT_ID values. The allowable values are defined by the domain of the concepts. For example, there is a domain concept of 'Gender', for which there are only two allowable standard concepts of practical use (8507 - 'Male', 8532- 'Female') and one allowable generic concept to represent a standard notion of 'no information' (concept_id = 0). This 'no information' concept should be used when there is no mapping to a standard concept available or if there is no information available for that field. The exceptions are MEASUREMENT.VALUE_AS_CONCEPT_ID, OBSERVATION.VALUE_AS_CONCEPT_ID, MEASUREMENT.UNIT_CONCEPT_ID, OBSERVATION.UNIT_CONCEPT_ID, MEASUREMENT.OPERATOR_CONCEPT_ID, and OBSERVATION.MODIFIER_CONCEPT_ID, which can be NULL if the data do not contain the information ([THEMIS issue #11](https://github.com/OHDSI/Themis/issues/11)).  
 

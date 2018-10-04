@@ -6,8 +6,8 @@ Field|Required|Type|Description
 |person_id					|Yes|integer|A foreign key identifier to the Person about whom the Note was recorded. The demographic details of that Person are stored in the PERSON table.|
 |note_event_id				|No |integer|A foreign key identifier to the event (e.g. Measurement, Procedure, Visit, Drug Exposure, etc) record during which the note was recorded.|
 |note_event_field_concept_id |No|integer|A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the field to which the note_event_id is referring. |
-|note_date 					|Yes|date|The date the note was recorded.|
-|note_datetime				|No|datetime|The date and time the note was recorded.|
+|note_date 					|No|date|The date the note was recorded.|
+|note_datetime				|Yes|datetime|The date and time the note was recorded.|
 |note_type_concept_id		|Yes|integer|A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the type, origin or provenance of the Note. These belong to the 'Note Type' vocabulary|
 |note_class_concept_id		|Yes|	integer|	A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the HL7 LOINC Document Type Vocabulary classification of the note.|
 |note_title					|No|	varchar(250)|	The title of the Note as it appears in the source.|

@@ -10,15 +10,15 @@ Field|Required|Type|Description
 |cost_event_field_concept_id    |Yes| integer| A foreign key identifier to a concept in the CONCEPT table representing the identity of the field represented by COST_EVENT_ID |
 |cost_concept_id         		| Yes| integer| A foreign key that refers to a Standard Cost Concept identifier in the Standardized Vocabularies belonging to the 'Cost' vocabulary.  |
 | cost_type_concept_id         | Yes       | integer     | A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data and belonging to the 'Cost Type' vocabulary  |
-| cost_source_concept_id         | No       | integer     | A foreign key to a Cost Concept that refers to the code used in the source. |
+| cost_source_concept_id         | Yes       | integer     | A foreign key to a Cost Concept that refers to the code used in the source. |
 | cost_source_value | No | varchar(50) | The source value for the cost as it appears in the source data|
 | currency_concept_id          | Yes       | integer     | A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar. These belong to the 'Currency' vocabulary  |
 | cost                  | Yes       | float       | The actual financial cost amount |
 | incurred_date                 | Yes       | date        | The first date of service of the clinical event corresponding to the cost as in table capturing the information (e.g. date of visit, date of procedure, date of condition, date of drug etc).   |
 | billed_date              | No        | date    | The date a bill was generated for a service or encounter              |
 | paid_date               | No        | date    | The date payment was received for a service or encounter                                                                                                                                                                                          |
-| revenue_code_concept_id      | No        | integer     | A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes belonging to the 'Revenue Code' vocabulary.                                               |
-| drg_concept_id               | No        | integer     | A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for DRG codes belonging to the 'DRG' vocabulary.                                                                                                   |
+| revenue_code_concept_id      | Yes        | integer     | A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes belonging to the 'Revenue Code' vocabulary.                                               |
+| drg_concept_id               | Yes        | integer     | A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for DRG codes belonging to the 'DRG' vocabulary.                                                                                                   |
 | revenue_code_source_value    | No        | varchar(50)  | The source value for the Revenue code as it appears in the source data, stored here for reference.                                                                                                                                                           |
 | drg_source_value             | No        | varchar(50)  | The source value for the 3-digit DRG source code as it appears in the source data, stored here for reference.    
 | payer_plan_period_id    | No        | integer  | A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored. Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field.    | 
@@ -36,7 +36,7 @@ No.|Convention Description
 | 7  | Drug costs are composed of ingredient cost (the amount charged by the wholesale distributor or manufacturer), the dispensing fee (the amount charged by the pharmacy and the sales tax). |
 | 8  | In claims data, generally there is one field representing the total payment from the payer for the service/device/drug. However, this field could be a calculated field if the source data provides separate payment information for the ingredient cost and the dispensing fee in case of prescription benefits. If there is more than one Payer in the source data, several cost records indicate that fact. The Payer reporting this reimbursement should be indicated under the PAYER_PLAN_ID field. |
 | 10 | REVENUE_CODE_CONCEPT_ID: Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system.
-| 11 | DRG_CONCEPT_ID: Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups. Only the MS-DRG system should be used (mapped to vocabulary_id 'DRG) and all other DRG values should be mapped to 0. |
+| 11 | DRG_CONCEPT_ID: Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups. Only the MS-DRG system should be used (mapped to vocabulary_id 'DRG) and all other DRG values should be mapped to 0 ([THEMIS issue #19](https://github.com/OHDSI/Themis/issues/19)). |
 
 
 The COST table will store information reporting money or currency amounts. There are three types of cost data, defined in the COST_TYPE_CONCEPT_ID: 

@@ -11,8 +11,8 @@ The 'Death' domain contains the clinical events surrounding how and when a Perso
 No.|Convention Description
 :--------|:------------------------------------
 | 1  | Living patients should not have a value in PERSON.DEATH_DATETIME, nor should they have any records relating to death either in the CONDITION_OCCURRENCE or OBSERVATION tables
-| 2  | Only one death date per individual can be used. If a patient has clinical activity (e.g. prescriptions filled, labs performed, etc) more than 60+ days after death you may want to drop the death record as it may have been falsely reported. If multiple records of death exist on multiple days you may select the death that you deem most reliable (e.g. death at discharge) or select the latest death date.
-| 3  | If multiple death records occur, the date and the person have to be the same, but the cause can be different. Can be reported by different sources as well.
+| 2  | Only one death date per individual can be used. If a patient has clinical activity (e.g. prescriptions filled, labs performed, etc) more than 60+ days after death you may want to drop the death record as it may have been falsely reported. If multiple records of death exist on multiple days you may select the death that you deem most reliable (e.g. death at discharge) or select the latest death date ([THEMIS issue #6](https://github.com/OHDSI/Themis/issues/6)).
+| 3  | If multiple death records occur, the date and the person have to be the same, but the cause can be different. Can be reported by different sources as well ([THEMIS issue #5](https://github.com/OHDSI/Themis/issues/5)).
 | 4  | If PERSON.DEATH_DATETIME cannot be precisely determined from the data, the best approximation should be used.
 | 5  | Any cause of death should be stored in the CONDITION_OCCURRENCE table, using the CONDITION_TYPE vocabulary with the DEATH_TYPE concept class.
 | 6  | All observations relating to death should be stored in the OBSERVATION table, including the concept [4306655](http://athena.ohdsi.org/search-terms/terms/4306655). 

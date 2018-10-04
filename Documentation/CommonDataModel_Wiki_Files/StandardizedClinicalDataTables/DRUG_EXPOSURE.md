@@ -23,13 +23,13 @@ Field|Required|Type|Description
 |quantity 						|No		|float		|The quantity of drug as recorded in the original prescription or dispensing record.                                                                                              |
 |days_supply					|No		|integer	|The number of days of supply of the medication as prescribed. This reflects the intention of the provider for the length of exposure.                                            |
 |sig							|No		|varchar(MAX)|The directions ('signetur') on the Drug prescription as recorded in the original prescription (and printed on the container) or dispensing record.                              |
-|route_concept_id				|No		|integer	|A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies reflecting the route of administration and belonging to the 'Route' domain.              |
+|route_concept_id				|Yes		|integer	|A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies reflecting the route of administration and belonging to the 'Route' domain.              |
 |lot_number						|No		|varchar(50)|An identifier assigned to a particular quantity or lot of Drug product from the manufacturer.                                                                                     |
 |provider_id					|No		|integer|A foreign key to the provider in the PROVIDER table who initiated (prescribed or administered) the Drug Exposure.|
 |visit_occurrence_id			|No		|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Drug Exposure was initiated.|
 |visit_detail_id				|No		|integer|A foreign key to the Visit Detail in the VISIT_DETAIL table during which the Drug Exposure was initiated.|
 |drug_source_value				|No		|varchar(50)|The source code for the Drug as it appears in the source data. This code is mapped to a Standard Drug concept in the Standardized Vocabularies and the original code is, stored here for reference.|
-|drug_source_concept_id			|No		|integer|A foreign key to a Drug Concept that refers to the code used in the source.|
+|drug_source_concept_id			|Yes		|integer|A foreign key to a Drug Concept that refers to the code used in the source.|
 |route_source_value				|No		|varchar(50)|The information about the route of administration as detailed in the source.|
 |dose_unit_source_value			|No		|varchar(50)|The information about the dose unit as detailed in the source.|
 
@@ -46,6 +46,6 @@ No.|Convention Description
 | 7  | The LOT_NUMBER field contains an identifier assigned from the manufacturer of the Drug product. |
 | 8  | If possible, the visit in which the drug was prescribed or delivered is recorded in the VISIT_OCCURRENCE_ID field through a reference to the visit table.|
 | 9  | If possible, the prescribing or administering provider (physician or nurse) is recorded in the PROVIDER_ID field through a reference to the provider table.
-| 10 | The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended for the patient. This could be that the duration of DRUG_SUPPLY was reached (in which case DRUG_EXPOSURE_END_DATE = DRUG_EXPOSURE_START_DATE + DAYS_SUPPLY -1), or because the exposure was stopped (medication changed, medication discontinued, etc.)|
-| 11 | When the native data suggests a drug exposure has a days supply less than 0, drop the record as unknown if a person has received the drug or not.|
-| 12 | If a patient has multiple records on the same day for the same drug or procedures the ETL should not de-dupe them unless there is probable reason to believe the item is a true data duplicate.|
+| 10 | The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended for the patient. This could be that the duration of DRUG_SUPPLY was reached (in which case DRUG_EXPOSURE_END_DATETIME = DRUG_EXPOSURE_START_DATETIME + DAYS_SUPPLY -1 day), or because the exposure was stopped (medication changed, medication discontinued, etc.)|
+| 11 | When the native data suggests a drug exposure has a days supply less than 0, drop the record as unknown if a person has received the drug or not ([THEMIS issue #24](https://github.com/OHDSI/Themis/issues/24)).|
+| 12 | If a patient has multiple records on the same day for the same drug or procedures the ETL should not de-dupe them unless there is probable reason to believe the item is a true data duplicate ([THEMIS issue #14](https://github.com/OHDSI/Themis/issues/14)).|

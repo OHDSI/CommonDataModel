@@ -5,8 +5,8 @@ Field|Required|Type|Description
 |measurement_id|Yes|integer|A unique identifier for each Measurement.|
 |person_id|Yes|integer|A foreign key identifier to the Person about whom the measurement was recorded. The demographic details of that Person are stored in the PERSON table.|
 |measurement_concept_id|Yes|integer|A foreign key to the standard measurement concept identifier in the Standardized Vocabularies. These belong to the 'Measurement' domain, but could overlap with the 'Observation' domain (see #3 below).|
-|measurement_date|Yes|date|The date of the Measurement.|
-|measurement_datetime|No|datetime|The date and time of the Measurement. Some database systems don't have a datatype of time. To accommodate all temporal analyses, datatype datetime can be used (combining measurement_date and measurement_time [forum discussion](http://forums.ohdsi.org/t/date-time-and-datetime-problem-and-the-world-of-hours-and-1day/314))|
+|measurement_date|No|date|The date of the Measurement.|
+|measurement_datetime|Yes|datetime|The date and time of the Measurement. Some database systems don't have a datatype of time. To accommodate all temporal analyses, datatype datetime can be used (combining measurement_date and measurement_time [forum discussion](http://forums.ohdsi.org/t/date-time-and-datetime-problem-and-the-world-of-hours-and-1day/314))|
 |measurement_time |No|varchar(10)|The time of the Measurement. This is present for backwards compatibility and will be deprecated in an upcoming version|
 |measurement_type_concept_id|Yes|integer|A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the provenance from where the Measurement record was recorded. These belong to the 'Meas Type' vocabulary|
 |operator_concept_id|No|integer|A foreign key identifier to the predefined Concept in the Standardized Vocabularies reflecting the mathematical operator that is applied to the value_as_number. Operators are <, <=, =, >=, > and these concepts belong to the 'Meas Value Operator' domain.|
@@ -19,7 +19,7 @@ Field|Required|Type|Description
 |visit_occurrence_id|No|integer|A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Measurement was recorded.|
 |visit_detail_id|No|integer|A foreign key to the Visit Detail in the VISIT_DETAIL table during which the Measurement was recorded. |
 |measurement_source_value|No|varchar(50)|The Measurement name as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is stored here for reference.|
-|measurement_source_concept_id|No|integer|A foreign key to a Concept in the Standard Vocabularies that refers to the code used in the source.|
+|measurement_source_concept_id|Yes|integer|A foreign key to a Concept in the Standard Vocabularies that refers to the code used in the source.|
 |unit_source_value|No|varchar(50)|The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is stored here for reference.|
 |value_source_value|No|varchar(50)|The source value associated with the content of the value_as_number or value_as_concept_id as stored in the source data.|
 
@@ -40,4 +40,4 @@ No.|Convention Description
 | 11 | If reference ranges for upper and lower limit of normal as provided (typically by a laboratory) these are stored in the RANGE_HIGH and RANGE_LOW fields. Ranges have the same unit as the VALUE_AS_NUMBER.|
 | 12 | The Visit during which the observation was made is recorded through a reference to the VISIT_OCCURRENCE table. This information is not always available.|
 | 13 | The Provider making the observation is recorded through a reference to the PROVIDER table. This information is not always available.|
-| 14 | If there is a negative value coming from the source, set the VALUE_AS_NUMBER to NULL, with the exception of the following Measurements (listed as LOINC codes):<br><ul><li>1925-7 Base excess in Arterial blood by calculation</li><li>1927-3 Base excess in Venous blood by calculation</li><li>8632-2 QRS-Axis</li><li>11555-0 Base excess in Blood by calculation</li><li>1926-5 Base excess in Capillary blood by calculation</li><li>28638-5 Base excess in Arterial cord blood by calculation</li><li>28639-3 Base excess in Venous cord blood by calculation</li></ul>| 
+| 14 | If there is a negative value coming from the source, set the VALUE_AS_NUMBER to NULL, with the exception of the following Measurements (listed as LOINC codes):<br><ul><li>1925-7 Base excess in Arterial blood by calculation</li><li>1927-3 Base excess in Venous blood by calculation</li><li>8632-2 QRS-Axis</li><li>11555-0 Base excess in Blood by calculation</li><li>1926-5 Base excess in Capillary blood by calculation</li><li>28638-5 Base excess in Arterial cord blood by calculation</li><li>28639-3 Base excess in Venous cord blood by calculation</li></ul> [THEMIS issue #16](https://github.com/OHDSI/Themis/issues/16) | 

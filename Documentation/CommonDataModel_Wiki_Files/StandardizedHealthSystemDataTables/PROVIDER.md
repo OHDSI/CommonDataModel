@@ -6,15 +6,15 @@ Field|Required|Type|Description
 |provider_name|No|varchar(255)|A description of the Provider.|
 |npi|No|varchar(20)|The National Provider Identifier (NPI) of the provider.|
 |dea|No|varchar(20)|The Drug Enforcement Administration (DEA) number of the provider.|
-|specialty_concept_id|No|integer|A foreign key to a Standard Specialty Concept ID in the Standardized Vocabularies.|
+|specialty_concept_id|Yes|integer|A foreign key to a Standard Specialty Concept ID in the Standardized Vocabularies.|
 |care_site_id|No|integer|A foreign key to the main Care Site where the provider is practicing.|
 |year_of_birth|No|integer|The year of birth of the Provider.|
-|gender_concept_id|No|integer|The gender of the Provider.|
+|gender_concept_id|Yes|integer|The gender of the Provider.|
 |provider_source_value|No|varchar(50)|The identifier used for the Provider in the source data, stored here for reference.|
 |specialty_source_value|No|varchar(50)|The source code for the Provider specialty as it appears in the source data, stored here for reference.|
-|specialty_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
+|specialty_source_concept_id|Yes|integer|A foreign key to a Concept that refers to the code used in the source.|
 |gender_source_value|No|varchar(50)|The gender code for the Provider as it appears in the source data, stored here for reference.|
-|gender_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
+|gender_source_concept_id|Yes|integer|A foreign key to a Concept that refers to the code used in the source.|
 
 ### Conventions 
 

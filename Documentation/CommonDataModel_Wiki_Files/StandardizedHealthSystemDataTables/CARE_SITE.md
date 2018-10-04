@@ -4,7 +4,7 @@ Field|Required|Type|Description
 :--------------------------------|:--------|:------------|:------------------------
 |care_site_id|Yes|integer|A unique identifier for each Care Site.|
 |care_site_name|No|varchar(255)|The verbatim description or name of the Care Site as in data source|
-|place_of_service_concept_id|No|integer|A foreign key that refers to a Place of Service Concept ID in the Standardized Vocabularies.|
+|place_of_service_concept_id|Yes|integer|A foreign key that refers to a Place of Service Concept ID in the Standardized Vocabularies.|
 |location_id|No|integer|A foreign key to the geographic Location in the LOCATION table, where the detailed address information is stored.|
 |care_site_source_value|No|varchar(50)|The identifier for the Care Site in the source data, stored here for reference.|
 |place_of_service_source_value|No|varchar(50)|The source code for the Place of Service as it appears in the source data, stored here for reference.|

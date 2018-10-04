@@ -7,22 +7,22 @@ Field|Required|Type|Description
 |contract_person_id				|No|integer|A foreign key identifier to the person_id in person table, for the person who is the primary subscriber/contract owner for the record in the payer_plan_period table. Maybe the same person or different person, depending on who is the primary subscriber/contract owner.|
 |payer_plan_period_start_date	|Yes|date|The start date of the payer plan period.|
 |payer_plan_period_end_date		|Yes|date|The end date of the payer plan period.|
-|payer_concept_id				|No|integer|A foreign key that refers to a standard Payer concept identifier in the Standarized Vocabularies|
+|payer_concept_id				|Yes|integer|A foreign key that refers to a standard Payer concept identifier in the Standarized Vocabularies|
 |payer_source_value				|No|varchar(50)|The source code for the payer as it appears in the source data.|
-|payer_source_concept_id		|No|integer|A foreign key to a payer concept that refers to the code used in the source.|
-|plan_concept_id				|No|integer|A foreign key that refers to a standard plan concept identifier that represents the health benefit plan in the Standardized Vocabularies.|
+|payer_source_concept_id		|Yes|integer|A foreign key to a payer concept that refers to the code used in the source.|
+|plan_concept_id				|Yes|integer|A foreign key that refers to a standard plan concept identifier that represents the health benefit plan in the Standardized Vocabularies.|
 |plan_source_value				|No|varchar(50)|The source code for the Person's health benefit plan as it appears in the source data.|
-|plan_source_concept_id			|No|integer|A foreign key to a plan concept that refers to the plan code used in the source data.|
-|contract_concept_id			|No|integer|A foreign key to a standard concept representing the reason justifying the contract between person_id and contract_person_id.|
+|plan_source_concept_id			|Yes|integer|A foreign key to a plan concept that refers to the plan code used in the source data.|
+|contract_concept_id			|Yes|integer|A foreign key to a standard concept representing the reason justifying the contract between person_id and contract_person_id.|
 |contract_source_value			|No|integer|The source code representing the reason justifying the contract. Usually it is family relationship like a spouse, domestic partner, child etc.|
-|contract_source_concept_id		|No|integer|A foreign key to a concept that refers to the code used in the source as the reason justifying the contract.|
-|sponsor_concept_id				|No|integer|A foreign key that refers to a concept identifier that represents the sponsor in the Standardized Vocabularies.|
+|contract_source_concept_id		|Yes|integer|A foreign key to a concept that refers to the code used in the source as the reason justifying the contract.|
+|sponsor_concept_id				|Yes|integer|A foreign key that refers to a concept identifier that represents the sponsor in the Standardized Vocabularies.|
 |sponsor_source_value			|No|varchar(50)|The source code for the Person's sponsor of the health plan as it appears in the source data.|
-|sponsor_source_concept_id		|No|integer|A foreign key to a sponsor concept that refers to the sponsor code used in the source data.|
+|sponsor_source_concept_id		|Yes|integer|A foreign key to a sponsor concept that refers to the sponsor code used in the source data.|
 |family_source_value			|No|varchar(50)|The source code for the Person's family as it appears in the source data.|
-|stop_reason_concept_id			|No|integer|A foreign key that refers to a standard termination reason that represents the reason for the termination in the Standardized Vocabularies.|
+|stop_reason_concept_id			|Yes|integer|A foreign key that refers to a standard termination reason that represents the reason for the termination in the Standardized Vocabularies.|
 |stop_reason_source_value		|No|varchar(50)|The reason for stop-coverage as it appears in the source data.|
-|stop_reason_source_concept_id	|No|integer|A foreign key to a stop-coverage concept that refers to the code used in the source.|
+|stop_reason_source_concept_id	|Yes|integer|A foreign key to a stop-coverage concept that refers to the code used in the source.|
 
 ### Conventions 
 

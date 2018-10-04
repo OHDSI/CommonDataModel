@@ -5,8 +5,8 @@ Field|Required|Type|Description
 |observation_id						|Yes|integer|A unique identifier for each observation.|
 |person_id							|Yes|integer|A foreign key identifier to the Person about whom the observation was recorded. The demographic details of that Person are stored in the PERSON table.|
 |observation_concept_id				|Yes|integer|A foreign key to the standard observation concept identifier in the Standardized Vocabularies.|
-|observation_date|Yes|date|The date of the observation.|
-|observation_datetime|No|datetime|The date and time of the observation.|
+|observation_date|No|date|The date of the observation.|
+|observation_datetime|Yes|datetime|The date and time of the observation.|
 |observation_type_concept_id|Yes|integer|A foreign key to the predefined concept identifier in the Standardized Vocabularies reflecting the type of the observation.|
 |value_as_number|No|float|The observation result stored as a number. This is applicable to observations where the result is expressed as a numeric value.|
 |value_as_string|No|varchar(60)|The observation result stored as a string. This is applicable to observations where the result is expressed as verbatim text.|
@@ -17,11 +17,11 @@ Field|Required|Type|Description
 |visit_occurrence_id|No|integer|A foreign key to the visit in the VISIT_OCCURRENCE table during which the observation was recorded.|
 |visit_detail_id|No|integer|A foreign key to the visit in the VISIT_DETAIL table during which the observation was recorded.|
 |observation_source_value|No|varchar(50)|The observation code as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is, stored here for reference.|
-|observation_source_concept_id|No|integer|A foreign key to a Concept that refers to the code used in the source.|
+|observation_source_concept_id|Yes|integer|A foreign key to a Concept that refers to the code used in the source.|
 |unit_source_value|No|varchar(50)|The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is, stored here for reference.|
 |qualifier_source_value|No|varchar(50)|The source value associated with a qualifier to characterize the observation|
 |observation_event_id| No | integer| A foreign key to an event table (e.g., PROCEDURE_OCCURRENCE_ID). |
-|obs_event_field_concept_id| No | integer| A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies referring to the field represented in the OBSERVATION_EVENT_ID. |
+|obs_event_field_concept_id| Yes | integer| A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies referring to the field represented in the OBSERVATION_EVENT_ID. |
 |value_as_datetime| No | integer| The observation result stored as a datetime value. This is applicable to observations where the result is expressed as a point in time.|
 
 ### Conventions 

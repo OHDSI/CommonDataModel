@@ -5,7 +5,7 @@ The LOCATION HISTORY table stores relationships between Persons or Care Sites an
 Field|Required|Type|Description
 :------------------------------|:--------|:------------|:----------------------------------------------
 |location_id					|Yes|integer|A foreign key to the location table.|
-|relationship_type_concept_id	|No|varchar(50)|The type of relationship between location and entity.|
+|relationship_type_concept_id	|Yes|varchar(50)|The type of relationship between location and entity.|
 |domain_id						|Yes|varchar(50)|The domain of the entity that is related to the location. Either PERSON, PROVIDER, or CARE_SITE.|
 |entity_id						|Yes|integer|The unique identifier for the entity. References either person_id, provider_id, or care_site_id, depending on domain_id.|
 |start_date						|Yes|date|The date the relationship started.|
