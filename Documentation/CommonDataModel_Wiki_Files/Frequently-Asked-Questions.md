@@ -61,7 +61,7 @@ An observation period is considered as the time at which a patient is at-risk to
 
 If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM. 
 
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Athena_download_box.png)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Athena_download_box.png)
 
 The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to explore the vocabulary before downloading it if you are curious about the mappings or if you have a specific code in mind and would like to know which standard concept it is associated with; just click on the search tab and type in a keyword to begin searching.
 
@@ -69,7 +69,7 @@ The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to
 
 Yes, all mappings are available in the [Concept_relationship](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](http://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
 
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Sepsis_to_SNOMED.png)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Sepsis_to_SNOMED.png)
 
 In this case the standard SNOMED concept 201826 for type 2 diabetes mellitus would be stored in the Condition_occurrence table as the Condition_concept_id and the ICD10CM concept 1567956 for type 2 diabetes mellitus would be stored as the Condition_source_concept_id.
 
@@ -85,7 +85,7 @@ Yes, that is the beauty of the community! If you find a mapping in the vocabular
 
  In the OMOP Vocabulary there is an empty table called the Source_to_concept_map. It is a simple table structure that allows you to establish mapping(s) for each source code with a standard concept in the OMOP Vocabulary (TARGET_CONCEPT_ID). This work can be facilitated by the OHDSI tool [Usagi](https://github.com/OHDSI/Usagi) (pictured below) which searches for text similarity between your source code descriptions and the OMOP Vocabulary and exports mappings in a SOURCE_TO_CONCEPT_MAP table structure. Example Source_to_concept_map files can be found [here](https://github.com/OHDSI/ETL-CDMBuilder/tree/master/man/VOCABULARY_ADDITIONS). These generated Source_to_concept_map files are then loaded into the OMOP Vocabulary's empty Source_to_concept_map prior to processing the native data into the CDM so that the CDM builder can use them in a build.
  
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Usagi.png)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Usagi.png)
 
 If an source code is not supported by the OMOP Vocabulary, one can create a new records in the CONCEPT table, however the CONCEPT_IDs should start >2000000000 so that it is easy to tell between the OMOP Vocabulary concepts and the site specific concepts. Once those concepts exist CONCEPT_RELATIONSHIPS can be generated to assign them to a standard terminologies, USAGI can facilitate this process as well ([THEMIS issue #22](https://github.com/OHDSI/Themis/issues/22)).  
 
@@ -135,7 +135,7 @@ The community! All the tools are open source meaning that anyone can submit an i
 **24. Do the current tools allow a user to define a treatment gap (persistence window) of any value when creating treatment episodes?**
 
 Yes – the ATLAS tool allows you to specify a persistence window between drug exposures when defining a cohort (see image below).
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/ATLAS_Persistence_Window.PNG)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/ATLAS_Persistence_Window.PNG)
 
 **25. Can the current tools identify medication use during pregnancy?**
 
