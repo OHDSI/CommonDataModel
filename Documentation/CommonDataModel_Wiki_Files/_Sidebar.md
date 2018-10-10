@@ -6,6 +6,7 @@
 * [The Role of the Common Data Model](https://github.com/OHDSI/CommonDataModel/wiki/The-Role-of-the-Common-Data-Model)
 * [Design Principles](https://github.com/OHDSI/CommonDataModel/wiki/Design-Principles)
 * [Data Model Conventions](https://github.com/OHDSI/CommonDataModel/wiki/Data-Model-Conventions) 
+* [Frequently Asked Questions](https://github.com/OHDSI/CommonDataModel/wiki/Frequently-Asked-Questions)
  
 **[Glossary of Terms](https://github.com/OHDSI/CommonDataModel/wiki/Glossary-of-Terms)**  
 
@@ -25,6 +26,7 @@
 
 **[Standardized Metadata](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Metadata)**
 * [CDM_SOURCE](https://github.com/OHDSI/CommonDataModel/wiki/CDM_SOURCE)  
+* [METADATA](https://github.com/OHDSI/CommonDataModel/wiki/METADATA)  
 
 **[Standardized Clinical Data Tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Clinical-Data-Tables)**
 * [PERSON](https://github.com/OHDSI/CommonDataModel/wiki/PERSON)
@@ -32,6 +34,7 @@
 * [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)
 * [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)
 * [VISIT_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)
+* [VISIT_DETAIL](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL)
 * [PROCEDURE_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/PROCEDURE_OCCURRENCE)
 * [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)
 * [DEVICE_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DEVICE_EXPOSURE)
@@ -49,7 +52,7 @@
 
 **[Standardized Health Economics Data Tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Health-Economics-Data-Tables)**
 * [PAYER_PLAN_PERIOD](https://github.com/OHDSI/CommonDataModel/wiki/PAYER_PLAN_PERIOD)
-* [COST](wiki/COST)  
+* [COST](https://github.com/OHDSI/CommonDataModel/wiki/COST)  
 
 **[Standardized Derived Elements](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Derived-Elements)**
 * [COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)

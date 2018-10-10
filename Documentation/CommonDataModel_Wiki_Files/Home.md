@@ -1,7 +1,7 @@
-***OMOP Common Data Model v5.2 Specifications***
+***OMOP Common Data Model v5.3 Specifications***
 
 <br>*Authors: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan, Clair Blacketer*
-<br>*12 July 2017*
+<br>*3 January 2018*
 
 Welcome to the Common Data Model wiki! This wiki houses all of the documentation for the latest version as well as changes added with each release. You can find a pdf added to each [release](https://github.com/OHDSI/CommonDataModel/releases) with a historical version of the wiki as it was at the time of the release. You can navigate the pages using the table of contents below or the links to the right.
 
@@ -13,6 +13,7 @@ Welcome to the Common Data Model wiki! This wiki houses all of the documentation
 <br>  [The Role of the Common Data Model](wiki/The-Role-of-the-Common-Data-Model)
 <br>  [Design Principles](wiki/Design-Principles)
 <br>  [Data Model Conventions](wiki/Data-Model-Conventions)
+<br>  [Frequently Asked Questions](wiki/Frequently-Asked-Questions)
 <br>
 <br>**[Glossary of Terms](wiki/Glossary-of-Terms)**
 <br>
@@ -32,6 +33,7 @@ Welcome to the Common Data Model wiki! This wiki houses all of the documentation
 <br>
 <br>**[Standardized Metadata](wiki/Standardized-Metadata)**
 <br>[CDM_SOURCE](wiki/CDM_SOURCE)
+<br>[METADATA](wiki/METADATA)
 <br>
 <br>**[Standardized Clinical Data Tables](Standardized-Clinical-Data-Tables)**
 <br>[PERSON](wiki/PERSON)
@@ -39,6 +41,7 @@ Welcome to the Common Data Model wiki! This wiki houses all of the documentation
 <br>[SPECIMEN](wiki/SPECIMEN)
 <br>[DEATH](wiki/DEATH)
 <br>[VISIT_OCCURRENCE](wiki/VISIT_OCCURRENCE)
+<br>[VISIT_DETAIL](wiki/VISIT_DETAIL)
 <br>[PROCEDURE_OCCURRENCE](wiki/PROCEDURE_OCCURRENCE)
 <br>[DRUG_EXPOSURE](wiki/DRUG_EXPOSURE)
 <br>[DEVICE_EXPOSURE](wiki/DEVICE_EXPOSURE)

@@ -7,7 +7,7 @@ Field|Required|Type|Description
 |cdm_holder|No|varchar(255)|The name of the organization responsible for the development of the CDM instance|
 |source_description|No|CLOB|A description of the source data origin and purpose for collection. The description may contain a summary of the period of time that is expected to be covered by this dataset.|
 |source_documentation_reference|No|varchar(255)|URL or other external reference to location of source documentation|
-|cdm_etl _reference|No|varchar(255)|URL or other external reference to location of ETL specification documentation and ETL source code|
+|cdm_etl_reference|No|varchar(255)|URL or other external reference to location of ETL specification documentation and ETL source code|
 |source_release_date|No|date|The date for which the source data are most current, such as the last day of data capture|
 |cdm_release_date|No|date|The date when the CDM was instantiated|
 |cdm_version|No|varchar(10)|The version of CDM used|

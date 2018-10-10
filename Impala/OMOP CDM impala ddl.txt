@@ -6,7 +6,7 @@
 
 #
 
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License")
 
 # you may not use this file except in compliance with the License.
 
@@ -51,11 +51,11 @@
 
 
 
-impala script to create OMOP common data model version 5.3
+impala script to create OMOP common data model version 5.3.1
 
 
 
-last revised: 6-Nov-2017
+last revised: 14-JUNE-2018
 
 
 
@@ -590,15 +590,15 @@ CREATE TABLE visit_detail
 
     visit_detail_concept_id INTEGER,
 
-    visit_start_date TIMESTAMP,
+    visit_detail_start_date TIMESTAMP,
 
-    visit_start_datetime TIMESTAMP,
+    visit_detail_start_datetime TIMESTAMP,
 
-    visit_end_date TIMESTAMP,
+    visit_detail_end_date TIMESTAMP,
 
-    visit_end_datetime TIMESTAMP,
+    visit_detail_end_datetime TIMESTAMP,
 
-    visit_type_concept_id INTEGER,
+    visit_detail_type_concept_id INTEGER,
 
     provider_id INTEGER,
 
@@ -610,9 +610,9 @@ CREATE TABLE visit_detail
 
     preceding_visit_detail_id INTEGER,
 
-    visit_source_value VARCHAR(50),
+    visit_detail_source_value VARCHAR(50),
 
-    visit_source_concept_id INTEGER,
+    visit_detail_source_concept_id INTEGER,
 
     admitting_source_value VARCHAR(50),
 
