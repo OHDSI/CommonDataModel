@@ -18,5 +18,5 @@
 These tables contain the core information about the clinical events that occurred longitudinally during valid Observation Periods for each Person, as well as demographic information for the Person.
 Below provides an entity-relationship diagram highlighting the tables within the Standardized Clinical Data portion of the OMOP Common Data Model:
   
-![Clinical data entity-relationship diagram](http://www.ohdsi.org/web/wiki/lib/exe/fetch.php?media=documentation:cdm:standard_clinical_data_tables.png)\
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/entity_diagram.png)
   
