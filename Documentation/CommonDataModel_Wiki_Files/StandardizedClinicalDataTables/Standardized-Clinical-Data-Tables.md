@@ -9,7 +9,7 @@
 [DEVICE_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DEVICE_EXPOSURE)  
 [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)  
 [NOTE](https://github.com/OHDSI/CommonDataModel/wiki/NOTE)  
-[NOTE_NLP](https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP)
+[NOTE_NLP](https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP)  
 [SURVEY_CONDUCT](https://github.com/OHDSI/CommonDataModel/wiki/SURVEY_CONDUCT)  
 [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION) 
 [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)   
