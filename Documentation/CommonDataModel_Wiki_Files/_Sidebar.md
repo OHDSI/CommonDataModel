@@ -39,13 +39,14 @@
 * [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 * [NOTE](https://github.com/OHDSI/CommonDataModel/wiki/NOTE)
 * [NOTE_NLP](https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP)
-* [SURVEN_CONDUCT](https://github.com/OHDSI/CommonDataModel/wiki/SURVEY_CONDUCT)
+* [SURVEY_CONDUCT](https://github.com/OHDSI/CommonDataModel/wiki/SURVEY_CONDUCT)
 * [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)
 * [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)
 * [FACT_RELATIONSHIP](https://github.com/OHDSI/CommonDataModel/wiki/FACT_RELATIONSHIP)  
 
 **[Standardized Health System Data Tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Health-System-Data-Tables)**
 * [LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION)
+* [LOCATION_HISTORY](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION_HISTORY)
 * [CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)
 * [PROVIDER](https://github.com/OHDSI/CommonDataModel/wiki/PROVIDER)  
 
