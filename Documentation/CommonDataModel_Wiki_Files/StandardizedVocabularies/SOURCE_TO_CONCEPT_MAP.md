@@ -14,12 +14,14 @@ Field|Required|Type|Description
 
 ### Conventions 
 
-  * This table is no longer used to distribute mapping information between source codes and Standard Concepts for the Standard Vocabularies. Instead, the CONCEPT_RELATIONSHIP table is used for this purpose, using the relationship_id='Maps to'.
-  * However, this table can still be used for the translation of local source codes into Standard Concepts.
-  * **Note:** This table should not be used to translate source codes to Source Concepts. The source code of a Source Concept is captured in its concept_code field. If the source codes used in a given database do not follow correct formatting the ETL will have to perform this translation. For example, if ICD-9-CM codes are recorded without a dot the ETL will have to perform a lookup function that allows identifying the correct ICD-9-CM Source Concept (with the dot in the concept_code field).
-  * The source_concept_id, or the combination of the fields source_code and the source_vocabulary_id uniquely identifies the source information. It is the equivalent to the concept_id_1 field in the CONCEPT_RELATIONSHIP table.
-  * If there is no source_concept_id available because the source codes are local and not supported by the Standard Vocabulary, the content of the field is 0 (zero, not null) encoding an undefined concept. However, local Source Concepts are established (concept_id values above 2,000,000,000).
-  * The source_code_description contains an optional description of the source code.
-  * The target_concept_id contains the Concept the source code is mapped to. It is equivalent to the concept_id_2 in the CONCEPT_RELATIONSHIP table 
-  * The target_vocabulary_id field contains the vocabulary_id of the target concept. It is a duplication of the same information in the CONCEPT record of the Target Concept.
-  * The fields valid_start_date, valid_end_date and invalid_reason are used to define the life cycle of the mapping information. Invalid mapping records should not be used for mapping information.
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | This table is no longer used to distribute mapping information between source codes and Standard Concepts for the Standard Vocabularies. Instead, the CONCEPT_RELATIONSHIP table is used for this purpose, using the relationship_id='Maps to'. |
+| 2  | However, this table can still be used for the translation of local source codes into Standard Concepts.
+| 4  | **Note:** This table should not be used to translate source codes to Source Concepts. The source code of a Source Concept is captured in its concept_code field. If the source codes used in a given database do not follow correct formatting the ETL will have to perform this translation. For example, if ICD-9-CM codes are recorded without a dot the ETL will have to perform a lookup function that allows identifying the correct ICD-9-CM Source Concept (with the dot in the concept_code field). |
+| 5  | The SOURCE_CONCEPT_ID, or the combination of the fields source_code and the SOURCE_VOCABULARY_ID uniquely identifies the source information. It is the equivalent to the CONCEPT_ID_1 field in the CONCEPT_RELATIONSHIP table. |
+| 6  | If there is no SOURCE_CONCEPT_ID available because the source codes are local and not supported by the Standard Vocabulary, the content of the field is 0 (zero, not null) encoding an undefined concept. However, local Source Concepts are established (concept_id values above 2,000,000,000). |
+| 7  | The SOURCE_CODE_DESCRIPTION contains an optional description of the source code. |
+| 8  | The TARGET_CONCEPT_ID contains the Concept the source code is mapped to. It is equivalent to the concept_id_2 in the CONCEPT_RELATIONSHIP table |
+| 9  | The TARGET_VOCABULARY_ID field contains the VOCABULARY_ID of the target concept. It is a duplication of the same information in the CONCEPT record of the Target Concept. |
+| 10 | The fields VALID_START_DATE, VALID_END_DATE and INVALID_REASON are used to define the life cycle of the mapping information. Invalid mapping records should not be used for mapping information. |

@@ -31,9 +31,13 @@ Year_of_birth, month_of_birth, day_of_birth and birth_datetime are all fields in
 
 Standard Concepts are used to denote all clinical entities throughout the OMOP common data model, including gender, race, and ethnicity. Source values are mapped to Standard Concepts during the extract, transform, load (ETL) process of converting a database to the OMOP Common Data Model. These are then stored in the Gender_concept_id, Race_concept_id and Ethnicity_concept_id fields in the Person table.  Because the standard concepts span across all clinical domains, and in keeping with Cimino’s ‘Desiderata for Controlled Medical Vocabularies in the Twenty-First Century’, the identifiers are unique, persistent nonsematic identifiers.  Gender, for example, is stored as either 8532 (female) or 8507 (male) in gender_concept_id while the original value from the source is stored in gender_source_value (M, male, F, etc)..
 
+**7. Are there conditions/procedures/drugs or other domains that should be masked or hidden in the CDM? 
+
+The masking of information related to a person is dependent on the organization's privacy policies and may vary by data asset ([THEMIS issue #21](https://github.com/OHDSI/Themis/issues/21)). 
+
 **7. How is time-varying patient information such as location of residence addressed in the model?**
 
-The OMOP common data model has been pragmatically defined based on the desired analytic use cases of the community, as well as the available types of data that community members have access to.  Currently in the model, Each each person record has associated demographic attributes which are assumed to be constant for the patient throughout the course of their periods of observation. For example, the location or primary care provider is expected to have a unique value per person, even though in life these data may change over time. Typically, the most recent information is chosen though it is up to the person performing the transformation which value to store.
+The OMOP common data model has been pragmatically defined based on the desired analytic use cases of the community, as well as the available types of data that community members have access to.  Prior to CDM v6.0, each person record had associated demographic attributes which are assumed to be constant for the patient throughout the course of their periods of observation, like location and primary care provider. With the release of CDM v6.0, the Location_History table is now available to track the movements of people, care sites, and providers over time. Only the most recent location_id should be stored in the Person table to eliminate duplication, while the person's movements are stored in Location_History.
 
 Something like marital status is a little different as it is considered to be an observation rather than a demographic attribute. This means that it is housed in the Observation table rather than the Person table, giving the opportunity to store each change in status as a unique record. 
 
@@ -57,7 +61,7 @@ An observation period is considered as the time at which a patient is at-risk to
 
 If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM. 
 
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Athena_download_box.png)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Athena_download_box.png)
 
 The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to explore the vocabulary before downloading it if you are curious about the mappings or if you have a specific code in mind and would like to know which standard concept it is associated with; just click on the search tab and type in a keyword to begin searching.
 
@@ -65,7 +69,7 @@ The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to
 
 Yes, all mappings are available in the [Concept_relationship](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](http://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
 
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Sepsis_to_SNOMED.png)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Sepsis_to_SNOMED.png)
 
 In this case the standard SNOMED concept 201826 for type 2 diabetes mellitus would be stored in the Condition_occurrence table as the Condition_concept_id and the ICD10CM concept 1567956 for type 2 diabetes mellitus would be stored as the Condition_source_concept_id.
 
@@ -79,9 +83,11 @@ Yes, that is the beauty of the community! If you find a mapping in the vocabular
 
 **15. What if I have source codes that are specific to my site? How would these be mapped?**
 
-We have a tool called [Usagi](https://github.com/OHDSI/Usagi) (pictured below) that is designed to create mappings between coding systems and the Vocabulary Standard Concepts by using concept names and synonyms to find potential matches.
+ In the OMOP Vocabulary there is an empty table called the Source_to_concept_map. It is a simple table structure that allows you to establish mapping(s) for each source code with a standard concept in the OMOP Vocabulary (TARGET_CONCEPT_ID). This work can be facilitated by the OHDSI tool [Usagi](https://github.com/OHDSI/Usagi) (pictured below) which searches for text similarity between your source code descriptions and the OMOP Vocabulary and exports mappings in a SOURCE_TO_CONCEPT_MAP table structure. Example Source_to_concept_map files can be found [here](https://github.com/OHDSI/ETL-CDMBuilder/tree/master/man/VOCABULARY_ADDITIONS). These generated Source_to_concept_map files are then loaded into the OMOP Vocabulary's empty Source_to_concept_map prior to processing the native data into the CDM so that the CDM builder can use them in a build.
+ 
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/Usagi.png)
 
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/Usagi.png)
+If an source code is not supported by the OMOP Vocabulary, one can create a new records in the CONCEPT table, however the CONCEPT_IDs should start >2000000000 so that it is easy to tell between the OMOP Vocabulary concepts and the site specific concepts. Once those concepts exist CONCEPT_RELATIONSHIPS can be generated to assign them to a standard terminologies, USAGI can facilitate this process as well ([THEMIS issue #22](https://github.com/OHDSI/Themis/issues/22)).  
 
 **16. How are one-to-many mappings applied?**
 
@@ -129,7 +135,7 @@ The community! All the tools are open source meaning that anyone can submit an i
 **24. Do the current tools allow a user to define a treatment gap (persistence window) of any value when creating treatment episodes?**
 
 Yes – the ATLAS tool allows you to specify a persistence window between drug exposures when defining a cohort (see image below).
-![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/ATLAS_Persistence_Window.PNG)
+![](https://github.com/OHDSI/CommonDataModel/blob/master/Documentation/CommonDataModel_Wiki_Files/images/ATLAS_Persistence_Window.PNG)
 
 **25. Can the current tools identify medication use during pregnancy?**
 

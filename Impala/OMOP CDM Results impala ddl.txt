@@ -1,0 +1,57 @@
+/*********************************************************************************
+# Copyright 2018-08 Observational Health Data Sciences and Informatics
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+********************************************************************************/
+
+/************************
+
+ ####### #     # ####### ######      #####  ######  #     #            #####        ###
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #     #      #   #
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #           #     #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######      #     #
+ #     # #     # #     # #          #       #     # #     #    #    # #     # ### #     #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###
+
+impala script to create OMOP common data model results schema version 6.0
+
+last revised: 27-Aug-2018
+
+Authors:  Patrick Ryan, Christian Reich, Clair Blacketer
+
+
+*************************/
+
+CREATE TABLE cohort_definition (
+  cohort_definition_id				INTEGER	,
+  cohort_definition_name			VARCHAR(255),
+  cohort_definition_description		STRING,
+  definition_type_concept_id		INTEGER	,
+  cohort_definition_syntax			STRING,
+  subject_concept_id				INTEGER	,
+  cohort_initiation_date			TIMESTAMP
+)
+;
+
+
+--HINT DISTRIBUTE_ON_KEY(subject_id)
+CREATE TABLE cohort
+(
+  cohort_definition_id	BIGINT ,
+  subject_id			BIGINT ,
+  cohort_start_date		TIMESTAMP ,
+  cohort_end_date		TIMESTAMP
+)
+;

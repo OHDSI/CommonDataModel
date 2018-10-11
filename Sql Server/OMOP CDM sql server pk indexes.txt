@@ -17,18 +17,18 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######      #####     ###
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #     #  #    # #####  ###### #    # ######  ####
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #     #  ##   # #    # #       #  #  #      #
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####      #  # #  # #    # #####    ##   #####   ####
- #     # #     # #     # #          #       #     # #     #    #    #       # ###       #     #  #  # # #    # #        ##   #           #
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #     #     #  #   ## #    # #       #  #  #      #    #
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####     ### #    # #####  ###### #    # ######  ####
+ ####### #     # ####### ######      #####  ######  #     #            #####        ###      ######  #    #      ##       ###
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #     #      #   #     #     # #   #      #  #       #  #    # #####  #  ####  ######  ####
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #           #     #    #     # #  #        ##        #  ##   # #    # # #    # #      #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######      #     #    ######  ###        ###        #  # #  # #    # # #      #####   ####
+ #     # #     # #     # #          #       #     # #     #    #    # #     # ### #     #    #       #  #      #   # #     #  #  # # #    # # #      #           #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #     #       #   #     #    #      #  #   ## #    # # #    # #      #    #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###      #       #    #     ###  #    ### #    # #####  #  ####  ######  ####
 
 
-sql server script to create the required indexes within OMOP common data model, version 5.3
+sql server script to create the required primary keys and indices within the OMOP common data model, version 6.0
 
-last revised: 14-November-2017
+last revised: 30-Aug-2017
 
 author:  Patrick Ryan, Clair Blacketer
 
@@ -77,10 +77,6 @@ ALTER TABLE source_to_concept_map ADD CONSTRAINT xpk_source_to_concept_map PRIMA
 
 ALTER TABLE drug_strength ADD CONSTRAINT xpk_drug_strength PRIMARY KEY NONCLUSTERED (drug_concept_id, ingredient_concept_id);
 
-ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY NONCLUSTERED (cohort_definition_id);
-
-ALTER TABLE attribute_definition ADD CONSTRAINT xpk_attribute_definition PRIMARY KEY NONCLUSTERED (attribute_definition_id);
-
 
 /**************************
 
@@ -127,7 +123,7 @@ ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY NONCLUSTERED ( note
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY NONCLUSTERED ( observation_id ) ;
 
-
+ALTER TABLE survey_conduct ADD CONSTRAINT xpk_survey PRIMARY KEY NONCLUSTERED ( survey_conduct_id ) ;
 
 
 /************************
@@ -138,6 +134,8 @@ Standardized health system data
 
 
 ALTER TABLE location ADD CONSTRAINT xpk_location PRIMARY KEY NONCLUSTERED ( location_id ) ;
+
+ALTER TABLE location_history ADD CONSTRAINT xpk_location_history PRIMARY KEY NONCLUSTERED ( location_history_id ) ; 
 
 ALTER TABLE care_site ADD CONSTRAINT xpk_care_site PRIMARY KEY NONCLUSTERED ( care_site_id ) ;
 
@@ -162,10 +160,6 @@ ALTER TABLE cost ADD CONSTRAINT xpk_visit_cost PRIMARY KEY NONCLUSTERED ( cost_i
 Standardized derived elements
 
 ************************/
-
-ALTER TABLE cohort ADD CONSTRAINT xpk_cohort PRIMARY KEY NONCLUSTERED ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date  ) ;
-
-ALTER TABLE cohort_attribute ADD CONSTRAINT xpk_cohort_attribute PRIMARY KEY NONCLUSTERED ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date, attribute_definition_id ) ;
 
 ALTER TABLE drug_era ADD CONSTRAINT xpk_drug_era PRIMARY KEY NONCLUSTERED ( drug_era_id ) ;
 
@@ -222,10 +216,6 @@ CREATE INDEX idx_source_to_concept_map_code ON source_to_concept_map (source_cod
 
 CREATE CLUSTERED INDEX idx_drug_strength_id_1 ON drug_strength (drug_concept_id ASC);
 CREATE INDEX idx_drug_strength_id_2 ON drug_strength (ingredient_concept_id ASC);
-
-CREATE CLUSTERED INDEX idx_cohort_definition_id ON cohort_definition (cohort_definition_id ASC);
-
-CREATE CLUSTERED INDEX idx_attribute_definition_id ON attribute_definition (attribute_definition_id ASC);
 
 
 /**************************
@@ -290,6 +280,8 @@ CREATE CLUSTERED INDEX idx_observation_person_id ON observation (person_id ASC);
 CREATE INDEX idx_observation_concept_id ON observation (observation_concept_id ASC);
 CREATE INDEX idx_observation_visit_id ON observation (visit_occurrence_id ASC);
 
+CREATE CLUSTERED INDEX idx_survey_person_id ON survey_conduct (person_id ASC);
+
 CREATE INDEX idx_fact_relationship_id_1 ON fact_relationship (domain_concept_id_1 ASC);
 CREATE INDEX idx_fact_relationship_id_2 ON fact_relationship (domain_concept_id_2 ASC);
 CREATE INDEX idx_fact_relationship_id_3 ON fact_relationship (relationship_concept_id ASC);
@@ -314,8 +306,7 @@ Standardized health economics
 
 CREATE CLUSTERED INDEX idx_period_person_id ON payer_plan_period (person_id ASC);
 
-
-
+CREATE CLUSTERED INDEX idx_cost_person_id ON cost (person_id ASC);
 
 
 /************************
@@ -325,13 +316,7 @@ Standardized derived elements
 ************************/
 
 
-CREATE INDEX idx_cohort_subject_id ON cohort (subject_id ASC);
-CREATE INDEX idx_cohort_c_definition_id ON cohort (cohort_definition_id ASC);
-
-CREATE INDEX idx_ca_subject_id ON cohort_attribute (subject_id ASC);
-CREATE INDEX idx_ca_definition_id ON cohort_attribute (cohort_definition_id ASC);
-
-CREATE CLUSTERED INDEX idx_drug_era_person_id ON drug_era (person_id ASC);
+REATE CLUSTERED INDEX idx_drug_era_person_id ON drug_era (person_id ASC);
 CREATE INDEX idx_drug_era_concept_id ON drug_era (drug_concept_id ASC);
 
 CREATE CLUSTERED INDEX idx_dose_era_person_id ON dose_era (person_id ASC);

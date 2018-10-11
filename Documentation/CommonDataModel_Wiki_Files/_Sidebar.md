@@ -21,8 +21,6 @@
 * [CONCEPT_ANCESTOR](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT_ANCESTOR)
 * [SOURCE_TO_CONCEPT_MAP](https://github.com/OHDSI/CommonDataModel/wiki/SOURCE_TO_CONCEPT_MAP)
 * [DRUG_STRENGTH](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_STRENGTH)
-* [COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION)
-* [ATTRIBUTE_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/ATTRIBUTE_DEFINITION)  
 
 **[Standardized Metadata](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Metadata)**
 * [CDM_SOURCE](https://github.com/OHDSI/CommonDataModel/wiki/CDM_SOURCE)  
@@ -31,22 +29,24 @@
 **[Standardized Clinical Data Tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Clinical-Data-Tables)**
 * [PERSON](https://github.com/OHDSI/CommonDataModel/wiki/PERSON)
 * [OBSERVATION_PERIOD](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION_PERIOD)
-* [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)
-* [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)
 * [VISIT_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)
 * [VISIT_DETAIL](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL)
-* [PROCEDURE_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/PROCEDURE_OCCURRENCE)
-* [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)
-* [DEVICE_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DEVICE_EXPOSURE)
 * [CONDITION_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE)
+* [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)
+* [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)
+* [PROCEDURE_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/PROCEDURE_OCCURRENCE)
+* [DEVICE_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DEVICE_EXPOSURE)
 * [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 * [NOTE](https://github.com/OHDSI/CommonDataModel/wiki/NOTE)
 * [NOTE_NLP](https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP)
+* [SURVEY_CONDUCT](https://github.com/OHDSI/CommonDataModel/wiki/SURVEY_CONDUCT)
 * [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)
+* [SPECIMEN](https://github.com/OHDSI/CommonDataModel/wiki/SPECIMEN)
 * [FACT_RELATIONSHIP](https://github.com/OHDSI/CommonDataModel/wiki/FACT_RELATIONSHIP)  
 
 **[Standardized Health System Data Tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Health-System-Data-Tables)**
 * [LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION)
+* [LOCATION_HISTORY](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION_HISTORY)
 * [CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)
 * [PROVIDER](https://github.com/OHDSI/CommonDataModel/wiki/PROVIDER)  
 
@@ -55,8 +55,10 @@
 * [COST](https://github.com/OHDSI/CommonDataModel/wiki/COST)  
 
 **[Standardized Derived Elements](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Derived-Elements)**
-* [COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)
-* [COHORT_ATTRIBUTE](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_ATTRIBUTE)
 * [DRUG_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_ERA)
 * [DOSE_ERA](https://github.com/OHDSI/CommonDataModel/wiki/DOSE_ERA)
 * [CONDITION_ERA](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_ERA)
+
+**[Results Schema](https://github.com/OHDSI/CommonDataModel/wiki/Results-Schema)**
+* [COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)
+* [COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION)

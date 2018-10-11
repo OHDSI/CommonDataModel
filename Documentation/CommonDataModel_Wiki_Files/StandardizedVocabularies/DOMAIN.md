@@ -8,8 +8,10 @@ Field|Required|Type|Description
 
 ### Conventions
 
-  * There is one record for each Domain. The domains are defined by the tables and fields in the OMOP CDM that can contain Concepts describing all the various aspects of the healthcare experience of a patient. 
-  * The domain_id field contains an alphanumerical identifier, that can also be used as the abbreviation of the Domain.
-  * The domain_name field contains the unabbreviated names of the Domain.
-  * Each Domain also has an entry in the Concept table, which is recorded in the domain_concept_id field. This is for purposes of creating a closed Information Model, where all entities in the OMOP CDM are covered by unique Concept.
-  * Versions prior to v5.0.0 of the OMOP CDM did not support the notion of a Domain.
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | There is one record for each Domain. The domains are defined by the tables and fields in the OMOP CDM that can contain Concepts describing all the various aspects of the healthcare experience of a patient. |
+| 2  | The DOMAIN_ID field contains an alphanumerical identifier, that can also be used as the abbreviation of the Domain. |
+| 3  | The DOMAIN_NAME field contains the unabbreviated names of the Domain. |
+| 4  | Each Domain also has an entry in the Concept table, which is recorded in the DOMAIN_CONCEPT_ID field. This is for purposes of creating a closed Information Model, where all entities in the OMOP CDM are covered by unique Concepts.
+| 5  | Versions prior to v5.0.0 of the OMOP CDM did not support the notion of a Domain. |

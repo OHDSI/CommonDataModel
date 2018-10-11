@@ -1,4 +1,5 @@
-[LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION)  
+[LOCATION](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION) 
+[LOCATION_HISTORY](https://github.com/OHDSI/CommonDataModel/wiki/LOCATION_HISTORY)  
 [CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)  
 [PROVIDER](https://github.com/OHDSI/CommonDataModel/wiki/PROVIDER)      
 

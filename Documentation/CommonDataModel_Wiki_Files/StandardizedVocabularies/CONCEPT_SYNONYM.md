@@ -8,6 +8,8 @@ Field|Required|Type|Description
 
 ### Conventions
 
-  * The concept_synonym_name field contains a valid Synonym of a concept, including the description in the concept_name itself. I.e. each Concept has at least one Synonym in the CONCEPT_SYNONYM table. As an example, for a SNOMED-CT Concept, if the fully specified name is stored as the concept_name of the CONCEPT table, then the Preferred Term and Synonyms associated with the Concept are stored in the CONCEPT_SYNONYM table. 
-  * Only Synonyms that are active and current are stored in the CONCEPT_SYNONYM table. Tracking synonym/description history and mapping of obsolete synonyms to current Concepts/Synonyms is out of scope for the Standard Vocabularies.
-  * Currently, only English Synonyms are included.
+No.|Convention Description
+:--------|:------------------------------------
+| 1  | The concept_synonym_name field contains a valid Synonym of a concept, including the description in the concept_name itself. i.e., each Concept has at least one Synonym in the CONCEPT_SYNONYM table. As an example, for a SNOMED-CT Concept, if the fully specified name is stored as the concept_name of the CONCEPT table, then the Preferred Term and Synonyms associated with the Concept are stored in the CONCEPT_SYNONYM table. |
+| 2  | Only Synonyms that are active and current are stored in the CONCEPT_SYNONYM table. Tracking synonym/description history and mapping of obsolete synonyms to current Concepts/Synonyms is out of scope for the Standard Vocabularies. |
+| 3  | Currently, only English Synonyms are included. |

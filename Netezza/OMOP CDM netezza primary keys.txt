@@ -17,22 +17,22 @@
 
 /************************
 
- ####### #     # ####### ######      #####  ######  #     #           #######      #####      #####
- #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #           #     #    #     #  ####  #    #  ####  ##### #####    ##   # #    # #####  ####
- #     # # # # # #     # #     #    #       #     # # # # #    #    # #                 #    #       #    # ##   # #        #   #    #  #  #  # ##   #   #   #
- #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######       #####     #       #    # # #  #  ####    #   #    # #    # # # #  #   #    ####
- #     # #     # #     # #          #       #     # #     #    #    #       # ###       #    #       #    # #  # #      #   #   #####  ###### # #  # #   #        #
- #     # #     # #     # #          #     # #     # #     #     #  #  #     # ### #     #    #     # #    # #   ## #    #   #   #   #  #    # # #   ##   #   #    #
- ####### #     # ####### #           #####  ######  #     #      ##    #####  ###  #####      #####   ####  #    #  ####    #   #    # #    # # #    #   #    ####
+ ####### #     # ####### ######      #####  ######  #     #            #####        ###      ######  #    #     #####
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #     #      #   #     #     # #   #     #     #  ####  #    #  ####  ##### #####    ##   # #    # #####  ####
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #           #     #    #     # #  #      #       #    # ##   # #        #   #    #  #  #  # ##   #   #   #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######      #     #    ######  ###       #       #    # # #  #  ####    #   #    # #    # # # #  #   #    ####
+ #     # #     # #     # #          #       #     # #     #    #    # #     # ### #     #    #       #  #      #       #    # #  # #      #   #   #####  ###### # #  # #   #        #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #     #       #   #     #     # #    # #   ## #    #   #   #   #  #    # # #   ##   #   #    #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###      #       #    #     #####   ####  #    #  ####    #   #    # #    # # #    #   #    ####
 
 
-netezza script to create the required indexes within OMOP common data model, version 5.3
+netezza script to create the required primary keys within the OMOP common data model, version 6.0
 
-last revised: 14-November-2017
+last revised: 30-Aug-2018
 
 author:  Patrick Ryan, Clair Blacketer
 
-description:  These primary keys and indices are considered a minimal requirement to ensure adequate performance of analyses.
+description:  These primary keys are considered a minimal requirement to ensure adequate performance of analyses.
 
 *************************/
 
@@ -76,11 +76,6 @@ ALTER TABLE concept_ancestor ADD CONSTRAINT xpk_concept_ancestor PRIMARY KEY (an
 ALTER TABLE source_to_concept_map ADD CONSTRAINT xpk_source_to_concept_map PRIMARY KEY (source_vocabulary_id,target_concept_id,source_code,valid_end_date);
 
 ALTER TABLE drug_strength ADD CONSTRAINT xpk_drug_strength PRIMARY KEY (drug_concept_id, ingredient_concept_id);
-
-ALTER TABLE cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY (cohort_definition_id);
-
-ALTER TABLE attribute_definition ADD CONSTRAINT xpk_attribute_definition PRIMARY KEY (attribute_definition_id);
-
 
 /**************************
 
@@ -127,7 +122,7 @@ ALTER TABLE note_nlp ADD CONSTRAINT xpk_note_nlp PRIMARY KEY ( note_nlp_id ) ;
 
 ALTER TABLE observation  ADD CONSTRAINT xpk_observation PRIMARY KEY ( observation_id ) ;
 
-
+ALTER TABLE survey_conduct ADD CONSTRAINT xpk_survey_conduct PRIMARY KEY ( survey_conduct_id ) ;
 
 
 /************************
@@ -138,6 +133,8 @@ Standardized health system data
 
 
 ALTER TABLE location ADD CONSTRAINT xpk_location PRIMARY KEY ( location_id ) ;
+
+ALTER TABLE location_history ADD CONSTRAINT xpk_location_history PRIMARY KEY ( location_history_id ) ; 
 
 ALTER TABLE care_site ADD CONSTRAINT xpk_care_site PRIMARY KEY ( care_site_id ) ;
 
@@ -162,10 +159,6 @@ ALTER TABLE cost ADD CONSTRAINT xpk_visit_cost PRIMARY KEY ( cost_id ) ;
 Standardized derived elements
 
 ************************/
-
-ALTER TABLE cohort ADD CONSTRAINT xpk_cohort PRIMARY KEY ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date  ) ;
-
-ALTER TABLE cohort_attribute ADD CONSTRAINT xpk_cohort_attribute PRIMARY KEY ( cohort_definition_id, subject_id, cohort_start_date, cohort_end_date, attribute_definition_id ) ;
 
 ALTER TABLE drug_era ADD CONSTRAINT xpk_drug_era PRIMARY KEY ( drug_era_id ) ;
 
