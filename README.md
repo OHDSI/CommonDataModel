@@ -1,7 +1,7 @@
 Common Data Model v6.0
 =================
 
-See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V6.0 PDF]
+See full CDM specification file on our github [wiki](https://github.com/OHDSI/CommonDataModel/wiki) or in the [CDM V6.0 PDF](https://github.com/OHDSI/CommonDataModel/blob/master/OMOP_CDM_v6_0.pdf)
 
 
 Release Notes for v6.0
