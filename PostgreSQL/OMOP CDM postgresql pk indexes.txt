@@ -101,8 +101,6 @@ ALTER TABLE observation_period ADD CONSTRAINT xpk_observation_period PRIMARY KEY
 
 ALTER TABLE specimen ADD CONSTRAINT xpk_specimen PRIMARY KEY ( specimen_id ) ;
 
-ALTER TABLE death ADD CONSTRAINT xpk_death PRIMARY KEY ( person_id ) ;
-
 ALTER TABLE visit_occurrence ADD CONSTRAINT xpk_visit_occurrence PRIMARY KEY ( visit_occurrence_id ) ;
 
 ALTER TABLE visit_detail ADD CONSTRAINT xpk_visit_detail PRIMARY KEY ( visit_detail_id ) ;
@@ -252,9 +250,6 @@ CLUSTER observation_period  USING idx_observation_period_id ;
 CREATE INDEX idx_specimen_person_id  ON specimen  (person_id ASC);
 CLUSTER specimen  USING idx_specimen_person_id ;
 CREATE INDEX idx_specimen_concept_id ON specimen (specimen_concept_id ASC);
-
-CREATE INDEX idx_death_person_id  ON death  (person_id ASC);
-CLUSTER death  USING idx_death_person_id ;
 
 CREATE INDEX idx_visit_person_id  ON visit_occurrence  (person_id ASC);
 CLUSTER visit_occurrence  USING idx_visit_person_id ;
