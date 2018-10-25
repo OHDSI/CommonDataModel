@@ -177,6 +177,7 @@ create table person
   month_of_birth				INT64	  	null,
   day_of_birth					INT64	  	null,
   birth_datetime				DATETIME	null,
+  death_datetime				DATETIME	null,
   race_concept_id				INT64		not null,
   ethnicity_concept_id			INT64	  	not null,
   location_id					INT64		null,
