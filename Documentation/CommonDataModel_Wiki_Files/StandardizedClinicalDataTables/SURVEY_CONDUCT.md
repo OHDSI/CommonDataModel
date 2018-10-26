@@ -1,5 +1,3 @@
-# SURVEY_CONDUCT
-
 The SURVEY_CONDUCT table is used to store an instance of a completed survey or questionnaire. It captures details of the individual questionnaire such as who completed it, when it was completed and to which patient treatment or visit it relates to (if any). Each SURVEY has a SURVEY_CONCEPT_ID, a concept in the CONCEPT table identifying the questionnaire e.g. EQ5D, VR12, SF12. Each questionnaire should exist in the CONCEPT table. Each SURVEY can be optionally related to a specific patient visit in order to link it both to the visit during which it was completed and any subsequent visit where treatment was assigned based on the patient's responses. 
 
 Field                        | Required  | Type        | Description     
@@ -9,8 +7,8 @@ PERSON_ID | Yes | integer | A foreign key identifier to the Person in the PERSON
 SURVEY_CONCEPT_ID | Yes | integer | A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the name and identity of the survey.
 SURVEY_START_DATE | No | date | Date on which the survey was started.
 SURVEY_START_DATETIME | No | datetime | Date and time the survey was started.
-SURVEY_END_DATE | Yes | date | Date on which the survey was completed.
-SURVEY_END_DATETIME | No | datetime | Date and time the survey was completed.
+SURVEY_END_DATE | No | date | Date on which the survey was completed.
+SURVEY_END_DATETIME | Yes | datetime | Date and time the survey was completed.
 PROVIDER_ID | No  | integer  | A foreign key to the provider in the provider table who was associated with the survey completion.
 ASSISTED_CONCEPT_ID | Yes | integer | A foreign key to the predefined Concept identifier in the Standardized Vocabularies indicating whether the survey was completed with assistance.
 RESPONDENT_TYPE_CONCEPT_ID | Yes | integer | A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the respondent type. Example: Research Associate, Patient.

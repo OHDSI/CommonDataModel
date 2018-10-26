@@ -1,5 +1,3 @@
-## LOCATION_HISTORY
-
 The LOCATION HISTORY table stores relationships between Persons or Care Sites and geographic locations over time.
 
 Field|Required|Type|Description

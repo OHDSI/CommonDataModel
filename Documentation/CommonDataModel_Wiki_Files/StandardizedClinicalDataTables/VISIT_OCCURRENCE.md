@@ -14,8 +14,8 @@ Field|Required|Type|Description
 |care_site_id|No|integer|A foreign key to the care site in the care site table that was visited.|
 |visit_source_value|No|varchar(50)|The source code for the visit as it appears in the source data.|
 |visit_source_concept_id|Yes|integer|A foreign key to a Concept that refers to the code used in the source.|
-|admitting_source_concept_id	|Yes	|integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
-|admitting_source_value			|	No|varchar(50)|	The source code for the admitting source as it appears in the source data.|
+|admitted_from_concept_id	|Yes	|integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting where the patient was admitted from.|
+|admitted_from_source_value			|	No|varchar(50)|	The source code for where the patient was admitted from as it appears in the source data.|
 |discharge_to_concept_id		|Yes	|	integer	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
 |discharge_to_source_value		|	No|	varchar(50)|	The source code for the discharge disposition as it appears in the source data.|
 |preceding_visit_occurrence_id	|	No	|integer|A foreign key to the VISIT_OCCURRENCE table of the visit immediately preceding this visit|
