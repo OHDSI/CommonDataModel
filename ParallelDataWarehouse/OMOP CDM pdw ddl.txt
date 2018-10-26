@@ -234,9 +234,9 @@ person  (
   death_datetime				DATETIME2	NULL,
   race_concept_id				INTEGER		NOT NULL,
   ethnicity_concept_id			INTEGER	  	NOT NULL,
-  location_id					INTEGER		NULL,
-  provider_id					INTEGER		NULL,
-  care_site_id					INTEGER		NULL,
+  location_id					BIGINT		NULL,
+  provider_id					BIGINT		NULL,
+  care_site_id					BIGINT		NULL,
   person_source_value			VARCHAR(50) NULL,
   gender_source_value			VARCHAR(50) NULL,
   gender_source_concept_id	  	INTEGER		NOT NULL,
@@ -301,7 +301,7 @@ visit_occurrence (
   admitted_from_source_value    VARCHAR(50) 	NULL ,
   discharge_to_source_value		VARCHAR(50)		NULL ,
   discharge_to_concept_id		INTEGER   		NOT NULL ,
-  preceding_visit_occurrence_id	INTEGER			NULL
+  preceding_visit_occurrence_id	BIGINT			NULL
 )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -317,8 +317,8 @@ visit_detail  (
   visit_detail_end_date              DATE        NULL ,
   visit_detail_end_datetime          DATETIME2   NOT NULL ,
   visit_detail_type_concept_id       INTEGER     NOT NULL ,
-  provider_id                        INTEGER     NULL ,
-  care_site_id                       INTEGER     NULL ,
+  provider_id                        BIGINT      NULL ,
+  care_site_id                       BIGINT      NULL ,
   discharge_to_concept_id            INTEGER     NOT NULL ,
   admitted_from_concept_id           INTEGER     NOT NULL , 
   admitted_from_source_value         VARCHAR(50) NULL ,
@@ -343,9 +343,9 @@ procedure_occurrence (
   procedure_type_concept_id		INTEGER			NOT NULL ,
   modifier_concept_id			INTEGER			NOT NULL ,
   quantity						INTEGER			NULL ,
-  provider_id					INTEGER			NULL ,
-  visit_occurrence_id			INTEGER			NULL ,
-  visit_detail_id             	INTEGER     	NULL ,
+  provider_id					BIGINT			NULL ,
+  visit_occurrence_id			BIGINT			NULL ,
+  visit_detail_id             	BIGINT     	NULL ,
   procedure_source_value		VARCHAR(50)		NULL ,
   procedure_source_concept_id	INTEGER			NOT NULL ,
   modifier_source_value		    VARCHAR(50)		NULL 
@@ -372,9 +372,9 @@ drug_exposure  (
   sig							VARCHAR(1000)	NULL ,
   route_concept_id				INTEGER			NOT NULL ,
   lot_number					VARCHAR(50)	  	NULL ,
-  provider_id					INTEGER			NULL ,
-  visit_occurrence_id			INTEGER			NULL ,
-  visit_detail_id               INTEGER       	NULL ,
+  provider_id					BIGINT			NULL ,
+  visit_occurrence_id			BIGINT			NULL ,
+  visit_detail_id               BIGINT       	NULL ,
   drug_source_value				VARCHAR(50)	  	NULL ,
   drug_source_concept_id		INTEGER			NOT NULL ,
   route_source_value			VARCHAR(50)	  	NULL ,
@@ -396,9 +396,9 @@ device_exposure  (
   device_type_concept_id		    INTEGER			NOT NULL ,
   unique_device_id			        VARCHAR(50)		NULL ,
   quantity						    INTEGER			NULL ,
-  provider_id					    INTEGER			NULL ,
-  visit_occurrence_id			    INTEGER			NULL ,
-  visit_detail_id                 	INTEGER         NULL ,
+  provider_id					    BIGINT			NULL ,
+  visit_occurrence_id			    BIGINT			NULL ,
+  visit_detail_id                 	BIGINT          NULL ,
   device_source_value			    VARCHAR(100)	NULL ,
   device_source_concept_id		    INTEGER			NOT NULL
 )
@@ -411,19 +411,19 @@ condition_occurrence  (
   condition_occurrence_id		BIGINT			NOT NULL ,
   person_id						BIGINT			NOT NULL ,
   condition_concept_id			INTEGER			NOT NULL ,
-  condition_start_date			DATE			  NULL ,
+  condition_start_date			DATE			NULL ,
   condition_start_datetime		DATETIME2		NOT NULL ,
-  condition_end_date			DATE			  NULL ,
+  condition_end_date			DATE			NULL ,
   condition_end_datetime		DATETIME2		NULL ,
   condition_type_concept_id		INTEGER			NOT NULL ,
   condition_status_concept_id	INTEGER			NOT NULL ,
-  stop_reason					VARCHAR(20)	NULL ,
-  provider_id					INTEGER			NULL ,
-  visit_occurrence_id			INTEGER			NULL ,
-  visit_detail_id               INTEGER     NULL ,
-  condition_source_value		VARCHAR(50)	NULL ,
+  stop_reason					VARCHAR(20)		NULL ,
+  provider_id					BIGINT			NULL ,
+  visit_occurrence_id			BIGINT			NULL ,
+  visit_detail_id               BIGINT		    NULL ,
+  condition_source_value		VARCHAR(50)		NULL ,
   condition_source_concept_id	INTEGER			NOT NULL ,
-  condition_status_source_value	VARCHAR(50)	NULL
+  condition_status_source_value	VARCHAR(50)		NULL
 )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -444,9 +444,9 @@ measurement  (
   unit_concept_id				INTEGER			NULL ,
   range_low					    FLOAT			NULL ,
   range_high					FLOAT			NULL ,
-  provider_id					INTEGER			NULL ,
-  visit_occurrence_id			INTEGER			NULL ,
-  visit_detail_id               INTEGER     	NULL ,
+  provider_id					BIGINT			NULL ,
+  visit_occurrence_id			BIGINT			NULL ,
+  visit_detail_id               BIGINT	     	NULL ,
   measurement_source_value		VARCHAR(50)		NULL ,
   measurement_source_concept_id	INTEGER			NOT NULL ,
   unit_source_value				VARCHAR(50)		NULL ,
@@ -470,9 +470,9 @@ note  (
   note_text						VARCHAR(1000)	NULL ,
   encoding_concept_id			INTEGER			NOT NULL ,
   language_concept_id			INTEGER			NOT NULL ,
-  provider_id					INTEGER			NULL ,
-  visit_occurrence_id			INTEGER			NULL ,
-  visit_detail_id       		INTEGER       	NULL ,
+  provider_id					BIGINT			NULL ,
+  visit_occurrence_id			BIGINT			NULL ,
+  visit_detail_id       		BIGINT       	NULL ,
   note_source_value				VARCHAR(50)		NULL
 )
 WITH (DISTRIBUTION = HASH(person_id));
@@ -513,7 +513,7 @@ observation  (
   value_as_concept_id			    INTEGER		NULL ,
   qualifier_concept_id			    INTEGER		NULL ,
   unit_concept_id				    INTEGER		NULL ,
-  provider_id					    INTEGER		NULL ,
+  provider_id					    BIGINT		NULL ,
   visit_occurrence_id			    BIGINT		NULL ,
   visit_detail_id               	BIGINT      NULL ,
   observation_source_value		  	VARCHAR(50)	NULL ,
@@ -682,8 +682,8 @@ WITH (DISTRIBUTION = HASH(person_id));
 --HINT DISTRIBUTE ON KEY(person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  
 cost  (
-  cost_id						        BIGINT	    NOT NULL ,
-  person_id BIGINT		  NOT NULL,
+  cost_id						BIGINT	    NOT NULL ,
+  person_id 					BIGINT		  NOT NULL,
   cost_event_id					BIGINT		NOT NULL ,
   cost_event_field_concept_id	INTEGER		NOT NULL , 
   cost_concept_id				INTEGER		NOT NULL ,

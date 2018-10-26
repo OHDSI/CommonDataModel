@@ -306,7 +306,7 @@ CREATE TABLE visit_occurrence
   admitted_from_source_value    VARCHAR(50)   NULL ,
   discharge_to_source_value     VARCHAR(50)   NULL ,
   discharge_to_concept_id       INTEGER       NOT NULL ,
-  preceding_visit_occurrence_id INTEGER       NULL
+  preceding_visit_occurrence_id BIGINT       NULL
 )
 
 DISTRIBUTE ON (person_id);

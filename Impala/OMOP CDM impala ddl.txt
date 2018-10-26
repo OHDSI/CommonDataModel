@@ -279,7 +279,7 @@ CREATE TABLE visit_occurrence
   admitted_from_source_value    VARCHAR(50),
   discharge_to_source_value		VARCHAR(50) ,
   discharge_to_concept_id		INTEGER ,
-  preceding_visit_occurrence_id	INTEGER
+  preceding_visit_occurrence_id	BIGINT
 )
 ;
 
