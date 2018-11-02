@@ -316,7 +316,7 @@ Standardized derived elements
 ************************/
 
 
-REATE CLUSTERED INDEX idx_drug_era_person_id ON drug_era (person_id ASC);
+CREATE CLUSTERED INDEX idx_drug_era_person_id ON drug_era (person_id ASC);
 CREATE INDEX idx_drug_era_concept_id ON drug_era (drug_concept_id ASC);
 
 CREATE CLUSTERED INDEX idx_dose_era_person_id ON dose_era (person_id ASC);
