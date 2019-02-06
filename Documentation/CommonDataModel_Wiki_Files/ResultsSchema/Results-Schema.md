@@ -1,4 +1,0 @@
-[COHORT](https://github.com/OHDSI/CommonDataModel/wiki/COHORT)   
-[COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION)  
-
-New to CDM v6.0 is the concept of schemas. This allows for more separation between read-only and writeable tables. The clinical data, event, and vocabulary tables are in the 'CDM' schema and tables that need to be manipulated by web-based tools or end users have moved to the 'Results' schema. Currently the only two tables in the 'Results' schema are COHORT and COHORT_DEFINITON, though likely more will be added over the course of v6.0 point releases. 
