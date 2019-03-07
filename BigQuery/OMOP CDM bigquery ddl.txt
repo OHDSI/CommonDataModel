@@ -527,7 +527,8 @@ create table location
   country						  STRING		null ,
   location_source_value 		  STRING	    null ,
   latitude						  FLOAT64		null ,
-  longitude						  FLOAT64		null
+  longitude						  FLOAT64		null ,
+  region_concept_id			INT64		not null
 )
 ;
 
