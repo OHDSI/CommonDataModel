@@ -565,7 +565,7 @@ CREATE TABLE location
   location_source_value		VARCHAR(50)		NULL ,
   latitude					FLOAT			NULL ,
   longitude					FLOAT			NULL ,
-  region_concept_id					INTEGER			NOT NULL
+  region_concept_id INTEGER NOT NULL
 )
 DISTSTYLE ALL;
 

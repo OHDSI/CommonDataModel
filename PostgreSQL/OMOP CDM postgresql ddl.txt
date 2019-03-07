@@ -594,7 +594,7 @@ CREATE TABLE location
   location_source_value VARCHAR(50)		NULL ,
   latitude				NUMERIC			NULL ,
   longitude				NUMERIC			NULL ,
-  region_concept_id				INTEGER		NOT NULL
+  region_concept_id INTEGER NOT NULL
 )
 ;
 
