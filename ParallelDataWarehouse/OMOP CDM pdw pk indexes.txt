@@ -296,7 +296,7 @@ Standardized health system data
 
 ************************/
 
-
+CREATE INDEX idx_location_region_concept_id ON location (region_concept_id ASC);
 
 
 
