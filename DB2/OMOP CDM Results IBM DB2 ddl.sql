@@ -25,11 +25,11 @@
  #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #
  ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###
 
-oracle script to create OMOP common data model results schema version 6.0
+IBM DB2 script to create OMOP common data model results schema version 6.0
 
 last revised: 17-Apr-2019
 
-Authors:  Bruno Ambrozio (@bambrozio)
+Author:  Bruno Ambrozio (@bambrozio)
 
 
 *************************/
