@@ -210,14 +210,6 @@ CREATE TABLE metadata
 )
 ;
 
-INSERT INTO metadata
-  (metadata_concept_id, metadata_type_concept_id, name, value_as_string, value_as_concept_id, metadata_date, metadata_datetime)
---Added cdm version record
-VALUES
-  (0, 0, 'CDM Version', '6.0', 0, NULL, NULL)
-;
-
-
 /************************
 
 Standardized clinical data
