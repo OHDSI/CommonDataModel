@@ -27,7 +27,7 @@
  ####### #     # ####### #           #####  ######  #     #      ##    #####  
                                                                               
 
-Script to load the common data model, version 5.0 vocabulary tables for PostgreSQL database on Windows (MS-DOS style file paths)
+Script to load the common data model, version 5.0 vocabulary tables for IBM DB2 database on Windows (MS-DOS style file paths)
 The database account running this script must have the "superuser" permission in the database.
 
 Notes
@@ -54,63 +54,64 @@ author:  Bruno Ambrozio (@bambrozio)
     TARGET_USER=<db user>
     TARGET_PASSWORD=<db password>
     TARGET_SCHEMA=<db schema>
-    TARGET_HOST=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net
+    TARGET_HOST=<host>.services.<az>.bluemix.net
     ```
 
-3. Upload each CSV followed by the data import command:
+3. Upload each CSV followed by the data import command. e.g:
 
+- DRUG_STRENGTH
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/DRUG_STRENGTH.csv
 
     ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table DRUG_STRENGTH --filename DRUG_STRENGTH.csv
     ```
-
+- CONCEPT
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/CONCEPT.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table CONCEPT --filename CONCEPT.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table CONCEPT --filename CONCEPT.csv
     ```
-
+- CONCEPT_RELATIONSHIP
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/CONCEPT_RELATIONSHIP.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table CONCEPT_RELATIONSHIP --filename CONCEPT_RELATIONSHIP.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table CONCEPT_RELATIONSHIP --filename CONCEPT_RELATIONSHIP.csv
     ```
-
+- CONCEPT_ANCESTOR
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/CONCEPT_ANCESTOR.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table CONCEPT_ANCESTOR --filename CONCEPT_ANCESTOR.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table CONCEPT_ANCESTOR --filename CONCEPT_ANCESTOR.csv
     ```
-
+- CONCEPT_SYNONYM
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/CONCEPT_SYNONYM.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table CONCEPT_SYNONYM --filename CONCEPT_SYNONYM.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table CONCEPT_SYNONYM --filename CONCEPT_SYNONYM.csv
     ```
-
+- VOCABULARY
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/VOCABULARY.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table VOCABULARY --filename VOCABULARY.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table VOCABULARY --filename VOCABULARY.csv
     ```
-
+- RELATIONSHIP
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/RELATIONSHIP.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table RELATIONSHIP --filename RELATIONSHIP.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table RELATIONSHIP --filename RELATIONSHIP.csv
     ```
-
+- CONCEPT_CLASS
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/CONCEPT_CLASS.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table CONCEPT_CLASS --filename CONCEPT_CLASS.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table CONCEPT_CLASS --filename CONCEPT_CLASS.csv
     ```
-
+- DOMAIN
     ```
     ./lift put --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file ~/Downloads/vocabulary.v5/DOMAIN.csv
 
-    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --header-row --remove --verbose --target-table DOMAIN --filename DOMAIN.csv
+    ./lift load --target-user $TARGET_USER --target-password $TARGET_PASSWORD --target-host $TARGET_HOST --file-origin user --target-schema $TARGET_SCHEMA --field-delimiter 0X09 --date-format YYYYMMDD --header-row --remove --verbose --target-table DOMAIN --filename DOMAIN.csv
     ```
 
 # DB2 on-premise
