@@ -1,7 +1,7 @@
 Common Data Model v6.x [In Development]
 =================
 
-This branch is meant to be a repository for those proposals that have been provisionally accepted by the [CommonDataModel Working Group](https://docs.google.com/document/d/144e_fc7dyuinfJfbYW5MsJeSijVSzsNE7GMY6KRX10g/edit?usp=sharing). The main goal is to test proposals with real data prior to their addition to the production version of the OMOP CDM. *PLEASE NOTE* After version 6.0 only Sql Server, PostgreSQL, and Oracle will be fully supported dialects meaning that the ddls, indices, and constraints will be fully tested prior to release. The provided BigQuery, Netezza, Impala, Amazon Redshift, and Parallel Data Warehouse scripts will be translated from Sql Server using the [SqlRender](https://github.com/ohdsi/sqlrender) package. These scripts will not be tested, however, any issues or pull requests related to these dialects will be reviewed in a timely manner. 
+This branch is meant to be a repository for those proposals that have been provisionally accepted by the [CommonDataModel Working Group](https://docs.google.com/document/d/144e_fc7dyuinfJfbYW5MsJeSijVSzsNE7GMY6KRX10g/edit?usp=sharing). The main goal is to test proposals with real data prior to their addition to the production version of the OMOP CDM. **PLEASE NOTE** After version 6.0 only Sql Server, PostgreSQL, and Oracle will be fully supported dialects meaning that the ddls, indices, and constraints will be fully tested prior to release. The provided BigQuery, Netezza, Impala, Amazon Redshift, and Parallel Data Warehouse scripts will be translated from Sql Server using the [SqlRender](https://github.com/ohdsi/sqlrender) package. These scripts will not be tested, however, any issues or pull requests related to these dialects will be reviewed in a timely manner. 
 
 Release Notes for v6.x [In Development]
 =============
@@ -10,6 +10,7 @@ Release Notes for v6.x [In Development]
 
 #### CDM
 * [#239](https://github.com/OHDSI/CommonDataModel/pull/239) Adds the EPISODE and EPISODE_EVENT tables (24-Apr-2019)
+* [#252](https://github.com/OHDSI/CommonDataModel/pull/252)] Adds the field region_concept_id field to the LOCATION table (24-Apr-2019)
 
 
 

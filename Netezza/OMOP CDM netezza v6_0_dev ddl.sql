@@ -618,7 +618,8 @@ CREATE TABLE ohdsi.location
   country						    VARCHAR(100)	NULL ,
   location_source_value VARCHAR(50)		NULL ,
   latitude						  FLOAT(6)				  NULL ,
-  longitude						  FLOAT(6)				  NULL
+  longitude						  FLOAT(6)				  NULL ,
+  region_concept_id     INTEGER       NULL
 )
 ;
 

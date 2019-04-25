@@ -606,7 +606,8 @@ CREATE TABLE ohdsi.dbo.location
   country						    VARCHAR(100)	NULL ,
   location_source_value VARCHAR(50)		NULL ,
   latitude						  FLOAT				  NULL ,
-  longitude						  FLOAT				  NULL
+  longitude						  FLOAT				  NULL ,
+  region_concept_id     INTEGER       NULL
 )
 ;
 

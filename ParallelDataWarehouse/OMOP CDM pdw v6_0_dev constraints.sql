@@ -399,6 +399,9 @@ Standardized health system data
 
 ************************/
 
+ALTER TABLE ohdsi.location ADD CONSTRAINT fpk_region_concept FOREIGN KEY ( region_concept_id ) REFERENCES ohdsi.concept ( concept_id ) ;
+
+
 ALTER TABLE ohdsi.location_history ADD CONSTRAINT fpk_location_history FOREIGN KEY ( location_id ) REFERENCES ohdsi.location ( location_id ) ;
 
 ALTER TABLE ohdsi.location_history ADD CONSTRAINT fpk_relationship_type FOREIGN KEY (relationship_type_concept_id) REFERENCES ohdsi.concept (concept_id);

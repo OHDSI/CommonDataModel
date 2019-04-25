@@ -606,7 +606,8 @@ CREATE TABLE ohdsi.location
   country						    VARCHAR(100)	NULL ,
   location_source_value VARCHAR(50)		NULL ,
   latitude						  NUMERIC				  NULL ,
-  longitude						  NUMERIC				  NULL
+  longitude						  NUMERIC				  NULL ,
+  region_concept_id     INTEGER       NULL
 )
 ;
 
