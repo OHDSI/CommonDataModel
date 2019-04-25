@@ -1,7 +1,7 @@
 Common-Data-Model / Impala
 =================
 
-This folder contains the SQL scripts for Impala. 
+This folder contains the SQL scripts for Impala. *PLEASE NOTE* this dialect is not fully supported, meaning it has not been tested. This script was created by running the Sql Server ddl through [SqlRender](https://github.com/ohdsi/sqlrender) in order to translate it to Impala and it may not have accounted for all idiosyncrasies.
 
 In order to create your instantiation of the Common Data Model, we recommend following these steps:
 
@@ -11,12 +11,14 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 impala-shell -q 'CREATE DATABASE omop_cdm'
 ```
 
-2. Execute the scripts `OMOP CDM impala ddl.txt` and `OMOP CDM Results impala ddl.txt` (you will need to convert them to sql files first) to create the tables and fields.
+2. Execute the scripts `OMOP CDM impala [cdmVersion] ddl.sql` and `OMOP CDM Results impala ddl.txt` to create the tables and fields.
 
 ```bash
-impala-shell -d omop_cdm -f OMOP_CDM_impala_ddl.sql
+impala-shell -d omop_cdm -f OMOP_CDM_impala_[cdmVersion]_ddl.sql* 
 impala-shell -d omop_cdm -f OMOP_CDM_Results_impala_ddl.sql
 ```
+
+*instead of [cdmVersion] put the version that is part of the file name, e.g. OMOP_CDM_impala_v6_0_ddl.sql
 
 3. Load your data into the schema.
 
