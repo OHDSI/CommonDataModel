@@ -16,3 +16,10 @@ In order to create your instantiation of the Common Data Model, we recommend fol
 5. Load your data into the schema (`VocabImport/OMOP CDM vocabulary load - IBM DB2.md` can be used as a guide)
 
 6. Repeat steps 1-3, executing the script `OMOP CDM Results IBM DB2 ddl.sql`
+
+
+----
+
+# ER diagram result: 
+![er-diagram](https://user-images.githubusercontent.com/5923573/56299165-65262f00-612b-11e9-9d7c-005b51c74276.png)
+>> As per PR: https://github.com/OHDSI/CommonDataModel/pull/258
