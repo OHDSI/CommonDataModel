@@ -31,7 +31,7 @@ Script to load the common data model, version 5.0 vocabulary tables for SQL Serv
 Notes
 
 1) There is no data file load for the SOURCE_TO_CONCEPT_MAP table because that table is deprecated in CDM version 5.0
-2) This script assumes the CDM version 5 vocabulary zip file has been unzipped into the "C:\CDMV5Vocabulary" directory. 
+2) This script assumes the CDM version 5 vocabulary zip file has been unzipped into the "C:\CDMV5VOCAB" directory. 
 3) If you unzipped your CDM version 5 vocabulary files into a different directory then replace all file paths below, with your directory path.
 4) Run this SQL query script in the database where you created your CDM Version 5 tables
 
