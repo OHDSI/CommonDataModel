@@ -1,0 +1,159 @@
+/*********************************************************************************
+# Copyright 2019 Observational Health Data Sciences and Informatics
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+********************************************************************************/
+
+/************************
+
+ ####### #     # ####### ######      #####  ######  #     #            #####        ###      ######  #    #      ##       ###
+ #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #     #      #   #     #     # #   #      #  #       #  #    # #####  #  ####  ######  ####
+ #     # # # # # #     # #     #    #       #     # # # # #    #    # #           #     #    #     # #  #        ##        #  ##   # #    # # #    # #      #
+ #     # #  #  # #     # ######     #       #     # #  #  #    #    # ######      #     #    ######  ###        ###        #  # #  # #    # # #      #####   ####
+ #     # #     # #     # #          #       #     # #     #    #    # #     # ### #     #    #       #  #      #   # #     #  #  # # #    # # #      #           #
+ #     # #     # #     # #          #     # #     # #     #     #  #  #     # ###  #   #     #       #   #     #    #      #  #   ## #    # # #    # #      #    #
+ ####### #     # ####### #           #####  ######  #     #      ##    #####  ###   ###      #       #    #     ###  #    ### #    # #####  #  ####  ######  ####
+
+
+snowflake script to create suggested cluster keys within the OMOP common data model, version 6.0
+
+last revised: 05-Aug-2019
+
+author:  Kathryn Watson
+
+description:  These cluster keys are optional and should be evaluated on a table by table basis in each environment. Cluster keys increase compute costs and should only be implemented as needed for performance improvements.
+
+*************************/
+
+
+/************************
+*************************
+*************************
+*************************
+
+Cluster Keys
+
+*************************
+*************************
+*************************
+************************/
+
+/************************
+
+Standardized vocabulary
+
+************************/
+
+ALTER TABLE concept CLUSTER BY (concept_code,vocabulary_id,domain_id,concept_class_id);
+
+ALTER TABLE concept_relationship CLUSTER BY (concept_id_1,concept_id_2,relationship_id);
+
+ALTER TABLE concept_synonym CLUSTER BY (concept_id);
+
+ALTER TABLE concept_ancestor CLUSTER BY (ancestor_concept_id,descendant_concept_id);
+
+ALTER TABLE source_to_concept_map CLUSTER BY (target_concept_id,target_vocabulary_id,source_vocabulary_id,source_code);
+
+ALTER TABLE drug_strength CLUSTER BY (drug_concept_id,ingredient_concept_id);
+
+
+/**************************
+
+Standardized meta-data
+
+***************************/
+
+
+
+
+
+/************************
+
+Standardized clinical data
+
+************************/
+
+ALTER TABLE observation_period CLUSTER BY (person_id);
+
+ALTER TABLE specimen CLUSTER BY (person_id,specimen_concept_id);
+
+ALTER TABLE visit_occurrence CLUSTER BY (person_id,visit_concept_id);
+
+ALTER TABLE visit_detail CLUSTER BY (person_id,visit_detail_concept_id);
+
+ALTER TABLE procedure_occurrence CLUSTER BY (person_id,procedure_concept_id,visit_occurrence_id);
+
+ALTER TABLE drug_exposure CLUSTER BY (person_id,drug_concept_id,visit_occurrence_id);
+
+ALTER TABLE device_exposure CLUSTER BY (person_id,device_concept_id,visit_occurrence_id);
+
+ALTER TABLE condition_occurrence CLUSTER BY (person_id,condition_concept_id,visit_occurrence_id);
+
+ALTER TABLE measurement CLUSTER BY (person_id,measurement_concept_id,visit_occurrence_id);
+
+ALTER TABLE note CLUSTER BY (person_id,note_type_concept_id,visit_occurrence_id);
+
+ALTER TABLE note_nlp CLUSTER BY (note_id,note_nlp_concept_id);
+
+ALTER TABLE observation CLUSTER BY (person_id,observation_concept_id,visit_occurrence_id);
+
+ALTER TABLE survey_conduct CLUSTER BY (person_id);
+
+ALTER TABLE fact_relationship CLUSTER BY (domain_concept_id_1,domain_concept_id_2,relationship_concept_id);
+
+
+
+/************************
+
+Standardized health system data
+
+************************/
+
+
+
+
+
+/************************
+
+Standardized health economics
+
+************************/
+
+ALTER TABLE payer_plan_period CLUSTER BY (person_id);
+
+ALTER TABLE cost CLUSTER BY (person_id);
+
+
+/************************
+
+Standardized derived elements
+
+************************/
+
+
+ALTER TABLE drug_era CLUSTER BY (person_id,drug_concept_id);
+
+ALTER TABLE dose_era CLUSTER BY (person_id,drug_concept_id);
+
+ALTER TABLE condition_era CLUSTER BY (person_id,condition_concept_id);
+
+
+/************************
+
+Results elements
+
+************************/
+
+
+ALTER TABLE cohort CLUSTER BY (subject_id);
