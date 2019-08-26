@@ -322,6 +322,7 @@ CREATE TABLE procedure_occurrence  (
   procedure_concept_id			INTEGER			NOT NULL ,
   procedure_date				DATE			NULL ,
   procedure_datetime			TIMESTAMP		NOT NULL ,
+  procedure_end_datetime			TIMESTAMP		NOT,
   procedure_type_concept_id		INTEGER			NOT NULL ,
   modifier_concept_id			INTEGER			NOT NULL ,
   quantity						INTEGER			NULL ,

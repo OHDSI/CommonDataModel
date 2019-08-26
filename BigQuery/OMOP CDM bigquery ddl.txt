@@ -286,6 +286,7 @@ create table procedure_occurrence
   procedure_concept_id			INT64			not null ,
   procedure_date				date			null ,
   procedure_datetime			DATETIME		not null ,
+  procedure_end_datetime			DATETIME		null ,
   procedure_type_concept_id		INT64			not null ,
   modifier_concept_id			INT64			not null ,
   quantity						INT64			null ,

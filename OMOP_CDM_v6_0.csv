@@ -169,6 +169,7 @@
 "procedure_concept_id","Yes","INTEGER","A foreign key that refers to a standard procedure Concept identifier in the Standardized Vocabularies.","procedure_occurrence"
 "procedure_date","No","DATE","The date on which the Procedure was performed.","procedure_occurrence"
 "procedure_datetime","Yes","DATETIME","The date and time on which the Procedure was performed.","procedure_occurrence"
+"procedure_end_datetime","No","DATETIME","The date and time on which the Procedure ended.","procedure_occurrence"
 "procedure_type_concept_id","Yes","INTEGER","A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the procedure record is derived, belonging to the 'Procedure Type' vocabulary.","procedure_occurrence"
 "modifier_concept_id","Yes","INTEGER","A foreign key to a Standard Concept identifier for a modifier to the Procedure (e.g. bilateral). These concepts are typically distinguished by 'Modifier' concept classes (e.g., 'CPT4 Modifier' as part of the 'CPT4' vocabulary).","procedure_occurrence"
 "quantity","No","INTEGER","The quantity of procedures ordered or administered.","procedure_occurrence"
