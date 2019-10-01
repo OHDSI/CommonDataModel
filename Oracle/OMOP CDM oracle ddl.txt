@@ -62,7 +62,7 @@ CREATE TABLE vocabulary (
   vocabulary_id			    VARCHAR(20)		NOT NULL,
   vocabulary_name		    VARCHAR(255)	NOT NULL,
   vocabulary_reference	VARCHAR(255)	NOT NULL,
-  vocabulary_version	  VARCHAR(255)	NOT NULL,
+  vocabulary_version	  VARCHAR(255)	NULL,
   vocabulary_concept_id	INTEGER			  NOT NULL
 )
 ;
@@ -650,7 +650,7 @@ CREATE TABLE cost
   payer_plan_period_id			INTEGER			NULL ,
   amount_allowed		        FLOAT			  NULL ,
   revenue_code_concept_id		INTEGER			NULL ,
-  reveue_code_source_value  VARCHAR(50) NULL,
+  revenue_code_source_value  VARCHAR(50) NULL,
   drg_concept_id			      INTEGER		  NULL,
   drg_source_value			    VARCHAR(3)	NULL
 )
