@@ -363,7 +363,7 @@
 "name","Yes","VARCHAR(250)","The name of the Concept stored in metadata_concept_id or a description of the data being stored.","metadata"
 "value_as_string","No","NVARCHAR","The metadata value stored as a string.","metadata"
 "value_as_concept_id","No","INTEGER","A foreign key to a metadata value stored as a Concept ID.","metadata"
-"metadata date","No","DATE","The date associated with the metadata","metadata"
+"metadata_date","No","DATE","The date associated with the metadata","metadata"
 "metadata_datetime","No","DATETIME","The date and time associated with the metadata","metadata"
 "concept_id","Yes","INTEGER","A unique identifier for each Concept across all domains.","concept"
 "concept_name","Yes","VARCHAR(255)","An unambiguous, meaningful and descriptive name for the Concept.","concept"
