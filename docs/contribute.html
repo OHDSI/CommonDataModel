@@ -387,6 +387,13 @@ div.tocify {
   </a>
 </li>
 <li>
+  <a href="background.html">
+    <span class="fa fa-landmark"></span>
+     
+    Background
+  </a>
+</li>
+<li>
   <a href="dataModelConventions.html">
     <span class="fa fa-list-alt"></span>
      
@@ -410,6 +417,34 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-plus-square"></span>
+     
+    Proposals
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="reviewProposals.html">Under Review</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/files/2642492/Oncology.CDM.Proposal.2018-12-02.pdf">Oncology CDM Proposal</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="faq.html">
     <span class="fa fa-question"></span>
@@ -426,7 +461,12 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/OHDSI/CommonDataModel">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -441,32 +481,13 @@ div.tocify {
 </div>
 
 
-<p>##TODO for CDM # File bug reports</p>
-<p>If you’ve found a bug you can help out by filing a bug report. Each package has an issue tracker where you can create a new issue. Try and be as specific as possible. What error message occurs? Can you provide a simple example to reproduce the problem? What versions of the various packages are you running?</p>
-<div id="write-help-files" class="section level1">
-<h1>Write help files</h1>
-<p>If you’re a bit more experienced with the Methods Library and are looking to improve your open source development skills, the next step up is to contribute a pull request to a Methods Library package. The most important thing to know is that Methods Library packages use <a href="https://github.com/klutometis/roxygen">roxygen2</a>: this means that documentation is found in the R code close to the source of each function.</p>
+<div id="file-bug-reports" class="section level1">
+<h1>File bug reports</h1>
+<p>If you’ve found a bug you can help out by filing a bug report. Try and be as specific as possible. What error message occurs? Can you provide a simple example to reproduce the problem? What versions of the various packages are you running?</p>
 </div>
-<div id="write-unit-tests" class="section level1">
-<h1>Write unit tests</h1>
-<p>An important part of validating the methods in the library is unit testing. A unit test is a small program that tests a specific function in the library. For example, there are <a href="https://github.com/OHDSI/CohortMethod/blob/master/tests/testthat/test-psFunctions.R#L5">several unit tests</a> that make sure the propensity score matching works correctly. We can never have enough unit tests, and writing unit tests is an excellent way to learn how the Methods Library packages work under the hood.</p>
-</div>
-<div id="add-methods" class="section level1">
-<h1>Add methods</h1>
-<p>We are always looking for new methods and packages to add to the Methods Libary. However, in order to qualify for inclusion a package must meet the following requirements:</p>
-<ul>
-<li>Pass R check without warnings or notes.</li>
-<li>Adhere to <a href="https://ohdsi.github.io/MethodsLibrary/contribute.html#code_style_guidelines">OHDSI’s code style guidelines</a> and overall development practices.</li>
-<li>Have <a href="http://www.ohdsi.org/web/wiki/doku.php?id=development:unit_testing_in_r">unit tests</a> that test the package’s most important routines.</li>
-<li>For population-level estimation methods: be evaluated using the OHDSI Methods Benchmark.</li>
-</ul>
-</div>
-<div id="code-style-guidelines" class="section level1">
-<h1>Code style guidelines</h1>
-<ul>
-<li><a href="http://www.ohdsi.org/web/wiki/doku.php?id=development:ohdsi_code_style_for_r">Style guide for R code</a></li>
-<li><a href="http://www.ohdsi.org/web/wiki/doku.php?id=development:ohdsi_code_style_for_sql">Style guide for SQL code</a></li>
-</ul>
+<div id="join-meetings" class="section level1">
+<h1>Join meetings</h1>
+<p>Please come to meetings and contribute to the discussion! All details can be found our home page.</p>
 </div>
 
 
