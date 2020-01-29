@@ -513,7 +513,7 @@ CREATE TABLE observation
   value_as_concept_id			    INTEGER			NULL ,
   qualifier_concept_id			    INTEGER			NULL ,
   unit_concept_id				   	INTEGER			NULL ,
-  provider_id					    INTEGER			NULL ,
+  provider_id					    BIGINT			NULL ,
   visit_occurrence_id			    BIGINT			NULL ,
   visit_detail_id               	BIGINT      	NULL ,
   observation_source_value		  	VARCHAR(50)		NULL ,
