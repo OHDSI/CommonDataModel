@@ -357,11 +357,11 @@ ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_source FOREIGN KEY (survey_
 
 ALTER TABLE survey_conduct ADD CONSTRAINT fpk_validation FOREIGN KEY (validated_survey_concept_id) REFERENCES concept (concept_id);
 
-ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_visit FOREIGN KEY (visit_occurrence_id) REFERENCES visit_occurence (visit_occurrence_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_visit FOREIGN KEY (visit_occurrence_id) REFERENCES visit_occurrence (visit_occurrence_id);
 
 ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_v_detail FOREIGN KEY (visit_detail_id) REFERENCES visit_detail (visit_detail_id);
 
-ALTER TABLE survey_conduct ADD CONSTRAINT fpk_response_visit FOREIGN KEY (response_visit_occurrence_id) REFERENCES visit_occurence (visit_occurrence_id);
+ALTER TABLE survey_conduct ADD CONSTRAINT fpk_response_visit FOREIGN KEY (response_visit_occurrence_id) REFERENCES visit_occurrence (visit_occurrence_id);
 
 
 ALTER TABLE fact_relationship ADD CONSTRAINT fpk_fact_domain_1 FOREIGN KEY (domain_concept_id_1)  REFERENCES concept (concept_id);
