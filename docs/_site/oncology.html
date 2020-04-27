@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Oncology Extension</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="background.html">
+    <span class="fa fa-landmark"></span>
+     
+    Background
+  </a>
+</li>
+<li>
+  <a href="dataModelConventions.html">
+    <span class="fa fa-list-alt"></span>
+     
+    Conventions
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-history"></span>
+     
+    CDM Versions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm531.html">CDM v5.3.1</a>
+    </li>
+    <li>
+      <a href="cdm60.html">CDM v6.0</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-plus-square"></span>
+     
+    Proposals
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="reviewProposals.html">Under Review</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="oncology.html">Oncology CDM Proposal</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="faq.html">
+    <span class="fa fa-question"></span>
+     
+    FAQ
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Contribute
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="contribute.html">Get involved</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">How to</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Download the DDL</li>
+        <li>
+          <a href="download.html"></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/OHDSI/CommonDataModel">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Oncology Extension</h1>
+
+</div>
+
+
+<div id="omop-common-data-model-oncology-extension-documentation" class="section level2">
+<h2>OMOP Common Data Model Oncology Extension Documentation</h2>
+<p>This documentation details the ratified proposal of adding an oncology extension to the OMOP CDM. These tables and fields will become part of the next release (v6.1) of the Common Data Model. Below are their descriptions; showing <em>additions</em> to the model only. For example, two fields were added to the MEASUREMENT table as part of this extension so only those two fields are listed below for MEASUREMENT instead of the entire table. For more information, please see the <a href="https://github.com/OHDSI/OncologyWG/wiki">OMOP Oncology wiki site</a>.</p>
+<p>The DDLs for these tables are located on the Oncology github, as detailed in the <a href="https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation">installation instructions</a>.</p>
+<div id="episode" class="section level3 tabset tabset-pills">
+<h3>EPISODE</h3>
+<p><strong>Table Description</strong></p>
+<p>The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases/outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry.</p>
+<p><strong>ETL Conventions</strong></p>
+<p>Valid Episode Concepts belong to the ‘Episode’ domain.<br><br> Standard Episode Concepts are categorized by concept class:<br> Disease Episode<br>  32528 “Disease First Occurrence”<br>  32529 “Disease Recurrence”<br>  32530 “Disease Remission”<br>  32677 “Disease Progression”<br> Treatment Episode  32531 “Treatment Regimen”<br>  32532 “Treatment Cycle”<br> Episode of Care  32533 “Episode of Care”<br><br> The relationship between a disease episode and treatment episodes can be represented by the self-referencing foreign key column EPISODE.episode_parent_id.<br><br> A treatment EPISODE can be delivered at regular intervals, cycles or fractions. The parent-child relationship between a treatment episode and its constituent treatment cycles can be represented by the self-referencing foreign key column EPISODE.episode_parent_id. 5 Some episodes may not have links to any underlying clinical events. For such episodes, the EPISODE_EVENT table is not populated.</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A unique identifier for each Episode event.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+person_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the Person who is experiencing the episdoe. The demographic details of that Person are stored in the PERSON table.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+PERSON
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies belonging to the ‘Episode’ domain.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+Episode
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_start_datetime
+</td>
+<td style="text-align:left;width: 3in; ">
+The date and time when the Episode begins.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+datetime
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_end_datetime
+</td>
+<td style="text-align:left;width: 3in; ">
+The date when the instance of the Episode is considered to have ended.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+datetime
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_parent_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key that refers to a parent Episode entry representing an entire episode if the episode spans multiple cycles.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_number
+</td>
+<td style="text-align:left;width: 3in; ">
+An ordinal count for an Episode that spans multiple times.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_object_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key that refers to a concept identifier in the Standardized Vocabularies describing the disease, treatment, or other abstraction that the episode describes. Episode entries from the ‘Disease Episode’ concept class should have an episode_object_concept_id that comes from the Condition domain. Episode entries from the ‘Treatment Episode’ concept class should have an episode_object_concept_id that scome from the ‘Procedure’ or ‘Regimen’ domain.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Procedure, Regimen
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_type_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the source data from which the Episode was recorded, the level of standardization, and the type of occurrence. These belong to the ‘Episode Type’ vocabulary
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Type Concept
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_source_value
+</td>
+<td style="text-align:left;width: 3in; ">
+The source code for the Episdoe as it appears in the source data. This code is mapped to a Standard Condition Concept in the Standardized Vocabularies and the original code is stored here for reference.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+varchar(50)
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_source_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key to a Episdoe Concept that refers to the code used in the source.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="episode_event" class="section level3 tabset tabset-pills">
+<h3>EPISODE_EVENT</h3>
+<p><strong>Table Description</strong></p>
+<p>The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. The EPISODE_EVENT table supports the linkage of an EPISODE abstraction to the low-level clinical events that implement the EPISODE abstraction.</p>
+<p><strong>ETL Conventions</strong></p>
+<p>Some episodes may not have links to any underlying clinical events. For such episodes, the EPISODE_EVENT table is not populated.</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the Episode that the Episode Event belongs to.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+EPISODE
+</td>
+<td style="text-align:left;width: 1in; ">
+Episode
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+event_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the underlying event (condition, procedure, measurement, etc.) record in a respective table for which an episode is recorded.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+episode_event_field_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the standardized concept corresponding to the table primary key column (condition_occurrence.condition_occurrence_id, procedure_occurrence.procedure_occurrence_id, measurment.measurment_id etc.) where the underlying event is stored.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Metadata
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="measurement" class="section level3 tabset tabset-pills">
+<h3>MEASUREMENT</h3>
+<p><strong>Table Description</strong></p>
+<p>The MEASUREMENT table contains records of Measurement, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person’s sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID).</p>
+<p><strong>User Guide</strong></p>
+<p>Measurements differ from Observations in that they require a standardized test or some other activity to generate a quantitative or qualitative result.</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+modifier_of_event_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the event (e.g. condition, procedure, episode) record for which the modifier is recorded.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+modifier_of_field_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+The concept representing the table field concept that contains the value of the event id for which the modifier is recorded (e.g. CONDITION_OCCURRENCE.condition_occurre nce_id).
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Metadata
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="concept_numeric" class="section level3 tabset tabset-pills">
+<h3>CONCEPT_NUMERIC</h3>
+<p><strong>Table Description</strong></p>
+<p>In this table, numeric values, units and math operators indicating range limits (less than) corresponding to “numeric” concepts will be stored. It is an extension of the OMOP CDM and vocabulary that supports formal representation of concepts containing numeric values or ranges. This proposal has not yet been ratified by a larger CDM Workgroup. However, it plays a critical role in supporting ETL from tumor registries. NAACCR vocabulary includes concepts representing numeric values or numeric ranges. Often, these concepts also contain measurement units. For example, “Described as less than 1 centimeter (cm)”. In OMOP CDM, these concepts are normally used in Measurement and Observation tables to store value_as_concept_id. Analysis of these data is currently possible only if the user knows exactly which concepts are used to represent range or value, including their respective units. It is not possible to perform analysis on numeric values of these data, nor is it possible to differentiate numeric values by units.</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key that refers to a respective concept in the Standardized Vocabularies.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+value_as_number
+</td>
+<td style="text-align:left;width: 3in; ">
+A value of the concept expressed as a numeric value.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+float
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+unit_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key to a Standard Concept ID of the concept units in the Standardized Vocabularies that belong to the ‘Unit’ domain.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+operator_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key identifier to the predefined Concept in the Standardized Vocabularies reflecting the mathematical operator that is applied to the value_as_number. Operators are &lt;, &lt;=, =, &gt;=, &gt; and these concepts belong to the ‘Meas Value Operator’ domain.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+float
+</td>
+<td style="text-align:left;width: 1in; ">
+yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
