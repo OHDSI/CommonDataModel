@@ -12984,7 +12984,238 @@ No
 <div id="death" class="section level3 tabset tabset-pills">
 <h3>DEATH</h3>
 <p><strong>Table Description</strong></p>
-<p>The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as:</p>
+<p>The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as: Condition Code in the Header or Detail information of claims, Status of enrollment into a health plan, explicit record in EHR data.</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+person_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+death_date
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+date
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+death_datetime
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+datetime
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+death_type_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Type Concept
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cause_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cause_source_value
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+varchar(50)
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cause_source_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
