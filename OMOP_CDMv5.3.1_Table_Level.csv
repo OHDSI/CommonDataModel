@@ -145,8 +145,4 @@ cohort, and can store operational programming code to instantiate the
 attributes for a given cohort within the OMOP Common Data Model.",,
 METADATA,CDM,No,,No,,,The METADATA table contains metadata information about a dataset that has been transformed to the OMOP Common Data Model.,,
 CDM_SOURCE,CDM,No,,No,,,The CDM_SOURCE table contains detail about the source database and the process used to transform the data into the OMOP Common Data Model.,,
-DEATH,CDM,No,,No,,,"The death domain contains the clinical event for how and when a Person dies. A person can have up to one
-record if the source system contains evidence about the Death, such as:
-• Condition Code in the Header or Detail information of claims
-• Status of enrollment into a health plan
-• Explicit record in EHR data",,
+DEATH,CDM,No,,No,,,"The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as: Condition Code in the Header or Detail information of claims, Status of enrollment into a health plan, explicit record in EHR data.",,
