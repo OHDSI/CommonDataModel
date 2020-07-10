@@ -101,7 +101,7 @@ ALTER TABLE observation_period ADD CONSTRAINT xpk_observation_period PRIMARY KEY
 
 ALTER TABLE specimen ADD CONSTRAINT xpk_specimen PRIMARY KEY NONCLUSTERED ( specimen_id ) ;
 
-ALTER TABLE death ADD CONSTRAINT xpk_death PRIMARY KEY NONCLUSTERED ( person_id ) ;
+/*ALTER TABLE death ADD CONSTRAINT xpk_death PRIMARY KEY NONCLUSTERED ( person_id ) ;*/
 
 ALTER TABLE visit_occurrence ADD CONSTRAINT xpk_visit_occurrence PRIMARY KEY NONCLUSTERED ( visit_occurrence_id ) ;
 
@@ -191,7 +191,7 @@ CREATE INDEX idx_concept_code ON concept (concept_code ASC);
 CREATE INDEX idx_concept_vocabluary_id ON concept (vocabulary_id ASC);
 CREATE INDEX idx_concept_domain_id ON concept (domain_id ASC);
 CREATE INDEX idx_concept_class_id ON concept (concept_class_id ASC);
-CREATE INDEX idx_concept_id_varchar ON concept (CAST(concept_id AS VARCHAR));
+/*CREATE INDEX idx_concept_id_varchar ON concept (CAST(concept_id AS VARCHAR));*/
 
 CREATE UNIQUE CLUSTERED INDEX idx_vocabulary_vocabulary_id ON vocabulary (vocabulary_id ASC);
 
@@ -242,7 +242,7 @@ CREATE CLUSTERED INDEX idx_observation_period_id ON observation_period (person_i
 CREATE CLUSTERED INDEX idx_specimen_person_id ON specimen (person_id ASC);
 CREATE INDEX idx_specimen_concept_id ON specimen (specimen_concept_id ASC);
 
-CREATE CLUSTERED INDEX idx_death_person_id ON death (person_id ASC);
+/*CREATE CLUSTERED INDEX idx_death_person_id ON death (person_id ASC);*/
 
 CREATE CLUSTERED INDEX idx_visit_person_id ON visit_occurrence (person_id ASC);
 CREATE INDEX idx_visit_concept_id ON visit_occurrence (visit_concept_id ASC);
@@ -325,4 +325,3 @@ CREATE INDEX idx_dose_era_concept_id ON dose_era (drug_concept_id ASC);
 
 CREATE CLUSTERED INDEX idx_condition_era_person_id ON condition_era (person_id ASC);
 CREATE INDEX idx_condition_era_concept_id ON condition_era (condition_concept_id ASC);
-

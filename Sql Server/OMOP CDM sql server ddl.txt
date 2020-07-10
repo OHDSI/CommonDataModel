@@ -200,9 +200,9 @@ CREATE TABLE metadata
 )
 ;
 
-INSERT INTO metadata (metadata_concept_id, metadata_type_concept_id, name, value_as_string, value_as_concept_id, metadata_date, metadata_datetime) --Added cdm version record
+/*INSERT INTO metadata (metadata_concept_id, metadata_type_concept_id, name, value_as_string, value_as_concept_id, metadata_date, metadata_datetime) --Added cdm version record
 VALUES (0,0,'CDM Version', '6.0',0,NULL,NULL)
-;
+;*/
 
 
 /************************
@@ -503,7 +503,7 @@ CREATE TABLE observation
   value_as_concept_id			    INTEGER			NULL ,
   qualifier_concept_id			    INTEGER			NULL ,
   unit_concept_id				   	INTEGER			NULL ,
-  provider_id					    INTEGER			NULL ,
+  provider_id					    BIGINT			NULL ,
   visit_occurrence_id			    BIGINT			NULL ,
   visit_detail_id               	BIGINT      	NULL ,
   observation_source_value		  	VARCHAR(50)		NULL ,
