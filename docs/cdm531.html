@@ -748,7 +748,7 @@ location_id
 The location refers to the physical address of the person. This field should capture the last known location of the person.
 </td>
 <td style="text-align:left;width: 4in; ">
-Put the location_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a> table here that represents the most granular location information for the person. This could represent anything from postal code or parts thereof, state, or county for example. Since many databases contain deindentified data, it is common that the precision of the location is reduced to prevent re-identification. This field should capture the last known location.
+Put the location_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a> table here that represents the most granular location information for the person. This could represent anything from postal code or parts thereof, state, or county for example. Since many databases contain deidentified data, it is common that the precision of the location is reduced to prevent re-identification. This field should capture the last known location.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -1025,7 +1025,7 @@ CONCEPT
 <p><strong>User Guide</strong></p>
 <p>For each Person, one or more OBSERVATION_PERIOD records may be present, but they will not overlap or be back to back to each other. Events may exist outside all of the time spans of the OBSERVATION_PERIOD records for a patient, however, absence of an Event outside these time spans cannot be construed as evidence of absence of an Event. Incidence or prevalence rates should only be calculated for the time of active OBSERVATION_PERIOD records. When constructing cohorts, outside Events can be used for inclusion criteria definition, but without any guarantee for the performance of these criteria. Also, OBSERVATION_PERIOD records can be as short as a single day, greatly disturbing the denominator of any rate calculation as part of cohort characterizations. To avoid that, apply minimal observation time as a requirement for any cohort definition.</p>
 <p><strong>ETL Conventions</strong></p>
-<p>Each Person needs to have at least one OBSERVATION_PERIOD record, which should be represent time intervals with a high capture rate of Clinical Events. Some source data have very similar concepts, such as enrolment periods in insurance claims data. In other source data such as most EHR systems these time spans need to be inferred under a set of assumptions. It is the discretion of the ETL developer to define these assumptions. In many ETL solutions the start date of the first occurrence or the first high quality occurrence of a Clinical Event (Condition, Drug, Procedure, Device, Measurement, Visit) is defined as the start of the OBSERVATION_PERIOD record, and the end date of the last occurrence of last high quality occurrence of a Clinical Event, or the end of the database period becomes the end of the OBSERVATOIN_PERIOD for each Person. If a Person only has a single Clinical Event the OBSERVATION_PERIOD record can be as short as one day. Depending on these definitions it is possible that Clinical Events fall outside the time spans defined by OBSERVATION_PERIOD records. Family history or history of Clinical Events generally are not used to generate OBSERVATION_PERIOD records around the time they are referring to. Any two overlapping or adjacent OBSERVATION_PERIOD records have to be merged into one.</p>
+<p>Each Person needs to have at least one OBSERVATION_PERIOD record, which should be represent time intervals with a high capture rate of Clinical Events. Some source data have very similar concepts, such as enrollment periods in insurance claims data. In other source data such as most EHR systems these time spans need to be inferred under a set of assumptions. It is the discretion of the ETL developer to define these assumptions. In many ETL solutions the start date of the first occurrence or the first high quality occurrence of a Clinical Event (Condition, Drug, Procedure, Device, Measurement, Visit) is defined as the start of the OBSERVATION_PERIOD record, and the end date of the last occurrence of last high quality occurrence of a Clinical Event, or the end of the database period becomes the end of the OBSERVATION_PERIOD for each Person. If a Person only has a single Clinical Event the OBSERVATION_PERIOD record can be as short as one day. Depending on these definitions it is possible that Clinical Events fall outside the time spans defined by OBSERVATION_PERIOD records. Family history or history of Clinical Events generally are not used to generate OBSERVATION_PERIOD records around the time they are referring to. Any two overlapping or adjacent OBSERVATION_PERIOD records have to be merged into one.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1208,7 +1208,7 @@ Type Concept
 <ul>
 <li><a href="https://athena.ohdsi.org/search-terms/terms/9201">Inpatient Visit</a>: Person visiting hospital, at a Care Site, in bed, for duration of more than one day, with physicians and other Providers permanently available to deliver service around the clock</li>
 <li><a href="https://athena.ohdsi.org/search-terms/terms/9203">Emergency Room Visit</a>: Person visiting dedicated healthcare institution for treating emergencies, at a Care Site, within one day, with physicians and Providers permanently available to deliver service around the clock</li>
-<li><a href="https://athena.ohdsi.org/search-terms/terms/262">Emergency Room and Inpatient Visit</a>: Person visiting ER follwed by a subsequent Inpatient Visit, where Emergency department is part of hospital, and transition from the ER to other hospital departments is undefined</li>
+<li><a href="https://athena.ohdsi.org/search-terms/terms/262">Emergency Room and Inpatient Visit</a>: Person visiting ER followed by a subsequent Inpatient Visit, where Emergency department is part of hospital, and transition from the ER to other hospital departments is undefined</li>
 <li><a href="https://athena.ohdsi.org/search-terms/terms/42898160">Non-hospital institution Visit</a>: Person visiting dedicated institution for reasons of poor health, at a Care Site, long-term or permanently, with no physician but possibly other Providers permanently available to deliver service around the clock</li>
 <li><a href="https://athena.ohdsi.org/search-terms/terms/9202">Outpatient Visit</a>: Person visiting dedicated ambulatory healthcare institution, at a Care Site, within one day, without bed, with physicians or medical Providers delivering service during Visit</li>
 <li><a href="https://athena.ohdsi.org/search-terms/terms/581476">Home Visit</a>: Provider visiting Person, without a Care Site, within one day, delivering service</li>
@@ -1696,7 +1696,7 @@ No
 preceding_visit_occurrence_id
 </td>
 <td style="text-align:left;width: 3in; ">
-Use this field to find the visit that occured for the person prior to the given visit. There could be a few days or a few years in between.
+Use this field to find the visit that occurred for the person prior to the given visit. There could be a few days or a few years in between.
 </td>
 <td style="text-align:left;width: 4in; ">
 This field can be used to link a visit immediately preceding the current visit. Note this is not symmetrical, and there is no such thing as a “following_visit_id”.
@@ -2205,7 +2205,7 @@ Visit
 preceding_visit_detail_id
 </td>
 <td style="text-align:left;width: 3in; ">
-Use this field to find the visit detail that occured for the person prior to the given visit detail record. There could be a few days or a few years in between.
+Use this field to find the visit detail that occurred for the person prior to the given visit detail record. There could be a few days or a few years in between.
 </td>
 <td style="text-align:left;width: 4in; ">
 The PRECEDING_VISIT_DETAIL_ID can be used to link a visit immediately preceding the current Visit Detail. Note this is not symmetrical, and there is no such thing as a “following_visit_id”.
@@ -2292,7 +2292,7 @@ VISIT_OCCURRENCE
 <p><strong>Table Description</strong></p>
 <p>This table contains records of Events of a Person suggesting the presence of a disease or medical condition stated as a diagnosis, a sign, or a symptom, which is either observed by a Provider or reported by the patient.</p>
 <p><strong>User Guide</strong></p>
-<p>Conditions are defined by Concepts from the Condition domain, which form a complex hierarchy. As a result, the same Person with the same disease may have multiple Condition records, which belong to the same hierarchical family. Most Condition records are mapped from diagnostic codes, but recorded signs, symptoms and summary descriptions also contribute to this table. Rule out diagnoses should not be recorded in this table, but in reality their negating nature is not always captured in the source data, and other precautions must be taken when when identifying Persons who should suffer from the recorded Condition. Record all conditions as they exist in the source data. Any decisions about diagnosis/phenotype defintions would be done through cohort specifications. These cohorts can be housed in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">COHORT</a> table. Conditions span a time interval from start to end, but are typically recorded as single snapshot records with no end date. The reason is twofold: (i) At the time of the recording the duration is not known and later not recorded, and (ii) the Persons typically cease interacting with the healthcare system when they feel better, which leads to incomplete capture of resolved Conditions. The <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#condition_era">CONDITION_ERA</a> table addresses this issue. Family history and past diagnoses (‘history of’) are not recorded in this table. Instead, they are listed in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a> table. Codes written in the process of establishing the diagnosis, such as ‘question of’ of and ‘rule out’, should not represented here. Instead, they should be recorded in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a> table, if they are used for analyses. However, this information is not always available.</p>
+<p>Conditions are defined by Concepts from the Condition domain, which form a complex hierarchy. As a result, the same Person with the same disease may have multiple Condition records, which belong to the same hierarchical family. Most Condition records are mapped from diagnostic codes, but recorded signs, symptoms and summary descriptions also contribute to this table. Rule out diagnoses should not be recorded in this table, but in reality their negating nature is not always captured in the source data, and other precautions must be taken when when identifying Persons who should suffer from the recorded Condition. Record all conditions as they exist in the source data. Any decisions about diagnosis/phenotype definitions would be done through cohort specifications. These cohorts can be housed in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">COHORT</a> table. Conditions span a time interval from start to end, but are typically recorded as single snapshot records with no end date. The reason is twofold: (i) At the time of the recording the duration is not known and later not recorded, and (ii) the Persons typically cease interacting with the healthcare system when they feel better, which leads to incomplete capture of resolved Conditions. The <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#condition_era">CONDITION_ERA</a> table addresses this issue. Family history and past diagnoses (‘history of’) are not recorded in this table. Instead, they are listed in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a> table. Codes written in the process of establishing the diagnosis, such as ‘question of’ of and ‘rule out’, should not represented here. Instead, they should be recorded in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a> table, if they are used for analyses. However, this information is not always available.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>Source codes and source text fields mapped to Standard Concepts of the Condition Domain have to be recorded here.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -2638,7 +2638,7 @@ visit_occurrence_id
 The visit during which the condition occurred.
 </td>
 <td style="text-align:left;width: 4in; ">
-Depending on the structure of the source data, this may have to be determined based on dates. If a CONDITION_START_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the Visit that subsumes it, even if not explictly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the CONDITION_OCCURRENCE record.
+Depending on the structure of the source data, this may have to be determined based on dates. If a CONDITION_START_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the Visit that subsumes it, even if not explicitly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the CONDITION_OCCURRENCE record.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -2778,7 +2778,7 @@ No
 <p><strong>User Guide</strong></p>
 <p>The purpose of records in this table is to indicate an exposure to a certain drug as best as possible. In this context a drug is defined as an active ingredient. Drug Exposures are defined by Concepts from the Drug domain, which form a complex hierarchy. As a result, one DRUG_SOURCE_CONCEPT_ID may map to multiple standard concept ids if it is a combination product. Records in this table represent prescriptions written, prescriptions dispensed, and drugs administered by a provider to name a few. The DRUG_TYPE_CONCEPT_ID can be used to find and filter on these types. This table includes additional information about the drug products, the quantity given, and route of administration.</p>
 <p><strong>ETL Conventions</strong></p>
-<p>Information about quantity and dose is provided in a variety of different ways and it is important for the ETL to provide as much information as possible from the data. Depending on the provenance of the data fields may be captured differently i.e. quantity for drugs adminstered may have a separate meaning from quantity for prescriptions dispensed. If a patient has multiple records on the same day for the same drug or procedures the ETL should not de-dupe them unless there is probable reason to believe the item is a true data duplicate. Take note on how to handle refills for prescriptions written.</p>
+<p>Information about quantity and dose is provided in a variety of different ways and it is important for the ETL to provide as much information as possible from the data. Depending on the provenance of the data fields may be captured differently i.e. quantity for drugs administered may have a separate meaning from quantity for prescriptions dispensed. If a patient has multiple records on the same day for the same drug or procedures the ETL should not de-dupe them unless there is probable reason to believe the item is a true data duplicate. Take note on how to handle refills for prescriptions written.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2956,7 +2956,7 @@ drug_exposure_end_date
 The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended for the patient.
 </td>
 <td style="text-align:left;width: 4in; ">
-If this information is not explicitly available in the data, infer the end date using the following methods:<br><br> 1. Start first with duration or days supply using the calculation drug start date + days supply -1 day. 2. Use quantity divided by daily dose that you may obtain from the sig or a source field (or assumed daily dose of 1) for solid, indivisibile, drug products. If quantity represents ingredient amount, quantity divided by daily dose * concentration (from drug_strength) drug concept id tells you the dose form. 3. If it is an administration record, set drug end date equal to drug start date. If the record is a written prescription then set end date to start date + 29. If the record is a mail-order prescription set end date to start date + 89. The end date must be equal to or greater than the start date. Ibuprofen 20mg/mL oral solution concept tells us this is oral solution. Calculate duration as quantity (200 example) * daily dose (5mL) /concentation (20mg/mL) 200*5/20 = 50 days. SHOW EXAMPLES BY DOSE FORM
+If this information is not explicitly available in the data, infer the end date using the following methods:<br><br> 1. Start first with duration or days supply using the calculation drug start date + days supply -1 day. 2. Use quantity divided by daily dose that you may obtain from the sig or a source field (or assumed daily dose of 1) for solid, indivisibile, drug products. If quantity represents ingredient amount, quantity divided by daily dose * concentration (from drug_strength) drug concept id tells you the dose form. 3. If it is an administration record, set drug end date equal to drug start date. If the record is a written prescription then set end date to start date + 29. If the record is a mail-order prescription set end date to start date + 89. The end date must be equal to or greater than the start date. Ibuprofen 20mg/mL oral solution concept tells us this is oral solution. Calculate duration as quantity (200 example) * daily dose (5mL) /concentration (20mg/mL) 200*5/20 = 50 days. SHOW EXAMPLES BY DOSE FORM
 </td>
 <td style="text-align:left;width: 1in; ">
 date
@@ -3117,7 +3117,7 @@ quantity
 <td style="text-align:left;width: 3in; ">
 </td>
 <td style="text-align:left;width: 4in; ">
-If liquid, quantity stands for the total amount dispensed or ordered of ingredient in the units given by the drug_strength table. If the unit from the source data does not align with the unit in the drug_strength table the quantity should be converted to the correct unit given in drug_strength. Clinical drugs with fixed dose forms (tablets etc.) the quantity is the number of units/tablets/capsules prescribed or dispensed (can be partial, but then only 1/2 or 1/3, not 0.01). Clinical drugs with divisible dose forms (injections) the quantity is the amount of ingredient the patient got. For example, if the injection is 2mg/mL but the patient got 80mL then quantity is reported as 160. Quantified clinical drugs with divisible dose forms (prefilled syringes), the quantity is the amount of ingredient similiar to clinical drugs.
+If liquid, quantity stands for the total amount dispensed or ordered of ingredient in the units given by the drug_strength table. If the unit from the source data does not align with the unit in the drug_strength table the quantity should be converted to the correct unit given in drug_strength. Clinical drugs with fixed dose forms (tablets etc.) the quantity is the number of units/tablets/capsules prescribed or dispensed (can be partial, but then only 1/2 or 1/3, not 0.01). Clinical drugs with divisible dose forms (injections) the quantity is the amount of ingredient the patient got. For example, if the injection is 2mg/mL but the patient got 80mL then quantity is reported as 160. Quantified clinical drugs with divisible dose forms (prefilled syringes), the quantity is the amount of ingredient similar to clinical drugs.
 </td>
 <td style="text-align:left;width: 1in; ">
 float
@@ -3735,7 +3735,7 @@ visit_occurrence_id
 The visit during which the procedure occurred.
 </td>
 <td style="text-align:left;width: 4in; ">
-Depending on the structure of the source data, this may have to be determined based on dates. If a PROCEDURE_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the Visit that subsumes it, even if not explictly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the PROCEDURE_OCCURRENCE record.
+Depending on the structure of the source data, this may have to be determined based on dates. If a PROCEDURE_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the Visit that subsumes it, even if not explicitly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the PROCEDURE_OCCURRENCE record.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -4753,7 +4753,7 @@ visit_occurrence_id
 The visit during which the Measurement occurred.
 </td>
 <td style="text-align:left;width: 4in; ">
-Depending on the structure of the source data, this may have to be determined based on dates. If a MEASUREMENT_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the visit that subsumes it, even if not explictly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the measurement record. If a measurement is related to a visit explicitly in the source data, it is possible that the result date of the Measurement falls outside of the bounds of the Visit dates.
+Depending on the structure of the source data, this may have to be determined based on dates. If a MEASUREMENT_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the visit that subsumes it, even if not explicitly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the measurement record. If a measurement is related to a visit explicitly in the source data, it is possible that the result date of the Measurement falls outside of the bounds of the Visit dates.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5016,7 +5016,7 @@ observation_concept_id
 The OBSERVATION_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies.
 </td>
 <td style="text-align:left;width: 4in; ">
-The CONCEPT_ID that the OBSERVATION_SOURCE_CONCEPT_ID maps to. There is no specified domain that the Concepts in this table must adhere to. The only rule is that records with Concepts in the Condition, Procedure, Drug, Measurement, or Device domans MUST go to the corresponding table.
+The CONCEPT_ID that the OBSERVATION_SOURCE_CONCEPT_ID maps to. There is no specified domain that the Concepts in this table must adhere to. The only rule is that records with Concepts in the Condition, Procedure, Drug, Measurement, or Device domains MUST go to the corresponding table.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5178,7 +5178,7 @@ value_as_concept_id
 It is possible that some records destined for the Observation table have two clinical ideas represented in one source code. This is common with ICD10 codes that describe a family history of some Condition, for example. In OMOP the Vocabulary breaks these two clinical ideas into two codes; one becomes the OBSERVATION_CONCEPT_ID and the other becomes the VALUE_AS_CONCEPT_ID. It is important when using the Observation table to keep this possibility in mind and to examine the VALUE_AS_CONCEPT_ID field for relevant information.
 </td>
 <td style="text-align:left;width: 4in; ">
-Note that the value of VALUE_AS_CONCEPT_ID may be provided through mapping from a source Concept which contains the content of the Observation. In those situations, the CONCEPT_RELATIONSHIP table in addition to the ‘Maps to’ record contains a second record with the relationship_id set to ‘Maps to value’. For example, ICD10 <a href="https://athena.ohdsi.org/search-terms/terms/45581076">Z82.4</a> ‘Family history of ischaemic heart disease and other diseases of the circulatory system’ has a ‘Maps to’ relationship to <a href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a> ‘Family history of clinical finding’ as well as a ‘Maps to value’ record to <a href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a> ‘Disorder of cardiovascular system’.
+Note that the value of VALUE_AS_CONCEPT_ID may be provided through mapping from a source Concept which contains the content of the Observation. In those situations, the CONCEPT_RELATIONSHIP table in addition to the ‘Maps to’ record contains a second record with the relationship_id set to ‘Maps to value’. For example, ICD10 <a href="https://athena.ohdsi.org/search-terms/terms/45581076">Z82.4</a> ‘Family history of ischemic heart disease and other diseases of the circulatory system’ has a ‘Maps to’ relationship to <a href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a> ‘Family history of clinical finding’ as well as a ‘Maps to value’ record to <a href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a> ‘Disorder of cardiovascular system’.
 </td>
 <td style="text-align:left;width: 1in; ">
 Integer
@@ -5291,7 +5291,7 @@ visit_occurrence_id
 The visit during which the Observation occurred.
 </td>
 <td style="text-align:left;width: 4in; ">
-Depending on the structure of the source data, this may have to be determined based on dates. If an OBSERVATION_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the visit that subsumes it, even if not explictly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the observation record. If an observation is related to a visit explicitly in the source data, it is possible that the result date of the Observation falls outside of the bounds of the Visit dates.
+Depending on the structure of the source data, this may have to be determined based on dates. If an OBSERVATION_DATE occurs within the start and end date of a Visit it is a valid ETL choice to choose the VISIT_OCCURRENCE_ID from the visit that subsumes it, even if not explicitly stated in the data. While not required, an attempt should be made to locate the VISIT_OCCURRENCE_ID of the observation record. If an observation is related to a visit explicitly in the source data, it is possible that the result date of the Observation falls outside of the bounds of the Visit dates.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5868,7 +5868,7 @@ note_class_concept_id
 A Standard Concept Id representing the HL7 LOINC Document Type Vocabulary classification of the note.
 </td>
 <td style="text-align:left;width: 4in; ">
-Map the note classification to a Standard Concept. For more information see the ETL Conventions in the description of the NOTE table. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;conceptClass=Doc+Kind&amp;conceptClass=Doc+Role&amp;conceptClass=Doc+Setting&amp;conceptClass=Doc+Subject+Matter&amp;conceptClass=Doc+Type+of+Service&amp;domain=Meas+Value&amp;page=1&amp;pageSize=15&amp;query=">Accepte Concepts</a>. This Concept can alternatively be represented by concepts with the relationship ‘Kind of (LOINC)’ to <a href="https://athena.ohdsi.org/search-terms/terms/706391">706391</a> (Note).
+Map the note classification to a Standard Concept. For more information see the ETL Conventions in the description of the NOTE table. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;conceptClass=Doc+Kind&amp;conceptClass=Doc+Role&amp;conceptClass=Doc+Setting&amp;conceptClass=Doc+Subject+Matter&amp;conceptClass=Doc+Type+of+Service&amp;domain=Meas+Value&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. This Concept can alternatively be represented by concepts with the relationship ‘Kind of (LOINC)’ to <a href="https://athena.ohdsi.org/search-terms/terms/706391">706391</a> (Note).
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5976,7 +5976,7 @@ language_concept_id
 The language of the note.
 </td>
 <td style="text-align:left;width: 4in; ">
-Use Concepts that are decendants of the concept <a href="https://athena.ohdsi.org/search-terms/terms/4182347">4182347</a> (World Languages).
+Use Concepts that are descendants of the concept <a href="https://athena.ohdsi.org/search-terms/terms/4182347">4182347</a> (World Languages).
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -7862,7 +7862,7 @@ No
 specialty_source_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-This is often zero as many sites use propietary codes to store physician speciality.
+This is often zero as many sites use proprietary codes to store physician speciality.
 </td>
 <td style="text-align:left;width: 4in; ">
 If the source data codes provider specialty in an OMOP supported vocabulary store the concept_id here.
@@ -7917,7 +7917,7 @@ No
 gender_source_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-This is often zero as many sites use propietary codes to store provider gender.
+This is often zero as many sites use proprietary codes to store provider gender.
 </td>
 <td style="text-align:left;width: 4in; ">
 If the source data codes provider gender in an OMOP supported vocabulary store the concept_id here.
@@ -10404,7 +10404,7 @@ CONCEPT_CLASS
 standard_concept
 </td>
 <td style="text-align:left;width: 3in; ">
-This flag determines where a Concept is a Standard Concept, i.e. is used in the data, a Classification Concept, or a non-standard Source Concept. The allowables values are ‘S’ (Standard Concept) and ‘C’ (Classification Concept), otherwise the content is NULL.
+This flag determines where a Concept is a Standard Concept, i.e. is used in the data, a Classification Concept, or a non-standard Source Concept. The allowable values are ‘S’ (Standard Concept) and ‘C’ (Classification Concept), otherwise the content is NULL.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
@@ -12132,7 +12132,7 @@ CONCEPT
 box_size
 </td>
 <td style="text-align:left;width: 3in; ">
-The number of units of Clinical Branded Drug or Quanitified Clinical or Branded Drug contained in a box as dispensed to the patient.
+The number of units of Clinical Branded Drug or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
