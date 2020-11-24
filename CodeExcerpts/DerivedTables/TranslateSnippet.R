@@ -1,5 +1,3 @@
-
-
 library(SqlRender);library(RCurl)
 
 #specify URL of sql code written in parametized SQL        (see some examples below)
@@ -27,7 +25,7 @@ ttb<-SqlRender::translateSql(tta$sql,targetDialect = 'postgresql')
 
 
 #write final SQL to a local file
-cat(ttb$sql,file='c:/temp/drug_era_2017.sql')
+cat(ttb$sql,file='temp_drug_era_2017.sql')
 sql<-ttb$sql
 
 
@@ -57,6 +55,3 @@ for (flavor in flavors){
   # sql<-ttb$sql
   
 }
-  
-  
-
