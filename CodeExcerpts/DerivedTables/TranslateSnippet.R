@@ -4,7 +4,7 @@ library(SqlRender);library(RCurl)
 
 #specify URL of sql code written in parametized SQL        (see some examples below)
 # url<-'https://raw.githubusercontent.com/OHDSI/CommonDataModel/master/Version4%20To%20Version5%20Conversion/OMOP%20CDMv4%20to%20CDMv5%20-%20OHDSI-SQL.sql'
-url<-'https://raw.githubusercontent.com/OHDSI/Achilles/master/inst/sql/sql_server/export_v5/drugera/sqlPrevalenceByGenderAgeYear.sql'
+url<-'https://raw.githubusercontent.com/OHDSI/Achilles/master/inst/sql/sql_server/export/drugera/sqlPrevalenceByGenderAgeYear.sql'
 
 #get the code
 sql<-getURL(url)
@@ -32,10 +32,6 @@ sql<-ttb$sql
 
 
 
-
-
-
-
 #loop for making flavors
 
 fname<-'GenerateEra.sql'
@@ -46,8 +42,8 @@ flavors<-c(
 ,'redshift'
 ,'impala'
 ,'netezza'
-,'bigquery')
-#,'sql server')
+,'bigquery'
+,'sql server')
 
 
 
