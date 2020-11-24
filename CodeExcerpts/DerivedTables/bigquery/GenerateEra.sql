@@ -314,7 +314,7 @@ SELECT
 c.person_id
 	,c.condition_concept_id
 	,c.condition_start_datetime
-	,min(e.end_date) as era_end_datetime
+	,min(e.end_datetime) as era_end_datetime
 
 FROM
 n7cbw799cteconditiontarget c
