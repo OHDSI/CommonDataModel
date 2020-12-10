@@ -11,7 +11,7 @@
 
 
 
-<title>index.utf8</title>
+<title>Ask A Question</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -252,6 +255,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -259,6 +325,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -394,32 +470,28 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> OMOP Common Data Model
-</div></h1>
+<h1 class="title toc-ignore">Ask A Question</h1>
 
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the <a href="https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:cdm-wg">OHDSI CDM Working Group</a>. Through the end of 2019 and into 2020 our goal was to fully update the documentation in an effort to facilitate greater understanding of the model. Almost every <a href="https://www.forums.ohdsi.org">forum post</a> relating to a question on how to map data into the CDM inevitably referenced the (now outdated) technical and difficult-to-understand explanations of the tables and fields currently on the wiki. To remedy we focused on one or two tables each month, diving fully into the user guidance and ETL specifications. The results of our efforts can be seen on the pages detailing <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html">v5.3.1</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html">v6.0</a>.</p>
-<p>In addition to documentation the formal remit of the CDM Working Group is to hear proposals for change, ratifying only those with valid use cases and data to support them. This process will be slower through 2020 though proposals related to existing CDM tables will be considered during the months those tables are being updated. For example November 2019 will be focused on the PERSON and OBSERVATION_PERIOD tables so any proposals related to those two tables will be evaluated during November 2019. Once proposals are accepted they are listed as such and will be integrated in an upcoming version of the OMOP CDM. Currently accepted proposals can be found under the “Proposals” drop down across the top.</p>
-<div id="cdm-wg-meeting-information" class="section level3">
-<h3>CDM WG Meeting Information</h3>
-<p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> This was recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
+<div id="check-the-forum" class="section level1">
+<h1>Check the Forum</h1>
+<p>Chances are someone else has already asked your question on the <a href="https:\forums.ohdsi.org">forum</a> and it has been answered.</p>
 </div>
-<div id="cdm-wg-important-links" class="section level3">
-<h3>CDM WG Important Links</h3>
-<ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
-<li><a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm:cdm_process">Process for adopting CDM and Vocabulary changes</a></li>
-</ul>
+<div id="check-the-issue-log" class="section level1">
+<h1>Check the Issue Log</h1>
+<p>If you think you’ve found a bug you can check to see if someone also had that same problem on our <a href="https://github.com/ohdsi/commondatamodel/issues">issue page</a> of the Common Data Model github. If you don’t see your issue feel free to open one. Try and be as specific as possible. What error message occurs? Can you provide a simple example as to why you are requesting a change to the model?</p>
+</div>
+<div id="join-meetings" class="section level1">
+<h1>Join meetings</h1>
+<p>Please come to meetings, ask your question and contribute to the discussion! All details can be found on our <a href="https://ohdsi.github.io/CommonDataModel/">home page</a>.</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -452,6 +524,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

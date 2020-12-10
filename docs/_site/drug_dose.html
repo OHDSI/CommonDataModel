@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Clair Blacketer" />
 
+<meta name="date" content="2020-10-06" />
 
-<title>index.utf8</title>
+<title>drug_dose.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -394,28 +396,15 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> OMOP Common Data Model
-</div></h1>
 
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the <a href="https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:cdm-wg">OHDSI CDM Working Group</a>. Through the end of 2019 and into 2020 our goal was to fully update the documentation in an effort to facilitate greater understanding of the model. Almost every <a href="https://www.forums.ohdsi.org">forum post</a> relating to a question on how to map data into the CDM inevitably referenced the (now outdated) technical and difficult-to-understand explanations of the tables and fields currently on the wiki. To remedy we focused on one or two tables each month, diving fully into the user guidance and ETL specifications. The results of our efforts can be seen on the pages detailing <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html">v5.3.1</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html">v6.0</a>.</p>
-<p>In addition to documentation the formal remit of the CDM Working Group is to hear proposals for change, ratifying only those with valid use cases and data to support them. This process will be slower through 2020 though proposals related to existing CDM tables will be considered during the months those tables are being updated. For example November 2019 will be focused on the PERSON and OBSERVATION_PERIOD tables so any proposals related to those two tables will be evaluated during November 2019. Once proposals are accepted they are listed as such and will be integrated in an upcoming version of the OMOP CDM. Currently accepted proposals can be found under the “Proposals” drop down across the top.</p>
-<div id="cdm-wg-meeting-information" class="section level3">
-<h3>CDM WG Meeting Information</h3>
-<p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> This was recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
-</div>
-<div id="cdm-wg-important-links" class="section level3">
-<h3>CDM WG Important Links</h3>
-<ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
-<li><a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm:cdm_process">Process for adopting CDM and Vocabulary changes</a></li>
-</ul>
+<div id="how-to-calculate-drug-dose" class="section level1">
+<h1><strong>How to Calculate Drug Dose</strong></h1>
+<p>These conventions have been curated to show how to consider calculating cumulative and daily drug dose for a given exposure record. These are high-level examples meant to demonstrate how one might use the DRUG_STRENGTH table and they do not take into account switching or stockpiling.</p>
+<p><strong>1. Tablets and other fixed amount formulations</strong><br><br> <strong>Example</strong>: Acetaminophen (Paracetamol) 500 mg, 20 tablets.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is empty<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to number of pieces, e.g. tablets.<br> <em>In the example</em>: 20<br> <code>Ingredient dose= quantity x amount_value [amount_unit_concept_id]</code><br> Acetaminophen dose = 20 x 500mg = 10,000mg<br> Daily dose = Acetaminophen dose/drug duration<br><br></p>
+<p><strong>2. Puffs of an inhaler</strong><br><br> <strong>Note</strong>: There is no difference to use case 1 above besides that the DRUG_STRENGTH table may put {actuat} in the denominator unit. In this case the strength is provided in the numerator.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is {actuat}<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the number of pieces, e.g. puffs<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> Daily dose = Ingredient dose/drug duration<br><br> <strong>3. Quantified Drugs which are formulated as a concentration</strong><br><br> <strong>Example</strong>: The Clinical Drug is Acetaminophen 250 mg/mL in a 5mL oral suspension. The Quantified Clinical Drug would have 1250 mg / 5 ml in the DRUG_STRENGTH table. Two suspensions are dispensed.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or mL. The denominator_value might be different from 1.<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to a fraction or multiple of the pack.<br> <em>In the example</em>: 2<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> <em>Acetaminophen dose</em> = 2 x 1250mg = 2500mg<br> Daily dose = Acetaminophen dose/drug duration<br><br> <strong>4. Drugs with the total amount provided in quantity, e.g. chemotherapeutics</strong><br><br> <strong>Example</strong>: 42799258 “Benzyl Alcohol 0.1 ML/ML / Pramoxine hydrochloride 0.01 MG/MG Topical Gel” dispensed in a 1.25oz pack.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or mL.<br> <strong>Example</strong>: Benzyl Alcohol in mL and Pramoxine hydrochloride in mg<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to mL or g.<br> <strong>Example</strong>: 1.25 x 30 <em>(conversion factor oz -&gt; mL)</em> = 37<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> <em>Benzyl Alcohol dose</em> = 37 x 0.1mL = 3.7mL<br> Daily dose = Benzyl Alcohol dose/drug duration<br> <em>Pramoxine hydrochloride dose</em> = 37 x 0.01mg x 1000 = 370mg<br> Daily dose = Pramoxine hydrochloride dose/drug duration<br><br> <strong>Note</strong>: The analytical side should check the denominator in the DRUG_STRENGTH table. As mg is used for the second ingredient the factor 1000 will be applied to convert between g and mg.<br><br> <strong>5. Compounded drugs</strong><br><br> <strong>Example</strong>: Ibuprofen 20%/Piroxicam 1% Cream, 30ml in 5ml tubes.<br> <strong>DRUG_STRENGTH</strong> We need entries for the ingredients of Ibuprofen and Piroxicam, probably with an amount_value of 1 and a unit of mg.<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the total amount of the compound. Use one record in the DRUG_EXPOSURE table for each compound.<br> <strong>Example</strong>: 20% Ibuprofen of 30ml = 6mL, 1% Piroxicam of 30ml = 0.3mL<br> <code>Ingredient dose= Depends on the drugs involved: One of the use cases above.</code> <em>Ibuprofen dose</em> = 6 x 1mg x 1000 = 6000mg<br> Daily dose = Ibuprofen dose/drug duration<br> <em>Piroxicam dose</em> = 0.3 x 1mg x 1000 = 300mg<br> Daily dose = Piroxicam dose/drug duration<br> <strong>Note</strong>: The analytical side determines that the denominator for both ingredients in the DRUG_STRENGTH table is mg and applies the factor 1000 to convert between mL/g and mg.<br><br> <strong>6. Drugs with the active ingredient released over time, e.g. patches</strong><br><br> <strong>Example</strong>: Ethinyl Estradiol 0.000833 MG/HR / norelgestromin 0.00625 MG/HR Weekly Transdermal Patch<br> <strong>DRUG_STRENGTH</strong> The denominator units refer to hour.<br> <strong>Example</strong>: Ethinyl Estradiol 0.000833 mg/h / norelgestromin 0.00625 mg/h<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the number of pieces.<br> <strong>Example</strong>: 1 patch<br> <code>Ingredient rate= numerator_value [numerator_unit_concept_id]</code><br> <em>Ethinyl Estradiol rate</em> = 0.000833 mg/h<br> <em>norelgestromin rate</em> 0.00625 mg/h<br> <strong>Note</strong>: This can be converted to a daily dosage by multiplying it with 24. (Assuming 1 patch at a time for at least 24 hours)</p>
 </div>
 
 
