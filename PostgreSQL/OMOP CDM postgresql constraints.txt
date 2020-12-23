@@ -294,6 +294,8 @@ ALTER TABLE measurement ADD CONSTRAINT fpk_measurement_concept_s FOREIGN KEY (me
 
 ALTER TABLE note ADD CONSTRAINT fpk_note_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
 
+ALTER TABLE note ADD CONSTRAINT fpk_note_event_field_concept FOREIGN KEY (note_event_field_concept_id)  REFERENCES concept (concept_id);
+
 ALTER TABLE note ADD CONSTRAINT fpk_note_type_concept FOREIGN KEY (note_type_concept_id)  REFERENCES concept (concept_id);
 
 ALTER TABLE note ADD CONSTRAINT fpk_note_class_concept FOREIGN KEY (note_class_concept_id) REFERENCES concept (concept_id);
@@ -337,6 +339,9 @@ ALTER TABLE observation ADD CONSTRAINT fpk_observation_visit FOREIGN KEY (visit_
 ALTER TABLE observation ADD CONSTRAint fpk_observation_v_detail FOREIGN KEY (visit_detail_id) REFERENCES visit_detail (visit_detail_id);
 
 ALTER TABLE observation ADD CONSTRAINT fpk_observation_concept_s FOREIGN KEY (observation_source_concept_id)  REFERENCES concept (concept_id);
+
+ALTER TABLE observation ADD CONSTRAINT fpk_obs_event_field_concept FOREIGN KEY (obs_event_field_concept_id)  REFERENCES concept (concept_id);
+
 
 
 ALTER TABLE survey_conduct ADD CONSTRAINT fpk_survey_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
@@ -432,6 +437,8 @@ ALTER TABLE payer_plan_period ADD CONSTRAINT fpk_stop_reason_s FOREIGN KEY (stop
 
 
 ALTER TABLE cost ADD CONSTRAINT fpk_cost_person FOREIGN KEY (person_id)  REFERENCES person (person_id);
+
+ALTER TABLE cost ADD CONSTRAINT fpk_cost_event_field_concept FOREIGN KEY (cost_event_field_concept_id)  REFERENCES concept (concept_id);
 
 ALTER TABLE cost ADD CONSTRAINT fpk_cost_concept FOREIGN KEY (cost_concept_id)  REFERENCES concept (concept_id);
 
