@@ -512,7 +512,7 @@ CREATE TABLE observation
   value_as_number				    NUMERIC			NULL ,
   value_as_string				    VARCHAR(60)		NULL ,
   value_as_concept_id			    INTEGER			NULL ,
-  qualifier_concept_id			    INTEGER			NULL ,
+  qualifier_concept_id			    INTEGER			NOT NULL ,
   unit_concept_id				    INTEGER			NULL ,
   provider_id					    BIGINT			NULL ,
   visit_occurrence_id			    BIGINT			NULL ,
@@ -638,7 +638,7 @@ CREATE TABLE provider
   gender_concept_id				INTEGER			NOT NULL ,
   provider_source_value			VARCHAR(50)		NULL ,
   specialty_source_value		VARCHAR(50)		NULL ,
-  specialty_source_concept_id	INTEGER			NULL ,
+  specialty_source_concept_id	INTEGER			NOT NULL ,
   gender_source_value			VARCHAR(50)		NULL ,
   gender_source_concept_id		INTEGER			NOT NULL
 )

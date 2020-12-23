@@ -501,7 +501,7 @@ CREATE TABLE observation
   value_as_number				    FLOAT			NULL ,
   value_as_string				    VARCHAR(60)		NULL ,
   value_as_concept_id			    INTEGER			NULL ,
-  qualifier_concept_id			    INTEGER			NULL ,
+  qualifier_concept_id			    INTEGER			NOT NULL ,
   unit_concept_id				   	INTEGER			NULL ,
   provider_id					    INTEGER			NULL ,
   visit_occurrence_id			    BIGINT			NULL ,
