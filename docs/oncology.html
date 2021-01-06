@@ -13,6 +13,7 @@
 
 <title>Oncology Extension</title>
 
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -28,6 +29,15 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -73,6 +83,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -353,27 +364,27 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
 <li>
   <a href="background.html">
-    <span class="fa fa-landmark"></span>
+    <span class="fas fa-landmark"></span>
      
     Background
   </a>
 </li>
 <li>
   <a href="dataModelConventions.html">
-    <span class="fa fa-list-alt"></span>
+    <span class="fas fa-list-alt"></span>
      
     Conventions
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-history"></span>
+    <span class="fas fa-history"></span>
      
     CDM Versions
      
@@ -390,7 +401,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-plus-square"></span>
+    <span class="fas fa-plus-square"></span>
      
     Proposals
      
@@ -418,7 +429,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-question"></span>
+    <span class="fas fa-question"></span>
      
     Help
      
@@ -435,7 +446,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-wrench"></span>
+    <span class="fas fa-wrench"></span>
      
     How to
      
@@ -457,7 +468,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -480,7 +491,7 @@ div.tocify {
 <p>This documentation details the ratified proposal of adding an oncology extension to the OMOP CDM. These tables and fields will become part of the next release (v6.1) of the Common Data Model. Below are their descriptions; showing <em>additions</em> to the model only. For example, two fields were added to the MEASUREMENT table as part of this extension so only those two fields are listed below for MEASUREMENT instead of the entire table. For more information, please see the <a href="https://github.com/OHDSI/OncologyWG/wiki">OMOP Oncology wiki site</a>.</p>
 <p>The DDLs for these tables are located on the Oncology github, as detailed in the <a href="https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation">installation instructions</a>.</p>
 <div id="episode" class="section level3 tabset tabset-pills">
-<h3>EPISODE</h3>
+<h3 class="tabset tabset-pills">EPISODE</h3>
 <p><strong>Table Description</strong></p>
 <p>The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases/outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -840,7 +851,7 @@ CONCEPT
 </table>
 </div>
 <div id="episode_event" class="section level3 tabset tabset-pills">
-<h3>EPISODE_EVENT</h3>
+<h3 class="tabset tabset-pills">EPISODE_EVENT</h3>
 <p><strong>Table Description</strong></p>
 <p>The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. The EPISODE_EVENT table supports the linkage of an EPISODE abstraction to the low-level clinical events that implement the EPISODE abstraction.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -973,7 +984,7 @@ Metadata
 </table>
 </div>
 <div id="measurement" class="section level3 tabset tabset-pills">
-<h3>MEASUREMENT</h3>
+<h3 class="tabset tabset-pills">MEASUREMENT</h3>
 <p><strong>Table Description</strong></p>
 <p>The MEASUREMENT table contains records of Measurement, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person’s sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID).</p>
 <p><strong>User Guide</strong></p>
@@ -1076,7 +1087,7 @@ Metadata
 </table>
 </div>
 <div id="concept_numeric" class="section level3 tabset tabset-pills">
-<h3>CONCEPT_NUMERIC</h3>
+<h3 class="tabset tabset-pills">CONCEPT_NUMERIC</h3>
 <p><strong>Table Description</strong></p>
 <p>In this table, numeric values, units and math operators indicating range limits (less than) corresponding to “numeric” concepts will be stored. It is an extension of the OMOP CDM and vocabulary that supports formal representation of concepts containing numeric values or ranges. This proposal has not yet been ratified by a larger CDM Workgroup. However, it plays a critical role in supporting ETL from tumor registries. NAACCR vocabulary includes concepts representing numeric values or numeric ranges. Often, these concepts also contain measurement units. For example, “Described as less than 1 centimeter (cm)”. In OMOP CDM, these concepts are normally used in Measurement and Observation tables to store value_as_concept_id. Analysis of these data is currently possible only if the user knows exactly which concepts are used to represent range or value, including their respective units. It is not possible to perform analysis on numeric values of these data, nor is it possible to differentiate numeric values by units.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -1246,7 +1257,7 @@ CONCEPT
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1285,7 +1296,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
