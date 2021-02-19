@@ -368,12 +368,22 @@ div.tocify {
      
   </a>
 </li>
-<li>
-  <a href="background.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-landmark"></span>
      
     Background
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="dataModelConventions.html">
@@ -391,6 +401,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
     <li>
       <a href="cdm531.html">CDM v5.3.1</a>
     </li>
@@ -4650,7 +4663,7 @@ CONCEPT
 unit_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-There is currently no vocabulary link between measurement Concepts and unit Concepts, the UNIT_CONCEPT_ID is a representation of the units as provided by the source data after ETL clean up.
+There is currently no recommended unit for individual measurements, i.e. it is not mandatory to represent Hemoglobin a1C measurements as a percentage. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;width: 4in; ">
 There is no standardization requirement for units associated with MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
@@ -5242,7 +5255,7 @@ CONCEPT
 unit_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-There is currently no vocabulary link between observation Concepts and unit Concepts, the UNIT_CONCEPT_ID is a representation of the units as provided by the source data after ETL clean up.
+There is currently no recommended unit for individual observation concepts. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;width: 4in; ">
 There is no standardization requirement for units associated with OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
@@ -6963,7 +6976,7 @@ No
 <div id="fact_relationship" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">FACT_RELATIONSHIP</h3>
 <p><strong>Table Description</strong></p>
-<p>The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: Person relationships (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).</p>
+<p>The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: <a href="https://athena.ohdsi.org/search-terms/terms?domain=Relationship&amp;standardConcept=Standard&amp;page=2&amp;pageSize=15&amp;query=">Person relationships</a> (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).</p>
 <p><strong>ETL Conventions</strong></p>
 <p>All relationships are directional, and each relationship is represented twice symmetrically within the FACT_RELATIONSHIP table. For example, two persons if person_id = 1 is the mother of person_id = 2 two records are in the FACT_RELATIONSHIP table (all strings in fact concept_id records in the Concept table: - Person, 1, Person, 2, parent of - Person, 2, Person, 1, child of</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">

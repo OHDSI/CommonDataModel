@@ -368,12 +368,22 @@ div.tocify {
      
   </a>
 </li>
-<li>
-  <a href="background.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-landmark"></span>
      
     Background
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="dataModelConventions.html">
@@ -391,6 +401,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
     <li>
       <a href="cdm531.html">CDM v5.3.1</a>
     </li>
@@ -531,7 +544,7 @@ div.tocify {
 <h2><strong>Era Tables</strong></h2>
 <div id="condition-eras" class="section level3">
 <h3>Condition Eras</h3>
-<p>This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have &lt;= 30 days between them into eras during which the Person is assumed to have the given condition.</p>
+<p>This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have &lt;= 30 days between them into eras during which the Person is assumed to have the given condition. <strong>NOTE</strong> This query only works with 5.3 and below.</p>
 <pre class="sql"><code>/****************************************************
 OHDSI-SQL File Instructions
 -----------------------------
@@ -702,7 +715,7 @@ GROUP BY person_id
 </div>
 <div id="drug-eras" class="section level3">
 <h3>Drug Eras</h3>
-<p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table.</p>
+<p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. <strong>NOTE</strong> This query only works with 5.3 and below.</p>
 <pre class="sql"><code>
 /****************************************************
 OHDSI-SQL File Instructions
@@ -757,7 +770,7 @@ INTO #cteDrugTarget
 FROM @TARGET_CDMV5_SCHEMA.DRUG_EXPOSURE d
 INNER JOIN @TARGET_CDMV5_SCHEMA.CONCEPT_ANCESTOR ca ON ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
 INNER JOIN @TARGET_CDMV5_SCHEMA.CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
-WHERE c.VOCABULARY_ID = &#39;RxNorm&#39;
+WHERE c.DOMAIN_ID = &#39;Drug&#39;
     AND c.CONCEPT_CLASS_ID = &#39;Ingredient&#39;;
 
 /* / */
@@ -871,6 +884,38 @@ GROUP BY person_id
     ,drug_type_concept_id
     ,ERA_END_DATE;
 </code></pre>
+</div>
+</div>
+<div id="example-etl-script" class="section level2">
+<h2><strong>Example ETL Script</strong></h2>
+<div id="cdm_source-table" class="section level3">
+<h3>CDM_SOURCE Table</h3>
+<p>The script below is an example for how to fill in the CDM_SOURCE table. This table is required for the <a href="https://github.com/OHDSI/DataQualityDashboard">Data Quality Dashboard</a> package to run. This was taken from the <a href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import.</p>
+<pre class="sql"><code>insert into @cdm_schema.cdm_source (
+cdm_source_name,
+cdm_source_abbreviation,
+cdm_holder,
+source_description,
+source_documentation_reference,
+cdm_etl_reference,
+source_release_date,
+cdm_release_date,
+cdm_version,
+vocabulary_version
+) 
+select
+&#39;Synthea synthetic health database&#39;,
+&#39;Synthea&#39;,
+&#39;OHDSI Community&#39;,
+&#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
+&#39;https://synthetichealth.github.io/synthea/&#39;,
+&#39;https://github.com/OHDSI/ETL-Synthea&#39;,
+getdate(), -- NB: Set this value to the day the source data was pulled
+getdate(), 
+&#39;v5.3&#39;,
+vocabulary_version
+from @cdm_schema.vocabulary 
+where vocabulary_id = &#39;None&#39;;</code></pre>
 </div>
 </div>
 <div id="bonus-queries" class="section level2">

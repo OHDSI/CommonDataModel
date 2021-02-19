@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>How the Vocabulary is Built</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fas fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-landmark"></span>
+     
+    Background
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="dataModelConventions.html">
+    <span class="fas fa-list-alt"></span>
+     
+    Conventions
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-history"></span>
+     
+    CDM Versions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
+    <li>
+      <a href="cdm531.html">CDM v5.3.1</a>
+    </li>
+    <li>
+      <a href="cdm60.html">CDM v6.0</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-plus-square"></span>
+     
+    Proposals
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="reviewProposals.html">Under Review</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="oncology.html">Oncology CDM Proposal</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+        </li>
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-question"></span>
+     
+    Help
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="faq.html">FAQ</a>
+    </li>
+    <li>
+      <a href="contribute.html">Ask a Question</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-wrench"></span>
+     
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="sqlScripts.html">SQL Scripts</a>
+    </li>
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/OHDSI/CommonDataModel">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">How the Vocabulary is Built</h1>
+
+</div>
+
+
+<div id="mapping-of-concepts" class="section level1">
+<h1>Mapping of Concepts</h1>
+<ul>
+<li><strong>Mapping</strong>, also known as <strong>a map</strong>, is an association between a particular concept in one code system or</li>
+<li>dataset and code in another, rarely the same, code system that has the same (or similar) meaning.</li>
+<li>Also, <strong>Mapping</strong> is the process to transform one concept into a Standard one. The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts.</li>
+<li>Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:</li>
+</ul>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="38%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Relationship ID</th>
+<th>Purpose</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Maps to</strong></td>
+<td>Mapping a Source Concept to a Standard Concept to be placed into the following fields of Standardized Clinical Data Tables <br> <strong>condition_concept_id</strong><br> <strong>observation_concept_id</strong><br><strong>measurement_concept_id</strong><br><strong>drug_concept_id</strong><br><strong>procedure_concept_id</strong><br><strong>device_concept_id</strong> Note, that this relationship is also used for mapping of concepts to populate <strong>value_as_concept_id</strong></td>
+<td>- Stands for either a full equivalence or an “uphill” mapping (mapping to a more general semantic category)<br><br>- Can be single or multiple for each Source Concept</td>
+</tr>
+<tr class="even">
+<td><strong>Maps to value</strong></td>
+<td>A special mapping between a Source Concept and a Standard Concept to be placed into the <strong>value_as_concept_id</strong> field of the MEASUREMENT and OBSERVATION tables</td>
+<td>- Points to a concept, indicating the value of Measurements or content of Observations<br><br> - Is used only in combination with a single “Maps to”</td>
+</tr>
+</tbody>
+</table>
+<div id="maps-to-relationships" class="section level2">
+<h2>“Maps to” Relationships</h2>
+<ul>
+<li>Concepts participating in the “Maps to” mapping are Source (Non-standard) Concepts and Standard Concepts.</li>
+<li>The mapping always attempts to reflect the semantics of a Source Concept by an Equivalent Standard Concept.</li>
+<li>Equivalent carries the same meaning, covers the same semantic space, and, importantly, has the same parents and children in the hierarchy (if there are any) as well. If an equivalent Concept is not available, the mapping matches to a more generic Standard Concept(s). This ensures that a query in the target vocabulary will retrieve the same records as if they were queried in the original source vocabulary.</li>
+<li>Source Concepts are mapped or may be mapped to one or several Standard Concepts. If they are mapped to more than one Standard Concept, in the resulting CDM table, there is more than one record for each record in the source.</li>
+<li>Standard Concepts are also mapped to Standard Concepts via “Maps to”, this is a mapping to itself.</li>
+<li>If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the [[<a href="https://forums.ohdsi.org/c/vocabulary-users%7COHDSI" class="uri">https://forums.ohdsi.org/c/vocabulary-users|OHDSI</a> Forum]] and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.</li>
+<li>If there are 2 similar Standard concepts within SNOMED, look at the domain (Morphologic abnormality is an Observation, Clinical finding is a Condition), revise attributes and hierarchy of both concepts (its number, fullness, and correctness). It is not necessary to compare the amount of relationships/children precisely, just verify that all seems appropriate and the hierarchy is rich enough. If it does for both concepts, then choose concepts belonging to SNOMED International (short concept codes) rather than SNOMED US/UK Editions (long concept codes). If the length of concept codes is identical, then choose the one with a smaller number of concept_id.</li>
+</ul>
+<p><strong>Note!</strong> Classification Concepts (standard_concept=‘C’) do not have a mapping to a Standard Concept.</p>
+<div id="examples-of-usage" class="section level3">
+<h3>Examples of usage:</h3>
+<p><strong>Single “Maps to” for mapping to an Equivalent Standard Concept</strong></p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source Concept Code</th>
+<th>Source Concept Name</th>
+<th>Relationship ID</th>
+<th>Standard Concept ID</th>
+<th>Standard Concept Code</th>
+<th>Standard Concept Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M65.3</td>
+<td>Trigger finger</td>
+<td>Maps to</td>
+<td>763891</td>
+<td>448251000124102</td>
+<td>Trigger finger</td>
+</tr>
+<tr class="even">
+<td>A06</td>
+<td>Amebiasis</td>
+<td>Maps to</td>
+<td>438959</td>
+<td>111910009</td>
+<td>Amebic infection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Single “Maps to” for mapping to a Non-equivalent Standard Concept</strong></p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source Concept Code</th>
+<th>Source Concept Name</th>
+<th>Relationship ID</th>
+<th>Standard Concept ID</th>
+<th>Standard Concept Code</th>
+<th>Standard Concept Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D46.5</td>
+<td>Refractory anaemia with multi-lineage dysplasia</td>
+<td>Maps to</td>
+<td>4003185</td>
+<td>109996008</td>
+<td>Refractory anemia</td>
+</tr>
+<tr class="even">
+<td>M81.50</td>
+<td>Idiopathic osteoporosis, multiple sites</td>
+<td>Maps to</td>
+<td>81390</td>
+<td>3345002</td>
+<td>Idiopathic osteoporosis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Multiple “Maps to” for mapping to several Standard Concepts fully covering semantic space of a Source Concept</strong></p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source Concept Code</th>
+<th>Source Concept Name</th>
+<th>Relationship ID</th>
+<th>Standard Concept ID</th>
+<th>Standard Concept Code</th>
+<th>Standard Concept Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S61.1</td>
+<td>Open wound of finger(s) with damage to nail</td>
+<td>Maps to</td>
+<td>4054063</td>
+<td>125653000</td>
+<td>Open wound of finger</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>4167909</td>
+<td>275320004</td>
+<td>Injury of nail</td>
+</tr>
+<tr class="odd">
+<td>I26.0</td>
+<td>Pulmonary embolism with mention of acute cor pulmonale</td>
+<td>Maps to</td>
+<td>440417</td>
+<td>59282003</td>
+<td>Pulmonary embolism</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>312927</td>
+<td>49584005</td>
+<td>Acute cor pulmonale</td>
+</tr>
+<tr class="odd">
+<td>G44.311</td>
+<td>Acute post-traumatic headache, intractable</td>
+<td>Maps to</td>
+<td>42535403</td>
+<td>290431000119101</td>
+<td>Intractable headache following trauma</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>44782681</td>
+<td>122751000119105</td>
+<td>Acute posttraumatic headache</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Multiple “Maps to” for mapping to several Standard Concepts partially covering semantic space of a Source Concept</strong></p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source Concept Code</th>
+<th>Source Concept Name</th>
+<th>Relationship ID</th>
+<th>Standard Concept ID</th>
+<th>Standard Concept Code</th>
+<th>Standard Concept Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V01.11</td>
+<td>Pedestrian on roller-skates injured in collision with pedal cycle in traffic accident</td>
+<td>Maps to</td>
+<td>442247</td>
+<td>215142005</td>
+<td>Pedal cycle accident involving collision between pedal cycle and pedestrian, pedestrian injured</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>441188</td>
+<td>32906002</td>
+<td>Victim, pedestrian in vehicular AND/OR traffic accident</td>
+</tr>
+<tr class="odd">
+<td>T36.1x4</td>
+<td>Poisoning by cephalosporins and other beta-lactam antibiotics, undetermined</td>
+<td>Maps to</td>
+<td>4303975</td>
+<td>419347003</td>
+<td>Poisoning by antibacterial drug</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>4055774</td>
+<td>242975003</td>
+<td>Poisoning of undetermined intent by drug</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="maps-to-value-relationships" class="section level2">
+<h2>“Maps to value” Relationships</h2>
+<p>To preserve the meaning of Source concepts indicating values of Measurements or content of Observations, “Maps to” are complemented with a comprehensive set of “Maps to value” relationships. Such mappings are considered to be equivalent. There are the following semantic groups of Source concepts which are mapped in such a way:</p>
+<ul>
+<li>Conditions indicating abnormal levels of tests</li>
+<li>Encounter for a procedure and an aftercare</li>
+<li>Conditions resulting from the use of devices</li>
+<li>Need for an immunization</li>
+<li>Personal history of a condition</li>
+<li>Family history of a condition</li>
+<li>Personal history of medical treatment or procedure</li>
+<li>Status of a transplant/prosthesis presence</li>
+<li>Patient encounter procedures, not carried out</li>
+</ul>
+<p><strong>Examples of usage:</strong></p>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Case #</th>
+<th>Source Concept Code</th>
+<th>Source Concept Name</th>
+<th>Relationship ID</th>
+<th>Standard Concept Code</th>
+<th>Standard Concept Name</th>
+<th>Standard Concept Domain ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>R77.0</td>
+<td>Abnormality of albumin</td>
+<td>Maps to</td>
+<td>26758005</td>
+<td>Albumin measurement</td>
+<td>Measurement</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>263654008</td>
+<td>Abnormal</td>
+<td>Spec Disease Status</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Z47.0</td>
+<td>Follow-up care involving removal of fracture plate and other internal fixation device</td>
+<td>Maps to</td>
+<td>390906007</td>
+<td>Follow-up encounter</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>72010008</td>
+<td>Removal of internal fixation device</td>
+<td>Procedure</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Y71</td>
+<td>Cardiovascular devices associated with adverse incidents</td>
+<td>Maps to</td>
+<td>269691005</td>
+<td>Medical accidents to patients during surgical and medical care</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>303476002</td>
+<td>Cardiovascular equipment</td>
+<td>Device</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Z23.2</td>
+<td>Need for immunization against tuberculosis [BCG]</td>
+<td>Maps to</td>
+<td>723620004</td>
+<td>Requires vaccination</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>42284007</td>
+<td>BCG vaccination</td>
+<td>Procedure</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Z86.4</td>
+<td>Personal history of psychoactive substance abuse</td>
+<td>Maps to</td>
+<td>417662000</td>
+<td>History of clinical finding in subject</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>91388009</td>
+<td>Psychoactive substance abuse</td>
+<td>Condition</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Z84.1</td>
+<td>Family history of disorders of kidney and ureter</td>
+<td>Maps to</td>
+<td>416471007</td>
+<td>Family history of clinical finding</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>443820000</td>
+<td>Disorder of kidney and/or ureter</td>
+<td>Condition</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Z92.2</td>
+<td>Personal history of long-term (current) use of other medicaments</td>
+<td>Maps to</td>
+<td>416940007</td>
+<td>Past history of procedure</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>266713003</td>
+<td>Long-term drug therapy</td>
+<td>Procedure</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Z96.3</td>
+<td>Presence of artificial larynx</td>
+<td>Maps to</td>
+<td>416940007</td>
+<td>Past history of procedure</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>27926003</td>
+<td>Construction of artificial larynx</td>
+<td>Procedure</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Z53.2</td>
+<td>Procedure not carried out because of patient’s decision for other and unspecified reasons</td>
+<td>Maps to</td>
+<td>416237000</td>
+<td>Procedure not done</td>
+<td>Observation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td>Maps to value</td>
+<td>105480006</td>
+<td>Refusal of treatment by patient</td>
+<td>Observation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="losses-in-mapping" class="section level2">
+<h2>“Losses” in Mapping</h2>
+<p><strong>1. The hierarchical discrepancy between Source and Standard Vocabularies</strong></p>
+<p>It is not uncommon for heavily pre-coordinated Concepts (complex and fine-grained Concepts that are combinations of different dimensions). The coordination depends on the structure of the topology of the vocabularies from and to which the Concept is mapped. If they are not equivalent, no direct mapping can be established. But in order to maintain the ability to retrieve these Concepts when searching using hierarchical Concepts, two or more mappings are provided instead.</p>
+<p>For example, in ICD-10-CM diabetic complications are a part of the disorder of Diabetes Mellitus, while in SNOMED Diabetes Mellitus and its complications reside in distinct hierarchical branches.</p>
+<p><img src="images/diabetes-related_case.png" /></p>
+<p>As another example, ICD-10 codes indicating complications of pregnancy are in the chapter of “Pregnancy, childbirth and the puerperium” that has a semantic relation to the fact of pregnancy, while in SNOMED denoting pregnancy conditions and their complications are in the separate hierarchical branches.</p>
+<p><img src="images/pregnancy-related_case.png" /></p>
+<p>The solution for both examples is to map Non-standard concepts to several standard ones. Even though there is no distinct equivalent in SNOMED, hierarchical queries will retrieve the correct records.</p>
+<p><strong>2. Missing Source Concept equivalent</strong></p>
+<p>This is possible due to the following reasons:</p>
+<p><strong>Vague formulation of a Source Concept</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+<col width="16%" />
+<col width="19%" />
+<col width="19%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>source concept code</th>
+<th>source concept name</th>
+<th>relationship ID</th>
+<th>standard concept ID</th>
+<th>standard concept code</th>
+<th>standard concept name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M99.9</td>
+<td>Biomechanical lesion, unspecified</td>
+<td>Maps to</td>
+<td>4244662</td>
+<td>928000</td>
+<td>Disorder of musculoskeletal system</td>
+</tr>
+<tr class="even">
+<td>A28.9</td>
+<td>Zoonotic bacterial disease, unspecified</td>
+<td>Maps to</td>
+<td>432545</td>
+<td>87628006</td>
+<td>Bacterial infectious disease</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Source Concept excessive granularity</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+<col width="16%" />
+<col width="19%" />
+<col width="19%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>source concept code</th>
+<th>source concept name</th>
+<th>relationship ID</th>
+<th>standard concept ID</th>
+<th>standard concept code</th>
+<th>standard concept name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>B33.4</td>
+<td>Hantavirus (cardio-)pulmonary syndrome [HPS] [HCPS]</td>
+<td>Maps to</td>
+<td>441784</td>
+<td>359761005</td>
+<td>Disease due to Hantavirus</td>
+</tr>
+<tr class="even">
+<td>I12.9</td>
+<td>Hypertensive renal disease without renal failure</td>
+<td>Maps to</td>
+<td>201313</td>
+<td>38481006</td>
+<td>Hypertensive renal disease</td>
+</tr>
+<tr class="odd">
+<td>S06.4x9</td>
+<td>Epidural hemorrhage with loss of consciousness of unspecified duration</td>
+<td>Maps to</td>
+<td>4306943</td>
+<td>82999001</td>
+<td>Epidural hemorrhage</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>372448</td>
+<td>419045004</td>
+<td>Loss of consciousness</td>
+</tr>
+<tr class="odd">
+<td>S35.415</td>
+<td>Laceration of left renal vein</td>
+<td>Maps to</td>
+<td>4124868</td>
+<td>234084003</td>
+<td>Venous laceration</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>Maps to</td>
+<td>195125</td>
+<td>5753006</td>
+<td>Injury of renal vein</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classification difference between Source and Standard Vocabularies</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+<col width="16%" />
+<col width="19%" />
+<col width="19%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>source concept code</th>
+<th>source concept name</th>
+<th>relationship ID</th>
+<th>standard concept ID</th>
+<th>standard concept code</th>
+<th>standard concept name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I48</td>
+<td>Atrial fibrillation and flutter</td>
+<td>Maps to</td>
+<td>4068155</td>
+<td>17366009</td>
+<td>Atrial arrhythmia</td>
+</tr>
+<tr class="even">
+<td>G06.0</td>
+<td>Intracranial abscess and granuloma</td>
+<td>Maps to</td>
+<td>4181187</td>
+<td>363176004</td>
+<td>Inflammatory disorder of head</td>
+</tr>
+<tr class="odd">
+<td>J38.0</td>
+<td>Paralysis of vocal cords and larynx</td>
+<td>Maps to</td>
+<td>4233244</td>
+<td>89927005</td>
+<td>Paralysis of larynx</td>
+</tr>
+<tr class="even">
+<td>U82.1</td>
+<td>Resistance to methicillin</td>
+<td>Maps to</td>
+<td>37017452</td>
+<td>713728002</td>
+<td>Drug resistance to antibacterial agent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Other possible issues that one could encounter:</strong> * Mapping has to exist and it can be built, but it is missing. Please report to [[<a href="https://forums.ohdsi.org/%7Cthe" class="uri">https://forums.ohdsi.org/|the</a> OHDSI Forum]], so it can be added. * Code irrelevant to the patient, for example, ICD-9-CM V65 “Other persons seeking consultation” * Source code is ill-defined, for example, ICD-9-CM 799 “Other ill-defined and unknown causes of morbidity and mortality”</p>
+</div>
+<div id="rules-for-condition-mapping" class="section level2">
+<h2>RULES FOR CONDITION MAPPING</h2>
+<p>In general, Conditions are records suggesting the presence of a disease or medical condition stated as a diagnosis, a sign or a symptom. However, there are a lot of conditions that are not originating in the biological function of the human body but still require medical attention. Or they are true Conditions, but not at the time of the recording (History of) or in the person itself (Family history of). The mapping rules for these are as follows:</p>
+<p><strong>Aftercare after procedures.</strong> Those are mapped to a single concept 413467001 “Aftercare”, and with a second “Maps to value” relationship to the adequate procedure. For example, ICD10CM Z47.1 “Aftercare following joint replacement surgery” maps to both 413467001 “Aftercare” and to the procedure 4189532 “Implantation of joint prosthesis”. Note that “Aftercare” is itself not a condition, but belongs to the Observation Domain.</p>
+<p><strong>Late effects or sequelae of other conditions.</strong> If possible, these are mapped to single concepts describing them as such late effects. For example, ICD10CM S82.874S concept_id 45589204 “Nondisplaced pilon fracture of right tibia, sequela” is mapped to 197150 “Late effect of fracture of lower extremities”. The Domain is Condition.</p>
+<p><strong>History of a condition.</strong> These are conditions, but not at the time of the condition_start_date. Therefore, they are mapped to the Concept 4214956 “History of clinical finding in subject”, which is in the Observation Domain. The condition itself is recorded through the “Maps to value” relationship. For example, ICD10CM Z87.820 concept_id “Personal history of traumatic brain injury” maps to 4214956 “History of clinical finding in subject” and with “Maps to value” 4132546 “Traumatic brain injury”.</p>
+<p><strong>Family history of a condition.</strong> These, too, have a dual mapping to 4167217 “Family history of clinical finding” and a to the actual condition through a “Maps to value” relationship. For example, ICD10/ICD10CM Z80.0 concept_id 45542462 “Family history of malignant neoplasm of digestive organs” maps to 4167217 “Family history of clinical finding” as well as 443568 “Malignant neoplasm of the gastrointestinal tract”.</p>
+<p><strong>History of medical treatment.</strong> Similarly, these are mapped to Observation Concept 4207283 “History of drug therapy”, and through a “Maps to value” link to the actual therapy. For example, ICD10 Z92.0 concept_id 45605174 “Personal history of contraception” goes to 4207283 “History of drug therapy” history of drug therapy and 4027509 “Contraception”. If the exact Ingredient or Clinical/Branded Drug is known, the map would direct to these Drug Concepts. But that is not typical.</p>
+<p><strong>Adverse effect of medication.</strong> If possible, these are mapped to a direct equivalent. However, that usually does not exist, and then they are treated as the above history of medical treatments. For example, both ICD10CM T36.8X5A concept_id 45551127 “Adverse effect of other systemic antibiotics, initial encounter” and T36.8X5D “Adverse effect of other systemic antibiotics, subsequent encounter” map to 437191 “Antibacterial drug adverse reaction”, while ICD10CM T36.8X5S concept_id 45560654 “Adverse effect of other systemic antibiotics, sequela” maps to 4207283 “History of drug therapy”.</p>
+<p><strong>Underdosing of medication.</strong> This information is handled similarly to the adverse effects, and the equivalent SNOMED concepts generally do not exist. For example, ICD10CM T36.0X6A concept_id 45565479 “Underdosing of penicillins, initial encounter” and T36.0X6D concept_id 45565480 “Underdosing of penicillins, subsequent encounter” go to 40488434 “Medication dose too low”, while T36.0X6S concept_id 45565481 “Underdosing of penicillins, sequela” points at 4207283 “History of drug therapy”.</p>
+<p><strong>Status of organ absence or transplant/prosthetic presence.</strong> Absent organs are due to a procedure having removed them (unless they are inborn conditions, which are mapped as such). Therefore, they are mapped to 4215685 “Past history of procedure” and the appropriate procedure that removed the organ through a “Maps to value” link. For example, ICD10CM Z94.0 concept_id 35225404 “Kidney transplant status” maps to 4215685 “Past history of procedure” and 4322471 “Transplant of kidney”. Z95.5 concept_id 35225418 “Presence of coronary angioplasty implant and graft” is pointed to 4215685 “Past history of procedure” and 4184832 “Coronary angioplasty”.</p>
+<p><strong>Pre-coordinated Concepts listing two or more semantic components through AND or OR.</strong> These concepts are treated with the following order of precedence:</p>
+<ul>
+<li>To an equivalent combination concept that is also hierarchically well connected</li>
+<li>To both components separately</li>
+<li>To the most common ancestor</li>
+</ul>
+<p>Examples for these 3 possibilities are:</p>
+<pre><code>- ICD10 A01 concept_id 45576225 &quot;Typhoid and paratyphoid fevers&quot; has a single &quot;Maps to&quot; relationship to 4022808 &quot;Human typhoid AND/OR paratyphoid fever&quot;.
+- IC10CM F12.22 concept_id 45591098 &quot;Cannabis dependence with intoxication&quot; has two &quot;Maps to&quot; relationships to 4052690 &quot;Cannabis intoxication&quot; and 440387 &quot;Cannabis dependence&quot;.
+- ICD10 L02.0 concept_id 45596354 &quot;Cutaneous abscess, furuncle and carbuncle of face&quot; has a single &quot;Maps to&quot; relationship_id to 400082007 Disorder of skin of head.</code></pre>
+<p><strong>Maternal care.</strong> Many conditions require attention not because of a condition of a pregnant woman but of the fetus. However, all such conditions are being mapped to the mother anyway. For example, ICD10 O35.6 concept_id 45567927 “Maternal care for (suspected) damage to fetus by radiation” has two “Maps to” relationships to 199553006 “Fetus with radiation damage” and 289908002 “pregnancy”. Both conditions are recorded with the mother.</p>
+<p><strong>Need for immunization.</strong> These Concepts are mapped to an Observation indicating such an immunity gap. A second mapping with the relationship_id “Maps to value” is then directed to the Condition (represented as a SNOMED Concept) the immunization is inoculating against. Note that it is not mapped to the vaccine itself (which would be represented as a RxNorm Concept). For example, ICD10 Z23 concept_id 45556822 “Need for immunization against single bacterial diseases” maps to 170536002 “Vaccination required” and maps to value 87628006 “Bacterial infectious disease”.</p>
+<p><strong>Conditions indicating abnormal levels of a test.</strong> These are split into the Measurement and result Concepts. For example, ICD10 R77.1 concept_id 45553745 “Abnormality of globulin” has a “Maps to” relationship to the Measurement 4353510 “Globulin measurement” and a “Maps to value” relationship to 4135493 “Abnormal”.</p>
+<p><strong>Conditions resulting from the use of Devices.</strong> Adverse or other outcomes of the exposure to a device are mapped to 473023007 “Complication associated with device and with another”Maps to value" relationship to the device itself, if possible. For example, ICD10 Y73.0 concept_id 45590664 “Gastroenterology and urology devices associated with adverse incidents, diagnostic and monitoring devices” has a “Maps to value” link to 45767866 “Gastro-urological device”.</p>
+</div>
+<div id="condition-mapping-algorithm" class="section level2">
+<h2>CONDITION MAPPING ALGORITHM</h2>
+<p><img src="images/mapping_of_concepts.png" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

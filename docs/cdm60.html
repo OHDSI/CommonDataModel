@@ -368,12 +368,22 @@ div.tocify {
      
   </a>
 </li>
-<li>
-  <a href="background.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-landmark"></span>
      
     Background
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="dataModelConventions.html">
@@ -391,6 +401,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
     <li>
       <a href="cdm531.html">CDM v5.3.1</a>
     </li>
@@ -510,7 +523,7 @@ div.tocify {
 <p><strong>User Guide</strong></p>
 <p>All records in this table are independent Persons.</p>
 <p><strong>ETL Conventions</strong></p>
-<p>All Persons in a database needs one record in this table, unless they fail data quality requirements specified in the ETL. Persons with no Events should have a record nonetheless. If more than one data source contributes Events to the database, Persons must be reconciled, if possible, across the sources to create one single record per Person. The BIRTH_DATETIME must be equivalent to the content of BIRTH_DAY, BIRTH_MONTH and BIRTH_YEAR. There is a helpful rule listed in table below for how to derive BIRTH_DATETIME if it is not available in the source. <strong>New to CDM v6.0</strong> The person’s death date is now stored in this table instead of the separate DEATH table.</p>
+<p>All Persons in a database needs one record in this table, unless they fail data quality requirements specified in the ETL. Persons with no Events should have a record nonetheless. If more than one data source contributes Events to the database, Persons must be reconciled, if possible, across the sources to create one single record per Person. The BIRTH_DATETIME must be equivalent to the content of BIRTH_DAY, BIRTH_MONTH and BIRTH_YEAR. There is a helpful rule listed in table below for how to derive BIRTH_DATETIME if it is not available in the source. <strong>New to CDM v6.0</strong> The person’s death date is now stored in this table instead of the separate DEATH table. In the case that multiple dates of death are given in the source data the ETL should make a choice as to which death date to put in the PERSON table. Any additional dates can be stored in the OBSERVATION table using the concept <a href="https://athena.ohdsi.org/search-terms/terms/4265167">4265167</a> which stands for ‘Date of death’ . Similarly, the cause of death is stored in the CONDITION_OCCURRENCE table using the CONDITION_STATUS_CONCEPT_ID <a href="https://athena.ohdsi.org/search-terms/terms/32891">32891</a> for ‘Cause of death’.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -4686,7 +4699,7 @@ CONCEPT
 unit_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-There is currently no vocabulary link between measurement Concepts and unit Concepts, the UNIT_CONCEPT_ID is a representation of the units as provided by the source data after ETL clean up.
+There is currently no recommended unit for individual measurements, i.e. it is not mandatory to represent Hemoglobin a1C measurements as a percentage. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;width: 4in; ">
 There is no standardization requirement for units associated with MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
@@ -5278,7 +5291,7 @@ CONCEPT
 unit_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
-There is currently no vocabulary link between observation Concepts and unit Concepts, the UNIT_CONCEPT_ID is a representation of the units as provided by the source data after ETL clean up.
+There is currently no recommended unit for individual observation concepts. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;width: 4in; ">
 There is no standardization requirement for units associated with OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
@@ -6902,7 +6915,7 @@ No
 <div id="fact_relationship" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">FACT_RELATIONSHIP</h3>
 <p><strong>Table Description</strong></p>
-<p>The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: Person relationships (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).</p>
+<p>The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: <a href="https://athena.ohdsi.org/search-terms/terms?domain=Relationship&amp;standardConcept=Standard&amp;page=2&amp;pageSize=15&amp;query=">Person relationships</a> (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).</p>
 <p><strong>ETL Conventions</strong></p>
 <p>All relationships are directional, and each relationship is represented twice symmetrically within the FACT_RELATIONSHIP table. For example, two persons if person_id = 1 is the mother of person_id = 2 two records are in the FACT_RELATIONSHIP table (all strings in fact concept_id records in the Concept table: - Person, 1, Person, 2, parent of - Person, 2, Person, 1, child of</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">

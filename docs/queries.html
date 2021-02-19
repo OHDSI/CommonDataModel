@@ -294,12 +294,22 @@ $(document).ready(function () {
      
   </a>
 </li>
-<li>
-  <a href="background.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-landmark"></span>
      
     Background
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="dataModelConventions.html">
@@ -317,6 +327,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
     <li>
       <a href="cdm531.html">CDM v5.3.1</a>
     </li>
@@ -414,7 +427,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>discuss top-level visit query</p>
+<p>The query below will find all standard concepts in the Visit domain that do not have any ancestors. These are considered “top-level” visit concepts and can be used to define categories of visits in cohort definitions. For example, the Inpatient Visit concept <a href="https://athena.ohdsi.org/search-terms/terms/9201">9201</a> subsumes the concepts for Inpatient Hospital and Inpatient in Psychiatric Facility. Instead of creating a concept set with all of these terms to define an inpatient visit you can use 9201 and all of it’s descendants, a concept found using the top-level query.</p>
 <p>WITH top_level AS (SELECT concept_id, concept_name FROM concept LEFT JOIN concept_ancestor ON concept_id=descendant_concept_id AND ancestor_concept_id!=descendant_concept_id WHERE domain_id=‘Visit’ AND standard_concept=‘S’ AND ancestor_concept_id IS NULL ) SELECT top_level.concept_id, top_level.concept_name, descendant.concept_id, descendant.concept_name FROM concept_ancestor JOIN top_level ON top_level.concept_id = ancestor_concept_id JOIN concept descendant ON descendant.concept_id = descendant_concept_id WHERE descendant.domain_id = ‘Visit’;</p>
 
 

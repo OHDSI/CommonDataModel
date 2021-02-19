@@ -294,12 +294,22 @@ $(document).ready(function () {
      
   </a>
 </li>
-<li>
-  <a href="background.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-landmark"></span>
      
     Background
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="dataModelConventions.html">
@@ -317,6 +327,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
     <li>
       <a href="cdm531.html">CDM v5.3.1</a>
     </li>
