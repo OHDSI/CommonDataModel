@@ -425,13 +425,35 @@ $(document).ready(function () {
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the <a href="https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:cdm-wg">OHDSI CDM Working Group</a>. Through the end of 2019 and into 2020 our goal was to fully update the documentation in an effort to facilitate greater understanding of the model. Almost every <a href="https://www.forums.ohdsi.org">forum post</a> relating to a question on how to map data into the CDM inevitably referenced the (now outdated) technical and difficult-to-understand explanations of the tables and fields currently on the wiki. To remedy we focused on one or two tables each month, diving fully into the user guidance and ETL specifications. The results of our efforts can be seen on the pages detailing <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html">v5.3.1</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html">v6.0</a>.</p>
-<p>In addition to documentation the formal remit of the CDM Working Group is to hear proposals for change, ratifying only those with valid use cases and data to support them. This process will be slower through 2020 though proposals related to existing CDM tables will be considered during the months those tables are being updated. For example November 2019 will be focused on the PERSON and OBSERVATION_PERIOD tables so any proposals related to those two tables will be evaluated during November 2019. Once proposals are accepted they are listed as such and will be integrated in an upcoming version of the OMOP CDM. Currently accepted proposals can be found under the “Proposals” drop down across the top.</p>
-<div id="cdm-wg-meeting-information" class="section level3">
-<h3>CDM WG Meeting Information</h3>
-<p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> This was recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
+<p>The OMOP Common Data Model is managed by the <a href="https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:cdm-wg">OHDSI CDM Working Group</a>. Through the end of 2019 and into 2020 our goal was to fully update the documentation in an effort to facilitate greater understanding of the model. Almost every <a href="https://www.forums.ohdsi.org">forum post</a> relating to a question on how to map data into the CDM inevitably referenced the (now outdated) technical and difficult-to-understand explanations of the tables and fields currently on the wiki. To remedy we focused on one or two tables each month, diving fully into the user guidance and ETL specifications. The results of our efforts can be seen on the pages detailing <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html">v5.3</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html">v6.0</a>.</p>
+<p>In addition to documentation the formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
+<div id="cdm-refresh-cycle" class="section level2">
+<h2>CDM Refresh Cycle</h2>
 </div>
+<div id="define-new-version" class="section level2">
+<h2>1. Define New Version</h2>
+<p>The image below describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. This has been completed for the current cycle. Issues and proposals on the github were considered during a 4-hour workshop where it was decided the next CDM version will be CDM v5.4, building off of CDM v5.3. The group then participated in a rapid-fire voting activity to identify which changes should be incorporated into CDM v5.4. Any items that were not unanimously agreed upon were then discussed in small groups to hone the proposal and suggestions were presented back to the group. The final roadmap for CDM v5.4 can be found <a href="https://github.com/OHDSI/CommonDataModel/projects/3">here</a>.</p>
+<p><img src="images/CDM_refresh_cycle.png" /> ## 2. Sign off from Work Groups</p>
+<p>This is the current stage of the refresh cycle for CDM v5.4. Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
+</div>
+<div id="release-ddls" class="section level2">
+<h2>3. Release DDLs</h2>
+<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs this will be done by the CDM Development group.</p>
+</div>
+<div id="software-update" class="section level2">
+<h2>4. Software Update</h2>
+<p>There will be period of time once the DDLs are ready to allow the software and methods developers to prepare for the official release of the CDM. This is meant to serve as a buffer so that once the community starts adopting the new model, the tools and methods will be ready to support it.</p>
+</div>
+<div id="community-support" class="section level2">
+<h2>5. Community Support</h2>
+<p>This is the final stage of the CDM refresh cycle. Once the DDLs are ready and the software and tools supports the new version, the CDM WG will work to help the community convert their data to the new model.</p>
+</div>
+<div id="cdm-wg-meeting-information" class="section level1">
+<h1>CDM WG Meeting Information</h1>
+<p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
+<p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
+<p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
+<p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
 <div id="cdm-wg-important-links" class="section level3">
 <h3>CDM WG Important Links</h3>
 <ul>
@@ -440,6 +462,7 @@ $(document).ready(function () {
 <li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
 <li><a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm:cdm_process">Process for adopting CDM and Vocabulary changes</a></li>
 </ul>
+</div>
 </div>
 
 
