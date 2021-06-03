@@ -1,7 +1,12 @@
+NOTE ABOUT CDM v6.0
+====================
+
+Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the \*_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 is actively in production to address additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our [roadmap](https://github.com/OHDSI/CommonDataModel/projects/3) for more information on which proposals will be included in CDM v5.4. For new collaborators to OHDSI, please transform your data to [CDM v5.3](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.3.1) until such time that CDM v5.4 is ready for release. 
+
 Common Data Model v6.0
 =================
 
-See full CDM specifications on our [website](https://ohdsi.github.io/CommonDataModel/index.html).
+ See full CDM specifications on our [website](https://ohdsi.github.io/CommonDataModel/index.html).
 
 
 Release Notes for v6.0
