@@ -384,7 +384,7 @@ CREATE TABLE device_exposure
   device_exposure_end_date		  DATE			NULL ,
   device_exposure_end_datetime    DATETIME2		NULL ,
   device_type_concept_id		  INTEGER		NOT NULL ,
-  unique_device_id			      VARCHAR(50)	NULL ,
+  unique_device_id			      VARCHAR(100)	NULL ,
   quantity						  INTEGER		NULL ,
   provider_id					  BIGINT		NULL ,
   visit_occurrence_id			  BIGINT		NULL ,
