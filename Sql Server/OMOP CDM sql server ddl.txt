@@ -511,7 +511,7 @@ CREATE TABLE observation
   unit_source_value				    VARCHAR(50)		NULL ,
   qualifier_source_value			VARCHAR(50)		NULL ,
   observation_event_id				BIGINT			NULL , 
-  obs_event_field_concept_id		INTEGER			NOT NULL , 
+  obs_event_field_concept_id		INTEGER			NULL , 
   value_as_datetime					DATETIME2		NULL
 )
 ;
