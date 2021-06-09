@@ -1,0 +1,27 @@
+---
+title: "Example_Queries"
+author: "Clair Blacketer"
+date: "September 29, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The query below will find all standard concepts in the Visit domain that do not have any ancestors. These are considered "top-level" visit concepts and can be used to define categories of visits in cohort definitions. For example, the Inpatient Visit concept [9201](https://athena.ohdsi.org/search-terms/terms/9201) subsumes the concepts for Inpatient Hospital and Inpatient in Psychiatric Facility. Instead of creating a concept set with all of these terms to define an inpatient visit you can use 9201 and all of it's descendants, a concept found using the top-level query.
+
+WITH top_level
+AS
+(SELECT concept_id, concept_name
+FROM concept
+LEFT JOIN concept_ancestor ON concept_id=descendant_concept_id
+AND ancestor_concept_id!=descendant_concept_id
+WHERE domain_id='Visit' AND standard_concept='S'
+AND ancestor_concept_id IS NULL
+)
+SELECT top_level.concept_id, top_level.concept_name, descendant.concept_id, descendant.concept_name
+FROM concept_ancestor
+JOIN top_level ON top_level.concept_id = ancestor_concept_id
+JOIN concept descendant ON descendant.concept_id = descendant_concept_id
+WHERE descendant.domain_id = 'Visit';

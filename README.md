@@ -1,53 +1,39 @@
-NOTE ABOUT CDM v6.0
-====================
+---
+title: "Readme"
+output: 
+    html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
 
-Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the \*_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 is actively in production to address additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our [roadmap](https://github.com/OHDSI/CommonDataModel/projects/3) for more information on which proposals will be included in CDM v5.4. For new collaborators to OHDSI, please transform your data to [CDM v5.3](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.3.1) until such time that CDM v5.4 is ready for release. 
+# How to Update the CDM 
 
-Common Data Model v6.0
-=================
+**NOTE** This information is for the maintainers of the CDM as it is best for all information to be in one place. If you want to suggest an update or addition to the OMOP CDM please visit the [CommonDataModel repo](https://github.com/OHDSI/CommonDataModel/issues). The instructions contained herein are meant to describe the process by which new versions of the CDM are produced, should it need to be replicated in the future. These steps are also enumerated in `extras/codeToRun.R`.
 
- See full CDM specifications on our [website](https://ohdsi.github.io/CommonDataModel/index.html).
+Typically, new CDM versions and updates are decided by the CDM working group (details to join meetings on [homepage](https://ohdsi.github.io/CommonDataModel/)). These changes are tracked as issues in the [github repo](https://github.com/OHDSI/CommonDataModel/issues). Once the working group decides which changes make up a version, all the corresponding issues should be tagged with a version number e.g. v6.1. 
 
+## Step 0
 
-Release Notes for v6.0
-=============
+All the issues and additions that are incorporated into the new CDM version will be handled in the [CommonDataModel repository](https://github.com/OHDSI/CommonDataModel). Changes should be made in the representative csv files and it is the job of the CdmDdlBase repo to take those files and convert them to DDLs and documentation. This README will walk through how to update and create all the relevant DDLs, constraints, indices, and documentation for the CDM utilizing both the CommonDataModel repo and the CdmDdlBase repo.
 
-### This version address the following issues/pull requests:
+## Step 1
 
-#### CDM
-* [#81](https://github.com/OHDSI/CommonDataModel/pull/81) Adds the COST table
-* [#137](https://github.com/OHDSI/CommonDataModel/pull/137) Adds the SURVEY_CONDUCT table
-* [#181](https://github.com/OHDSI/CommonDataModel/pull/181) Adds the LOCATION_HISTORY table
-* [#91](https://github.com/OHDSI/CommonDataModel/issues/91) Latitude and longitude added to LOCATION table
-* [#107](https://github.com/OHDSI/CommonDataModel/issues/107) Contract owner information added to PAYER_PLAN_PERIOD 
-* [#120](https://github.com/OHDSI/CommonDataModel/pull/120) New fields added to PAYER_PLAN_PERIOD (PAYER_CONCEPT_ID, PLAN_CONCEPT_ID)
-* [#166](https://github.com/OHDSI/CommonDataModel/issues/166) Record inserted into METADATA to document CDM version
-* [#172](https://github.com/OHDSI/CommonDataModel/pull/172) NOTE_EVENT_ID and NOTE_DOMAIN_ID (NOTE_EVENT_TABLE_CONCEPT_ID) added to NOTE
-* [#198](https://github.com/OHDSI/CommonDataModel/pull/198) Change IDs to BIGINT 
-* [#153](https://github.com/OHDSI/CommonDataModel/issues/153) ADMISSION_SOURCE_CONCEPT_ID changed to ADMITTED_FROM_CONCEPT_ID 
-* [#214](https://github.com/OHDSI/CommonDataModel/issues/214) All CONCEPT_IDs are mandatory except for UNIT_CONCEPT_ID, VALUE_AS_CONCEPT_ID, and OPERATOR_CONCEPT_ID 
-* [#164](https://github.com/OHDSI/CommonDataModel/issues/164) Any reference to DOMAIN_ID was switched to EVENT_FIELD_CONCEPT_ID
-* [#212](https://github.com/OHDSI/CommonDataModel/issues/212) CDM Results schema created with tables COHORT and COHORT_DEFINITION
-* [#210](https://github.com/OHDSI/CommonDataModel/issues/210) DEATH table removed and cause of death now stored in CONDITION_OCCURRENCE
-* [#166](https://github.com/OHDSI/CommonDataModel/issues/166) Record inserted into METADATA identifying the CDM version
-* [#172](https://github.com/OHDSI/CommonDataModel/issues/172) Added NOTE_EVENT_ID and EVENT_FIELD_CONCEPT_ID to NOTE table
+Create a branch in the CommonDataModel repository for the new version of the CDM you are creating.
 
-#### Vocabulary
-* [#186](https://github.com/OHDSI/CommonDataModel/issues/186) Keep deprecated CPT concepts active and standard
-* [#85](https://github.com/OHDSI/CommonDataModel/issues/85) NOTE_NLP concepts added
+### Step 1.1 
+Rename the csv files from the current released version to the new version. For example, if the new version you are creating is v6.0 and the most recent released version is v5.3.1, rename the csv files named "OMOP_CDMv5.3.1_Field_Level.csv" and "OMOP_CDMv5.3.1_Table_Level.csv" to "OMOP_CDMv6.0_Field_Level.csv" and "OMOP_CDMv6.0_Table_Level.csv". These files serve multiple functions; they serve as the basis for the CDM DDL, CDM documentation, and Data Quality Dashboard (DQD). You can read more about the DQD [here](https://ohdsi.github.io/DataQualityDashboard/index.html). 
 
-#### Wiki
-* [#188](https://github.com/OHDSI/CommonDataModel/issues/188) Added foreign key description to wiki files
-* All [THEMIS](https://github.com/OHDSI/THEMIS/issues) rules added to wiki
+### Step 1.2
+The csv files can now be updated with the changes and additions for the new CDM version. If a new table should be added, add a line to the *Table_Level.csv* with the table name and description and list it as part of the CDM schema. The remaining columns are quality checks that can be run. Details [here](https://ohdsi.github.io/DataQualityDashboard/index.html) on what those are. After adding any tables, make any changes or additions to CDM fields in the *Field_Level.csv*. The columns are meant to mimic how a DDL is structured, which is how it will eventually be generated. A yes in the field *isRequired* indicates a NOT NULL constraint and the datatype field should be filled in exactly how it would look in the DDL. Any additions or changes should also be reflected in the userGuidance and etlConventions fields, which are the basis for the documentation. **DO NOT MAKE ANY CHANGES IN THE DDL ITSELF**. The structure is set up in such a way that the csv files are the ground truth. If changes are made in the DDL instead of the csv files then the DDL will be out of sync with the documentation and the DQD. 
 
-Additional Updates
-==================
+## Step 2
+Push the csv files up to the branch for the new CDM version and then switch to the CdmDdlBase repository. Get the zip url for the CDM branch (on the github page for the branch, click on the green download button and then right click on download zip to get the url) in progress and use the file `packageMaintenance.R` and the instructions therein to copy the csv files over to the inst/csv folder of the CdmDdlBase package. For each CDM version represented in CdmDdlBase there should be two csv files. For example, CDM v5.3.1 has csv files "OMOP_CDMv5.3.1_Field_Level" and "OMOP_CDMv5.3.1_Table_Level" in the inst/csv folder. 
 
-* DATE fields are now optional and DATETIME fields are mandatory
+## Step 3
+Once all changes are made the csvs, open `extras/codeToRun.R` and run the `createDdlFromFile` function, setting the parameters `cdmTableCsvLoc` and `cdmFieldCsvLoc` to the locations of the csv files created in step 3. For example, the `cdmTableCsvLoc` for cdm v5.3.1 is "inst/csv/OMOP_CDMv5.3.1_Table_Level.csv". This will create a sql file in *inst/sql/sql_server* with the ddl for the current cdm version. Once the DDL is created, run the `createPkFromFile` and `createFkFromFile` functions to create the primary key and foreign key scripts.
 
----------
-  
-This repo contains the definition of the OMOP Common Data Model. It supports the SQL technologies: BigQuery, Impala, Netezza, Oracle, Parallel Data Warehouse, Postgres, Redshift, and SQL Server. For each, the DDL, constraints and indexes (if appropriate) are defined. 
+## Step 4 
+Use the`writeDDL` function to tranlate the sql script created in the step above into oracle, postgres, and sql server dialects.
 
 
-Versions are defined using tagging and versioning. Full versions (V6, 7 etc.) are usually released at most once a year and are not backwards compatible. Minor versions (V5.1, 5.2 etc.) are not guaranteed to be backwards compatible though an effort is made to make sure that current queries will not break. Micro versions (V5.1.1, V5.1.2 etc.) are released irregularly and often, and contain small hot fixes or backward compatible changes to the last minor version.
+**NOTE** This documentation is a work in progress and will continue to be updated. 

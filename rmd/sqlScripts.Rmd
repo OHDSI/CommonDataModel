@@ -1,0 +1,457 @@
+---
+output: 
+  html_document:
+      toc: TRUE
+      toc_depth: 5
+      toc_float: TRUE
+---
+
+# **SQL Scripts**
+
+These SQL scripts have been developed by the community to facilitate the Extract, Transform, and Load (ETL) process from source data to the OMOP CDM. 
+
+## **Vocabulary Mapping**
+
+### Source to Standard
+
+This script will create a large table containing all source codes and the Standard Concepts they map to. By creating this table ahead of time and referencing it during ETL, you can save processing time than if you were to map source codes on the fly. It is important to note that this script will show ALL mappings, not just those to Standard, Valid Concepts. Be sure to add a filter that will only grab the correct Standard, Valid codes. 
+
+```{sql eval=FALSE, echo=TRUE}
+SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.concept_name AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.INVALID_REASON AS SOURCE_INVALID_REASON, c1.concept_id AS TARGET_CONCEPT_ID, c1.concept_name AS TARGET_CONCEPT_NAME, c1.VOCABULARY_ID AS TARGET_VOCABUALRY_ID, c1.domain_id AS TARGET_DOMAIN_ID, c1.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c1.INVALID_REASON AS TARGET_INVALID_REASON, c1.standard_concept AS TARGET_STANDARD_CONCEPT
+       FROM CONCEPT C
+             JOIN CONCEPT_RELATIONSHIP CR
+                        ON C.CONCEPT_ID = CR.CONCEPT_ID_1
+                        AND CR.invalid_reason IS NULL
+                        AND lower(cr.relationship_id) = 'maps to'
+              JOIN CONCEPT C1
+                        ON CR.CONCEPT_ID_2 = C1.CONCEPT_ID
+                        AND C1.INVALID_REASON IS NULL
+       UNION
+       SELECT source_code, SOURCE_CONCEPT_ID, SOURCE_CODE_DESCRIPTION, source_vocabulary_id, c1.domain_id AS SOURCE_DOMAIN_ID, c2.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c1.VALID_START_DATE AS SOURCE_VALID_START_DATE, c1.VALID_END_DATE AS SOURCE_VALID_END_DATE, stcm.INVALID_REASON AS SOURCE_INVALID_REASON,target_concept_id, c2.CONCEPT_NAME AS TARGET_CONCEPT_NAME, target_vocabulary_id, c2.domain_id AS TARGET_DOMAIN_ID, c2.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c2.INVALID_REASON AS TARGET_INVALID_REASON, c2.standard_concept AS TARGET_STANDARD_CONCEPT
+       FROM source_to_concept_map stcm
+              LEFT OUTER JOIN CONCEPT c1
+                     ON c1.concept_id = stcm.source_concept_id
+              LEFT OUTER JOIN CONCEPT c2
+                     ON c2.CONCEPT_ID = stcm.target_concept_id
+       WHERE stcm.INVALID_REASON IS NULL
+
+```
+
+### Source to Source
+
+This script will create a large table containing all source codes and their referent Concepts. While you may be tempted to use the Source to Standard query to find these, it is important to use this one instead to populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple Standard Concepts though they have only one source Concept. By using the Source to Standard query you may inadvertently create duplicate records in your CDM instance.  
+
+```{sql eval=FALSE, echo=TRUE}
+SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.CONCEPT_NAME AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.concept_class_id AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.invalid_reason AS SOURCE_INVALID_REASON, c.concept_ID as TARGET_CONCEPT_ID, c.concept_name AS TARGET_CONCEPT_NAME, c.vocabulary_id AS TARGET_VOCABULARY_ID, c.domain_id AS TARGET_DOMAIN_ID, c.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c.INVALID_REASON AS TARGET_INVALID_REASON, c.STANDARD_CONCEPT AS TARGET_STANDARD_CONCEPT
+       FROM CONCEPT c
+       UNION
+       SELECT source_code, SOURCE_CONCEPT_ID, SOURCE_CODE_DESCRIPTION, source_vocabulary_id, c1.domain_id AS SOURCE_DOMAIN_ID, c2.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c1.VALID_START_DATE AS SOURCE_VALID_START_DATE, c1.VALID_END_DATE AS SOURCE_VALID_END_DATE,stcm.INVALID_REASON AS SOURCE_INVALID_REASON, target_concept_id, c2.CONCEPT_NAME AS TARGET_CONCEPT_NAME, target_vocabulary_id, c2.domain_id AS TARGET_DOMAIN_ID, c2.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c2.INVALID_REASON AS TARGET_INVALID_REASON, c2.standard_concept AS TARGET_STANDARD_CONCEPT
+       FROM source_to_concept_map stcm
+              LEFT OUTER JOIN CONCEPT c1
+                     ON c1.concept_id = stcm.source_concept_id
+              LEFT OUTER JOIN CONCEPT c2
+                     ON c2.CONCEPT_ID = stcm.target_concept_id
+       WHERE stcm.INVALID_REASON IS NULL
+```
+
+## **Era Tables**
+
+### Condition Eras
+
+This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have <= 30 days between them into eras during which the Person is assumed to have the given condition. **NOTE** This query only works with 5.3 and below.
+
+```{sql eval= FALSE, echo=TRUE}
+/****************************************************
+OHDSI-SQL File Instructions
+-----------------------------
+ 1. Set parameter name of schema that contains CDMv4 instance
+    (@SOURCE_CDMV4, @SOURCE_CDMV4_SCHEMA)
+ 2. Set parameter name of schema that contains CDMv5 instance
+    (@TARGET_CDMV5, @TARGET_CDMV5_SCHEMA)
+ 3. Run this script through SqlRender to produce a script that will work in your
+    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
+ 4. Run the script produced by SQL Render on your target RDBDMS.
+<RDBMS> File Instructions
+-------------------------
+ 1. This script will hold a number of placeholders for your CDM V4 and CDMV5
+    database/schema. In order to make this file work in your environment, you
+	should plan to do a global "FIND AND REPLACE" on this file to fill in the
+	file with values that pertain to your environment. The following are the
+	tokens you should use when doing your "FIND AND REPLACE" operation:
+	
+     [CDM]
+	 [CDM].[CDMSCHEMA]
+	
+*********************************************************************************/
+/* SCRIPT PARAMETERS */
+
+	
+	{DEFAULT @TARGET_CDMV5 = '[CDM]' } -- The target CDMv5 database name
+	{DEFAULT @TARGET_CDMV5_SCHEMA = '[CDM].[CDMSCHEMA]' } -- the target CDMv5 database plus schema
+
+USE @TARGET_CDMV5;
+
+
+
+/****
+CONDITION ERA
+Note: Eras derived from CONDITION_OCCURRENCE table, using 30d gap
+ ****/
+IF OBJECT_ID('tempdb..#condition_era_phase_1', 'U') IS NOT NULL
+	DROP TABLE #condition_era_phase_1;
+
+/* / */
+
+IF OBJECT_ID('tempdb..#cteConditionTarget', 'U') IS NOT NULL
+	DROP TABLE #cteConditionTarget;
+
+/* / */
+
+-- create base eras from the concepts found in condition_occurrence
+SELECT co.PERSON_ID
+	,co.condition_concept_id
+	,co.CONDITION_START_DATE
+	,COALESCE(co.CONDITION_END_DATE, DATEADD(day, 1, CONDITION_START_DATE)) AS CONDITION_END_DATE
+INTO #cteConditionTarget
+FROM @TARGET_CDMV5_SCHEMA.CONDITION_OCCURRENCE co;
+
+/* / */
+
+IF OBJECT_ID('tempdb..#cteCondEndDates', 'U') IS NOT NULL
+	DROP TABLE #cteCondEndDates;
+
+/* / */
+
+SELECT PERSON_ID
+	,CONDITION_CONCEPT_ID
+	,DATEADD(day, - 30, EVENT_DATE) AS END_DATE -- unpad the end date
+INTO #cteCondEndDates
+FROM (
+	SELECT E1.PERSON_ID
+		,E1.CONDITION_CONCEPT_ID
+		,E1.EVENT_DATE
+		,COALESCE(E1.START_ORDINAL, MAX(E2.START_ORDINAL)) START_ORDINAL
+		,E1.OVERALL_ORD
+	FROM (
+		SELECT PERSON_ID
+			,CONDITION_CONCEPT_ID
+			,EVENT_DATE
+			,EVENT_TYPE
+			,START_ORDINAL
+			,ROW_NUMBER() OVER (
+				PARTITION BY PERSON_ID
+				,CONDITION_CONCEPT_ID ORDER BY EVENT_DATE
+					,EVENT_TYPE
+				) AS OVERALL_ORD -- this re-numbers the inner UNION so all rows are numbered ordered by the event date
+		FROM (
+			-- select the start dates, assigning a row number to each
+			SELECT PERSON_ID
+				,CONDITION_CONCEPT_ID
+				,CONDITION_START_DATE AS EVENT_DATE
+				,- 1 AS EVENT_TYPE
+				,ROW_NUMBER() OVER (
+					PARTITION BY PERSON_ID
+					,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
+					) AS START_ORDINAL
+			FROM #cteConditionTarget
+
+			UNION ALL
+
+			-- pad the end dates by 30 to allow a grace period for overlapping ranges.
+			SELECT PERSON_ID
+				,CONDITION_CONCEPT_ID
+				,DATEADD(day, 30, CONDITION_END_DATE)
+				,1 AS EVENT_TYPE
+				,NULL
+			FROM #cteConditionTarget
+			) RAWDATA
+		) E1
+	INNER JOIN (
+		SELECT PERSON_ID
+			,CONDITION_CONCEPT_ID
+			,CONDITION_START_DATE AS EVENT_DATE
+			,ROW_NUMBER() OVER (
+				PARTITION BY PERSON_ID
+				,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
+				) AS START_ORDINAL
+		FROM #cteConditionTarget
+		) E2 ON E1.PERSON_ID = E2.PERSON_ID
+		AND E1.CONDITION_CONCEPT_ID = E2.CONDITION_CONCEPT_ID
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
+	GROUP BY E1.PERSON_ID
+		,E1.CONDITION_CONCEPT_ID
+		,E1.EVENT_DATE
+		,E1.START_ORDINAL
+		,E1.OVERALL_ORD
+	) E
+WHERE (2 * E.START_ORDINAL) - E.OVERALL_ORD = 0;
+
+/* / */
+
+IF OBJECT_ID('tempdb..#cteConditionEnds', 'U') IS NOT NULL
+	DROP TABLE #cteConditionEnds;
+
+/* / */
+
+SELECT c.PERSON_ID
+	,c.CONDITION_CONCEPT_ID
+	,c.CONDITION_START_DATE
+	,MIN(e.END_DATE) AS ERA_END_DATE
+INTO #cteConditionEnds
+FROM #cteConditionTarget c
+INNER JOIN #cteCondEndDates e ON c.PERSON_ID = e.PERSON_ID
+	AND c.CONDITION_CONCEPT_ID = e.CONDITION_CONCEPT_ID
+	AND e.END_DATE >= c.CONDITION_START_DATE
+GROUP BY c.PERSON_ID
+	,c.CONDITION_CONCEPT_ID
+	,c.CONDITION_START_DATE;
+
+/* / */
+
+INSERT INTO @TARGET_CDMV5_SCHEMA.condition_era (
+	condition_era_id
+	,person_id
+	,condition_concept_id
+	,condition_era_start_date
+	,condition_era_end_date
+	,condition_occurrence_count
+	)
+SELECT row_number() OVER (
+		ORDER BY person_id
+		) AS condition_era_id
+	,person_id
+	,CONDITION_CONCEPT_ID
+	,min(CONDITION_START_DATE) AS CONDITION_ERA_START_DATE
+	,ERA_END_DATE AS CONDITION_ERA_END_DATE
+	,COUNT(*) AS CONDITION_OCCURRENCE_COUNT
+FROM #cteConditionEnds
+GROUP BY person_id
+	,CONDITION_CONCEPT_ID
+	,ERA_END_DATE;
+```
+
+### Drug Eras
+
+If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. **NOTE** This query only works with 5.3 and below.
+
+```{sql eval = FALSE, echo = TRUE}
+
+/****************************************************
+OHDSI-SQL File Instructions
+-----------------------------
+ 1. Set parameter name of schema that contains CDMv4 instance
+    (@SOURCE_CDMV4, @SOURCE_CDMV4_SCHEMA)
+ 2. Set parameter name of schema that contains CDMv5 instance
+    (@TARGET_CDMV5, @TARGET_CDMV5_SCHEMA)
+ 3. Run this script through SqlRender to produce a script that will work in your
+    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
+ 4. Run the script produced by SQL Render on your target RDBDMS.
+<RDBMS> File Instructions
+-------------------------
+ 1. This script will hold a number of placeholders for your CDM V4 and CDMV5
+    database/schema. In order to make this file work in your environment, you
+	should plan to do a global "FIND AND REPLACE" on this file to fill in the
+	file with values that pertain to your environment. The following are the
+	tokens you should use when doing your "FIND AND REPLACE" operation:
+	
+     [CDM]
+	 [CDM].[CDMSCHEMA]
+	
+*********************************************************************************/
+/* SCRIPT PARAMETERS */
+
+	
+	{DEFAULT @TARGET_CDMV5 = '[CDM]' } -- The target CDMv5 database name
+	{DEFAULT @TARGET_CDMV5_SCHEMA = '[CDM].[CDMSCHEMA]' } -- the target CDMv5 database plus schema
+
+USE @TARGET_CDMV5;
+
+
+
+/****
+DRUG ERA
+Note: Eras derived from DRUG_EXPOSURE table, using 30d gap
+ ****/
+IF OBJECT_ID('tempdb..#cteDrugTarget', 'U') IS NOT NULL
+	DROP TABLE #cteDrugTarget;
+
+/* / */
+
+-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date
+SELECT d.DRUG_EXPOSURE_ID
+	,d.PERSON_ID
+	,c.CONCEPT_ID
+	,d.DRUG_TYPE_CONCEPT_ID
+	,DRUG_EXPOSURE_START_DATE
+	,COALESCE(DRUG_EXPOSURE_END_DATE, DATEADD(day, DAYS_SUPPLY, DRUG_EXPOSURE_START_DATE), DATEADD(day, 1, DRUG_EXPOSURE_START_DATE)) AS DRUG_EXPOSURE_END_DATE
+	,c.CONCEPT_ID AS INGREDIENT_CONCEPT_ID
+INTO #cteDrugTarget
+FROM @TARGET_CDMV5_SCHEMA.DRUG_EXPOSURE d
+INNER JOIN @TARGET_CDMV5_SCHEMA.CONCEPT_ANCESTOR ca ON ca.DESCENDANT_CONCEPT_ID = d.DRUG_CONCEPT_ID
+INNER JOIN @TARGET_CDMV5_SCHEMA.CONCEPT c ON ca.ANCESTOR_CONCEPT_ID = c.CONCEPT_ID
+WHERE c.DOMAIN_ID = 'Drug'
+	AND c.CONCEPT_CLASS_ID = 'Ingredient';
+
+/* / */
+
+IF OBJECT_ID('tempdb..#cteEndDates', 'U') IS NOT NULL
+	DROP TABLE #cteEndDates;
+
+/* / */
+
+SELECT PERSON_ID
+	,INGREDIENT_CONCEPT_ID
+	,DATEADD(day, - 30, EVENT_DATE) AS END_DATE -- unpad the end date
+INTO #cteEndDates
+FROM (
+	SELECT E1.PERSON_ID
+		,E1.INGREDIENT_CONCEPT_ID
+		,E1.EVENT_DATE
+		,COALESCE(E1.START_ORDINAL, MAX(E2.START_ORDINAL)) START_ORDINAL
+		,E1.OVERALL_ORD
+	FROM (
+		SELECT PERSON_ID
+			,INGREDIENT_CONCEPT_ID
+			,EVENT_DATE
+			,EVENT_TYPE
+			,START_ORDINAL
+			,ROW_NUMBER() OVER (
+				PARTITION BY PERSON_ID
+				,INGREDIENT_CONCEPT_ID ORDER BY EVENT_DATE
+					,EVENT_TYPE
+				) AS OVERALL_ORD -- this re-numbers the inner UNION so all rows are numbered ordered by the event date
+		FROM (
+			-- select the start dates, assigning a row number to each
+			SELECT PERSON_ID
+				,INGREDIENT_CONCEPT_ID
+				,DRUG_EXPOSURE_START_DATE AS EVENT_DATE
+				,0 AS EVENT_TYPE
+				,ROW_NUMBER() OVER (
+					PARTITION BY PERSON_ID
+					,INGREDIENT_CONCEPT_ID ORDER BY DRUG_EXPOSURE_START_DATE
+					) AS START_ORDINAL
+			FROM #cteDrugTarget
+
+			UNION ALL
+
+			-- add the end dates with NULL as the row number, padding the end dates by 30 to allow a grace period for overlapping ranges.
+			SELECT PERSON_ID
+				,INGREDIENT_CONCEPT_ID
+				,DATEADD(day, 30, DRUG_EXPOSURE_END_DATE)
+				,1 AS EVENT_TYPE
+				,NULL
+			FROM #cteDrugTarget
+			) RAWDATA
+		) E1
+	INNER JOIN (
+		SELECT PERSON_ID
+			,INGREDIENT_CONCEPT_ID
+			,DRUG_EXPOSURE_START_DATE AS EVENT_DATE
+			,ROW_NUMBER() OVER (
+				PARTITION BY PERSON_ID
+				,INGREDIENT_CONCEPT_ID ORDER BY DRUG_EXPOSURE_START_DATE
+				) AS START_ORDINAL
+		FROM #cteDrugTarget
+		) E2 ON E1.PERSON_ID = E2.PERSON_ID
+		AND E1.INGREDIENT_CONCEPT_ID = E2.INGREDIENT_CONCEPT_ID
+		AND E2.EVENT_DATE <= E1.EVENT_DATE
+	GROUP BY E1.PERSON_ID
+		,E1.INGREDIENT_CONCEPT_ID
+		,E1.EVENT_DATE
+		,E1.START_ORDINAL
+		,E1.OVERALL_ORD
+	) E
+WHERE 2 * E.START_ORDINAL - E.OVERALL_ORD = 0;
+
+/* / */
+
+IF OBJECT_ID('tempdb..#cteDrugExpEnds', 'U') IS NOT NULL
+	DROP TABLE #cteDrugExpEnds;
+
+/* / */
+
+SELECT d.PERSON_ID
+	,d.INGREDIENT_CONCEPT_ID
+	,d.DRUG_TYPE_CONCEPT_ID
+	,d.DRUG_EXPOSURE_START_DATE
+	,MIN(e.END_DATE) AS ERA_END_DATE
+INTO #cteDrugExpEnds
+FROM #cteDrugTarget d
+INNER JOIN #cteEndDates e ON d.PERSON_ID = e.PERSON_ID
+	AND d.INGREDIENT_CONCEPT_ID = e.INGREDIENT_CONCEPT_ID
+	AND e.END_DATE >= d.DRUG_EXPOSURE_START_DATE
+GROUP BY d.PERSON_ID
+	,d.INGREDIENT_CONCEPT_ID
+	,d.DRUG_TYPE_CONCEPT_ID
+	,d.DRUG_EXPOSURE_START_DATE;
+
+/* / */
+
+INSERT INTO @TARGET_CDMV5_SCHEMA.drug_era
+SELECT row_number() OVER (
+		ORDER BY person_id
+		) AS drug_era_id
+	,person_id
+	,INGREDIENT_CONCEPT_ID
+	,min(DRUG_EXPOSURE_START_DATE) AS drug_era_start_date
+	,ERA_END_DATE
+	,COUNT(*) AS DRUG_EXPOSURE_COUNT
+	,30 AS gap_days
+FROM #cteDrugExpEnds
+GROUP BY person_id
+	,INGREDIENT_CONCEPT_ID
+	,drug_type_concept_id
+	,ERA_END_DATE;
+
+```
+
+## **Example ETL Script**
+
+### CDM_SOURCE Table
+
+The script below is an example for how to fill in the CDM_SOURCE table. This table is required for the [Data Quality Dashboard](https://github.com/OHDSI/DataQualityDashboard) package to run. This was taken from the [ETL-Synthea](https://github.com/OHDSI/ETL-Synthea) package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import. 
+
+```{sql eval = FALSE, echo = TRUE}
+insert into @cdm_schema.cdm_source (
+cdm_source_name,
+cdm_source_abbreviation,
+cdm_holder,
+source_description,
+source_documentation_reference,
+cdm_etl_reference,
+source_release_date,
+cdm_release_date,
+cdm_version,
+vocabulary_version
+) 
+select
+'Synthea synthetic health database',
+'Synthea',
+'OHDSI Community',
+'SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.',
+'https://synthetichealth.github.io/synthea/',
+'https://github.com/OHDSI/ETL-Synthea',
+getdate(), -- NB: Set this value to the day the source data was pulled
+getdate(), 
+'v5.3',
+vocabulary_version
+from @cdm_schema.vocabulary 
+where vocabulary_id = 'None';
+```
+
+## **Bonus Queries**
+
+### Visit Concept Roll-up
+
+The query below will utilize the Visit Concept hierarcy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children as the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the [Optum Extended ETL documentation](https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html).
+
+```{sql eval=FALSE, echo=TRUE}
+SELECT concept_id, concept_name
+  FROM concept 
+  LEFT JOIN concept_ancestor 
+ 	ON concept_id=descendant_concept_id 
+    AND ancestor_concept_id!=descendant_concept_id
+  WHERE domain_id='Visit' 
+ 	AND standard_concept='S'
+    AND ancestor_concept_id IS NULL
+```

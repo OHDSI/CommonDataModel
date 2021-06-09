@@ -1,0 +1,2 @@
+setwd("/Users/clairblacketer/Documents/GitHub/CdmDdlBase/rmd")#
+rmarkdown::render_site()

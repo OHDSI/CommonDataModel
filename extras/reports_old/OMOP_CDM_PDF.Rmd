@@ -1,0 +1,230 @@
+---
+title: "OMOP Common Data Model Specifications"
+author: Christian Reich, Patrick Ryan, Rimma Belenkaya, Karthik Natarajan and Clair
+  Blacketer
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: yes
+    toc: yes
+linkcolor: blue
+params:
+  mdFilesLocation: S:/Git/GitHub/CommonDataModel.wiki
+keep-tex: yes
+---
+
+```{r, echo=FALSE}
+mdFilesLocation <- params$mdFilesLocation
+```
+
+# License
+```{r child = paste0(mdFilesLocation,'/License.md')}
+```
+
+# Background
+```{r child = paste0(mdFilesLocation,'/Background/Background.md')}
+```
+
+## The Role of the Common Data Model
+```{r child = paste0(mdFilesLocation,'/Background/The-Role-of-the-Common-Data-Model.md')}
+```
+
+## Design Principles
+```{r child = paste0(mdFilesLocation,'/Background/Design-Principles.md')}
+```
+
+## Data Model Conventions
+```{r child = paste0(mdFilesLocation,'/Background/Data-Model-Conventions.md')}
+```
+
+# Glossary of Terms
+```{r child = paste0(mdFilesLocation,'/Glossary-of-Terms.md')}
+```
+
+# Standardized Vocabularies
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/Standardized-Vocabularies.md')}
+```
+
+## CONCEPT
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/CONCEPT.md')}
+```
+
+## VOCABULARY
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/VOCABULARY.md')}
+```
+
+## DOMAIN
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/DOMAIN.md')}
+```
+
+## CONCEPT_CLASS
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/CONCEPT_CLASS.md')}
+```
+
+## CONCEPT_RELATIONSHIP
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/CONCEPT_RELATIONSHIP.md')}
+```
+
+## RELATIONSHIP
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/RELATIONSHIP.md')}
+```
+
+## CONCEPT_SYNONYM
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/CONCEPT_SYNONYM.md')}
+```
+
+## CONCEPT_ANCESTOR
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/CONCEPT_ANCESTOR.md')}
+```
+
+## SOURCE_TO_CONCEPT_MAP
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/SOURCE_TO_CONCEPT_MAP.md')}
+```
+
+## DRUG_STRENGTH
+```{r child = paste0(mdFilesLocation,'/StandardizedVocabularies/DRUG_STRENGTH.md')}
+```
+
+# Standardized Metadata
+```{r child = paste0(mdFilesLocation,'/StandardizedMetadata/Standardized-Metadata.md')}
+```
+
+## CDM_SOURCE
+```{r child = paste0(mdFilesLocation,'/StandardizedMetadata/CDM_SOURCE.md')}
+```
+
+## METADATA
+```{r child = paste0(mdFilesLocation,'/StandardizedMetadata/METADATA.md')}
+```
+
+# Standardized Clinical Data Tables
+```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/Standardized-clinical-Data-Tables.md')}
+```
+
+## PERSON
+```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/PERSON.md')}
+```
+
+<!-- ## OBSERVATION_PERIOD -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/OBSERVATION_PERIOD.md')} -->
+<!-- ``` -->
+
+<!-- ## VISIT_OCCURRENCE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md')} -->
+<!-- ``` -->
+
+<!-- ## VISIT_DETAIL -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/VISIT_DETAIL.md')} -->
+<!-- ``` -->
+
+<!-- ## CONDITION_OCCURRENCE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/CONDITION_OCCURRENCE.md')} -->
+<!-- ``` -->
+
+<!-- ## DEATH -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/DEATH.md')} -->
+<!-- ``` -->
+
+<!-- ## DRUG_EXPOSURE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/DRUG_EXPOSURE.md')} -->
+<!-- ``` -->
+
+<!-- ## PROCEDURE_OCCURRENCE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md')} -->
+<!-- ``` -->
+
+<!-- ## DEVICE_EXPOSURE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/DEVICE_EXPOSURE.md')} -->
+<!-- ``` -->
+
+<!-- ## MEASUREMENT -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/MEASUREMENT.md')} -->
+<!-- ``` -->
+
+<!-- ## NOTE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/NOTE.md')} -->
+<!-- ``` -->
+
+<!-- ## NOTE_NLP -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/NOTE_NLP.md')} -->
+<!-- ``` -->
+
+<!-- ## SURVEY_CONDUCT -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/SURVEY_CONDUCT.md')} -->
+<!-- ``` -->
+
+<!-- ## OBSERVATION -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/OBSERVATION.md')} -->
+<!-- ``` -->
+
+<!-- ## SPECIMEN -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/SPECIMEN.md')} -->
+<!-- ``` -->
+
+<!-- ## FACT_RELATIONSHIP -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/FACT_RELATIONSHIP.md')} -->
+<!-- ``` -->
+
+<!-- # Standardized Health System Data Tables -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthSystemDataTables/Standardized-Health-System-Data-Tables.md')} -->
+<!-- ``` -->
+
+<!-- ## LOCATION -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthSystemDataTables/LOCATION.md')} -->
+<!-- ``` -->
+
+<!-- ## LOCATION_HISTORY -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthSystemDataTables/LOCATION_HISTORY.md')} -->
+<!-- ``` -->
+
+<!-- ## CARE_SITE -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthSystemDataTables/CARE_SITE.md')} -->
+<!-- ``` -->
+
+<!-- ## PROVIDER -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthSystemDataTables/PROVIDER.md')} -->
+<!-- ``` -->
+
+<!-- # Standardized Health Economics Data Tables -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthEconomicsDataTables/Standardized-Health-Economics-Data-Tables.md')} -->
+<!-- ``` -->
+
+<!-- ## PAYER_PLAN_PERIOD -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthEconomicsDataTables/PAYER_PLAN_PERIOD.md')} -->
+<!-- ``` -->
+
+<!-- ## COST -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedHealthEconomicsDataTables/COST.md')} -->
+<!-- ``` -->
+
+<!-- # Standardized Derived Elements -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedDerivedElements/Standardized-Derived-Elements.md')} -->
+<!-- ``` -->
+
+<!-- ## DRUG_ERA -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedDerivedElements/DRUG_ERA.md')} -->
+<!-- ``` -->
+
+<!-- ## DOSE_ERA -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedDerivedElements/DOSE_ERA.md')} -->
+<!-- ``` -->
+
+<!-- ## CONDITION_ERA -->
+<!-- ```{r child = paste0(mdFilesLocation,'/StandardizedDerivedElements/CONDITION_ERA.md')} -->
+<!-- ``` -->
+
+<!-- # Results Schema -->
+<!-- ```{r child = paste0(mdFilesLocation,'/ResultsSchema/Results-Schema.md')} -->
+<!-- ``` -->
+
+<!-- ## COHORT -->
+<!-- ```{r child = paste0(mdFilesLocation,'/ResultsSchema/COHORT.md')} -->
+<!-- ``` -->
+
+<!-- ## COHORT_DEFINITION -->
+<!-- ```{r child = paste0(mdFilesLocation,'/ResultsSchema/COHORT_DEFINITION.md')} -->
+<!-- ``` -->

@@ -1,0 +1,66 @@
+name: "OMOP Common Data Model"
+output_dir: "../docs"
+output:
+  html_document:
+    theme: cosmo
+    css: style.css
+    includes:
+      in_header: "favicon.html"
+exclude: ["extras"]
+navbar:
+  title: '<div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div>'
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Background"
+      icon: fa-landmark
+      menu:
+        - text: "Model Background"
+          href: background.html
+        - text: "How the Vocabulary is Built"
+          href: vocabulary.html
+    - text: "Conventions"
+      icon: fa-list-alt
+      href: dataModelConventions.html
+    - text: "CDM Versions"
+      icon: fa-history
+      menu:
+        - text: "CDM v3.0"
+          href: cdm30.html
+        - text: "CDM v5.3.1"
+          href: cdm531.html
+        - text: "CDM v6.0"
+          href: cdm60.html
+    - text: "Proposals"
+      icon: fa-plus-square
+      menu:
+        - text: "Under Review"
+          href: reviewProposals.html
+        - text: "Accepted"
+          menu:
+            - text: "Oncology CDM Proposal"
+              href: oncology.html
+            - text: "Region_concept_id"
+              href: https://github.com/OHDSI/CommonDataModel/issues/252
+            - text: "Units in Device Table"
+              href: https://github.com/OHDSI/CommonDataModel/issues/264
+    - text: "Help"
+      icon: fa-question
+      menu:
+        - text: "FAQ"
+          href: faq.html
+        - text: "Ask a Question"
+          href: contribute.html
+    - text: "How to"
+      icon: fa-wrench
+      menu:
+        - text: "SQL Scripts"
+          href: sqlScripts.html
+        - text: "Download the DDL"
+          href: download.html
+        - text: "Calculate Drug Dose"
+          href: drug_dose.html
+
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/OHDSI/CommonDataModel

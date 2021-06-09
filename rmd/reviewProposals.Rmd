@@ -1,0 +1,6 @@
+---
+title: 'CDM Proposals Under Review'
+output: html_document
+---
+
+This page is still in development. For a list of all proposals currently under review please see the [github issue log](https://github.com/OHDSI/CommonDataModel/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3AProposal%20).

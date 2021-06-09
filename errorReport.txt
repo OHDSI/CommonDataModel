@@ -1,0 +1,26 @@
+DBMS:
+sql server
+
+Error:
+com.microsoft.sqlserver.jdbc.SQLServerException: 'fpk_NOTE_person_id' is not a constraint.
+
+SQL:
+ALTER TABLE ohdsi.dbo.NOTE DROP CONSTRAINT fpk_NOTE_person_id 
+
+R version:
+R version 3.4.2 (2017-09-28)
+
+Platform:
+x86_64-w64-mingw32
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- CdmDdlBase (0.1.0)
