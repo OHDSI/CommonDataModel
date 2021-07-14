@@ -23,6 +23,27 @@
 #'
 #' @export
 
+writePrimaryKeysFromString <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sql) {
+  if(!dir.exists("output")){
+    dir.create("output")
+  }
+
+  if(!dir.exists(paste0("output/",targetdialect))){
+    dir.create(paste0("output/",targetdialect))
+  }
+
+  renderedSql <- render(sql = sql,
+                        tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
+                        oracleTempSchema = NULL,
+                        warnOnMissingParameters = FALSE)
+  translatedSql <- translate(sql = renderedSql,
+                            targetDialect = targetdialect,
+                            tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"))
+  SqlRender::writeSql(sql = translatedSql,
+                      targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect, " ", cdmVersion, " primary keys.sql" ))
+
+}
+
 writePrimaryKeys <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename) {
   if(!dir.exists("output")){
     dir.create("output")

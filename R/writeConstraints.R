@@ -22,6 +22,25 @@
 #' @param sqlFilename The name of the file that should be rendered and translated to a different dbms.
 #'
 #' @export
+writeConstraintsFromString <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sql) {
+    if(!dir.exists("output")){
+        dir.create("output")
+    }
+    if(!dir.exists(paste0("output/",targetdialect))){
+        dir.create(paste0("output/",targetdialect))
+    }
+    renderedSql <- render(sql = sql,
+                        tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
+                        oracleTempSchema = NULL,
+                        warnOnMissingParameters = FALSE)
+                       ## ...)
+    translatedSql <- translate(sql = renderedSql,
+                            targetDialect = targetdialect,
+                            tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"))
+    SqlRender::writeSql(sql = translatedSql,
+                    targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," ", cdmVersion, " constraints.sql"))
+
+}
 
 writeConstraints <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFileName) {
 if(!dir.exists("output")){

@@ -20,11 +20,47 @@
 #' @param cdmVersion The version of the CDM for which you are creating the DDL.
 #' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server. After testing
 #'                          this can be changed to "@cdmDatabaseSchema"
-#' @param sqlFilename The name of the sql file with the current ddl specifications to be translated and rendered
+#' @param sqlFilename The name of the input sql file with the current ddl specifications to be translated and rendered
 #' @param cleanUpScript Set to T if the clean up script should be created. This is for testing purposes and will create a sql script that drops all CDM tables.
 #'                      By default set to F. Set to F for Oracle as well as the sql render translation does not work well.
 #'
 #' @export
+writeDdlFromString <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sql, cleanUpScript = F) {
+    print(paste("BAAAAAAABA0", length(sql)))
+  if(!dir.exists("output")){
+    dir.create("output")
+  }
+
+  if(!dir.exists(paste0("output/",targetdialect))){
+    dir.create(paste0("output/",targetdialect))
+  }
+  renderedSql <- render(sql = sql,
+                        tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
+                        oracleTempSchema = NULL,
+                        warnOnMissingParameters = FALSE)
+                       ## ...)
+  translatedSql <- translate(sql = renderedSql,
+                            targetDialect = targetdialect,
+                            tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"))
+
+
+  SqlRender::writeSql(sql = translatedSql,
+                      targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," ", cdmVersion," ddl.sql"))
+
+
+  if(cleanUpScript){
+
+      sql <- SqlRender::loadRenderTranslateSql(sqlFilename = "testCleanUp.sql",
+                                               packageName = "CdmDdlBase",
+                                               dbms = targetdialect,
+                                               cdmDatabaseSchema = cdmDatabaseSchema)
+
+      SqlRender::writeSql(sql = sql,
+                          targetFile = paste0("output/",targetdialect,"/", targetdialect," testCleanUp ", cdmVersion,".sql"))
+  }
+
+}
+
 writeDDL <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename, cleanUpScript = F) {
   if(!dir.exists("output")){
     dir.create("output")
