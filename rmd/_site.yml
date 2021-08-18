@@ -29,6 +29,8 @@ navbar:
           href: cdm30.html
         - text: "CDM v5.3.1"
           href: cdm531.html
+        - text: "CDM v5.4"
+          href: cdm531.html
         - text: "CDM v6.0"
           href: cdm60.html
     - text: "Proposals"

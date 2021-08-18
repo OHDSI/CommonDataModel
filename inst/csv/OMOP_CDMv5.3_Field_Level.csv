@@ -498,6 +498,7 @@ DRUG_STRENGTH,denominator_unit_concept_id,No,integer,The Concept representing th
 DRUG_STRENGTH,box_size,No,integer,The number of units of Clinical Branded Drug or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient.,,No,No,,,,,
 DRUG_STRENGTH,valid_start_date,Yes,date,"The date when the Concept was first
 recorded. The default value is
+<<<<<<< HEAD:inst/csv/OMOP_CDMv5.3_Field_Level.csv
 1-Jan-1970.",,No,No,,,,,
 DRUG_STRENGTH,valid_end_date,Yes,date,The date when then Concept became invalid.,,No,No,,,,,
 DRUG_STRENGTH,invalid_reason,No,varchar(1),"Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value.",,No,No,,,,,
@@ -513,3 +514,20 @@ ATTRIBUTE_DEFINITION,attribute_name,Yes,varchar(255),,,No,No,,,,,
 ATTRIBUTE_DEFINITION,attribute_description,No,varchar(MAX),,,No,No,,,,,
 ATTRIBUTE_DEFINITION,attribute_type_concept_id,Yes,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
 ATTRIBUTE_DEFINITION,attribute_syntax,No,varchar(MAX),,,No,No,,,,,
+=======
+1-Jan-1970.",,No,No,,,,,
+DRUG_STRENGTH,valid_end_date,Yes,date,The date when then Concept became invalid.,,No,No,,,,,
+DRUG_STRENGTH,invalid_reason,No,varchar(1),"Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value.",,No,No,,,,,
+COHORT_DEFINITION,cohort_definition_id,Yes,integer,"This is the identifier given to the cohort, usually by the ATLAS application",,No,No,,,,,
+COHORT_DEFINITION,cohort_definition_name,Yes,varchar(255),A short description of the cohort,,No,No,,,,,
+COHORT_DEFINITION,cohort_definition_description,No,varchar(MAX),A complete description of the cohort.,,No,No,,,,,
+COHORT_DEFINITION,definition_type_concept_id,Yes,integer,Type defining what kind of Cohort Definition the record represents and how the syntax may be executed.,,No,Yes,CONCEPT,CONCEPT_ID,,,
+COHORT_DEFINITION,cohort_definition_syntax,No,varchar(MAX),Syntax or code to operationalize the Cohort Definition.,,No,No,,,,,
+COHORT_DEFINITION,subject_concept_id,Yes,integer,"This field contains a Concept that represents the domain of the subjects that are members of the cohort (e.g., Person, Provider, Visit).",,No,Yes,CONCEPT,CONCEPT_ID,,,
+COHORT_DEFINITION,cohort_initiation_date,No,date,A date to indicate when the Cohort was initiated in the COHORT table.,,No,No,,,,,
+ATTRIBUTE_DEFINITION,attribute_definition_id,Yes,integer,,,No,No,,,,,
+ATTRIBUTE_DEFINITION,attribute_name,Yes,varchar(255),,,No,No,,,,,
+ATTRIBUTE_DEFINITION,attribute_description,No,varchar(MAX),,,No,No,,,,,
+ATTRIBUTE_DEFINITION,attribute_type_concept_id,Yes,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
+ATTRIBUTE_DEFINITION,attribute_syntax,No,varchar(MAX),,,No,No,,,,,
+>>>>>>> v5.4:inst/csv/OMOP_CDMv5.3.1_Field_Level.csv
