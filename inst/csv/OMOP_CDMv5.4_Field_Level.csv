@@ -359,11 +359,13 @@ Condition.",,No,No,,,,,
 CONDITION_ERA,condition_occurrence_count,No,integer,"The number of individual Condition
 Occurrences used to construct the
 condition era.",,No,No,,,,,
+METADATA,metadata_id,Yes,integer,The unique key given to a Metadata record.,Attribute value is auto-generated,Yes,No,,,,,
 METADATA,metadata_concept_id,Yes,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
 METADATA,metadata_type_concept_id,Yes,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
 METADATA,name,Yes,varchar(250),,,No,No,,,,,
 METADATA,value_as_string,No,varchar(250),,,No,No,,,,,
 METADATA,value_as_concept_id,No,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
+METADATA,value_as_number,No,float,"This is the numerical value of the Result of the Metadata, if applicable and available. It is not expected that all Metadata will have numeric results, rather, this field is here to house values should they exist. ",,No,No,,,,,
 METADATA,metadata_date,No,date,,,No,No,,,,,
 METADATA,metadata_datetime,No,datetime,,,No,No,,,,,
 CDM_SOURCE,cdm_source_name,Yes,varchar(255),The name of the CDM instance.,,No,No,,,,,
