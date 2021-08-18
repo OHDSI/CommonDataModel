@@ -4,12 +4,11 @@
 # the new CDM versions. Set the below variable to indicate the version of the cdm you are creating. This will be used for the name of the pdf so, for
 # example, write v5.3 as v5_3.
 
-  cdmVersion <- "v6_0"
+  cdmVersion <- "5.3.1"
 
 # Step 3: After creating the csv files for the new version, create the sql server DDL from the file
 
-    s <- CdmDdlBase::createDdlFromFile(cdmTableCsvLoc = "inst/csv/OMOP_CDMv6.0_Table_Level.csv",
-                           cdmFieldCsvLoc = "inst/csv/OMOP_CDMv6.0_Field_Level.csv")
+    s <- CdmDdlBase::createDdlFromFile(cdmVersion)
 
   # Step 3.1: Create the primary key constraints for the new version
 
@@ -103,53 +102,12 @@ writeIndex("sql server",
 # Step 8: After testing the files for Oracle, Postgres, and Sql Server run the following to create the files for all dialects. Oracle
 # Postgres and Sql Server are rewritten to overwrite the cdmDatabaseSchema with a token.
 
-writeDDL(targetdialect = "oracle",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F) #oracle syntax for removing tables is weird, set this to F and make any changes to the raw file
 
-writeDDL(targetdialect = "postgresql",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F) #This needs to be updated manually right now
+for (targetdialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
+  writeDDL(targetdialect = targetdialect,
+           cdmVersion = cdmVersion)
+}
 
-writeDDL(targetdialect = "sql server",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F) #This needs to be updated manually right now
-
-writeDDL(targetdialect = "bigquery",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F)
-
-writeDDL(targetdialect = "impala",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F)
-
-writeDDL(targetdialect = "netezza",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F)
-
-writeDDL(targetdialect = "pdw",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F)
-
-writeDDL(targetdialect = "redshift",
-         cdmVersion = cdmVersion,
-         sqlFilename = paste0("OMOP CDM ddl ", cdmVersion, " ", Sys.Date(), ".sql"),
-         cdmDatabaseSchema = "@cdmDatabaseSchema",
-         cleanUpScript = F)
 
 ## Write all primary keys
 
