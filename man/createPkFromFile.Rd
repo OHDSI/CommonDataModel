@@ -4,10 +4,12 @@
 \alias{createPkFromFile}
 \title{Create a primary key sql script from two csv files that detail the OMOP CDM Specifications.}
 \usage{
-createPkFromFile(cdmVersionNum = cdmVersion,
+createPkFromFile(
+  cdmVersionNum = cdmVersion,
   cdmFieldCsvLoc = "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv",
-  outputFile = paste0("inst/sql/sql_server/OMOP CDM pk ", cdmVersion,
-  " ", Sys.Date(), ".sql"))
+  outputFile = paste0("inst/sql/sql_server/OMOP CDM pk ", cdmVersion, " ", Sys.Date(),
+    ".sql")
+)
 }
 \arguments{
 \item{cdmVersionNum}{The version of the CDM you are creating}

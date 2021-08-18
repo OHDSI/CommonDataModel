@@ -4,10 +4,12 @@
 \alias{createFkFromFile}
 \title{Create a foreign key sql script from two csv files that detail the OMOP CDM Specifications.}
 \usage{
-createFkFromFile(cdmVersionNum = cdmVersion,
+createFkFromFile(
+  cdmVersionNum = cdmVersion,
   cdmFieldCsvLoc = "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv",
-  outputFile = paste0("inst/sql/sql_server/OMOP CDM fk ", cdmVersion,
-  " ", Sys.Date(), ".sql"))
+  outputFile = paste0("inst/sql/sql_server/OMOP CDM fk ", cdmVersion, " ", Sys.Date(),
+    ".sql")
+)
 }
 \arguments{
 \item{cdmVersionNum}{The version of the CDM you are creating}

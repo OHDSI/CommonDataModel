@@ -4,8 +4,13 @@
 \alias{writeDDL}
 \title{Write DDL script}
 \usage{
-writeDDL(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename,
-  cleanUpScript = F)
+writeDDL(
+  targetdialect,
+  cdmVersion,
+  cdmDatabaseSchema,
+  sqlFilename,
+  cleanUpScript = F
+)
 }
 \arguments{
 \item{targetdialect}{The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"}

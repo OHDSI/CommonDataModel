@@ -5,11 +5,13 @@
 \title{Create a DDL script from a two csv files that detail the OMOP CDM Specifications. These files also form the basis of the CDM documentation and the Data Quality
 Dashboard.}
 \usage{
-createDdlFromFile(cdmVersionNum = cdmVersion,
+createDdlFromFile(
+  cdmVersionNum = cdmVersion,
   cdmTableCsvLoc = "inst/csv/OMOP_CDMv5.3.1_Table_Level.csv",
   cdmFieldCsvLoc = "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv",
-  outputFile = paste0("inst/sql/sql_server/OMOP CDM ddl ", cdmVersion,
-  " ", Sys.Date(), ".sql"))
+  outputFile = paste0("inst/sql/sql_server/OMOP CDM ddl ", cdmVersion, " ", Sys.Date(),
+    ".sql")
+)
 }
 \arguments{
 \item{cdmVersionNum}{The version of the CDM you are creating}
