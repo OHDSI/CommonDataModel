@@ -30,7 +30,7 @@ writeConstraints <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cd
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
   sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
-  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "constraints.sql", sep = " ")
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "constraints.sql", sep = "_")
   SqlRender::writeSql(sql = sql,
                       targetFile = file.path(outputpath, filename)
   )

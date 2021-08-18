@@ -30,7 +30,7 @@ writePrimaryKeys <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cd
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
   sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
-  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "primary", "keys.sql", sep = " ")
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "primary", "keys.sql", sep = "_")
   SqlRender::writeSql(sql = sql,
                       targetFile = file.path(outputpath, filename)
   )

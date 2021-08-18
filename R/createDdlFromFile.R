@@ -48,7 +48,7 @@ createDdlFromFile <- function(cdmVersion = cdmVersion){
       query <- "\n\n--HINT DISTRIBUTE ON RANDOM\n"
     }
 
-    sql_result <- c(sql_result, query, paste0("CREATE TABLE @cdmDatabaseSchema.", tableName, " (\n"))
+    sql_result <- c(sql_result, query, paste0("CREATE TABLE @cdmDatabaseSchema.", tableName, " ("))
 
     n_fields <- length(fieldNames)
     for(fieldName in fieldNames) {

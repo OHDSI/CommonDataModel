@@ -32,7 +32,7 @@ writeIndex <- function(targetdialect, cdmVersion, cdmDatabaseSchema  = "@cdmData
                                            targetdialect = targetdialect,
                                            cdmDatabaseSchema = cdmDatabaseSchema)
 
-  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "indices.sql", sep = " ")
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "indices.sql", sep = "_")
   SqlRender::writeSql(sql = sql,
                       targetFile = file.path(outputpath, filename))
 }

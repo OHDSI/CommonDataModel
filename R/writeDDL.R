@@ -30,7 +30,7 @@ writeDDL <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cdmDatabas
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
   sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
-  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "ddl.sql", sep = " ")
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "ddl.sql", sep = "_")
   SqlRender::writeSql(sql = sql,
                       targetFile = file.path(outputpath, filename)
   )
