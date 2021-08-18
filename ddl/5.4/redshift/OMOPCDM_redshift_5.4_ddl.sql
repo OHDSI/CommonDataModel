@@ -1,4 +1,4 @@
---@targetdialect CDM DDL Specification for OMOP Common Data Model 5.4
+--redshift CDM DDL Specification for OMOP Common Data Model 5.4
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.PERSON  ( person_id integer NOT NULL,

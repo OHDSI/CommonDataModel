@@ -1,4 +1,4 @@
---@targetdialect CDM DDL Specification for OMOP Common Data Model 5.4
+--pdw CDM DDL Specification for OMOP Common Data Model 5.4
 
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PERSON  ( person_id integer NOT NULL,

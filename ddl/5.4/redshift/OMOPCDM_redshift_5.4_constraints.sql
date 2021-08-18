@@ -1,4 +1,4 @@
---@targetdialect CDM Foreign Key Constraints for OMOP Common Data Model 5.4
+--redshift CDM Foreign Key Constraints for OMOP Common Data Model 5.4
 
 ALTER TABLE @cdmDatabaseSchema.PERSON ADD CONSTRAINT fpk_PERSON_gender_concept_id FOREIGN KEY (gender_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 

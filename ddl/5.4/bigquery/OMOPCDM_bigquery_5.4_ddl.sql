@@ -1,4 +1,4 @@
---@targetdialect CDM DDL Specification for OMOP Common Data Model 5.4
+--bigquery CDM DDL Specification for OMOP Common Data Model 5.4
 
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.person (

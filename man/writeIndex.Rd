@@ -4,16 +4,14 @@
 \alias{writeIndex}
 \title{Write Index script}
 \usage{
-writeIndex(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename)
+writeIndex(targetdialect, cdmVersion, cdmDatabaseSchema = "@cdmDatabaseSchema")
 }
 \arguments{
 \item{targetdialect}{The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"}
 
-\item{cdmVersion}{The version of the CDM that you are creating the primary keys for}
+\item{cdmVersion}{The version of the CDM that you are creating the indices for. e.g. 5.3.1}
 
-\item{cdmDatabaseSchema}{The name of the schema where the cdm sits.}
-
-\item{sqlFilename}{The name of the file that should be rendered and translated to a different dbms. This is either "OMOP CDM indices v5.3.1.sql" or "OMOP CDM indices v6.0.sql".}
+\item{cdmDatabaseSchema}{The name of the schema where the cdm sits. Defaults to "@cdmDatabaseSchema"}
 }
 \description{
 Write Index script

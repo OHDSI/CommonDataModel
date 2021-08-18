@@ -26,8 +26,8 @@ writeDDL <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cdmDatabas
   outputpath <- file.path("ddl", cdmVersion, targetdialect)
   dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
-  sql <- createDdlFromFile(cdmVersion)
-  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
+  sql <- createDdl(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetdialect = targetdialect)
   sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
   filename <- paste("OMOPCDM", targetdialect, cdmVersion, "ddl.sql", sep = "_")

@@ -7,5 +7,5 @@
 listSupportedVersions()
 }
 \description{
-@export
+List CDM versions supported by this package
 }

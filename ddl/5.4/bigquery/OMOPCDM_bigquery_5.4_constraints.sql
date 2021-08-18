@@ -1,4 +1,4 @@
---@targetdialect CDM Foreign Key Constraints for OMOP Common Data Model 5.4
+--bigquery CDM Foreign Key Constraints for OMOP Common Data Model 5.4
 
 alter table @cdmDatabaseSchema.person add constraint fpk_person_gender_concept_id foreign key (gender_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
