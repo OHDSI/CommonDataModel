@@ -8,17 +8,15 @@
 
 # Step 3: After creating the csv files for the new version, create the sql server DDL from the file
 
-    s <- CdmDdlBase::createDdlFromFile(cdmVersion)
+    ddl <- CdmDdlBase::createDdlFromFile(cdmVersion)
 
   # Step 3.1: Create the primary key constraints for the new version
 
-    p <- CdmDdlBase::createPkFromFile(cdmVersionNum = cdmVersion,
-                                      cdmFieldCsvLoc = "inst/csv/OMOP_CDMv6.0_Field_Level.csv")
+    primaryKeys <- CdmDdlBase::createPkFromFile(cdmVersion)
 
   # Step 3.2: Create the foreign key constraints for the new version
 
-    f <- CdmDdlBase::createFkFromFile(cdmVersionNum = cdmVersion,
-                                      cdmFieldCsvLoc = "inst/csv/OMOP_CDMv6.0_Field_Level.csv")
+    foreignKeys <- CdmDdlBase::createFkFromFile(cdmVersion)
 # At this point you should rebuild the package
 
 # Step 4: Run the following code to render the DDLs for each dialect. These will be used for testing on the ohdsi servers which is why the cdmDatabaseSchema is specified.
@@ -106,54 +104,14 @@ writeIndex("sql server",
 for (targetdialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
   writeDDL(targetdialect = targetdialect,
            cdmVersion = cdmVersion)
+
+  writePrimaryKeys(targetdialect = targetdialect,
+                   cdmVersion = cdmVersion)
+
+  writeConstraints(targetdialect = targetdialect,
+                   cdmVersion = cdmVersion)
 }
 
-
-## Write all primary keys
-
-writePrimaryKeys(targetdialect = "oracle",
-                 cdmVersion = cdmVersion,
-                 sqlFilename = paste0("OMOP CDM pk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 cdmDatabaseSchema = "@cdmDatabaseSchema")
-
-
-writePrimaryKeys(targetdialect = "postgresql",
-                 cdmVersion = cdmVersion,
-                 sqlFilename = paste0("OMOP CDM pk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 cdmDatabaseSchema = "@cdmDatabaseSchema")
-
-
-writePrimaryKeys(targetdialect = "sql server",
-                 cdmVersion = cdmVersion,
-                 sqlFilename = paste0("OMOP CDM pk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 cdmDatabaseSchema = "@cdmDatabaseSchema")
-
-writePrimaryKeys(targetdialect = "netezza",
-                 cdmVersion = cdmVersion,
-                 sqlFilename = paste0("OMOP CDM pk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 cdmDatabaseSchema = "@cdmDatabaseSchema")
-
-## write all foreign key constraints
-
-writeConstraints("oracle",
-                 cdmVersion,
-                 sqlFileName = paste0("OMOP CDM fk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 "@cdmDatabaseSchema")
-
-writeConstraints("postgresql",
-                 cdmVersion,
-                 sqlFileName = paste0("OMOP CDM fk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 "@cdmDatabaseSchema")
-
-writeConstraints("sql server",
-                 cdmVersion,
-                 sqlFileName = paste0("OMOP CDM fk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 "@cdmDatabaseSchema")
-
-writeConstraints("pdw",
-                 cdmVersion,
-                 sqlFileName = paste0("OMOP CDM fk ", cdmVersion, " ", Sys.Date(), ".sql"),
-                 "@cdmDatabaseSchema")
 
 ## write all indices
 
