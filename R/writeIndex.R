@@ -17,27 +17,22 @@
 #' Write Index script
 #'
 #' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
-#' @param cdmVersion The version of the CDM that you are creating the primary keys for
-#' @param cdmDatabaseSchema The name of the schema where the cdm sits.
-#' @param sqlFilename The name of the file that should be rendered and translated to a different dbms. This is either "OMOP CDM indices v5_3_1.sql" or "OMOP CDM indices v6_0.sql".
+#' @param cdmVersion The version of the CDM that you are creating the indices for. e.g. 5.3.1
+#' @param cdmDatabaseSchema The name of the schema where the cdm sits. Defaults to "@cdmDatabaseSchema"
 #'
 #' @export
-writeIndex <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename) {
-if(!dir.exists("output")){
-  dir.create("output")
-}
+writeIndex <- function(targetdialect, cdmVersion, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
+  outputpath <- file.path("ddl", cdmVersion, targetdialect)
+  dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
-if(!dir.exists(paste0("output/",targetdialect))){
-  dir.create(paste0("output/",targetdialect))
-}
+  sqlFilename <- paste0("OMOP CDM indices v", cdmVersion, ".sql")
+  sql <- SqlRender::loadRenderTranslateSql(sqlFilename = sqlFilename,
+                                           packageName = "CdmDdlBase",
+                                           dbms = targetdialect,
+                                           targetdialect = targetdialect,
+                                           cdmDatabaseSchema = cdmDatabaseSchema)
 
-sql <- SqlRender::loadRenderTranslateSql(sqlFilename = sqlFilename,
-                                         packageName = "CdmDdlBase",
-                                         dbms = targetdialect,
-                                         targetdialect = targetdialect,
-                                         cdmDatabaseSchema = cdmDatabaseSchema)
-
-SqlRender::writeSql(sql = sql,
-                    targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," ", cdmVersion, " indices.sql"))
-
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "indices.sql", sep = " ")
+  SqlRender::writeSql(sql = sql,
+                      targetFile = file.path(outputpath, filename))
 }
