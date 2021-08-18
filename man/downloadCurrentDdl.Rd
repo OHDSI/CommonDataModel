@@ -4,10 +4,11 @@
 \alias{downloadCurrentDdl}
 \title{Get current DDL sitting on the master branch}
 \usage{
-downloadCurrentDdl(githubPath = "OHDSI/CommonDataModel",
+downloadCurrentDdl(
+  githubPath = "OHDSI/CommonDataModel",
   pathToCsv = "Sql\%20Server/OMOP\%20CDM\%20sql\%20server\%20ddl.txt",
-  outputFile = paste0("inst/sql/sql_server/OMOP CDM ddl ", Sys.Date(),
-  ".sql"))
+  outputFile = paste0("inst/sql/sql_server/OMOP CDM ddl ", Sys.Date(), ".sql")
+)
 }
 \arguments{
 \item{githubPath}{The path for the GitHub repo containing the package (e.g. 'OHDSI/CommonDataModel').}

@@ -26,8 +26,8 @@ writePrimaryKeys <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cd
   outputpath <- file.path("ddl", cdmVersion, targetdialect)
   dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
-  sql <- createFkFromFile(cdmVersion)
-  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
+  sql <- createPrimaryKeys(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetdialect = targetdialect)
   sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
   filename <- paste("OMOPCDM", targetdialect, cdmVersion, "primary", "keys.sql", sep = "_")

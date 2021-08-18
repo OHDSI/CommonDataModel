@@ -2,22 +2,25 @@
 
 # For a given cdmVersion, create all ddl sql files for every sql dialect
 # Results are written to ddl/cdm_version/dialect.
-cdmVersion <- "5.3.1"
+cdmVersion <- "5.3"
 
-for (targetdialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
-  writeDDL(targetdialect = targetdialect,
-           cdmVersion = cdmVersion)
+supportedVersions <- listSupportedVersions()
 
-  writePrimaryKeys(targetdialect = targetdialect,
-                   cdmVersion = cdmVersion)
-
-  writeConstraints(targetdialect = targetdialect,
-                   cdmVersion = cdmVersion)
-
-  writeIndex(targetdialect = targetdialect,
+for (cdmVersion in supportedVersions) {
+  for (targetdialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
+    writeDDL(targetdialect = targetdialect,
              cdmVersion = cdmVersion)
-}
 
+    writePrimaryKeys(targetdialect = targetdialect,
+                     cdmVersion = cdmVersion)
+
+    writeForeignKeys(targetdialect = targetdialect,
+                     cdmVersion = cdmVersion)
+
+    writeIndex(targetdialect = targetdialect,
+               cdmVersion = cdmVersion)
+  }
+}
 
 #############
 # BE SURE TO RUN THE EXTRAS/SITEMAINTENANCE.R BEFORE CREATING THE PDF
