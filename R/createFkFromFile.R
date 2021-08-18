@@ -16,31 +16,23 @@
 
 #' Create a foreign key sql script from two csv files that detail the OMOP CDM Specifications.
 
-#' @param cdmVersionNum The version of the CDM you are creating
-#'
-#' @param cdmFieldCsvLoc The location of the csv file with the CDM field information. This is defaulted to "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv".
-#'                        If a new version of this file was committed to the CDM repository the package automatically will grab it and place it in "inst/csv/".
-#' @param outputFile  The name of the output foreign key file. This is defaulted to a location in the inst/sql/sql server folder and named with today's date and CDM version.
+#' @param cdmVersionNum The version of the CDM you are creating, e.g. 5.3.1
 #' @export
 
-createFkFromFile <- function(cdmVersionNum = cdmVersion,
-                             cdmFieldCsvLoc = "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv",
-                             outputFile = paste0("inst/sql/sql_server/OMOP CDM fk ", cdmVersion, " ", Sys.Date(), ".sql")){
-
+createFkFromFile <- function(cdmVersion = cdmVersion){
+  cdmFieldCsvLoc <- paste0("inst/csv/OMOP_CDMv", cdmVersion, "_Field_Level.csv")
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  fks <- subset(cdmSpecs, isForeignKey == "Yes")
-  fks$key <- paste0(fks$cdmTableName,"_",fks$cdmFieldName)
+  foreignKeys <- subset(cdmSpecs, isForeignKey == "Yes")
+  foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
 
-  s <- c()
-  s <- c(paste0("--@targetdialect CDM Foreign Key Constraints for OMOP Common Data Model ",cdmVersionNum, "\n"))
-  for (t in fks$key){
+  sql_result <- c(paste0("--@targetdialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
+  for (foreignKey in foreignKeys$key){
 
-      q <- subset(fks, fks$key==t)
+      subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
 
-      s <- c(s, paste0("\nALTER TABLE @cdmDatabaseSchema.", q$cdmTableName, " ADD CONSTRAINT fpk_", q$cdmTableName, "_", q$cdmFieldName, " FOREIGN KEY (", q$cdmFieldName ,") REFERENCES @cdmDatabaseSchema.", q$fkTableName, " (", q$fkFieldName, ");\n"))
+      sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT fpk_", subquery$cdmTableName, "_", subquery$cdmFieldName, " FOREIGN KEY (", subquery$cdmFieldName , ") REFERENCES @cdmDatabaseSchema.", subquery$fkTableName, " (", subquery$fkFieldName, ");\n"))
 
   }
-  SqlRender::writeSql(s, targetFile = outputFile)
-  return(s)
+  return(paste0(sql_result, collapse = ""))
 }

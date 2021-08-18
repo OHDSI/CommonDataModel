@@ -13,7 +13,7 @@ writeIndex(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename)
 
 \item{cdmDatabaseSchema}{The name of the schema where the cdm sits.}
 
-\item{sqlFilename}{The name of the file that should be rendered and translated to a different dbms. This is either "OMOP CDM indices v5_3_1.sql" or "OMOP CDM indices v6_0.sql".}
+\item{sqlFilename}{The name of the file that should be rendered and translated to a different dbms. This is either "OMOP CDM indices v5.3.1.sql" or "OMOP CDM indices v6.0.sql".}
 }
 \description{
 Write Index script
