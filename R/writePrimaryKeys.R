@@ -18,27 +18,20 @@
 #'
 #' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
 #' @param cdmVersion The version of the CDM that you are creating the primary keys for
-#' @param cdmDatabaseSchema The name of the schema where the cdm sits.
-#' @param sqlFilename The name of the file that should be rendered and translated to a different dbms.
+#' @param cdmDatabaseSchema The name of the schema where the cdm sits. Defaults to "@cdmDatabaseSchema"
 #'
 #' @export
 
-writePrimaryKeys <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename) {
-  if(!dir.exists("output")){
-    dir.create("output")
-  }
+writePrimaryKeys <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+  outputpath <- file.path("ddl", cdmVersion, targetdialect)
+  dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
-  if(!dir.exists(paste0("output/",targetdialect))){
-    dir.create(paste0("output/",targetdialect))
-  }
+  sql <- createFkFromFile(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema)
+  sql <- SqlRender::translate(sql, targetDialect = targetdialect)
 
-  sql <- SqlRender::loadRenderTranslateSql(sqlFilename = sqlFilename,
-                                           packageName = "CdmDdlBase",
-                                           dbms = targetdialect,
-                                           targetdialect = targetdialect,
-                                           cdmDatabaseSchema = cdmDatabaseSchema)
-
+  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "primary", "keys.sql", sep = "_")
   SqlRender::writeSql(sql = sql,
-                      targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect, " ", cdmVersion, " primary keys.sql" ))
-
+                      targetFile = file.path(outputpath, filename)
+  )
 }
