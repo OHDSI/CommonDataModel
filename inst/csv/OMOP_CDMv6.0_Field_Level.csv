@@ -449,7 +449,7 @@ VOCABULARY,vocabulary_name,Yes,varchar(255),"The name describing the vocabulary,
 example International Classification of
 Diseases, Ninth Revision, Clinical
 Modification, Volume 1 and 2 (NCHS) etc.",,No,No,,,,,
-VOCABULARY,vocabulary_reference,Yes,varchar(255),"External reference to documentation or
+VOCABULARY,vocabulary_reference,No,varchar(255),"External reference to documentation or
 available download of the about the
 vocabulary.",,No,No,,,,,
 VOCABULARY,vocabulary_version,No,varchar(255),"Version of the Vocabulary as indicated in
