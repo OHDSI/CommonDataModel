@@ -259,7 +259,7 @@ LOCATION,address_1,No,varchar(50),"The address field 1, typically used for the s
 LOCATION,address_2,No,varchar(50),"The address field 2, typically used for additional detail such as buildings, suites, floors, as it appears in the source data",,No,No,,,,,
 LOCATION,city,No,varchar(50),The city field as it appears in the source data,,No,No,,,,,
 LOCATION,district,No,varchar(50),The district field as it appears in the source data,,No,No,,,,,
-LOCATION,postal_area,No,varchar(9),The zip or postal code,"Zip codes are handled as strings of up to 9 characters length. For US addresses, these represent either a 3-digit abbreviated Zip code as provided by many sources for patient protection reasons, the full 5-digit Zip or the 9-digit (ZIP + 4) codes. Unless for specific reasons analytical methods should expect and utilize only the first 3 digits. For international addresses, different rules apply.",No,No,,,,,
+LOCATION,postal_area,No,varchar(9),The zip or postal code,"Zip or Postal codes are handled as strings of up to 9 characters length. For US addresses, these represent either a 3-digit abbreviated Zip code as provided by many sources for patient protection reasons, the full 5-digit Zip or the 9-digit (ZIP + 4) codes. Unless for specific reasons analytical methods should expect and utilize only the first 3 digits. For international addresses, different rules apply.",No,No,,,,,
 LOCATION,country,No,varchar(50),The country as it appears in the source data,,No,No,,,,,
 LOCATION,latitude,No,numeric,,Must be between -90 and 90.,No,No,,,,,
 LOCATION,longitude,No,numeric,,Must be between -180 and 180.,No,No,,,,,
