@@ -1,4 +1,4 @@
-Package: CdmDdlBase
+Package: CommonDataModel
 Type: Package
 Title: OMOP CDM DDL and Documentation Generator
 Version: 0.1.0
@@ -15,5 +15,11 @@ Imports:
   stringr,
   readxl,
   dplyr
+Suggests:
+    knitr,
+    testthat (>= 3.0.0),
+    RSQLite,
+    DatabaseConnector
 NeedsCompilation: no
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3
