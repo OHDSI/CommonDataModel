@@ -25,10 +25,10 @@ for (cdmVersion in supportedVersions) {
 #############
 # Zipping release
 # All dialects
-buildReleaseZip(cdmVersion='5.3', outputfolder='.')
+buildReleaseZip(cdmVersion="5.3", outputfolder="output")
 
 # One dialect
-buildReleaseZip(cdmVersion='5.4', targetDialect='sql server', outputfolder='.')
+buildReleaseZip(cdmVersion="5.4", targetDialect="postgresql", outputfolder="output")
 
 #############
 # BE SURE TO RUN THE EXTRAS/SITEMAINTENANCE.R BEFORE CREATING THE PDF
