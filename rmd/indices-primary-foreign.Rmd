@@ -1,0 +1,48 @@
+---
+title: "Indices, Primary Keys and Foreign Key Constraints"
+output: 
+  html_document:
+      toc: true
+      toc_depth: 5
+      toc_float: true
+---
+
+## Overview
+Database indices improve the performance of queries against a database by organizing the data in a way that increase query execution.
+
+This article was written to provide guidance on the setting of indices, primary and foreign keys for data that has been transformed into the Observational Medical Outcome Partnership (OMOP) Common Data Model (CDM).  The community that supports the design and development of the OHDSI/CommonDataModel Github repository is a diverse collaborative of healthcare and technical profesisonals whom have limited data base adminstrative (DBA) experience.  As a result, the comments below should be interpreted as suggestions and recommendations to help increase performance.  Your teams needs may call for a modified configuration.
+
+## General Recommendations
+Should your database of choice support indexing, the OMOP CDM Working Group recommends
+
+* Indexing on all columns containing an "_id" (e.g. condition_occurrence_id, drug_exposure_id, measurement_id, procedure_occurrence_id, etc.)
+* Indexing on primary and foreign keys
+
+For all databases, regardless of custom indice support, primary and foreign keys should be set.  This is a step towards ensuring data integrity.  Information on what table level attributes should be set as primary and foreign keys can be found within the *_Field_Level.csv file(s) located in the [INST/CSV directory](https://github.com/OHDSI/CommonDataModel/tree/v5.4/inst/csv)
+
+## Database support
+The OHDSI/CommonDataModel package leverages OHDSI/SQLRender and as a result is only capable of supporting sources that are supported by OHDSI/SQLRender.  The following databases are currently supported.
+
+### Microsoft SQL Server
+### Oracle
+### PostgreSQL
+
+### Amazon Redshift
+On AWS Redshift it is important to ensure that your data is properly distributed and sorted across nodes.  Compression on certain columns may also help.  The designed DDL does set DISTKEYS in an effort to optimize performance.  This configuration can be seen within the [Redshift-specific DDL](https://github.com/OHDSI/CommonDataModel/blob/v5.4/ddl/5.4/redshift/OMOPCDM_redshift_5.4_ddl.sql).
+
+### Impala
+### IBM Netezza
+### Google BigQuery
+Google BigQuery does not require manual optimization and/or sizing.  Google BigQuery does massive parallel full table scans and intensive caching, all under the hood.
+[Reference](https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2)
+
+### Microsoft Parallel Data Warehouse (PDW)
+### SQLite
+
+### Databricks
+This database type is not yet supported but is actively being worked on by a number of collaborators.  For more informtion, please contact Ajit Londhe of Amgen.
+
+## References
+
+[ISO Best Practices of CDM Indexing](https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2)
+

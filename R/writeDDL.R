@@ -16,43 +16,108 @@
 
 #' Write DDL script
 #'
-#' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
-#' @param cdmVersion The version of the CDM for which you are creating the DDL.
-#' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server. After testing
-#'                          this can be changed to "@cdmDatabaseSchema"
-#' @param sqlFilename The name of the sql file with the current ddl specifications to be translated and rendered
-#' @param cleanUpScript Set to T if the clean up script should be created. This is for testing purposes and will create a sql script that drops all CDM tables.
-#'                      By default set to F. Set to F for Oracle as well as the sql render translation does not work well.
+#' Write the DDL to a SQL file. The SQL will be rendered (parameters replaced) and translated to the target SQL
+#' dialect. By default the @cdmDatabaseSchema parameter is kept in the SQL file and needs to be replaced before
+#' execution.
+#'
+#' @param targetDialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
+#' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
+#' @param outputpath The directory or folder where the SQL file should be saved.
+#' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
+#'                          Defaults to "@cdmDatabaseSchema"
 #'
 #' @export
-writeDDL <- function(targetdialect, cdmVersion, cdmDatabaseSchema, sqlFilename, cleanUpScript = F) {
-  if(!dir.exists("output")){
-    dir.create("output")
+writeDdl <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
   }
 
-  if(!dir.exists(paste0("output/",targetdialect))){
-    dir.create(paste0("output/",targetdialect))
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sql <- createDdl(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "ddl.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
+
+#' @describeIn writeDdl writePrimaryKeys Write the SQL code that creates the primary keys to a file.
+#' @export
+writePrimaryKeys <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
   }
 
-  sql <- SqlRender::loadRenderTranslateSql(sqlFilename = sqlFilename,
-                                           packageName = "CdmDdlBase",
-                                           dbms = targetdialect,
-                                           targetdialect = targetdialect,
-                                           cdmDatabaseSchema = cdmDatabaseSchema)
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
-  SqlRender::writeSql(sql = sql,
-                      targetFile = paste0("output/",targetdialect,"/OMOP CDM ",targetdialect," ", cdmVersion," ddl.sql"))
+  sql <- createPrimaryKeys(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "primary", "keys.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
 
-  if(cleanUpScript){
+#' @describeIn writeDdl writeForeignKeys Write the SQL code that creates the foreign keys to a file.
+#' @export
+writeForeignKeys <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
-      sql <- SqlRender::loadRenderTranslateSql(sqlFilename = "testCleanUp.sql",
-                                               packageName = "CdmDdlBase",
-                                               dbms = targetdialect,
-                                               cdmDatabaseSchema = cdmDatabaseSchema)
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
 
-      SqlRender::writeSql(sql = sql,
-                          targetFile = paste0("output/",targetdialect,"/", targetdialect," testCleanUp ", cdmVersion,".sql"))
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
   }
 
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sql <- createForeignKeys(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "constraints.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
+
+#' @describeIn writeDdl writeIndex Write the rendered and translated sql that creates recommended indexes to a file.
+#' @export
+writeIndex <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
+  }
+
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sqlFilename <- paste0("OMOP_CDM_indices_v", cdmVersion, ".sql")
+  sql <- readr::read_file(system.file(file.path("sql", "sql_server", sqlFilename), package = "CommonDataModel"))
+  sql <- SqlRender::render(sql, targetDialect = targetDialect, cdmDatabaseSchema = cdmDatabaseSchema)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "indices.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
 }
