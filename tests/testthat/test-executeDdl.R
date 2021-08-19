@@ -4,7 +4,8 @@ connectionDetails <- createConnectionDetails(
     dbms = "postgresql",
     user = Sys.getenv("CDMDDLBASE_POSTGRESQL_USER"),
     password = Sys.getenv("CDMDDLBASE_POSTGRESQL_PASSWORD"),
-    server = Sys.getenv("CDMDDLBASE_POSTGRESQL_SERVER")
+    server = Sys.getenv("CDMDDLBASE_POSTGRESQL_SERVER"),
+    pathToDriver = file.path(Sys.getenv("HOME"), "drivers")
 )
 
 # Helper functions used in tests
