@@ -14,7 +14,7 @@
 #' downloadCurrentDdl("OHDSI/CommonDataModel",
 #'  pathToCsv="Sql%20Server/OMOP%20CDM%20sql%20server%20ddl.txt")
 #' }
-#'
+#' @importFrom utils download.file
 #' @export
 
 downloadCurrentDdl <- function(githubPath="OHDSI/CommonDataModel",
