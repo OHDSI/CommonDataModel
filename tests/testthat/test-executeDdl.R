@@ -52,7 +52,7 @@ connectionDetails <- createConnectionDetails(
 }
 
 test_that("Database can be connected to", {
-  expect_error(con <- connect(connectionDetails), NULL)
+  expect_error(con <- connect(connectionDetails), NA)
   disconnect(con)
 })
 
