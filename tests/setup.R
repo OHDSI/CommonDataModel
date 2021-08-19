@@ -8,7 +8,7 @@ Sys.setenv("DATABASECONNECTOR_JAR_FOLDER" = driverPath)
 DatabaseConnector::downloadJdbcDrivers("postgresql", pathToDriver = driverPath)
 
 print(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))
-print(list.files(driverPath)
+print(list.files(driverPath))
 # if(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER") == "") {
   # driverPath <- file.path(Sys.getenv("HOME"), "drivers")
 # }
