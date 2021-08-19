@@ -2,7 +2,7 @@
 
 oldJarFolder <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")
 Sys.setenv("DATABASECONNECTOR_JAR_FOLDER" = tempfile("jdbcDrivers"))
-downloadJdbcDrivers("postgresql")
+DatabaseConnector::downloadJdbcDrivers("postgresql")
 # downloadJdbcDrivers("sql server")
 # downloadJdbcDrivers("oracle")
 
