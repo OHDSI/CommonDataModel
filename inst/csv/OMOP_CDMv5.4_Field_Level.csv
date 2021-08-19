@@ -369,7 +369,7 @@ Occurrences used to construct the
 condition era.",,No,No,,,,,
 EPISODE,episode_id,Yes,integer,A unique identifier for each Episode.,,Yes,No,,,,,
 EPISODE,person_id,Yes,integer,The PERSON_ID of the PERSON for whom the episode is recorded.,,No,Yes,PERSON,PERSON_ID,,,
-EPISODE,episode_concept_id,Yes,integer,"The EPISODE_CONCEPT_ID represents the kind abstraction related to the disease phase, outcome or treatment.","Choose a concept in the Episode domain that best represents the ongoing disease phase, outcome, or treatment. Please see [article] for cancers and [article] for non-cancers describing how these are defined. [Accepted Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Episode&page=1&pageSize=15&query=)",No,Yes,,,Episode,,
+EPISODE,episode_concept_id,Yes,integer,"The EPISODE_CONCEPT_ID represents the kind abstraction related to the disease phase, outcome or treatment.","Choose a concept in the Episode domain that best represents the ongoing disease phase, outcome, or treatment. Please see [article] for cancers and [article] for non-cancers describing how these are defined. [Accepted Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Episode&page=1&pageSize=15&query=)",No,Yes,CONCEPT,CONCEPT_ID,,,
 EPISODE,episode_start_date,Yes,date,The date when the Episode beings. ,Please see [article] for how to define an Episode start date.,No,No,,,,,
 EPISODE,episode_start_datetime,No,datetime,The date and time when the Episode begins.,,No,No,,,,,
 EPISODE,episode_end_date,No,date,The date when the instance of the Episode is considered to have ended.,Please see [article] for how to define an Episode end date.,,,,,,,

@@ -394,14 +394,14 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA  (condition_era_id integer NOT NUL
 DISTKEY(person_id);
 
 --HINT DISTRIBUTE ON KEY (person_id)
-CREATE TABLE @cdmDatabaseSchema.EPISODE  (episode_id bigint NOT NULL,
-			 person_id bigint NOT NULL,
+CREATE TABLE @cdmDatabaseSchema.EPISODE  (episode_id integer NOT NULL,
+			 person_id integer NOT NULL,
 			episode_concept_id integer NOT NULL,
 			episode_start_date date NOT NULL,
 			episode_start_datetime TIMESTAMP NULL,
 			episode_end_date date NULL,
 			episode_end_datetime TIMESTAMP NULL,
-			episode_parent_id bigint NULL,
+			episode_parent_id integer NULL,
 			episode_number integer NULL,
 			episode_object_concept_id integer NOT NULL,
 			episode_type_concept_id integer NOT NULL,
@@ -410,8 +410,8 @@ CREATE TABLE @cdmDatabaseSchema.EPISODE  (episode_id bigint NOT NULL,
 DISTKEY(person_id);
 
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT  (episode_id bigint NOT NULL,
-			event_id bigint NOT NULL,
+CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT  (episode_id integer NOT NULL,
+			event_id integer NOT NULL,
 			episode_event_field_concept_id integer NOT NULL )
 DISTSTYLE ALL;
 

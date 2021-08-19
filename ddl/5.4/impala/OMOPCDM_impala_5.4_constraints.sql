@@ -270,7 +270,7 @@ ALTER TABLE @cdmDatabaseSchema.CONDITION_ERA ADD CONSTRAINT fpk_CONDITION_ERA_co
 
 ALTER TABLE @cdmDatabaseSchema.EPISODE ADD CONSTRAINT fpk_EPISODE_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
 
-ALTER TABLE @cdmDatabaseSchema.EPISODE ADD CONSTRAINT fpk_EPISODE_episode_concept_id FOREIGN KEY (episode_concept_id) REFERENCES @cdmDatabaseSchema. ();
+ALTER TABLE @cdmDatabaseSchema.EPISODE ADD CONSTRAINT fpk_EPISODE_episode_concept_id FOREIGN KEY (episode_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 
 ALTER TABLE @cdmDatabaseSchema.EPISODE ADD CONSTRAINT fpk_EPISODE_episode_object_concept_id FOREIGN KEY (episode_object_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 

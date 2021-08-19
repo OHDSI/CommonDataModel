@@ -270,7 +270,7 @@ alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_co
 
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 
-alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_concept_id foreign key (episode_concept_id) references @cdmDatabaseSchema. ();
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_concept_id foreign key (episode_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_object_concept_id foreign key (episode_object_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 

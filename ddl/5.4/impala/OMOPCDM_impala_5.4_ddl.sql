@@ -395,14 +395,14 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.EPISODE (
-			episode_id BIGINT,
-			person_id BIGINT,
+			episode_id INT,
+			person_id INT,
 			episode_concept_id INT,
 			episode_start_date TIMESTAMP,
 			episode_start_datetime TIMESTAMP,
 			episode_end_date TIMESTAMP,
 			episode_end_datetime TIMESTAMP,
-			episode_parent_id BIGINT,
+			episode_parent_id integer NULL,
 			episode_number integer NULL,
 			episode_object_concept_id INT,
 			episode_type_concept_id INT,
@@ -411,8 +411,8 @@ CREATE TABLE @cdmDatabaseSchema.EPISODE (
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT (
-			episode_id BIGINT,
-			event_id BIGINT,
+			episode_id INT,
+			event_id INT,
 			episode_event_field_concept_id INT );
 
 --HINT DISTRIBUTE ON RANDOM
