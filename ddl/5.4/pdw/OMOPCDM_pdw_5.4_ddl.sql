@@ -44,8 +44,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_OCCURRENCE  (
 			visit_source_concept_id integer NULL,
 			admitted_from_concept_id integer NULL,
 			admitted_from_source_value varchar(50) NULL,
-			discharge_to_concept_id integer NULL,
-			discharge_to_source_value varchar(50) NULL,
+			discharged_to_concept_id integer NULL,
+			discharged_to_source_value varchar(50) NULL,
 			preceding_visit_occurrence_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -62,12 +62,12 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_DETAIL  (visi
 			care_site_id integer NULL,
 			visit_detail_source_value varchar(50) NULL,
 			visit_detail_source_concept_id Integer NULL,
-			admitted_from_source_value Varchar(50) NULL,
 			admitted_from_concept_id Integer NULL,
-			discharge_to_source_value Varchar(50) NULL,
-			discharge_to_concept_id integer NULL,
+			admitted_from_source_value Varchar(50) NULL,
+			discharged_to_source_value Varchar(50) NULL,
+			discharged_to_concept_id integer NULL,
 			preceding_visit_detail_id integer NULL,
-			visit_detail_parent_id integer NULL,
+			parent_visit_detail_id integer NULL,
 			visit_occurrence_id integer NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -177,7 +177,10 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.MEASUREMENT  (measu
 			measurement_source_value varchar(50) NULL,
 			measurement_source_concept_id integer NULL,
 			unit_source_value varchar(50) NULL,
-			value_source_value varchar(50) NULL )
+			unit_source_concept_id integer NULL,
+			value_source_value varchar(50) NULL,
+			measurement_event_id bigint NULL,
+			meas_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -199,7 +202,9 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.OBSERVATION  (obser
 			observation_source_concept_id integer NULL,
 			unit_source_value varchar(50) NULL,
 			qualifier_source_value varchar(50) NULL,
-			value_source_value varchar(50) NULL )
+			value_source_value varchar(50) NULL,
+			observation_event_id bigint NULL,
+			obs_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -215,6 +220,8 @@ WITH (DISTRIBUTION = HASH(person_id));
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id integer NOT NULL,
 			 person_id integer NOT NULL,
+			note_event_id bigint NULL,
+			note_event_field_concept_id integer NULL,
 			note_date date NOT NULL,
 			note_datetime datetime NULL,
 			note_type_concept_id integer NOT NULL,
@@ -386,12 +393,36 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_ERA  (con
 			condition_occurrence_count integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
+--HINT DISTRIBUTE ON KEY (person_id)
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_id bigint NOT NULL,
+			 person_id bigint NOT NULL,
+			episode_concept_id integer NOT NULL,
+			episode_start_date date NOT NULL,
+			episode_start_datetime datetime NULL,
+			episode_end_date date NULL,
+			episode_end_datetime datetime NULL,
+			episode_parent_id bigint NULL,
+			episode_number integer NULL,
+			episode_object_concept_id integer NOT NULL,
+			episode_type_concept_id integer NOT NULL,
+			episode_source_value varchar(50) NULL,
+			episode_source_concept_id integer NULL )
+WITH (DISTRIBUTION = HASH(person_id));
+
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.METADATA  (metadata_concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE_EVENT  (episode_id bigint NOT NULL,
+			event_id bigint NOT NULL,
+			episode_event_field_concept_id integer NOT NULL )
+WITH (DISTRIBUTION = REPLICATE);
+
+--HINT DISTRIBUTE ON RANDOM
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.METADATA  (metadata_id integer NOT NULL,
+			metadata_concept_id integer NOT NULL,
 			metadata_type_concept_id integer NOT NULL,
 			name varchar(250) NOT NULL,
 			value_as_string varchar(250) NULL,
 			value_as_concept_id integer NULL,
+			value_as_number float NULL,
 			metadata_date date NULL,
 			metadata_datetime datetime NULL )
 WITH (DISTRIBUTION = REPLICATE);
@@ -502,6 +533,13 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_STRENGTH  (dru
 WITH (DISTRIBUTION = REPLICATE);
 
 --HINT DISTRIBUTE ON RANDOM
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COHORT  (cohort_definition_id integer NOT NULL,
+			 subject_id integer NOT NULL,
+			cohort_start_date date NOT NULL,
+			cohort_end_date date NOT NULL )
+WITH (DISTRIBUTION = HASH(subject_id));
+
+--HINT DISTRIBUTE ON RANDOM
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COHORT_DEFINITION  (cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
 			cohort_definition_description VARCHAR(1000) NULL,
@@ -509,12 +547,4 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COHORT_DEFINITION  
 			cohort_definition_syntax VARCHAR(1000) NULL,
 			subject_concept_id integer NOT NULL,
 			cohort_initiation_date date NULL )
-WITH (DISTRIBUTION = REPLICATE);
-
---HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.ATTRIBUTE_DEFINITION  (attribute_definition_id integer NOT NULL,
-			attribute_name varchar(255) NOT NULL,
-			attribute_description VARCHAR(1000) NULL,
-			attribute_type_concept_id integer NOT NULL,
-			attribute_syntax VARCHAR(1000) NULL )
 WITH (DISTRIBUTION = REPLICATE);

@@ -36,7 +36,7 @@ alter table @cdmDatabaseSchema.visit_occurrence add constraint fpk_visit_occurre
 
 alter table @cdmDatabaseSchema.visit_occurrence add constraint fpk_visit_occurrence_admitted_from_concept_id foreign key (admitted_from_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
-alter table @cdmDatabaseSchema.visit_occurrence add constraint fpk_visit_occurrence_discharge_to_concept_id foreign key (discharge_to_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.visit_occurrence add constraint fpk_visit_occurrence_discharged_to_concept_id foreign key (discharged_to_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.visit_occurrence add constraint fpk_visit_occurrence_preceding_visit_occurrence_id foreign key (preceding_visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
 
@@ -54,11 +54,11 @@ alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_visi
 
 alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_admitted_from_concept_id foreign key (admitted_from_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
-alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_discharge_to_concept_id foreign key (discharge_to_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_discharged_to_concept_id foreign key (discharged_to_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_preceding_visit_detail_id foreign key (preceding_visit_detail_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
 
-alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_visit_detail_parent_id foreign key (visit_detail_parent_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
+alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_parent_visit_detail_id foreign key (parent_visit_detail_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
 
 alter table @cdmDatabaseSchema.visit_detail add constraint fpk_visit_detail_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
 
@@ -136,6 +136,10 @@ alter table @cdmDatabaseSchema.measurement add constraint fpk_measurement_visit_
 
 alter table @cdmDatabaseSchema.measurement add constraint fpk_measurement_measurement_source_concept_id foreign key (measurement_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
+alter table @cdmDatabaseSchema.measurement add constraint fpk_measurement_unit_source_concept_id foreign key (unit_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
+alter table @cdmDatabaseSchema.measurement add constraint fpk_measurement_meas_event_field_concept_id foreign key (meas_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
 alter table @cdmDatabaseSchema.observation add constraint fpk_observation_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 
 alter table @cdmDatabaseSchema.observation add constraint fpk_observation_observation_concept_id foreign key (observation_concept_id) references @cdmDatabaseSchema.concept (concept_id);
@@ -156,6 +160,8 @@ alter table @cdmDatabaseSchema.observation add constraint fpk_observation_visit_
 
 alter table @cdmDatabaseSchema.observation add constraint fpk_observation_observation_source_concept_id foreign key (observation_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
+alter table @cdmDatabaseSchema.observation add constraint fpk_observation_obs_event_field_concept_id foreign key (obs_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
 alter table @cdmDatabaseSchema.death add constraint fpk_death_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 
 alter table @cdmDatabaseSchema.death add constraint fpk_death_death_type_concept_id foreign key (death_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
@@ -165,6 +171,8 @@ alter table @cdmDatabaseSchema.death add constraint fpk_death_cause_concept_id f
 alter table @cdmDatabaseSchema.death add constraint fpk_death_cause_source_concept_id foreign key (cause_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.note add constraint fpk_note_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
+
+alter table @cdmDatabaseSchema.note add constraint fpk_note_note_event_field_concept_id foreign key (note_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.note add constraint fpk_note_note_type_concept_id foreign key (note_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
@@ -260,6 +268,20 @@ alter table @cdmDatabaseSchema.dose_era add constraint fpk_dose_era_unit_concept
 
 alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_condition_concept_id foreign key (condition_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
+
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_concept_id foreign key (episode_concept_id) references @cdmDatabaseSchema. ();
+
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_object_concept_id foreign key (episode_object_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_type_concept_id foreign key (episode_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_source_concept_id foreign key (episode_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
+alter table @cdmDatabaseSchema.episode_event add constraint fpk_episode_event_episode_id foreign key (episode_id) references @cdmDatabaseSchema.episode (episode_id);
+
+alter table @cdmDatabaseSchema.episode_event add constraint fpk_episode_event_episode_event_field_concept_id foreign key (episode_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+
 alter table @cdmDatabaseSchema.metadata add constraint fpk_metadata_metadata_concept_id foreign key (metadata_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.metadata add constraint fpk_metadata_metadata_type_concept_id foreign key (metadata_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
@@ -313,5 +335,3 @@ alter table @cdmDatabaseSchema.drug_strength add constraint fpk_drug_strength_de
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_definition_type_concept_id foreign key (definition_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_subject_concept_id foreign key (subject_concept_id) references @cdmDatabaseSchema.concept (concept_id);
-
-alter table @cdmDatabaseSchema.attribute_definition add constraint fpk_attribute_definition_attribute_type_concept_id foreign key (attribute_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
