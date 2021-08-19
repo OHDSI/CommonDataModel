@@ -1,4 +1,3 @@
-
 # Copyright 2019 Observational Health Data Sciences and Informatics
 #
 # This file is part of CdmDdlBase
@@ -46,7 +45,7 @@ createDdl <- function(cdmVersion){
   tableList <- tableSpecs$cdmTableName
 
   sql_result <- c()
-  sql_result <- c(paste0("--@targetdialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
+  sql_result <- c(paste0("--@targetDialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
   for (tableName in tableList){
     fields <- subset(cdmSpecs, cdmTableName == tableName)
     fieldNames <- fields$cdmFieldName
@@ -92,7 +91,7 @@ createDdl <- function(cdmVersion){
 }
 
 
-#' @describeIn createDdl
+#' @describeIn createDdl createPrimaryKeys asdfladsfj
 #' @export
 createPrimaryKeys <- function(cdmVersion){
 
@@ -105,7 +104,7 @@ createPrimaryKeys <- function(cdmVersion){
   primaryKeys <- subset(cdmSpecs, isPrimaryKey == "Yes")
   pkFields <- primaryKeys$cdmFieldName
 
-  sql_result <- c(paste0("--@targetdialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
+  sql_result <- c(paste0("--@targetDialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
   for (pkField in pkFields){
 
     subquery <- subset(primaryKeys, cdmFieldName==pkField)
@@ -116,7 +115,7 @@ createPrimaryKeys <- function(cdmVersion){
   return(paste0(sql_result, collapse = ""))
 }
 
-#' @describeIn createDdl
+#' @describeIn createDdl createForeignKeys asdfladsf
 #' @export
 createForeignKeys <- function(cdmVersion){
 
@@ -129,7 +128,7 @@ createForeignKeys <- function(cdmVersion){
   foreignKeys <- subset(cdmSpecs, isForeignKey == "Yes")
   foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
 
-  sql_result <- c(paste0("--@targetdialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
+  sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
   for (foreignKey in foreignKeys$key){
 
     subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
