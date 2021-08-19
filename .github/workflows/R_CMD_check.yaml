@@ -17,6 +17,7 @@ jobs:
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
+      # Test create and drop tables in a database so they cannot be executed in parallel
       max-parallel: 1
       fail-fast: false
       matrix:
