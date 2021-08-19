@@ -23,6 +23,14 @@ for (cdmVersion in supportedVersions) {
 }
 
 #############
+# Zipping release
+# All dialects
+buildReleaseZip(cdmVersion="5.3", outputfolder="output")
+
+# One dialect
+buildReleaseZip(cdmVersion="5.4", targetDialect="postgresql", outputfolder="output")
+
+#############
 # BE SURE TO RUN THE EXTRAS/SITEMAINTENANCE.R BEFORE CREATING THE PDF
 
 # step 9: Run the following code to create the pdf documentation. It will be written to the reports folder. Use knit with pagedown

@@ -6,3 +6,12 @@ listSupportedVersions <- function() {
   supportedVersions <- c("5.3", "5.4")
   return(supportedVersions)
 }
+
+#' List RDBMS dialects supported by this package
+#'
+#' @export
+
+listSupportedDialects <- function() {
+  supportedDialects <- c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")
+  return(supportedDialects)
+}
