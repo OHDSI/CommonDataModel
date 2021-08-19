@@ -16,22 +16,108 @@
 
 #' Write DDL script
 #'
-#' @param targetdialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
-#' @param cdmVersion The version of the CDM for which you are creating the DDL. e.g. 5.3.1
+#' Write the DDL to a SQL file. The SQL will be rendered (parameters replaced) and translated to the target SQL
+#' dialect. By default the @cdmDatabaseSchema parameter is kept in the SQL file and needs to be replaced before
+#' execution.
+#'
+#' @param targetDialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
+#' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
+#' @param outputpath The directory or folder where the SQL file should be saved.
 #' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 #'                          Defaults to "@cdmDatabaseSchema"
 #'
 #' @export
-writeDDL <- function(targetdialect, cdmVersion, cdmDatabaseSchema = "@cdmDatabaseSchema") {
-  outputpath <- file.path("ddl", cdmVersion, targetdialect)
-  dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+writeDdl <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
+  }
+
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
 
   sql <- createDdl(cdmVersion)
-  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetdialect = targetdialect)
-  sql <- SqlRender::translate(sql, targetDialect = targetdialect)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
-  filename <- paste("OMOPCDM", targetdialect, cdmVersion, "ddl.sql", sep = "_")
-  SqlRender::writeSql(sql = sql,
-                      targetFile = file.path(outputpath, filename)
-  )
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "ddl.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
+
+#' @describeIn writeDdl writePrimaryKeys Write the SQL code that creates the primary keys to a file.
+#' @export
+writePrimaryKeys <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
+  }
+
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sql <- createPrimaryKeys(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "primary", "keys.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
+
+#' @describeIn writeDdl writeForeignKeys Write the SQL code that creates the foreign keys to a file.
+#' @export
+writeForeignKeys <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
+  }
+
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sql <- createForeignKeys(cdmVersion)
+  sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "constraints.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
+}
+
+#' @describeIn writeDdl writeIndex Write the rendered and translated sql that creates recommended indexes to a file.
+#' @export
+writeIndex <- function(targetDialect, cdmVersion, outputpath, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
+
+  # argument checks
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"))
+  stopifnot(cdmVersion %in% listSupportedVersions())
+  stopifnot(is.character(cdmDatabaseSchema))
+
+  if(missing(outputpath)) {
+    outputpath <- file.path("ddl", cdmVersion, gsub(" ", "_", targetDialect))
+  }
+
+  if(!dir.exists(outputpath)) dir.create(outputpath, showWarnings = FALSE, recursive = TRUE)
+
+  sqlFilename <- paste0("OMOP_CDM_indices_v", cdmVersion, ".sql")
+  sql <- readr::read_file(system.file(file.path("sql", "sql_server", sqlFilename), package = "CommonDataModel"))
+  sql <- SqlRender::render(sql, targetDialect = targetDialect, cdmDatabaseSchema = cdmDatabaseSchema)
+  sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "indices.sql", sep = "_")
+  SqlRender::writeSql(sql = sql, targetFile = file.path(outputpath, filename))
+  invisible(filename)
 }

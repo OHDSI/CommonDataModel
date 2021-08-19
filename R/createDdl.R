@@ -1,4 +1,3 @@
-
 # Copyright 2019 Observational Health Data Sciences and Informatics
 #
 # This file is part of CdmDdlBase
@@ -15,21 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#' Create a DDL script from a two csv files that detail the OMOP CDM Specifications. These files also form the basis of the CDM documentation and the Data Quality
+#' Create the OHDSI-SQL Common Data Model DDL code
+#'
+#' The createDdl, createForeignKeys, and createPrimaryKeys functions each return a character string
+#' containing their respective DDL SQL code in OHDSQL dialect for a specific CDM version.
+#' The SQL they generate needs to be rendered and translated before it can be executed.
+#'
+#' The DDL SQL code is created from a two csv files that detail the OMOP CDM Specifications.
+#' These files also form the basis of the CDM documentation and the Data Quality
 #' Dashboard.
 #'
-#' @param cdmVersionNum The version of the CDM you are creating, e.g. 5.3.1
-#'
-#' @param cdmTableCsvLoc  The location of the csv file with the high-level CDM table information. This is defaulted to "inst/csv/OMOP_CDMv5.3.1_Table_Level.csv".
-#'                        If a new version of this file was committed to the CDM repository the package automatically will grab it and place it in "inst/csv/".
-#' @param cdmFieldCsvLoc The location of the csv file with the CDM field information. This is defaulted to "inst/csv/OMOP_CDMv5.3.1_Field_Level.csv".
-#'                        If a new version of this file was committed to the CDM repository the package automatically will grab it and place it in "inst/csv/".
-#' @param outputFile  The name of the output ddl sql file. This is defaulted to a location in the inst/sql/sql server folder and named with today's date and the CDM version.
+#' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
+#' @return A character string containing the OHDSQL DDL
 #' @export
+#' @examples
+#' ddl <- createDdl("5.4")
+#' pk <- createPrimaryKeys("5.4")
+#' fk <- createForeignKeys("5.4")
+createDdl <- function(cdmVersion){
 
-createDdl <- function(cdmVersion = cdmVersion){
-  cdmTableCsvLoc = paste0("inst/csv/OMOP_CDMv", cdmVersion, "_Table_Level.csv")
-  cdmFieldCsvLoc = paste0("inst/csv/OMOP_CDMv", cdmVersion, "_Field_Level.csv")
+  # argument checks
+  stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
+
+  cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
+  cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
 
   tableSpecs <- read.csv(cdmTableCsvLoc, stringsAsFactors = FALSE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
@@ -37,7 +45,7 @@ createDdl <- function(cdmVersion = cdmVersion){
   tableList <- tableSpecs$cdmTableName
 
   sql_result <- c()
-  sql_result <- c(paste0("--@targetdialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
+  sql_result <- c(paste0("--@targetDialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
   for (tableName in tableList){
     fields <- subset(cdmSpecs, cdmTableName == tableName)
     fieldNames <- fields$cdmFieldName
@@ -78,6 +86,55 @@ createDdl <- function(cdmVersion = cdmVersion){
       sql_result <- c(sql_result, fieldSql)
     }
     sql_result <- c(sql_result, "")
+  }
+  return(paste0(sql_result, collapse = ""))
+}
+
+
+#' @describeIn createDdl createPrimaryKeys Returns a string containing the OHDSQL for creation of primary keys in the OMOP CDM.
+#' @export
+createPrimaryKeys <- function(cdmVersion){
+
+  # argument checks
+  stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
+
+  cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
+  cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
+
+  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "Yes")
+  pkFields <- primaryKeys$cdmFieldName
+
+  sql_result <- c(paste0("--@targetDialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
+  for (pkField in pkFields){
+
+    subquery <- subset(primaryKeys, cdmFieldName==pkField)
+
+    sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT xpk_", subquery$cdmTableName, " PRIMARY KEY NONCLUSTERED (", subquery$cdmFieldName , ");\n"))
+
+  }
+  return(paste0(sql_result, collapse = ""))
+}
+
+#' @describeIn createDdl createForeignKeys Returns a string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
+#' @export
+createForeignKeys <- function(cdmVersion){
+
+  # argument checks
+  stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
+
+  cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
+  cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
+
+  foreignKeys <- subset(cdmSpecs, isForeignKey == "Yes")
+  foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
+
+  sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
+  for (foreignKey in foreignKeys$key){
+
+    subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
+
+    sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT fpk_", subquery$cdmTableName, "_", subquery$cdmFieldName, " FOREIGN KEY (", subquery$cdmFieldName , ") REFERENCES @cdmDatabaseSchema.", subquery$fkTableName, " (", subquery$fkFieldName, ");\n"))
+
   }
   return(paste0(sql_result, collapse = ""))
 }

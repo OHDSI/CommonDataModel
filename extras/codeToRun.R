@@ -7,17 +7,17 @@ cdmVersion <- "5.3"
 supportedVersions <- listSupportedVersions()
 
 for (cdmVersion in supportedVersions) {
-  for (targetdialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
-    writeDDL(targetdialect = targetdialect,
+  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
+    writeDdl(targetDialect = targetDialect,
              cdmVersion = cdmVersion)
 
-    writePrimaryKeys(targetdialect = targetdialect,
+    writePrimaryKeys(targetDialect = targetDialect,
                      cdmVersion = cdmVersion)
 
-    writeForeignKeys(targetdialect = targetdialect,
+    writeForeignKeys(targetDialect = targetDialect,
                      cdmVersion = cdmVersion)
 
-    writeIndex(targetdialect = targetdialect,
+    writeIndex(targetDialect = targetDialect,
                cdmVersion = cdmVersion)
   }
 }
