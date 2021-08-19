@@ -91,7 +91,7 @@ createDdl <- function(cdmVersion){
 }
 
 
-#' @describeIn createDdl createPrimaryKeys asdfladsfj
+#' @describeIn createDdl createPrimaryKeys Returns a string containing the OHDSQL for creation of primary keys in the OMOP CDM.
 #' @export
 createPrimaryKeys <- function(cdmVersion){
 
@@ -115,7 +115,7 @@ createPrimaryKeys <- function(cdmVersion){
   return(paste0(sql_result, collapse = ""))
 }
 
-#' @describeIn createDdl createForeignKeys asdfladsf
+#' @describeIn createDdl createForeignKeys Returns a string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
 #' @export
 createForeignKeys <- function(cdmVersion){
 
