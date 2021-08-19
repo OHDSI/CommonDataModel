@@ -6,4 +6,3 @@ if(!dir.exists(driverPath)) dir.create(driverPath)
 if(!Sys.getenv("LOCAL_TEST" == "TRUE")) {
   DatabaseConnector::downloadJdbcDrivers("all", pathToDriver = driverPath)
 }
-

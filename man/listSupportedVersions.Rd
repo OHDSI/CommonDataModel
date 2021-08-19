@@ -6,6 +6,9 @@
 \usage{
 listSupportedVersions()
 }
+\value{
+A character vector containing the support CDM versions in {major}.{minor} format.
+}
 \description{
 List CDM versions supported by this package
 }

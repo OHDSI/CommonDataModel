@@ -4,6 +4,7 @@ library(DatabaseConnector)
 .listTablesInSchema <- function(connectionDetails, schema) {
   con <- DatabaseConnector::connect(connectionDetails)
   tables <- DBI::dbListObjects(con, prefix = schema)
+
   DatabaseConnector::disconnect(con)
   tables <- subset(tables, is_prefix == FALSE)
   tables <- subset(tables, grepl("table", table))$table
@@ -15,8 +16,9 @@ library(DatabaseConnector)
   tables <- .listTablesInSchema(connectionDetails, schema)
 
   con <- DatabaseConnector::connect(connectionDetails)
-   for(table in tables) {
-     DBI::dbRemoveTable(con, name = DBI::SQL(paste(schema, table, sep = ".")))
+
+  for(table in tables) {
+    DBI::dbRemoveTable(con, name = DBI::SQL(paste(schema, table, sep = ".")))
   }
   DatabaseConnector::disconnect(con)
 }
@@ -120,4 +122,5 @@ test_that("Execute DDL on Redshift", {
     # clear schema
     .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
   }
+
 })
