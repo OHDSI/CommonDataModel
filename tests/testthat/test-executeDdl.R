@@ -56,29 +56,29 @@ test_that("Database can be connected to", {
   disconnect(con)
 })
 
-# test_that("Execute DDL on Postgres", {
-#   # make sure the schema is cleared out
-#   cdmDatabaseSchema <- Sys.getenv("CDMDDLBASE_POSTGRESQL_SCHEMA")
-#   cdmVersion <- "5.4"
-#   .removeConstraintsPostgresql(connectionDetails, cdmDatabaseSchema)
-#   .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
-#
-#   executeDdl(connectionDetails,
-#              cdmVersion = cdmVersion,
-#              cdmDatabaseSchema = cdmDatabaseSchema,
-#              executeDdl = TRUE,
-#              executePrimaryKey = FALSE,
-#              executeForeignKey = FALSE)
-#
-#   tables <- .listTablesInSchema(connectionDetails, schema = cdmDatabaseSchema)
-#
-#   cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
-#   tableSpecs <- read.csv(cdmTableCsvLoc, stringsAsFactors = FALSE)$cdmTableName
-#
-#   # check that the tables in the database match the tables in the specification
-#   expect_equal(sort(tables), sort(tableSpecs))
-#
-#   # clear schema
-#   .removeConstraintsPostgresql(connectionDetails, cdmDatabaseSchema)
-#   .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
-# })
+test_that("Execute DDL on Postgres", {
+  # make sure the schema is cleared out
+  cdmDatabaseSchema <- Sys.getenv("CDMDDLBASE_POSTGRESQL_SCHEMA")
+  cdmVersion <- "5.4"
+  # .removeConstraintsPostgresql(connectionDetails, cdmDatabaseSchema)
+  .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
+
+  executeDdl(connectionDetails,
+             cdmVersion = cdmVersion,
+             cdmDatabaseSchema = cdmDatabaseSchema,
+             executeDdl = TRUE,
+             executePrimaryKey = FALSE,
+             executeForeignKey = FALSE)
+
+  tables <- .listTablesInSchema(connectionDetails, schema = cdmDatabaseSchema)
+
+  cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
+  tableSpecs <- read.csv(cdmTableCsvLoc, stringsAsFactors = FALSE)$cdmTableName
+
+  # check that the tables in the database match the tables in the specification
+  expect_equal(sort(tables), sort(tableSpecs))
+
+  # clear schema
+  # .removeConstraintsPostgresql(connectionDetails, cdmDatabaseSchema)
+  .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
+})
