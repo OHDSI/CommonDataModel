@@ -1,7 +1,7 @@
 # Download the JDBC drivers used in the tests
 
 oldJarFolder <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")
-Sys.setenv("DATABASECONNECTOR_JAR_FOLDER" = tempfile("jdbcDrivers"))
+Sys.setenv("DATABASECONNECTOR_JAR_FOLDER" = file.path(tempdir(check = TRUE), "drivers"))
 DatabaseConnector::downloadJdbcDrivers("postgresql")
 # downloadJdbcDrivers("sql server")
 # downloadJdbcDrivers("oracle")
