@@ -62,7 +62,7 @@ test_that("Execute DDL on Postgres", {
   cdmVersion <- "5.4"
   # .removeConstraintsPostgresql(connectionDetails, cdmDatabaseSchema)
   .dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
-
+  cat(paste("Connecting to schema", cdmDatabaseSchema, "\n"))
   executeDdl(connectionDetails,
              cdmVersion = cdmVersion,
              cdmDatabaseSchema = cdmDatabaseSchema,
