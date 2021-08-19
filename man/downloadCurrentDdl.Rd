@@ -27,7 +27,8 @@ The default location is
 }
 \examples{
 \dontrun{
-downloadCurrentDdl("OHDSI/CommonDataModel", pathToCsv="Sql\%20Server/OMOP\%20CDM\%20sql\%20server\%20ddl.txt")
+downloadCurrentDdl("OHDSI/CommonDataModel",
+ pathToCsv="Sql\%20Server/OMOP\%20CDM\%20sql\%20server\%20ddl.txt")
 }
 
 }
