@@ -21,7 +21,8 @@ Imports:
 Suggests:
     knitr,
     testthat (>= 3.0.0),
-    RSQLite
+    RSQLite,
+    withr
 NeedsCompilation: no
 RoxygenNote: 7.1.1
 Config/testthat/edition: 3
