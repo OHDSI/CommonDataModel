@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       max-parallel: 1
-      fail-fast: true
+      fail-fast: false
       matrix:
         config:
           - {os: windows-latest, r: 'release'}  # Does not appear to have Java 32-bit, hence the --no-multiarch
