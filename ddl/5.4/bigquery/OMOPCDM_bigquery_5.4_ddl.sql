@@ -45,8 +45,8 @@ create table @cdmDatabaseSchema.visit_occurrence (
 			visit_source_concept_id INT64,
 			admitted_from_concept_id INT64,
 			admitted_from_source_value STRING,
-			discharge_to_concept_id INT64,
-			discharge_to_source_value STRING,
+			discharged_to_concept_id INT64,
+			discharged_to_source_value STRING,
 			preceding_visit_occurrence_id INT64 );
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -63,12 +63,12 @@ create table @cdmDatabaseSchema.visit_detail (
 			care_site_id INT64,
 			visit_detail_source_value STRING,
 			visit_detail_source_concept_id INT64,
-			admitted_from_source_value STRING,
 			admitted_from_concept_id INT64,
-			discharge_to_source_value STRING,
-			discharge_to_concept_id INT64,
+			admitted_from_source_value STRING,
+			discharged_to_source_value STRING,
+			discharged_to_concept_id INT64,
 			preceding_visit_detail_id INT64,
-			visit_detail_parent_id INT64,
+			parent_visit_detail_id INT64,
 			visit_occurrence_id INT64 not null );
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -178,7 +178,10 @@ create table @cdmDatabaseSchema.measurement (
 			measurement_source_value STRING,
 			measurement_source_concept_id INT64,
 			unit_source_value STRING,
-			value_source_value STRING );
+			unit_source_concept_id INT64,
+			value_source_value STRING,
+			measurement_event_id INT64,
+			meas_event_field_concept_id INT64 );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.observation (
@@ -200,7 +203,9 @@ create table @cdmDatabaseSchema.observation (
 			observation_source_concept_id INT64,
 			unit_source_value STRING,
 			qualifier_source_value STRING,
-			value_source_value STRING );
+			value_source_value STRING,
+			observation_event_id INT64,
+			obs_event_field_concept_id INT64 );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.death (
@@ -216,6 +221,8 @@ create table @cdmDatabaseSchema.death (
 create table @cdmDatabaseSchema.note (
 			note_id INT64 not null,
 			person_id INT64 not null,
+			note_event_id INT64,
+			note_event_field_concept_id INT64,
 			note_date date not null,
 			note_datetime datetime null,
 			note_type_concept_id INT64 not null,
@@ -386,13 +393,37 @@ create table @cdmDatabaseSchema.condition_era (
 			condition_era_end_date datetime not null,
 			condition_occurrence_count INT64 );
 
+--HINT DISTRIBUTE ON KEY (person_id)
+create table @cdmDatabaseSchema.episode (
+			episode_id INT64 not null,
+			person_id INT64 not null,
+			episode_concept_id INT64 not null,
+			episode_start_date date not null,
+			episode_start_datetime datetime null,
+			episode_end_date date null,
+			episode_end_datetime datetime null,
+			episode_parent_id INT64,
+			episode_number INT64,
+			episode_object_concept_id INT64 not null,
+			episode_type_concept_id INT64 not null,
+			episode_source_value STRING,
+			episode_source_concept_id INT64 );
+
+--HINT DISTRIBUTE ON RANDOM
+create table @cdmDatabaseSchema.episode_event (
+			episode_id INT64 not null,
+			event_id INT64 not null,
+			episode_event_field_concept_id INT64 not null );
+
 --HINT DISTRIBUTE ON RANDOM
 create table @cdmDatabaseSchema.metadata (
+			metadata_id INT64 not null,
 			metadata_concept_id INT64 not null,
 			metadata_type_concept_id INT64 not null,
 			name STRING not null,
 			value_as_string STRING,
 			value_as_concept_id INT64,
+			value_as_number FLOAT64 null,
 			metadata_date date null,
 			metadata_datetime datetime null );
 
@@ -502,6 +533,13 @@ create table @cdmDatabaseSchema.drug_strength (
 			invalid_reason STRING );
 
 --HINT DISTRIBUTE ON RANDOM
+create table @cdmDatabaseSchema.cohort (
+			cohort_definition_id INT64 not null,
+			subject_id INT64 not null,
+			cohort_start_date date not null,
+			cohort_end_date date not null );
+
+--HINT DISTRIBUTE ON RANDOM
 create table @cdmDatabaseSchema.cohort_definition (
 			cohort_definition_id INT64 not null,
 			cohort_definition_name STRING not null,
@@ -510,11 +548,3 @@ create table @cdmDatabaseSchema.cohort_definition (
 			cohort_definition_syntax STRING,
 			subject_concept_id INT64 not null,
 			cohort_initiation_date date null );
-
---HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.attribute_definition (
-			attribute_definition_id INT64 not null,
-			attribute_name STRING not null,
-			attribute_description STRING,
-			attribute_type_concept_id INT64 not null,
-			attribute_syntax STRING );
