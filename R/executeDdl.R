@@ -42,16 +42,16 @@ executeDdl <- function(connectionDetails,
                        executeForeignKey = TRUE,
                        ...) {
 
-  outputpath <- tempdir(check = TRUE)
+  outputfolder <- tempdir(check = TRUE)
 
 
   if(executeDdl) {
     filename <- writeDdl(targetDialect = connectionDetails$dbms,
                          cdmVersion = cdmVersion,
                          cdmDatabaseSchema = cdmDatabaseSchema,
-                         outputpath = outputpath)
+                         outputfolder = outputfolder)
 
-    sql <- readr::read_file(file.path(outputpath, filename))
+    sql <- readr::read_file(file.path(outputfolder, filename))
   } else {
     sql <- ""
   }
@@ -60,18 +60,18 @@ executeDdl <- function(connectionDetails,
     filename <- writePrimaryKeys(targetDialect = connectionDetails$dbms,
                                  cdmVersion = cdmVersion,
                                  cdmDatabaseSchema = cdmDatabaseSchema,
-                                 outputpath = outputpath)
+                                 outputfolder = outputfolder)
 
-    sql <- paste(sql, readr::read_file(file.path(outputpath, filename)), sep = "\n")
+    sql <- paste(sql, readr::read_file(file.path(outputfolder, filename)), sep = "\n")
   }
 
   if(executeForeignKey) {
     filename <- writeForeignKeys(targetDialect = connectionDetails$dbms,
                                  cdmVersion = cdmVersion,
                                  cdmDatabaseSchema = cdmDatabaseSchema,
-                                 outputpath = outputpath)
+                                 outputfolder = outputfolder)
 
-    sql <- paste(sql, readr::read_file(file.path(outputpath, filename)), sep = "\n")
+    sql <- paste(sql, readr::read_file(file.path(outputfolder, filename)), sep = "\n")
   }
 
   con <- DatabaseConnector::connect(connectionDetails = connectionDetails)

@@ -5,15 +5,20 @@
 \title{Create OMOP CDM SQL files}
 \usage{
 buildRelease(
-  cdmVersion = listSupportedVersions(),
-  targetDialect = listSupportedDialects()
+  cdmVersions = listSupportedVersions(),
+  targetDialects = listSupportedDialects(),
+  outputfolder = file.path(getwd(), "ddl")
 )
 }
 \arguments{
-\item{cdmVersion}{The version of the CDM you are creating, e.g. 5.3, 5.4.
+\item{cdmVersions}{The versions of the CDM you are creating, e.g. 5.3, 5.4.
 Defaults to all supported CDM versions.}
 
-\item{targetDialect}{The target dialect}
+\item{targetDialects}{A character vector of target dialects.
+Defaults to all supported dialects.}
+
+\item{outputfolder}{The base folder where the SQL files will be written.
+Subfolders will be created for each cdmVersion and targetDialect.}
 }
 \description{
 Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion

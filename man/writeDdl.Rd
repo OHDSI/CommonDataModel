@@ -10,28 +10,28 @@
 writeDdl(
   targetDialect,
   cdmVersion,
-  outputpath,
+  outputfolder,
   cdmDatabaseSchema = "@cdmDatabaseSchema"
 )
 
 writePrimaryKeys(
   targetDialect,
   cdmVersion,
-  outputpath,
+  outputfolder,
   cdmDatabaseSchema = "@cdmDatabaseSchema"
 )
 
 writeForeignKeys(
   targetDialect,
   cdmVersion,
-  outputpath,
+  outputfolder,
   cdmDatabaseSchema = "@cdmDatabaseSchema"
 )
 
 writeIndex(
   targetDialect,
   cdmVersion,
-  outputpath,
+  outputfolder,
   cdmDatabaseSchema = "@cdmDatabaseSchema"
 )
 }
@@ -40,7 +40,7 @@ writeIndex(
 
 \item{cdmVersion}{The version of the CDM you are creating, e.g. 5.3, 5.4}
 
-\item{outputpath}{The directory or folder where the SQL file should be saved.}
+\item{outputfolder}{The directory or folder where the SQL file should be saved.}
 
 \item{cdmDatabaseSchema}{The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 Defaults to "@cdmDatabaseSchema"}
