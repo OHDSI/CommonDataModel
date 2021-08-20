@@ -1,8 +1,8 @@
 # To run tests for one dbms and one cdmVersion use the variables below
 # dbms <- "postgresql"; cdmVersion <- "5.4"
 
-# testDatabases <- c("oracle", "postgresql", "sql server", "redshift")
-testDatabases <- c("redshift")
+testDatabases <- c("oracle", "postgresql", "sql server", "redshift")
+# testDatabases <- c("redshift")
 
 test_that("getConnectionDetails works", {
   for(dbms in testDatabases) {
