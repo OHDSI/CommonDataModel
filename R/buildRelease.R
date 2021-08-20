@@ -19,25 +19,36 @@
 #' Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
 #' and targetDialect to the 'ddl' folder in current working directory.
 #'
-#' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4.
+#' @param cdmVersions The versions of the CDM you are creating, e.g. 5.3, 5.4.
 #'                   Defaults to all supported CDM versions.
-#' @param targetDialect The target dialect
+#' @param targetDialects A character vector of target dialects.
+#'                      Defaults to all supported dialects.
+#' @param outputfolder The base folder where the SQL files will be written.
+#'                     Subfolders will be created for each cdmVersion and targetDialect.
 #'
-buildRelease <- function(cdmVersion = listSupportedVersions(),
-                         targetDialect = listSupportedDialects()){
-  for (cdmVersion in cdmVersion) {
-    for (targetDialect in targetDialect) {
+buildRelease <- function(cdmVersions = listSupportedVersions(),
+                         targetDialects = listSupportedDialects(),
+                         outputfolder = file.path(getwd(), "ddl")){
+  basefolder <- outputfolder
+  for (cdmVersion in cdmVersions) {
+    for (targetDialect in targetDialects) {
+      outputfolder <- file.path(basefolder, cdmVersion, gsub(" ", "_", targetDialect))
+
       writeDdl(targetDialect = targetDialect,
-               cdmVersion = cdmVersion)
+               cdmVersion = cdmVersion,
+               outputfolder = outputfolder)
 
       writePrimaryKeys(targetDialect = targetDialect,
-                       cdmVersion = cdmVersion)
+                       cdmVersion = cdmVersion,
+                       outputfolder = outputfolder)
 
       writeForeignKeys(targetDialect = targetDialect,
-                       cdmVersion = cdmVersion)
+                       cdmVersion = cdmVersion,
+                       outputfolder = outputfolder)
 
       writeIndex(targetDialect = targetDialect,
-                 cdmVersion = cdmVersion)
+                 cdmVersion = cdmVersion,
+                 outputfolder = outputfolder)
     }
   }
 }
@@ -62,7 +73,7 @@ buildRelease <- function(cdmVersion = listSupportedVersions(),
 #'
 buildReleaseZip <- function(cdmVersion,
                             targetDialect = listSupportedDialects(),
-                            outputfolder = "output"){
+                            outputfolder = file.path(getwd(), "ddl")){
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
 
@@ -72,8 +83,8 @@ buildReleaseZip <- function(cdmVersion,
 
   files <- c()
   for (dialect in targetDialect) {
-    buildRelease(cdmVersion, dialect)
-    files <- c(files, list.files(file.path('ddl', cdmVersion, gsub(" ", "_", dialect)),
+    buildRelease(cdmVersion, dialect, outputfolder = outputfolder)
+    files <- c(files, list.files(file.path(outputfolder, cdmVersion, gsub(" ", "_", dialect)),
                                  pattern = ".*\\.sql$",
                                  full.names = TRUE))
   }
