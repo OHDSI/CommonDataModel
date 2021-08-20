@@ -5,7 +5,7 @@ driverPath <- file.path(Sys.getenv("HOME"), "drivers")
 if(!dir.exists(driverPath)) dir.create(driverPath)
 
 if(Sys.getenv("LOCAL_TEST") != "TRUE") {
-  cat("downloading drivers")
+  cat("\ndownloading drivers\n")
   downloadJdbcDrivers("redshift", pathToDriver = driverPath)
   downloadJdbcDrivers("postgresql", pathToDriver = driverPath)
   downloadJdbcDrivers("oracle", pathToDriver = driverPath)
@@ -57,6 +57,7 @@ getSchema <- function(dbms) {
 
 listTablesInSchema <- function(connectionDetails, schema) {
   stopifnot(class(connectionDetails) == "connectionDetails", class(schema) == "character", length(schema) == 1)
+  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
@@ -71,6 +72,7 @@ listTablesInSchema <- function(connectionDetails, schema) {
 
 dropAllTablesFromSchema <- function(connectionDetails, schema) {
   stopifnot(class(connectionDetails) == "connectionDetails", class(schema) == "character", length(schema) == 1)
+  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
   tables <- listTablesInSchema(connectionDetails, schema)
 
   con <- DatabaseConnector::connect(connectionDetails)
