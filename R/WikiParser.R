@@ -23,7 +23,7 @@
 #'
 #' @param mdFilesLocation Path to the root folder of the Wiki repository.
 #' @param output_file     Path to where the output CSV file should be written.
-#'
+#' @importFrom utils write.csv
 #' @export
 parseWiki <- function(mdFilesLocation, output_file) {
   # mdFilesLocation <- "../CommonDataModel.wiki"

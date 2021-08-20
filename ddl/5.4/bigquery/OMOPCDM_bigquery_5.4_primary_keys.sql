@@ -42,6 +42,10 @@ alter table @cdmDatabaseSchema.dose_era add constraint xpk_dose_era primary key 
 
 alter table @cdmDatabaseSchema.condition_era add constraint xpk_condition_era primary key nonclustered (condition_era_id);
 
+alter table @cdmDatabaseSchema.episode add constraint xpk_episode primary key nonclustered (episode_id);
+
+alter table @cdmDatabaseSchema.metadata add constraint xpk_metadata primary key nonclustered (metadata_id);
+
 alter table @cdmDatabaseSchema.concept add constraint xpk_concept primary key nonclustered (concept_id);
 
 alter table @cdmDatabaseSchema.vocabulary add constraint xpk_vocabulary primary key nonclustered (vocabulary_id);

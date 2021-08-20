@@ -45,8 +45,8 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_OCCURRENCE (
 			visit_source_concept_id integer NULL,
 			admitted_from_concept_id integer NULL,
 			admitted_from_source_value VARCHAR(50),
-			discharge_to_concept_id integer NULL,
-			discharge_to_source_value VARCHAR(50),
+			discharged_to_concept_id integer NULL,
+			discharged_to_source_value VARCHAR(50),
 			preceding_visit_occurrence_id integer NULL );
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -63,12 +63,12 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
 			care_site_id integer NULL,
 			visit_detail_source_value VARCHAR(50),
 			visit_detail_source_concept_id Integer NULL,
-			admitted_from_source_value VARCHAR(50),
 			admitted_from_concept_id Integer NULL,
-			discharge_to_source_value VARCHAR(50),
-			discharge_to_concept_id integer NULL,
+			admitted_from_source_value VARCHAR(50),
+			discharged_to_source_value VARCHAR(50),
+			discharged_to_concept_id integer NULL,
 			preceding_visit_detail_id integer NULL,
-			visit_detail_parent_id integer NULL,
+			parent_visit_detail_id integer NULL,
 			visit_occurrence_id INT );
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -178,7 +178,10 @@ CREATE TABLE @cdmDatabaseSchema.MEASUREMENT (
 			measurement_source_value VARCHAR(50),
 			measurement_source_concept_id integer NULL,
 			unit_source_value VARCHAR(50),
-			value_source_value VARCHAR(50) );
+			unit_source_concept_id integer NULL,
+			value_source_value VARCHAR(50),
+			measurement_event_id BIGINT,
+			meas_event_field_concept_id integer NULL );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.OBSERVATION (
@@ -200,7 +203,9 @@ CREATE TABLE @cdmDatabaseSchema.OBSERVATION (
 			observation_source_concept_id integer NULL,
 			unit_source_value VARCHAR(50),
 			qualifier_source_value VARCHAR(50),
-			value_source_value VARCHAR(50) );
+			value_source_value VARCHAR(50),
+			observation_event_id BIGINT,
+			obs_event_field_concept_id integer NULL );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DEATH (
@@ -216,6 +221,8 @@ CREATE TABLE @cdmDatabaseSchema.DEATH (
 CREATE TABLE @cdmDatabaseSchema.NOTE (
 			note_id INT,
 			person_id INT,
+			note_event_id BIGINT,
+			note_event_field_concept_id integer NULL,
 			note_date TIMESTAMP,
 			note_datetime TIMESTAMP,
 			note_type_concept_id INT,
@@ -386,13 +393,37 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 			condition_era_end_date TIMESTAMP,
 			condition_occurrence_count integer NULL );
 
+--HINT DISTRIBUTE ON KEY (person_id)
+CREATE TABLE @cdmDatabaseSchema.EPISODE (
+			episode_id INT,
+			person_id INT,
+			episode_concept_id INT,
+			episode_start_date TIMESTAMP,
+			episode_start_datetime TIMESTAMP,
+			episode_end_date TIMESTAMP,
+			episode_end_datetime TIMESTAMP,
+			episode_parent_id integer NULL,
+			episode_number integer NULL,
+			episode_object_concept_id INT,
+			episode_type_concept_id INT,
+			episode_source_value VARCHAR(50),
+			episode_source_concept_id integer NULL );
+
+--HINT DISTRIBUTE ON RANDOM
+CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT (
+			episode_id INT,
+			event_id INT,
+			episode_event_field_concept_id INT );
+
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.METADATA (
+			metadata_id INT,
 			metadata_concept_id INT,
 			metadata_type_concept_id INT,
 			name VARCHAR(250),
 			value_as_string VARCHAR(250),
 			value_as_concept_id integer NULL,
+			value_as_number FLOAT,
 			metadata_date TIMESTAMP,
 			metadata_datetime TIMESTAMP );
 
@@ -502,6 +533,13 @@ CREATE TABLE @cdmDatabaseSchema.DRUG_STRENGTH (
 			invalid_reason VARCHAR(1) );
 
 --HINT DISTRIBUTE ON RANDOM
+CREATE TABLE @cdmDatabaseSchema.COHORT (
+			cohort_definition_id INT,
+			subject_id INT,
+			cohort_start_date TIMESTAMP,
+			cohort_end_date TIMESTAMP );
+
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.COHORT_DEFINITION (
 			cohort_definition_id INT,
 			cohort_definition_name VARCHAR(255),
@@ -510,11 +548,3 @@ CREATE TABLE @cdmDatabaseSchema.COHORT_DEFINITION (
 			cohort_definition_syntax VARCHAR(MAX),
 			subject_concept_id INT,
 			cohort_initiation_date TIMESTAMP );
-
---HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.ATTRIBUTE_DEFINITION (
-			attribute_definition_id INT,
-			attribute_name VARCHAR(255),
-			attribute_description VARCHAR(MAX),
-			attribute_type_concept_id INT,
-			attribute_syntax VARCHAR(MAX) );

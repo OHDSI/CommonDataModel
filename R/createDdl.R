@@ -26,6 +26,7 @@
 #'
 #' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
 #' @return A character string containing the OHDSQL DDL
+#' @importFrom utils read.csv
 #' @export
 #' @examples
 #' ddl <- createDdl("5.4")
