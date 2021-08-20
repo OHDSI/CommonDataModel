@@ -2,7 +2,7 @@
 # dbms <- "postgresql"; cdmVersion <- "5.4"
 
 # testDatabases <- c("oracle", "postgresql", "sql server", "redshift")
-testDatabases <- c("postgresql", "redshift")
+testDatabases <- c("redshift")
 
 test_that("getConnectionDetails works", {
   for(dbms in testDatabases) {
@@ -21,8 +21,9 @@ for(dbms in testDatabases) {
   cdmDatabaseSchema <- getSchema(dbms)
 
   test_that(paste("Can connect to", dbms), {
-    expect_error({con <- connect(connectionDetails)}, NA)
-    disconnect(con)
+    con <- connect(connectionDetails)
+    expect_s3_class(con, "DatabaseConnectorJdbcConnection")
+    expect_error(disconnect(con), NA)
   })
 
 
