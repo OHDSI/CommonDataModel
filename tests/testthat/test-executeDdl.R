@@ -21,7 +21,7 @@ for(dbms in testDatabases) {
   cdmDatabaseSchema <- getSchema(dbms)
 
   test_that(paste("Can connect to", dbms), {
-    expect_error(con <- connect(connectionDetails), NA)
+    expect_error({con <- connect(connectionDetails)}, NA)
     disconnect(con)
   })
 
