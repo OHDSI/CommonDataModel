@@ -26,26 +26,26 @@ for(dbms in testDatabases) {
   })
 
 
-  # for(cdmVersion in listSupportedVersions()) {
-  #   test_that(paste("DDL", cdmVersion, "runs on", dbms), {
-  #     dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
-  #     tables <- listTablesInSchema(connectionDetails, cdmDatabaseSchema)
-  #     expect_equal(tables, character(0))
-  #
-  #     executeDdl(connectionDetails,
-  #                cdmVersion = cdmVersion,
-  #                cdmDatabaseSchema = cdmDatabaseSchema,
-  #                executeDdl = TRUE,
-  #                executePrimaryKey = TRUE,
-  #                executeForeignKey = FALSE)
-  #
-  #     tables <- listTablesInSchema(connectionDetails, cdmDatabaseSchema)
-  #     cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
-  #     tableSpecs <- read.csv(cdmTableCsvLoc, stringsAsFactors = FALSE)$cdmTableName
-  #
-  #     # check that the tables in the database match the tables in the specification
-  #     expect_equal(sort(tolower(tables)), sort(tolower(tableSpecs)))
-  #     dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
-  #   })
-  # }
+  for(cdmVersion in listSupportedVersions()) {
+    test_that(paste("DDL", cdmVersion, "runs on", dbms), {
+      dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
+      tables <- listTablesInSchema(connectionDetails, cdmDatabaseSchema)
+      expect_equal(tables, character(0))
+
+      executeDdl(connectionDetails,
+                 cdmVersion = cdmVersion,
+                 cdmDatabaseSchema = cdmDatabaseSchema,
+                 executeDdl = TRUE,
+                 executePrimaryKey = TRUE,
+                 executeForeignKey = FALSE)
+
+      tables <- listTablesInSchema(connectionDetails, cdmDatabaseSchema)
+      cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
+      tableSpecs <- read.csv(cdmTableCsvLoc, stringsAsFactors = FALSE)$cdmTableName
+
+      # check that the tables in the database match the tables in the specification
+      expect_equal(sort(tolower(tables)), sort(tolower(tableSpecs)))
+      dropAllTablesFromSchema(connectionDetails, cdmDatabaseSchema)
+    })
+  }
 }
