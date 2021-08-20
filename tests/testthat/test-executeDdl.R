@@ -21,8 +21,7 @@ for(dbms in testDatabases) {
   cdmDatabaseSchema <- getSchema(dbms)
 
   test_that(paste("Can connect to", dbms), {
-    con <- connect(connectionDetails)
-    expect_s3_class(con, "DatabaseConnectorJdbcConnection")
+    expect_error(con <- connect(connectionDetails), NA)
     expect_error(disconnect(con), NA)
   })
 
