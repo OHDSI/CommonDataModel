@@ -6,7 +6,10 @@ if(!dir.exists(driverPath)) dir.create(driverPath)
 
 if(Sys.getenv("LOCAL_TEST") != "TRUE") {
   cat("downloading drivers")
-  downloadJdbcDrivers("all", pathToDriver = driverPath)
+  downloadJdbcDrivers("redshift", pathToDriver = driverPath)
+  downloadJdbcDrivers("postgresql", pathToDriver = driverPath)
+  downloadJdbcDrivers("oracle", pathToDriver = driverPath)
+  downloadJdbcDrivers("sql server", pathToDriver = driverPath)
 }
 
 # Helper functions used in tests -----------------------------------------------
