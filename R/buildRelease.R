@@ -25,10 +25,10 @@
 #'                      Defaults to all supported dialects.
 #' @param outputfolder The base folder where the SQL files will be written.
 #'                     Subfolders will be created for each cdmVersion and targetDialect.
-#'
+#' @export
 buildRelease <- function(cdmVersions = listSupportedVersions(),
                          targetDialects = listSupportedDialects(),
-                         outputfolder = file.path(getwd(), "ddl")){
+                         outputfolder = file.path(getwd(), "inst", "ddl")){
   basefolder <- outputfolder
   for (cdmVersion in cdmVersions) {
     for (targetDialect in targetDialects) {
@@ -73,7 +73,7 @@ buildRelease <- function(cdmVersions = listSupportedVersions(),
 #'
 buildReleaseZip <- function(cdmVersion,
                             targetDialect = listSupportedDialects(),
-                            outputfolder = file.path(getwd(), "ddl")){
+                            outputfolder = file.path(getwd(), "inst", "ddl")){
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
 
