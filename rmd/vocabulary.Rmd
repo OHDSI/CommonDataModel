@@ -9,10 +9,10 @@ output:
 
 # Mapping of Concepts 
 
-  * **Mapping**, also known as **a map**, is an association between a particular concept in one code system or 
-  *  dataset and code in another, rarely the same, code system that has the same (or similar) meaning.
-  * Also, **Mapping** is the process to transform one concept into a Standard one. The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts.
-  * Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:
+**Mapping**, also known as **a map**, is an association between a particular concept in one code system or dataset and code in another, rarely the same, code system that has the same (or similar) meaning.
+Also, **Mapping** is the process to transform one concept into a Standard one. 
+The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts.
+Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:
 
 |Relationship ID| Purpose | Features|
 |------|--------------|----------------|
@@ -26,7 +26,7 @@ output:
   * Equivalent carries the same meaning, covers the same semantic space, and, importantly, has the same parents and children in the hierarchy (if there are any) as well. If an equivalent Concept is not available, the mapping matches to a more generic Standard Concept(s). This ensures that a query in the target vocabulary will retrieve the same records as if they were queried in the original source vocabulary.
   * Source Concepts are mapped or may be mapped to one or several Standard Concepts. If they are mapped to more than one Standard Concept, in the resulting CDM table, there is more than one record for each record in the source.
   * Standard Concepts are also mapped to Standard Concepts via "Maps to", this is a mapping to itself.
-  * If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the [[https://forums.ohdsi.org/c/vocabulary-users|OHDSI Forum]] and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.
+  * If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the [OHDSI Forum](https://forums.ohdsi.org/c/vocabulary-users) and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.
   * If there are 2 similar Standard concepts within SNOMED, look at the domain (Morphologic abnormality is an Observation, Clinical finding is a Condition), revise attributes and hierarchy of both concepts (its number, fullness, and correctness). It is not necessary to compare the amount of relationships/children precisely, just verify that all seems appropriate and the hierarchy is rich enough. If it does for both concepts, then choose concepts belonging to SNOMED International (short concept codes) rather than SNOMED US/UK Editions (long concept codes). If the length of concept codes is identical, then choose the one with a smaller number of concept_id.
 
 **Note!** Classification Concepts (standard_concept='C') do not have a mapping to a Standard Concept.
@@ -154,7 +154,8 @@ This is possible due to the following reasons:
 
 
 **Other possible issues that one could encounter:** 
-  * Mapping has to exist and it can be built, but it is missing. Please report to [[https://forums.ohdsi.org/|the OHDSI Forum]], so it can be added.
+
+  * Mapping has to exist and it can be built, but it is missing. Please report to [the OHDSI Forum](https://forums.ohdsi.org/), so it can be added.
   * Code irrelevant to the patient, for example, ICD-9-CM V65 “Other persons seeking consultation”
   * Source code is ill-defined, for example, ICD-9-CM 799 “Other ill-defined and unknown causes of morbidity and mortality”
 
@@ -194,9 +195,9 @@ These concepts are treated with the following order of precedence:
 
 Examples for these 3 possibilities are:
 
-    - ICD10 A01 concept_id 45576225 "Typhoid and paratyphoid fevers" has a single "Maps to" relationship to 4022808 "Human typhoid AND/OR paratyphoid fever".
-    - IC10CM F12.22 concept_id 45591098 "Cannabis dependence with intoxication" has two "Maps to" relationships to 4052690 "Cannabis intoxication" and 440387 "Cannabis dependence".
-    - ICD10 L02.0 concept_id 45596354 "Cutaneous abscess, furuncle and carbuncle of face" has a single "Maps to" relationship_id to 400082007 Disorder of skin of head.
+  - ICD10 A01 concept_id 45576225 "Typhoid and paratyphoid fevers" has a single "Maps to" relationship to 4022808 "Human typhoid AND/OR paratyphoid fever".
+  - IC10CM F12.22 concept_id 45591098 "Cannabis dependence with intoxication" has two "Maps to" relationships to 4052690 "Cannabis intoxication" and 440387 "Cannabis dependence".
+  - ICD10 L02.0 concept_id 45596354 "Cutaneous abscess, furuncle and carbuncle of face" has a single "Maps to" relationship_id to 400082007 Disorder of skin of head.
 
 **Maternal care.**
 Many conditions require attention not because of a condition of a pregnant woman but of the fetus. However, all such conditions are being mapped to the mother anyway. For example, ICD10 O35.6 concept_id 45567927 "Maternal care for (suspected) damage to fetus by radiation" has two "Maps to" relationships to 199553006 "Fetus with radiation damage" and 289908002 "pregnancy". Both conditions are recorded with the mother.
