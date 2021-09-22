@@ -1,0 +1,77 @@
+name: "OMOP Common Data Model"
+output_dir: "../docs"
+output:
+  html_document:
+    theme: cosmo
+    css: style.css
+    includes:
+      in_header: "favicon.html"
+exclude: ["extras"]
+navbar:
+  title: '<div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div>'
+  right:
+    - icon: fa-github
+      href: https://github.com/OHDSI/CommonDataModel
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Background"
+      icon: fa-landmark
+      menu:
+        - text: "Model Background"
+          href: background.html
+        - text: "CDM Refresh Process"
+          href: cdmRefreshProcess.html
+        - text: "How the Vocabulary is Built"
+          href: vocabulary.html
+    - text: "Conventions"
+      icon: fa-list-alt
+      menu:
+        - text: "General Conventions"
+          href: dataModelConventions.html
+        - text: "Observation Periods for EHR Data"
+          href: ehrObsPeriods.html
+        - text: "Patient Privacy and OMOP"
+          href: cdmPrivacy.html
+    - text: "CDM Versions"
+      icon: fa-history
+      menu:
+        - text: "CDM v3.0"
+          href: cdm30.html
+        - text: "CDM v6.0"
+          href: cdm60.html
+        - text: "CDM v5.3"
+          href: cdm53.html
+        - text: "NEW CDM v5.4"
+          menu:
+            - text: "CDM v5.4"
+              href: cdm54.html
+            - text: "Changes from CDM v5.3"
+              href: cdm54Changes.html
+    - text: "Proposals"
+      icon: fa-plus-square
+      menu:
+        - text: "Under Review"
+          href: https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal
+        - text: "Accepted"
+          menu:
+            - text: "Region_concept_id"
+              href: https://github.com/OHDSI/CommonDataModel/issues/252
+    - text: "How to"
+      icon: fa-question
+      menu:
+        - text: "Download the DDL"
+          href: download.html
+        - text: "Use the CDM R Package"
+          href: cdmRPackage.html
+        - text: "Calculate Drug Dose"
+          href: drug_dose.html
+    - text: "Support"
+      icon: fa-life-ring
+      menu:
+        - text: "FAQ"
+          href: faq.html
+        - text: "SQL Scripts"
+          href: sqlScripts.html
+        - text: "Ask a Question"
+          href: contribute.html

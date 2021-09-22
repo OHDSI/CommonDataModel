@@ -1,0 +1,35 @@
+---
+title: '<div><img src="ohdsi40x40.png"></img> OMOP Common Data Model</div>'
+output: html_document
+---
+
+The OMOP Common Data Model is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
+
+## Current CDM Version
+
+The current CDM version is [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm54.html), depicted below. This CDM version was developed over the course of a year by considering requests that were sent via our [issues page](https://github.com/OHDSI/CommonDataModel/issues). The list of proposed changes was then shared with the community in multiple ways: through discussions at the weekly OHDSI Community calls, discussions with the OHDSI Steering Committee, and discussions with all potentially affected workgroups. The [final changes](http://ohdsi.github.io/CommonDataModel/cdm54Changes.html) were then delivered to the Community through a new R package designed to dynamically generate the DDLs and documentation for all supported SQL dialects. 
+
+- [Link to DDLs for CDM v5.4](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0)
+- [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)
+
+![](images/cdm54.png)
+
+
+## CDM WG Meeting Information
+
+The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings. 
+
+**Every first Tuesday of the month at 1pm est** [Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d)   
+
+**Every third Tuesday of the month at 1pm est** [Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d)
+
+
+**Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form]
+(https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
+
+### CDM WG Important Links
+
+- [Google Drive Location](https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu)
+- [Running Agenda](https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing)
+- [CDM Github](https://github.com/OHDSI/CommonDataModel)
+- [Process for adopting CDM and Vocabulary changes](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html)

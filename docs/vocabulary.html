@@ -381,16 +381,32 @@ div.tocify {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -405,10 +421,21 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -422,19 +449,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -444,7 +465,27 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -453,27 +494,10 @@ div.tocify {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -481,7 +505,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -501,12 +525,7 @@ div.tocify {
 
 <div id="mapping-of-concepts" class="section level1">
 <h1>Mapping of Concepts</h1>
-<ul>
-<li><strong>Mapping</strong>, also known as <strong>a map</strong>, is an association between a particular concept in one code system or</li>
-<li>dataset and code in another, rarely the same, code system that has the same (or similar) meaning.</li>
-<li>Also, <strong>Mapping</strong> is the process to transform one concept into a Standard one. The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts.</li>
-<li>Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:</li>
-</ul>
+<p><strong>Mapping</strong>, also known as <strong>a map</strong>, is an association between a particular concept in one code system or dataset and code in another, rarely the same, code system that has the same (or similar) meaning. Also, <strong>Mapping</strong> is the process to transform one concept into a Standard one. The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts. Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:</p>
 <table>
 <colgroup>
 <col width="16%" />
@@ -541,7 +560,7 @@ div.tocify {
 <li>Equivalent carries the same meaning, covers the same semantic space, and, importantly, has the same parents and children in the hierarchy (if there are any) as well. If an equivalent Concept is not available, the mapping matches to a more generic Standard Concept(s). This ensures that a query in the target vocabulary will retrieve the same records as if they were queried in the original source vocabulary.</li>
 <li>Source Concepts are mapped or may be mapped to one or several Standard Concepts. If they are mapped to more than one Standard Concept, in the resulting CDM table, there is more than one record for each record in the source.</li>
 <li>Standard Concepts are also mapped to Standard Concepts via “Maps to”, this is a mapping to itself.</li>
-<li>If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the [[<a href="https://forums.ohdsi.org/c/vocabulary-users%7COHDSI" class="uri">https://forums.ohdsi.org/c/vocabulary-users|OHDSI</a> Forum]] and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.</li>
+<li>If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the <a href="https://forums.ohdsi.org/c/vocabulary-users">OHDSI Forum</a> and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.</li>
 <li>If there are 2 similar Standard concepts within SNOMED, look at the domain (Morphologic abnormality is an Observation, Clinical finding is a Condition), revise attributes and hierarchy of both concepts (its number, fullness, and correctness). It is not necessary to compare the amount of relationships/children precisely, just verify that all seems appropriate and the hierarchy is rich enough. If it does for both concepts, then choose concepts belonging to SNOMED International (short concept codes) rather than SNOMED US/UK Editions (long concept codes). If the length of concept codes is identical, then choose the one with a smaller number of concept_id.</li>
 </ul>
 <p><strong>Note!</strong> Classification Concepts (standard_concept=‘C’) do not have a mapping to a Standard Concept.</p>
@@ -1131,7 +1150,12 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<p><strong>Other possible issues that one could encounter:</strong> * Mapping has to exist and it can be built, but it is missing. Please report to [[<a href="https://forums.ohdsi.org/%7Cthe" class="uri">https://forums.ohdsi.org/|the</a> OHDSI Forum]], so it can be added. * Code irrelevant to the patient, for example, ICD-9-CM V65 “Other persons seeking consultation” * Source code is ill-defined, for example, ICD-9-CM 799 “Other ill-defined and unknown causes of morbidity and mortality”</p>
+<p><strong>Other possible issues that one could encounter:</strong></p>
+<ul>
+<li>Mapping has to exist and it can be built, but it is missing. Please report to <a href="https://forums.ohdsi.org/">the OHDSI Forum</a>, so it can be added.</li>
+<li>Code irrelevant to the patient, for example, ICD-9-CM V65 “Other persons seeking consultation”</li>
+<li>Source code is ill-defined, for example, ICD-9-CM 799 “Other ill-defined and unknown causes of morbidity and mortality”</li>
+</ul>
 </div>
 <div id="rules-for-condition-mapping" class="section level2">
 <h2>RULES FOR CONDITION MAPPING</h2>
@@ -1151,9 +1175,11 @@ div.tocify {
 <li>To the most common ancestor</li>
 </ul>
 <p>Examples for these 3 possibilities are:</p>
-<pre><code>- ICD10 A01 concept_id 45576225 &quot;Typhoid and paratyphoid fevers&quot; has a single &quot;Maps to&quot; relationship to 4022808 &quot;Human typhoid AND/OR paratyphoid fever&quot;.
-- IC10CM F12.22 concept_id 45591098 &quot;Cannabis dependence with intoxication&quot; has two &quot;Maps to&quot; relationships to 4052690 &quot;Cannabis intoxication&quot; and 440387 &quot;Cannabis dependence&quot;.
-- ICD10 L02.0 concept_id 45596354 &quot;Cutaneous abscess, furuncle and carbuncle of face&quot; has a single &quot;Maps to&quot; relationship_id to 400082007 Disorder of skin of head.</code></pre>
+<ul>
+<li>ICD10 A01 concept_id 45576225 “Typhoid and paratyphoid fevers” has a single “Maps to” relationship to 4022808 “Human typhoid AND/OR paratyphoid fever”.</li>
+<li>IC10CM F12.22 concept_id 45591098 “Cannabis dependence with intoxication” has two “Maps to” relationships to 4052690 “Cannabis intoxication” and 440387 “Cannabis dependence”.</li>
+<li>ICD10 L02.0 concept_id 45596354 “Cutaneous abscess, furuncle and carbuncle of face” has a single “Maps to” relationship_id to 400082007 Disorder of skin of head.</li>
+</ul>
 <p><strong>Maternal care.</strong> Many conditions require attention not because of a condition of a pregnant woman but of the fetus. However, all such conditions are being mapped to the mother anyway. For example, ICD10 O35.6 concept_id 45567927 “Maternal care for (suspected) damage to fetus by radiation” has two “Maps to” relationships to 199553006 “Fetus with radiation damage” and 289908002 “pregnancy”. Both conditions are recorded with the mother.</p>
 <p><strong>Need for immunization.</strong> These Concepts are mapped to an Observation indicating such an immunity gap. A second mapping with the relationship_id “Maps to value” is then directed to the Condition (represented as a SNOMED Concept) the immunization is inoculating against. Note that it is not mapped to the vaccine itself (which would be represented as a RxNorm Concept). For example, ICD10 Z23 concept_id 45556822 “Need for immunization against single bacterial diseases” maps to 170536002 “Vaccination required” and maps to value 87628006 “Bacterial infectious disease”.</p>
 <p><strong>Conditions indicating abnormal levels of a test.</strong> These are split into the Measurement and result Concepts. For example, ICD10 R77.1 concept_id 45553745 “Abnormality of globulin” has a “Maps to” relationship to the Measurement 4353510 “Globulin measurement” and a “Maps to value” relationship to 4135493 “Abnormal”.</p>

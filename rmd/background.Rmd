@@ -1,0 +1,45 @@
+---
+title: '<div><img src="ohdsi40x40.png"></img> OMOP CDM Background</div>'
+output: 
+  html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+## Background
+The Observational Medical Outcomes Partnership (OMOP) was a public-private partnership established to inform the appropriate use of observational healthcare databases for studying the effects of medical products. Over the course of the 5-year project and through its community of researchers from industry, government, and academia, OMOP successfully achieved its aims to:
+
+  - Conduct methodological research to empirically evaluate the performance of various analytical methods on their ability to identify true associations and avoid false findings 
+  - Develop tools and capabilities for transforming, characterizing, and analysing disparate data sources across the health care delivery spectrum 
+  - Establish a shared resource so that the broader research community can collaboratively advance the science 
+
+The results of OMOP's research has been widely published and presented at scientific conferences, including [annual symposia](https://www.ohdsi.org/2021-ohdsi-global-symposium-info/).
+
+The OMOP Legacy continues...
+
+The community is actively using the OMOP Common Data Model for their various research purposes. Those tools will continue to be maintained and supported, and information about this work is available in the [public domain](http://www.github.com/ohdsi).
+
+The OMOP Common Data Model will continue to be an open-source community standard for observational healthcare data. The model specifications and associated work products will be placed in the public domain, and the entire research community is encouraged to use these tools to support everybody's own research activities.
+
+## The Role of the Common Data Model
+
+No single observational data source provides a comprehensive view of the clinical data a patient accumulates while receiving healthcare, and therefore none can be sufficient to meet all expected outcome analysis needs. This explains the need for assessing and analyzing multiple data sources concurrently using a common data standard. This standard is provided by the OMOP Common Data Model (CDM). 
+
+The CDM is designed to support the conduct of research to identify and evaluate associations between interventions (drug exposure, procedures, healthcare policy changes etc.) and outcomes caused by these interventions (condition occurrences, procedures, drug exposure etc.). Outcomes can be efficacious (benefit) or adverse (safety risk). Often times, specific patient cohorts (e.g., those taking a certain drug or suffering from a certain disease) may be defined for treatments or outcomes, using clinical events (diagnoses, observations, procedures, etc.) that occur in predefined temporal relationships to each other. The CDM, combined with its standardized content (via the Standardized Vocabularies), will ensure that research methods can be systematically applied to produce meaningfully comparable and reproducible results.
+
+## Design Principles
+
+The CDM is designed to include all observational health data elements (experiences of the patient receiving health care) that are relevant for analytic use cases to support the generation of reliable scientific evidence about disease natural history, healthcare delivery, effects of medical interventions, the identification of demographic information, health care interventions and outcomes. 
+
+Therefore, the CDM is designed to store observational data to allow for research, under the following principles:  
+ 
+  - **Suitability for purpose:** The CDM aims to provide data organized in a way optimal for analysis, rather than for the purpose of addressing the operational needs of health care providers or payers. 
+  - **Data protection:** All data that might jeopardize the identity and protection of patients, such as names, precise birthdays etc. are limited. Exceptions are possible where the research expressly requires more detailed information, such as precise birth dates for the study of infants.
+  - **Design of domains:** The domains are modeled in a person-centric relational data model, where for each record the identity of the person and a date is captured as a minimum.
+  - **Rationale for domains:** Domains are identified and separately defined in an entity-relationship model if they have an analysis use case and the domain has specific attributes that are not otherwise applicable.  All other data can be preserved as an observation in an entity-attribute-value structure.
+  - **Standardized Vocabularies:** To standardize the content of those records, the CDM relies on the Standardized Vocabularies containing all necessary and appropriate corresponding standard healthcare concepts.
+  - **Reuse of existing vocabularies:** If possible, these concepts are leveraged from national or industry standardization or vocabulary definition organizations or initiatives, such as the National Library of Medicine, the Department of Veterans' Affairs, the Center of Disease Control and Prevention, etc.
+  - **Maintaining source codes:** Even though all codes are mapped to the Standardized Vocabularies, the model also stores the original source code to ensure no information is lost.
+  - **Technology neutrality:** The CDM does not require a specific technology. It can be realized in any relational database, such as Oracle, SQL Server etc., or as SAS analytical datasets.
+  - **Scalability:** The CDM is optimized for data processing and computational analysis to accommodate data sources that vary in size, including databases with up to hundreds of millions of persons and billions of clinical observations.
+  - **Backwards compatibility:** All changes from previous CDMs are clearly delineated in the [github repository](https://github.com/OHDSI/CommonDataModel). Older versions of the CDM can be easily created from the CDMv5, and no information is lost that was present previously.

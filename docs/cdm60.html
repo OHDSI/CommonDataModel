@@ -381,16 +381,32 @@ div.tocify {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -405,10 +421,21 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -422,19 +449,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -444,7 +465,27 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -453,27 +494,10 @@ div.tocify {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -481,7 +505,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -3722,7 +3746,7 @@ It is up to the ETL to choose how to map modifiers if they exist in source data.
 integer
 </td>
 <td style="text-align:left;width: 1in; ">
-Yes
+No
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -6218,7 +6242,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-offset
+"offset"
 </td>
 <td style="text-align:left;width: 3in; ">
 Character offset of the extracted term in the input note
@@ -9525,17 +9549,43 @@ FK Domain
 cost_id
 </td>
 <td style="text-align:left;width: 3in; ">
+A unique identifier for each COST record.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-INTEGER
+bigint
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+person_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9550,8 +9600,10 @@ No
 cost_event_id
 </td>
 <td style="text-align:left;width: 3in; ">
+If the Cost record is related to another record in the database, this field is the primary key of the linked record.
 </td>
 <td style="text-align:left;width: 4in; ">
+Put the primary key of the linked record, if applicable, here.
 </td>
 <td style="text-align:left;width: 1in; ">
 bigint
@@ -9572,14 +9624,16 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-cost_domain_id
+cost_event_field_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
+If the Cost record is related to another record in the database, this field is the CONCEPT_ID that identifies which table the primary key of the linked record came from.
 </td>
 <td style="text-align:left;width: 4in; ">
+Put the CONCEPT_ID that identifies which table and field the COST_EVENT_ID came from.
 </td>
 <td style="text-align:left;width: 1in; ">
-VARCHAR(20)
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -9591,7 +9645,34 @@ No
 Yes
 </td>
 <td style="text-align:left;width: 1in; ">
-DOMAIN
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cost_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key that refers to a Standard Cost Concept identifier in the Standardized Vocabularies belonging to the ‘Cost’ vocabulary.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
 </td>
 <td style="text-align:left;width: 1in; ">
 </td>
@@ -9601,6 +9682,7 @@ DOMAIN
 cost_type_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
+A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data and belonging to the ‘Type Concept’ vocabulary
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
@@ -9608,7 +9690,7 @@ cost_type_concept_id
 integer
 </td>
 <td style="text-align:left;width: 1in; ">
-Yes
+No
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9618,6 +9700,60 @@ Yes
 </td>
 <td style="text-align:left;width: 1in; ">
 CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+Type Concept
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cost_source_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key to a Cost Concept that refers to the code used in the source.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cost_source_value
+</td>
+<td style="text-align:left;width: 3in; ">
+The source value for the cost as it appears in the source data
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+varchar(50)
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
 </td>
@@ -9627,6 +9763,7 @@ CONCEPT
 currency_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
+A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar. These belong to the ‘Currency’ vocabulary
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
@@ -9640,7 +9777,7 @@ No
 No
 </td>
 <td style="text-align:left;width: 1in; ">
-Yes
+No
 </td>
 <td style="text-align:left;width: 1in; ">
 CONCEPT
@@ -9650,14 +9787,15 @@ CONCEPT
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-total_charge
+cost
 </td>
 <td style="text-align:left;width: 3in; ">
+The actual financial cost amount
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-FLOAT
+float
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9675,14 +9813,15 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-total_cost
+incurred_date
 </td>
 <td style="text-align:left;width: 3in; ">
+The first date of service of the clinical event corresponding to the cost as in table capturing the information (e.g. date of visit, date of procedure, date of condition, date of drug etc).
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-FLOAT
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9700,14 +9839,15 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-total_paid
+billed_date
 </td>
 <td style="text-align:left;width: 3in; ">
+The date a bill was generated for a service or encounter
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-FLOAT
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9725,239 +9865,15 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-paid_by_payer
+paid_date
 </td>
 <td style="text-align:left;width: 3in; ">
+The date payment was received for a service or encounter
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_by_patient
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_patient_copay
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_patient_coinsurance
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_patient_deductible
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_by_primary
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_ingredient_cost
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-paid_dispensing_fee
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-payer_plan_period_id
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-amount_allowed
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-FLOAT
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -9978,6 +9894,34 @@ No
 revenue_code_concept_id
 </td>
 <td style="text-align:left;width: 3in; ">
+A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes belonging to the ‘Revenue Code’ vocabulary.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+CONCEPT
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+drg_concept_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for DRG codes belonging to the ‘DRG’ vocabulary.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
@@ -10004,12 +9948,12 @@ CONCEPT
 revenue_code_source_value
 </td>
 <td style="text-align:left;width: 3in; ">
-Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system.
+The source value for the Revenue code as it appears in the source data, stored here for reference.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-VARCHAR(50)
+varchar(50)
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -10021,32 +9965,6 @@ No
 No
 </td>
 <td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-drg_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
 </td>
 <td style="text-align:left;width: 1in; ">
 </td>
@@ -10056,12 +9974,38 @@ CONCEPT
 drg_source_value
 </td>
 <td style="text-align:left;width: 3in; ">
-Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups.
+The source value for the 3-digit DRG source code as it appears in the source data, stored here for reference.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-VARCHAR(3)
+varchar(50)
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+payer_plan_period_id
+</td>
+<td style="text-align:left;width: 3in; ">
+A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored. Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field.
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+bigint
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -10203,7 +10147,7 @@ Drug
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-drug_era_start_date
+drug_era_start_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 </td>
@@ -10229,7 +10173,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-drug_era_end_date
+drug_era_end_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 </td>
@@ -10481,7 +10425,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-dose_era_start_date
+dose_era_start_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 The date the Person started on the specific dosage, with at least 31 days since any prior exposure.
@@ -10507,7 +10451,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-dose_era_end_date
+dose_era_end_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 </td>
@@ -10586,7 +10530,7 @@ condition_era_id
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-integer
+bigint
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10658,7 +10602,7 @@ Condition
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-condition_era_start_date
+condition_era_start_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 The start date for the Condition Era constructed from the individual instances of Condition Occurrences. It is the start date of the very first chronologically recorded instance of the condition with at least 31 days since any prior record of the same Condition.
@@ -10684,7 +10628,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-condition_era_end_date
+condition_era_end_datetime
 </td>
 <td style="text-align:left;width: 3in; ">
 The end date for the Condition Era constructed from the individual instances of Condition Occurrences. It is the end date of the final continuously recorded instance of the Condition.
@@ -13307,7 +13251,7 @@ This is the identifier given to the cohort, usually by the ATLAS application
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-integer
+bigint
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes

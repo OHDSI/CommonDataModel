@@ -1,0 +1,20 @@
+---
+title: "Ask A Question"
+output: 
+    html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+# Check the Forum
+
+Chances are someone else has already asked your question on the [forum](https:\\forums.ohdsi.org) and it has been answered. 
+
+# Check the Issue Log
+
+If you think you've found a bug you can check to see if someone also had that same problem on our [issue page](https://github.com/ohdsi/commondatamodel/issues) of the Common Data Model github. If you don't see your issue feel free to open one. Try and be as specific as possible. What error message occurs? Can you provide a simple example as to why you are requesting a change to the model? 
+
+# Join meetings
+
+Please come to meetings, ask your question and contribute to the discussion! All details can be found on our [home page](https://ohdsi.github.io/CommonDataModel/).
+

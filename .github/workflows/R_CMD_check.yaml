@@ -1,0 +1,129 @@
+# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
+# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      # Test create and drop tables in a database so they cannot be executed in parallel
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        config:
+          - {os: macOS-latest, r: 'release'}
+          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: windows-latest, r: 'release'}  # Does not appear to have Java 32-bit, hence the --no-multiarch
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+      CDMDDLBASE_POSTGRESQL_USER: ${{ secrets.CDMDDLBASE_POSTGRESQL_USER }}
+      CDMDDLBASE_POSTGRESQL_PASSWORD: ${{ secrets.CDMDDLBASE_POSTGRESQL_PASSWORD }}
+      CDMDDLBASE_POSTGRESQL_SERVER: ${{ secrets.CDMDDLBASE_POSTGRESQL_SERVER }}
+      CDMDDLBASE_POSTGRESQL_SCHEMA: ${{ secrets.CDMDDLBASE_POSTGRESQL_SCHEMA }}
+      CDMDDLBASE_REDSHIFT_USER: ${{ secrets.CDMDDLBASE_REDSHIFT_USER }}
+      CDMDDLBASE_REDSHIFT_PASSWORD: ${{ secrets.CDMDDLBASE_REDSHIFT_PASSWORD }}
+      CDMDDLBASE_REDSHIFT_SERVER: ${{ secrets.CDMDDLBASE_REDSHIFT_SERVER }}
+      CDMDDLBASE_REDSHIFT_SCHEMA: ${{ secrets.CDMDDLBASE_REDSHIFT_SCHEMA }}
+      CDMDDLBASE_SQL_SERVER_USER: ${{ secrets.CDMDDLBASE_SQL_SERVER_USER }}
+      CDMDDLBASE_SQL_SERVER_PASSWORD: ${{ secrets.CDMDDLBASE_SQL_SERVER_PASSWORD }}
+      CDMDDLBASE_SQL_SERVER_SERVER: ${{ secrets.CDMDDLBASE_SQL_SERVER_SERVER }}
+      CDMDDLBASE_SQL_SERVER_CDM_SCHEMA: ${{ secrets.CDMDDLBASE_SQL_SERVER_CDM_SCHEMA }}
+      CDMDDLBASE_ORACLE_USER: ${{ secrets.CDMDDLBASE_ORACLE_USER }}
+      CDMDDLBASE_ORACLE_PASSWORD: ${{ secrets.CDMDDLBASE_ORACLE_PASSWORD }}
+      CDMDDLBASE_ORACLE_SERVER: ${{ secrets.CDMDDLBASE_ORACLE_SERVER }}
+      CDMDDLBASE_ORACLE_CDM_SCHEMA: ${{ secrets.CDMDDLBASE_ORACLE_CDM_SCHEMA }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-tinytex@v1
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
+      - name: Install libssh
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install libssh-dev
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE, INSTALL_opts=c("--no-multiarch"))
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Install covr
+        if: runner.os == 'macOS'
+        run: |
+          remotes::install_cran("covr")
+        shell: Rscript {0}
+
+      - name: Remove check folder if exists
+        if: runner.os == 'macOS'
+        run: unlink("check", recursive = TRUE)
+        shell: Rscript {0}
+
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-multiarch"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check
+
+      - name: Upload source package
+        if: success() && runner.os == 'macOS' && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v2
+        with:
+          name: package_tarball
+          path: check/*.tar.gz
+
+      - name: Test coverage
+        if: runner.os == 'macOS'
+        run: covr::codecov()
+        shell: Rscript {0}
+

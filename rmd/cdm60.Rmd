@@ -1,0 +1,118 @@
+---
+output: 
+  html_document:
+      toc: true
+      toc_depth: 5
+      toc_float: true
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+
+#todo figure out how to get the document dynamically without specifying the name
+library(rmarkdown)
+library(knitr)
+library(kableExtra)
+library(magrittr)
+library(dplyr)
+library(stringr)
+
+```
+
+# **OMOP CDM v6.0**
+
+## NOTE ABOUT CDM v6.0
+
+Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the \*_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 is actively in production to address additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our [roadmap](https://github.com/OHDSI/CommonDataModel/projects/3) for more information on which proposals will be included in CDM v5.4. For new collaborators to OHDSI, please transform your data to [CDM v5.3](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.3.1) until such time that CDM v5.4 is ready for release. 
+
+Below is the specification document for the OMOP Common Data Model, v6.0. Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the [forums](https://forums.ohdsi.org/) or the [github issue](https://github.com/ohdsi/CommonDataModel/issues) page.
+
+--after regeneration of DDLs
+link to csv of cdm
+link to pdf of cdm documentation
+link to forum on doc page
+
+## **Changes in v6.0**
+
+- Latitude and Longitude added to [LOCATION](https://ohdsi.github.io/CommonDataModel/cdm60.html#location)
+- Contract owner field added to [PAYER_PLAN_PERIOD](https://ohdsi.github.io/CommonDataModel/cdm60.html#payer_plan_period)
+- All primary keys were changed to bigint
+- The name of ADMISSION_SOURCE_CONCEPT_ID was changed to ADMITTED_FROM_CONCEPT_ID in [VISIT_OCCURRENCE](https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_occurrence) and [VISIT_DETAIL](https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_detail)
+- All Concept_Ids are now mandatory except for UNIT_CONCEPT_ID, VALUE_AS_CONCEPT_ID, and OPERATOR_CONCEPT_ID. If there is no value available then a Concept_Id should be set to 0 instead of NULL.
+- [DEATH](https://ohdsi.github.io/CommonDataModel/cdm531.html#death) table removed and DEATH_DATETIME field added to the [PERSON](https://ohdsi.github.io/CommonDataModel/cdm60.html#person) table. Cause of death is stored in the [CONDITION_OCCURRENCE](https://ohdsi.github.io/CommonDataModel/cdm60.html#condition_occurrence)
+- DATETIME fields were made mandatory and date fields were made optional.
+
+```{r docLoop60, echo=FALSE, results='asis'}
+tableSpecs <- read.csv("../inst/csv/OMOP_CDMv6.0_Table_Level.csv", stringsAsFactors = FALSE)
+cdmSpecs <- read.csv("../inst/csv/OMOP_CDMv6.0_Field_Level.csv", stringsAsFactors = FALSE)
+
+tables <- tableSpecs$cdmTableName
+
+cdmSpecsClean <- cdmSpecs %>%
+  dplyr::select(`CDM Table` = cdmTableName,
+                `CDM Field` = cdmFieldName,
+                `User Guide` = userGuidance,
+                `ETL Conventions` = etlConventions,
+                `Datatype` = cdmDatatype,
+                `Required` = isRequired,
+                `Primary Key` = isPrimaryKey,
+                `Foreign Key` = isForeignKey,
+                `FK Table` = fkTableName,
+                `FK Domain` = fkDomain
+                )
+
+cdmSpecsClean[is.na(cdmSpecsClean)] <- ""
+
+for(tb in tables) {
+  
+  if(tb == 'PERSON'){
+    cat("## **Clinical Data Tables**\n\n")
+  }
+  
+  if(tb == 'LOCATION'){
+    cat("## **Health System Data Tables**\n\n")
+  }
+  
+  if(tb == 'PAYER_PLAN_PERIOD'){
+    cat("## **Health Economics Data Tables**\n\n")
+  }
+  
+  if(tb == 'DRUG_ERA'){
+    cat("## **Standardized Derived Elements**\n\n")
+  }
+  
+  if(tb == 'METADATA'){
+    cat("## **Metadata Tables**\n\n")
+  }
+  if(tb == 'CONCEPT'){
+    cat("## **Vocabulary Tables**\n\n")
+  }
+ 
+  cat("###", tb, "{.tabset .tabset-pills} \n\n")
+  
+  tableInfo <- subset(tableSpecs, cdmTableName == tb)
+  cat("**Table Description**\n\n",tableInfo[,"tableDescription"], "\n\n")
+  
+  if(!isTRUE(tableInfo[,"userGuidance"]=="")){
+    cat("**User Guide**\n\n",tableInfo[,"userGuidance"],"\n\n")
+  }
+  
+  if(!isTRUE(tableInfo[,"etlConventions"]=="")){
+    cat("**ETL Conventions**\n\n",tableInfo[,"etlConventions"],"\n\n")
+  }
+  
+  loopTable <- subset(cdmSpecsClean, `CDM Table` == tb)
+  loopTable <- subset(loopTable, select = -c(1))
+ 
+  print(kable(x = loopTable, align = "l", row.names = FALSE, format = "html") %>% 
+           column_spec(1, bold = T) %>%
+           column_spec(2, width = "3in", include_thead = T) %>%
+           column_spec(3, width = "4in", include_thead = T) %>%
+           column_spec(4:9, width = "1in", include_thead = T) %>%
+           kable_styling(c("condensed","hover"), position = "center", full_width = T, font_size = 13)) 
+         
+  
+  }
+
+
+
+```

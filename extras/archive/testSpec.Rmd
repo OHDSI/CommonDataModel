@@ -1,0 +1,94 @@
+---
+title: "omopCdmDocumentation"
+author: "Clair Blacketer"
+date: "8/16/2019"
+output: 
+  html_document:
+      toc: true
+      toc_depth: 5
+      toc_float: true
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+
+#todo figure out how to get the document dynamically without specifying the name
+library(rmarkdown)
+library(knitr)
+library(kableExtra)
+library(magrittr)
+library(dplyr)
+library(stringr)
+
+```
+
+## OMOP Common Data Model Documentation
+
+## CDM v5.3.1
+
+```{r docLoop53, echo=FALSE, results='asis'}
+cdmSpecs <- readxl::read_excel("../docs/OMOP CDMv5.3.1 Specs v0.1.xlsx", sheet = "FIELD LEVEL")
+tableSpecs <- readxl::read_excel("../docs/OMOP CDMv5.3.1 Specs v0.1.xlsx", sheet = "TABLE LEVEL")
+tables <- tableSpecs$CDM_TABLE
+
+cdmSpecsClean <- cdmSpecs %>%
+  dplyr::select(`CDM Table` = CDM_TABLE,
+                `CDM Field` = CDM_FIELD,
+                `User Guide` = USER_GUIDANCE,
+                `ETL Conventions` = ETL_CONVENTIONS,
+                `Datatype` = CDM_DATATYPE,
+                `Is Required` = IS_REQUIRED,
+                `Is Primary Key` = IS_PRIMARY_KEY,
+                `Is Foreign Key (FK)` = IS_FOREIGN_KEY,
+                `FK Table` = FK_TABLE,
+                `FK Domain` = FK_DOMAIN,
+                `FK Class` = FK_CLASS
+                )
+
+for(tb in tables) {
+  cat("###", tb, "{.tabset .tabset-pills} \n\n")
+  
+  loopTable <- subset(cdmSpecsClean, `CDM Table` == tb)
+  loopTable <- subset(loopTable, select = -c(1))
+ 
+  print(kable(x = loopTable, align = "l", row.names = FALSE) %>% kable_styling(bootstrap_options = c("hover", "condensed", "responsive")))
+  
+  }
+
+
+
+```
+
+## CDM v6.0
+
+```{r docLoop60, echo=FALSE, results='asis'}
+cdmSpecs <- readxl::read_excel("C:/Git/Github/DDLgeneratr_OHDSI/docs/OMOP CDMv6 DQ Checks v0.1.xlsx", sheet = "FIELD LEVEL")
+tableSpecs <- readxl::read_excel("C:/Git/Github/DDLgeneratr_OHDSI/docs/OMOP CDMv6 DQ Checks v0.1.xlsx", sheet = "TABLE LEVEL")
+tables <- tableSpecs$CDM_TABLE
+
+cdmSpecsClean <- cdmSpecs %>%
+  dplyr::select(`CDM Table` = CDM_TABLE,
+                `CDM Field` = CDM_FIELD,
+                `User Guide` = USER_GUIDANCE,
+                `ETL Conventions` = ETL_CONVENTIONS,
+                `Datatype` = CDM_DATATYPE,
+                `Is Required` = IS_REQUIRED,
+                `Is Primary Key` = IS_PRIMARY_KEY,
+                `Is Foreign Key (FK)` = IS_FOREIGN_KEY,
+                `FK Table` = FK_TABLE,
+                `FK Domain` = FK_DOMAIN,
+                `FK Class` = FK_CLASS
+                )
+
+for(tb in tables) {
+  cat("###", tb, "{.tabset .tabset-pills} \n\n")
+  
+  loopTable <- subset(cdmSpecsClean, `CDM Table` == tb)
+  loopTable <- subset(loopTable, select = -c(1))
+ 
+  print(kable(x = loopTable, align = "l", row.names = FALSE) %>% kable_styling(bootstrap_options = c("hover", "condensed", "responsive")))
+  
+  }
+
+
+
+```

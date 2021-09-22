@@ -1,0 +1,81 @@
+---
+title: "Oncology Extension"
+output: 
+  html_document:
+      toc: true
+      toc_depth: 5
+      toc_float: true
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+
+#todo figure out how to get the document dynamically without specifying the name
+library(rmarkdown)
+library(knitr)
+library(kableExtra)
+library(magrittr)
+library(dplyr)
+library(stringr)
+
+```
+
+## OMOP Common Data Model Oncology Extension Documentation
+
+This documentation details the ratified proposal of adding an oncology extension to the OMOP CDM. These tables and fields will become part of the next release (v6.1) of the Common Data Model. Below are their descriptions; showing *additions* to the model only. For example, two fields were added to the MEASUREMENT table as part of this extension so only those two fields are listed below for MEASUREMENT instead of the entire table. For more information, please see the [OMOP Oncology wiki site](https://github.com/OHDSI/OncologyWG/wiki).
+
+The DDLs for these tables are located on the Oncology github, as detailed in the [installation instructions](https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation).
+
+
+```{r docLoopOnco, echo=FALSE, results='asis'}
+tableSpecs <- read.csv("../inst/csv/OMOP_CDM_Oncology_Ex_Table_Level.csv", stringsAsFactors = FALSE)
+cdmSpecs <- read.csv("../inst/csv/OMOP_CDM_Oncology_Ex_Field_Level.csv", stringsAsFactors = FALSE)
+
+tables <- tableSpecs$cdmTableName
+
+cdmSpecsClean <- cdmSpecs %>%
+  dplyr::select(`CDM Table` = cdmTableName,
+                `CDM Field` = cdmFieldName,
+                `User Guide` = userGuidance,
+                `ETL Conventions` = etlConventions,
+                `Datatype` = cdmDatatype,
+                `Required` = isRequired,
+                `Primary Key` = isPrimaryKey,
+                `Foreign Key` = isForeignKey,
+                `FK Table` = fkTableName,
+                `FK Domain` = fkDomain,
+                `FK Class` = fkClass
+                )
+
+cdmSpecsClean[is.na(cdmSpecsClean)] <- ""
+tableSpecs[is.na(tableSpecs)] <- ""
+
+for(tb in tables) {
+  cat("###", tb, "{.tabset .tabset-pills} \n\n")
+  
+  tableInfo <- subset(tableSpecs, cdmTableName == tb)
+  cat("**Table Description**\n\n",tableInfo[,"tableDescription"], "\n\n")
+  
+  if(!isTRUE(tableInfo[,"userGuidance"]=="")){
+    cat("**User Guide**\n\n",tableInfo[,"userGuidance"],"\n\n")
+  }
+  
+  if(!isTRUE(tableInfo[,"etlConventions"]=="")){
+    cat("**ETL Conventions**\n\n",tableInfo[,"etlConventions"],"\n\n")
+  }
+  
+  loopTable <- subset(cdmSpecsClean, `CDM Table` == tb)
+  loopTable <- subset(loopTable, select = -c(1))
+ 
+  print(kable(x = loopTable, align = "l", row.names = FALSE, format = "html") %>% 
+           column_spec(1, bold = T) %>%
+           column_spec(2, width = "3in", include_thead = T) %>%
+           column_spec(3, width = "4in", include_thead = T) %>%
+           column_spec(4:10, width = "1in", include_thead = T) %>%
+           kable_styling(c("condensed","hover"), position = "center", full_width = T, font_size = 13)) 
+         
+  
+  }
+
+
+
+```
