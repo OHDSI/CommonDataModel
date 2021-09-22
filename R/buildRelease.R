@@ -73,7 +73,7 @@ buildRelease <- function(cdmVersions = listSupportedVersions(),
 #'
 buildReleaseZip <- function(cdmVersion,
                             targetDialect = listSupportedDialects(),
-                            outputfolder = file.path(getwd(), "inst", "ddl")){
+                            outputfolder = file.path(getwd(), "output")){
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
 

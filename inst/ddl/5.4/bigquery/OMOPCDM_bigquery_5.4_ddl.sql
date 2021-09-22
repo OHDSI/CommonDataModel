@@ -123,6 +123,8 @@ create table @cdmDatabaseSchema.procedure_occurrence (
 			procedure_concept_id INT64 not null,
 			procedure_date date not null,
 			procedure_datetime datetime null,
+			procedure_end_date date null,
+			procedure_end_datetime datetime null,
 			procedure_type_concept_id INT64 not null,
 			modifier_concept_id INT64,
 			quantity INT64,
@@ -131,9 +133,7 @@ create table @cdmDatabaseSchema.procedure_occurrence (
 			visit_detail_id INT64,
 			procedure_source_value STRING,
 			procedure_source_concept_id INT64,
-			modifier_source_value STRING,
-			procedure_status_source_value STRING,
-			procedure_status_concept_id INT64 not null );
+			modifier_source_value STRING );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.device_exposure (
@@ -221,8 +221,6 @@ create table @cdmDatabaseSchema.death (
 create table @cdmDatabaseSchema.note (
 			note_id INT64 not null,
 			person_id INT64 not null,
-			note_event_id INT64,
-			note_event_field_concept_id INT64,
 			note_date date not null,
 			note_datetime datetime null,
 			note_type_concept_id INT64 not null,
@@ -234,7 +232,9 @@ create table @cdmDatabaseSchema.note (
 			provider_id INT64,
 			visit_occurrence_id INT64,
 			visit_detail_id INT64,
-			note_source_value STRING );
+			note_source_value STRING,
+			note_event_id INT64,
+			note_event_field_concept_id INT64 );
 
 --HINT DISTRIBUTE ON RANDOM
 create table @cdmDatabaseSchema.note_nlp (
@@ -458,7 +458,7 @@ create table @cdmDatabaseSchema.concept (
 create table @cdmDatabaseSchema.vocabulary (
 			vocabulary_id STRING not null,
 			vocabulary_name STRING not null,
-			vocabulary_reference STRING not null,
+			vocabulary_reference STRING,
 			vocabulary_version STRING,
 			vocabulary_concept_id INT64 not null );
 

@@ -63,8 +63,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_DETAIL  (visi
 			visit_detail_source_value varchar(50) NULL,
 			visit_detail_source_concept_id Integer NULL,
 			admitted_from_concept_id Integer NULL,
-			admitted_from_source_value Varchar(50) NULL,
-			discharged_to_source_value Varchar(50) NULL,
+			admitted_from_source_value varchar(50) NULL,
+			discharged_to_source_value varchar(50) NULL,
 			discharged_to_concept_id integer NULL,
 			preceding_visit_detail_id integer NULL,
 			parent_visit_detail_id integer NULL,
@@ -122,6 +122,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROCEDURE_OCCURRENC
 			procedure_concept_id integer NOT NULL,
 			procedure_date date NOT NULL,
 			procedure_datetime datetime NULL,
+			procedure_end_date date NULL,
+			procedure_end_datetime datetime NULL,
 			procedure_type_concept_id integer NOT NULL,
 			modifier_concept_id integer NULL,
 			quantity integer NULL,
@@ -130,9 +132,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROCEDURE_OCCURRENC
 			visit_detail_id integer NULL,
 			procedure_source_value varchar(50) NULL,
 			procedure_source_concept_id integer NULL,
-			modifier_source_value varchar(50) NULL,
-			procedure_status_source_value varchar(50) NULL,
-			procedure_status_concept_id integer NOT NULL )
+			modifier_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
@@ -220,8 +220,6 @@ WITH (DISTRIBUTION = HASH(person_id));
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id integer NOT NULL,
 			 person_id integer NOT NULL,
-			note_event_id bigint NULL,
-			note_event_field_concept_id integer NULL,
 			note_date date NOT NULL,
 			note_datetime datetime NULL,
 			note_type_concept_id integer NOT NULL,
@@ -233,7 +231,9 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id inte
 			provider_id integer NULL,
 			visit_occurrence_id integer NULL,
 			visit_detail_id integer NULL,
-			note_source_value varchar(50) NULL )
+			note_source_value varchar(50) NULL,
+			note_event_id bigint NULL,
+			note_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON RANDOM
@@ -394,14 +394,14 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_ERA  (con
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_id integer NOT NULL,
-			 person_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_id bigint NOT NULL,
+			 person_id bigint NOT NULL,
 			episode_concept_id integer NOT NULL,
 			episode_start_date date NOT NULL,
 			episode_start_datetime datetime NULL,
 			episode_end_date date NULL,
 			episode_end_datetime datetime NULL,
-			episode_parent_id integer NULL,
+			episode_parent_id bigint NULL,
 			episode_number integer NULL,
 			episode_object_concept_id integer NOT NULL,
 			episode_type_concept_id integer NOT NULL,
@@ -410,8 +410,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_i
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE_EVENT  (episode_id integer NOT NULL,
-			event_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE_EVENT  (episode_id bigint NOT NULL,
+			event_id bigint NOT NULL,
 			episode_event_field_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
 
@@ -457,7 +457,7 @@ WITH (DISTRIBUTION = REPLICATE);
 --HINT DISTRIBUTE ON RANDOM
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VOCABULARY  (vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
-			vocabulary_reference varchar(255) NOT NULL,
+			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);

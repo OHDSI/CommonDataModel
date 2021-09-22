@@ -64,8 +64,8 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
 			visit_detail_source_value varchar(50) NULL,
 			visit_detail_source_concept_id Integer NULL,
 			admitted_from_concept_id Integer NULL,
-			admitted_from_source_value Varchar(50) NULL,
-			discharged_to_source_value Varchar(50) NULL,
+			admitted_from_source_value varchar(50) NULL,
+			discharged_to_source_value varchar(50) NULL,
 			discharged_to_concept_id integer NULL,
 			preceding_visit_detail_id integer NULL,
 			parent_visit_detail_id integer NULL,
@@ -123,6 +123,8 @@ CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			procedure_concept_id integer NOT NULL,
 			procedure_date date NOT NULL,
 			procedure_datetime TIMESTAMP NULL,
+			procedure_end_date date NULL,
+			procedure_end_datetime TIMESTAMP NULL,
 			procedure_type_concept_id integer NOT NULL,
 			modifier_concept_id integer NULL,
 			quantity integer NULL,
@@ -131,9 +133,7 @@ CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			visit_detail_id integer NULL,
 			procedure_source_value varchar(50) NULL,
 			procedure_source_concept_id integer NULL,
-			modifier_source_value varchar(50) NULL,
-			procedure_status_source_value varchar(50) NULL,
-			procedure_status_concept_id integer NOT NULL );
+			modifier_source_value varchar(50) NULL );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DEVICE_EXPOSURE (
@@ -221,8 +221,6 @@ CREATE TABLE @cdmDatabaseSchema.DEATH (
 CREATE TABLE @cdmDatabaseSchema.NOTE (
 			note_id integer NOT NULL,
 			person_id integer NOT NULL,
-			note_event_id NUMBER(19) NULL,
-			note_event_field_concept_id integer NULL,
 			note_date date NOT NULL,
 			note_datetime TIMESTAMP NULL,
 			note_type_concept_id integer NOT NULL,
@@ -234,7 +232,9 @@ CREATE TABLE @cdmDatabaseSchema.NOTE (
 			provider_id integer NULL,
 			visit_occurrence_id integer NULL,
 			visit_detail_id integer NULL,
-			note_source_value varchar(50) NULL );
+			note_source_value varchar(50) NULL,
+			note_event_id NUMBER(19) NULL,
+			note_event_field_concept_id integer NULL );
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
@@ -395,14 +395,14 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.EPISODE (
-			episode_id integer NOT NULL,
-			person_id integer NOT NULL,
+			episode_id NUMBER(19) NOT NULL,
+			person_id NUMBER(19) NOT NULL,
 			episode_concept_id integer NOT NULL,
 			episode_start_date date NOT NULL,
 			episode_start_datetime TIMESTAMP NULL,
 			episode_end_date date NULL,
 			episode_end_datetime TIMESTAMP NULL,
-			episode_parent_id integer NULL,
+			episode_parent_id NUMBER(19) NULL,
 			episode_number integer NULL,
 			episode_object_concept_id integer NOT NULL,
 			episode_type_concept_id integer NOT NULL,
@@ -411,8 +411,8 @@ CREATE TABLE @cdmDatabaseSchema.EPISODE (
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT (
-			episode_id integer NOT NULL,
-			event_id integer NOT NULL,
+			episode_id NUMBER(19) NOT NULL,
+			event_id NUMBER(19) NOT NULL,
 			episode_event_field_concept_id integer NOT NULL );
 
 --HINT DISTRIBUTE ON RANDOM
@@ -458,7 +458,7 @@ CREATE TABLE @cdmDatabaseSchema.CONCEPT (
 CREATE TABLE @cdmDatabaseSchema.VOCABULARY (
 			vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
-			vocabulary_reference varchar(255) NOT NULL,
+			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL );
 

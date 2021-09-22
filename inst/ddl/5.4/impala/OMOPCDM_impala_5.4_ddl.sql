@@ -123,6 +123,8 @@ CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			procedure_concept_id INT,
 			procedure_date TIMESTAMP,
 			procedure_datetime TIMESTAMP,
+			procedure_end_date TIMESTAMP,
+			procedure_end_datetime TIMESTAMP,
 			procedure_type_concept_id INT,
 			modifier_concept_id integer NULL,
 			quantity integer NULL,
@@ -131,9 +133,7 @@ CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			visit_detail_id integer NULL,
 			procedure_source_value VARCHAR(50),
 			procedure_source_concept_id integer NULL,
-			modifier_source_value VARCHAR(50),
-			procedure_status_source_value VARCHAR(50),
-			procedure_status_concept_id INT );
+			modifier_source_value VARCHAR(50) );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DEVICE_EXPOSURE (
@@ -221,8 +221,6 @@ CREATE TABLE @cdmDatabaseSchema.DEATH (
 CREATE TABLE @cdmDatabaseSchema.NOTE (
 			note_id INT,
 			person_id INT,
-			note_event_id BIGINT,
-			note_event_field_concept_id integer NULL,
 			note_date TIMESTAMP,
 			note_datetime TIMESTAMP,
 			note_type_concept_id INT,
@@ -234,7 +232,9 @@ CREATE TABLE @cdmDatabaseSchema.NOTE (
 			provider_id integer NULL,
 			visit_occurrence_id integer NULL,
 			visit_detail_id integer NULL,
-			note_source_value VARCHAR(50) );
+			note_source_value VARCHAR(50),
+			note_event_id BIGINT,
+			note_event_field_concept_id integer NULL );
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
@@ -395,14 +395,14 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.EPISODE (
-			episode_id INT,
-			person_id INT,
+			episode_id BIGINT,
+			person_id BIGINT,
 			episode_concept_id INT,
 			episode_start_date TIMESTAMP,
 			episode_start_datetime TIMESTAMP,
 			episode_end_date TIMESTAMP,
 			episode_end_datetime TIMESTAMP,
-			episode_parent_id integer NULL,
+			episode_parent_id BIGINT,
 			episode_number integer NULL,
 			episode_object_concept_id INT,
 			episode_type_concept_id INT,
@@ -411,8 +411,8 @@ CREATE TABLE @cdmDatabaseSchema.EPISODE (
 
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.EPISODE_EVENT (
-			episode_id INT,
-			event_id INT,
+			episode_id BIGINT,
+			event_id BIGINT,
 			episode_event_field_concept_id INT );
 
 --HINT DISTRIBUTE ON RANDOM
