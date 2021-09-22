@@ -1,0 +1,184 @@
+---
+output: 
+  html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+# **Changes by Table**
+*from CDM v5.3 -> CDM v5.4*
+
+For a full description of each table and field listed here, please see the [CDM specification](http://ohdsi.github.io/CommonDataModel/cdm54.html). 
+
+Notation: 
+
+- a **\+** indicates an addition to the model, either a table or field
+- a **->** indicates an alteration either in naming or specification
+- a **-** indicates a subtraction from the model, either a table or field
+
+## PERSON
+- No change
+
+## OBSERVATION_PERIOD
+- No change
+
+## VISIT_OCCURRENCE
+- Admitting_source_concept_id -> **Admitted_from_concept_id**
+- Admitting_source_value -> **Admitted_from_source_value**
+- Discharge_to_concept_id -> **Discharged_to_concept_id**
+- Discharge_to_source_value -> **Discharged_to_concept_id**
+
+## VISIT_DETAIL
+- Admitting_source_concept_id -> **Admitted_from_concept_id**
+- Admitting_source_value -> **Admitted_from_source_value**
+- Discharge_to_concept_id -> **Discharged_to_concept_id**
+- Discharge_to_source_value -> **Discharged_to_concept_id**
+- Visit_detail_parent_id -> **Parent_visit_detail_id**
+
+## CONDITION_OCCURRENCE
+- No change
+
+## DRUG_EXPOSURE
+- No change
+
+## PROCEDURE_OCCURRENCE
+- \+ **Procedure_end_date**
+- \+ **Procedure_end_datetime**
+
+## DEVICE_EXPOSURE
+- Unique_device_id -> **Changed to varchar(255)**
+- \+ **Production_id**
+- \+ **Unit_concept_id**
+- \+ **Unit_source_value**
+- \+ **Unit_source_concept_id**
+
+## MEASUREMENT
+- \+ **Unit_source_concept_id**
+- \+ **Measurement_event_id**
+- \+ **Meas_event_field_concept_id**
+
+## OBSERVATION
+- \+ **Value_source_value**
+- \+ **Observation_event_id**
+- \+ **Obs_event_field_concept_id**
+
+## DEATH
+- No change
+
+## NOTE
+- \+ **Note_event_id**
+- \+ **Note_event_field_concept_id**
+
+## NOTE_NLP
+- No change
+
+## SPECIMEN
+- No change
+
+## FACT_RELATIONSHIP
+- No change
+
+## LOCATION
+- \+ **Country_concept_id**
+- \+ **Country_source_value**
+- \+ **Latitude**
+- \+ **Longitude**
+
+## CARE_SITE
+- No change
+
+## PAYER_PLAN_PERIOD
+- No change
+
+## COST
+- No change
+	
+## DRUG_ERA
+- No change
+
+## DOSE_ERA
+- No change
+
+## CONDITION_ERA
+- No change
+
+## \+ **EPISODE**
+
+|     EPISODE                      |
+|----------------------------------|
+|     episode_id                   |
+|     person_id                    |
+|     episode_concept_id           |
+|     episode_start_date           |
+|     episode_start_datetime       |
+|     episode_end_date             |
+|     episode_end_datetime         |
+|     episode_parent_id            |
+|     episode_number               |
+|     episode_object_concept_id    |
+|     episode_type_concept_id      |
+|     episode_source_value         |
+|     episode_source_concept_id    |
+
+## \+ **EPISODE_EVENT**
+
+|     EPISODE_EVENT                  |
+|------------------------------------|
+|     episode_id                     |
+|     event_id                       |
+|     episode_event_field_concept_id |
+
+## METADATA
+- \+ **Metadata_id**
+- \+ **Value_as_number**
+
+## CDM_SOURCE
+- Cdm_source_name -> **Mandatory field**
+- Cdm_source_abbreviation -> **Mandatory field**
+- Cdm_holder -> **Mandatory field**
+- Source_release_date -> **Mandatory field**
+- Cdm_release_date -> **Mandatory field**
+- \+ **Cdm_version_concept_id**
+
+## CONCEPT
+- No change
+
+## VOCABULARY
+- Vocabulary_reference -> **Non-mandatory field**
+- Vocabulary_version -> **Non-mandatory field**
+
+## DOMAIN
+- No change
+
+## CONCEPT_CLASS
+- No change
+
+## CONCEPT_RELATIONSHIP
+- No change
+
+## RELATIONSHIP
+- No change
+
+## CONCEPT_SYNONYM
+- No change
+
+## CONCEPT_ANCESTOR
+- No change
+
+## SOURCE_TO_CONCEPT_MAP
+- No change
+
+## DRUG_STRENGTH
+- No change
+
+## - **ATTRIBUTE_DEFINITION**
+
+## \+ **COHORT**
+
+|     COHORT                         |
+|------------------------------------|
+|     cohort_definition_id           |
+|     subject_id                     |
+|     cohort_start_date              |
+|     cohort_end_date                |
+	

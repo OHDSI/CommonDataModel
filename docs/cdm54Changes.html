@@ -11,7 +11,7 @@
 
 
 
-<title>CDM Proposals Under Review</title>
+<title>cdm54Changes.utf8</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -263,6 +266,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -270,6 +336,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -442,15 +518,356 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">CDM Proposals Under Review</h1>
 
 </div>
 
 
-<p>This page is still in development. For a list of all proposals currently under review please see the <a href="https://github.com/OHDSI/CommonDataModel/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20label%3AProposal%20">github issue log</a>.</p>
+<div id="changes-by-table" class="section level1">
+<h1><strong>Changes by Table</strong></h1>
+<p><em>from CDM v5.3 -&gt; CDM v5.4</em></p>
+<p>For a full description of each table and field listed here, please see the <a href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM specification</a>.</p>
+<p>Notation:</p>
+<ul>
+<li>a <strong>+</strong> indicates an addition to the model, either a table or field</li>
+<li>a <strong>-&gt;</strong> indicates an alteration either in naming or specification</li>
+<li>a <strong>-</strong> indicates a subtraction from the model, either a table or field</li>
+</ul>
+<div id="person" class="section level2">
+<h2>PERSON</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="observation_period" class="section level2">
+<h2>OBSERVATION_PERIOD</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="visit_occurrence" class="section level2">
+<h2>VISIT_OCCURRENCE</h2>
+<ul>
+<li>Admitting_source_concept_id -&gt; <strong>Admitted_from_concept_id</strong></li>
+<li>Admitting_source_value -&gt; <strong>Admitted_from_source_value</strong></li>
+<li>Discharge_to_concept_id -&gt; <strong>Discharged_to_concept_id</strong></li>
+<li>Discharge_to_source_value -&gt; <strong>Discharged_to_concept_id</strong></li>
+</ul>
+</div>
+<div id="visit_detail" class="section level2">
+<h2>VISIT_DETAIL</h2>
+<ul>
+<li>Admitting_source_concept_id -&gt; <strong>Admitted_from_concept_id</strong></li>
+<li>Admitting_source_value -&gt; <strong>Admitted_from_source_value</strong></li>
+<li>Discharge_to_concept_id -&gt; <strong>Discharged_to_concept_id</strong></li>
+<li>Discharge_to_source_value -&gt; <strong>Discharged_to_concept_id</strong></li>
+<li>Visit_detail_parent_id -&gt; <strong>Parent_visit_detail_id</strong></li>
+</ul>
+</div>
+<div id="condition_occurrence" class="section level2">
+<h2>CONDITION_OCCURRENCE</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="drug_exposure" class="section level2">
+<h2>DRUG_EXPOSURE</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="procedure_occurrence" class="section level2">
+<h2>PROCEDURE_OCCURRENCE</h2>
+<ul>
+<li>+ <strong>Procedure_end_date</strong></li>
+<li>+ <strong>Procedure_end_datetime</strong></li>
+</ul>
+</div>
+<div id="device_exposure" class="section level2">
+<h2>DEVICE_EXPOSURE</h2>
+<ul>
+<li>Unique_device_id -&gt; <strong>Changed to varchar(255)</strong></li>
+<li>+ <strong>Production_id</strong></li>
+<li>+ <strong>Unit_concept_id</strong></li>
+<li>+ <strong>Unit_source_value</strong></li>
+<li>+ <strong>Unit_source_concept_id</strong></li>
+</ul>
+</div>
+<div id="measurement" class="section level2">
+<h2>MEASUREMENT</h2>
+<ul>
+<li>+ <strong>Unit_source_concept_id</strong></li>
+<li>+ <strong>Measurement_event_id</strong></li>
+<li>+ <strong>Meas_event_field_concept_id</strong></li>
+</ul>
+</div>
+<div id="observation" class="section level2">
+<h2>OBSERVATION</h2>
+<ul>
+<li>+ <strong>Value_source_value</strong></li>
+<li>+ <strong>Observation_event_id</strong></li>
+<li>+ <strong>Obs_event_field_concept_id</strong></li>
+</ul>
+</div>
+<div id="death" class="section level2">
+<h2>DEATH</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="note" class="section level2">
+<h2>NOTE</h2>
+<ul>
+<li>+ <strong>Note_event_id</strong></li>
+<li>+ <strong>Note_event_field_concept_id</strong></li>
+</ul>
+</div>
+<div id="note_nlp" class="section level2">
+<h2>NOTE_NLP</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="specimen" class="section level2">
+<h2>SPECIMEN</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="fact_relationship" class="section level2">
+<h2>FACT_RELATIONSHIP</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="location" class="section level2">
+<h2>LOCATION</h2>
+<ul>
+<li>+ <strong>Country_concept_id</strong></li>
+<li>+ <strong>Country_source_value</strong></li>
+<li>+ <strong>Latitude</strong></li>
+<li>+ <strong>Longitude</strong></li>
+</ul>
+</div>
+<div id="care_site" class="section level2">
+<h2>CARE_SITE</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="payer_plan_period" class="section level2">
+<h2>PAYER_PLAN_PERIOD</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="cost" class="section level2">
+<h2>COST</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="drug_era" class="section level2">
+<h2>DRUG_ERA</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="dose_era" class="section level2">
+<h2>DOSE_ERA</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="condition_era" class="section level2">
+<h2>CONDITION_ERA</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="episode" class="section level2">
+<h2>+ <strong>EPISODE</strong></h2>
+<table>
+<thead>
+<tr class="header">
+<th>EPISODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>episode_id</td>
+</tr>
+<tr class="even">
+<td>person_id</td>
+</tr>
+<tr class="odd">
+<td>episode_concept_id</td>
+</tr>
+<tr class="even">
+<td>episode_start_date</td>
+</tr>
+<tr class="odd">
+<td>episode_start_datetime</td>
+</tr>
+<tr class="even">
+<td>episode_end_date</td>
+</tr>
+<tr class="odd">
+<td>episode_end_datetime</td>
+</tr>
+<tr class="even">
+<td>episode_parent_id</td>
+</tr>
+<tr class="odd">
+<td>episode_number</td>
+</tr>
+<tr class="even">
+<td>episode_object_concept_id</td>
+</tr>
+<tr class="odd">
+<td>episode_type_concept_id</td>
+</tr>
+<tr class="even">
+<td>episode_source_value</td>
+</tr>
+<tr class="odd">
+<td>episode_source_concept_id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="episode_event" class="section level2">
+<h2>+ <strong>EPISODE_EVENT</strong></h2>
+<table>
+<thead>
+<tr class="header">
+<th>EPISODE_EVENT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>episode_id</td>
+</tr>
+<tr class="even">
+<td>event_id</td>
+</tr>
+<tr class="odd">
+<td>episode_event_field_concept_id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="metadata" class="section level2">
+<h2>METADATA</h2>
+<ul>
+<li>+ <strong>Metadata_id</strong></li>
+<li>+ <strong>Value_as_number</strong></li>
+</ul>
+</div>
+<div id="cdm_source" class="section level2">
+<h2>CDM_SOURCE</h2>
+<ul>
+<li>Cdm_source_name -&gt; <strong>Mandatory field</strong></li>
+<li>Cdm_source_abbreviation -&gt; <strong>Mandatory field</strong></li>
+<li>Cdm_holder -&gt; <strong>Mandatory field</strong></li>
+<li>Source_release_date -&gt; <strong>Mandatory field</strong></li>
+<li>Cdm_release_date -&gt; <strong>Mandatory field</strong></li>
+<li>+ <strong>Cdm_version_concept_id</strong></li>
+</ul>
+</div>
+<div id="concept" class="section level2">
+<h2>CONCEPT</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="vocabulary" class="section level2">
+<h2>VOCABULARY</h2>
+<ul>
+<li>Vocabulary_reference -&gt; <strong>Non-mandatory field</strong></li>
+<li>Vocabulary_version -&gt; <strong>Non-mandatory field</strong></li>
+</ul>
+</div>
+<div id="domain" class="section level2">
+<h2>DOMAIN</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="concept_class" class="section level2">
+<h2>CONCEPT_CLASS</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="concept_relationship" class="section level2">
+<h2>CONCEPT_RELATIONSHIP</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="relationship" class="section level2">
+<h2>RELATIONSHIP</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="concept_synonym" class="section level2">
+<h2>CONCEPT_SYNONYM</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="concept_ancestor" class="section level2">
+<h2>CONCEPT_ANCESTOR</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="source_to_concept_map" class="section level2">
+<h2>SOURCE_TO_CONCEPT_MAP</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="drug_strength" class="section level2">
+<h2>DRUG_STRENGTH</h2>
+<ul>
+<li>No change</li>
+</ul>
+</div>
+<div id="attribute_definition" class="section level2">
+<h2>- <strong>ATTRIBUTE_DEFINITION</strong></h2>
+</div>
+<div id="cohort" class="section level2">
+<h2>+ <strong>COHORT</strong></h2>
+<table>
+<thead>
+<tr class="header">
+<th>COHORT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cohort_definition_id</td>
+</tr>
+<tr class="even">
+<td>subject_id</td>
+</tr>
+<tr class="odd">
+<td>cohort_start_date</td>
+</tr>
+<tr class="even">
+<td>cohort_end_date</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -483,6 +900,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

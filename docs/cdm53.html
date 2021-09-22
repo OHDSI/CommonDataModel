@@ -11,7 +11,7 @@
 
 
 
-<title>cdm531.utf8</title>
+<title>cdm53.utf8</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -381,16 +381,32 @@ div.tocify {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -405,10 +421,21 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -422,19 +449,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -444,7 +465,27 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -453,27 +494,10 @@ div.tocify {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -481,7 +505,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -498,9 +522,10 @@ div.tocify {
 </div>
 
 
-<div id="omop-cdm-v5.3.1" class="section level1">
-<h1><strong>OMOP CDM v5.3.1</strong></h1>
-<p>Below is the specification document for the OMOP Common Data Model, v5.3.1. Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
+<div id="omop-cdm-v5.3" class="section level1">
+<h1><strong>OMOP CDM v5.3</strong></h1>
+<p>Below is the specification document for the OMOP Common Data Model, v5.3 (previously v5.3.1). Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
+<p><em><strong>Special Note</strong> This documentation previously referenced v5.3.1. During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases. Hot fixes and minor.minor release can be found through the searching of tags.</em></p>
 <p>–after regeneration of DDLs link to csv of cdm link to pdf of cdm documentation link to forum on doc page</p>
 <div id="clinical-data-tables" class="section level2">
 <h2><strong>Clinical Data Tables</strong></h2>
@@ -12203,7 +12228,7 @@ No
 valid_start_date
 </td>
 <td style="text-align:left;width: 3in; ">
-The date when the Concept was first recorded. The default value is 1-Jan-1970.
+The date when the Concept was first recorded. The default value is &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:inst/csv/OMOP_CDMv5.3_Field_Level.csv 1-Jan-1970.
 </td>
 <td style="text-align:left;width: 4in; ">
 </td>

@@ -305,16 +305,32 @@ $(document).ready(function () {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -329,10 +345,21 @@ $(document).ready(function () {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -346,19 +373,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -368,7 +389,27 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -377,27 +418,10 @@ $(document).ready(function () {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -405,7 +429,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -425,45 +449,29 @@ $(document).ready(function () {
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the <a href="https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:cdm-wg">OHDSI CDM Working Group</a>. Through the end of 2019 and into 2020 our goal was to fully update the documentation in an effort to facilitate greater understanding of the model. Almost every <a href="https://www.forums.ohdsi.org">forum post</a> relating to a question on how to map data into the CDM inevitably referenced the (now outdated) technical and difficult-to-understand explanations of the tables and fields currently on the wiki. To remedy we focused on one or two tables each month, diving fully into the user guidance and ETL specifications. The results of our efforts can be seen on the pages detailing <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html">v5.3</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html">v6.0</a>.</p>
-<p>In addition to documentation the formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
-<div id="cdm-refresh-cycle" class="section level2">
-<h2>CDM Refresh Cycle</h2>
-<p><img src="images/CDM_refresh_cycle.png" /></p>
-<div id="define-new-version" class="section level3">
-<h3>1. Define New Version</h3>
-<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. This has been completed for the current cycle. Issues and proposals on the github were considered during a 4-hour workshop where it was decided the next CDM version will be CDM v5.4, building off of CDM v5.3. The group then participated in a rapid-fire voting activity to identify which changes should be incorporated into CDM v5.4. Any items that were not unanimously agreed upon were then discussed in small groups to hone the proposal and suggestions were presented back to the group. The final roadmap for CDM v5.4 can be found <a href="https://github.com/OHDSI/CommonDataModel/projects/3">here</a>.</p>
+<p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this form</a> and check “Common Data Model” to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description <a href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">here</a>. You will find information on our meetings and links to join at the end of this page.</p>
+<div id="current-cdm-version" class="section level2">
+<h2>Current CDM Version</h2>
+<p>The current CDM version is <a href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a>, depicted below. This CDM version was developed over the course of a year by considering requests that were sent via our <a href="https://github.com/OHDSI/CommonDataModel/issues">issues page</a>. The list of proposed changes was then shared with the community in multiple ways: through discussions at the weekly OHDSI Community calls, discussions with the OHDSI Steering Committee, and discussions with all potentially affected workgroups. The <a href="http://ohdsi.github.io/CommonDataModel/cdm54Changes.html">final changes</a> were then delivered to the Community through a new R package designed to dynamically generate the DDLs and documentation for all supported SQL dialects.</p>
+<ul>
+<li><a href="https://github.com/OHDSI/CommonDataModel/tree/v5.4.0">Link to DDLs for CDM v5.4</a></li>
+<li><a href="https://github.com/OHDSI/CommonDataModel/tree/master#readme">Link to ReadMe for instructions on how to use the R package</a></li>
+</ul>
+<p><img src="images/cdm54.png" /></p>
 </div>
-<div id="sign-off-from-work-groups" class="section level3">
-<h3>2. Sign off from Work Groups</h3>
-<p>This is the current stage of the refresh cycle for CDM v5.4. Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
-</div>
-<div id="release-ddls" class="section level3">
-<h3>3. Release DDLs</h3>
-<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs this will be done by the CDM Development group.</p>
-</div>
-<div id="software-update" class="section level3">
-<h3>4. Software Update</h3>
-<p>There will be period of time once the DDLs are ready to allow the software and methods developers to prepare for the official release of the CDM. This is meant to serve as a buffer so that once the community starts adopting the new model, the tools and methods will be ready to support it.</p>
-</div>
-<div id="community-support" class="section level3">
-<h3>5. Community Support</h3>
-<p>This is the final stage of the CDM refresh cycle. Once the DDLs are ready and the software and tools supports the new version, the CDM WG will work to help the community convert their data to the new model.</p>
-</div>
-</div>
-<div id="cdm-wg-meeting-information" class="section level1">
-<h1>CDM WG Meeting Information</h1>
+<div id="cdm-wg-meeting-information" class="section level2">
+<h2>CDM WG Meeting Information</h2>
 <p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
 <p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
 <p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
+<p><strong>Note</strong> If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a> or fill out [this form] (<a href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu" class="uri">https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu</a>) and check “Common Data Model”</p>
 <div id="cdm-wg-important-links" class="section level3">
 <h3>CDM WG Important Links</h3>
 <ul>
 <li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
 <li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
 <li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
-<li><a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:next_cdm:cdm_process">Process for adopting CDM and Vocabulary changes</a></li>
+<li><a href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">Process for adopting CDM and Vocabulary changes</a></li>
 </ul>
 </div>
 </div>

@@ -381,16 +381,32 @@ div.tocify {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -405,10 +421,21 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -422,19 +449,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -444,7 +465,27 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -453,27 +494,10 @@ div.tocify {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -481,7 +505,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -509,7 +533,7 @@ div.tocify {
 <li>Develop tools and capabilities for transforming, characterizing, and analysing disparate data sources across the health care delivery spectrum</li>
 <li>Establish a shared resource so that the broader research community can collaboratively advance the science</li>
 </ul>
-<p>The results of OMOP’s research has been widely published and presented at scientific conferences, including <a href="https://www.ohdsi.org/events/2019-ohdsi-symposium/">annual symposia</a>.</p>
+<p>The results of OMOP’s research has been widely published and presented at scientific conferences, including <a href="https://www.ohdsi.org/2021-ohdsi-global-symposium-info/">annual symposia</a>.</p>
 <p>The OMOP Legacy continues…</p>
 <p>The community is actively using the OMOP Common Data Model for their various research purposes. Those tools will continue to be maintained and supported, and information about this work is available in the <a href="http://www.github.com/ohdsi">public domain</a>.</p>
 <p>The OMOP Common Data Model will continue to be an open-source community standard for observational healthcare data. The model specifications and associated work products will be placed in the public domain, and the entire research community is encouraged to use these tools to support everybody’s own research activities.</p>

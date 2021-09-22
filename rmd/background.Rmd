@@ -13,7 +13,7 @@ The Observational Medical Outcomes Partnership (OMOP) was a public-private partn
   - Develop tools and capabilities for transforming, characterizing, and analysing disparate data sources across the health care delivery spectrum 
   - Establish a shared resource so that the broader research community can collaboratively advance the science 
 
-The results of OMOP's research has been widely published and presented at scientific conferences, including [annual symposia](https://www.ohdsi.org/events/2019-ohdsi-symposium/).
+The results of OMOP's research has been widely published and presented at scientific conferences, including [annual symposia](https://www.ohdsi.org/2021-ohdsi-global-symposium-info/).
 
 The OMOP Legacy continues...
 

@@ -381,16 +381,32 @@ div.tocify {
       <a href="background.html">Model Background</a>
     </li>
     <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
       <a href="vocabulary.html">How the Vocabulary is Built</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="dataModelConventions.html">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-list-alt"></span>
      
     Conventions
+     
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -405,10 +421,21 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm531.html">CDM v5.3.1</a>
+      <a href="cdm60.html">CDM v6.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -422,19 +449,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reviewProposals.html">Under Review</a>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="oncology.html">Oncology CDM Proposal</a>
-        </li>
-        <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
-        </li>
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/264">Units in Device Table</a>
         </li>
       </ul>
     </li>
@@ -444,7 +465,27 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fas fa-question"></span>
      
-    Help
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-life-ring"></span>
+     
+    Support
      
     <span class="caret"></span>
   </a>
@@ -453,27 +494,10 @@ div.tocify {
       <a href="faq.html">FAQ</a>
     </li>
     <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-wrench"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
       <a href="sqlScripts.html">SQL Scripts</a>
     </li>
     <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
+      <a href="contribute.html">Ask a Question</a>
     </li>
   </ul>
 </li>
@@ -481,7 +505,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -562,7 +586,6 @@ div.tocify {
 <li>Concept Class attributes should not be confused with Classification Concepts. These are separate Concepts that have a hierarchical relationship to Standard Concepts or each other, while Concept Classes are unique Vocabulary-specific attributes for each Concept.</li>
 <li>For Concepts inherited from published terminologies, the source code is retained in the concept_code field and can be used to reference the source vocabulary.</li>
 <li>Standard Concepts (designated as ‘S’ in the standard_concept field) may appear in CDM tables in all *_concept_id fields, whereas Classification Concepts (‘C’) should not appear in the CDM data, but participate in the construction of the CONCEPT_ANCESTOR table and can be used to identify Descendants that may appear in the data. See CONCEPT_ANCESTOR table. Non-standard Concepts can only appear in *_source_concept_id fields and are not used in <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor">CONCEPT_ANCESTOR</a> table. Please refer to the Standardized Vocabularies specifications for details of the Standard Concept designation.</li>
-<li>All logical data elements associated with the various CDM tables (usually in the _type_concept_id field) are called Type Concepts, including defining characteristics, qualifying attributes etc. They are also stored as Concepts in the CONCEPT table. Since they are generated by OMOP, their is no meaningful concept_code.</li>
 <li>The lifespan of a Concept is recorded through its valid_start_date, valid_end_date and the invalid_ reason fields. This allows Concepts to correctly reflect at which point in time were defined. Usually, Concepts get deprecated if their meaning was deemed ambiguous, a duplication of another Concept, or needed revision for scientific reason. For example, drug ingredients get updated when different salt or isomer variants enter the market. Usually, drugs taken off the market do not cause a deprecation by the terminology vendor. Since observational data are valid with respect to the time they are recorded, it is key for the Standardized Vocabularies to provide even obsolete codes and maintain their relationships to other current Concepts .</li>
 <li>Concepts without a known instantiated date are assigned valid_start_date of ‘1-Jan-1970’.</li>
 <li>Concepts that are not invalid are assigned valid_end_date of ‘31-Dec-2099’.</li>
@@ -693,9 +716,97 @@ div.tocify {
 </ul>
 <p>Source Values are only provided for convenience and quality assurance (QA) purposes. Source Values and Source Concepts are optional, while Standard Concepts are mandatory. Source Values may contain information that is only meaningful in the context of a specific data source.</p>
 </div>
-<div id="general-concepts-and-type-concepts" class="section level3">
-<h3>General Concepts and Type Concepts</h3>
-<p>Type Concepts (ending in _TYPE_CONCEPT_ID) and general Concepts (ending in _CONCEPT_ID) are part of many tables. The former are special Concepts with the purpose of indicating where the data are derived from in the source. For example, the Type Concept field can be used to distinguish a DRUG_EXPOSURE record that is derived from a pharmacy-dispensing claim from one indicative of a prescription written in an electronic health record (EHR).</p>
+<div id="type-concepts" class="section level3">
+<h3>Type Concepts</h3>
+<p><em>By Mik Kallfelz and Dmitry Dymshyts</em></p>
+<p>Type Concepts (ending in _TYPE_CONCEPT_ID) are present in many tables. They are special Concepts with the purpose of indicating from where the data are derived in the source. For example, the Type Concept field can be used to distinguish a DRUG_EXPOSURE record that is derived from a pharmacy-dispensing claim from one indicative of a prescription written in an electronic health record (EHR).</p>
+<ul>
+<li>Type concepts help determining the provenance of a record in the OMOP CDM. Many tables hold a specific _type_concept_id field for which <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">valid concepts</a> can be used to indicate a particular source of that record. For a condition it can be helpful to know, if it was derived from an EHR system or insurance claims. For a drug exposure it should be very useful to distinguish between prescriptions and actual administrations.</li>
+<li>In respect to the target table, matching type concepts should be chosen during the ETL step while processing sources. There are various representations in the list of type concepts of which some are quite specific for one table and others can be applied for many tables / domains, as they are quite generic. There is however no plausibility check or dependency between type concepts and tables which means they have to be chosen correctly.</li>
+<li>There is now one specific <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary</a> for type concepts which replaced a number of previously existing tables. For example, where previously there was a dedicated vocabulary for Drug Type Concepts, now we would choose the respective ones from the overall vocabulary (and ignore some of the old ones):</li>
+</ul>
+<table>
+<colgroup>
+<col width="64%" />
+<col width="35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Drug Type</th>
+<th>Type Concept</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inpatient administration</td>
+<td>EHR administration record</td>
+</tr>
+<tr class="even">
+<td>Physician administered drug (identified from EHR problem list)</td>
+<td>EHR administration record</td>
+</tr>
+<tr class="odd">
+<td>Physician administered drug (identified from referral record)</td>
+<td>EHR administration record</td>
+</tr>
+<tr class="even">
+<td>Physician administered drug (identified from EHR observation)</td>
+<td>EHR administration record</td>
+</tr>
+<tr class="odd">
+<td>Physician administered drug (identified from EHR order)</td>
+<td>EHR administration record</td>
+</tr>
+<tr class="even">
+<td>Prescription dispensed in pharmacy</td>
+<td>EHR dispensing record</td>
+</tr>
+<tr class="odd">
+<td>Dispensed in Outpatient office</td>
+<td>EHR dispensing record</td>
+</tr>
+<tr class="even">
+<td>Medication list entry</td>
+<td>EHR medication list</td>
+</tr>
+<tr class="odd">
+<td>Prescription written</td>
+<td>EHR prescription</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EHR prescription issue record</td>
+</tr>
+<tr class="odd">
+<td>Prescription dispensed through mail order</td>
+<td>Mail order record</td>
+</tr>
+<tr class="even">
+<td>NLP derived</td>
+<td>NLP</td>
+</tr>
+<tr class="odd">
+<td>Patient Self-Reported Medication</td>
+<td>Patient self-report</td>
+</tr>
+<tr class="even">
+<td>Physician administered drug (identified as procedure)</td>
+<td>Pharmacy claim</td>
+</tr>
+<tr class="odd">
+<td>Drug era - 0 days persistence window</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Drug era - 30 days persistence window</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Randomized Drug</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="time-span-of-available-data" class="section level3">
 <h3>Time span of available data</h3>

@@ -1,8 +1,5 @@
 ---
 output:
-  # pdf_document:
-  #   toc: yes
-  #   toc_depth: '5'
   html_document:
     toc: yes
     toc_depth: 5
