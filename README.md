@@ -29,7 +29,7 @@ Launch R-Studio and create a new project: File -> New Project -> New Directory -
 
 After completing this step you should see something like the following:
 
-![](docs/images/Rexample1.png)
+![](docs/images/rexample1.png)
 
 For the next step, you can either open a new R script (File -> New File -> R Script), paste the text in the console, or open an R notebook (File -> New File -> New R Notebook). Whatever you choose, paste the following, replacing "output" with the name of the output file where you want the DDLs to appear and "YOUR_CDM_SCHEMA" with the name of your CDM schema. In this example we are generating the postgresql DDLs by specifying the dialect in the function calls. To determine which dialects are supported, run the `CommonDataModel::listSupportedDialects()` function.
 
@@ -44,9 +44,9 @@ CommonDataModel::writeIndex("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
 
 ```
 
-![](docs/images/Rexample2.png)
+![](docs/images/rexample2.png)
 
-![](docs/images/Rexample3.png)
+![](docs/images/rexample3.png)
 
 You will then see something like the below, with your output directory created and the DDLs available in the folder you specified. 
 
