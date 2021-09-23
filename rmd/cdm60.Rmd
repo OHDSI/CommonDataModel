@@ -1,4 +1,5 @@
 ---
+title: "**OMOP CDM v6.0**"
 output: 
   html_document:
       toc: true
@@ -17,8 +18,6 @@ library(dplyr)
 library(stringr)
 
 ```
-
-# **OMOP CDM v6.0**
 
 ## NOTE ABOUT CDM v6.0
 

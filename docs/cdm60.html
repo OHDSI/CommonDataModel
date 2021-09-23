@@ -11,7 +11,7 @@
 
 
 
-<title>cdm60.utf8</title>
+<title>OMOP CDM v6.0</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -518,12 +518,11 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore"><strong>OMOP CDM v6.0</strong></h1>
 
 </div>
 
 
-<div id="omop-cdm-v6.0" class="section level1">
-<h1><strong>OMOP CDM v6.0</strong></h1>
 <div id="note-about-cdm-v6.0" class="section level2">
 <h2>NOTE ABOUT CDM v6.0</h2>
 <p>Please be aware that v6.0 of the OMOP CDM is <strong>not</strong> fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the *_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 was designed with additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our the specifications for <a href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a> and detailed <a href="http://ohdsi.github.io/CommonDataModel/cdm54Changes.html">changes from CDM v5.3</a>. <strong>For new collaborators to OHDSI, please transform your data to <a href="https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4">CDM v5.4</a> until such time that the v6 series of the CDM is ready for mainstream use.</strong></p>
@@ -13204,6 +13203,148 @@ No
 </tbody>
 </table>
 </div>
+<div id="cohort" class="section level3 tabset tabset-pills">
+<h3 class="tabset tabset-pills">COHORT</h3>
+<p><strong>Table Description</strong></p>
+<p>The COHORT table contains records of subjects that satisfy a given set of criteria for a duration of time. The definition of the cohort is contained within the COHORT_DEFINITION table. It is listed as part of the RESULTS schema because it is a table that users of the database as well as tools such as ATLAS need to be able to write to. The CDM and Vocabulary tables are all read-only so it is suggested that the COHORT and COHORT_DEFINTION tables are kept in a separate schema to alleviate confusion.</p>
+<p><strong>ETL Conventions</strong></p>
+<p>Cohorts typically include patients diagnosed with a specific condition, patients exposed to a particular drug, but can also be Providers who have performed a specific Procedure. Cohort records must have a Start Date and an End Date, but the End Date may be set to Start Date or could have an applied censor date using the Observation Period Start Date. Cohort records must contain a Subject Id, which can refer to the Person, Provider, Visit record or Care Site though they are most often Person Ids. The Cohort Definition will define the type of subject through the subject concept id. A subject can belong (or not belong) to a cohort at any moment in time. A subject can only have one record in the cohort table for any moment of time, i.e. it is not possible for a person to contain multiple records indicating cohort membership that are overlapping in time</p>
+<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+CDM Field
+</th>
+<th style="text-align:left;width: 3in; ">
+User Guide
+</th>
+<th style="text-align:left;width: 4in; ">
+ETL Conventions
+</th>
+<th style="text-align:left;width: 1in; ">
+Datatype
+</th>
+<th style="text-align:left;width: 1in; ">
+Required
+</th>
+<th style="text-align:left;width: 1in; ">
+Primary Key
+</th>
+<th style="text-align:left;width: 1in; ">
+Foreign Key
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Table
+</th>
+<th style="text-align:left;width: 1in; ">
+FK Domain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cohort_definition_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+subject_id
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+integer
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cohort_start_date
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+date
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+cohort_end_date
+</td>
+<td style="text-align:left;width: 3in; ">
+</td>
+<td style="text-align:left;width: 4in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+date
+</td>
+<td style="text-align:left;width: 1in; ">
+Yes
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+No
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+<td style="text-align:left;width: 1in; ">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="cohort_definition" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">COHORT_DEFINITION</h3>
 <p><strong>Table Description</strong></p>
@@ -13251,7 +13392,7 @@ This is the identifier given to the cohort, usually by the ATLAS application
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -13260,9 +13401,10 @@ Yes
 No
 </td>
 <td style="text-align:left;width: 1in; ">
-No
+Yes
 </td>
 <td style="text-align:left;width: 1in; ">
+COHORT
 </td>
 <td style="text-align:left;width: 1in; ">
 </td>
@@ -13427,7 +13569,6 @@ No
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 
