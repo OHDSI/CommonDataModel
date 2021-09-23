@@ -10,6 +10,8 @@ output:
 
 # How to Use this Repository
 
+If you are looking for information on how to submit a bugfix, skip to the [next section](https://github.com/OHDSI/CommonDataModel#bug-fixesmodel-updates)
+
 ## Generating the DDLs
 *By John and Sam Gresh*
 
