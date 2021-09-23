@@ -15,7 +15,7 @@ The current CDM version is [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm
 - [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)
 
 ![](images/cdm54.png)
-
+<br>
 
 ## The CDM Working Group
 
