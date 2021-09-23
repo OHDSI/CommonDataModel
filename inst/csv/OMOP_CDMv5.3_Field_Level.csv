@@ -204,7 +204,7 @@ NOTE_NLP,note_nlp_id,Yes,integer,A unique identifier for the NLP record.,,Yes,No
 NOTE_NLP,note_id,Yes,integer,This is the NOTE_ID for the NOTE record the NLP record is associated to.,,No,No,,,,,
 NOTE_NLP,section_concept_id,No,integer,,"The SECTION_CONCEPT_ID should be used to represent the note section contained in the NOTE_NLP record. These concepts can be found as parts of document panels and are based on the type of note written, i.e. a discharge summary. These panels can be found as concepts with the relationship 'Subsumes' to CONCEPT_ID [45875957](https://athena.ohdsi.org/search-terms/terms/45875957).",No,Yes,CONCEPT,CONCEPT_ID,,,
 NOTE_NLP,snippet,No,varchar(250),A small window of text surrounding the term,,No,No,,,,,
-NOTE_NLP,offset,No,varchar(50),Character offset of the extracted term in the input note,,No,No,,,,,
+NOTE_NLP,"""offset""",No,varchar(50),Character offset of the extracted term in the input note,,No,No,,,,,
 NOTE_NLP,lexical_variant,Yes,varchar(250),Raw text extracted from the NLP tool.,,No,No,,,,,
 NOTE_NLP,note_nlp_concept_id,No,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
 NOTE_NLP,note_nlp_source_concept_id,No,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
