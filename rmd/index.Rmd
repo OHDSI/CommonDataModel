@@ -15,6 +15,8 @@ The current CDM version is [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm
 - [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)
 
 ![](images/cdm54.png)
+
+
 ## The CDM Working Group
 
 The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
