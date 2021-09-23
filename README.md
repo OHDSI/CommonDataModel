@@ -39,10 +39,7 @@ For the next step, you can either open a new R script (File -> New File -> R Scr
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("OHDSI/CommonDataModel", "v5.4")
 
-CommonDataModel::writeDdl("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
-CommonDataModel::writeForeignKeys("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
-CommonDataModel::writePrimaryKeys("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
-CommonDataModel::writeIndex("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
+CommonDataModel::buildRelease("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
 
 ```
 
