@@ -48,7 +48,7 @@ CommonDataModel::writeIndex("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
 
 ![](docs/images/rexample3.png)
 
-You will then see something like the below, with your output directory created and the DDLs available in the folder you specified. 
+You will then see something like the above, with your output directory created and the DDLs available in the folder you specified. 
 
 ## Bug Fixes/Model Updates
 
