@@ -3,7 +3,9 @@ title: '<div><img src="ohdsi40x40.png"></img> OMOP Common Data Model</div>'
 output: html_document
 ---
 
-The OMOP Common Data Model is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
+The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardize the structure and content of observational data and to enable efficient analyses that can produce reliable evidence. A central component of the OMOP CDM is the OHDSI standardized vocabularies. The OHDSI vocabularies allow organization and standardization of medical terms to be used across the various clinical domains of the OMOP common data model and enable standardized analytics that leverage the knowledge base when constructing exposure and outcome phenotypes and other features within characterization, population-level effect estimation, and patient-level prediction studies. 
+
+This website is meant to serve as a resource describing the specification of the available versions of the Common Data Model. This includes the structure of the model itself and the agreed upon conventions for each table and field as decided by the OHDSI Community. The vocabulary tables are part of the model and, as such, are detailed here. To download the vocabulary itself, please visit [https://athena.ohdsi.org](https://athena.ohdsi.org). For more information about the OHDSI suite of tools designed to implement best practices in characterization, population-level effect estimation and patient-level prediction, please visit [https://ohdsi.github.io/Hades/](https://ohdsi.github.io/Hades/).
 
 ## Current CDM Version
 
@@ -13,9 +15,11 @@ The current CDM version is [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm
 - [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)
 
 ![](images/cdm54.png)
+## The CDM Working Group
 
+The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
 
-## CDM WG Meeting Information
+### Meeting Information
 
 The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings. 
 
