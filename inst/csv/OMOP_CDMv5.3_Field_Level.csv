@@ -498,7 +498,6 @@ DRUG_STRENGTH,denominator_unit_concept_id,No,integer,The Concept representing th
 DRUG_STRENGTH,box_size,No,integer,The number of units of Clinical Branded Drug or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient.,,No,No,,,,,
 DRUG_STRENGTH,valid_start_date,Yes,date,"The date when the Concept was first
 recorded. The default value is
-<<<<<<< HEAD:inst/csv/OMOP_CDMv5.3_Field_Level.csv
 1-Jan-1970.",,No,No,,,,,
 DRUG_STRENGTH,valid_end_date,Yes,date,The date when then Concept became invalid.,,No,No,,,,,
 DRUG_STRENGTH,invalid_reason,No,varchar(1),"Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value.",,No,No,,,,,

@@ -7,7 +7,7 @@
 buildReleaseZip(
   cdmVersion,
   targetDialect = listSupportedDialects(),
-  outputfolder = file.path(getwd(), "inst", "ddl")
+  outputfolder = file.path(getwd(), "output")
 )
 }
 \arguments{

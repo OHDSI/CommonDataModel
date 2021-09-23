@@ -1,5 +1,5 @@
 ---
-title: "Preserving Privacy in an OMOP CDM Implementation"
+title: "**Preserving Privacy in an OMOP CDM Implementation**"
 output: 
   html_document:
         toc: TRUE

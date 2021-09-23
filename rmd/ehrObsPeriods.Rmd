@@ -1,5 +1,5 @@
 ---
-title: "Observation Period Considerations for EHR Data"
+title: "**Observation Period Considerations for EHR Data**"
 output: html_document
 ---
 
