@@ -1,0 +1,11 @@
+---
+title: '**OMOP CDM v5.3.1**'
+output:
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+
+**This documentation previously referenced v5.3.1.  During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases. This is because only major and minor releases include changes to the model itself while bug fixes address issues with SQL incompatibility, problems in the code, etc. Hot fixes and minor.micro release can be found through the searching of tags. For the CDM v5.3 specification please see the [5.3 page](https://ohdsi.github.io/CommonDataModel/cdm53.html).**
+
