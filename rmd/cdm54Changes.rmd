@@ -32,7 +32,7 @@ Notation:
 - Admitting_source_concept_id -> **Admitted_from_concept_id**
 - Admitting_source_value -> **Admitted_from_source_value**
 - Discharge_to_concept_id -> **Discharged_to_concept_id**
-- Discharge_to_source_value -> **Discharged_to_concept_id**
+- Discharge_to_source_value -> **Discharged_to_source_value**
 - Visit_detail_parent_id -> **Parent_visit_detail_id**
 
 ## CONDITION_OCCURRENCE
