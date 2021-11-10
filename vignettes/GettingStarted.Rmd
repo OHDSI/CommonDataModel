@@ -1,0 +1,87 @@
+---
+title: "GettingStarted_CommonDataModel"
+author: "Aedin Culhane"
+date: "11/9/2021"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+This vignette used the R code presented by Claire, at the OHDSI tutorial session on 9th November 2021 and hopefully presented a useful starter on this package
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Before we start we'll make a local folder for output 
+```{r}
+currentfolder= here::here()
+outputfolder = paste0(currentfolder,"out")
+```
+
+To install this package from Github, we'll check if you already have devtools (you likely do if not this code will install it)
+```{r message=FALSE}
+if (!"devtools" %in% installed.packages()) 
+  install.packages("devtools") else
+  print("Found devtools")
+
+```
+
+Now install the R package CommonDataModel from the OHDSI repository on github
+```{r message=FALSE}
+devtools::install_github("OHDSI/CommonDataModel")
+```
+
+## Introduction to the CommonDataModel package
+
+List the currently supported SQL dialets
+```{r}
+CommonDataModel::listSupportedDialects()
+```
+
+List the currently supported Common Data Model (CDM)
+```{r}
+CommonDataModel::listSupportedVersions()
+```
+
+
+## To generate DDLs
+There are multiple way to generate DDLs
+
+1. Use the buildRelease function to generate text files in the dialect of your choice
+This function will put the output files in the folder you specify
+
+
+
+```{r}
+CommonDataModel::buildRelease(cdmVersions = "5.4",
+                              targetDialects = "postgresql",
+                              outputfolder = outputfolder)
+```
+
+2. If you have an empty schema ready to go, the package will connect and instantiate the tables for you
+
+2a. To start you need to download DatabaseConnector in order to connect to your database
+
+to install DatabaseConnector
+```{r message=FALSE}
+devtools::install_github("OHDSI/DatabaseConnector")
+```
+
+```{r}
+library(DatabaseConnector)
+```
+
+Please replace with your own username/password and path to the file DatabaseConnector_Jars
+```{r, eval=FALSE}
+cd<- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
+                                                server="localhost/ohdsi",
+                                                user="postgres",
+                                                password = "postgres",
+                                                pathToDriver = "~/Documents/DatabaseConnector_Jars")
+
+CommonDataModel::executeDdl(connectionDetails = cdm,
+                            cdmVersion = "5.4",
+                            cdmDatabaseSchema = "ohdsi_demo")
+```
