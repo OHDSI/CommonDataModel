@@ -335,8 +335,8 @@ COST,drg_source_value,No,varchar(3),Diagnosis Related Groups are US codes used t
 DRUG_ERA,drug_era_id,Yes,integer,,,Yes,No,,,,,
 DRUG_ERA,person_id,Yes,integer,,,No,Yes,PERSON,PERSON_ID,,,
 DRUG_ERA,drug_concept_id,Yes,integer,The Concept Id representing the specific drug ingredient.,,No,Yes,CONCEPT,CONCEPT_ID,Drug,Ingredient,
-DRUG_ERA,drug_era_start_date,Yes,datetime,,"The Drug Era Start Date is the start date of the first Drug Exposure for a given ingredient, with at least 31 days since the previous exposure. ",No,No,,,,,
-DRUG_ERA,drug_era_end_date,Yes,datetime,,"The Drug Era End Date is the end date of the last Drug Exposure. The End Date of each Drug Exposure is either taken from the field drug_exposure_end_date or, as it is typically not available, inferred using the following rules:
+DRUG_ERA,drug_era_start_date,Yes,date,,"The Drug Era Start Date is the start date of the first Drug Exposure for a given ingredient, with at least 31 days since the previous exposure. ",No,No,,,,,
+DRUG_ERA,drug_era_end_date,Yes,date,,"The Drug Era End Date is the end date of the last Drug Exposure. The End Date of each Drug Exposure is either taken from the field drug_exposure_end_date or, as it is typically not available, inferred using the following rules:
 For pharmacy prescription data, the date when the drug was dispensed plus the number of days of supply are used to extrapolate the End Date for the Drug Exposure. Depending on the country-specific healthcare system, this supply information is either explicitly provided in the day_supply field or inferred from package size or similar information.
 For Procedure Drugs, usually the drug is administered on a single date (i.e., the administration date).
 A standard Persistence Window of 30 days (gap, slack) is permitted between two subsequent such extrapolated DRUG_EXPOSURE records to be considered to be merged into a single Drug Era.",No,No,,,,,
@@ -347,18 +347,18 @@ DOSE_ERA,person_id,Yes,integer,,,No,Yes,PERSON,PERSON_ID,,,
 DOSE_ERA,drug_concept_id,Yes,integer,The Concept Id representing the specific drug ingredient.,,No,Yes,CONCEPT,CONCEPT_ID,Drug,Ingredient,
 DOSE_ERA,unit_concept_id,Yes,integer,The Concept Id representing the unit of the specific drug ingredient.,,No,Yes,CONCEPT,CONCEPT_ID,Unit,,
 DOSE_ERA,dose_value,Yes,float,The numeric value of the dosage of the drug_ingredient.,,No,No,,,,,
-DOSE_ERA,dose_era_start_date,Yes,datetime,"The date the Person started on the specific dosage, with at least 31 days since any prior exposure.",,No,No,,,,,
-DOSE_ERA,dose_era_end_date,Yes,datetime,,The date the Person was no longer exposed to the dosage of the specific drug ingredient. An era is ended if there are 31 days or more between dosage records.,No,No,,,,,
+DOSE_ERA,dose_era_start_date,Yes,date,"The date the Person started on the specific dosage, with at least 31 days since any prior exposure.",,No,No,,,,,
+DOSE_ERA,dose_era_end_date,Yes,date,,The date the Person was no longer exposed to the dosage of the specific drug ingredient. An era is ended if there are 31 days or more between dosage records.,No,No,,,,,
 CONDITION_ERA,condition_era_id,Yes,integer,,,Yes,No,,,,,
 CONDITION_ERA,person_id,Yes,integer,,,No,Yes,PERSON,PERSON_ID,,,
 CONDITION_ERA,condition_concept_id,Yes,integer,The Concept Id representing the Condition.,,No,Yes,CONCEPT,CONCEPT_ID,Condition,,
-CONDITION_ERA,condition_era_start_date,Yes,datetime,"The start date for the Condition Era
+CONDITION_ERA,condition_era_start_date,Yes,date,"The start date for the Condition Era
 constructed from the individual
 instances of Condition Occurrences.
 It is the start date of the very first
 chronologically recorded instance of
 the condition with at least 31 days since any prior record of the same Condition. ",,No,No,,,,,
-CONDITION_ERA,condition_era_end_date,Yes,datetime,"The end date for the Condition Era
+CONDITION_ERA,condition_era_end_date,Yes,date,"The end date for the Condition Era
 constructed from the individual
 instances of Condition Occurrences.
 It is the end date of the final
