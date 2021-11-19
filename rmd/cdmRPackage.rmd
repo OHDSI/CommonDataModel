@@ -1,7 +1,45 @@
 ---
-output: 
-  html_document:
-        toc: TRUE
-        toc_float: TRUE
+title: "**CDM R Package Demo**"
+output: html_document
 ---
 
+Below is an example showing two different ways the CDM R package can be used to create the tables in your environment. First, it uses the `buildRelease` function to create the DDL files on your machine. Once you have these downloaded you can then run them in your SQL client to set up the empty CDM tables. Second, the script shows the `executeDdl` function that will connect up to your SQL client directly (assuming your dbms is one of the supported dialects) and instantiate the tables through R. 
+
+```{r echo=TRUE, eval=FALSE}
+## First, install the package from GitHub
+install.packages("devtools")
+devtools::install_github("OHDSI/CommonDataModel")
+
+## List the currently supported SQL dialects
+CommonDataModel::listSupportedDialects()
+
+## List the currently supported CDM versions
+CommonDataModel::listSupportedVersions()
+
+## There are multiple ways to generate the DDLs
+
+## 1. Use the buildRelease function to generate the text files in the dialect you choose.
+##    This function will put the output files in the folder you specify
+
+CommonDataModel::buildRelease(cdmVersions = "5.4",
+                              targetDialects = "postgresql",
+                              outputfolder = "/pathToOutput")
+
+## 2. If you have an empty schema ready to go, the package will connect and instantiate
+##    the tables for you.
+
+### 2a. To start, you need to download DatabaseConnector in order to connect to your database.
+devtools::install_github("DatabaseConnector")
+
+cd <- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
+                                                 server = "localhost/ohdsi",
+                                                 user = "postgres",
+                                                 password = "postgres",
+                                                 pathToDriver = "/pathToDriver"
+                                                 )
+
+CommonDataModel::executeDdl(connectionDetails = cd,
+                            cdmVersion = "5.4",
+                            cdmDatabaseSchema = "ohdsi_demo"
+                            )
+```
