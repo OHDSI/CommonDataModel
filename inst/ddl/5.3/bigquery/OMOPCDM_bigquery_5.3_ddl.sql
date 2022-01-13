@@ -351,8 +351,8 @@ create table @cdmDatabaseSchema.drug_era (
 			drug_era_id INT64 not null,
 			person_id INT64 not null,
 			drug_concept_id INT64 not null,
-			drug_era_start_date datetime not null,
-			drug_era_end_date datetime not null,
+			drug_era_start_date date not null,
+			drug_era_end_date date not null,
 			drug_exposure_count INT64,
 			gap_days INT64 );
 
@@ -363,16 +363,16 @@ create table @cdmDatabaseSchema.dose_era (
 			drug_concept_id INT64 not null,
 			unit_concept_id INT64 not null,
 			dose_value FLOAT64 not null,
-			dose_era_start_date datetime not null,
-			dose_era_end_date datetime not null );
+			dose_era_start_date date not null,
+			dose_era_end_date date not null );
 
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.condition_era (
 			condition_era_id INT64 not null,
 			person_id INT64 not null,
 			condition_concept_id INT64 not null,
-			condition_era_start_date datetime not null,
-			condition_era_end_date datetime not null,
+			condition_era_start_date date not null,
+			condition_era_end_date date not null,
 			condition_occurrence_count INT64 );
 
 --HINT DISTRIBUTE ON RANDOM
