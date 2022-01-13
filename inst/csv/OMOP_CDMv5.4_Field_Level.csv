@@ -274,7 +274,7 @@ LOCATION,country_concept_id,No,integer,The Concept Id representing the country. 
 LOCATION,country_source_value,No,varchar(80),The name of the country.,,No,No,,,,,
 LOCATION,latitude,No,float,,Must be between -90 and 90.,No,No,,,,,
 LOCATION,longitude,No,float,,Must be between -180 and 180.,No,No,,,,,
-CARE_SITE,care_site_id,Yes,integer,,Assign an id to each unique combination of location_id and place_of_service_source_value,Yes,No,,,,,
+CARE_SITE,care_site_id,Yes,integer,,"Assign an ID to each combination of a location and nature of the site - the latter could be the Place of Service, name or another characteristic in your source data.",Yes,No,,,,,
 CARE_SITE,care_site_name,No,varchar(255),The name of the care_site as it appears in the source data,,No,No,,,,,
 CARE_SITE,place_of_service_concept_id,No,integer,"This is a high-level way of characterizing a Care Site. Typically, however, Care Sites can provide care in multiple settings (inpatient, outpatient, etc.) and this granularity should be reflected in the visit.","Choose the concept in the visit domain that best represents the setting in which healthcare is provided in the Care Site. If most visits in a Care Site are Inpatient, then the place_of_service_concept_id should represent Inpatient. If information is present about a unique Care Site (e.g. Pharmacy) then a Care Site record should be created. [Accepted Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Visit&standardConcept=Standard&page=2&pageSize=15&query=).",No,Yes,CONCEPT,CONCEPT_ID,,,
 CARE_SITE,location_id,No,integer,The location_id from the LOCATION table representing the physical location of the care_site.,,No,Yes,LOCATION,LOCATION_ID,,,
