@@ -10,16 +10,15 @@ output:
 
 # How to Use this Repository
 
+If you are looking for the SQL DDLs and don't wish to generate them through R, they can be accessed [here](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4).
+
 If you are looking for information on how to submit a bugfix, skip to the [next section](https://github.com/OHDSI/CommonDataModel#bug-fixesmodel-updates)
 
 ## Generating the DDLs
-*By John and Sam Gresh*
 
-If you prefer to generate the DDLs on your own without downloading them from the github tags, these instructions will guide you on how to do so.
+This module will demonstrate two different ways the CDM R package can be used to create the CDM tables in your environment.  First, it uses the `buildRelease` function to create the DDL files on your machine, intended for end users that wish to generate these scripts from R without the need to clone or download the source code from github.  The SQL scripts that are created through this process are available as zip files as part of the [latest release](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0).  They are also available on the master branch [here](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4). 
 
-### Introduction
-
-This module will demonstrate how to individually create the DDL scripts for DDL, foreign keys, primary keys, and indexed for a single database instance at a time.  This module is intended for end users that wish to generate these scripts from R without the need to clone or download the source code from github.  The scripts that are created through this process are available as zip files here (TODO: NEED LINK).  
+Second, the script shows the `executeDdl` function that will connect up to your SQL client directly (assuming your dbms is one of the supported dialects) and instantiate the tables through R.
 
 #### Dependencies and prerequisites
 
@@ -27,27 +26,46 @@ This process required R-Studio to be installed as well as [DatabaseConnector](ht
 
 #### Create DDL, Foreign Keys, Primary Keys, and Indexes from R
 
-Launch R-Studio and create a new project: File -> New Project -> New Directory -> New Project
+### First, install the package from GitHub
+```
+install.packages("devtools")
+devtools::install_github("OHDSI/CommonDataModel")
+```
+### List the currently supported SQL dialects
+```CommonDataModel::listSupportedDialects()```
 
-After completing this step you should see something like the following:
+### List the currently supported CDM versions
+```CommonDataModel::listSupportedVersions()```
 
-![](docs/images/rexample1.png)
+## 1. Use the `buildRelease` function 
 
-For the next step, you can either open a new R script (File -> New File -> R Script), paste the text in the console, or open an R notebook (File -> New File -> New R Notebook). Whatever you choose, paste the following, replacing "output" with the name of the output file where you want the DDLs to appear and "YOUR_CDM_SCHEMA" with the name of your CDM schema. In this example we are generating the postgresql DDLs by specifying the dialect in the function calls. To determine which dialects are supported, run the `CommonDataModel::listSupportedDialects()` function.
-
-```{r}
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("OHDSI/CommonDataModel", "v5.4")
-
-CommonDataModel::buildRelease("postgresql", "5.4", "output", "YOUR_CDM_SCHEMA")
-
+This function will generate the text files in the dialect you choose, putting the output files in the folder you specify.
+```
+CommonDataModel::buildRelease(cdmVersions = "5.4",
+                              targetDialects = "postgresql",
+                              outputfolder = "/pathToOutput")
 ```
 
-![](docs/images/rexample2.png)
+## 2. Use the `executeDdl` function
 
-![](docs/images/rexample3.png)
+If you have an empty schema ready to go, the package will connect and instantiate the tables for you. To start, you need to download DatabaseConnector in order to connect to your database.
 
-You will then see something like the above, with your output directory created and the DDLs available in the folder you specified. 
+```   
+devtools::install_github("DatabaseConnector")
+
+cd <- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
+                                                 server = "localhost/ohdsi",
+                                                 user = "postgres",
+                                                 password = "postgres",
+                                                 pathToDriver = "/pathToDriver"
+                                                 )
+
+CommonDataModel::executeDdl(connectionDetails = cd,
+                            cdmVersion = "5.4",
+                            cdmDatabaseSchema = "ohdsi_demo"
+                            )
+```
+
 
 ## Bug Fixes/Model Updates
 

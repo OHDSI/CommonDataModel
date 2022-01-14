@@ -1,13 +1,13 @@
 # This script is meant to create the OMOP Common Data Model DDLs for each dialect as well as the pdf of the documentation.
 
 # For a given cdmVersion, create all ddl sql files for every sql dialect
-# Results are written to ddl/cdm_version/dialect.
-cdmVersion <- "5.3"
+# Results are written to inst/ddl/cdm_version/dialect.
+cdmVersion <- "5.4"
 
 supportedVersions <- listSupportedVersions()
 
 for (cdmVersion in supportedVersions) {
-  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server")) {
+  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark")) {
     writeDdl(targetDialect = targetDialect,
              cdmVersion = cdmVersion)
 
@@ -22,10 +22,14 @@ for (cdmVersion in supportedVersions) {
   }
 }
 
+CommonDataModel::buildRelease("5.4")
+
 #############
 # Zipping release
 # All dialects
-buildReleaseZip(cdmVersion="5.3", outputfolder="output")
+buildReleaseZip(cdmVersion="5.4", outputfolder="output")
+
+buildReleaseZip()
 
 # One dialect
 buildReleaseZip(cdmVersion="5.4", targetDialect="postgresql", outputfolder="output")

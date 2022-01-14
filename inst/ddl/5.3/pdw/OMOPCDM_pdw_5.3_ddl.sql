@@ -350,8 +350,8 @@ WITH (DISTRIBUTION = REPLICATE);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_ERA  (drug_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
-			drug_era_start_date datetime NOT NULL,
-			drug_era_end_date datetime NOT NULL,
+			drug_era_start_date date NOT NULL,
+			drug_era_end_date date NOT NULL,
 			drug_exposure_count integer NULL,
 			gap_days integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
@@ -362,16 +362,16 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DOSE_ERA  (dose_era
 			drug_concept_id integer NOT NULL,
 			unit_concept_id integer NOT NULL,
 			dose_value float NOT NULL,
-			dose_era_start_date datetime NOT NULL,
-			dose_era_end_date datetime NOT NULL )
+			dose_era_start_date date NOT NULL,
+			dose_era_end_date date NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_ERA  (condition_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			condition_concept_id integer NOT NULL,
-			condition_era_start_date datetime NOT NULL,
-			condition_era_end_date datetime NOT NULL,
+			condition_era_start_date date NOT NULL,
+			condition_era_end_date date NOT NULL,
 			condition_occurrence_count integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 

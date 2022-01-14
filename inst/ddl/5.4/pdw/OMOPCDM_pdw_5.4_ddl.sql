@@ -179,7 +179,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.MEASUREMENT  (measu
 			unit_source_value varchar(50) NULL,
 			unit_source_concept_id integer NULL,
 			value_source_value varchar(50) NULL,
-			measurement_event_id bigint NULL,
+			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -203,7 +203,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.OBSERVATION  (obser
 			unit_source_value varchar(50) NULL,
 			qualifier_source_value varchar(50) NULL,
 			value_source_value varchar(50) NULL,
-			observation_event_id bigint NULL,
+			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -232,7 +232,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id inte
 			visit_occurrence_id integer NULL,
 			visit_detail_id integer NULL,
 			note_source_value varchar(50) NULL,
-			note_event_id bigint NULL,
+			note_event_id integer NULL,
 			note_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
@@ -368,8 +368,8 @@ WITH (DISTRIBUTION = REPLICATE);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_ERA  (drug_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
-			drug_era_start_date datetime NOT NULL,
-			drug_era_end_date datetime NOT NULL,
+			drug_era_start_date date NOT NULL,
+			drug_era_end_date date NOT NULL,
 			drug_exposure_count integer NULL,
 			gap_days integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
@@ -380,28 +380,28 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DOSE_ERA  (dose_era
 			drug_concept_id integer NOT NULL,
 			unit_concept_id integer NOT NULL,
 			dose_value float NOT NULL,
-			dose_era_start_date datetime NOT NULL,
-			dose_era_end_date datetime NOT NULL )
+			dose_era_start_date date NOT NULL,
+			dose_era_end_date date NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_ERA  (condition_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			condition_concept_id integer NOT NULL,
-			condition_era_start_date datetime NOT NULL,
-			condition_era_end_date datetime NOT NULL,
+			condition_era_start_date date NOT NULL,
+			condition_era_end_date date NOT NULL,
 			condition_occurrence_count integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_id bigint NOT NULL,
-			 person_id bigint NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_id integer NOT NULL,
+			 person_id integer NOT NULL,
 			episode_concept_id integer NOT NULL,
 			episode_start_date date NOT NULL,
 			episode_start_datetime datetime NULL,
 			episode_end_date date NULL,
 			episode_end_datetime datetime NULL,
-			episode_parent_id bigint NULL,
+			episode_parent_id integer NULL,
 			episode_number integer NULL,
 			episode_object_concept_id integer NOT NULL,
 			episode_type_concept_id integer NOT NULL,
@@ -410,8 +410,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE  (episode_i
 WITH (DISTRIBUTION = HASH(person_id));
 
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE_EVENT  (episode_id bigint NOT NULL,
-			event_id bigint NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.EPISODE_EVENT  (episode_id integer NOT NULL,
+			event_id integer NOT NULL,
 			episode_event_field_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
 

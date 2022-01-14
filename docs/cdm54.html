@@ -13,13 +13,22 @@
 
 <title>OMOP CDM v5.4</title>
 
-<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -40,11 +49,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -57,32 +61,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -94,10 +72,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -114,40 +88,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -175,7 +122,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -187,7 +134,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -198,10 +145,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -213,7 +173,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -339,7 +298,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,13 +323,13 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-landmark"></span>
+    <span class="fa fa-landmark"></span>
      
     Background
      
@@ -390,7 +349,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-list-alt"></span>
+    <span class="fa fa-list-alt"></span>
      
     Conventions
      
@@ -410,7 +369,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-history"></span>
+    <span class="fa fa-history"></span>
      
     CDM Versions
      
@@ -441,7 +400,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-plus-square"></span>
+    <span class="fa fa-plus-square"></span>
      
     Proposals
      
@@ -463,7 +422,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-question"></span>
+    <span class="fa fa-question"></span>
      
     How to
      
@@ -483,7 +442,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa-life-ring"></span>
+    <span class="fa fa-life-ring"></span>
      
     Support
      
@@ -505,7 +464,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -514,7 +473,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -523,8 +482,80 @@ div.tocify {
 </div>
 
 
-<p>Below is the specification document for the OMOP Common Data Model, v5.4. <strong>This is the latest version of the OMOP CDM.</strong> Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
+<p>This is the specification document for the OMOP Common Data Model, v5.4. <strong>This is the latest version of the OMOP CDM.</strong> Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
+<div id="current-support-for-cdm-v5.4" class="section level3">
+<h3>Current Support for CDM v5.4</h3>
+<p>The table below details which OHDSI tools support CDM v5.4. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.3 and feature support indicates that the tool supports any new tables and fields in CDM v5.4 that were not present in CDM v5.3. A green heart 💚 indicates that the support level for the listed tool is in place, has been tested, and released. A yellow heart 💛 indicates that the support level for the listed tool has been initiated but has not yet been tested and released. <br></p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tool</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Legacy Support</strong></th>
+<th><strong>Feature Support</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>CDM R package</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/CommonDataModel/">https://github.com/OHDSI/CommonDataModel/</a>. It functions to dynamically create the OMOP CDM documentation and DDL scripts to instantiate the CDM tables.</td>
+<td>💚</td>
+<td>💚</td>
+</tr>
+<tr class="even">
+<td><strong>Data Quality Dashboard</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/DataQualityDashboard</a>. It runs a set of &gt; 3500 data quality checks against an OMOP CDM instance and is required to be run on all databases prior to participating in an OHDSI network research study.</td>
+<td>💚</td>
+<td>💛</td>
+</tr>
+<tr class="odd">
+<td><strong>Achilles</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>, performing a set of broad database characterizations agains an OMOP CDM instance.</td>
+<td>💚</td>
+<td>💛</td>
+</tr>
+<tr class="even">
+<td><strong>ARES</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/Ares">https://github.com/OHDSI/Ares</a> and is designed to display the results from both the ACHILLES and DataQualityDashboard packages to support data quality and characterization research.</td>
+<td>💚</td>
+<td>💛</td>
+</tr>
+<tr class="odd">
+<td><strong>ATLAS</strong></td>
+<td>ATLAS is an open source software tool for researchers to conduct scientific analyses on standardized observational data. <a href="http://atlas-demo.ohdsi.org/">Demo</a></td>
+<td>💚</td>
+<td>💛</td>
+</tr>
+<tr class="even">
+<td><strong>Rabbit-In-A-Hat</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/WhiteRabbit">https://github.com/OHDSI/WhiteRabbit</a> and is an application for interactive design of an ETL to the OMOP Common Data Model with the help of the the scan report generated by White Rabbit.</td>
+<td>💚</td>
+<td>💚</td>
+</tr>
+<tr class="odd">
+<td><strong>Feature Extraction</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/FeatureExtraction">https://github.com/OHDSI/FeatureExtraction</a>. It is designed to generate features (covariates) for a cohort generated using the OMOP CDM.</td>
+<td>💚</td>
+<td>💚*</td>
+</tr>
+<tr class="even">
+<td><strong>Cohort Diagnostics</strong></td>
+<td>This package can be downloaded from <a href="https://github.com/OHDSI/CohortDiagnostics">https://github.com/OHDSI/CohortDiagnostics</a> and is used to critically evaluate cohort phenotypes.</td>
+<td>💚</td>
+<td>💛</td>
+</tr>
+</tbody>
+</table>
+<p><br> * The <strong>Feature Extraction</strong> package supports all relevant new features in CDM v5.4. For example, it was decided that, from a methodological perspective, the EPISODE and EPISODE_EVENT tables should not be included to define cohort covariates because the events that make up episodes are already pulled in as potential covariates.</p>
+<p><br></p>
 <p>Looking to send us a pull request for a bug fix? Please see the <a href="https://github.com/OHDSI/CommonDataModel#readme">readme</a> on the main github page.</p>
+</div>
 <div id="clinical-data-tables" class="section level2">
 <h2><strong>Clinical Data Tables</strong></h2>
 <div id="person" class="section level3 tabset tabset-pills">
@@ -1222,7 +1253,7 @@ period_type_concept_id
 This field can be used to determine the provenance of the Observation Period as in whether the period was determined from an insurance enrollment file, EHR healthcare encounters, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the observation_period_type_concept_id that best represents how the period was determined. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the observation_period_type_concept_id that best represents how the period was determined. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -1498,7 +1529,7 @@ visit_type_concept_id
 Use this field to understand the provenance of the visit record, or where the record comes from.
 </td>
 <td style="text-align:left;width: 4in; ">
-Populate this field based on the provenance of the visit record, as in whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Populate this field based on the provenance of the visit record, as in whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 Integer
@@ -2008,7 +2039,7 @@ visit_detail_type_concept_id
 Use this field to understand the provenance of the visit detail record, or where the record comes from.
 </td>
 <td style="text-align:left;width: 4in; ">
-Populate this field based on the provenance of the visit detail record, as in whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Populate this field based on the provenance of the visit detail record, as in whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -2574,7 +2605,7 @@ condition_type_concept_id
 This field can be used to determine the provenance of the Condition record, as in whether the condition was from an EHR system, insurance claim, registry, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the CONDITION_TYPE_CONCEPT_ID that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the CONDITION_TYPE_CONCEPT_ID that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -3085,7 +3116,7 @@ drug_type_concept_id
 You can use the TYPE_CONCEPT_ID to delineate between prescriptions written vs. prescriptions dispensed vs. medication history vs. patient-reported exposure, etc.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the drug_type_concept_id that best represents the provenance of the record, for example whether it came from a record of a prescription written or physician administered drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the drug_type_concept_id that best represents the provenance of the record, for example whether it came from a record of a prescription written or physician administered drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -3726,7 +3757,7 @@ procedure_type_concept_id
 This field can be used to determine the provenance of the Procedure record, as in whether the procedure was from an EHR system, insurance claim, registry, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the PROCEDURE_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. If a procedure is recorded as an EHR encounter, the PROCEDURE_TYPE_CONCEPT would be ‘EHR encounter record’. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the PROCEDURE_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. If a procedure is recorded as an EHR encounter, the PROCEDURE_TYPE_CONCEPT would be ‘EHR encounter record’. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -4207,7 +4238,7 @@ device_type_concept_id
 You can use the TYPE_CONCEPT_ID to denote the provenance of the record, as in whether the record is from administrative claims or EHR.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the drug_type_concept_id that best represents the provenance of the record, for example whether it came from a record of a prescription written or physician administered drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the drug_type_concept_id that best represents the provenance of the record, for example whether it came from a record of a prescription written or physician administered drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -4743,7 +4774,7 @@ measurement_type_concept_id
 This field can be used to determine the provenance of the Measurement record, as in whether the measurement was from an EHR system, insurance claim, registry, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the MEASUREMENT_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the MEASUREMENT_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5162,7 +5193,7 @@ If the Measurement record is related to another record in the database, this fie
 Put the primary key of the linked record, if applicable, here.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -5393,7 +5424,7 @@ observation_type_concept_id
 This field can be used to determine the provenance of the Observation record, as in whether the measurement was from an EHR system, insurance claim, registry, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the OBSERVATION_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the OBSERVATION_TYPE_CONCEPT_ID that best represents the provenance of the record, for example whether it came from an EHR record or billing claim. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -5782,7 +5813,7 @@ If the Observation record is related to another record in the database, this fie
 Put the primary key of the linked record, if applicable, here. See the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#observation">ETL Conventions for the OBSERVATION</a> table for more details.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -5953,7 +5984,7 @@ death_type_concept_id
 This is the provenance of the death record, i.e., where it came from. It is possible that an administrative claims database would source death information from a government file so do not assume the Death Type is the same as the Visit Type, etc.
 </td>
 <td style="text-align:left;width: 4in; ">
-Use the type concept that be reflects the source of the death record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Use the type concept that be reflects the source of the death record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -6217,7 +6248,7 @@ note_type_concept_id
 The provenance of the note. Most likely this will be EHR.
 </td>
 <td style="text-align:left;width: 4in; ">
-Put the source system of the note, as in EHR record. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;domain=Type+Concept&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Put the source system of the note, as in EHR record. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;domain=Type+Concept&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -6493,7 +6524,7 @@ If the Note record is related to another record in the database, this field is t
 Put the primary key of the linked record, if applicable, here.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -7071,7 +7102,7 @@ specimen_type_concept_id
 <td style="text-align:left;width: 3in; ">
 </td>
 <td style="text-align:left;width: 4in; ">
-Put the source of the specimen record, as in an EHR system. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;domain=Type+Concept&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Put the source of the specimen record, as in an EHR system. <a href="https://athena.ohdsi.org/search-terms/terms?standardConcept=Standard&amp;domain=Type+Concept&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -7956,7 +7987,7 @@ care_site_id
 <td style="text-align:left;width: 3in; ">
 </td>
 <td style="text-align:left;width: 4in; ">
-Assign an id to each unique combination of location_id and place_of_service_source_value
+Assign an ID to each combination of a location and nature of the site - the latter could be the Place of Service, name or another characteristic in your source data.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -9741,7 +9772,7 @@ drug_era_start_date
 The Drug Era Start Date is the start date of the first Drug Exposure for a given ingredient, with at least 31 days since the previous exposure.
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -9767,7 +9798,7 @@ drug_era_end_date
 The Drug Era End Date is the end date of the last Drug Exposure. The End Date of each Drug Exposure is either taken from the field drug_exposure_end_date or, as it is typically not available, inferred using the following rules: For pharmacy prescription data, the date when the drug was dispensed plus the number of days of supply are used to extrapolate the End Date for the Drug Exposure. Depending on the country-specific healthcare system, this supply information is either explicitly provided in the day_supply field or inferred from package size or similar information. For Procedure Drugs, usually the drug is administered on a single date (i.e., the administration date). A standard Persistence Window of 30 days (gap, slack) is permitted between two subsequent such extrapolated DRUG_EXPOSURE records to be considered to be merged into a single Drug Era.
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10019,7 +10050,7 @@ The date the Person started on the specific dosage, with at least 31 days since 
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10045,7 +10076,7 @@ dose_era_end_date
 The date the Person was no longer exposed to the dosage of the specific drug ingredient. An era is ended if there are 31 days or more between dosage records.
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10196,7 +10227,7 @@ The start date for the Condition Era constructed from the individual instances o
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10222,7 +10253,7 @@ The end date for the Condition Era constructed from the individual instances of 
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-datetime
+date
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10316,7 +10347,7 @@ A unique identifier for each Episode.
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10342,7 +10373,7 @@ The PERSON_ID of the PERSON for whom the episode is recorded.
 <td style="text-align:left;width: 4in; ">
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10505,7 +10536,7 @@ Use this field to find the Episode that subsumes the given Episode record. This 
 If there are multiple nested levels to how Episodes are represented, the EPISODE_PARENT_ID can be used to record this relationship.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 No
@@ -10585,7 +10616,7 @@ episode_type_concept_id
 This field can be used to determine the provenance of the Episode record, as in whether the episode was from an EHR system, insurance claim, registry, or other sources.
 </td>
 <td style="text-align:left;width: 4in; ">
-Choose the EPISODE_TYPE_CONCEPT_ID that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Choose the EPISODE_TYPE_CONCEPT_ID that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -10715,7 +10746,7 @@ Use this field to link the EPISODE_EVENT record to its EPISODE.
 Put the EPISODE_ID that subsumes the EPISODE_EVENT record here.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -10743,7 +10774,7 @@ This field is the primary key of the linked record in the database. For example,
 Put the primary key of the linked record here.
 </td>
 <td style="text-align:left;width: 1in; ">
-bigint
+integer
 </td>
 <td style="text-align:left;width: 1in; ">
 Yes
@@ -11342,6 +11373,7 @@ cdm_version_concept_id
 The Concept Id representing the version of the CDM.
 </td>
 <td style="text-align:left;width: 4in; ">
+You can find all concepts that represent the CDM versions using the query: SELECT * FROM CONCEPT WHERE VOCABULARY_ID = ‘CDM’ AND CONCEPT_CLASS = ‘CDM’
 </td>
 <td style="text-align:left;width: 1in; ">
 integer
@@ -11368,6 +11400,7 @@ vocabulary_version
 <td style="text-align:left;width: 3in; ">
 </td>
 <td style="text-align:left;width: 4in; ">
+You can find the version of your Vocabulary using the query: SELECT vocabulary_version from vocabulary where vocabulary_id = ‘None’
 </td>
 <td style="text-align:left;width: 1in; ">
 varchar(20)
@@ -13597,10 +13630,9 @@ Yes
 No
 </td>
 <td style="text-align:left;width: 1in; ">
-Yes
+No
 </td>
 <td style="text-align:left;width: 1in; ">
-COHORT
 </td>
 <td style="text-align:left;width: 1in; ">
 </td>
@@ -13797,7 +13829,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -13806,6 +13838,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
