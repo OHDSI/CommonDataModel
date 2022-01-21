@@ -240,8 +240,6 @@ alter table @cdmDatabaseSchema.provider add constraint fpk_provider_specialty_so
 
 alter table @cdmDatabaseSchema.provider add constraint fpk_provider_gender_source_concept_id foreign key (gender_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 
-alter table @cdmDatabaseSchema.payer_plan_period add constraint fpk_payer_plan_period_payer_plan_period_id foreign key (payer_plan_period_id) references @cdmDatabaseSchema.person (person_id);
-
 alter table @cdmDatabaseSchema.payer_plan_period add constraint fpk_payer_plan_period_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 
 alter table @cdmDatabaseSchema.payer_plan_period add constraint fpk_payer_plan_period_payer_concept_id foreign key (payer_concept_id) references @cdmDatabaseSchema.concept (concept_id);
