@@ -275,7 +275,7 @@ PROVIDER,specialty_source_value,No,varchar(50),"This is the kind of provider or 
 PROVIDER,specialty_source_concept_id,No,integer,This is often zero as many sites use proprietary codes to store physician speciality.,If the source data codes provider specialty in an OMOP supported vocabulary store the concept_id here.,No,Yes,CONCEPT,CONCEPT_ID,,,
 PROVIDER,gender_source_value,No,varchar(50),This is provider's gender as it appears in the source data.,Put the provider's gender as it appears in the source data. This field is up to the discretion of the ETL-er as to whether this should be the coded value from the source or the text description of the lookup value.,No,No,,,,,
 PROVIDER,gender_source_concept_id,No,integer,This is often zero as many sites use proprietary codes to store provider gender.,If the source data codes provider gender in an OMOP supported vocabulary store the concept_id here.,No,Yes,CONCEPT,CONCEPT_ID,,,
-PAYER_PLAN_PERIOD,payer_plan_period_id,Yes,integer,"A unique identifier for each unique combination of a Person, Payer, Plan, and Period of time.",,Yes,Yes,PERSON,PERSON_ID,,,
+PAYER_PLAN_PERIOD,payer_plan_period_id,Yes,integer,"A unique identifier for each unique combination of a Person, Payer, Plan, and Period of time.",,Yes,No,,,,,
 PAYER_PLAN_PERIOD,person_id,Yes,integer,The Person covered by the Plan.,"A single Person can have multiple, overlapping, PAYER_PLAN_PERIOD records",No,Yes,PERSON,PERSON_ID,,,
 PAYER_PLAN_PERIOD,payer_plan_period_start_date,Yes,date,Start date of Plan coverage.,,No,No,,,,,
 PAYER_PLAN_PERIOD,payer_plan_period_end_date,Yes,date,End date of Plan coverage.,,No,No,,,,,
