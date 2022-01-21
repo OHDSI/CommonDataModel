@@ -4,30 +4,30 @@
 # Results are written to inst/ddl/cdm_version/dialect.
 cdmVersion <- "5.4"
 
-supportedVersions <- listSupportedVersions()
+supportedVersions <- CommonDataModel::listSupportedVersions()
 
 for (cdmVersion in supportedVersions) {
   for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark")) {
-    writeDdl(targetDialect = targetDialect,
-             cdmVersion = cdmVersion)
+    CommonDataModel::writeDdl(targetDialect = targetDialect,
+                              cdmVersion = cdmVersion)
 
-    writePrimaryKeys(targetDialect = targetDialect,
-                     cdmVersion = cdmVersion)
+    CommonDataModel::writePrimaryKeys(targetDialect = targetDialect,
+                                      cdmVersion = cdmVersion)
 
-    writeForeignKeys(targetDialect = targetDialect,
-                     cdmVersion = cdmVersion)
+    CommonDataModel::writeForeignKeys(targetDialect = targetDialect,
+                                      cdmVersion = cdmVersion)
 
-    writeIndex(targetDialect = targetDialect,
-               cdmVersion = cdmVersion)
+    CommonDataModel::writeIndex(targetDialect = targetDialect,
+                                cdmVersion = cdmVersion)
   }
 }
 
-CommonDataModel::buildRelease("5.4")
+CommonDataModel::buildRelease("5.3")
 
 #############
 # Zipping release
 # All dialects
-buildReleaseZip(cdmVersion="5.4", outputfolder="output")
+CommonDataModel::buildReleaseZip(cdmVersion="5.3", outputfolder="output")
 
 buildReleaseZip()
 
