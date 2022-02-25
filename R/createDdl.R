@@ -74,11 +74,11 @@ createDdl <- function(cdmVersion){
         closing_sql <- (",")
       }
 
-      if (fieldName=="offset") {
-        field <- paste0('"',fieldName,'"')
-      } else {
-        field <- fieldName
-      }
+#       if (fieldName=="offset") {
+#         field <- paste0('"',fieldName,'"')
+#       } else {
+#         field <- fieldName
+#       }
       fieldSql <- paste0("\n\t\t\t",
                          field," ",
                          subset(fields, cdmFieldName == fieldName, cdmDatatype),
