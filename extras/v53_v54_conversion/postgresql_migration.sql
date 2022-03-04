@@ -52,7 +52,7 @@ alter table @cdmDatabaseSchema.device_exposure add column unit_source_concept_id
 -- + Measurement_event_id
 -- + Meas_event_field_concept_id
 
-alter table @cdmDatabaseSchema.measurement add column unit_source_id integer default null;
+alter table @cdmDatabaseSchema.measurement add column unit_source_concept_id integer default null;
 alter table @cdmDatabaseSchema.measurement add column measurement_event_id bigint default null;
 alter table @cdmDatabaseSchema.measurement add column meas_event_field_concept_id integer default null;
 
