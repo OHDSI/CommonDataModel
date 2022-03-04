@@ -54,7 +54,7 @@ alter table @cdmDatabaseSchema.device_exposure add (unit_source_concept_id numbe
 -- + Measurement_event_id
 -- + Meas_event_field_concept_id
 
-alter table @cdmDatabaseSchema.measurement add (unit_source_id number default null);
+alter table @cdmDatabaseSchema.measurement add (unit_source_concept_id number default null);
 alter table @cdmDatabaseSchema.measurement add (measurement_event_id number default null);
 alter table @cdmDatabaseSchema.measurement add (meas_event_field_concept_id number default null);
 
