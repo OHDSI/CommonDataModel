@@ -65,7 +65,7 @@ alter table @cdmDatabaseSchema.device_exposure add column unit_source_concept_id
 -- + Measurement_event_id
 -- + Meas_event_field_concept_id
 
-alter table @cdmDatabaseSchema.measurement add column unit_source_id int64;
+alter table @cdmDatabaseSchema.measurement add column unit_source_concept_id int64;
 alter table @cdmDatabaseSchema.measurement add column measurement_event_id int64;
 alter table @cdmDatabaseSchema.measurement add column meas_event_field_concept_id int64;
 
