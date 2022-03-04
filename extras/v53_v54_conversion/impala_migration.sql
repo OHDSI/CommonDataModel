@@ -52,7 +52,7 @@ alter table @cdmDatabaseSchema.device_exposure add columns (unit_source_concept_
 -- + Measurement_event_id
 -- + Meas_event_field_concept_id
 
-alter table @cdmDatabaseSchema.measurement add columns (unit_source_id int);
+alter table @cdmDatabaseSchema.measurement add columns (unit_source_concept_id int);
 alter table @cdmDatabaseSchema.measurement add columns (measurement_event_id int);
 alter table @cdmDatabaseSchema.measurement add columns (meas_event_field_concept_id int);
 
