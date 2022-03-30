@@ -7,7 +7,7 @@ cdmVersion <- "5.4"
 supportedVersions <- CommonDataModel::listSupportedVersions()
 
 for (cdmVersion in supportedVersions) {
-  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark")) {
+  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake")) {
     CommonDataModel::writeDdl(targetDialect = targetDialect,
                               cdmVersion = cdmVersion)
 

@@ -1,0 +1,1 @@
+-- snowflake does not support indexes
