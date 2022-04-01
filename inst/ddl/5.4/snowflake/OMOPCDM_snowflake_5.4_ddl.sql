@@ -153,7 +153,7 @@ CREATE TABLE MEASUREMENT (
                              measurement_concept_id integer NOT NULL,
                              measurement_date date NOT NULL,
                              measurement_datetime TIMESTAMP NULL,
---                              measurement_time varchar(10) NULL,
+                             measurement_time varchar(10) NULL,
                              measurement_type_concept_id integer NOT NULL,
                              operator_concept_id integer NULL,
                              value_as_number NUMERIC NULL,
@@ -326,7 +326,7 @@ CREATE TABLE COST (
                       payer_plan_period_id integer NULL,
                       amount_allowed NUMERIC NULL,
                       revenue_code_concept_id integer NULL,
---                       revenue_code_source_value varchar(50) NULL,
+                      revenue_code_source_value varchar(50) NULL,
                       drg_concept_id integer NULL,
                       drg_source_value varchar(3) NULL );
 
