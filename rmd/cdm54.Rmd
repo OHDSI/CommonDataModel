@@ -108,9 +108,9 @@ for(tb in tables) {
  
   print(kable(x = loopTable, align = "l", row.names = FALSE, format = "html", escape = FALSE) %>%
            column_spec(1, bold = T) %>%
-           column_spec(2, width = "3in", include_thead = T) %>%
-           column_spec(3, width = "4in", include_thead = T) %>%
-           column_spec(4:9, width = "1in", include_thead = T) %>%
+           # column_spec(2, width = "3in", include_thead = T) %>%
+           # column_spec(3, width = "4in", include_thead = T) %>%
+           # column_spec(4:9, width = "1in", include_thead = T) %>%
            kable_styling(c("condensed","hover"), position = "center", full_width = T, font_size = 13))
          
   
