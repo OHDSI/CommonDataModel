@@ -22,12 +22,12 @@ for (cdmVersion in supportedVersions) {
   }
 }
 
-CommonDataModel::buildRelease("5.4")
+CommonDataModel::buildRelease("5.3")
 
 #############
 # Zipping release
 # All dialects
-CommonDataModel::buildReleaseZip(cdmVersion="5.4", outputfolder="output")
+CommonDataModel::buildReleaseZip(cdmVersion="5.3", outputfolder="output")
 
 buildReleaseZip()
 
