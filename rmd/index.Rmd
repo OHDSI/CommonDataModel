@@ -51,8 +51,7 @@ The CDM working group meets the first and third Tuesday of the month. See below 
 **Every third Tuesday of the month at 1pm est** [Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d)
 
 
-**Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form]
-(https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
+**Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
 
 ### CDM WG Important Links
 
