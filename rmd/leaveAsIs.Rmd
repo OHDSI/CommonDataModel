@@ -1,0 +1,6 @@
+---
+title: "Leave As Is"
+output: html_document
+---
+
+Okay, so you do not have a network use case but multiple collaborators have access to the element you are interested in adding to the CDM. **In this circumstance, the CDM Working Group suggests leaving the model as-is.** Without a network use case there is no need to augment the data model. If this is something you need for your work, consider a [local change](localChange.html) or a model extension. 

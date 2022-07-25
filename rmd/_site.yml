@@ -48,9 +48,11 @@ navbar:
               href: cdm54.html
             - text: "Changes from CDM v5.3"
               href: cdm54Changes.html
-    - text: "Proposals"
+    - text: "CDM Proposals"
       icon: fa-plus-square
       menu:
+        - text: "How to Propose Changes to the CDM"
+          href: cdmRequestProcess.html
         - text: "Under Review"
           href: https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal
         - text: "Accepted"
@@ -69,6 +71,8 @@ navbar:
     - text: "Support"
       icon: fa-life-ring
       menu:
+        - text: "Help! My Data Doesn't Fit!"
+          href: cdmDecisionTree.html
         - text: "FAQ"
           href: faq.html
         - text: "SQL Scripts"

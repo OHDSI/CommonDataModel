@@ -1,0 +1,91 @@
+---
+title: '<div><img src="ohdsi40x40.png"></img> How to Request Changes to the CDM </div>'
+output: 
+  html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+Are you in the right place? Please answer the questions in the [decision tree](cdmDecisionTree.html) prior to beginning a CDM Request to make sure you aren't missing something. 
+
+As OHDSI is an open-source community working towards developing a Common Data Model that fulfills the needs of its users, it is often the case that changes need to be made to the model as the community and its research continues to mature. However, the number of people, institutions, and initiatives that rely on the OMOP CDM to advance the science of observational health has grown dramatically since its inception in 2015. Therefore, care must be taken when considering any update to the model, big or small. This document outlines the process that should be taken to ratify a change to the CDM. 
+
+**If you would like guidance prior to starting this process, consider contacting us on our [GitHub](https://github.com/OHDSI/CommonDataModel) or [Teams Channel](https://teams.microsoft.com/l/team/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/conversations?groupId=a6f2c516-e568-4974-8f1e-a7bdc2f997c5&tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5).**
+
+
+### Scope
+
+- What kind of changes? 
+  - Minor, e.g. new field in existing table
+  - Major, e.g. breaking changes, additional tables
+- Who can propose changes?
+  - Individuals, OHDSI working groups, organizations
+
+## Step 1: Proposal
+
+Once a group or organization has decided on the update they would like made to the model, they must produce a document including the following:
+
+1. A clear description of the change or addition including the User Guide and ETL Conventions in the same structure as what is present on the website for every table and field currently in the CDM.
+2. A clearly defined use case noting why the latest version of the OMOP CDM fails to adequately address said use case. This should include describing what you have already tried with the latest version of the OMOP CDM and why it does not meet your needs.
+3. An example of how the requested change or addition will be used in practice. This can be in the form of sample data, SQL code, a diagram, or text. The proposal can optionally include suggestions as to how other OHDSI tools (Achilles, DataQualityDashboard, Atlas, etc.) should work with your change or addition. 
+
+Once the document is ready to submit, please email [CDM Proposals - Workgroup - Common Data Model](a58abde7.ohdsi.org@amer.teams.ms). This will go directly to a separate channel in the OHDSI Teams environment that is available to all members of the CDM Working Group.
+After submitting your document with your proposal to email listed above, someone in the OMOP CDM Working Group will respond to you within 2 weeks. The potential outcomes are as follows: 
+
+- Proposal merits further review (move on to next steps)
+- Proposal is not ready for workgroup review due to one or more factors
+  - Incomplete
+  - Insufficiently aligned with the OMOP framework
+  - Poorly described use case
+
+## Step 2: Initial Presentation
+
+Should your proposals merit further review, the OMOP CDM Working Group will reach out to you to schedule a time for you to present your case at an upcoming meeting. You will be given 15-30 minutes to present your document and you can include anything you feel will help illustrate the need and your potential solution. The group will then discuss, ask questions, and potentially offer other solutions. Depending on the nature of the request, this may go over multiple sessions and you may be asked to make changes to your initial design. At the end of this process your proposal will then be put to consensus in the CDM WG. If the group decides no, they will give feedback describing why they did not feel your proposal should be accepted at this time. If the group decides yes, you move on to step 3. 
+
+**Potential Decision Criteria:**
+
+- If the change is foundational to OHDSI tools, then the proposal will be put to the larger community open to public comment
+- How generalizable is your change? Can it be readily applied to other use cases?
+- Are the proposed changes/additions well designed from a modeling perspective? Do they follow the existing OMOP CDM conventions?
+- What are the consequences of the change? Are they potentially breaking changes or are they just changes to existing conventions? Will they require the remapping of existing OMOP datasources?
+- How complicated is your change? Is it an addition of a field or multiple tables?
+
+## Step 3: Preliminary Decision
+
+If the proposal is accepted in the preliminary decision, then a branch will be created in the CommonDataModel repository, based on the latest version of the OMOP CDM in use (currently v5.4). It will then be your responsibility to apply the change programmatically in this branch.  This should include:
+
+- Updating the CSV file with the CDM specification, including the User Guide and ETL Conventions documentation
+- Generating the DDL files with the change
+- Testing the new DDL files in at least one supported environment
+
+Once the DDLs with the proposed change are created and tested, you should then ETL some data (either real or synthetic) into the new table/fields. Then, an example cohort should be created that utilizes the change or addition and clearly displays how it can be used in a real study. It is expected that during this stage the proposal will change as you work through your idea in a tangible environment.   
+
+**Potential Decision Criteria:**
+
+- How would you evaluate the quality of this new field/table?
+- What characterizations would you perform?
+- How would you perform a study using this new feature?
+
+**Potential Outcomes:**
+
+- Proposal demonstrates merit for further consideration as:
+  - a core data model change (move on to next steps)
+  - an extension (how do we deal with these/do we have ownership of them?)
+- Proposal does not demonstrate merit for further consideration at this time, and:
+  - recommend as a LOCAL extension
+  - recommend a different course
+
+## Step 4: Final Presentation
+
+After generating, testing, and implementing your proposal in a real-world environment the CDM working group will invite you again to present your findings in another 15-30 minute presentation. This should include learnings from the exercise and any updates made to the initial proposal. 
+
+## Step 5: Final Decision
+
+At this point, the working group liaisons will also take the proposal to other groups to elicit feedback. Then the CDM working group will vote and give a final decision on the proposed change. If ratified, the branch in the repository will be merged into the develop branch to be included in a next version of the OMOP Common Data Model.   
+
+The change should initiate requests for features in tools. The end of this process should be a trigger for using the new feature as per the use case. The group should also produce at least one query for the query library on how to work with the new addition/change. 
+
+### Resources
+
+“Implementing & adopting a customized OMOP Common Data Model” (Melany Philofsky, OHDSI Symposium 2021) https://www.ohdsi.org/2021-global-symposium-showcase-18/
+

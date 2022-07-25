@@ -1,0 +1,10 @@
+---
+title: "Open Source Vocabulary"
+output: html_document
+---
+
+Okay, so you have a use case but you don't have an OMOP vocabulary to support your need. **Is there an existing open-source (not proprietary or custom) vocabulary that has not yet been incorporated into the OMOP vocabulary?**
+
+[Yes, the vocabulary exists, it just needs to be brought in](vocabRequest.html)
+
+[No, there is no open-source vocabulary for this data element](contactVocab.html)

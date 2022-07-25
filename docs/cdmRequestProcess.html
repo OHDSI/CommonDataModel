@@ -11,7 +11,7 @@
 
 
 
-<title>cdmRefreshProcess.knit</title>
+<title>cdmRequestProcess.knit</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -488,52 +488,100 @@ div.tocify {
 
 
 <h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> CDM Refresh Process
+<img src="ohdsi40x40.png"></img> How to Request Changes to the CDM
 </div></h1>
 
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group. The formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. Then, once ratified, these proposals are incorporated into the next version of the CDM. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
-<p>Looking to make a change or addition to the OMOP CDM? Please answer the questions in the <a href="cdmDecisionTree.html">decision tree</a> to point you in the right direction.</p>
-<div id="cdm-refresh-cycle" class="section level2">
-<h2>CDM Refresh Cycle</h2>
-<p><img src="images/CDM_refresh_cycle.png" /></p>
-<div id="define-new-version" class="section level3">
-<h3>1. Define New Version</h3>
-<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. Proposals are heard over the course of a year according to the <a href="cdmRequestProcess.html">CDM Request Process</a> and the ratified changes are added to the roadmap until such time that there are enough updates to warrant a new version of the model.</p>
-<p>Looking to open a proposal to change or augment the CDM? Please follow the questions in the <a href="cdmDecisionTree.html">decision tree</a> to help you determine what you will need.</p>
-</div>
-<div id="sign-off-from-work-groups" class="section level3">
-<h3>2. Sign off from Work Groups</h3>
-<p>Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
-</div>
-<div id="release-ddls" class="section level3">
-<h3>3. Release DDLs</h3>
-<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs. For example, the CDM WG hosted a hackathon on August 18-19, 2021. During this time the group created an R package to automatically generate the DDLs and the code to instantiate an empty CDM instance. Changes were made to v5.3 to generate v5.4 and the repository was refactored.</p>
-</div>
-<div id="software-update" class="section level3">
-<h3>4. Software Update</h3>
-<p>There will be period of time once the DDLs are ready to allow the software and methods developers to prepare for the official release of the CDM. This is meant to serve as a buffer so that once the community starts adopting the new model, the tools and methods will be ready to support it.</p>
-</div>
-<div id="community-support" class="section level3">
-<h3>5. Community Support</h3>
-<p>This is the final stage of the CDM refresh cycle. Once the DDLs are ready and the software and tools supports the new version, the CDM WG will work to help the community convert their data to the new model.</p>
-</div>
-</div>
-<div id="cdm-wg-meeting-information" class="section level1">
-<h1>CDM WG Meeting Information</h1>
-<p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
-<p><strong>Every first Tuesday of the month at 10am est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
-<div id="cdm-wg-important-links" class="section level3">
-<h3>CDM WG Important Links</h3>
+<p>Are you in the right place? Please answer the questions in the <a href="cdmDecisionTree.html">decision tree</a> prior to beginning a CDM Request to make sure you aren’t missing something.</p>
+<p>As OHDSI is an open-source community working towards developing a Common Data Model that fulfills the needs of its users, it is often the case that changes need to be made to the model as the community and its research continues to mature. However, the number of people, institutions, and initiatives that rely on the OMOP CDM to advance the science of observational health has grown dramatically since its inception in 2015. Therefore, care must be taken when considering any update to the model, big or small. This document outlines the process that should be taken to ratify a change to the CDM.</p>
+<p><strong>If you would like guidance prior to starting this process, consider contacting us on our <a href="https://github.com/OHDSI/CommonDataModel">GitHub</a> or <a href="https://teams.microsoft.com/l/team/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/conversations?groupId=a6f2c516-e568-4974-8f1e-a7bdc2f997c5&amp;tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5">Teams Channel</a>.</strong></p>
+<div id="scope" class="section level3">
+<h3>Scope</h3>
 <ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
+<li>What kind of changes?
+<ul>
+<li>Minor, e.g. new field in existing table</li>
+<li>Major, e.g. breaking changes, additional tables</li>
+</ul></li>
+<li>Who can propose changes?
+<ul>
+<li>Individuals, OHDSI working groups, organizations</li>
+</ul></li>
 </ul>
+</div>
+<div id="step-1-proposal" class="section level2">
+<h2>Step 1: Proposal</h2>
+<p>Once a group or organization has decided on the update they would like made to the model, they must produce a document including the following:</p>
+<ol style="list-style-type: decimal">
+<li>A clear description of the change or addition including the User Guide and ETL Conventions in the same structure as what is present on the website for every table and field currently in the CDM.</li>
+<li>A clearly defined use case noting why the latest version of the OMOP CDM fails to adequately address said use case. This should include describing what you have already tried with the latest version of the OMOP CDM and why it does not meet your needs.</li>
+<li>An example of how the requested change or addition will be used in practice. This can be in the form of sample data, SQL code, a diagram, or text. The proposal can optionally include suggestions as to how other OHDSI tools (Achilles, DataQualityDashboard, Atlas, etc.) should work with your change or addition.</li>
+</ol>
+<p>Once the document is ready to submit, please email <a href="a58abde7.ohdsi.org@amer.teams.ms">CDM Proposals - Workgroup - Common Data Model</a>. This will go directly to a separate channel in the OHDSI Teams environment that is available to all members of the CDM Working Group. After submitting your document with your proposal to email listed above, someone in the OMOP CDM Working Group will respond to you within 2 weeks. The potential outcomes are as follows:</p>
+<ul>
+<li>Proposal merits further review (move on to next steps)</li>
+<li>Proposal is not ready for workgroup review due to one or more factors
+<ul>
+<li>Incomplete</li>
+<li>Insufficiently aligned with the OMOP framework</li>
+<li>Poorly described use case</li>
+</ul></li>
+</ul>
+</div>
+<div id="step-2-initial-presentation" class="section level2">
+<h2>Step 2: Initial Presentation</h2>
+<p>Should your proposals merit further review, the OMOP CDM Working Group will reach out to you to schedule a time for you to present your case at an upcoming meeting. You will be given 15-30 minutes to present your document and you can include anything you feel will help illustrate the need and your potential solution. The group will then discuss, ask questions, and potentially offer other solutions. Depending on the nature of the request, this may go over multiple sessions and you may be asked to make changes to your initial design. At the end of this process your proposal will then be put to consensus in the CDM WG. If the group decides no, they will give feedback describing why they did not feel your proposal should be accepted at this time. If the group decides yes, you move on to step 3.</p>
+<p><strong>Potential Decision Criteria:</strong></p>
+<ul>
+<li>If the change is foundational to OHDSI tools, then the proposal will be put to the larger community open to public comment</li>
+<li>How generalizable is your change? Can it be readily applied to other use cases?</li>
+<li>Are the proposed changes/additions well designed from a modeling perspective? Do they follow the existing OMOP CDM conventions?</li>
+<li>What are the consequences of the change? Are they potentially breaking changes or are they just changes to existing conventions? Will they require the remapping of existing OMOP datasources?</li>
+<li>How complicated is your change? Is it an addition of a field or multiple tables?</li>
+</ul>
+</div>
+<div id="step-3-preliminary-decision" class="section level2">
+<h2>Step 3: Preliminary Decision</h2>
+<p>If the proposal is accepted in the preliminary decision, then a branch will be created in the CommonDataModel repository, based on the latest version of the OMOP CDM in use (currently v5.4). It will then be your responsibility to apply the change programmatically in this branch. This should include:</p>
+<ul>
+<li>Updating the CSV file with the CDM specification, including the User Guide and ETL Conventions documentation</li>
+<li>Generating the DDL files with the change</li>
+<li>Testing the new DDL files in at least one supported environment</li>
+</ul>
+<p>Once the DDLs with the proposed change are created and tested, you should then ETL some data (either real or synthetic) into the new table/fields. Then, an example cohort should be created that utilizes the change or addition and clearly displays how it can be used in a real study. It is expected that during this stage the proposal will change as you work through your idea in a tangible environment.</p>
+<p><strong>Potential Decision Criteria:</strong></p>
+<ul>
+<li>How would you evaluate the quality of this new field/table?</li>
+<li>What characterizations would you perform?</li>
+<li>How would you perform a study using this new feature?</li>
+</ul>
+<p><strong>Potential Outcomes:</strong></p>
+<ul>
+<li>Proposal demonstrates merit for further consideration as:
+<ul>
+<li>a core data model change (move on to next steps)</li>
+<li>an extension (how do we deal with these/do we have ownership of them?)</li>
+</ul></li>
+<li>Proposal does not demonstrate merit for further consideration at this time, and:
+<ul>
+<li>recommend as a LOCAL extension</li>
+<li>recommend a different course</li>
+</ul></li>
+</ul>
+</div>
+<div id="step-4-final-presentation" class="section level2">
+<h2>Step 4: Final Presentation</h2>
+<p>After generating, testing, and implementing your proposal in a real-world environment the CDM working group will invite you again to present your findings in another 15-30 minute presentation. This should include learnings from the exercise and any updates made to the initial proposal.</p>
+</div>
+<div id="step-5-final-decision" class="section level2">
+<h2>Step 5: Final Decision</h2>
+<p>At this point, the working group liaisons will also take the proposal to other groups to elicit feedback. Then the CDM working group will vote and give a final decision on the proposed change. If ratified, the branch in the repository will be merged into the develop branch to be included in a next version of the OMOP Common Data Model.</p>
+<p>The change should initiate requests for features in tools. The end of this process should be a trigger for using the new feature as per the use case. The group should also produce at least one query for the query library on how to work with the new addition/change.</p>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>“Implementing &amp; adopting a customized OMOP Common Data Model” (Melany Philofsky, OHDSI Symposium 2021) <a href="https://www.ohdsi.org/2021-global-symposium-showcase-18/" class="uri">https://www.ohdsi.org/2021-global-symposium-showcase-18/</a></p>
 </div>
 </div>
 

@@ -1,0 +1,13 @@
+---
+title: '<div><img src="ohdsi40x40.png"></img> CDM Request Decision Tree </div>'
+output: 
+  html_document
+---
+
+If you have arrived to this page then you must be thinking **HELP! I have some data that doesn't fit in the CDM!** Never fear as this handy guide will point you in the right direction and all you have to do is answer a few questions. 
+
+**First things first, do you have a documented network use case for this data? This could take the form of an upcoming study or a convention for how to store information.** In this scenario, at least two or more collaborators with data to contribute constitute a network need. 
+
+[Yes, I have a network use case](useCaseY.html)
+
+[No, I do not have a network use case](useCaseN.html)

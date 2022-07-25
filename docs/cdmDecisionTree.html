@@ -11,7 +11,7 @@
 
 
 
-<title>cdmRefreshProcess.knit</title>
+<title>cdmDecisionTree.knit</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -229,69 +226,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -299,16 +233,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -488,59 +412,19 @@ div.tocify {
 
 
 <h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> CDM Refresh Process
+<img src="ohdsi40x40.png"></img> CDM Request Decision Tree
 </div></h1>
 
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group. The formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. Then, once ratified, these proposals are incorporated into the next version of the CDM. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
-<p>Looking to make a change or addition to the OMOP CDM? Please answer the questions in the <a href="cdmDecisionTree.html">decision tree</a> to point you in the right direction.</p>
-<div id="cdm-refresh-cycle" class="section level2">
-<h2>CDM Refresh Cycle</h2>
-<p><img src="images/CDM_refresh_cycle.png" /></p>
-<div id="define-new-version" class="section level3">
-<h3>1. Define New Version</h3>
-<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. Proposals are heard over the course of a year according to the <a href="cdmRequestProcess.html">CDM Request Process</a> and the ratified changes are added to the roadmap until such time that there are enough updates to warrant a new version of the model.</p>
-<p>Looking to open a proposal to change or augment the CDM? Please follow the questions in the <a href="cdmDecisionTree.html">decision tree</a> to help you determine what you will need.</p>
-</div>
-<div id="sign-off-from-work-groups" class="section level3">
-<h3>2. Sign off from Work Groups</h3>
-<p>Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
-</div>
-<div id="release-ddls" class="section level3">
-<h3>3. Release DDLs</h3>
-<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs. For example, the CDM WG hosted a hackathon on August 18-19, 2021. During this time the group created an R package to automatically generate the DDLs and the code to instantiate an empty CDM instance. Changes were made to v5.3 to generate v5.4 and the repository was refactored.</p>
-</div>
-<div id="software-update" class="section level3">
-<h3>4. Software Update</h3>
-<p>There will be period of time once the DDLs are ready to allow the software and methods developers to prepare for the official release of the CDM. This is meant to serve as a buffer so that once the community starts adopting the new model, the tools and methods will be ready to support it.</p>
-</div>
-<div id="community-support" class="section level3">
-<h3>5. Community Support</h3>
-<p>This is the final stage of the CDM refresh cycle. Once the DDLs are ready and the software and tools supports the new version, the CDM WG will work to help the community convert their data to the new model.</p>
-</div>
-</div>
-<div id="cdm-wg-meeting-information" class="section level1">
-<h1>CDM WG Meeting Information</h1>
-<p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
-<p><strong>Every first Tuesday of the month at 10am est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
-<div id="cdm-wg-important-links" class="section level3">
-<h3>CDM WG Important Links</h3>
-<ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
-</ul>
-</div>
-</div>
+<p>If you have arrived to this page then you must be thinking <strong>HELP! I have some data that doesn’t fit in the CDM!</strong> Never fear as this handy guide will point you in the right direction and all you have to do is answer a few questions.</p>
+<p><strong>First things first, do you have a documented network use case for this data? This could take the form of an upcoming study or a convention for how to store information.</strong> In this scenario, at least two or more collaborators with data to contribute constitute a network need.</p>
+<p><a href="useCaseY.html">Yes, I have a network use case</a></p>
+<p><a href="useCaseN.html">No, I do not have a network use case</a></p>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -573,35 +457,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

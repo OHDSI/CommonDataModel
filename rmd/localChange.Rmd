@@ -1,0 +1,6 @@
+---
+title: "Local Change"
+output: html_document
+---
+
+Since you do not have a network use case and this element is specific to your data source, **feel free to create a local change to your instance of the OMOP Common Data Model.** Augmenting the model at your institution for administrative purposes or other in-house needs is totally acceptable with the understanding that any local changes cannot and should not be relied upon in network studies or supported by the open-source tools.  
