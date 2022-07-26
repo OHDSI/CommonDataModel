@@ -1,2 +1,4 @@
 setwd("/Users/clairblacketer/Documents/Github/CommonDataModel/rmd")#
 rmarkdown::render_site()
+setwd("/Users/clairblacketer/Documents/Github/CommonDataModel/rmd")#
+rmarkdown::render_site()
