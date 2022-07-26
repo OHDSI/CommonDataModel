@@ -13,7 +13,7 @@
 
 <title>Oncology Extension</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -87,6 +88,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -312,7 +316,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -328,7 +332,7 @@ div.tocify {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-landmark"></span>
      
     Background
@@ -348,7 +352,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-list-alt"></span>
      
     Conventions
@@ -368,7 +372,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-history"></span>
      
     CDM Versions
@@ -386,7 +390,7 @@ div.tocify {
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -399,19 +403,22 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    Proposals
+    CDM Proposals
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+    </li>
+    <li>
       <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
@@ -421,7 +428,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-question"></span>
      
     How to
@@ -441,7 +448,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-life-ring"></span>
      
     Support
@@ -449,6 +456,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
+    </li>
     <li>
       <a href="faq.html">FAQ</a>
     </li>
@@ -494,421 +504,6 @@ div.tocify {
 <p>The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases,outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. For example cancers including their development over time, their treatment, and final resolution.</p>
 <p><strong>User Guide</strong></p>
 <p>Valid Episode Concepts belong to the ‘Episode’ domain. For cancer episodes please see [article], for non-cancer episodes please see [article]. If your source data does not have all episodes that are relevant to the therapeutic area, write only those you can easily derive from the data. It is understood that that table is not currently expected to be comprehensive.</p>
-<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-CDM Field
-</th>
-<th style="text-align:left;width: 3in; ">
-User Guide
-</th>
-<th style="text-align:left;width: 4in; ">
-ETL Conventions
-</th>
-<th style="text-align:left;width: 1in; ">
-Datatype
-</th>
-<th style="text-align:left;width: 1in; ">
-Required
-</th>
-<th style="text-align:left;width: 1in; ">
-Primary Key
-</th>
-<th style="text-align:left;width: 1in; ">
-Foreign Key
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Table
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Domain
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Class
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_id
-</td>
-<td style="text-align:left;width: 3in; ">
-A unique identifier for each Episode.
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-person_id
-</td>
-<td style="text-align:left;width: 3in; ">
-The PERSON_ID of the PERSON for whom the episode is recorded.
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-PERSON
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-The EPISODE_CONCEPT_ID represents the kind abstraction related to the disease phase, outcome or treatment.
-</td>
-<td style="text-align:left;width: 4in; ">
-Choose a concept in the Episode domain that best represents the ongoing disease phase, outcome, or treatment. Please see [article] for cancers and [article] for non-cancers describing how these are defined. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Episode&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-Episode
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_start_date
-</td>
-<td style="text-align:left;width: 3in; ">
-The date when the Episode beings.
-</td>
-<td style="text-align:left;width: 4in; ">
-Please see [article] for how to define an Episode start date.
-</td>
-<td style="text-align:left;width: 1in; ">
-date
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_start_datetime
-</td>
-<td style="text-align:left;width: 3in; ">
-The date and time when the Episode begins.
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-datetime
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_end_date
-</td>
-<td style="text-align:left;width: 3in; ">
-The date when the instance of the Episode is considered to have ended.
-</td>
-<td style="text-align:left;width: 4in; ">
-Please see [article] for how to define an Episode end date.
-</td>
-<td style="text-align:left;width: 1in; ">
-date
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_end_datetime
-</td>
-<td style="text-align:left;width: 3in; ">
-The date when the instance of the Episode is considered to have ended.
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-datetime
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_parent_id
-</td>
-<td style="text-align:left;width: 3in; ">
-Use this field to find the Episode that subsumes the given Episode record. This is used in the case that an Episode are nested into each other.
-</td>
-<td style="text-align:left;width: 4in; ">
-If there are multiple nested levels to how Episodes are represented, the EPISODE_PARENT_ID can be used to record this relationship.
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_number
-</td>
-<td style="text-align:left;width: 3in; ">
-For sequences of episodes, this is used to indicate the order the episodes occurred. For example, lines of treatment could be indicated here.
-</td>
-<td style="text-align:left;width: 4in; ">
-Please see [article] for the details of how to count episodes.
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_object_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-A Standard Concept representing the disease phase, outcome, or other abstraction of which the episode consists. For example, if the EPISODE_CONCEPT_ID is <a href="https://athena.ohdsi.org/search-terms/terms/32531">treatment regimen</a> then the EPISODE_OBJECT_CONCEPT_ID should contain the chemotherapy regimen concept, like <a href="https://athena.ohdsi.org/search-terms/terms/35804392">Afatinib monotherapy</a>.
-</td>
-<td style="text-align:left;width: 4in; ">
-Episode entries from the ‘Disease Episode’ concept class should have an episode_object_concept_id that comes from the Condition domain. Episode entries from the ‘Treatment Episode’ concept class should have an episode_object_concept_id that scome from the ‘Procedure’ domain or ‘Regimen’ concept class.
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
-</td>
-<td style="text-align:left;width: 1in; ">
-Procedure, Regimen
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_type_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-This field can be used to determine the provenance of the Episode record, as in whether the episode was from an EHR system, insurance claim, registry, or other sources.
-</td>
-<td style="text-align:left;width: 4in; ">
-Choose the EPISODE_TYPE_CONCEPT_ID that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
-</td>
-<td style="text-align:left;width: 1in; ">
-Type Concept
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_source_value
-</td>
-<td style="text-align:left;width: 3in; ">
-The source code for the Episdoe as it appears in the source data. This code is mapped to a Standard Condition Concept in the Standardized Vocabularies and the original code is stored here for reference.
-</td>
-<td style="text-align:left;width: 4in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-varchar(50)
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_source_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-A foreign key to a Episode Concept that refers to the code used in the source.
-</td>
-<td style="text-align:left;width: 4in; ">
-Given that the Episodes are user-defined it is unlikely that there will be a Source Concept available. If that is the case then set this field to zero.
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="episode_event" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">EPISODE_EVENT</h3>
@@ -918,134 +513,6 @@ CONCEPT
 <p>This connecting table is used instead of the FACT_RELATIONSHIP table for linking low-level events to abstracted Episodes.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>Some episodes may not have links to any underlying clinical events. For such episodes, the EPISODE_EVENT table is not populated.</p>
-<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-CDM Field
-</th>
-<th style="text-align:left;width: 3in; ">
-User Guide
-</th>
-<th style="text-align:left;width: 4in; ">
-ETL Conventions
-</th>
-<th style="text-align:left;width: 1in; ">
-Datatype
-</th>
-<th style="text-align:left;width: 1in; ">
-Required
-</th>
-<th style="text-align:left;width: 1in; ">
-Primary Key
-</th>
-<th style="text-align:left;width: 1in; ">
-Foreign Key
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Table
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Domain
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Class
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_id
-</td>
-<td style="text-align:left;width: 3in; ">
-Use this field to link the EPISODE_EVENT record to its EPISODE.
-</td>
-<td style="text-align:left;width: 4in; ">
-Put the EPISODE_ID that subsumes the EPISODE_EVENT record here.
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-EPISODE
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-event_id
-</td>
-<td style="text-align:left;width: 3in; ">
-This field is the primary key of the linked record in the database. For example, if the Episode Event is a Condition Occurrence, then the CONDITION_OCCURRENCE_ID of the linked record goes in this field.
-</td>
-<td style="text-align:left;width: 4in; ">
-Put the primary key of the linked record here.
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-episode_event_field_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-This field is the CONCEPT_ID that identifies which table the primary key of the linked record came from.
-</td>
-<td style="text-align:left;width: 4in; ">
-Put the CONCEPT_ID that identifies which table and field the EVENT_ID came from. <a href="https://athena.ohdsi.org/search-terms/terms?vocabulary=CDM&amp;conceptClass=Field&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
-</td>
-<td style="text-align:left;width: 1in; ">
-Metadata
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="measurement" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">MEASUREMENT</h3>
@@ -1053,104 +520,6 @@ Metadata
 <p>The MEASUREMENT table contains records of Measurement, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person’s sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID).</p>
 <p><strong>User Guide</strong></p>
 <p>Measurements differ from Observations in that they require a standardized test or some other activity to generate a quantitative or qualitative result.</p>
-<table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-CDM Field
-</th>
-<th style="text-align:left;width: 3in; ">
-User Guide
-</th>
-<th style="text-align:left;width: 4in; ">
-ETL Conventions
-</th>
-<th style="text-align:left;width: 1in; ">
-Datatype
-</th>
-<th style="text-align:left;width: 1in; ">
-Required
-</th>
-<th style="text-align:left;width: 1in; ">
-Primary Key
-</th>
-<th style="text-align:left;width: 1in; ">
-Foreign Key
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Table
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Domain
-</th>
-<th style="text-align:left;width: 1in; ">
-FK Class
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-modifier_of_event_id
-</td>
-<td style="text-align:left;width: 3in; ">
-If the Measurement record is related to another record in the database, this field is the primary key of the linked record.
-</td>
-<td style="text-align:left;width: 4in; ">
-Put the primary key of the linked record, if applicable, here.
-</td>
-<td style="text-align:left;width: 1in; ">
-bigint
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;">
-modifier_of_field_concept_id
-</td>
-<td style="text-align:left;width: 3in; ">
-If the Measurement record is related to another record in the database, this field is the CONCEPT_ID that identifies which table the primary key of the linked record came from.
-</td>
-<td style="text-align:left;width: 4in; ">
-Put the CONCEPT_ID that identifies which table and field the MODIFIER_OF_EVENT_ID came from. <a href="https://athena.ohdsi.org/search-terms/terms?vocabulary=CDM&amp;conceptClass=Field&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
-</td>
-<td style="text-align:left;width: 1in; ">
-integer
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-No
-</td>
-<td style="text-align:left;width: 1in; ">
-Yes
-</td>
-<td style="text-align:left;width: 1in; ">
-CONCEPT
-</td>
-<td style="text-align:left;width: 1in; ">
-Metadata
-</td>
-<td style="text-align:left;width: 1in; ">
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 
