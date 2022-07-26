@@ -29,7 +29,7 @@ Once a group or organization has decided on the update they would like made to t
 2. A clearly defined use case noting why the latest version of the OMOP CDM fails to adequately address said use case. This should include describing what you have already tried with the latest version of the OMOP CDM and why it does not meet your needs.
 3. An example of how the requested change or addition will be used in practice. This can be in the form of sample data, SQL code, a diagram, or text. The proposal can optionally include suggestions as to how other OHDSI tools (Achilles, DataQualityDashboard, Atlas, etc.) should work with your change or addition. 
 
-Once the document is ready to submit, please email [CDM Proposals - Workgroup - Common Data Model](a58abde7.ohdsi.org@amer.teams.ms). This will go directly to a separate channel in the OHDSI Teams environment that is available to all members of the CDM Working Group.
+Once the document is ready to submit, please email [CDM Proposals - Workgroup - Common Data Model](mailto:a58abde7.ohdsi.org@amer.teams.ms). This will go directly to a separate channel in the OHDSI Teams environment that is available to all members of the CDM Working Group.
 After submitting your document with your proposal to email listed above, someone in the OMOP CDM Working Group will respond to you within 2 weeks. The potential outcomes are as follows: 
 
 - Proposal merits further review (move on to next steps)
