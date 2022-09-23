@@ -13,7 +13,7 @@
 
 <title>cdmRefreshProcess.knit</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -87,6 +88,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -312,7 +316,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -328,7 +332,7 @@ div.tocify {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-landmark"></span>
      
     Background
@@ -348,7 +352,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-list-alt"></span>
      
     Conventions
@@ -368,7 +372,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-history"></span>
      
     CDM Versions
@@ -386,7 +390,7 @@ div.tocify {
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -399,19 +403,22 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    Proposals
+    CDM Proposals
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+    </li>
+    <li>
       <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
@@ -421,7 +428,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-question"></span>
      
     How to
@@ -441,7 +448,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-life-ring"></span>
      
     Support
@@ -449,6 +456,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
+    </li>
     <li>
       <a href="faq.html">FAQ</a>
     </li>
@@ -485,21 +495,22 @@ div.tocify {
 
 
 <p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group. The formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. Then, once ratified, these proposals are incorporated into the next version of the CDM. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
+<p>Looking to make a change or addition to the OMOP CDM? Please answer the questions in the <a href="cdmDecisionTree.html">decision tree</a> to point you in the right direction.</p>
 <div id="cdm-refresh-cycle" class="section level2">
 <h2>CDM Refresh Cycle</h2>
 <p><img src="images/CDM_refresh_cycle.png" /></p>
-<div id="define-new-version-completed-for-v5.4" class="section level3">
-<h3>1. Define New Version [Completed for v5.4]</h3>
-<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. This has been completed for the current cycle. Issues and proposals on the github were considered during a 4-hour workshop where it was decided the next CDM version will be CDM v5.4, building off of CDM v5.3. The group then participated in a rapid-fire voting activity to identify which changes should be incorporated into CDM v5.4. Any items that were not unanimously agreed upon were then discussed in small groups to hone the proposal and suggestions were presented back to the group. The final roadmap for CDM v5.4 can be found <a href="https://github.com/OHDSI/CommonDataModel/projects/3">here</a>.</p>
-<p>Looking to open a proposal to change or augment the CDM? Please open an <a href="https://github.com/OHDSI/CommonDataModel/issues">issue</a> and use the <strong>proposal template</strong>.</p>
+<div id="define-new-version" class="section level3">
+<h3>1. Define New Version</h3>
+<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. Proposals are heard over the course of a year according to the <a href="cdmRequestProcess.html">CDM Request Process</a> and the ratified changes are added to the roadmap until such time that there are enough updates to warrant a new version of the model.</p>
+<p>Looking to open a proposal to change or augment the CDM? Please follow the questions in the <a href="cdmDecisionTree.html">decision tree</a> to help you determine what you will need.</p>
 </div>
-<div id="sign-off-from-work-groups-completed-for-v5.4" class="section level3">
-<h3>2. Sign off from Work Groups [Completed for v5.4]</h3>
+<div id="sign-off-from-work-groups" class="section level3">
+<h3>2. Sign off from Work Groups</h3>
 <p>Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
 </div>
 <div id="release-ddls" class="section level3">
 <h3>3. Release DDLs</h3>
-<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs. The CDM WG hosted a hackathon on August 18-19, 2021. During this time the group created an R package to automatically generate the DDLs and the code to instantiate an empty CDM instance. Changes were made to v5.3 to generate v5.4 and the repository was refactored.</p>
+<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs. For example, the CDM WG hosted a hackathon on August 18-19, 2021. During this time the group created an R package to automatically generate the DDLs and the code to instantiate an empty CDM instance. Changes were made to v5.3 to generate v5.4 and the repository was refactored.</p>
 </div>
 <div id="software-update" class="section level3">
 <h3>4. Software Update</h3>
@@ -513,7 +524,7 @@ div.tocify {
 <div id="cdm-wg-meeting-information" class="section level1">
 <h1>CDM WG Meeting Information</h1>
 <p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
-<p><strong>Every first Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
+<p><strong>Every first Tuesday of the month at 10am est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
 <p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
 <p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
 <div id="cdm-wg-important-links" class="section level3">

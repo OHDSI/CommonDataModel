@@ -1,0 +1,10 @@
+---
+title: "Local Data"
+output: html_document
+---
+
+Okay, so you don't have a network use case. **Is this data element specific to your data source, or are there others in the community who might also have this data but don't yet need it for a study or data model convention?**
+
+[Yes, this element is specific to my data source](localChange.html)
+
+[No, there are others in the community who also have this data](leaveAsIs.html)

@@ -1,0 +1,13 @@
+---
+title: "OMOP Vocabulary"
+output: html_document
+---
+
+Great, you have a network use case! 
+
+Next question: **Is there an existing OMOP vocabulary to support this new element? If you are unsure, feel free to check [Athena](https://athena.ohdsi.org/search-terms/terms?query).**
+
+[Yes, I have all the required vocabulary I need](vocabY.html)
+
+[No, I there is not an existing OMOP vocabulary to support my request](vocabN.html)
+
