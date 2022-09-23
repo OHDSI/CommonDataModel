@@ -1,0 +1,1 @@
+-- azure synapse does not allow Foreign Key Constraints for OMOP Common Data Model 5.4
