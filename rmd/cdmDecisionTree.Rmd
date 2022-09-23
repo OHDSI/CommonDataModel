@@ -1,0 +1,13 @@
+---
+title: '<div><img src="ohdsi40x40.png"></img> CDM Request Decision Tree </div>'
+output: 
+  html_document
+---
+
+If you have arrived to this page then you must be thinking **HELP! I have some data that doesn't fit in the CDM!** Never fear as this handy guide will point you in the right direction and all you have to do is answer a few questions. 
+
+**First things first, do you think you will need to change the OMOP Common Data Model itself or are you solely looking for vocabulary support?** 
+
+[I think I need to change the OMOP CDM](networkUseCase.html)
+
+[I need vocabulary support](vocabN.html)

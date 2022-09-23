@@ -1,0 +1,10 @@
+---
+title: "Vocabulary Request"
+output: html_document
+---
+
+Okay so you have something you would like to add to the CDM and there is an existing OMOP vocabulary we can bring in to support it. **In this case, please open an issue on the vocabulary github with the details of what you need added** as data elements in the CDM must have a vocabulary in place before they can be implemented. The team will follow up with you should they need additional information.
+
+[Vocabulary GitHub Issue Tracker](https://github.com/OHDSI/Vocabulary-v5.0/issues)
+
+Once that request is made, please follow the [CDM Request Process](cdmRequestProcess.html) to begin the steps soliciting a change or addition to the model itself. Need more guidance? Consider contacting the CDM Working Group on our [GitHub](https://github.com/OHDSI/CommonDataModel) or [Teams Channel](https://teams.microsoft.com/l/team/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/conversations?groupId=a6f2c516-e568-4974-8f1e-a7bdc2f997c5&tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5).

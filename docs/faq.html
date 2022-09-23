@@ -13,7 +13,7 @@
 
 <title>OMOP CDM Frequently Asked Questions</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -60,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -84,6 +88,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -222,6 +229,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -231,12 +301,22 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -252,7 +332,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-landmark"></span>
      
     Background
@@ -272,7 +352,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-list-alt"></span>
      
     Conventions
@@ -292,7 +372,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-history"></span>
      
     CDM Versions
@@ -310,7 +390,7 @@ $(document).ready(function () {
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -323,19 +403,22 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    Proposals
+    CDM Proposals
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+    </li>
+    <li>
       <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
@@ -345,7 +428,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-question"></span>
      
     How to
@@ -365,7 +448,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-life-ring"></span>
      
     Support
@@ -373,6 +456,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
+    </li>
     <li>
       <a href="faq.html">FAQ</a>
     </li>
@@ -504,9 +590,36 @@ $(document).ready(function () {
 <p>OHDSI runs as a distributed data network. All analyses are publicly available and can be downloaded to run at each site. The packages can be run locally and, at the data partner’s discretion, aggregate results can be shared with the study coordinator.</p>
 <p>Data partners can also make use of one of OHDSI’s open-source tools called <a href="https://github.com/OHDSI/arachne">ARACHNE</a>, a tool to facilitate distributed network analytics against the OMOP CDM.</p>
 </div>
+<div id="recommended-system-requirements" class="section level2">
+<h2>Recommended System Requirements</h2>
+<p>It is difficult to recommend what technical capabilities a site needs to set up an ETL because it is heavily dependent on the amount of data they have and how they plan to use it. Here are some examples of options that have worked well for small to medium organizations and large organizations:</p>
+<p><strong>Small-to-Medium Organization</strong></p>
+<ul>
+<li>CDM size is 100MB to several GBs</li>
+<li>Vocab ~20GB</li>
+<li>Results &lt; 500 MB</li>
+<li>Recommend
+<ul>
+<li>Server class machine disk &gt;= 250GB (SSD preferred), &gt;= 4 cores, &gt;= 32GB RAM</li>
+</ul></li>
+</ul>
+<p><strong>Large Organization</strong></p>
+<ul>
+<li>CDM size is 12GB to several TBs</li>
+<li>Vocab ~20GB</li>
+<li>Results &lt; 500 MB</li>
+<li>Recommend
+<ul>
+<li>Cloud-based infrastructure like multiple AWS Redshift clusters, for example:</li>
+<li><img src="images/AWS_clusters.png" /></li>
+</ul></li>
+</ul>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -539,6 +652,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

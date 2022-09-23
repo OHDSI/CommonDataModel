@@ -1,10 +1,11 @@
 ---
 title: "OMOP CDM Frequently Asked Questions"
 output: 
-    html_document
-        
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
 ---
-
 
 **1. I understand that the common data model (CDM) is a way of organizing disparate data sources into the same relational database design, but how can it be effective since many databases use different coding schemes?**
 
@@ -171,3 +172,24 @@ Queries are written in R and SQL. The [SqlRender](https://github.com/OHDSI/sqlre
 OHDSI runs as a distributed data network.  All analyses are publicly available and can be downloaded to run at each site. The packages can be run locally and, at the data partner’s discretion, aggregate results can be shared with the study coordinator.
 
 Data partners can also make use of one of OHDSI's open-source tools called [ARACHNE](https://github.com/OHDSI/arachne), a tool to facilitate distributed network analytics against the OMOP CDM.
+
+## Recommended System Requirements
+
+It is difficult to recommend what technical capabilities a site needs to set up an ETL because it is heavily dependent on the amount of data they have and how they plan to use it. Here are some examples of options that have worked well for small to medium organizations and large organizations:
+
+**Small-to-Medium Organization**
+
+- CDM size is 100MB to several GBs
+- Vocab ~20GB
+- Results < 500 MB
+- Recommend 
+  - Server class machine disk >= 250GB (SSD preferred), >= 4 cores, >= 32GB RAM
+  
+**Large Organization**
+
+- CDM size is 12GB to several TBs
+- Vocab ~20GB
+- Results < 500 MB
+- Recommend 
+  - Cloud-based infrastructure like multiple AWS Redshift clusters, for example:
+  - ![](images/AWS_clusters.png)

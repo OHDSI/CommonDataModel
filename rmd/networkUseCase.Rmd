@@ -1,0 +1,10 @@
+---
+title: "Network Use Case"
+output: html_document
+---
+
+Alright, so you think you might need to change the OMOP Common Data Model. **Do you have a documented network use case for this data need? This could take the form of an upcoming study or a convention for how to store information.** In this scenario, at least two or more collaborators with data to contribute constitute a network need. 
+
+[Yes, I have a network use case](useCaseY.html)
+
+[No, I do not have a network use case](useCaseN.html)
