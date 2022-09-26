@@ -20,7 +20,8 @@
 #' dialect. By default the @cdmDatabaseSchema parameter is kept in the SQL file and needs to be replaced before
 #' execution.
 #'
-#' @param targetDialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server"
+#' @param targetDialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server",
+#'                       "spark", "snowflake", "synapse"
 #' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
 #' @param outputfolder The directory or folder where the SQL file should be saved.
 #' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
@@ -30,7 +31,7 @@
 writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake"))
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -54,7 +55,7 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
 writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake"))
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -78,7 +79,7 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake"))
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -102,7 +103,7 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 writeIndex <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake"))
+  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
