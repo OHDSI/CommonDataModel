@@ -44,10 +44,10 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_OCCURRENCE (
                                   care_site_id integer NULL,
                                   visit_source_value varchar(50) NULL,
                                   visit_source_concept_id integer NULL,
-                                  admitting_source_concept_id integer NULL,
-                                  admitting_source_value varchar(50) NULL,
-                                  discharge_to_concept_id integer NULL,
-                                  discharge_to_source_value varchar(50) NULL,
+                                  admitted_from_concept_id integer NULL,
+                                  admitted_from_source_value varchar(50) NULL,
+                                  discharged_to_concept_id integer NULL,
+                                  discharged_to_source_value varchar(50) NULL,
                                   preceding_visit_occurrence_id integer NULL );
 
 CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
@@ -63,10 +63,10 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
                               care_site_id integer NULL,
                               visit_detail_source_value varchar(50) NULL,
                               visit_detail_source_concept_id Integer NULL,
-                              admitting_source_value Varchar(50) NULL,
-                              admitting_source_concept_id Integer NULL,
-                              discharge_to_source_value Varchar(50) NULL,
-                              discharge_to_concept_id integer NULL,
+                              admitted_from_concept_id Varchar(50) NULL,
+                              admitted_from_source_value Integer NULL,
+                              discharged_to_source_value Varchar(50) NULL,
+                              discharged_to_concept_id integer NULL,
                               preceding_visit_detail_id integer NULL,
                               visit_detail_parent_id integer NULL,
                               visit_occurrence_id integer NOT NULL );
