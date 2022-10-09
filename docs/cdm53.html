@@ -4576,7 +4576,7 @@ operator_concept_id
 The meaning of Concept <a href="https://athena.ohdsi.org/search-terms/terms/4172703">4172703</a> for ‘=’ is identical to omission of a OPERATOR_CONCEPT_ID value. Since the use of this field is rare, it’s important when devising analyses to not to forget testing for the content of this field for values different from =.
 </td>
 <td style="text-align:left;">
-Operators are =, &gt; and these concepts belong to the ‘Meas Value Operator’ domain. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Operators are =, &gt; and these concepts belong to the ‘Meas Value Operator’ domain. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. Leave it NULL if there's an exact numeric value given (instead of putting '=') or there's no numerical value at all.
 </td>
 <td style="text-align:left;">
 integer
@@ -4631,7 +4631,7 @@ value_as_concept_id
 If the raw data gives a categorial result for measurements those values are captured and mapped to standard concepts in the ‘Meas Value’ domain.
 </td>
 <td style="text-align:left;">
-If the raw data provides categorial results as well as continuous results for measurements, it is a valid ETL choice to preserve both values. The continuous value should go in the VALUE_AS_NUMBER field and the categorical value should be mapped to a standard concept in the ‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is also the destination for the ‘Maps to value’ relationship.
+If the raw data provides categorial results as well as continuous results for measurements, it is a valid ETL choice to preserve both values. The continuous value should go in the VALUE_AS_NUMBER field and the categorical value should be mapped to a standard concept in the ‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is also the destination for the ‘Maps to value’ relationship. If there's no categorial result in a source_data, set value_as_concept_id to NULL, if there is a categorial result in a source_data but without mapping, set value_as_concept_id to 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -4659,7 +4659,7 @@ unit_concept_id
 There is currently no recommended unit for individual measurements, i.e. it is not mandatory to represent Hemoglobin a1C measurements as a percentage. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;">
-There is no standardization requirement for units associated with MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
+There is no standardization requirement for units associated with MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit. If the source unit is NULL (applicable to cases when there's no numerical value or when it doesn't require a unit), keep unit_concept_id NULL as well. If there's no mapping of a source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -5195,7 +5195,7 @@ value_as_concept_id
 It is possible that some records destined for the Observation table have two clinical ideas represented in one source code. This is common with ICD10 codes that describe a family history of some Condition, for example. In OMOP the Vocabulary breaks these two clinical ideas into two codes; one becomes the OBSERVATION_CONCEPT_ID and the other becomes the VALUE_AS_CONCEPT_ID. It is important when using the Observation table to keep this possibility in mind and to examine the VALUE_AS_CONCEPT_ID field for relevant information.
 </td>
 <td style="text-align:left;">
-Note that the value of VALUE_AS_CONCEPT_ID may be provided through mapping from a source Concept which contains the content of the Observation. In those situations, the CONCEPT_RELATIONSHIP table in addition to the ‘Maps to’ record contains a second record with the relationship_id set to ‘Maps to value’. For example, ICD10 <a href="https://athena.ohdsi.org/search-terms/terms/45581076">Z82.4</a> ‘Family history of ischaemic heart disease and other diseases of the circulatory system’ has a ‘Maps to’ relationship to <a href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a> ‘Family history of clinical finding’ as well as a ‘Maps to value’ record to <a href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a> ‘Disorder of cardiovascular system’.
+Note that the value of VALUE_AS_CONCEPT_ID may be provided through mapping from a source Concept which contains the content of the Observation. In those situations, the CONCEPT_RELATIONSHIP table in addition to the ‘Maps to’ record contains a second record with the relationship_id set to ‘Maps to value’. For example, ICD10 <a href="https://athena.ohdsi.org/search-terms/terms/45581076">Z82.4</a> ‘Family history of ischaemic heart disease and other diseases of the circulatory system’ has a ‘Maps to’ relationship to <a href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a> ‘Family history of clinical finding’ as well as a ‘Maps to value’ record to <a href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a> ‘Disorder of cardiovascular system’. If there's no categorial result in a source_data, set value_as_concept_id to NULL, if there is a categorial result in a source_data but without mapping, set value_as_concept_id to 0.
 </td>
 <td style="text-align:left;">
 Integer
@@ -5251,7 +5251,7 @@ unit_concept_id
 There is currently no recommended unit for individual observation concepts. UNIT_SOURCE_VALUES should be mapped to a Standard Concept in the Unit domain that best represents the unit as given in the source data.
 </td>
 <td style="text-align:left;">
-There is no standardization requirement for units associated with OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit.
+There is no standardization requirement for units associated with OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to choose the most plausible unit. If the source unit is NULL (applicable to cases when there's no numerical value or when it doesn't require a unit), keep unit_concept_id NULL as well. If there's no mapping of a source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
