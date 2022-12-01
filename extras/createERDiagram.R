@@ -1,6 +1,8 @@
 
 cdmVersion <- '5.4'
 cdmPart <- c('CDM','VOCAB', 'RESULTS')
+cdmTables <- NULL #c('PERSON', 'OBSERVATION_PERIOD', 'VISIT_OCCURRENCE', 'CONDITION_OCCURRENCE', 'CONCEPT')
+
 cdmTableCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Table_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
 cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
 
@@ -13,6 +15,9 @@ for (i in 1:nrow(tableSpecs)) {
   table <- tableSpecs[i,]
   tableName <- table$cdmTableName
   if (!(table$schema %in% cdmPart)) {
+    next
+  }
+  if (!is.null(cdmTables) && !(table$cdmTableName %in% cdmTables)) {
     next
   }
   mermaidDdlLines <- c(mermaidDdlLines,
@@ -35,6 +40,9 @@ for (i in 1:nrow(tableSpecs)) {
     if (field$isForeignKey == 'Yes') {
       fkTable <- subset(tableSpecs, cdmTableName == field$fkTableName)
       if (!(fkTable$schema %in% cdmPart)) {
+        next
+      }
+      if (!is.null(cdmTables) && !(fkTable$cdmTableName %in% cdmTables)) {
         next
       }
 
