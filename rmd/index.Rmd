@@ -3,9 +3,42 @@ title: '<div><img src="ohdsi40x40.png"></img> OMOP Common Data Model</div>'
 output: html_document
 ---
 
+```{r setup, include=FALSE}
+library(tidyverse)
+library(magrittr)
+library(toastui)
+```
+
 The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardize the structure and content of observational data and to enable efficient analyses that can produce reliable evidence. A central component of the OMOP CDM is the OHDSI standardized vocabularies. The OHDSI vocabularies allow organization and standardization of medical terms to be used across the various clinical domains of the OMOP common data model and enable standardized analytics that leverage the knowledge base when constructing exposure and outcome phenotypes and other features within characterization, population-level effect estimation, and patient-level prediction studies. 
 
 This website is meant to serve as a resource describing the specification of the available versions of the Common Data Model. This includes the structure of the model itself and the agreed upon conventions for each table and field as decided by the OHDSI Community. The vocabulary tables are part of the model and, as such, are detailed here. To download the vocabulary itself, please visit [https://athena.ohdsi.org](https://athena.ohdsi.org). For more information about the OHDSI suite of tools designed to implement best practices in characterization, population-level effect estimation and patient-level prediction, please visit [https://ohdsi.github.io/Hades/](https://ohdsi.github.io/Hades/).
+
+## The CDM Working Group
+
+The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
+
+### Calendar 
+
+This is the calendar of events for the CDM Working Group, including upcoming topics and links to meetings. If you would like to present to the group regarding a new use case for the OMOP CDM or if you would like the group's assistance with a problem you are having, please fill out our sign-up form.
+
+[![Sign Up](images/sign-up.png){width=15%}](https://www.signupgenius.com/go/10C0948AEAD28A4F9CF8-workgroup)
+
+**Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+calendarData <- read.csv("images/cdm_wg_calendar.csv")
+
+calendar(calendarData, navigation = TRUE, defaultDate = Sys.Date()) %>%
+  cal_month_options(
+    startDayOfWeek  = 1, 
+    narrowWeekend = TRUE
+  ) %>% 
+  cal_props(cal_demo_props())
+```
+
+
+
 
 ## Current CDM Version
 
@@ -37,21 +70,6 @@ The table below details which OHDSI tools support CDM v5.4. There are two levels
 \* The **Feature Extraction** package supports all relevant new features in CDM v5.4. For example, it was decided that, from a methodological perspective, the EPISODE and EPISODE_EVENT tables should not be included to define cohort covariates because the events that make up episodes are already pulled in as potential covariates.
 
 <br>
-
-## The CDM Working Group
-
-The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page. 
-
-### Meeting Information
-
-The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings. 
-
-**Every first Tuesday of the month at 10am est** [Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d)   
-
-**Every third Tuesday of the month at 1pm est** [Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d)
-
-
-**Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
 
 ### CDM WG Important Links
 

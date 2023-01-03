@@ -13,7 +13,7 @@ navbar:
     - icon: fa-github
       href: https://github.com/OHDSI/CommonDataModel
   left:
-    - icon: fa-home
+    - icon: fa-house
       href: index.html
     - text: "Background"
       icon: fa-landmark
