@@ -13,7 +13,7 @@
 
 <title>Network Use Case</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +255,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -416,7 +420,12 @@ $(document).ready(function () {
 </div>
 
 
-<p>Alright, so you think you might need to change the OMOP Common Data Model. <strong>Do you have a documented network use case for this data need? This could take the form of an upcoming study or a convention for how to store information.</strong> In this scenario, at least two or more collaborators with data to contribute constitute a network need.</p>
+<p>Alright, so you think you might need to change the OMOP Common Data
+Model. <strong>Do you have a documented network use case for this data
+need? This could take the form of an upcoming study or a convention for
+how to store information.</strong> In this scenario, at least two or
+more collaborators with data to contribute constitute a network
+need.</p>
 <p><a href="useCaseY.html">Yes, I have a network use case</a></p>
 <p><a href="useCaseN.html">No, I do not have a network use case</a></p>
 

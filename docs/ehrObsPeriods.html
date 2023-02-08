@@ -13,7 +13,7 @@
 
 <title>Observation Period Considerations for EHR Data</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +255,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -411,72 +415,151 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><strong>Observation Period Considerations for EHR Data</strong></h1>
+<h1 class="title toc-ignore"><strong>Observation Period Considerations
+for EHR Data</strong></h1>
 
 </div>
 
 
 <p><em>By Melanie Philofsky and the EHR Working Group</em></p>
-<p>The EHR WG convened on July 24, August 7, and August 21, 2020 to discuss the creation of an Observation Period from EHR data. The current and future conventions are not prescriptive enough and leave room for various ways of interpretation. The goals of our discussions were to increase the standardization for the implementation of the OBSERVATION_PERIOD table by providing some general guidelines for determining the start, end, and gaps in Observation Periods. The suggestions we came up with are only “suggestions” at this point. More research should be done to understand how these choices might impact evidence generated using these data. All of these decisions should be tempered by local understanding of patients in the EHR you are ETLing.</p>
+<p>The EHR WG convened on July 24, August 7, and August 21, 2020 to
+discuss the creation of an Observation Period from EHR data. The current
+and future conventions are not prescriptive enough and leave room for
+various ways of interpretation. The goals of our discussions were to
+increase the standardization for the implementation of the
+OBSERVATION_PERIOD table by providing some general guidelines for
+determining the start, end, and gaps in Observation Periods. The
+suggestions we came up with are only “suggestions” at this point. More
+research should be done to understand how these choices might impact
+evidence generated using these data. All of these decisions should be
+tempered by local understanding of patients in the EHR you are
+ETLing.</p>
 <ul>
-<li><em>Note - These suggestions are not intended for HMO EHR sites since HMO EHR Observation Periods more closely resemble claims data Observation Periods.</em></li>
+<li><em>Note - These suggestions are not intended for HMO EHR sites
+since HMO EHR Observation Periods more closely resemble claims data
+Observation Periods.</em></li>
 </ul>
 <div id="observation-period-start-date" class="section level2">
 <h2>Observation Period Start Date</h2>
 <ul>
-<li>Generally an Observation Period does NOT begin before birth, however, it might begin before birth IF the pregnant mother receives care recorded in your EHR. The child’s record is then split from the mother’s record at birth but may retain care given during pregnancy. For these children in your dataset, the field <strong>observation_period_start_date should be the birth date minus 9 months</strong></li>
-<li>An <strong>Observation Period does NOT begin before the implementation of the EHR at your site</strong>. Any records prior to implementation are probably “history of” record types and not a complete EHR record of clinical events.</li>
-<li>Special consideration should be given to migration from previous EHR, implementation at different sites within your healthcare system, implementation of different modules, etc.</li>
+<li>Generally an Observation Period does NOT begin before birth,
+however, it might begin before birth IF the pregnant mother receives
+care recorded in your EHR. The child’s record is then split from the
+mother’s record at birth but may retain care given during pregnancy. For
+these children in your dataset, the field
+<strong>observation_period_start_date should be the birth date minus 9
+months</strong></li>
+<li>An <strong>Observation Period does NOT begin before the
+implementation of the EHR at your site</strong>. Any records prior to
+implementation are probably “history of” record types and not a complete
+EHR record of clinical events.</li>
+<li>Special consideration should be given to migration from previous
+EHR, implementation at different sites within your healthcare system,
+implementation of different modules, etc.</li>
 </ul>
 </div>
 <div id="observation-period-end-date" class="section level2">
 <h2>Observation Period end date</h2>
-<p>Set the <strong>observation_period_end_date</strong> as the first date from the following:</p>
+<p>Set the <strong>observation_period_end_date</strong> as the first
+date from the following:</p>
 <ul>
 <li><strong>Date of death + 60 days</strong>
 <ul>
-<li>This is a CDM convention to allow events after death (autopsy, final notes, etc).</li>
+<li>This is a CDM convention to allow events after death (autopsy, final
+notes, etc).</li>
 </ul></li>
 <li><strong>Last clinical event + 60 days</strong>
 <ul>
-<li>The assumption is that person will return to the same health provider if an adverse reaction/complication/unresolved condition occurs.</li>
+<li>The assumption is that person will return to the same health
+provider if an adverse reaction/complication/unresolved condition
+occurs.</li>
 </ul></li>
 <li><strong>Date of the data pull from the system</strong></li>
 </ul>
 </div>
-<div id="observation-period-gaps-and-persistence-windows" class="section level2">
+<div id="observation-period-gaps-and-persistence-windows"
+class="section level2">
 <h2>Observation Period Gaps and Persistence Windows</h2>
 <div id="observation-period-gaps" class="section level3">
 <h3>Observation Period Gaps</h3>
-<p>Periods of time when a Person does not receive care from your institution and therefore is not observed and should not have an Observation Period. These gaps are usually hard to determine because most Persons don’t announce their departure from an EHR/healthcare institution. Therefore, a heuristic will need to be instituted to determine Observation Period Gaps where the information is not explicit.</p>
+<p>Periods of time when a Person does not receive care from your
+institution and therefore is not observed and should not have an
+Observation Period. These gaps are usually hard to determine because
+most Persons don’t announce their departure from an EHR/healthcare
+institution. Therefore, a heuristic will need to be instituted to
+determine Observation Period Gaps where the information is not
+explicit.</p>
 </div>
 <div id="observation-period-persistence-window" class="section level3">
 <h3>Observation Period Persistence Window</h3>
-<p>Defined as the maximum time allowed between two clinical events under the assumption a Person would have a clinical event recorded, if they are not healthy and seek care.</p>
-<p><strong>Example:</strong> Person 1 has a series of clinical events recorded from <strong>Jan. 1, 2010 to June 15, 2012</strong>, where the time between clinical events does not exceed 60 days. The next clinical event for Person 1 is on <strong>Oct. 1, 2018</strong>. Starting Oct. 1, 2018 Person 1 has clinical events occurring at least every 90 days up to the present date.</p>
-<p>There is a 6+ year gap between groups of clinical events recorded in the CDM. After discussion in the EHR WG, we believe this 6+ year gap is indicative of a Person not being seen within our EHR/healthcare institution. Per convention #4 for Observation Period table, “As a general assumption, during an Observation Period any clinical event that happens to the patient is expected to be recorded. Conversely, the absence of data indicates that no clinical events occurred to the patient.” Person 1 has two Observation Periods.</p>
+<p>Defined as the maximum time allowed between two clinical events under
+the assumption a Person would have a clinical event recorded, if they
+are not healthy and seek care.</p>
+<p><strong>Example:</strong> Person 1 has a series of clinical events
+recorded from <strong>Jan. 1, 2010 to June 15, 2012</strong>, where the
+time between clinical events does not exceed 60 days. The next clinical
+event for Person 1 is on <strong>Oct. 1, 2018</strong>. Starting Oct. 1,
+2018 Person 1 has clinical events occurring at least every 90 days up to
+the present date.</p>
+<p>There is a 6+ year gap between groups of clinical events recorded in
+the CDM. After discussion in the EHR WG, we believe this 6+ year gap is
+indicative of a Person not being seen within our EHR/healthcare
+institution. Per convention #4 for Observation Period table, “As a
+general assumption, during an Observation Period any clinical event that
+happens to the patient is expected to be recorded. Conversely, the
+absence of data indicates that no clinical events occurred to the
+patient.” Person 1 has two Observation Periods.</p>
 <p><strong>1st Observation Period</strong></p>
 <ul>
 <li>observation_period_start_date = <strong>01/01/2010</strong></li>
-<li>observation_period_end_date = <strong>08/15/2012</strong> (Per the end_date guideline above)</li>
+<li>observation_period_end_date = <strong>08/15/2012</strong> (Per the
+end_date guideline above)</li>
 </ul>
 <p><strong>2nd Observation Period</strong></p>
 <ul>
 <li>observation_period_start_date = <strong>10/01/2018</strong></li>
-<li>observation_period_end_date = <strong>09/01/2020</strong> (Date of the data pull, per the end_date guideline above)</li>
+<li>observation_period_end_date = <strong>09/01/2020</strong> (Date of
+the data pull, per the end_date guideline above)</li>
 </ul>
-<p>Now, there are cases where a Person only receives care within you EHR system when absolutely necessary. And if your EHR doesn’t offer primary care services, the majority of Persons who lack healthcare insurance or any other reason why Persons are only seen in urgent or emergent situations, the above heuristic might be too restrictive. This is a guideline. A question the EHR WG debated was how long between clinical events should we assume any clinical event that happens to the Person is expected to be recorded? When should we end one Observation Period and begin another? What should be the time between events for an Observation Period Persistence Window? Wellness checkups/Visits happen approximately every 12-18 months depending on a multitude of factors.</p>
-<p><strong>Our recommendation: If Observation Period Gaps are 548 days or more, then the previous Observation Period should end and another Observation Period should begin on the date of the next clinical event as per the Person 1 example above.</strong></p>
+<p>Now, there are cases where a Person only receives care within you EHR
+system when absolutely necessary. And if your EHR doesn’t offer primary
+care services, the majority of Persons who lack healthcare insurance or
+any other reason why Persons are only seen in urgent or emergent
+situations, the above heuristic might be too restrictive. This is a
+guideline. A question the EHR WG debated was how long between clinical
+events should we assume any clinical event that happens to the Person is
+expected to be recorded? When should we end one Observation Period and
+begin another? What should be the time between events for an Observation
+Period Persistence Window? Wellness checkups/Visits happen approximately
+every 12-18 months depending on a multitude of factors.</p>
+<p><strong>Our recommendation: If Observation Period Gaps are 548 days
+or more, then the previous Observation Period should end and another
+Observation Period should begin on the date of the next clinical event
+as per the Person 1 example above.</strong></p>
 </div>
 </div>
 <div id="additional-etl-considerations" class="section level2">
 <h2>Additional ETL considerations</h2>
 <ul>
-<li>Implementation of your EHR, migration from previous EHR, implementation at different sites within your healthcare system, implementation of different modules</li>
-<li>Coverage of your healthcare system within your area, population served by the healthcare system</li>
-<li>All decisions should be tempered by local understanding of patients in the EHR you are ETLing.</li>
+<li>Implementation of your EHR, migration from previous EHR,
+implementation at different sites within your healthcare system,
+implementation of different modules</li>
+<li>Coverage of your healthcare system within your area, population
+served by the healthcare system</li>
+<li>All decisions should be tempered by local understanding of patients
+in the EHR you are ETLing.</li>
 </ul>
-<p>The Observation Period can be created by only one clinical event. However, the clinical event must NOT be from the Death table. If a Death date does not have any other clinical records 18 months before AND 18 months after the death date, then an Observation Period will not be created. We believe this logic is needed because if a Person only has a death death_date without other clinical event records, a Person is most likely not being “observed” when the death occurred. If a Person was being observed at their time of death, then other records (visit, condition, measurement, etc.) would be created. This rule is most relevant for those with death registry data since a Person who dies in the hospital has many clinical event records.</p>
+<p>The Observation Period can be created by only one clinical event.
+However, the clinical event must NOT be from the Death table. If a Death
+date does not have any other clinical records 18 months before AND 18
+months after the death date, then an Observation Period will not be
+created. We believe this logic is needed because if a Person only has a
+death death_date without other clinical event records, a Person is most
+likely not being “observed” when the death occurred. If a Person was
+being observed at their time of death, then other records (visit,
+condition, measurement, etc.) would be created. This rule is most
+relevant for those with death registry data since a Person who dies in
+the hospital has many clinical event records.</p>
 </div>
 
 

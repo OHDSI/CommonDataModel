@@ -11,9 +11,9 @@
 
 
 
-<title>cdmRefreshProcess.knit</title>
+<title> CDM Refresh Process</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -148,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -327,7 +331,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -487,52 +491,101 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> CDM Refresh Process
-</div></h1>
+<h1 class="title toc-ignore"><img src="ohdsi40x40.png"></img> CDM
+Refresh Process</h1>
 
 </div>
 
 
-<p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group. The formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. Then, once ratified, these proposals are incorporated into the next version of the CDM. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.</p>
-<p>Looking to make a change or addition to the OMOP CDM? Please answer the questions in the <a href="cdmDecisionTree.html">decision tree</a> to point you in the right direction.</p>
+<p>The OMOP Common Data Model is managed by the OHDSI CDM Working Group.
+The formal remit of the CDM Working Group (WG) is to hear proposals for
+change, ratifying only those with valid use cases and data to support
+them. Then, once ratified, these proposals are incorporated into the
+next version of the CDM. In the past, this was done by the WG alone. The
+group would invite others from around the community to present use cases
+for change and suggestions for improvement. The WG would then vote on
+the proposals and a new CDM version would be released after a certain
+period of time or if enough proposals were voted in. This approach
+worked when the community was smaller but as it is growing rapidly the
+CDM WG needed to adapt the refresh cycle such that everyone has an
+opportunity to weigh in on the proposed changes.</p>
+<p>Looking to make a change or addition to the OMOP CDM? Please answer
+the questions in the <a href="cdmDecisionTree.html">decision tree</a> to
+point you in the right direction.</p>
 <div id="cdm-refresh-cycle" class="section level2">
 <h2>CDM Refresh Cycle</h2>
 <p><img src="images/CDM_refresh_cycle.png" /></p>
 <div id="define-new-version" class="section level3">
 <h3>1. Define New Version</h3>
-<p>The image above describes the new CDM refresh cycle. It begins with <strong>defining a new version</strong>. Proposals are heard over the course of a year according to the <a href="cdmRequestProcess.html">CDM Request Process</a> and the ratified changes are added to the roadmap until such time that there are enough updates to warrant a new version of the model.</p>
-<p>Looking to open a proposal to change or augment the CDM? Please follow the questions in the <a href="cdmDecisionTree.html">decision tree</a> to help you determine what you will need.</p>
+<p>The image above describes the new CDM refresh cycle. It begins with
+<strong>defining a new version</strong>. Proposals are heard over the
+course of a year according to the <a href="cdmRequestProcess.html">CDM
+Request Process</a> and the ratified changes are added to the roadmap
+until such time that there are enough updates to warrant a new version
+of the model.</p>
+<p>Looking to open a proposal to change or augment the CDM? Please
+follow the questions in the <a href="cdmDecisionTree.html">decision
+tree</a> to help you determine what you will need.</p>
 </div>
 <div id="sign-off-from-work-groups" class="section level3">
 <h3>2. Sign off from Work Groups</h3>
-<p>Each member of the CDM WG is a liaison for another workgroup in the community. They are responsible for presenting the proposed changes to the CDM and collecting the feedback. This has resulted in very helpful suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES groups. This outreach has proven to be very effective and should result in a very stable version.</p>
+<p>Each member of the CDM WG is a liaison for another workgroup in the
+community. They are responsible for presenting the proposed changes to
+the CDM and collecting the feedback. This has resulted in very helpful
+suggestions from the EHR, Data Quality, Device, HADES, and ACHILLES
+groups. This outreach has proven to be very effective and should result
+in a very stable version.</p>
 </div>
 <div id="release-ddls" class="section level3">
 <h3>3. Release DDLs</h3>
-<p>After all changes and suggestions are agreed upon by the community and work groups the next step is to generate the DDLs. For example, the CDM WG hosted a hackathon on August 18-19, 2021. During this time the group created an R package to automatically generate the DDLs and the code to instantiate an empty CDM instance. Changes were made to v5.3 to generate v5.4 and the repository was refactored.</p>
+<p>After all changes and suggestions are agreed upon by the community
+and work groups the next step is to generate the DDLs. For example, the
+CDM WG hosted a hackathon on August 18-19, 2021. During this time the
+group created an R package to automatically generate the DDLs and the
+code to instantiate an empty CDM instance. Changes were made to v5.3 to
+generate v5.4 and the repository was refactored.</p>
 </div>
 <div id="software-update" class="section level3">
 <h3>4. Software Update</h3>
-<p>There will be period of time once the DDLs are ready to allow the software and methods developers to prepare for the official release of the CDM. This is meant to serve as a buffer so that once the community starts adopting the new model, the tools and methods will be ready to support it.</p>
+<p>There will be period of time once the DDLs are ready to allow the
+software and methods developers to prepare for the official release of
+the CDM. This is meant to serve as a buffer so that once the community
+starts adopting the new model, the tools and methods will be ready to
+support it.</p>
 </div>
 <div id="community-support" class="section level3">
 <h3>5. Community Support</h3>
-<p>This is the final stage of the CDM refresh cycle. Once the DDLs are ready and the software and tools supports the new version, the CDM WG will work to help the community convert their data to the new model.</p>
+<p>This is the final stage of the CDM refresh cycle. Once the DDLs are
+ready and the software and tools supports the new version, the CDM WG
+will work to help the community convert their data to the new model.</p>
 </div>
 </div>
 <div id="cdm-wg-meeting-information" class="section level1">
 <h1>CDM WG Meeting Information</h1>
-<p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
-<p><strong>Every first Tuesday of the month at 10am est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> These were recently changed from a Skype meeting to a Microsoft Teams meeting. If you do you have access to the OHDSI Teams Tenet, please contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>.</p>
+<p>The CDM working group meets the first and third Tuesday of the month.
+See below for links to the meetings.</p>
+<p><strong>Every first Tuesday of the month at 10am est</strong> <a
+href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams
+Meeting</a></p>
+<p><strong>Every third Tuesday of the month at 1pm est</strong> <a
+href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams
+Meeting</a></p>
+<p><strong>Note</strong> These were recently changed from a Skype
+meeting to a Microsoft Teams meeting. If you do you have access to the
+OHDSI Teams Tenet, please contact Clair Blacketer at <a
+href="mailto:mblacke@its.jnj.com"
+class="email">mblacke@its.jnj.com</a>.</p>
 <div id="cdm-wg-important-links" class="section level3">
 <h3>CDM WG Important Links</h3>
 <ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
+<li><a
+href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google
+Drive Location</a></li>
+<li><a
+href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running
+Agenda</a></li>
+<li><a href="https://github.com/OHDSI/CommonDataModel">CDM
+Github</a></li>
 </ul>
 </div>
 </div>

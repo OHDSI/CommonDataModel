@@ -15,7 +15,7 @@
 
 <title>Example_Queries</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -147,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -253,7 +257,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -420,8 +424,24 @@ $(document).ready(function () {
 </div>
 
 
-<p>The query below will find all standard concepts in the Visit domain that do not have any ancestors. These are considered “top-level” visit concepts and can be used to define categories of visits in cohort definitions. For example, the Inpatient Visit concept <a href="https://athena.ohdsi.org/search-terms/terms/9201">9201</a> subsumes the concepts for Inpatient Hospital and Inpatient in Psychiatric Facility. Instead of creating a concept set with all of these terms to define an inpatient visit you can use 9201 and all of it’s descendants, a concept found using the top-level query.</p>
-<p>WITH top_level AS (SELECT concept_id, concept_name FROM concept LEFT JOIN concept_ancestor ON concept_id=descendant_concept_id AND ancestor_concept_id!=descendant_concept_id WHERE domain_id=‘Visit’ AND standard_concept=‘S’ AND ancestor_concept_id IS NULL ) SELECT top_level.concept_id, top_level.concept_name, descendant.concept_id, descendant.concept_name FROM concept_ancestor JOIN top_level ON top_level.concept_id = ancestor_concept_id JOIN concept descendant ON descendant.concept_id = descendant_concept_id WHERE descendant.domain_id = ‘Visit’;</p>
+<p>The query below will find all standard concepts in the Visit domain
+that do not have any ancestors. These are considered “top-level” visit
+concepts and can be used to define categories of visits in cohort
+definitions. For example, the Inpatient Visit concept <a
+href="https://athena.ohdsi.org/search-terms/terms/9201">9201</a>
+subsumes the concepts for Inpatient Hospital and Inpatient in
+Psychiatric Facility. Instead of creating a concept set with all of
+these terms to define an inpatient visit you can use 9201 and all of
+it’s descendants, a concept found using the top-level query.</p>
+<p>WITH top_level AS (SELECT concept_id, concept_name FROM concept LEFT
+JOIN concept_ancestor ON concept_id=descendant_concept_id AND
+ancestor_concept_id!=descendant_concept_id WHERE domain_id=‘Visit’ AND
+standard_concept=‘S’ AND ancestor_concept_id IS NULL ) SELECT
+top_level.concept_id, top_level.concept_name, descendant.concept_id,
+descendant.concept_name FROM concept_ancestor JOIN top_level ON
+top_level.concept_id = ancestor_concept_id JOIN concept descendant ON
+descendant.concept_id = descendant_concept_id WHERE descendant.domain_id
+= ‘Visit’;</p>
 
 
 
