@@ -48,6 +48,8 @@ navbar:
               href: cdm54.html
             - text: "Changes from CDM v5.3"
               href: cdm54Changes.html
+            - text: "Entity Relationships"
+              href: cdm54erd.html
     - text: "CDM Proposals"
       icon: fa-plus-square
       menu:
