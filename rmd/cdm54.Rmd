@@ -23,7 +23,9 @@ This is the specification document for the OMOP Common Data Model, v5.4. **This 
 
 ### Current Support for CDM v5.4
 
-The table below details which OHDSI tools support CDM v5.4. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.3 and feature support indicates that the tool supports any new tables and fields in CDM v5.4 that were not present in CDM v5.3. A green check `r emo::ji("white heavy check mark")` indicates that the support level for the listed tool is in place, has been tested, and released. A warning sign `r emo::ji("warning")` indicates that the support level for the listed tool has been initiated but has not yet been tested and released. 
+The table below details which OHDSI tools support CDM v5.4. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.3 and feature support indicates that the tool supports any new tables and fields in CDM v5.4 that were not present in CDM v5.3. A green check `r emo::ji("white heavy check mark")` indicates that the support level for the listed tool is in place, has been tested, and released. A warning sign `r emo::ji("warning")` indicates that the support level for the listed tool has been initiated but has not yet been tested and released.
+
+A more detailed support for CDM v5.4 is available in [cdm54ToolingSupport.html]. For select tooling (currently DataQualityDashboard, Achilles, Atlas and FeatureExtraction), it shows what OMOP fields are actually covered by that particular tool. For example, none of the fields in the `note` table are referenced in Atlas or FeatureExtraction.
 <br>
 
 
