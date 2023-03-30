@@ -404,34 +404,70 @@ SELECT * FROM #tmp_de;
 
 ### CDM_SOURCE Table
 
-The script below is an example for how to fill in the CDM_SOURCE table. This table is required for the [Data Quality Dashboard](https://github.com/OHDSI/DataQualityDashboard) package to run. This was taken from the [ETL-Synthea](https://github.com/OHDSI/ETL-Synthea) package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import. 
+The script below is an example for how to fill in the CDM_SOURCE table.
+This table is required for the [Data Quality Dashboard](https://github.com/OHDSI/DataQualityDashboard) package to run.
+
+#### v5.3
+This example was taken from the [ETL-Synthea](https://github.com/OHDSI/ETL-Synthea) package, 
+a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import.
 
 ```{sql eval = FALSE, echo = TRUE}
-insert into @cdm_schema.cdm_source (
-cdm_source_name,
-cdm_source_abbreviation,
-cdm_holder,
-source_description,
-source_documentation_reference,
-cdm_etl_reference,
-source_release_date,
-cdm_release_date,
-cdm_version,
-vocabulary_version
+INSERT INTO @cdm_schema.cdm_source (
+	cdm_source_name,
+	cdm_source_abbreviation,
+	cdm_holder,
+	source_description,
+	source_documentation_reference,
+	cdm_etl_reference,
+	source_release_date,
+	cdm_release_date,
+	cdm_version,
+	vocabulary_version
 ) 
-select
-'Synthea synthetic health database',
-'Synthea',
-'OHDSI Community',
-'SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.',
-'https://synthetichealth.github.io/synthea/',
-'https://github.com/OHDSI/ETL-Synthea',
-getdate(), -- NB: Set this value to the day the source data was pulled
-getdate(), 
-'v5.3',
-vocabulary_version
-from @cdm_schema.vocabulary 
-where vocabulary_id = 'None';
+SELECT
+	'Synthea synthetic health database',
+	'Synthea',
+	'OHDSI Community',
+	'SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.',
+	'https://synthetichealth.github.io/synthea/',
+	'https://github.com/OHDSI/ETL-Synthea',
+	getdate(), -- NB: Set this value to the day the source data was pulled
+	getdate(), 
+	'v5.3',
+	vocabulary_version
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = 'None';
+```
+
+#### v5.4
+```{sql eval = FALSE, echo = TRUE}
+INSERT INTO @cdm_schema.cdm_source (
+	cdm_source_name,
+	cdm_source_abbreviation,
+	cdm_holder,
+	source_description,
+	source_documentation_reference,
+	cdm_etl_reference,
+	source_release_date,
+	cdm_release_date,
+	cdm_version,
+	vocabulary_version,
+	vocabulary_version_concept_id
+) 
+SELECT
+	'<your_cdm_source_name>',
+	'<your_cdm_source_abbreviation>',
+	'<your_cdm_holder>',
+	'<your_source_description>',
+	'<your_source_documentation_reference>',  -- e.g. link to source data dictionary
+	'<your_etl_reference>',  -- e.g. link to ETL documentation
+	'<your_source_release_date>',  -- when the source data was pulled
+	getdate(), 
+	'v5.4',
+	vocabulary_version,
+	756265 -- OMOP CDM Version 5.4.0
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = 'None';
 ```
 
 ## **Bonus Queries**
