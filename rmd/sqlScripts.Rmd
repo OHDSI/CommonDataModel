@@ -1,4 +1,5 @@
 ---
+title: 'SQL Scripts'
 output: 
   html_document:
       toc: TRUE
