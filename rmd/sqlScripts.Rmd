@@ -462,10 +462,10 @@ SELECT
 	'<your_source_documentation_reference>',  -- e.g. link to source data dictionary
 	'<your_etl_reference>',  -- e.g. link to ETL documentation
 	'<your_source_release_date>',  -- when the source data was pulled
-	getdate(), 
+	getdate(),  -- or the date of ETL run
 	'v5.4',
 	vocabulary_version,
-	756265 -- OMOP CDM Version 5.4.0
+	756265  -- 'OMOP CDM Version 5.4.0'
 FROM @cdm_schema.vocabulary 
 WHERE vocabulary_id = 'None';
 ```
@@ -478,11 +478,11 @@ The query below will utilize the Visit Concept hierarcy to find the highest-leve
 
 ```{sql eval=FALSE, echo=TRUE}
 SELECT concept_id, concept_name
-  FROM concept 
-  LEFT JOIN concept_ancestor 
- 	ON concept_id=descendant_concept_id 
-    AND ancestor_concept_id!=descendant_concept_id
-  WHERE domain_id='Visit' 
- 	AND standard_concept='S'
-    AND ancestor_concept_id IS NULL
+FROM concept 
+LEFT JOIN concept_ancestor 
+  ON concept_id=descendant_concept_id 
+  AND ancestor_concept_id!=descendant_concept_id
+WHERE domain_id='Visit' 
+  AND standard_concept='S'
+  AND ancestor_concept_id IS NULL
 ```
