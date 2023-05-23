@@ -31,7 +31,8 @@
 writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
+  supportedDialects <- SqlRender::listSupportedDialects()$dialect
+  stopifnot(targetDialect %in% supportedDialects)
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
