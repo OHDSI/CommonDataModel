@@ -15,7 +15,7 @@
 
 <title>drug_dose.knit</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -147,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -253,7 +257,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -419,9 +423,84 @@ $(document).ready(function () {
 
 <div id="how-to-calculate-drug-dose" class="section level1">
 <h1><strong>How to Calculate Drug Dose</strong></h1>
-<p>These conventions have been curated to show how to consider calculating cumulative and daily drug dose for a given exposure record. These are high-level examples meant to demonstrate how one might use the DRUG_STRENGTH table and they do not take into account switching or stockpiling.</p>
-<p><strong>1. Tablets and other fixed amount formulations</strong><br><br> <strong>Example</strong>: Acetaminophen (Paracetamol) 500 mg, 20 tablets.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is empty<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to number of pieces, e.g. tablets.<br> <em>In the example</em>: 20<br> <code>Ingredient dose= quantity x amount_value [amount_unit_concept_id]</code><br> Acetaminophen dose = 20 x 500mg = 10,000mg<br> Daily dose = Acetaminophen dose/drug duration<br><br></p>
-<p><strong>2. Puffs of an inhaler</strong><br><br> <strong>Note</strong>: There is no difference to use case 1 above besides that the DRUG_STRENGTH table may put {actuat} in the denominator unit. In this case the strength is provided in the numerator.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is {actuat}<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the number of pieces, e.g. puffs<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> Daily dose = Ingredient dose/drug duration<br><br> <strong>3. Quantified Drugs which are formulated as a concentration</strong><br><br> <strong>Example</strong>: The Clinical Drug is Acetaminophen 250 mg/mL in a 5mL oral suspension. The Quantified Clinical Drug would have 1250 mg / 5 ml in the DRUG_STRENGTH table. Two suspensions are dispensed.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or mL. The denominator_value might be different from 1.<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to a fraction or multiple of the pack.<br> <em>In the example</em>: 2<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> <em>Acetaminophen dose</em> = 2 x 1250mg = 2500mg<br> Daily dose = Acetaminophen dose/drug duration<br><br> <strong>4. Drugs with the total amount provided in quantity, e.g. chemotherapeutics</strong><br><br> <strong>Example</strong>: 42799258 “Benzyl Alcohol 0.1 ML/ML / Pramoxine hydrochloride 0.01 MG/MG Topical Gel” dispensed in a 1.25oz pack.<br> <strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or mL.<br> <strong>Example</strong>: Benzyl Alcohol in mL and Pramoxine hydrochloride in mg<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to mL or g.<br> <strong>Example</strong>: 1.25 x 30 <em>(conversion factor oz -&gt; mL)</em> = 37<br> <code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br> <em>Benzyl Alcohol dose</em> = 37 x 0.1mL = 3.7mL<br> Daily dose = Benzyl Alcohol dose/drug duration<br> <em>Pramoxine hydrochloride dose</em> = 37 x 0.01mg x 1000 = 370mg<br> Daily dose = Pramoxine hydrochloride dose/drug duration<br><br> <strong>Note</strong>: The analytical side should check the denominator in the DRUG_STRENGTH table. As mg is used for the second ingredient the factor 1000 will be applied to convert between g and mg.<br><br> <strong>5. Compounded drugs</strong><br><br> <strong>Example</strong>: Ibuprofen 20%/Piroxicam 1% Cream, 30ml in 5ml tubes.<br> <strong>DRUG_STRENGTH</strong> We need entries for the ingredients of Ibuprofen and Piroxicam, probably with an amount_value of 1 and a unit of mg.<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the total amount of the compound. Use one record in the DRUG_EXPOSURE table for each compound.<br> <strong>Example</strong>: 20% Ibuprofen of 30ml = 6mL, 1% Piroxicam of 30ml = 0.3mL<br> <code>Ingredient dose= Depends on the drugs involved: One of the use cases above.</code> <em>Ibuprofen dose</em> = 6 x 1mg x 1000 = 6000mg<br> Daily dose = Ibuprofen dose/drug duration<br> <em>Piroxicam dose</em> = 0.3 x 1mg x 1000 = 300mg<br> Daily dose = Piroxicam dose/drug duration<br> <strong>Note</strong>: The analytical side determines that the denominator for both ingredients in the DRUG_STRENGTH table is mg and applies the factor 1000 to convert between mL/g and mg.<br><br> <strong>6. Drugs with the active ingredient released over time, e.g. patches</strong><br><br> <strong>Example</strong>: Ethinyl Estradiol 0.000833 MG/HR / norelgestromin 0.00625 MG/HR Weekly Transdermal Patch<br> <strong>DRUG_STRENGTH</strong> The denominator units refer to hour.<br> <strong>Example</strong>: Ethinyl Estradiol 0.000833 mg/h / norelgestromin 0.00625 mg/h<br> <strong>DRUG_EXPOSURE</strong> The quantity refers to the number of pieces.<br> <strong>Example</strong>: 1 patch<br> <code>Ingredient rate= numerator_value [numerator_unit_concept_id]</code><br> <em>Ethinyl Estradiol rate</em> = 0.000833 mg/h<br> <em>norelgestromin rate</em> 0.00625 mg/h<br> <strong>Note</strong>: This can be converted to a daily dosage by multiplying it with 24. (Assuming 1 patch at a time for at least 24 hours)</p>
+<p>These conventions have been curated to show how to consider
+calculating cumulative and daily drug dose for a given exposure record.
+These are high-level examples meant to demonstrate how one might use the
+DRUG_STRENGTH table and they do not take into account switching or
+stockpiling.</p>
+<p><strong>1. Tablets and other fixed amount
+formulations</strong><br><br> <strong>Example</strong>: Acetaminophen
+(Paracetamol) 500 mg, 20 tablets.<br> <strong>DRUG_STRENGTH</strong> The
+denominator_unit is empty<br> <strong>DRUG_EXPOSURE</strong> The
+quantity refers to number of pieces, e.g. tablets.<br> <em>In the
+example</em>: 20<br>
+<code>Ingredient dose= quantity x amount_value [amount_unit_concept_id]</code><br>
+Acetaminophen dose = 20 x 500mg = 10,000mg<br> Daily dose =
+Acetaminophen dose/drug duration<br><br></p>
+<p><strong>2. Puffs of an inhaler</strong><br><br>
+<strong>Note</strong>: There is no difference to use case 1 above
+besides that the DRUG_STRENGTH table may put {actuat} in the denominator
+unit. In this case the strength is provided in the numerator.<br>
+<strong>DRUG_STRENGTH</strong> The denominator_unit is {actuat}<br>
+<strong>DRUG_EXPOSURE</strong> The quantity refers to the number of
+pieces, e.g. puffs<br>
+<code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br>
+Daily dose = Ingredient dose/drug duration<br><br> <strong>3. Quantified
+Drugs which are formulated as a concentration</strong><br><br>
+<strong>Example</strong>: The Clinical Drug is Acetaminophen 250 mg/mL
+in a 5mL oral suspension. The Quantified Clinical Drug would have 1250
+mg / 5 ml in the DRUG_STRENGTH table. Two suspensions are dispensed.<br>
+<strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or mL.
+The denominator_value might be different from 1.<br>
+<strong>DRUG_EXPOSURE</strong> The quantity refers to a fraction or
+multiple of the pack.<br> <em>In the example</em>: 2<br>
+<code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br>
+<em>Acetaminophen dose</em> = 2 x 1250mg = 2500mg<br> Daily dose =
+Acetaminophen dose/drug duration<br><br> <strong>4. Drugs with the total
+amount provided in quantity, e.g. chemotherapeutics</strong><br><br>
+<strong>Example</strong>: 42799258 “Benzyl Alcohol 0.1 ML/ML / Pramoxine
+hydrochloride 0.01 MG/MG Topical Gel” dispensed in a 1.25oz pack.<br>
+<strong>DRUG_STRENGTH</strong> The denominator_unit is either mg or
+mL.<br> <strong>Example</strong>: Benzyl Alcohol in mL and Pramoxine
+hydrochloride in mg<br> <strong>DRUG_EXPOSURE</strong> The quantity
+refers to mL or g.<br> <strong>Example</strong>: 1.25 x 30
+<em>(conversion factor oz -&gt; mL)</em> = 37<br>
+<code>Ingredient dose= quantity x numerator_value [numerator_unit_concept_id]</code><br>
+<em>Benzyl Alcohol dose</em> = 37 x 0.1mL = 3.7mL<br> Daily dose =
+Benzyl Alcohol dose/drug duration<br> <em>Pramoxine hydrochloride
+dose</em> = 37 x 0.01mg x 1000 = 370mg<br> Daily dose = Pramoxine
+hydrochloride dose/drug duration<br><br> <strong>Note</strong>: The
+analytical side should check the denominator in the DRUG_STRENGTH table.
+As mg is used for the second ingredient the factor 1000 will be applied
+to convert between g and mg.<br><br> <strong>5. Compounded
+drugs</strong><br><br> <strong>Example</strong>: Ibuprofen 20%/Piroxicam
+1% Cream, 30ml in 5ml tubes.<br> <strong>DRUG_STRENGTH</strong> We need
+entries for the ingredients of Ibuprofen and Piroxicam, probably with an
+amount_value of 1 and a unit of mg.<br> <strong>DRUG_EXPOSURE</strong>
+The quantity refers to the total amount of the compound. Use one record
+in the DRUG_EXPOSURE table for each compound.<br>
+<strong>Example</strong>: 20% Ibuprofen of 30ml = 6mL, 1% Piroxicam of
+30ml = 0.3mL<br>
+<code>Ingredient dose= Depends on the drugs involved: One of the use cases above.</code>
+<em>Ibuprofen dose</em> = 6 x 1mg x 1000 = 6000mg<br> Daily dose =
+Ibuprofen dose/drug duration<br> <em>Piroxicam dose</em> = 0.3 x 1mg x
+1000 = 300mg<br> Daily dose = Piroxicam dose/drug duration<br>
+<strong>Note</strong>: The analytical side determines that the
+denominator for both ingredients in the DRUG_STRENGTH table is mg and
+applies the factor 1000 to convert between mL/g and mg.<br><br>
+<strong>6. Drugs with the active ingredient released over time,
+e.g. patches</strong><br><br> <strong>Example</strong>: Ethinyl
+Estradiol 0.000833 MG/HR / norelgestromin 0.00625 MG/HR Weekly
+Transdermal Patch<br> <strong>DRUG_STRENGTH</strong> The denominator
+units refer to hour.<br> <strong>Example</strong>: Ethinyl Estradiol
+0.000833 mg/h / norelgestromin 0.00625 mg/h<br>
+<strong>DRUG_EXPOSURE</strong> The quantity refers to the number of
+pieces.<br> <strong>Example</strong>: 1 patch<br>
+<code>Ingredient rate= numerator_value [numerator_unit_concept_id]</code><br>
+<em>Ethinyl Estradiol rate</em> = 0.000833 mg/h<br> <em>norelgestromin
+rate</em> 0.00625 mg/h<br> <strong>Note</strong>: This can be converted
+to a daily dosage by multiplying it with 24. (Assuming 1 patch at a time
+for at least 24 hours)</p>
 </div>
 
 

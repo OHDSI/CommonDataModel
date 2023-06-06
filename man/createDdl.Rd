@@ -30,11 +30,11 @@ Dashboard.
 }
 \section{Functions}{
 \itemize{
-\item \code{createPrimaryKeys}: createPrimaryKeys Returns a string containing the OHDSQL for creation of primary keys in the OMOP CDM.
+\item \code{createPrimaryKeys()}: createPrimaryKeys Returns a string containing the OHDSQL for creation of primary keys in the OMOP CDM.
 
-\item \code{createForeignKeys}: createForeignKeys Returns a string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
+\item \code{createForeignKeys()}: createForeignKeys Returns a string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
+
 }}
-
 \examples{
 ddl <- createDdl("5.4")
 pk <- createPrimaryKeys("5.4")

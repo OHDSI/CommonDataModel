@@ -11,9 +11,9 @@
 
 
 
-<title>sqlScripts.knit</title>
+<title>SQL Scripts</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -148,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -181,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -190,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -327,7 +324,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -397,6 +394,9 @@ div.tocify {
         </li>
         <li>
           <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
         </li>
       </ul>
     </li>
@@ -493,12 +493,20 @@ div.tocify {
 
 <div id="sql-scripts" class="section level1">
 <h1><strong>SQL Scripts</strong></h1>
-<p>These SQL scripts have been developed by the community to facilitate the Extract, Transform, and Load (ETL) process from source data to the OMOP CDM.</p>
+<p>These SQL scripts have been developed by the community to facilitate
+the Extract, Transform, and Load (ETL) process from source data to the
+OMOP CDM.</p>
 <div id="vocabulary-mapping" class="section level2">
 <h2><strong>Vocabulary Mapping</strong></h2>
 <div id="source-to-standard" class="section level3">
 <h3>Source to Standard</h3>
-<p>This script will create a large table containing all source codes and the Standard Concepts they map to. By creating this table ahead of time and referencing it during ETL, you can save processing time than if you were to map source codes on the fly. It is important to note that this script will show ALL mappings, not just those to Standard, Valid Concepts. Be sure to add a filter that will only grab the correct Standard, Valid codes.</p>
+<p>This script will create a large table containing all source codes and
+the Standard Concepts they map to. By creating this table ahead of time
+and referencing it during ETL, you can save processing time than if you
+were to map source codes on the fly. It is important to note that this
+script will show ALL mappings, not just those to Standard, Valid
+Concepts. Be sure to add a filter that will only grab the correct
+Standard, Valid codes.</p>
 <pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.concept_name AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.INVALID_REASON AS SOURCE_INVALID_REASON, c1.concept_id AS TARGET_CONCEPT_ID, c1.concept_name AS TARGET_CONCEPT_NAME, c1.VOCABULARY_ID AS TARGET_VOCABUALRY_ID, c1.domain_id AS TARGET_DOMAIN_ID, c1.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c1.INVALID_REASON AS TARGET_INVALID_REASON, c1.standard_concept AS TARGET_STANDARD_CONCEPT
        FROM CONCEPT C
              JOIN CONCEPT_RELATIONSHIP CR
@@ -520,7 +528,13 @@ div.tocify {
 </div>
 <div id="source-to-source" class="section level3">
 <h3>Source to Source</h3>
-<p>This script will create a large table containing all source codes and their referent Concepts. While you may be tempted to use the Source to Standard query to find these, it is important to use this one instead to populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple Standard Concepts though they have only one source Concept. By using the Source to Standard query you may inadvertently create duplicate records in your CDM instance.</p>
+<p>This script will create a large table containing all source codes and
+their referent Concepts. While you may be tempted to use the Source to
+Standard query to find these, it is important to use this one instead to
+populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple
+Standard Concepts though they have only one source Concept. By using the
+Source to Standard query you may inadvertently create duplicate records
+in your CDM instance.</p>
 <pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.CONCEPT_NAME AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.concept_class_id AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.invalid_reason AS SOURCE_INVALID_REASON, c.concept_ID as TARGET_CONCEPT_ID, c.concept_name AS TARGET_CONCEPT_NAME, c.vocabulary_id AS TARGET_VOCABULARY_ID, c.domain_id AS TARGET_DOMAIN_ID, c.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c.INVALID_REASON AS TARGET_INVALID_REASON, c.STANDARD_CONCEPT AS TARGET_STANDARD_CONCEPT
        FROM CONCEPT c
        UNION
@@ -537,7 +551,11 @@ div.tocify {
 <h2><strong>Era Tables</strong></h2>
 <div id="condition-eras" class="section level3">
 <h3>Condition Eras</h3>
-<p>This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have &lt;= 30 days between them into eras during which the Person is assumed to have the given condition. <strong>NOTE</strong> This query only works with 5.3 and below.</p>
+<p>This script will insert values into the CONDITION_ERA table given
+that the CONDITION_OCCURRENCE table is populated. It will string
+together condition records that have &lt;= 30 days between them into
+eras during which the Person is assumed to have the given condition.
+<strong>NOTE</strong> This query only works with 5.3 and below.</p>
 <pre class="sql"><code>/****************************************************
 OHDSI-SQL File Instructions
 -----------------------------
@@ -708,7 +726,12 @@ GROUP BY person_id
 </div>
 <div id="drug-eras" class="section level3">
 <h3>Drug Eras</h3>
-<p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. <strong>NOTE</strong> This query only works with the <strong>version 5</strong> series and below.</p>
+<p>If the DRUG_EXPOSURE table is populated this script will string
+together periods of time that a person is exposed to an active drug
+ingredient, allowing for 30 gaps in between. It will then insert the
+resulting era records into the DRUG_ERA table. <strong>NOTE</strong>
+This query only works with the <strong>version 5</strong> series and
+below.</p>
 <pre class="sql"><code>
 -- Code taken from:
 -- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql
@@ -878,47 +901,97 @@ SELECT * FROM #tmp_de;</code></pre>
 <h2><strong>Example ETL Script</strong></h2>
 <div id="cdm_source-table" class="section level3">
 <h3>CDM_SOURCE Table</h3>
-<p>The script below is an example for how to fill in the CDM_SOURCE table. This table is required for the <a href="https://github.com/OHDSI/DataQualityDashboard">Data Quality Dashboard</a> package to run. This was taken from the <a href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import.</p>
-<pre class="sql"><code>insert into @cdm_schema.cdm_source (
-cdm_source_name,
-cdm_source_abbreviation,
-cdm_holder,
-source_description,
-source_documentation_reference,
-cdm_etl_reference,
-source_release_date,
-cdm_release_date,
-cdm_version,
-vocabulary_version
+<p>The script below is an example for how to fill in the CDM_SOURCE
+table. This table is required for the <a
+href="https://github.com/OHDSI/DataQualityDashboard">Data Quality
+Dashboard</a> package to run.</p>
+<div id="v5.3" class="section level4">
+<h4>v5.3</h4>
+<p>This example was taken from the <a
+href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a
+good example on how to write a complete extract-transform-load script
+from start to finish, including vocabulary import.</p>
+<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
+    cdm_source_name,
+    cdm_source_abbreviation,
+    cdm_holder,
+    source_description,
+    source_documentation_reference,
+    cdm_etl_reference,
+    source_release_date,
+    cdm_release_date,
+    cdm_version,
+    vocabulary_version
 ) 
-select
-&#39;Synthea synthetic health database&#39;,
-&#39;Synthea&#39;,
-&#39;OHDSI Community&#39;,
-&#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
-&#39;https://synthetichealth.github.io/synthea/&#39;,
-&#39;https://github.com/OHDSI/ETL-Synthea&#39;,
-getdate(), -- NB: Set this value to the day the source data was pulled
-getdate(), 
-&#39;v5.3&#39;,
-vocabulary_version
-from @cdm_schema.vocabulary 
-where vocabulary_id = &#39;None&#39;;</code></pre>
+SELECT
+    &#39;Synthea synthetic health database&#39;,
+    &#39;Synthea&#39;,
+    &#39;OHDSI Community&#39;,
+    &#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
+    &#39;https://synthetichealth.github.io/synthea/&#39;,
+    &#39;https://github.com/OHDSI/ETL-Synthea&#39;,
+    getdate(), -- NB: Set this value to the day the source data was pulled
+    getdate(), 
+    &#39;v5.3&#39;,
+    vocabulary_version
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = &#39;None&#39;;</code></pre>
+</div>
+<div id="v5.4" class="section level4">
+<h4>v5.4</h4>
+<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
+    cdm_source_name,
+    cdm_source_abbreviation,
+    cdm_holder,
+    source_description,
+    source_documentation_reference,
+    cdm_etl_reference,
+    source_release_date,
+    cdm_release_date,
+    cdm_version,
+    vocabulary_version,
+    vocabulary_version_concept_id
+) 
+SELECT
+    &#39;&lt;your_cdm_source_name&gt;&#39;,
+    &#39;&lt;your_cdm_source_abbreviation&gt;&#39;,
+    &#39;&lt;your_cdm_holder&gt;&#39;,
+    &#39;&lt;your_source_description&gt;&#39;,
+    &#39;&lt;your_source_documentation_reference&gt;&#39;,  -- e.g. link to source data dictionary
+    &#39;&lt;your_etl_reference&gt;&#39;,  -- e.g. link to ETL documentation
+    &#39;&lt;your_source_release_date&gt;&#39;,  -- when the source data was pulled
+    getdate(),  -- or the date of ETL run
+    &#39;v5.4&#39;,
+    vocabulary_version,
+    756265  -- &#39;OMOP CDM Version 5.4.0&#39;
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = &#39;None&#39;;</code></pre>
+</div>
 </div>
 </div>
 <div id="bonus-queries" class="section level2">
 <h2><strong>Bonus Queries</strong></h2>
 <div id="visit-concept-roll-up" class="section level3">
 <h3>Visit Concept Roll-up</h3>
-<p>The query below will utilize the Visit Concept hierarcy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children as the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the <a href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum Extended ETL documentation</a>.</p>
+<p>The query below will utilize the Visit Concept hierarcy to find the
+highest-level ancestors. In the case that both the VISIT_OCCURRENCE and
+VISIT_DETAIL tables are populated, it is good practice (though not
+required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in
+the VISIT_OCCURRENCE table and their children as the
+VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship
+between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for
+standardized Visit logic to be written, building Visits from Visit
+Details. For more information on how this can be done, please see the <a
+href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum
+Extended ETL documentation</a>.</p>
 <pre class="sql"><code>SELECT concept_id, concept_name
-  FROM concept 
-  LEFT JOIN concept_ancestor 
-    ON concept_id=descendant_concept_id 
-    AND ancestor_concept_id!=descendant_concept_id
-  WHERE domain_id=&#39;Visit&#39; 
-    AND standard_concept=&#39;S&#39;
-    AND ancestor_concept_id IS NULL</code></pre>
+FROM concept 
+LEFT JOIN concept_ancestor 
+  ON concept_id=descendant_concept_id 
+  AND ancestor_concept_id!=descendant_concept_id
+WHERE domain_id=&#39;Visit&#39; 
+  AND standard_concept=&#39;S&#39;
+  AND ancestor_concept_id IS NULL</code></pre>
 </div>
 </div>
 </div>

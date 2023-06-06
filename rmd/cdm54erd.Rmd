@@ -1,0 +1,28 @@
+---
+title: "**OMOP CDM v5.4 ERD**"
+output:
+  html_document
+---
+
+```{css zoom-lib-src, echo = FALSE}
+script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+```
+
+```{js zoom-jquery, echo = FALSE}
+ $(document).ready(function() {
+    $('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
+    // onClick function for all plots (img's)
+    $('img:not(.zoomImg)').click(function() {
+      $('.zoomImg').attr('src', $(this).attr('src')).css({width: '100%'});
+      $('.zoomDiv').css({opacity: '1', width: 'auto', border: '1px solid white', borderRadius: '5px', position: 'fixed', top: '50%', left: '50%', marginRight: '-50%', transform: 'translate(-50%, -50%)', boxShadow: '0px 0px 50px #888888', zIndex: '50', overflow: 'auto', maxHeight: '100%'});
+    });
+    // onClick function for zoomImg
+    $('img.zoomImg').click(function() {
+      $('.zoomDiv').css({opacity: '0', width: '0%'}); 
+    });
+  });
+```
+
+Late in 2022 we held a community contest to find the best entity-relationship diagram and we crowned two winners! Martijn Schuemie and Renske Los created the best printable version and Vishnu Chandrabalan created the best [interactive version](http://omop-erd.surge.sh/). 
+
+![CDM v5.4 Printable ERD - [click here to download](https://github.com/OHDSI/CommonDataModel/raw/main/rmd/images/erd.jpg)](images/erd.jpg){width=150%}

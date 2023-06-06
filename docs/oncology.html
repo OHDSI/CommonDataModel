@@ -13,7 +13,7 @@
 
 <title>Oncology Extension</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -148,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -327,7 +331,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -492,34 +496,75 @@ div.tocify {
 </div>
 
 
-<div id="omop-common-data-model-oncology-extension-documentation" class="section level2">
+<div id="omop-common-data-model-oncology-extension-documentation"
+class="section level2">
 <h2>OMOP Common Data Model Oncology Extension Documentation</h2>
-<p>This documentation details the ratified proposal of adding an oncology extension to the OMOP CDM. These tables and fields will become part of the next release (v6.1) of the Common Data Model. Below are their descriptions; showing <em>additions</em> to the model only. For example, two fields were added to the MEASUREMENT table as part of this extension so only those two fields are listed below for MEASUREMENT instead of the entire table. For more information, please see the <a href="https://github.com/OHDSI/OncologyWG/wiki">OMOP Oncology wiki site</a>.</p>
-<p>The DDLs for these tables are located on the Oncology github, as detailed in the <a href="https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation">installation instructions</a>.</p>
-<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, : incomplete final line found
-## by readTableHeader on &#39;../inst/csv/OMOP_CDM_Oncology_Ex_Table_Level.csv&#39;</code></pre>
+<p>This documentation details the ratified proposal of adding an
+oncology extension to the OMOP CDM. These tables and fields will become
+part of the next release (v6.1) of the Common Data Model. Below are
+their descriptions; showing <em>additions</em> to the model only. For
+example, two fields were added to the MEASUREMENT table as part of this
+extension so only those two fields are listed below for MEASUREMENT
+instead of the entire table. For more information, please see the <a
+href="https://github.com/OHDSI/OncologyWG/wiki">OMOP Oncology wiki
+site</a>.</p>
+<p>The DDLs for these tables are located on the Oncology github, as
+detailed in the <a
+href="https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation">installation
+instructions</a>.</p>
+<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, : incomplete final line found by
+## readTableHeader on &#39;../inst/csv/OMOP_CDM_Oncology_Ex_Table_Level.csv&#39;</code></pre>
 <div id="episode" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">EPISODE</h3>
 <p><strong>Table Description</strong></p>
-<p>The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases,outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. For example cancers including their development over time, their treatment, and final resolution.</p>
+<p>The EPISODE table aggregates lower-level clinical events
+(VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE)
+into a higher-level abstraction representing clinically and analytically
+relevant disease phases,outcomes and treatments. The EPISODE_EVENT table
+connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE,
+PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry.
+For example cancers including their development over time, their
+treatment, and final resolution.</p>
 <p><strong>User Guide</strong></p>
-<p>Valid Episode Concepts belong to the ‘Episode’ domain. For cancer episodes please see [article], for non-cancer episodes please see [article]. If your source data does not have all episodes that are relevant to the therapeutic area, write only those you can easily derive from the data. It is understood that that table is not currently expected to be comprehensive.</p>
+<p>Valid Episode Concepts belong to the ‘Episode’ domain. For cancer
+episodes please see [article], for non-cancer episodes please see
+[article]. If your source data does not have all episodes that are
+relevant to the therapeutic area, write only those you can easily derive
+from the data. It is understood that that table is not currently
+expected to be comprehensive.</p>
 </div>
 <div id="episode_event" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">EPISODE_EVENT</h3>
 <p><strong>Table Description</strong></p>
-<p>The EPISODE_EVENT table connects qualifying clinical events (such as CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, MEASUREMENT) to the appropriate EPISODE entry. For example, linking the precise location of the metastasis (cancer modifier in MEASUREMENT) to the disease episode.</p>
+<p>The EPISODE_EVENT table connects qualifying clinical events (such as
+CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, MEASUREMENT)
+to the appropriate EPISODE entry. For example, linking the precise
+location of the metastasis (cancer modifier in MEASUREMENT) to the
+disease episode.</p>
 <p><strong>User Guide</strong></p>
-<p>This connecting table is used instead of the FACT_RELATIONSHIP table for linking low-level events to abstracted Episodes.</p>
+<p>This connecting table is used instead of the FACT_RELATIONSHIP table
+for linking low-level events to abstracted Episodes.</p>
 <p><strong>ETL Conventions</strong></p>
-<p>Some episodes may not have links to any underlying clinical events. For such episodes, the EPISODE_EVENT table is not populated.</p>
+<p>Some episodes may not have links to any underlying clinical events.
+For such episodes, the EPISODE_EVENT table is not populated.</p>
 </div>
 <div id="measurement" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">MEASUREMENT</h3>
 <p><strong>Table Description</strong></p>
-<p>The MEASUREMENT table contains records of Measurement, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person’s sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID).</p>
+<p>The MEASUREMENT table contains records of Measurement,
+i.e. structured values (numerical or categorical) obtained through
+systematic and standardized examination or testing of a Person or
+Person’s sample. The MEASUREMENT table contains both orders and results
+of such Measurements as laboratory tests, vital signs, quantitative
+findings from pathology reports, etc. Measurements are stored as
+attribute value pairs, with the attribute as the Measurement Concept and
+the value representing the result. The value can be a Concept (stored in
+VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit
+(UNIT_CONCEPT_ID).</p>
 <p><strong>User Guide</strong></p>
-<p>Measurements differ from Observations in that they require a standardized test or some other activity to generate a quantitative or qualitative result.</p>
+<p>Measurements differ from Observations in that they require a
+standardized test or some other activity to generate a quantitative or
+qualitative result.</p>
 </div>
 </div>
 

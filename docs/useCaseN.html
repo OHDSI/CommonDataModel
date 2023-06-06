@@ -13,7 +13,7 @@
 
 <title>Local Data</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +255,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -416,9 +420,14 @@ $(document).ready(function () {
 </div>
 
 
-<p>Okay, so you don’t have a network use case. <strong>Is this data element specific to your data source, or are there others in the community who might also have this data but don’t yet need it for a study or data model convention?</strong></p>
-<p><a href="localChange.html">Yes, this element is specific to my data source</a></p>
-<p><a href="leaveAsIs.html">No, there are others in the community who also have this data</a></p>
+<p>Okay, so you don’t have a network use case. <strong>Is this data
+element specific to your data source, or are there others in the
+community who might also have this data but don’t yet need it for a
+study or data model convention?</strong></p>
+<p><a href="localChange.html">Yes, this element is specific to my data
+source</a></p>
+<p><a href="leaveAsIs.html">No, there are others in the community who
+also have this data</a></p>
 
 
 

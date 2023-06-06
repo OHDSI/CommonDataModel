@@ -11,9 +11,9 @@
 
 
 
-<title>index.knit</title>
+<title> OMOP Common Data Model</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,11 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/calendar-binding-0.2.1/calendar.js"></script>
+<link href="site_libs/font-awesome-6.1.1/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.1.1/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/bttn-0.2.4/bttn.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -145,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +258,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -321,6 +328,9 @@ $(document).ready(function () {
         </li>
         <li>
           <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
         </li>
       </ul>
     </li>
@@ -411,26 +421,117 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><div>
-<img src="ohdsi40x40.png"></img> OMOP Common Data Model
-</div></h1>
+<h1 class="title toc-ignore"><img src="ohdsi40x40.png"></img> OMOP
+Common Data Model</h1>
 
 </div>
 
 
-<p>The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardize the structure and content of observational data and to enable efficient analyses that can produce reliable evidence. A central component of the OMOP CDM is the OHDSI standardized vocabularies. The OHDSI vocabularies allow organization and standardization of medical terms to be used across the various clinical domains of the OMOP common data model and enable standardized analytics that leverage the knowledge base when constructing exposure and outcome phenotypes and other features within characterization, population-level effect estimation, and patient-level prediction studies.</p>
-<p>This website is meant to serve as a resource describing the specification of the available versions of the Common Data Model. This includes the structure of the model itself and the agreed upon conventions for each table and field as decided by the OHDSI Community. The vocabulary tables are part of the model and, as such, are detailed here. To download the vocabulary itself, please visit <a href="https://athena.ohdsi.org">https://athena.ohdsi.org</a>. For more information about the OHDSI suite of tools designed to implement best practices in characterization, population-level effect estimation and patient-level prediction, please visit <a href="https://ohdsi.github.io/Hades/">https://ohdsi.github.io/Hades/</a>.</p>
+<p>The Observational Medical Outcomes Partnership (OMOP) Common Data
+Model (CDM) is an open community data standard, designed to standardize
+the structure and content of observational data and to enable efficient
+analyses that can produce reliable evidence. A central component of the
+OMOP CDM is the OHDSI standardized vocabularies. The OHDSI vocabularies
+allow organization and standardization of medical terms to be used
+across the various clinical domains of the OMOP common data model and
+enable standardized analytics that leverage the knowledge base when
+constructing exposure and outcome phenotypes and other features within
+characterization, population-level effect estimation, and patient-level
+prediction studies.</p>
+<p>This website is meant to serve as a resource describing the
+specification of the available versions of the Common Data Model. This
+includes the structure of the model itself and the agreed upon
+conventions for each table and field as decided by the OHDSI Community.
+The vocabulary tables are part of the model and, as such, are detailed
+here. To download the vocabulary itself, please visit <a
+href="https://athena.ohdsi.org">https://athena.ohdsi.org</a>. For more
+information about the OHDSI suite of tools designed to implement best
+practices in characterization, population-level effect estimation and
+patient-level prediction, please visit <a
+href="https://ohdsi.github.io/Hades/">https://ohdsi.github.io/Hades/</a>.</p>
+<div id="the-cdm-working-group" class="section level2">
+<h2>The CDM Working Group</h2>
+<p>The CDM is managed by the OHDSI CDM Working Group. If you would like
+to join our group please fill out <a
+href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this
+form</a> and check “Common Data Model” to be added to our Microsoft
+Teams environment. This working group endeavors to maintain the OMOP CDM
+as a living model by soliciting and responding to requests from the
+community based on use cases and research purposes. For more information
+on the CDM refresh process please see the description <a
+href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">here</a>.
+You will find information on our meetings and links to join at the end
+of this page.</p>
+<div id="calendar" class="section level3">
+<h3>Calendar</h3>
+<p>This is the calendar of events for the CDM Working Group, including
+upcoming topics and links to meetings. If you would like to present to
+the group regarding a new use case for the OMOP CDM or if you would like
+the group’s assistance with a problem you are having, please fill out
+our sign-up form.</p>
+<p><a
+href="https://www.signupgenius.com/go/10C0948AEAD28A4F9CF8-workgroup"><img
+src="images/sign-up.png" style="width:15.0%" alt="Sign Up" /></a></p>
+<p><strong>Note</strong> If you do you have access to the OHDSI Teams
+Tenet, either contact Clair Blacketer at <a
+href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>
+or fill out <a
+href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this
+form</a> and check “Common Data Model”</p>
+<div id="htmlwidget-0d8433eac2cd58754f0b_menu">
+<span id="htmlwidget-0d8433eac2cd58754f0b_menu_navi">
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_today">Today</button>
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_prev">
+<i class="fa fa-chevron-left"></i>
+</button>
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_next">
+<i class="fa fa-chevron-right"></i>
+</button>
+</span>
+<span id="htmlwidget-0d8433eac2cd58754f0b_renderRange" class="render-range"></span>
+</div>
+<br/>
+<div id="htmlwidget-0d8433eac2cd58754f0b" style="width:100%;height:600px;" class="calendar html-widget" width="100%" height="600px"></div>
+<script type="application/json" data-for="htmlwidget-0d8433eac2cd58754f0b">{"x":{"options":{"defaultView":"month","taskView":false,"scheduleView":true,"useDetailPopup":true,"useCreationPopup":false,"isReadOnly":true,"usageStatistics":false,"month":{"startDayOfWeek":1,"narrowWeekend":true},"calendars":[{"id":1,"name":"PERSO","color":"#000","bgColor":"#c6d19d","borderColor":"forestgreen"},{"id":2,"name":"WORK","color":"#000","bgColor":"#F5A9A9","borderColor":"firebrick"},{"id":3,"name":"COURSES","color":"#000","bgColor":"#c6e2f6","borderColor":"#3b7cc6"}]},"schedules":[{"category":"time","dueDateClass":"","id":"schedule4623ffca46373fe23a740ac5","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-01-03 10:00:00","end":"2023-01-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule6a3d29db21ff91351ca85bfe","calendarId":"2","title":"CDM WG : Pregnancy","body":"The Pregnancy and Maternal Medicine working group will present.","recurrenceRule":null,"start":"2023-01-17 13:00:00","end":"2023-01-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulec4721ce4c700e2855bfe3a28","calendarId":"1","title":"CDM WG Meeting : NLP","body":"The NLP working group will present some potential updates to the NOTE_NLP table.","recurrenceRule":null,"start":"2023-02-07 10:00:00","end":"2023-02-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule58cf83db4adb9b2b1b1ccda9","calendarId":"2","title":"CDM WG Vocabulary Discussion","body":"Anna Ostropolets will join to ask us about our experiences using the OMOP Standard Vocabulary for ETL and other purposes","recurrenceRule":null,"start":"2023-02-21 13:00:00","end":"2023-02-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduleb73c434cac7390d9ad3969a3","calendarId":"1","title":"CDM WG : HADES","body":"Martijn Schuemie will present about the HADES working group and how their work interconnects with the OMOP CDM","recurrenceRule":null,"start":"2023-03-07 9:00:00","end":"2023-03-07 10:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule9fb03989c2471e1ec572ab98","calendarId":"2","title":"CDM WG : Medical Imaging","body":"Paul Nagy will talk to us about the modeling work being done in the Medical Imaging working group","recurrenceRule":null,"start":"2023-03-21 13:00:00","end":"2023-03-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule13cd5963f1cc4da53718b57d","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-04-04 10:00:00","end":"2023-04-04 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule7a760ee97877014c42803e07","calendarId":"2","title":"CDM WG : GIS","body":"The GIS working group will join us to share what they are working on and how we might support them.","recurrenceRule":null,"start":"2023-04-18 13:00:00","end":"2023-04-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule3337a913d2ba0115efafa220","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-02 10:00:00","end":"2023-05-02 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduleaa4e65823e3d11994344e0e5","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-16 13:00:00","end":"2023-05-16 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule9177cc573be10beb8040af62","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-06-06 10:00:00","end":"2023-06-06 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule0f7edbb60d5a23902a30ad82","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-07-18 13:00:00","end":"2023-07-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule84a88b3ac8b2297b348997ce","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-01 10:00:00","end":"2023-08-01 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule68b0b0cc091403a5919cfdbb","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-15 13:00:00","end":"2023-08-15 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule0f26d7085821f13f840670e4","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-05 10:00:00","end":"2023-09-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulea00508730c7dfbaf6db0b98d","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-19 13:00:00","end":"2023-09-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule19c6ee3284f62822113238ba","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-03 10:00:00","end":"2023-10-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4ad783b22af7528a00813a85","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-17 13:00:00","end":"2023-10-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4a12de563539f911b1a09aa3","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-07 10:00:00","end":"2023-11-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulea2a60a4a6b62e3f5ca4fb02a","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-21 13:00:00","end":"2023-11-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule1177a9bf185164e3edf365e6","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-05 10:00:00","end":"2023-12-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduled48c7bd15576300cef37d0e8","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-19 13:00:00","end":"2023-12-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null}],"navigation":true,"defaultDate":"2023-02-21","events":[],"navigationOptions":{"today_label":"Today","prev_label":"<i class=\"fa fa-chevron-left\" role=\"presentation\" aria-label=\"chevron-left icon\"><\/i>","next_label":"<i class=\"fa fa-chevron-right\" role=\"presentation\" aria-label=\"chevron-right icon\"><\/i>","class":" bttn-bordered bttn-sm bttn-primary","fmt_date":"YYYY-MM-DD","sep_date":" ~ "}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 <div id="current-cdm-version" class="section level2">
 <h2>Current CDM Version</h2>
-<p>The current CDM version is <a href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a>, depicted below. This CDM version was developed over the course of a year by considering requests that were sent via our <a href="https://github.com/OHDSI/CommonDataModel/issues">issues page</a>. The list of proposed changes was then shared with the community in multiple ways: through discussions at the weekly OHDSI Community calls, discussions with the OHDSI Steering Committee, and discussions with all potentially affected workgroups. The <a href="http://ohdsi.github.io/CommonDataModel/cdm54Changes.html">final changes</a> were then delivered to the Community through a new R package designed to dynamically generate the DDLs and documentation for all supported SQL dialects.</p>
+<p>The current CDM version is <a
+href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a>,
+depicted below. This CDM version was developed over the course of a year
+by considering requests that were sent via our <a
+href="https://github.com/OHDSI/CommonDataModel/issues">issues page</a>.
+The list of proposed changes was then shared with the community in
+multiple ways: through discussions at the weekly OHDSI Community calls,
+discussions with the OHDSI Steering Committee, and discussions with all
+potentially affected workgroups. The <a
+href="http://ohdsi.github.io/CommonDataModel/cdm54Changes.html">final
+changes</a> were then delivered to the Community through a new R package
+designed to dynamically generate the DDLs and documentation for all
+supported SQL dialects. Looking for an entity-relationshop diagram?
+Click <a
+href="http://ohdsi.github.io/CommonDataModel/cdm54erd.html">here</a>!</p>
 <ul>
-<li><a href="https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4">Link to DDLs for CDM v5.4</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel/tree/master#readme">Link to ReadMe for instructions on how to use the R package</a></li>
+<li><a
+href="https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4">Link
+to DDLs for CDM v5.4</a></li>
+<li><a
+href="https://github.com/OHDSI/CommonDataModel/tree/master#readme">Link
+to ReadMe for instructions on how to use the R package</a></li>
 </ul>
 <p><img src="images/cdm54.png" /> <br></p>
 <div id="current-support-for-cdm-v5.4" class="section level3">
 <h3>Current Support for CDM v5.4</h3>
-<p>The table below details which OHDSI tools support CDM v5.4. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.3 and feature support indicates that the tool supports any new tables and fields in CDM v5.4 that were not present in CDM v5.3. A green check ✅ indicates that the support level for the listed tool is in place, has been tested, and released. A warning sign ⚠️ indicates that the support level for the listed tool has been initiated but has not yet been tested and released. <br></p>
+<p>The table below details which OHDSI tools support CDM v5.4. There are
+two levels of support: legacy support means that the tool supports all
+tables and fields that were present in CDM v5.3 and feature support
+indicates that the tool supports any new tables and fields in CDM v5.4
+that were not present in CDM v5.3. A green check ✅ indicates that the
+support level for the listed tool is in place, has been tested, and
+released. A warning sign ⚠️ indicates that the support level for the
+listed tool has been initiated but has not yet been tested and released.
+<br></p>
 <table>
 <colgroup>
 <col width="25%" />
@@ -449,75 +550,100 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td><strong>CDM R package</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/CommonDataModel/">https://github.com/OHDSI/CommonDataModel/</a>. It functions to dynamically create the OMOP CDM documentation and DDL scripts to instantiate the CDM tables.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/CommonDataModel/">https://github.com/OHDSI/CommonDataModel/</a>.
+It functions to dynamically create the OMOP CDM documentation and DDL
+scripts to instantiate the CDM tables.</td>
 <td>✅</td>
 <td>✅</td>
 </tr>
 <tr class="even">
 <td><strong>Data Quality Dashboard</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/DataQualityDashboard</a>. It runs a set of &gt; 3500 data quality checks against an OMOP CDM instance and is required to be run on all databases prior to participating in an OHDSI network research study.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/DataQualityDashboard</a>.
+It runs a set of &gt; 3500 data quality checks against an OMOP CDM
+instance and is required to be run on all databases prior to
+participating in an OHDSI network research study.</td>
 <td>✅</td>
 <td>⚠️</td>
 </tr>
 <tr class="odd">
 <td><strong>Achilles</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>, performing a set of broad database characterizations agains an OMOP CDM instance.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>,
+performing a set of broad database characterizations agains an OMOP CDM
+instance.</td>
 <td>✅</td>
 <td>⚠️</td>
 </tr>
 <tr class="even">
 <td><strong>ARES</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/Ares">https://github.com/OHDSI/Ares</a> and is designed to display the results from both the ACHILLES and DataQualityDashboard packages to support data quality and characterization research.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/Ares">https://github.com/OHDSI/Ares</a>
+and is designed to display the results from both the ACHILLES and
+DataQualityDashboard packages to support data quality and
+characterization research.</td>
 <td>✅</td>
 <td>⚠️</td>
 </tr>
 <tr class="odd">
 <td><strong>ATLAS</strong></td>
-<td>ATLAS is an open source software tool for researchers to conduct scientific analyses on standardized observational data. <a href="http://atlas-demo.ohdsi.org/">Demo</a></td>
+<td>ATLAS is an open source software tool for researchers to conduct
+scientific analyses on standardized observational data. <a
+href="http://atlas-demo.ohdsi.org/">Demo</a></td>
 <td>✅</td>
 <td>⚠️</td>
 </tr>
 <tr class="even">
 <td><strong>Rabbit-In-A-Hat</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/WhiteRabbit">https://github.com/OHDSI/WhiteRabbit</a> and is an application for interactive design of an ETL to the OMOP Common Data Model with the help of the the scan report generated by White Rabbit.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/WhiteRabbit">https://github.com/OHDSI/WhiteRabbit</a>
+and is an application for interactive design of an ETL to the OMOP
+Common Data Model with the help of the the scan report generated by
+White Rabbit.</td>
 <td>✅</td>
 <td>✅</td>
 </tr>
 <tr class="odd">
 <td><strong>Feature Extraction</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/FeatureExtraction">https://github.com/OHDSI/FeatureExtraction</a>. It is designed to generate features (covariates) for a cohort generated using the OMOP CDM.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/FeatureExtraction">https://github.com/OHDSI/FeatureExtraction</a>.
+It is designed to generate features (covariates) for a cohort generated
+using the OMOP CDM.</td>
 <td>✅</td>
 <td>✅*</td>
 </tr>
 <tr class="even">
 <td><strong>Cohort Diagnostics</strong></td>
-<td>This package can be downloaded from <a href="https://github.com/OHDSI/CohortDiagnostics">https://github.com/OHDSI/CohortDiagnostics</a> and is used to critically evaluate cohort phenotypes.</td>
+<td>This package can be downloaded from <a
+href="https://github.com/OHDSI/CohortDiagnostics">https://github.com/OHDSI/CohortDiagnostics</a>
+and is used to critically evaluate cohort phenotypes.</td>
 <td>✅</td>
 <td>⚠️</td>
 </tr>
 </tbody>
 </table>
-<p><br> * The <strong>Feature Extraction</strong> package supports all relevant new features in CDM v5.4. For example, it was decided that, from a methodological perspective, the EPISODE and EPISODE_EVENT tables should not be included to define cohort covariates because the events that make up episodes are already pulled in as potential covariates.</p>
+<p><br> * The <strong>Feature Extraction</strong> package supports all
+relevant new features in CDM v5.4. For example, it was decided that,
+from a methodological perspective, the EPISODE and EPISODE_EVENT tables
+should not be included to define cohort covariates because the events
+that make up episodes are already pulled in as potential covariates.</p>
 <p><br></p>
-</div>
-</div>
-<div id="the-cdm-working-group" class="section level2">
-<h2>The CDM Working Group</h2>
-<p>The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this form</a> and check “Common Data Model” to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description <a href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">here</a>. You will find information on our meetings and links to join at the end of this page.</p>
-<div id="meeting-information" class="section level3">
-<h3>Meeting Information</h3>
-<p>The CDM working group meets the first and third Tuesday of the month. See below for links to the meetings.</p>
-<p><strong>Every first Tuesday of the month at 10am est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1601910741972?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%2281c21b6d-448d-4634-abbc-6b0962d1138a%22%7d">Teams Meeting</a></p>
-<p><strong>Every third Tuesday of the month at 1pm est</strong> <a href="https://teams.microsoft.com/l/meetup-join/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/1611000164347?context=%7b%22Tid%22%3a%22a30f0094-9120-4aab-ba4c-e5509023b2d5%22%2c%22Oid%22%3a%223c193b7f-c2ab-4bcf-b88c-f89a6b1fba38%22%7d">Teams Meeting</a></p>
-<p><strong>Note</strong> If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at <a href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a> or fill out <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this form</a> and check “Common Data Model”</p>
 </div>
 <div id="cdm-wg-important-links" class="section level3">
 <h3>CDM WG Important Links</h3>
 <ul>
-<li><a href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google Drive Location</a></li>
-<li><a href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running Agenda</a></li>
-<li><a href="https://github.com/OHDSI/CommonDataModel">CDM Github</a></li>
-<li><a href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">Process for adopting CDM and Vocabulary changes</a></li>
+<li><a
+href="https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu">Google
+Drive Location</a></li>
+<li><a
+href="https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing">Running
+Agenda</a></li>
+<li><a href="https://github.com/OHDSI/CommonDataModel">CDM
+Github</a></li>
+<li><a
+href="http://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html">Process
+for adopting CDM and Vocabulary changes</a></li>
 </ul>
 </div>
 </div>

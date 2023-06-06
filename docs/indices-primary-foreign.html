@@ -13,7 +13,7 @@
 
 <title>Indices, Primary Keys and Foreign Key Constraints</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -148,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -327,7 +331,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -487,28 +491,50 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Indices, Primary Keys and Foreign Key Constraints</h1>
+<h1 class="title toc-ignore">Indices, Primary Keys and Foreign Key
+Constraints</h1>
 
 </div>
 
 
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>Database indices improve the performance of queries against a database by organizing the data in a way that increase query execution.</p>
-<p>This article was written to provide guidance on the setting of indices, primary and foreign keys for data that has been transformed into the Observational Medical Outcome Partnership (OMOP) Common Data Model (CDM). The community that supports the design and development of the OHDSI/CommonDataModel Github repository is a diverse collaborative of healthcare and technical profesisonals whom have limited data base adminstrative (DBA) experience. As a result, the comments below should be interpreted as suggestions and recommendations to help increase performance. Your teams needs may call for a modified configuration.</p>
+<p>Database indices improve the performance of queries against a
+database by organizing the data in a way that increase query
+execution.</p>
+<p>This article was written to provide guidance on the setting of
+indices, primary and foreign keys for data that has been transformed
+into the Observational Medical Outcome Partnership (OMOP) Common Data
+Model (CDM). The community that supports the design and development of
+the OHDSI/CommonDataModel Github repository is a diverse collaborative
+of healthcare and technical profesisonals whom have limited data base
+adminstrative (DBA) experience. As a result, the comments below should
+be interpreted as suggestions and recommendations to help increase
+performance. Your teams needs may call for a modified configuration.</p>
 </div>
 <div id="general-recommendations" class="section level2">
 <h2>General Recommendations</h2>
-<p>Should your database of choice support indexing, the OMOP CDM Working Group recommends</p>
+<p>Should your database of choice support indexing, the OMOP CDM Working
+Group recommends</p>
 <ul>
-<li>Indexing on all columns containing an "_id" (e.g. condition_occurrence_id, drug_exposure_id, measurement_id, procedure_occurrence_id, etc.)</li>
+<li>Indexing on all columns containing an “_id”
+(e.g. condition_occurrence_id, drug_exposure_id, measurement_id,
+procedure_occurrence_id, etc.)</li>
 <li>Indexing on primary and foreign keys</li>
 </ul>
-<p>For all databases, regardless of custom indice support, primary and foreign keys should be set. This is a step towards ensuring data integrity. Information on what table level attributes should be set as primary and foreign keys can be found within the *_Field_Level.csv file(s) located in the <a href="https://github.com/OHDSI/CommonDataModel/tree/v5.4/inst/csv">INST/CSV directory</a></p>
+<p>For all databases, regardless of custom indice support, primary and
+foreign keys should be set. This is a step towards ensuring data
+integrity. Information on what table level attributes should be set as
+primary and foreign keys can be found within the *_Field_Level.csv
+file(s) located in the <a
+href="https://github.com/OHDSI/CommonDataModel/tree/v5.4/inst/csv">INST/CSV
+directory</a></p>
 </div>
 <div id="database-support" class="section level2">
 <h2>Database support</h2>
-<p>The OHDSI/CommonDataModel package leverages OHDSI/SQLRender and as a result is only capable of supporting sources that are supported by OHDSI/SQLRender. The following databases are currently supported.</p>
+<p>The OHDSI/CommonDataModel package leverages OHDSI/SQLRender and as a
+result is only capable of supporting sources that are supported by
+OHDSI/SQLRender. The following databases are currently supported.</p>
 <div id="microsoft-sql-server" class="section level3">
 <h3>Microsoft SQL Server</h3>
 </div>
@@ -520,7 +546,12 @@ div.tocify {
 </div>
 <div id="amazon-redshift" class="section level3">
 <h3>Amazon Redshift</h3>
-<p>On AWS Redshift it is important to ensure that your data is properly distributed and sorted across nodes. Compression on certain columns may also help. The designed DDL does set DISTKEYS in an effort to optimize performance. This configuration can be seen within the <a href="https://github.com/OHDSI/CommonDataModel/blob/v5.4/ddl/5.4/redshift/OMOPCDM_redshift_5.4_ddl.sql">Redshift-specific DDL</a>.</p>
+<p>On AWS Redshift it is important to ensure that your data is properly
+distributed and sorted across nodes. Compression on certain columns may
+also help. The designed DDL does set DISTKEYS in an effort to optimize
+performance. This configuration can be seen within the <a
+href="https://github.com/OHDSI/CommonDataModel/blob/v5.4/ddl/5.4/redshift/OMOPCDM_redshift_5.4_ddl.sql">Redshift-specific
+DDL</a>.</p>
 </div>
 <div id="impala" class="section level3">
 <h3>Impala</h3>
@@ -530,7 +561,10 @@ div.tocify {
 </div>
 <div id="google-bigquery" class="section level3">
 <h3>Google BigQuery</h3>
-<p>Google BigQuery does not require manual optimization and/or sizing. Google BigQuery does massive parallel full table scans and intensive caching, all under the hood. <a href="https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2">Reference</a></p>
+<p>Google BigQuery does not require manual optimization and/or sizing.
+Google BigQuery does massive parallel full table scans and intensive
+caching, all under the hood. <a
+href="https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2">Reference</a></p>
 </div>
 <div id="microsoft-parallel-data-warehouse-pdw" class="section level3">
 <h3>Microsoft Parallel Data Warehouse (PDW)</h3>
@@ -540,12 +574,16 @@ div.tocify {
 </div>
 <div id="databricks" class="section level3">
 <h3>Databricks</h3>
-<p>This database type is not yet supported but is actively being worked on by a number of collaborators. For more informtion, please contact Ajit Londhe of Amgen.</p>
+<p>This database type is not yet supported but is actively being worked
+on by a number of collaborators. For more informtion, please contact
+Ajit Londhe of Amgen.</p>
 </div>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p><a href="https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2">ISO Best Practices of CDM Indexing</a></p>
+<p><a
+href="https://forums.ohdsi.org/t/iso-best-practices-of-cdm-indexing/10939/2">ISO
+Best Practices of CDM Indexing</a></p>
 </div>
 
 

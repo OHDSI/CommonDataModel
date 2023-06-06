@@ -13,7 +13,7 @@
 
 <title>Vocabulary Request</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +255,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -416,9 +420,21 @@ $(document).ready(function () {
 </div>
 
 
-<p>Okay so you have something you would like to add to the CDM and there is an existing OMOP vocabulary we can bring in to support it. <strong>In this case, please open an issue on the vocabulary github with the details of what you need added</strong> as data elements in the CDM must have a vocabulary in place before they can be implemented. The team will follow up with you should they need additional information.</p>
-<p><a href="https://github.com/OHDSI/Vocabulary-v5.0/issues">Vocabulary GitHub Issue Tracker</a></p>
-<p>Once that request is made, please follow the <a href="cdmRequestProcess.html">CDM Request Process</a> to begin the steps soliciting a change or addition to the model itself. Need more guidance? Consider contacting the CDM Working Group on our <a href="https://github.com/OHDSI/CommonDataModel">GitHub</a> or <a href="https://teams.microsoft.com/l/team/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/conversations?groupId=a6f2c516-e568-4974-8f1e-a7bdc2f997c5&amp;tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5">Teams Channel</a>.</p>
+<p>Okay so you have something you would like to add to the CDM and there
+is an existing OMOP vocabulary we can bring in to support it. <strong>In
+this case, please open an issue on the vocabulary github with the
+details of what you need added</strong> as data elements in the CDM must
+have a vocabulary in place before they can be implemented. The team will
+follow up with you should they need additional information.</p>
+<p><a href="https://github.com/OHDSI/Vocabulary-v5.0/issues">Vocabulary
+GitHub Issue Tracker</a></p>
+<p>Once that request is made, please follow the <a
+href="cdmRequestProcess.html">CDM Request Process</a> to begin the steps
+soliciting a change or addition to the model itself. Need more guidance?
+Consider contacting the CDM Working Group on our <a
+href="https://github.com/OHDSI/CommonDataModel">GitHub</a> or <a
+href="https://teams.microsoft.com/l/team/19%3a133f2b94b86a41a884d4a4d160610148%40thread.tacv2/conversations?groupId=a6f2c516-e568-4974-8f1e-a7bdc2f997c5&amp;tenantId=a30f0094-9120-4aab-ba4c-e5509023b2d5">Teams
+Channel</a>.</p>
 
 
 

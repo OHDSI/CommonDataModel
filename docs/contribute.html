@@ -13,7 +13,7 @@
 
 <title>Ask A Question</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -148,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -327,7 +331,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -494,15 +498,24 @@ div.tocify {
 
 <div id="check-the-forum" class="section level1">
 <h1>Check the Forum</h1>
-<p>Chances are someone else has already asked your question on the <a href="https:\forums.ohdsi.org">forum</a> and it has been answered.</p>
+<p>Chances are someone else has already asked your question on the <a
+href="https:\forums.ohdsi.org">forum</a> and it has been answered.</p>
 </div>
 <div id="check-the-issue-log" class="section level1">
 <h1>Check the Issue Log</h1>
-<p>If you think you’ve found a bug you can check to see if someone also had that same problem on our <a href="https://github.com/ohdsi/commondatamodel/issues">issue page</a> of the Common Data Model github. If you don’t see your issue feel free to open one. Try and be as specific as possible. What error message occurs? Can you provide a simple example as to why you are requesting a change to the model?</p>
+<p>If you think you’ve found a bug you can check to see if someone also
+had that same problem on our <a
+href="https://github.com/ohdsi/commondatamodel/issues">issue page</a> of
+the Common Data Model github. If you don’t see your issue feel free to
+open one. Try and be as specific as possible. What error message occurs?
+Can you provide a simple example as to why you are requesting a change
+to the model?</p>
 </div>
 <div id="join-meetings" class="section level1">
 <h1>Join meetings</h1>
-<p>Please come to meetings, ask your question and contribute to the discussion! All details can be found on our <a href="https://ohdsi.github.io/CommonDataModel/">home page</a>.</p>
+<p>Please come to meetings, ask your question and contribute to the
+discussion! All details can be found on our <a
+href="https://ohdsi.github.io/CommonDataModel/">home page</a>.</p>
 </div>
 
 

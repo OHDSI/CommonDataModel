@@ -90,7 +90,7 @@ for(tb in tables) {
   loopTable <- subset(cdmSpecsClean, `CDM Table` == tb)
   loopTable <- subset(loopTable, select = -c(1))
  
-  print(kable(x = loopTable, align = "l", row.names = FALSE, format = "html", escape = FALSE) %>%
+  print(knitr::kable(x = loopTable, align = "l", row.names = FALSE, format = "html", escape = FALSE) %>%
            column_spec(1, bold = T) %>%
            # column_spec(2, width = "3in", include_thead = T) %>%
            # column_spec(3, width = "4in", include_thead = T) %>%

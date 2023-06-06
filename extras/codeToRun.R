@@ -38,7 +38,7 @@ buildReleaseZip(cdmVersion="5.4", targetDialect="postgresql", outputfolder="outp
 # BE SURE TO RUN THE EXTRAS/SITEMAINTENANCE.R BEFORE CREATING THE PDF
 
 # step 9: Run the following code to create the pdf documentation. It will be written to the reports folder. Use knit with pagedown
-pagedown::chrome_print("rmd/cdm531.Rmd") # create a comprehensive rmd with background, conventions, etc like https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output
+pagedown::chrome_print("cdm54.Rmd") # create a comprehensive rmd with background, conventions, etc like https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output
 
 # Step 10: After updating any of the .Rmd files, rendering the site following directions in SiteMaintenance.R, then move the files to the CommonDataModel directory
 

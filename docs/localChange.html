@@ -13,7 +13,7 @@
 
 <title>Local Change</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -251,7 +255,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-house"></span>
      
   </a>
 </li>
@@ -416,7 +420,13 @@ $(document).ready(function () {
 </div>
 
 
-<p>Since you do not have a network use case and this element is specific to your data source, <strong>feel free to create a local change to your instance of the OMOP Common Data Model.</strong> Augmenting the model at your institution for administrative purposes or other in-house needs is totally acceptable with the understanding that any local changes cannot and should not be relied upon in network studies or supported by the open-source tools.</p>
+<p>Since you do not have a network use case and this element is specific
+to your data source, <strong>feel free to create a local change to your
+instance of the OMOP Common Data Model.</strong> Augmenting the model at
+your institution for administrative purposes or other in-house needs is
+totally acceptable with the understanding that any local changes cannot
+and should not be relied upon in network studies or supported by the
+open-source tools.</p>
 
 
 
