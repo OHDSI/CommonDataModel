@@ -102,6 +102,7 @@ alter table @cdmDatabaseSchema.note add constraint fpk_note_note_event_field_con
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_section_concept_id foreign key (section_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_concept_id foreign key (note_nlp_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_source_concept_id foreign key (note_nlp_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_nlp_event_field_concept_id foreign key (nlp_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.specimen add constraint fpk_specimen_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.specimen add constraint fpk_specimen_specimen_concept_id foreign key (specimen_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.specimen add constraint fpk_specimen_specimen_type_concept_id foreign key (specimen_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);

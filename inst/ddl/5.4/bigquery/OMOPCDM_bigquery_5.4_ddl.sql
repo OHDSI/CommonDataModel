@@ -229,7 +229,8 @@ create table @cdmDatabaseSchema.note_nlp (
 			note_id INT64 not null,
 			section_concept_id INT64,
 			snippet STRING,
-			"offset" STRING,
+			offset_start INT64,
+			offset_end INT64,
 			lexical_variant STRING not null,
 			note_nlp_concept_id INT64,
 			note_nlp_source_concept_id INT64,
@@ -238,7 +239,9 @@ create table @cdmDatabaseSchema.note_nlp (
 			nlp_datetime DATETIME,
 			term_exists STRING,
 			term_temporal STRING,
-			term_modifiers STRING );
+			term_modifiers STRING,
+			nlp_event_id INT64 not null,
+			nlp_event_field_concept_id INT64 not null );
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.specimen (
 			specimen_id INT64 not null,

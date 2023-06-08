@@ -267,7 +267,8 @@ CAST(NULL AS integer) AS note_nlp_id,
 	CAST(NULL AS integer) AS note_id,
 	CAST(NULL AS integer) AS section_concept_id,
 	CAST(NULL AS STRING) AS snippet,
-	CAST(NULL AS STRING) AS offset,
+	CAST(NULL AS integer) AS offset_start,
+	CAST(NULL AS integer) AS offset_end,
 	CAST(NULL AS STRING) AS lexical_variant,
 	CAST(NULL AS integer) AS note_nlp_concept_id,
 	CAST(NULL AS integer) AS note_nlp_source_concept_id,
@@ -276,7 +277,9 @@ CAST(NULL AS integer) AS note_nlp_id,
 	CAST(NULL AS TIMESTAMP) AS nlp_datetime,
 	CAST(NULL AS STRING) AS term_exists,
 	CAST(NULL AS STRING) AS term_temporal,
-	CAST(NULL AS STRING) AS term_modifiers  WHERE 1 = 0;
+	CAST(NULL AS STRING) AS term_modifiers,
+	CAST(NULL AS integer) AS nlp_event_id,
+	CAST(NULL AS integer) AS nlp_event_field_concept_id  WHERE 1 = 0;
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.SPECIMEN  
 USING DELTA
