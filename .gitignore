@@ -15,4 +15,5 @@ ehthumbs.db
 Thumbs.db
 extras/codeToRun.R
 output/
-ddl/
+# ddl/
+# NOTE: Temporarily disabling so we can track development of DuckDB
