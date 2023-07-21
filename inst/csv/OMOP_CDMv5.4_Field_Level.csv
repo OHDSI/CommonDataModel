@@ -218,7 +218,8 @@ NOTE_NLP,note_nlp_id,Yes,integer,A unique identifier for the NLP record.,,Yes,No
 NOTE_NLP,note_id,Yes,integer,This is the NOTE_ID for the NOTE record the NLP record is associated to.,,No,No,,,,,
 NOTE_NLP,section_concept_id,No,integer,,"The SECTION_CONCEPT_ID should be used to represent the note section contained in the NOTE_NLP record. These concepts can be found as parts of document panels and are based on the type of note written, i.e. a discharge summary. These panels can be found as concepts with the relationship 'Subsumes' to CONCEPT_ID [45875957](https://athena.ohdsi.org/search-terms/terms/45875957).",No,Yes,CONCEPT,CONCEPT_ID,,,
 NOTE_NLP,snippet,No,varchar(250),A small window of text surrounding the term,,No,No,,,,,
-NOTE_NLP,"""offset""",No,varchar(50),Character offset of the extracted term in the input note,,No,No,,,,,
+NOTE_NLP,offset_start,No,integer,The  index of the start character of the extracted term in the input note.,,No,No,,,,,
+NOTE_NLP,offset_end,No,integer,The index of the end character of the extracted term in the input note.,,No,No,,,,,
 NOTE_NLP,lexical_variant,Yes,varchar(250),Raw text extracted from the NLP tool.,,No,No,,,,,
 NOTE_NLP,note_nlp_concept_id,No,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
 NOTE_NLP,note_nlp_source_concept_id,No,integer,,,No,Yes,CONCEPT,CONCEPT_ID,,,
@@ -242,6 +243,8 @@ NOTE_NLP,term_modifiers,No,varchar(2000),,"For the modifiers that are there, the
 - Conditional = false
 - Rule_out = false
 - Uncertain = true or high or moderate or even low (could argue about low). Term_modifiers will concatenate all modifiers for different types of entities (conditions, drugs, labs etc) into one string. Lab values will be saved as one of the modifiers. ",No,No,,,,,
+NOTE_NLP,nlp_event_id,Yes,integer,"A foreign key identifier to the event (e.g. Condition, Observation, Measurement, Procedure, Visit etc) record that the nlp note represents.","This field is the primary key of the linked record in the database. For example, if the NOTE_NLP is a Condition Occurrence, then the CONDITION_OCCURRENCE_ID of the linked record goes in this field.",No,No,,,,,
+NOTE_NLP,nlp_event_field_concept_id,Yes,integer,This field is the CONCEPT_ID that identifies which table the primary key of the linked record came from. ,,No,Yes,CONCEPT,CONCEPT_ID,,,
 SPECIMEN,specimen_id,Yes,integer,Unique identifier for each specimen.,,Yes,No,,,,,
 SPECIMEN,person_id,Yes,integer,The person from whom the specimen is collected.,,No,Yes,PERSON,PERSON_ID,,,
 SPECIMEN,specimen_concept_id,Yes,integer,,The standard CONCEPT_ID that the SPECIMEN_SOURCE_VALUE maps to in the specimen domain. [Accepted Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Specimen&standardConcept=Standard&page=1&pageSize=15&query=),No,Yes,CONCEPT,CONCEPT_ID,,,

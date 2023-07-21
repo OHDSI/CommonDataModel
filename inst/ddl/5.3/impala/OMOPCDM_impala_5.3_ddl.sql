@@ -1,5 +1,4 @@
 --impala CDM DDL Specification for OMOP Common Data Model 5.3
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.PERSON (
 			person_id INT,
@@ -20,7 +19,6 @@ CREATE TABLE @cdmDatabaseSchema.PERSON (
 			race_source_concept_id integer NULL,
 			ethnicity_source_value VARCHAR(50),
 			ethnicity_source_concept_id integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.OBSERVATION_PERIOD (
 			observation_period_id INT,
@@ -28,7 +26,6 @@ CREATE TABLE @cdmDatabaseSchema.OBSERVATION_PERIOD (
 			observation_period_start_date TIMESTAMP,
 			observation_period_end_date TIMESTAMP,
 			period_type_concept_id INT );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.VISIT_OCCURRENCE (
 			visit_occurrence_id INT,
@@ -48,7 +45,6 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_OCCURRENCE (
 			discharge_to_concept_id integer NULL,
 			discharge_to_source_value VARCHAR(50),
 			preceding_visit_occurrence_id integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
 			visit_detail_id INT,
@@ -70,7 +66,6 @@ CREATE TABLE @cdmDatabaseSchema.VISIT_DETAIL (
 			preceding_visit_detail_id integer NULL,
 			visit_detail_parent_id integer NULL,
 			visit_occurrence_id INT );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.CONDITION_OCCURRENCE (
 			condition_occurrence_id INT,
@@ -89,7 +84,6 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_OCCURRENCE (
 			condition_source_value VARCHAR(50),
 			condition_source_concept_id integer NULL,
 			condition_status_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DRUG_EXPOSURE (
 			drug_exposure_id INT,
@@ -115,7 +109,6 @@ CREATE TABLE @cdmDatabaseSchema.DRUG_EXPOSURE (
 			drug_source_concept_id integer NULL,
 			route_source_value VARCHAR(50),
 			dose_unit_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			procedure_occurrence_id INT,
@@ -132,7 +125,6 @@ CREATE TABLE @cdmDatabaseSchema.PROCEDURE_OCCURRENCE (
 			procedure_source_value VARCHAR(50),
 			procedure_source_concept_id integer NULL,
 			modifier_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DEVICE_EXPOSURE (
 			device_exposure_id INT,
@@ -150,7 +142,6 @@ CREATE TABLE @cdmDatabaseSchema.DEVICE_EXPOSURE (
 			visit_detail_id integer NULL,
 			device_source_value VARCHAR(50),
 			device_source_concept_id integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.MEASUREMENT (
 			measurement_id INT,
@@ -173,7 +164,6 @@ CREATE TABLE @cdmDatabaseSchema.MEASUREMENT (
 			measurement_source_concept_id integer NULL,
 			unit_source_value VARCHAR(50),
 			value_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.OBSERVATION (
 			observation_id INT,
@@ -194,7 +184,6 @@ CREATE TABLE @cdmDatabaseSchema.OBSERVATION (
 			observation_source_concept_id integer NULL,
 			unit_source_value VARCHAR(50),
 			qualifier_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DEATH (
 			person_id INT,
@@ -204,7 +193,6 @@ CREATE TABLE @cdmDatabaseSchema.DEATH (
 			cause_concept_id integer NULL,
 			cause_source_value VARCHAR(50),
 			cause_source_concept_id integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.NOTE (
 			note_id INT,
@@ -221,7 +209,6 @@ CREATE TABLE @cdmDatabaseSchema.NOTE (
 			visit_occurrence_id integer NULL,
 			visit_detail_id integer NULL,
 			note_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			note_nlp_id INT,
@@ -238,7 +225,6 @@ CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			term_exists VARCHAR(1),
 			term_temporal VARCHAR(50),
 			term_modifiers VARCHAR(2000) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.SPECIMEN (
 			specimen_id INT,
@@ -256,7 +242,6 @@ CREATE TABLE @cdmDatabaseSchema.SPECIMEN (
 			unit_source_value VARCHAR(50),
 			anatomic_site_source_value VARCHAR(50),
 			disease_status_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.FACT_RELATIONSHIP (
 			domain_concept_id_1 INT,
@@ -264,7 +249,6 @@ CREATE TABLE @cdmDatabaseSchema.FACT_RELATIONSHIP (
 			domain_concept_id_2 INT,
 			fact_id_2 INT,
 			relationship_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.`location` (
 			location_id INT,
@@ -275,7 +259,6 @@ CREATE TABLE @cdmDatabaseSchema.`location` (
 			zip VARCHAR(9),
 			county VARCHAR(20),
 			location_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CARE_SITE (
 			care_site_id INT,
@@ -284,7 +267,6 @@ CREATE TABLE @cdmDatabaseSchema.CARE_SITE (
 			location_id integer NULL,
 			care_site_source_value VARCHAR(50),
 			place_of_service_source_value VARCHAR(50) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.PROVIDER (
 			provider_id INT,
@@ -300,7 +282,6 @@ CREATE TABLE @cdmDatabaseSchema.PROVIDER (
 			specialty_source_concept_id integer NULL,
 			gender_source_value VARCHAR(50),
 			gender_source_concept_id integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.PAYER_PLAN_PERIOD (
 			payer_plan_period_id INT,
@@ -320,7 +301,6 @@ CREATE TABLE @cdmDatabaseSchema.PAYER_PLAN_PERIOD (
 			stop_reason_concept_id integer NULL,
 			stop_reason_source_value VARCHAR(50),
 			stop_reason_source_concept_id integer NULL );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.COST (
 			cost_id INT,
@@ -345,7 +325,6 @@ CREATE TABLE @cdmDatabaseSchema.COST (
 			revenue_code_source_value VARCHAR(50),
 			drg_concept_id integer NULL,
 			drg_source_value VARCHAR(3) );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DRUG_ERA (
 			drug_era_id INT,
@@ -355,7 +334,6 @@ CREATE TABLE @cdmDatabaseSchema.DRUG_ERA (
 			drug_era_end_date TIMESTAMP,
 			drug_exposure_count integer NULL,
 			gap_days integer NULL );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.DOSE_ERA (
 			dose_era_id INT,
@@ -365,7 +343,6 @@ CREATE TABLE @cdmDatabaseSchema.DOSE_ERA (
 			dose_value FLOAT,
 			dose_era_start_date TIMESTAMP,
 			dose_era_end_date TIMESTAMP );
-
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 			condition_era_id INT,
@@ -374,7 +351,6 @@ CREATE TABLE @cdmDatabaseSchema.CONDITION_ERA (
 			condition_era_start_date TIMESTAMP,
 			condition_era_end_date TIMESTAMP,
 			condition_occurrence_count integer NULL );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.METADATA (
 			metadata_concept_id INT,
@@ -384,7 +360,6 @@ CREATE TABLE @cdmDatabaseSchema.METADATA (
 			value_as_concept_id integer NULL,
 			metadata_date TIMESTAMP,
 			metadata_datetime TIMESTAMP );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CDM_SOURCE (
 			cdm_source_name VARCHAR(255),
@@ -397,7 +372,6 @@ CREATE TABLE @cdmDatabaseSchema.CDM_SOURCE (
 			cdm_release_date TIMESTAMP,
 			cdm_version VARCHAR(10),
 			vocabulary_version VARCHAR(20) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CONCEPT (
 			concept_id INT,
@@ -410,7 +384,6 @@ CREATE TABLE @cdmDatabaseSchema.CONCEPT (
 			valid_start_date TIMESTAMP,
 			valid_end_date TIMESTAMP,
 			invalid_reason VARCHAR(1) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.VOCABULARY (
 			vocabulary_id VARCHAR(20),
@@ -418,19 +391,16 @@ CREATE TABLE @cdmDatabaseSchema.VOCABULARY (
 			vocabulary_reference VARCHAR(255),
 			vocabulary_version VARCHAR(255),
 			vocabulary_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.DOMAIN (
 			domain_id VARCHAR(20),
 			domain_name VARCHAR(255),
 			domain_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CONCEPT_CLASS (
 			concept_class_id VARCHAR(20),
 			concept_class_name VARCHAR(255),
 			concept_class_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CONCEPT_RELATIONSHIP (
 			concept_id_1 INT,
@@ -439,7 +409,6 @@ CREATE TABLE @cdmDatabaseSchema.CONCEPT_RELATIONSHIP (
 			valid_start_date TIMESTAMP,
 			valid_end_date TIMESTAMP,
 			invalid_reason VARCHAR(1) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.RELATIONSHIP (
 			relationship_id VARCHAR(20),
@@ -448,20 +417,17 @@ CREATE TABLE @cdmDatabaseSchema.RELATIONSHIP (
 			defines_ancestry VARCHAR(1),
 			reverse_relationship_id VARCHAR(20),
 			relationship_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CONCEPT_SYNONYM (
 			concept_id INT,
 			concept_synonym_name VARCHAR(1000),
 			language_concept_id INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.CONCEPT_ANCESTOR (
 			ancestor_concept_id INT,
 			descendant_concept_id INT,
 			min_levels_of_separation INT,
 			max_levels_of_separation INT );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.SOURCE_TO_CONCEPT_MAP (
 			source_code VARCHAR(50),
@@ -473,7 +439,6 @@ CREATE TABLE @cdmDatabaseSchema.SOURCE_TO_CONCEPT_MAP (
 			valid_start_date TIMESTAMP,
 			valid_end_date TIMESTAMP,
 			invalid_reason VARCHAR(1) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.DRUG_STRENGTH (
 			drug_concept_id INT,
@@ -488,7 +453,6 @@ CREATE TABLE @cdmDatabaseSchema.DRUG_STRENGTH (
 			valid_start_date TIMESTAMP,
 			valid_end_date TIMESTAMP,
 			invalid_reason VARCHAR(1) );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.COHORT_DEFINITION (
 			cohort_definition_id INT,
@@ -498,7 +462,6 @@ CREATE TABLE @cdmDatabaseSchema.COHORT_DEFINITION (
 			cohort_definition_syntax VARCHAR(MAX),
 			subject_concept_id INT,
 			cohort_initiation_date TIMESTAMP );
-
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.ATTRIBUTE_DEFINITION (
 			attribute_definition_id INT,

@@ -99,7 +99,7 @@ CREATE TABLE @cdmDatabaseSchema.DRUG_EXPOSURE (
 			refills integer NULL,
 			quantity float NULL,
 			days_supply integer NULL,
-			sig CLOB NULL,
+			sig VARCHAR2(1024) NULL,
 			route_concept_id integer NULL,
 			lot_number varchar(50) NULL,
 			provider_id integer NULL,
@@ -214,7 +214,7 @@ CREATE TABLE @cdmDatabaseSchema.NOTE (
 			note_type_concept_id integer NOT NULL,
 			note_class_concept_id integer NOT NULL,
 			note_title varchar(250) NULL,
-			note_text CLOB NOT NULL,
+			note_text VARCHAR2(1024) NOT NULL,
 			encoding_concept_id integer NOT NULL,
 			language_concept_id integer NOT NULL,
 			provider_id integer NULL,
@@ -229,7 +229,8 @@ CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			note_id integer NOT NULL,
 			section_concept_id integer NULL,
 			snippet varchar(250) NULL,
-			"offset" varchar(50) NULL,
+			offset_start integer NULL,
+			offset_end integer NULL,
 			lexical_variant varchar(250) NOT NULL,
 			note_nlp_concept_id integer NULL,
 			note_nlp_source_concept_id integer NULL,
@@ -238,7 +239,9 @@ CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			nlp_datetime TIMESTAMP NULL,
 			term_exists varchar(1) NULL,
 			term_temporal varchar(50) NULL,
-			term_modifiers varchar(2000) NULL );
+			term_modifiers varchar(2000) NULL,
+			nlp_event_id integer NOT NULL,
+			nlp_event_field_concept_id integer NOT NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.SPECIMEN (
 			specimen_id integer NOT NULL,
@@ -405,7 +408,7 @@ CREATE TABLE @cdmDatabaseSchema.CDM_SOURCE (
 			cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NOT NULL,
 			cdm_holder varchar(255) NOT NULL,
-			source_description CLOB NULL,
+			source_description VARCHAR2(1024) NULL,
 			source_documentation_reference varchar(255) NULL,
 			cdm_etl_reference varchar(255) NULL,
 			source_release_date date NOT NULL,
@@ -504,8 +507,8 @@ CREATE TABLE @cdmDatabaseSchema.COHORT (
 CREATE TABLE @cdmDatabaseSchema.COHORT_DEFINITION (
 			cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
-			cohort_definition_description CLOB NULL,
+			cohort_definition_description VARCHAR2(1024) NULL,
 			definition_type_concept_id integer NOT NULL,
-			cohort_definition_syntax CLOB NULL,
+			cohort_definition_syntax VARCHAR2(1024) NULL,
 			subject_concept_id integer NOT NULL,
 			cohort_initiation_date date NULL );

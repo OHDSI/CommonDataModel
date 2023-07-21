@@ -229,7 +229,8 @@ CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			note_id INT,
 			section_concept_id integer NULL,
 			snippet VARCHAR(250),
-			"offset" VARCHAR(50),
+			offset_start integer NULL,
+			offset_end integer NULL,
 			lexical_variant VARCHAR(250),
 			note_nlp_concept_id integer NULL,
 			note_nlp_source_concept_id integer NULL,
@@ -238,7 +239,9 @@ CREATE TABLE @cdmDatabaseSchema.NOTE_NLP (
 			nlp_datetime TIMESTAMP,
 			term_exists VARCHAR(1),
 			term_temporal VARCHAR(50),
-			term_modifiers VARCHAR(2000) );
+			term_modifiers VARCHAR(2000),
+			nlp_event_id INT,
+			nlp_event_field_concept_id INT );
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.SPECIMEN (
 			specimen_id INT,
