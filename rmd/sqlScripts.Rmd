@@ -475,7 +475,7 @@ WHERE vocabulary_id = 'None';
 
 ### Visit Concept Roll-up
 
-The query below will utilize the Visit Concept hierarcy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children as the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the [Optum Extended ETL documentation](https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html).
+The query below will utilize the Visit Concept hierarchy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children as the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the [Optum Extended ETL documentation](https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html).
 
 ```{sql eval=FALSE, echo=TRUE}
 SELECT concept_id, concept_name

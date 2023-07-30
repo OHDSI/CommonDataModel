@@ -145,7 +145,7 @@ not necessary to query for the existence of a relationship both in the concept_i
 fields.
 - Concept Relationships define direct relationships between Concepts. Indirect relationships through 3rd
 Concepts are not captured in this table. However, the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor) table does this for
-hierachical relationships over several “generations” of direct relationships.
+hierarchical relationships over several “generations” of direct relationships.
 - In previous versions of the CDM, the relationship_id used to be a numerical identifier. See the
 [RELATIONSHIP](https://ohdsi.github.io/CommonDataModel/cdm531.html#relationship) table.
 

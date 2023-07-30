@@ -1018,7 +1018,7 @@ NA
 observation_period_start_date
 </td>
 <td style="text-align:left;">
-Use this date to determine the start date of the period for which we can assume that all events for a Person are recorded and any absense of records indicates an absence of events.
+Use this date to determine the start date of the period for which we can assume that all events for a Person are recorded and any absence of records indicates an absence of events.
 </td>
 <td style="text-align:left;">
 It is often the case that the idea of observation periods does not exist in source data. In those cases the observation_period_start_date can be inferred as the earliest event date available for the Person. In US claims, the observation period can be considered as the time period the person is enrolled with an insurer. If a Person switches plans but stays with the same insurer, that change would be captured in payer_plan_period.
@@ -1050,7 +1050,7 @@ NA
 observation_period_end_date
 </td>
 <td style="text-align:left;">
-Use this date to determine the end date of the period for which we can assume that all events for a Person are recorded and any absense of records indicates an absence of events.
+Use this date to determine the end date of the period for which we can assume that all events for a Person are recorded and any absence of records indicates an absence of events.
 </td>
 <td style="text-align:left;">
 It is often the case that the idea of observation periods does not exist in source data. In those cases the observation_period_start_end_date can be inferred as the latest event date available for the Person. The event dates include insurance enrollment dates.
@@ -1667,7 +1667,7 @@ NA
 preceding_visit_occurrence_id
 </td>
 <td style="text-align:left;">
-Use this field to find the visit that occured for the person prior to the given visit. There could be a few days or a few years in between.
+Use this field to find the visit that occurred for the person prior to the given visit. There could be a few days or a few years in between.
 </td>
 <td style="text-align:left;">
 The preceding_visit_id can be used to link a visit immediately preceding the current visit. Note this is not symmetrical, and there is no such thing as a “following_visit_id”.
@@ -10200,7 +10200,7 @@ NA
 <p>The Drug Era End Date is the end date of the last Drug Exposure. The End Date of each Drug Exposure is either taken from the field drug_exposure_end_date or, as it is typically not available, inferred using the following rules:</p>
 <p>For pharmacy prescription data, the date when the drug was dispensed plus the number of days of supply are used to extrapolate the End Date for the Drug Exposure. Depending on the country-specific healthcare system, this supply information is either explicitly provided in the day_supply field or inferred from package size or similar information.</p>
 <p>For Procedure Drugs, usually the drug is administered on a single date (i.e., the administration date).</p>
-A standard Persistence Window of 30 days (gap, slack) is permitted between two subsequent such extrapolated DRUG_EXPOSURE records to be considered to be merged into a single Drug Era. (ARENT WE REQUIRING TO USE DRUG_EXPOSURE_END_DATE NOW????)
+A standard Persistence Window of 30 days (gap, slack) is permitted between two subsequent such extrapolated DRUG_EXPOSURE records to be considered to be merged into a single Drug Era. (AREN'T WE REQUIRING TO USE DRUG_EXPOSURE_END_DATE NOW????)
 </td>
 <td style="text-align:left;">
 datetime
@@ -20702,7 +20702,7 @@ NA
 payer_concept_id
 </td>
 <td style="text-align:left;">
-A foreign key that refers to a standard Payer concept identifier in the Standarized Vocabularies
+A foreign key that refers to a standard Payer concept identifier in the Standardized Vocabularies
 </td>
 <td style="text-align:left;">
 NA

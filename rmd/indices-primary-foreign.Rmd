@@ -10,7 +10,7 @@ output:
 ## Overview
 Database indices improve the performance of queries against a database by organizing the data in a way that increase query execution.
 
-This article was written to provide guidance on the setting of indices, primary and foreign keys for data that has been transformed into the Observational Medical Outcome Partnership (OMOP) Common Data Model (CDM).  The community that supports the design and development of the OHDSI/CommonDataModel Github repository is a diverse collaborative of healthcare and technical profesisonals whom have limited data base adminstrative (DBA) experience.  As a result, the comments below should be interpreted as suggestions and recommendations to help increase performance.  Your teams needs may call for a modified configuration.
+This article was written to provide guidance on the setting of indices, primary and foreign keys for data that has been transformed into the Observational Medical Outcome Partnership (OMOP) Common Data Model (CDM).  The community that supports the design and development of the OHDSI/CommonDataModel Github repository is a diverse collaborative of healthcare and technical profesisonals whom have limited data base administrative (DBA) experience.  As a result, the comments below should be interpreted as suggestions and recommendations to help increase performance.  Your teams needs may call for a modified configuration.
 
 ## General Recommendations
 Should your database of choice support indexing, the OMOP CDM Working Group recommends
@@ -40,7 +40,7 @@ Google BigQuery does not require manual optimization and/or sizing.  Google BigQ
 ### SQLite
 
 ### Databricks
-This database type is not yet supported but is actively being worked on by a number of collaborators.  For more informtion, please contact Ajit Londhe of Amgen.
+This database type is not yet supported but is actively being worked on by a number of collaborators.  For more information, please contact Ajit Londhe of Amgen.
 
 ## References
 
