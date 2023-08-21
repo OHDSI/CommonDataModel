@@ -17,7 +17,7 @@ This branch of the common data model, called `payless_health`, is used to develo
 - `COST`, representing a hospital's internal representations of costs (from billing, from HL7 FHIR messages, etc)
 - `PRICE`, representing publicly available price information from a care site such as a hospital, pharmacy, clinic, or other care site.
 
-<img width="815" alt="image" src="https://github.com/OHDSI/CommonDataModel/assets/5317244/0a506b94-8d21-435e-b834-dca0541ea157">
+<img width="400" alt="image" src="https://github.com/OHDSI/CommonDataModel/assets/5317244/0a506b94-8d21-435e-b834-dca0541ea157">
 
 Example [prototype dashboard](https://beta.payless.health/examples/mount-sinai.html) using [public data](https://www.mountsinai.org/files/MSHealth/Assets/HS/131624096_mount-sinai-hospital_standardcharges.zip) used to inform the development of the `COST` and `PRICE` tables (Open source Jupyter notebook using python for this dashboard is [here](https://colab.research.google.com/github/onefact/data_build_tool_payless.health/blob/main/notebooks/230809-mount-sinai.ipynb)).
 
