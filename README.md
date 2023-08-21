@@ -1,5 +1,5 @@
 ---
-title: "Readme"
+title: "Readme for COST and PRICE tables in the common data model"
 output:
   pdf_document:
     toc: yes
@@ -8,7 +8,58 @@ output:
     toc_float: yes
 ---
 
-# How to Use this Repository
+# `COST` and `PRICE` tables in the OMOP common data model
+
+The observational medical outcomes partnership common data model (OMOP CDM) is used to represent electronic health records for over 10% of the world's population. 
+
+This branch of the common data model, called `payless_health`, is used to develop two tables in the common data model:
+
+- `COST`, representing a hospital's internal representations of costs (from billing, from HL7 FHIR messages, etc)
+- `PRICE`, representing publicly available price information from a care site such as a hospital, pharmacy, clinic, or other care site.
+
+<img width="815" alt="image" src="https://github.com/OHDSI/CommonDataModel/assets/5317244/0a506b94-8d21-435e-b834-dca0541ea157">
+
+Example [prototype dashboard](https://beta.payless.health/examples/mount-sinai.html) using [public data](https://www.mountsinai.org/files/MSHealth/Assets/HS/131624096_mount-sinai-hospital_standardcharges.zip) used to inform the development of the `COST` and `PRICE` tables (Open source Jupyter notebook using python for this dashboard is [here](https://colab.research.google.com/github/onefact/data_build_tool_payless.health/blob/main/notebooks/230809-mount-sinai.ipynb)).
+
+## Use cases for the `COST` and `PRICE` tables
+
+There are several use cases for the `COST` and `PRICE` tables we have identified with the collaborators listed below:
+
+* `[Operations]` Populating the Payer Plan Period for patients with payors mapped to the [Source of Payment Typology](https://www.nahdo.org/sites/default/files/2020-12/SourceofPaymentTypologyVersion9_2%20-Dec%2011_2020_Final2.pdf).
+* `[Cost Effectiveness]` Connecting care to cost. Understanding value-based care contracts with the OMOP data model (e.g. using FHIR messages to populate the `COST` & `PRICE` tables in OMOP) that supports repatable analyses to demonstrate return on investment, and enable understanding the impact of value-based care on health outcomes and impact on costs.
+* `[Health Economics & Outcomes]` Linking to the N3C data enclave (https://ncats.nih.gov/n3c)
+* `[Health Economics & Outcomes; Policy Research]` Understanding how insurer market concentration affects for-profit and non-profit hospitals (e.g. replicating this type of study: https://www.healthaffairs.org/doi/10.1377/hlthaff.2022.01184).
+* `[Health Equity; Health Economics & Outcomes]` Understanding patterns in [4000+ hospital price sheets](https://data.payless.health/#hospital_price_transparency/) that have been aggregated, and linking these to social and environmental determinants of health such as the [area deprivation index](https://www.neighborhoodatlas.medicine.wisc.edu/).
+* `[Observational Health Studies]` Using the [phenotype workflow](https://arxiv.org/abs/2304.06504) developed in collaboration with the Phenotype Development & Evaluation Workgroup to assess unobserved confounding due to `COST` and `PRICE` information being unavailable or unreliable in electronic health records databases, while claims databases have unreliable.
+* `[Care Navigation]` Public price information collected from [4000+ hospitals](https://data.payless.health/#hospital_price_transparency/) can be used to help patients and employers make decisions about health care benefits. Examples like the [demo above](https://beta.payless.health/examples/mount-sinai.html) ([code](https://colab.research.google.com/github/onefact/data_build_tool_payless.health/blob/main/notebooks/230809-mount-sinai.ipynb)) show how prices vary by insurance product. The common data model can help people and organizations link information contained in explanations of benefits or claim feeds to public price information; this can inform how benefits are structured to also optimize health care costs and health outcomes.
+* `[Health Economics & Outcomes Research; Policy Research]` Countries like the United States and Estonia both have public information about the price of health care, and both have several academic medical centers that use the OMOP common data model. Cross-country comparisons can help highlight the cost effectiveness of care delivery decisions in single-payer systems or decisions like global budgeting (such as in [Maryland](https://hscrc.maryland.gov/Pages/init-gbr-pau.aspx)), or their impacts on access to care across states and countries.
+
+## Who is involved 
+
+The need for this branch was determined in collaboration with the Observational Health Data Sciences and Informatics (OHDSI) collaborative, specifically through a series of presentations at several workgroups (https://www.ohdsi.org/workgroups/):
+
+* the Phenotype Development & Evaluation Workgroup (lead: [Gowtham Rao](https://www.ohdsi.org/who-we-are/collaborators/gowtham-rao/))
+* the Common Data Model Workgroup (lead: [Clair Bracketer](https://www.ohdsi.org/who-we-are/collaborators/clair-blacketer/))
+* the CDM Vocabulary Subgroup (lead: [Anna Ostropolets](https://www.ohdsi.org/who-we-are/collaborators/anna-ostropolets/)
+* the Healthcare Systems Special Interest Group (lead: [Melanie Philofsk](https://www.ohdsi.org/who-we-are/collaborators/melanie-philofsky/))
+
+Folks who are involved or have expressed interest in use cases for the `COST` and `PRICE` tables of the common data model across these workgroups:
+
+* Stanford University ([Priya Desai](https://profiles.stanford.edu/Priya%20Desai))
+* University of Nebraska Medical Center ([Carol Geary](https://www.unmc.edu/pathology/faculty/bios/geary.html))
+* One Fact Foundation ([Jaan Altosaar & Jacob Zelko](https://www.onefact.org/team))
+* Tufts Medicine ([Andrew Williams](https://www.ohdsi.org/who-we-are/collaborators/andrew-williams/), Adam Russman, Clark Evans, Jared Houghtaling, Frank Osborn, Natalia Olchanski, Nathan Gagne)
+
+## Schema and vocabulary information for `PRICE` and `COST` tables
+
+We base the design of the `PRICE` and `COST` tables on several sources:
+
+* The existing `COST` table: https://ohdsi.github.io/CommonDataModel/cdm54.html#COST
+* Federal rules in the United States requiring payors to post prices ([85 FR 72158](https://www.federalregister.gov/documents/2020/11/12/2020-24591/transparency-in-coverage)) and hospitals to post prices ([84 FR 65524](https://www.federalregister.gov/documents/2019/11/27/2019-24931/medicare-and-medicaid-programs-cy-2020-hospital-outpatient-pps-policy-changes-and-payment-rates-and). The Centers for Medicare & Medicaid Services is considering requiring hospitals to use a [standard schema](https://www.cms.gov/files/zip/v11-hospital-price-transparency-machine-readable-file-formats-and-data-dictionary.zip) with this [validator](https://cmsgov.github.io/hpt-validator-tool/) in 2024 for posting prices; payors use [this schema](https://github.com/CMSgov/price-transparency-guide). Example hospital price sheets have been collected [here](https://data.payless.health/#hospital_price_transparency/) to help prototype the schema.
+* The [Source of Payment Typology](https://www.nahdo.org/sites/default/files/2020-12/SourceofPaymentTypologyVersion9_2%20-Dec%2011_2020_Final2.pdf) (which will be proposed as an expansion to the OMOP Vocabulary)
+* Other countries' public price information, such as Estonia's: https://www.riigiteataja.ee/akt/122122015054
+
+## How to Use this Repository
 
 If you are looking for the SQL DDLs and don't wish to generate them through R, they can be accessed [here](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4).
 
