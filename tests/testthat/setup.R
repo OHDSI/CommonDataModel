@@ -1,7 +1,30 @@
+# Specify desired test platforms
+cdmVersion <- "5.4"
+testDatabases <- c("postgresql")
+
 # Download the JDBC drivers used in the tests
 library(DatabaseConnector)
 
-if (is.na(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))) {
+missingJarFolderEnvironmentVariable <- FALSE
+emptyJarFolderEnivornmentVariable <- FALSE
+jarFolderDoesNotExist <- FALSE
+
+missingJarFolderEnvironmentVariable <- is.na(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))
+if (missingJarFolderEnvironmentVariable) {
+  cat("DATABASECONNECTOR_JAR_FOLDER environment variable not set.")
+} else {
+  emptyJarFolderEnivornmentVariable <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")==""
+  if (emptyJarFolderEnivornmentVariable) {
+    cat("DATABASECONNECTOR_JAR_FOLDER environment variable is empty string")
+  } else {
+    jarFolderDoesNotExist <- !dir.exists(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))
+    if (jarFolderDoesNotExist) {
+      cat(paste("specified DATABASECONNECTOR_JAR_FOLDER", Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"), "does not exist."))
+    }
+  }
+}
+
+if ( missingJarFolderEnvironmentVariable| emptyJarFolderEnivornmentVariable | jarFolderDoesNotExist) {
   driverPath <- tempdir()
   cat("\ndownloading drivers\n")
   downloadJdbcDrivers("redshift", pathToDriver = driverPath)
@@ -12,7 +35,7 @@ if (is.na(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))) {
   driverPath <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")
 }
 
-# Helper functions used in tests -----------------------------------------------
+# Helper functions used in tests
 getConnectionDetails <- function(dbms) {
   switch (dbms,
     "postgresql" = createConnectionDetails(
