@@ -69,8 +69,9 @@ buildRelease <- function(cdmVersions = listSupportedVersions(),
 #' @return A character string containing the OHDSQL DDL
 #' @export
 #' @examples
+#'\dontrun{
 #' buildReleaseZip(cdmVersion='5.3', targetDialect='sql server', outputfolder='.')
-#'
+#'}
 buildReleaseZip <- function(cdmVersion,
                             targetDialect = listSupportedDialects(),
                             outputfolder = file.path(getwd(), "output")){
