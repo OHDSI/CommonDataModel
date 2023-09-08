@@ -1,12 +1,7 @@
-# To run tests for one dbms and one cdmVersion use the variables below
-# dbms <- "postgresql"; cdmVersion <- "5.4"
-
-testDatabases <- c("oracle", "postgresql", "sql server", "redshift")
-# testDatabases <- c("redshift")
 
 test_that("getConnectionDetails works", {
   for(dbms in testDatabases) {
-    expect_s3_class(getConnectionDetails(dbms), "connectionDetails")
+    expect_s3_class(getConnectionDetails(dbms), "ConnectionDetails")
   }
 })
 

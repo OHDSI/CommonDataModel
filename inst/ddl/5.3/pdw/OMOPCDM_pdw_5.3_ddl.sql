@@ -1,7 +1,6 @@
 --pdw CDM DDL Specification for OMOP Common Data Model 5.3
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PERSON  ( person_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.person  ( person_id integer NOT NULL,
 			gender_concept_id integer NOT NULL,
 			year_of_birth integer NOT NULL,
 			month_of_birth integer NULL,
@@ -20,17 +19,15 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PERSON  ( person_id
 			ethnicity_source_value varchar(50) NULL,
 			ethnicity_source_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.OBSERVATION_PERIOD  (observation_period_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.observation_period  (observation_period_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			observation_period_start_date date NOT NULL,
 			observation_period_end_date date NOT NULL,
 			period_type_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_OCCURRENCE  (visit_occurrence_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.visit_occurrence  (visit_occurrence_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			visit_concept_id integer NOT NULL,
 			visit_start_date date NOT NULL,
@@ -48,9 +45,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_OCCURRENCE  (
 			discharge_to_source_value varchar(50) NULL,
 			preceding_visit_occurrence_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_DETAIL  (visit_detail_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.visit_detail  (visit_detail_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			visit_detail_concept_id integer NOT NULL,
 			visit_detail_start_date date NOT NULL,
@@ -70,9 +66,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VISIT_DETAIL  (visi
 			visit_detail_parent_id integer NULL,
 			visit_occurrence_id integer NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_OCCURRENCE  (condition_occurrence_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.condition_occurrence  (condition_occurrence_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			condition_concept_id integer NOT NULL,
 			condition_start_date date NOT NULL,
@@ -89,9 +84,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_OCCURRENC
 			condition_source_concept_id integer NULL,
 			condition_status_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_EXPOSURE  (drug_exposure_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_exposure  (drug_exposure_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
 			drug_exposure_start_date date NOT NULL,
@@ -115,9 +109,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_EXPOSURE  (dru
 			route_source_value varchar(50) NULL,
 			dose_unit_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROCEDURE_OCCURRENCE  (procedure_occurrence_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.procedure_occurrence  (procedure_occurrence_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			procedure_concept_id integer NOT NULL,
 			procedure_date date NOT NULL,
@@ -132,9 +125,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROCEDURE_OCCURRENC
 			procedure_source_concept_id integer NULL,
 			modifier_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DEVICE_EXPOSURE  (device_exposure_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.device_exposure  (device_exposure_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			device_concept_id integer NOT NULL,
 			device_exposure_start_date date NOT NULL,
@@ -150,9 +142,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DEVICE_EXPOSURE  (d
 			device_source_value varchar(50) NULL,
 			device_source_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.MEASUREMENT  (measurement_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.measurement  (measurement_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			measurement_concept_id integer NOT NULL,
 			measurement_date date NOT NULL,
@@ -173,9 +164,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.MEASUREMENT  (measu
 			unit_source_value varchar(50) NULL,
 			value_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.OBSERVATION  (observation_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.observation  (observation_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			observation_concept_id integer NOT NULL,
 			observation_date date NOT NULL,
@@ -194,9 +184,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.OBSERVATION  (obser
 			unit_source_value varchar(50) NULL,
 			qualifier_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DEATH  ( person_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.death  ( person_id integer NOT NULL,
 			death_date date NOT NULL,
 			death_datetime datetime NULL,
 			death_type_concept_id integer NULL,
@@ -204,9 +193,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DEATH  ( person_id 
 			cause_source_value varchar(50) NULL,
 			cause_source_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.note  (note_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			note_date date NOT NULL,
 			note_datetime datetime NULL,
@@ -221,9 +209,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE  (note_id inte
 			visit_detail_id integer NULL,
 			note_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE_NLP  (note_nlp_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.note_nlp  (note_nlp_id integer NOT NULL,
 			note_id integer NOT NULL,
 			section_concept_id integer NULL,
 			snippet varchar(250) NULL,
@@ -238,9 +225,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.NOTE_NLP  (note_nlp
 			term_temporal varchar(50) NULL,
 			term_modifiers varchar(2000) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.SPECIMEN  (specimen_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.specimen  (specimen_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			specimen_concept_id integer NOT NULL,
 			specimen_type_concept_id integer NOT NULL,
@@ -256,17 +242,15 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.SPECIMEN  (specimen
 			anatomic_site_source_value varchar(50) NULL,
 			disease_status_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.FACT_RELATIONSHIP  (domain_concept_id_1 integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.fact_relationship  (domain_concept_id_1 integer NOT NULL,
 			fact_id_1 integer NOT NULL,
 			domain_concept_id_2 integer NOT NULL,
 			fact_id_2 integer NOT NULL,
 			relationship_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.LOCATION  (location_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.location  (location_id integer NOT NULL,
 			address_1 varchar(50) NULL,
 			address_2 varchar(50) NULL,
 			city varchar(50) NULL,
@@ -275,18 +259,16 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.LOCATION  (location
 			county varchar(20) NULL,
 			location_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CARE_SITE  (care_site_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.care_site  (care_site_id integer NOT NULL,
 			care_site_name varchar(255) NULL,
 			place_of_service_concept_id integer NULL,
 			location_id integer NULL,
 			care_site_source_value varchar(50) NULL,
 			place_of_service_source_value varchar(50) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROVIDER  (provider_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.provider  (provider_id integer NOT NULL,
 			provider_name varchar(255) NULL,
 			npi varchar(20) NULL,
 			dea varchar(20) NULL,
@@ -300,9 +282,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PROVIDER  (provider
 			gender_source_value varchar(50) NULL,
 			gender_source_concept_id integer NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PAYER_PLAN_PERIOD  (payer_plan_period_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.payer_plan_period  (payer_plan_period_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			payer_plan_period_start_date date NOT NULL,
 			payer_plan_period_end_date date NOT NULL,
@@ -320,9 +301,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.PAYER_PLAN_PERIOD  
 			stop_reason_source_value varchar(50) NULL,
 			stop_reason_source_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COST  (cost_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cost  (cost_id integer NOT NULL,
 			cost_event_id integer NOT NULL,
 			cost_domain_id varchar(20) NOT NULL,
 			cost_type_concept_id integer NOT NULL,
@@ -345,9 +325,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COST  (cost_id inte
 			drg_concept_id integer NULL,
 			drg_source_value varchar(3) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_ERA  (drug_era_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_era  (drug_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
 			drug_era_start_date date NOT NULL,
@@ -355,9 +334,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_ERA  (drug_era
 			drug_exposure_count integer NULL,
 			gap_days integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DOSE_ERA  (dose_era_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.dose_era  (dose_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
 			unit_concept_id integer NOT NULL,
@@ -365,18 +343,16 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DOSE_ERA  (dose_era
 			dose_era_start_date date NOT NULL,
 			dose_era_end_date date NOT NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON KEY (person_id)
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONDITION_ERA  (condition_era_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.condition_era  (condition_era_id integer NOT NULL,
 			 person_id integer NOT NULL,
 			condition_concept_id integer NOT NULL,
 			condition_era_start_date date NOT NULL,
 			condition_era_end_date date NOT NULL,
 			condition_occurrence_count integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.METADATA  (metadata_concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.metadata  (metadata_concept_id integer NOT NULL,
 			metadata_type_concept_id integer NOT NULL,
 			name varchar(250) NOT NULL,
 			value_as_string varchar(250) NULL,
@@ -384,9 +360,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.METADATA  (metadata
 			metadata_date date NULL,
 			metadata_datetime datetime NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CDM_SOURCE  (cdm_source_name varchar(255) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cdm_source  (cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NULL,
 			cdm_holder varchar(255) NULL,
 			source_description VARCHAR(1000) NULL,
@@ -397,9 +372,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CDM_SOURCE  (cdm_so
 			cdm_version varchar(10) NULL,
 			vocabulary_version varchar(20) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT  (concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept  (concept_id integer NOT NULL,
 			concept_name varchar(255) NOT NULL,
 			domain_id varchar(20) NOT NULL,
 			vocabulary_id varchar(20) NOT NULL,
@@ -410,60 +384,52 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT  (concept_i
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.VOCABULARY  (vocabulary_id varchar(20) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.vocabulary  (vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NOT NULL,
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DOMAIN  (domain_id varchar(20) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.domain  (domain_id varchar(20) NOT NULL,
 			domain_name varchar(255) NOT NULL,
 			domain_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT_CLASS  (concept_class_id varchar(20) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_class  (concept_class_id varchar(20) NOT NULL,
 			concept_class_name varchar(255) NOT NULL,
 			concept_class_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT_RELATIONSHIP  (concept_id_1 integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_relationship  (concept_id_1 integer NOT NULL,
 			concept_id_2 integer NOT NULL,
 			relationship_id varchar(20) NOT NULL,
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.RELATIONSHIP  (relationship_id varchar(20) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.relationship  (relationship_id varchar(20) NOT NULL,
 			relationship_name varchar(255) NOT NULL,
 			is_hierarchical varchar(1) NOT NULL,
 			defines_ancestry varchar(1) NOT NULL,
 			reverse_relationship_id varchar(20) NOT NULL,
 			relationship_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT_SYNONYM  (concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_synonym  (concept_id integer NOT NULL,
 			concept_synonym_name varchar(1000) NOT NULL,
 			language_concept_id integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.CONCEPT_ANCESTOR  (ancestor_concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_ancestor  (ancestor_concept_id integer NOT NULL,
 			descendant_concept_id integer NOT NULL,
 			min_levels_of_separation integer NOT NULL,
 			max_levels_of_separation integer NOT NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.SOURCE_TO_CONCEPT_MAP  (source_code varchar(50) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.source_to_concept_map  (source_code varchar(50) NOT NULL,
 			source_concept_id integer NOT NULL,
 			source_vocabulary_id varchar(20) NOT NULL,
 			source_code_description varchar(255) NULL,
@@ -473,9 +439,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.SOURCE_TO_CONCEPT_M
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_STRENGTH  (drug_concept_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_strength  (drug_concept_id integer NOT NULL,
 			ingredient_concept_id integer NOT NULL,
 			amount_value float NULL,
 			amount_unit_concept_id integer NULL,
@@ -488,9 +453,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.DRUG_STRENGTH  (dru
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COHORT_DEFINITION  (cohort_definition_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cohort_definition  (cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
 			cohort_definition_description VARCHAR(1000) NULL,
 			definition_type_concept_id integer NOT NULL,
@@ -498,9 +462,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.COHORT_DEFINITION  
 			subject_concept_id integer NOT NULL,
 			cohort_initiation_date date NULL )
 WITH (DISTRIBUTION = REPLICATE);
-
 --HINT DISTRIBUTE ON RANDOM
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE  @cdmDatabaseSchema.ATTRIBUTE_DEFINITION  (attribute_definition_id integer NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.attribute_definition  (attribute_definition_id integer NOT NULL,
 			attribute_name varchar(255) NOT NULL,
 			attribute_description VARCHAR(1000) NULL,
 			attribute_type_concept_id integer NOT NULL,

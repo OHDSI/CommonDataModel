@@ -76,7 +76,7 @@ executeDdl <- function(connectionDetails,
 
   con <- DatabaseConnector::connect(connectionDetails = connectionDetails)
 
-  DatabaseConnector::executeSql(con, sql = sql, ...)
+  DatabaseConnector::executeSql(con, sql = sql, reportOverallTime = FALSE, progressBar = FALSE, ...)
 
   DatabaseConnector::disconnect(con)
 }

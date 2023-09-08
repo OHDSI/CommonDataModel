@@ -31,6 +31,7 @@ If no (or multiple) targetDialect is given,
 then one zip is written with the files of all supported dialects.
 }
 \examples{
+\dontrun{
 buildReleaseZip(cdmVersion='5.3', targetDialect='sql server', outputfolder='.')
-
+}
 }

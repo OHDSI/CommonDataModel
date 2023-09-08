@@ -1,18 +1,41 @@
+# Specify desired test platforms
+cdmVersion <- "5.4"
+testDatabases <- c("postgresql")
+
 # Download the JDBC drivers used in the tests
 library(DatabaseConnector)
 
-driverPath <- file.path(Sys.getenv("HOME"), "drivers")
-if(!dir.exists(driverPath)) dir.create(driverPath)
+missingJarFolderEnvironmentVariable <- FALSE
+emptyJarFolderEnivornmentVariable <- FALSE
+jarFolderDoesNotExist <- FALSE
 
-if(Sys.getenv("LOCAL_TEST") != "TRUE") {
+missingJarFolderEnvironmentVariable <- is.na(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))
+if (missingJarFolderEnvironmentVariable) {
+  cat("DATABASECONNECTOR_JAR_FOLDER environment variable not set.")
+} else {
+  emptyJarFolderEnivornmentVariable <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")==""
+  if (emptyJarFolderEnivornmentVariable) {
+    cat("DATABASECONNECTOR_JAR_FOLDER environment variable is empty string")
+  } else {
+    jarFolderDoesNotExist <- !dir.exists(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))
+    if (jarFolderDoesNotExist) {
+      cat(paste("specified DATABASECONNECTOR_JAR_FOLDER", Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"), "does not exist."))
+    }
+  }
+}
+
+if ( missingJarFolderEnvironmentVariable| emptyJarFolderEnivornmentVariable | jarFolderDoesNotExist) {
+  driverPath <- tempdir()
   cat("\ndownloading drivers\n")
   downloadJdbcDrivers("redshift", pathToDriver = driverPath)
   downloadJdbcDrivers("postgresql", pathToDriver = driverPath)
   downloadJdbcDrivers("oracle", pathToDriver = driverPath)
   downloadJdbcDrivers("sql server", pathToDriver = driverPath)
+} else {
+  driverPath <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER")
 }
 
-# Helper functions used in tests -----------------------------------------------
+# Helper functions used in tests
 getConnectionDetails <- function(dbms) {
   switch (dbms,
     "postgresql" = createConnectionDetails(
@@ -20,28 +43,28 @@ getConnectionDetails <- function(dbms) {
       user = Sys.getenv("CDMDDLBASE_POSTGRESQL_USER"),
       password = Sys.getenv("CDMDDLBASE_POSTGRESQL_PASSWORD"),
       server = Sys.getenv("CDMDDLBASE_POSTGRESQL_SERVER"),
-      pathToDriver = file.path(Sys.getenv("HOME"), "drivers")
+      pathToDriver = driverPath
     ),
     "redshift" = createConnectionDetails(
       dbms = "redshift",
       user = Sys.getenv("CDMDDLBASE_REDSHIFT_USER"),
       password = Sys.getenv("CDMDDLBASE_REDSHIFT_PASSWORD"),
       server = Sys.getenv("CDMDDLBASE_REDSHIFT_SERVER"),
-      pathToDriver = file.path(Sys.getenv("HOME"), "drivers")
+      pathToDriver = driverPath
     ),
     "sql server" = createConnectionDetails(
       dbms = "sql server",
       user = Sys.getenv("CDMDDLBASE_SQL_SERVER_USER"),
       password = Sys.getenv("CDMDDLBASE_SQL_SERVER_PASSWORD"),
       server = Sys.getenv("CDMDDLBASE_SQL_SERVER_SERVER"),
-      pathToDriver = file.path(Sys.getenv("HOME"), "drivers")
+      pathToDriver = driverPath
     ),
     "oracle" = createConnectionDetails(
       dbms = "oracle",
       user = Sys.getenv("CDMDDLBASE_ORACLE_USER"),
       password = Sys.getenv("CDMDDLBASE_ORACLE_PASSWORD"),
       server = Sys.getenv("CDMDDLBASE_ORACLE_SERVER"),
-      pathToDriver = file.path(Sys.getenv("HOME"), "drivers")
+      pathToDriver = driverPath
     )
   )
 }
@@ -56,7 +79,7 @@ getSchema <- function(dbms) {
 }
 
 listTablesInSchema <- function(connectionDetails, schema) {
-  stopifnot(class(connectionDetails) == "connectionDetails", class(schema) == "character", length(schema) == 1)
+  stopifnot("ConnectionDetails" %in% class(connectionDetails), class(schema) == "character", length(schema) == 1)
   stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
@@ -71,43 +94,21 @@ listTablesInSchema <- function(connectionDetails, schema) {
 }
 
 dropAllTablesFromSchema <- function(connectionDetails, schema) {
-  stopifnot(class(connectionDetails) == "connectionDetails", class(schema) == "character", length(schema) == 1)
+  stopifnot("ConnectionDetails" %in% class(connectionDetails), class(schema) == "character", length(schema) == 1)
   stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
-  tables <- listTablesInSchema(connectionDetails, schema)
+  tableNames <- listTablesInSchema(connectionDetails, schema)
 
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
   if(dbms %in% c("redshift", "postgresql", "sql server")) {
-    for(table in tables) {
-      DBI::dbRemoveTable(con, name = DBI::SQL(paste(schema, table, sep = ".")))
+    for(tableName in tableNames) {
+      DBI::dbExecute(con, paste("DROP TABLE IF EXISTS",paste(schema, tableName, sep = "."),"CASCADE"))
     }
   } else if(dbms == "oracle") {
-    for(table in tables) {
-      DBI::dbRemoveTable(con, name = table)
+    for(tableName in tableNames) {
+      DBI::dbExecute(con, paste("DROP TABLE IF EXISTS",tableName,"CASCADE"))
     }
   }
 }
 
-
-# .removeConstraintsPostgresql <- function(connectionDetails, schema) {
-#   # the order of removal of constraints matters!
-#   con <- DatabaseConnector::connect(connectionDetails)
-#   constraints <- DBI::dbGetQuery(con,
-#   "SELECT con.conname, rel.relname as relname
-#     FROM pg_catalog.pg_constraint con
-#   INNER JOIN pg_catalog.pg_class rel
-#   ON rel.oid = con.conrelid
-#   INNER JOIN pg_catalog.pg_namespace nsp
-#   ON nsp.oid = connamespace
-#   WHERE nsp.nspname = 'cdmddlbase';")
-#
-#
-#   constraints <- dplyr::mutate(constraints, sql = paste0("alter table ", schema, ".", relname, " drop constraint if exists ", conname, ";\n" ))
-#
-#   sql <- paste(rev(constraints$sql), collapse = "")
-#   executeSql(con, sql)
-#
-#   disconnect(con)
-#
-# }

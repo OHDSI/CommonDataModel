@@ -3,3 +3,5 @@
 ^LICENSE\.md$
 .github/*
 extras/*
+docs/*
+rmd/*
