@@ -5,6 +5,9 @@ output:
     toc: yes
     toc_depth: 5
     toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: 5
 ---
 
 ```{r setup, include=FALSE, eval=TRUE}
@@ -22,11 +25,6 @@ library(stringr)
 Below is the specification document for the OMOP Common Data Model, v5.3 (previously v5.3.1). Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the [forums](https://forums.ohdsi.org/) or the [github issue](https://github.com/ohdsi/CommonDataModel/issues) page.
 
 *__Special Note__ This documentation previously referenced v5.3.1.  During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases.  Hot fixes and minor.minor release can be found through the searching of tags.*
-
---after regeneration of DDLs
-link to csv of cdm
-link to pdf of cdm documentation
-link to forum on doc page
 
 ```{r docLoop53, echo=FALSE, results='asis'}
 tableSpecs <- read.csv("../inst/csv/OMOP_CDMv5.3_Table_Level.csv", stringsAsFactors = FALSE)
@@ -51,26 +49,26 @@ cdmSpecsClean[is.na(cdmSpecsClean)] <- ""
 
 for(tb in tables) {
   
-  if(tb == 'PERSON'){
+  if(tb == 'person'){
     cat("## **Clinical Data Tables**\n\n")
   }
   
-  if(tb == 'LOCATION'){
+  if(tb == 'location'){
     cat("## **Health System Data Tables**\n\n")
   }
   
-  if(tb == 'PAYER_PLAN_PERIOD'){
+  if(tb == 'payer_plan_period'){
     cat("## **Health Economics Data Tables**\n\n")
   }
   
-  if(tb == 'DRUG_ERA'){
+  if(tb == 'drug_era'){
     cat("## **Standardized Derived Elements**\n\n")
   }
   
-  if(tb == 'METADATA'){
+  if(tb == 'metadata'){
     cat("## **Metadata Tables**\n\n")
   }
-  if(tb == 'CONCEPT'){
+  if(tb == 'concept'){
     cat("## **Vocabulary Tables**\n\n")
   }
   

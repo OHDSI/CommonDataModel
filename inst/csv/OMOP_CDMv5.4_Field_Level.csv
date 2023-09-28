@@ -334,7 +334,7 @@ cost,drg_concept_id,No,integer,NA,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
 cost,drg_source_value,No,varchar(3),Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups.,NA,No,No,NA,NA,NA,NA,NA
 drug_era,drug_era_id,Yes,integer,NA,NA,Yes,No,NA,NA,NA,NA,NA
 drug_era,person_id,Yes,integer,NA,NA,No,Yes,PERSON,PERSON_ID,NA,NA,NA
-drug_era,drug_concept_id,Yes,integer,The Concept Id representing the specific drug ingredient.,NA,No,Yes,CONCEPT,CONCEPT_ID,Drug,Ingredient,NA
+drug_era,drug_concept_id,Yes,integer,The Concept Id representing the specific drug ingredient.,The drug_concept_id should conform to the concept class 'ingredient' as the drug_era is an era of time where a person is exposed to a particular drug ingredient.,No,Yes,CONCEPT,CONCEPT_ID,Drug,Ingredient,NA
 drug_era,drug_era_start_date,Yes,date,NA,"The Drug Era Start Date is the start date of the first Drug Exposure for a given ingredient, with at least 31 days since the previous exposure.",No,No,NA,NA,NA,NA,NA
 drug_era,drug_era_end_date,Yes,date,NA,"The Drug Era End Date is the end date of the last Drug Exposure. The End Date of each Drug Exposure is either taken from the field drug_exposure_end_date or, as it is typically not available, inferred using the following rules:
 For pharmacy prescription data, the date when the drug was dispensed plus the number of days of supply are used to extrapolate the End Date for the Drug Exposure. Depending on the country-specific healthcare system, this supply information is either explicitly provided in the day_supply field or inferred from package size or similar information.
