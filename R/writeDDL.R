@@ -51,6 +51,7 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
 
 #' @describeIn writeDdl writePrimaryKeys Write the SQL code that creates the primary keys to a file.
 #' @export
+#'
 writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
