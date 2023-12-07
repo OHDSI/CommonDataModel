@@ -1,0 +1,93 @@
+---
+title: "**Custom Concepts**"
+output: html_document
+---
+
+*By Maxim Moinat and the Themis Working Group*
+
+The Themis Working Group convened on October 6th and December 7th 2023 to discuss the creation this convention for creating custom concepts.
+
+## Introduction
+While the OMOP vocabularies are very comprehensive, it is not always possible to use concepts existing in the OMOP vocabularieas. For example, when using a vocabulary that is only used in your institution or having custom defined variables. In these cases, custom concepts can be used. Custom concepts are concepts that are not part of the OMOP vocabularies, and are only used in your institution.
+
+There are two main reasons to define custom concepts in your local OMOP CDM vocabulary. The first is that they are available in your local Atlas instance, which has several use cases:
+ - When viewing a standard concept, you can see which custom concepts are mapped to it. This allows you to better understand what the standard concept represents in your institution.
+ - You can search for a custom concept and find which standard concepts it is mapped to, to include in your standard concept set.
+ - For studies only using your local data, you can define cohorts using custom concepts (through 'Add attribute'->'Add ... Source Concept').
+The second reason is using the custom concepts in your ETL. By creating both the custom concept, and the 'Maps to' relationship (example below), we can use this in the same way as mapping other source vocabularies.
+
+**Custom concepts are only defined locally. These cannot be used for network research. Therefore it remains very important to map to standard concepts.**
+
+## Conventions
+It is important to follow a set of conventions when creating custom concepts, to avoid negatively impacting network studies. The conventions are as follows:
+- Custom concepts have a `concept_id` larger than 2,000,000,000. This is to avoid clashes with existing concepts.<sup>†</sup>
+- Custom concepts are always non-standard (`concept.standard_concept = NULL`).
+- Custom concepts can only be used in the `_source_concept_id` fields (e.g. `procedure_source_concept_id`)
+- If the field `_source_concept_id` does not exist, add a custom column to your table (e.g. a `drug_exposure.route_source_concept_id`)<sup>1</sup>. If there is a wide need in the community, a proposal can be submitted to the CDM Working Group to add these fields in a future OMOP CDM version.
+- Always add custom concepts to a new vocabulary. In some cases an existing concept class can be reused. The domain can always be reused. See below for examples.
+- Do NOT add custom concepts to the hierarchy of existing vocabularies (either in the `concept_ancestor` table or `subsumes`/`is a` relations in the `concept_relationship` table). This is to avoid descendant concepts to differ between sites.
+
+In addition, it is recommended to follow these suggestions:
+- The `vocabulary_concept_id` can be set to 0, as this is often not used in the OMOP CDM.
+- Create mappings between custom concepts and standard concepts. This can be done by adding rows to the `concept_relationship` table, with the `Maps to` relation. The reverse relation, `Mapped from`, should also be added. This allows for easy navigation between custom and standard concepts<sup>2</sup>.
+- Officailly, `concept_hiearchy` is only for standard concepts. However, if you local use case requires this (e.g. for selection of descendants of custom concepts), the custom concepts can be added into their own, isolated, hierarchy.
+
+<sup>†</sup>(fun fact: this is why custom concepts are sometimes referred to as "2B+" or "2billionaires").
+
+## Example
+In this example, we will add one custom concept for the 'DHD Diagnose Thesaurus'. This is a Dutch vocabulary, which is not part of the OMOP vocabularies. We will add the concept 'risico op infectieziekte na prikaccident' (risk of infectious disease after needlestick injury). This concept is mapped to the standard concept 'Infectious disease following needlestick injury' (concept_id 47623518).
+
+After creating these records, we can use the custom concept in our ETL to populate the `condition_source_concept_id` field.
+
+### Custom vocabulary
+| Field | Value |
+|-------|-------|
+| vocabulary_id | DHD Diagnose Thesaurus |
+| vocabulary_name | Dutch Hospital Data Diagnosethesaurus |
+| vocabulary_reference | https://www.dhd.nl/producten-diensten/diagnosethesaurus/Paginas/diagnosethesaurus.asp |
+| vocabulary_version | 2023-04-20 |
+| vocabulary_concept_id | 0 |
+
+### Custom concept
+| Field | Value |
+|-------|-------|
+| concept_id | 2_000_000_001 |
+| concept_name | risico op infectieziekte na prikaccident |
+| domain_id | Condition |
+| vocabulary_id | DHD Diagnose Thesaurus |
+| concept_class_id | Clinical Finding |
+| standard_concept | `NULL` |
+| concept_code | 0000062590 |
+| valid_start_date | 2017-08-01 |
+| valid_end_date | 2099-12-31 |
+| invalid_reason | `NULL` |
+
+### Mapping relationship
+| Field | Value |
+|-------|-------|
+| concept_id_1 | 2_000_000_001 |
+| concept_id_2 | 47623518 |
+| relationship_id | Maps to |
+| valid_start_date | 2017-08-01 |
+| valid_end_date | 2099-12-31 |
+| invalid_reason | `NULL` |
+
+| Field | Value |
+|-------|-------|
+| concept_id_1 | 47623518 |
+| concept_id_2 | 2_000_000_001 |
+| relationship_id | Mapped from |
+| valid_start_date | 2017-08-01 |
+| valid_end_date | 2099-12-31 |
+| invalid_reason | `NULL` |
+
+Notes:
+ - Use this query to map the custom concept to the standard concept: https://ohdsi.github.io/CommonDataModel/sqlScripts.html#Source_to_Standard
+ - We reuse the concept class 'Clinical Finding' for this custom concept.
+
+## Getting your custom concepts into the OMOP vocabularies
+If you think your custom concepts are useful for others, you can submit them to the OMOP vocabularies. This is a separate process from the conventions described above. Please see the [this support page](https://ohdsi.github.io/CommonDataModel/vocabRequest.html).
+
+## References
+<sup>1</sup>[Melanie Philofsky; Implementing & adopting a customized OMOP Common Data Model; OHDSI Symposium 2021](https://www.ohdsi.org/2021-global-symposium-showcase-18/)
+<sup>2</sup>[Melanie Philofsky; Mapping Custom Source Codes to Standard Concepts: A Comparison of Two Approaches; OHDSI Symposium 2020](https://www.ohdsi.org/wp-content/uploads/2020/10/Melanie-Philofsky-Philofsky-Mapping-Source-Codes-Poster.pdf)
