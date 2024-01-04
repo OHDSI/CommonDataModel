@@ -33,6 +33,8 @@ navbar:
           href: ehrObsPeriods.html
         - text: "Patient Privacy and OMOP"
           href: cdmPrivacy.html
+        - text: "Custom Concepts"
+          href: customConcepts.html
     - text: "CDM Versions"
       icon: fa-history
       menu:

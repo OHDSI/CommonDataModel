@@ -3,6 +3,7 @@
 # Run this in standalone R session. Runs orders of magnitude faster compared
 # to running in RStudio:
 
-setwd("/Users/clairblacketer/Documents/Github/CommonDataModel/rmd")
-rmarkdown::render_site()
+library(rmarkdown)
 
+setwd("rmd")
+rmarkdown::render_site()
