@@ -27,7 +27,7 @@ It is important to follow a set of conventions when creating custom concepts, to
 - Custom concepts are always non-standard (`concept.standard_concept = NULL`).
 - Custom concepts can only be used in the `_source_concept_id` fields (e.g. `procedure_source_concept_id`)
 - If the field `_source_concept_id` does not exist, add a custom column to your table (e.g. a `drug_exposure.route_source_concept_id`)<sup>1</sup>. If there is a wide need in the community, a proposal can be submitted to the CDM Working Group to add these fields in a future OMOP CDM version.
-- Always add custom concepts to a new vocabulary specifically for your source (see example below).
+- Always add custom concepts to a new vocabulary specifically for your source (see example below). If you have a need to add concepts to an existing vocabulary, please contact the OHDSI Vocabulary Working Group.
 - Do NOT add custom concepts to the hierarchy of existing vocabularies (either in the `concept_ancestor` table or `subsumes`/`is a` relations in the `concept_relationship` table). This is to avoid descendant concepts to differ between sites.
 
 In addition, it is recommended to follow these suggestions:
