@@ -36,7 +36,9 @@ Dashboard.
 
 }}
 \examples{
+\dontrun{
 ddl <- createDdl("5.4")
 pk <- createPrimaryKeys("5.4")
 fk <- createForeignKeys("5.4")
+}
 }

@@ -12,6 +12,7 @@ listSupportedVersions <- function() {
 #' @export
 
 listSupportedDialects <- function() {
-  supportedDialects <- c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse")
+  sqlRenderSupportedDialects <- SqlRender::listSupportedDialects()
+  supportedDialects <- sqlRenderSupportedDialects$dialect
   return(supportedDialects)
 }

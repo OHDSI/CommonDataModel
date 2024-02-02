@@ -1,7 +1,7 @@
 Package: CommonDataModel
 Type: Package
 Title: OMOP CDM DDL and Documentation Generator
-Version: 0.1.0
+Version: 0.2.0
 Author: Clair Blacketer [aut, cre]
 Maintainer: Clair Blacketer <mblacke@its.jnj.com>
 Description: This package uses an input csv file to create the OHDSql version of the DDL as well as the documentation associated. Then it leverages the SqlRender package to convert the DDL script written in OHDSql to the other supported dialects.
@@ -13,7 +13,6 @@ Imports:
   SqlRender, 
   rmarkdown,
   stringr,
-  readxl,
   DatabaseConnector,
   DBI,
   dplyr,
@@ -24,5 +23,5 @@ Suggests:
     RSQLite,
     withr
 NeedsCompilation: no
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3
