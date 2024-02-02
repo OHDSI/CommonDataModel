@@ -1,3 +1,4 @@
+
 # connection based tests required environment variables be configured
 test_that("CommonDataModel Execution Test", {
   if (Sys.getenv("CDM5_POSTGRESQL_SERVER") != "") {
@@ -21,7 +22,6 @@ test_that("CommonDataModel Execution Test", {
         expect_error(con <- connect(connectionDetails), NA)
         expect_error(disconnect(con), NA)
       })
-
 
       for (cdmVersion in listSupportedVersions()) {
         test_that(paste("DDL", cdmVersion, "runs on", dbms), {
@@ -61,3 +61,4 @@ test_that("CommonDataModel Execution Test", {
     message("Skipping driver setup because environmental variables not set")
   }
 })
+
