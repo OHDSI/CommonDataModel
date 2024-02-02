@@ -4,6 +4,7 @@
 
 # Update based on reviewer feedback
   - turned off tests when environment variables are not set
+  - removed vignetteBuilder field from DESCRIPTION
 
 0 errors | 0 warnings | 0 notes
 
