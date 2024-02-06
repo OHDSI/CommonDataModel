@@ -1,7 +1,7 @@
-#' Get current DDL sitting on the master branch
+#' Get current DDL sitting on the main branch
 #'
 #' @details
-#' This function gets the current ddl on the CDM master branch. It will be taken from the Sql Server folder.
+#' This function gets the current ddl on the CDM main branch. It will be taken from the Sql Server folder.
 #' The default location is
 #' \code{inst/settings/currentOmopDdl.sql}.
 #'
@@ -9,6 +9,7 @@
 #' @param pathToCsv             The path for the snapshot inside the package.
 #' @param outputFile            The path where the file should be saved.
 #'
+#' @return The current DDL sitting on the main branch of the CommonDataModel repository.
 #' @examples
 #' \dontrun{
 #' downloadCurrentDdl("OHDSI/CommonDataModel",

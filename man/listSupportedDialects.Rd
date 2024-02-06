@@ -6,6 +6,9 @@
 \usage{
 listSupportedDialects()
 }
+\value{
+A list containing the supported Structured Query Language (SQL) dialects.
+}
 \description{
 List RDBMS dialects supported by this package
 }

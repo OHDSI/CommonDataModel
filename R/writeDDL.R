@@ -25,6 +25,7 @@
 #' @param outputfolder The directory or folder where the SQL file should be saved.
 #' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 #'                          Defaults to "@cdmDatabaseSchema"
+#' @return Writes SQL file with the OMOP CDM DDL for the specified CDM version and target dialect in the output folder.
 #'
 #' @export
 writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
@@ -50,6 +51,7 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
 }
 
 #' @describeIn writeDdl writePrimaryKeys Write the SQL code that creates the primary keys to a file.
+#' @return Writes a SQL file with the primary keys for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
 #'
 writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
@@ -75,6 +77,7 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 }
 
 #' @describeIn writeDdl writeForeignKeys Write the SQL code that creates the foreign keys to a file.
+#' @return Writes a SQL file with the foreign keys for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
 writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
@@ -99,6 +102,7 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 }
 
 #' @describeIn writeDdl writeIndex Write the rendered and translated sql that creates recommended indexes to a file.
+#' @return Writes a SQL file with the indices for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
 writeIndex <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
 
