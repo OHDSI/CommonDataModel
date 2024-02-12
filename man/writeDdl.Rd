@@ -45,6 +45,15 @@ writeIndex(
 \item{cdmDatabaseSchema}{The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 Defaults to "@cdmDatabaseSchema"}
 }
+\value{
+Writes SQL file with the OMOP CDM DDL for the specified CDM version and target dialect in the output folder.
+
+Writes a SQL file with the primary keys for the OMOP CDM based on the specified target dialect and CDM version.
+
+Writes a SQL file with the foreign keys for the OMOP CDM based on the specified target dialect and CDM version.
+
+Writes a SQL file with the indices for the OMOP CDM based on the specified target dialect and CDM version.
+}
 \description{
 Write the DDL to a SQL file. The SQL will be rendered (parameters replaced) and translated to the target SQL
 dialect. By default the @cdmDatabaseSchema parameter is kept in the SQL file and needs to be replaced before

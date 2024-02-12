@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadCurrentDdl.R
 \name{downloadCurrentDdl}
 \alias{downloadCurrentDdl}
-\title{Get current DDL sitting on the master branch}
+\title{Get current DDL sitting on the main branch}
 \usage{
 downloadCurrentDdl(
   githubPath = "OHDSI/CommonDataModel",
@@ -17,11 +17,14 @@ downloadCurrentDdl(
 
 \item{outputFile}{The path where the file should be saved.}
 }
+\value{
+The current DDL sitting on the main branch of the CommonDataModel repository.
+}
 \description{
-Get current DDL sitting on the master branch
+Get current DDL sitting on the main branch
 }
 \details{
-This function gets the current ddl on the CDM master branch. It will be taken from the Sql Server folder.
+This function gets the current ddl on the CDM main branch. It will be taken from the Sql Server folder.
 The default location is
 \code{inst/settings/currentOmopDdl.sql}.
 }

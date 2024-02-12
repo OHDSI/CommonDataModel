@@ -29,6 +29,9 @@ executeDdl(
 
 \item{...}{Other arguments passed on to DatabaseConnector::executeSql. (This allows the user to set the path to errorReportFile.)}
 }
+\value{
+Writes the fully specified DDLs, primary keys, foreign keys, and indices to a file and then executes on a database.
+}
 \description{
 This function will generate the DDL for a specific dbms and CDM version and
 then execute the DDL on a database.
