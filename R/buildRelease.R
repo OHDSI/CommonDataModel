@@ -17,7 +17,7 @@
 #' Create OMOP CDM SQL files
 #'
 #' Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-#' and targetDialect to the 'ddl' folder in specifed output folder.
+#' and targetDialect to the 'ddl' folder in specified output folder.
 #'
 #' @param cdmVersions The versions of the CDM you are creating, e.g. 5.3, 5.4.
 #'                   Defaults to all supported CDM versions.
@@ -26,7 +26,7 @@
 #' @param outputfolder The base folder where the SQL files will be written.
 #'                     Subfolders will be created for each cdmVersion and targetDialect.
 #' @return Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-#'         and targetDialect to the 'ddl' folder in specifed output folder.
+#'         and targetDialect to the 'ddl' folder in specified output folder.
 #' @export
 buildRelease <- function(cdmVersions = listSupportedVersions(),
                          targetDialects = listSupportedDialects(),

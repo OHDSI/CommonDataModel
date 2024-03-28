@@ -12,7 +12,7 @@ The goal is to inform ETL developers, tooling developers and CDM extensions.
 
 - For ETL developers it helps to have guidance on which fields to prioritise in the mapping. Most value will be gained from populating fields support across the OHDSI tooling.
 - For OHDSI tooling developers, this page provides insight in the gaps of support and can drive future development efforts.
-- For CDM extenstions, it helps to known what it means for an OMOP CDM table/field to be part of the standard. In other words: what OHDSI tooling do we at least expect to support the new extensions?
+- For CDM extensions, it helps to known what it means for an OMOP CDM table/field to be part of the standard. In other words: what OHDSI tooling do we at least expect to support the new extensions?
 
 Currently four OHDSI tools have been evaluated: DataQualityDashboard, Achilles, Atlas (Data Sources and Cohort creation) and Feature Extraction.
 
@@ -30,7 +30,7 @@ General	criteria:
 - `r emoji::emoji("exclamation")` if field is used by the tool, but not in a meaningful way. e.g. `provider_id` in Achilles only checked for a valid foreign key to the provider table.
 
 # Tooling Support for OMOP fields
- **Abbrevations** | &nbsp;
+ **Abbreviations** | &nbsp;
 --- | ---
 **PK** | Primary Key
 **SV** | Source Value (for data quality / etl validation)

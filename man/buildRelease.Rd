@@ -22,9 +22,9 @@ Subfolders will be created for each cdmVersion and targetDialect.}
 }
 \value{
 Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-        and targetDialect to the 'ddl' folder in specifed output folder.
+        and targetDialect to the 'ddl' folder in specified output folder.
 }
 \description{
 Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-and targetDialect to the 'ddl' folder in specifed output folder.
+and targetDialect to the 'ddl' folder in specified output folder.
 }
