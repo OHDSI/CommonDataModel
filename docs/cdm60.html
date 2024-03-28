@@ -688,7 +688,8 @@ Compute age using year_of_birth.
 For data sources with date of birth, the year should be extracted. For
 data sources where the year of birth is not available, the approximate
 year of birth could be derived based on age group categorization, if
-available.
+available. If no year of birth is available all the person’s data should
+be dropped from the CDM instance.
 </td>
 <td style="text-align:left;">
 integer
@@ -11596,6 +11597,8 @@ No
 drug_exposure_count
 </td>
 <td style="text-align:left;">
+The count of grouped DRUG_EXPOSURE records that were included in the
+DRUG_ERA row.
 </td>
 <td style="text-align:left;">
 </td>
