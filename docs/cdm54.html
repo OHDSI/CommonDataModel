@@ -3898,13 +3898,15 @@ original prescription or dispensing record. Days supply can differ from
 actual drug duration (i.e. prescribed days supply vs actual
 exposure).”,“The field should be left empty if the source data does not
 contain a verbatim days_supply, and should not be calculated from other
-fields.<br><br>Negative values are not allowed. Several actions are
-possible: 1) record is not trustworthy and we remove the record
-entirely. 2) we trust the record and leave days_supply empty or 3)
-record needs to be combined with other record (e.g. reversal of
-prescription). High values (&gt;365 days) should be investigated. If
-considered an error in the source data (e.g. typo), the value needs to
-be excluded to prevent creation of unrealistic long eras.
+fields.<br><br>Negative values are not allowed. If the source has
+negative days supply the record should be dropped as it is unknown if
+the patient actually took the drug. Several actions are possible: 1)
+record is not trustworthy and we remove the record entirely. 2) we trust
+the record and leave days_supply empty or 3) record needs to be combined
+with other record (e.g. reversal of prescription). High values (&gt;365
+days) should be investigated. If considered an error in the source data
+(e.g. typo), the value needs to be excluded to prevent creation of
+unrealistic long eras.
 </td>
 <td style="text-align:left;">
 integer
@@ -5333,8 +5335,10 @@ domain that best represents the unit as given in the source data.
 <td style="text-align:left;">
 There is no standardization requirement for units associated with
 DEVICE_CONCEPT_IDs, however, it is the responsibility of the ETL to
-choose the most plausible unit. If there is no unit associated with a
-Device record, set to NULL.
+choose the most plausible unit. If the source unit is NULL (applicable
+to cases when there’s no numerical value or when it doesn’t require a
+unit), keep unit_concept_id NULL as well. If there’s no mapping of a
+source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -5734,7 +5738,8 @@ from =.
 Operators are =, &gt; and these concepts belong to the ‘Meas Value
 Operator’ domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>.
+Concepts</a>. Leave it NULL if there’s an exact numeric value given
+(instead of putting ‘=’) or there’s no numeric value at all.
 </td>
 <td style="text-align:left;">
 integer
@@ -5814,7 +5819,10 @@ results for measurements, it is a valid ETL choice to preserve both
 values. The continuous value should go in the VALUE_AS_NUMBER field and
 the categorical value should be mapped to a standard concept in the
 ‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is
-also the destination for the ‘Maps to value’ relationship.
+also the destination for the ‘Maps to value’ relationship. If there’s no
+categorial result in a source_data, set value_as_concept_id to NULL, if
+there is a categorial result in a source_data but without mapping, set
+value_as_concept_id to 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -5848,7 +5856,10 @@ data.
 <td style="text-align:left;">
 There is no standardization requirement for units associated with
 MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to
-choose the most plausible unit.
+choose the most plausible unit. If the source unit is NULL (applicable
+to cases when there’s no numerical value or when it doesn’t require a
+unit), keep unit_concept_id NULL as well. If there’s no mapping of a
+source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -6586,7 +6597,10 @@ href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a>
 ‘Family history of clinical finding’ as well as a ‘Maps to value’ record
 to <a
 href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a>
-‘Disorder of cardiovascular system’.
+‘Disorder of cardiovascular system’. If there’s no categorial result in
+a source_data, set value_as_concept_id to NULL, if there is a categorial
+result in a source_data but without mapping, set value_as_concept_id to
+0.
 </td>
 <td style="text-align:left;">
 Integer
@@ -6651,7 +6665,10 @@ data.
 <td style="text-align:left;">
 There is no standardization requirement for units associated with
 OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to
-choose the most plausible unit.
+choose the most plausible unit. If the source unit is NULL (applicable
+to cases when there’s no numerical value or when it doesn’t require a
+unit), keep unit_concept_id NULL as well. If there’s no mapping of a
+source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -8446,7 +8463,10 @@ The unit for the quantity of the specimen.
 <td style="text-align:left;">
 Map the UNIT_SOURCE_VALUE to a Standard Concept in the Unit domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Unit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>
+Concepts</a>. If the source unit is NULL (applicable to cases when
+there’s no numerical value or when it doesn’t require a unit), keep
+unit_concept_id NULL as well. If there’s no mapping of a source unit,
+populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -11074,7 +11094,8 @@ be exposed to a particular active ingredient. A Drug Era is not the same
 as a Drug Exposure: Exposures are individual records corresponding to
 the source when Drug was delivered to the Person, while successive
 periods of Drug Exposures are combined under certain rules to produce
-continuous Drug Eras.</p>
+continuous Drug Eras. Every record in the DRUG_EXPOSURE table should be
+part of a drug era based on the dates of exposure.</p>
 <p><strong>User Guide</strong></p>
 <p>NA</p>
 <p><strong>ETL Conventions</strong></p>
@@ -11169,7 +11190,9 @@ PERSON
 drug_concept_id
 </td>
 <td style="text-align:left;">
-The Concept Id representing the specific drug ingredient.
+The drug_concept_id should conform to the concept class ‘ingredient’ as
+the drug_era is an era of time where a person is exposed to a particular
+drug ingredient.
 </td>
 <td style="text-align:left;">
 </td>
@@ -11563,8 +11586,9 @@ No
 <p><strong>Table Description</strong></p>
 <p>A Condition Era is defined as a span of time when the Person is
 assumed to have a given condition. Similar to Drug Eras, Condition Eras
-are chronological periods of Condition Occurrence. Combining individual
-Condition Occurrences into a single Condition Era serves two
+are chronological periods of Condition Occurrence and every Condition
+Occurrence record should be part of a Condition Era. Combining
+individual Condition Occurrences into a single Condition Era serves two
 purposes:</p>
 <ul>
 <li>It allows aggregation of chronic conditions that require frequent
@@ -12836,7 +12860,7 @@ cdm_etl_reference
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Put the link to the CDM version used.
+Version of the ETL script used. e.g. link to the Git release
 </td>
 <td style="text-align:left;">
 varchar(255)
@@ -12860,7 +12884,9 @@ No
 source_release_date
 </td>
 <td style="text-align:left;">
-The release date of the source data.
+The date the data was extracted from the source system. In some systems
+that is the same as the date the ETL was run. Typically the latest even
+date in the source is on the source_release_date.
 </td>
 <td style="text-align:left;">
 </td>
@@ -12886,7 +12912,8 @@ No
 cdm_release_date
 </td>
 <td style="text-align:left;">
-The release data of the CDM instance.
+The date the ETL script was completed. Typically this is after the
+source_release_date.
 </td>
 <td style="text-align:left;">
 </td>
@@ -12912,6 +12939,7 @@ No
 cdm_version
 </td>
 <td style="text-align:left;">
+Version of the OMOP CDM used as string. e.g. v5.4
 </td>
 <td style="text-align:left;">
 </td>
@@ -12941,8 +12969,8 @@ The Concept Id representing the version of the CDM.
 </td>
 <td style="text-align:left;">
 You can find all concepts that represent the CDM versions using the
-query: SELECT * FROM CONCEPT WHERE VOCABULARY_ID = ‘CDM’ AND
-CONCEPT_CLASS = ‘CDM’
+query:
+<code>SELECT * FROM CONCEPT WHERE   VOCABULARY_ID = 'CDM' AND CONCEPT_CLASS = 'CDM'</code>
 </td>
 <td style="text-align:left;">
 integer
@@ -12967,10 +12995,11 @@ CONCEPT
 vocabulary_version
 </td>
 <td style="text-align:left;">
+Version of the OMOP standardised vocabularies loaded
 </td>
 <td style="text-align:left;">
-You can find the version of your Vocabulary using the query: SELECT
-vocabulary_version from vocabulary where vocabulary_id = ‘None’
+You can find the version of your Vocabulary using the query:
+<code>SELECT vocabulary_version from vocabulary  where vocabulary_id = 'None'</code>
 </td>
 <td style="text-align:left;">
 varchar(20)
@@ -15165,14 +15194,14 @@ No
 <div id="cohort" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">cohort</h3>
 <p><strong>Table Description</strong></p>
-<p>The COHORT table contains records of subjects that satisfy a given
-set of criteria for a duration of time. The definition of the cohort is
-contained within the COHORT_DEFINITION table. It is listed as part of
-the RESULTS schema because it is a table that users of the database as
-well as tools such as ATLAS need to be able to write to. The CDM and
-Vocabulary tables are all read-only so it is suggested that the COHORT
-and COHORT_DEFINTION tables are kept in a separate schema to alleviate
-confusion.</p>
+<p>The subject of a cohort can have multiple, discrete records in the
+cohort table per cohort_definition_id, subject_id, and non-overlapping
+time periods. The definition of the cohort is contained within the
+COHORT_DEFINITION table. It is listed as part of the RESULTS schema
+because it is a table that users of the database as well as tools such
+as ATLAS need to be able to write to. The CDM and Vocabulary tables are
+all read-only so it is suggested that the COHORT and COHORT_DEFINTION
+tables are kept in a separate schema to alleviate confusion.</p>
 <p><strong>User Guide</strong></p>
 <p>NA</p>
 <p><strong>ETL Conventions</strong></p>
