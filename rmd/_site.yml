@@ -50,6 +50,8 @@ navbar:
               href: cdm54Changes.html
             - text: "Entity Relationships"
               href: cdm54erd.html
+            - text: "Detailed tooling support per CDM field"
+              href: "cdm54ToolingSupport.html"
     - text: "CDM Proposals"
       icon: fa-plus-square
       menu:
