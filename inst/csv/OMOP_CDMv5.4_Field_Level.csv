@@ -397,12 +397,12 @@ cdm_source,cdm_source_abbreviation,Yes,varchar(25),The abbreviation of the CDM i
 cdm_source,cdm_holder,Yes,varchar(255),The holder of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,source_description,No,varchar(MAX),The description of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,source_documentation_reference,No,varchar(255),NA,NA,No,No,NA,NA,NA,NA,NA
-cdm_source,cdm_etl_reference,No,varchar(255),NA,Put the link to the CDM version used.,No,No,NA,NA,NA,NA,NA
-cdm_source,source_release_date,Yes,date,The release date of the source data.,NA,No,No,NA,NA,NA,NA,NA
-cdm_source,cdm_release_date,Yes,date,The release data of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
-cdm_source,cdm_version,No,varchar(10),NA,NA,No,No,NA,NA,NA,NA,NA
-cdm_source,cdm_version_concept_id,Yes,integer,The Concept Id representing the version of the CDM.,You can find all concepts that represent the CDM versions using the query: SELECT * FROM CONCEPT WHERE VOCABULARY_ID = 'CDM' AND CONCEPT_CLASS = 'CDM',No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
-cdm_source,vocabulary_version,Yes,varchar(20),NA,You can find the version of your Vocabulary using the query: SELECT vocabulary_version from vocabulary where vocabulary_id = 'None',No,No,NA,NA,NA,NA,NA
+cdm_source,cdm_etl_reference,No,varchar(255),NA,Version of the ETL script used. e.g. link to the Git release,No,No,NA,NA,NA,NA,NA
+cdm_source,source_release_date,Yes,date,The date the data was extracted from the source system. In some systems that is the same as the date the ETL was run. Typically the latest even date in the source is on the source_release_date.,NA,No,No,NA,NA,NA,NA,NA
+cdm_source,cdm_release_date,Yes,date,The date the ETL script was completed. Typically this is after the source_release_date.,NA,No,No,NA,NA,NA,NA,NA
+cdm_source,cdm_version,No,varchar(10),Version of the OMOP CDM used as string. e.g. v5.4,NA,No,No,NA,NA,NA,NA,NA
+cdm_source,cdm_version_concept_id,Yes,integer,The Concept Id representing the version of the CDM.,You can find all concepts that represent the CDM versions using the query: `SELECT * FROM CONCEPT WHERE   VOCABULARY_ID = 'CDM' AND CONCEPT_CLASS = 'CDM'`,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
+cdm_source,vocabulary_version,Yes,varchar(20),Version of the OMOP standardised vocabularies loaded,You can find the version of your Vocabulary using the query: `SELECT vocabulary_version from vocabulary  where vocabulary_id = 'None'`,No,No,NA,NA,NA,NA,NA
 concept,concept_id,Yes,integer,A unique identifier for each Concept across all domains.,NA,Yes,No,NA,NA,NA,NA,NA
 concept,concept_name,Yes,varchar(255),"An unambiguous, meaningful and descriptive name for the Concept.",NA,No,No,NA,NA,NA,NA,NA
 concept,domain_id,Yes,varchar(20),A foreign key to the [DOMAIN](https://ohdsi.github.io/CommonDataModel/cdm531.html#domain) table the Concept belongs to.,NA,No,Yes,DOMAIN,DOMAIN_ID,NA,NA,NA
