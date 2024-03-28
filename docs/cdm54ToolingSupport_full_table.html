@@ -1,0 +1,4816 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>cdm54ToolingSupport_full_table.knit</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-house"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-landmark"></span>
+     
+    Background
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="background.html">Model Background</a>
+    </li>
+    <li>
+      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
+    </li>
+    <li>
+      <a href="vocabulary.html">How the Vocabulary is Built</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-list-alt"></span>
+     
+    Conventions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dataModelConventions.html">General Conventions</a>
+    </li>
+    <li>
+      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+    </li>
+    <li>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-history"></span>
+     
+    CDM Versions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdm30.html">CDM v3.0</a>
+    </li>
+    <li>
+      <a href="cdm53.html">CDM v5.3</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="cdm54.html">CDM v5.4</a>
+        </li>
+        <li>
+          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
+        </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-plus-square"></span>
+     
+    CDM Proposals
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+    </li>
+    <li>
+      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-question"></span>
+     
+    How to
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="download.html">Download the DDL</a>
+    </li>
+    <li>
+      <a href="cdmRPackage.html">Use the CDM R Package</a>
+    </li>
+    <li>
+      <a href="drug_dose.html">Calculate Drug Dose</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-life-ring"></span>
+     
+    Support
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
+    </li>
+    <li>
+      <a href="faq.html">FAQ</a>
+    </li>
+    <li>
+      <a href="sqlScripts.html">SQL Scripts</a>
+    </li>
+    <li>
+      <a href="contribute.html">Ask a Question</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/OHDSI/CommonDataModel">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<table style="width:100%;">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>cdmTableName</th>
+<th>cdmFieldName</th>
+<th>Special Fields</th>
+<th>DQD (v1.0)</th>
+<th>Achilles (v1.7)</th>
+<th>Atlas Cohort (v2.10)</th>
+<th>Atlas Cohort (v2.12)</th>
+<th>Atlas Data Sources (v2.12)</th>
+<th>Feature Extraction (v3.2)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PERSON</td>
+<td>person_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>gender_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>year_of_birth</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>month_of_birth</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>day_of_birth</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>birth_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>race_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>ethnicity_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>location_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>care_site_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>person_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>gender_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>gender_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>race_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>race_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PERSON</td>
+<td>ethnicity_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PERSON</td>
+<td>ethnicity_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION_PERIOD</td>
+<td>observation_period_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION_PERIOD</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION_PERIOD</td>
+<td>observation_period_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION_PERIOD</td>
+<td>observation_period_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION_PERIOD</td>
+<td>period_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_occurrence_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>visit_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Atlas uses provider.specialty_concept_id</td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>care_site_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check, Atlas uses
+care_site.place_of_service_concept_id</td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>admitted_from_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>admitted_from_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>discharged_to_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_OCCURRENCE</td>
+<td>discharged_to_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>VISIT_OCCURRENCE</td>
+<td>preceding_visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_occurrence_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only checks end_date &lt; start_date</td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_status_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>stop_reason</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Atlas has a ‘contains’ free-text filter on stop_reason</td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>Achilles only does FK check, FeatureExtraction for HDPS</td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_OCCURRENCE</td>
+<td>condition_status_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_occurrence_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>modifier_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>quantity</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>Achilles only does FK check, FeatureExtraction for HDPS</td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>procedure_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROCEDURE_OCCURRENCE</td>
+<td>modifier_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>FACT_RELATIONSHIP</td>
+<td>domain_concept_id_1</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FACT_RELATIONSHIP</td>
+<td>fact_id_1</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>FACT_RELATIONSHIP</td>
+<td>domain_concept_id_2</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FACT_RELATIONSHIP</td>
+<td>fact_id_2</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>FACT_RELATIONSHIP</td>
+<td>relationship_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>provider_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>provider_name</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>npi</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>dea</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>specialty_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Atlas: via visit occurrence</td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>care_site_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>year_of_birth</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>gender_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>provider_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>specialty_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>specialty_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PROVIDER</td>
+<td>gender_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PROVIDER</td>
+<td>gender_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_exposure_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>drug_exposure_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_exposure_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>drug_exposure_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>Achilles only checks end_date &lt; start_date</td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_exposure_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>verbatim_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>stop_reason</td>
+<td>BC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>refills</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>quantity</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>days_supply</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Needed for drug era derivation</td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>sig</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>route_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>lot_number</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>drug_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>drug_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_EXPOSURE</td>
+<td>route_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>DRUG_EXPOSURE</td>
+<td>dose_unit_source_value</td>
+<td>BC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>device_exposure_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>device_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>device_exposure_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>device_exposure_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>device_exposure_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>device_exposure_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>device_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>unique_device_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>production_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>quantity</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>device_source_value</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>device_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>unit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEVICE_EXPOSURE</td>
+<td>unit_source_value</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEVICE_EXPOSURE</td>
+<td>unit_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>measurement_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>measurement_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>measurement_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>measurement_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>measurement_time</td>
+<td>BC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>measurement_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>operator_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>value_as_number</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>value_as_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>unit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>range_low</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>range_high</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>measurement_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>measurement_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>unit_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>unit_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>value_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MEASUREMENT</td>
+<td>measurement_event_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>meas_event_field_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>observation_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>observation_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>observation_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>observation_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>observation_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>value_as_number</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>value_as_string</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>value_as_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>qualifier_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>unit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>observation_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>observation_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>unit_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>qualifier_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>value_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OBSERVATION</td>
+<td>observation_event_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OBSERVATION</td>
+<td>obs_event_field_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEATH</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEATH</td>
+<td>death_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEATH</td>
+<td>death_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEATH</td>
+<td>death_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DEATH</td>
+<td>cause_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DEATH</td>
+<td>cause_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>DEATH</td>
+<td>cause_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>note_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>note_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>note_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>note_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>note_class_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>note_title</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>note_text</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>encoding_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>language_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>note_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE</td>
+<td>note_event_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE</td>
+<td>note_event_field_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>note_nlp_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>note_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>section_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>snippet</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>offset</td>
+<td></td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Offset is a SQL-keyword, causing syntax errors</td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>lexical_variant</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>note_nlp_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>note_nlp_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>nlp_system</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>nlp_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>nlp_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>term_exists</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NOTE_NLP</td>
+<td>term_temporal</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NOTE_NLP</td>
+<td>term_modifiers</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>specimen_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>specimen_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>specimen_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>specimen_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>specimen_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>quantity</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>unit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>anatomic_site_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>disease_status_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>specimen_source_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>specimen_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>unit_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>SPECIMEN</td>
+<td>anatomic_site_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>SPECIMEN</td>
+<td>disease_status_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>provider_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>care_site_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles only does FK check</td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>visit_detail_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>admitted_from_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>admitted_from_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>discharged_to_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>discharged_to_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>preceding_visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VISIT_DETAIL</td>
+<td>parent_visit_detail_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VISIT_DETAIL</td>
+<td>visit_occurrence_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>location_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>address_1</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>address_2</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>city</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>state</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>zip</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>county</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>location_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>country_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>country_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LOCATION</td>
+<td>latitude</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LOCATION</td>
+<td>longitude</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CARE_SITE</td>
+<td>care_site_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CARE_SITE</td>
+<td>care_site_name</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CARE_SITE</td>
+<td>place_of_service_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Atlas: via visit occurrence</td>
+</tr>
+<tr class="odd">
+<td>CARE_SITE</td>
+<td>location_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CARE_SITE</td>
+<td>care_site_source_value</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CARE_SITE</td>
+<td>place_of_service_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_plan_period_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_plan_period_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_plan_period_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>payer_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>plan_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>plan_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>plan_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>sponsor_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>sponsor_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>sponsor_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>family_source_value</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>stop_reason_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="odd">
+<td>PAYER_PLAN_PERIOD</td>
+<td>stop_reason_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>TRUE*</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>Achilles check 1900</td>
+</tr>
+<tr class="even">
+<td>PAYER_PLAN_PERIOD</td>
+<td>stop_reason_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>cost_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>cost_event_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>cost_domain_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>cost_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>currency_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>total_charge</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>total_cost</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>total_paid</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>paid_by_payer</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>paid_by_patient</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>paid_patient_copay</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>paid_patient_coinsurance</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>paid_patient_deductible</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>paid_by_primary</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>paid_ingredient_cost</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>paid_dispensing_fee</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>payer_plan_period_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>amount_allowed</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>revenue_code_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>revenue_code_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>COST</td>
+<td>drg_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>COST</td>
+<td>drg_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_ERA</td>
+<td>drug_era_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_ERA</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_ERA</td>
+<td>drug_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_ERA</td>
+<td>drug_era_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_ERA</td>
+<td>drug_era_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DRUG_ERA</td>
+<td>drug_exposure_count</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DRUG_ERA</td>
+<td>gap_days</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DOSE_ERA</td>
+<td>dose_era_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DOSE_ERA</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DOSE_ERA</td>
+<td>drug_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DOSE_ERA</td>
+<td>unit_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DOSE_ERA</td>
+<td>dose_value</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DOSE_ERA</td>
+<td>dose_era_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DOSE_ERA</td>
+<td>dose_era_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_ERA</td>
+<td>condition_era_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_ERA</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_ERA</td>
+<td>condition_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_ERA</td>
+<td>condition_era_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CONDITION_ERA</td>
+<td>condition_era_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CONDITION_ERA</td>
+<td>condition_occurrence_count</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>person_id</td>
+<td>Pid</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>episode_start_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_start_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>episode_end_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_end_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>episode_parent_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_number</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>episode_object_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE</td>
+<td>episode_source_value</td>
+<td>SV</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE</td>
+<td>episode_source_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE_EVENT</td>
+<td>episode_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EPISODE_EVENT</td>
+<td>event_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EPISODE_EVENT</td>
+<td>episode_event_field_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>METADATA</td>
+<td>metadata_id</td>
+<td>PK</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>METADATA</td>
+<td>metadata_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>METADATA</td>
+<td>metadata_type_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>METADATA</td>
+<td>name</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>METADATA</td>
+<td>value_as_string</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>METADATA</td>
+<td>value_as_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>METADATA</td>
+<td>value_as_number</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>METADATA</td>
+<td>metadata_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>METADATA</td>
+<td>metadata_datetime</td>
+<td>FC</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>cdm_source_name</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CDM_SOURCE</td>
+<td>cdm_source_abbreviation</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>cdm_holder</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CDM_SOURCE</td>
+<td>source_description</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>source_documentation_reference</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CDM_SOURCE</td>
+<td>cdm_etl_reference</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>source_release_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CDM_SOURCE</td>
+<td>cdm_release_date</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>cdm_version</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CDM_SOURCE</td>
+<td>cdm_version_concept_id</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CDM_SOURCE</td>
+<td>vocabulary_version</td>
+<td></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

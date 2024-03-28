@@ -381,13 +381,10 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
-    </li>
-    <li>
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -397,6 +394,9 @@ div.tocify {
         </li>
         <li>
           <a href="cdm54erd.html">Entity Relationships</a>
+        </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
         </li>
       </ul>
     </li>
@@ -555,7 +555,7 @@ participating in an OHDSI network research study.</td>
 <td><strong>Achilles</strong></td>
 <td>This package can be downloaded from <a
 href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>,
-performing a set of broad database characterizations agains an OMOP CDM
+performing a set of broad database characterizations against an OMOP CDM
 instance.</td>
 <td>✔️</td>
 <td>❗</td>
@@ -933,7 +933,7 @@ should capture the last known location of the person.
 </td>
 <td style="text-align:left;">
 Put the location_id from the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#LOCATION">LOCATION</a>
 table here that represents the most granular location information for
 the person. This could represent anything from postal code or parts
 thereof, state, or county for example. Since many databases contain
@@ -12209,7 +12209,7 @@ Type Concept
 episode_source_value
 </td>
 <td style="text-align:left;">
-The source code for the Episdoe as it appears in the source data. This
+The source code for the Episode as it appears in the source data. This
 code is mapped to a Standard Condition Concept in the Standardized
 Vocabularies and the original code is stored here for reference.
 </td>

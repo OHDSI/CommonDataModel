@@ -38,11 +38,9 @@ navbar:
       menu:
         - text: "CDM v3.0"
           href: cdm30.html
-        - text: "CDM v6.0"
-          href: cdm60.html
         - text: "CDM v5.3"
           href: cdm53.html
-        - text: "NEW CDM v5.4"
+        - text: "CDM v5.4"
           menu:
             - text: "CDM v5.4"
               href: cdm54.html
@@ -51,7 +49,7 @@ navbar:
             - text: "Entity Relationships"
               href: cdm54erd.html
             - text: "Detailed tooling support per CDM field"
-              href: "cdm54ToolingSupport.html"
+              href: cdm54ToolingSupport.html
     - text: "CDM Proposals"
       icon: fa-plus-square
       menu:
