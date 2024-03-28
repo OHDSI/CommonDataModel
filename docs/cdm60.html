@@ -515,7 +515,10 @@ v6.0. Each table is represented with a high-level description and ETL
 conventions that should be followed. This is continued with a discussion
 of each field in each table, any conventions related to the field, and
 constraints that should be followed (like primary key, foreign key,
-etc). Should you have questions please feel free to visit the <a
+etc). All tables should be instantiated in a CDM instance but do not
+need to be populated. Similarly, fields that are not required should
+exist in the CDM table but do not need to be populated. Should you have
+questions please feel free to visit the <a
 href="https://forums.ohdsi.org/">forums</a> or the <a
 href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a>
 page.</p>
@@ -3837,12 +3840,20 @@ No
 days_supply
 </td>
 <td style="text-align:left;">
+The number of days of supply of the medication as recorded in the
+original prescription or dispensing record. Days supply can differ from
+actual drug duration (i.e. prescribed days supply vs actual exposure).
 </td>
 <td style="text-align:left;">
-Days supply of the drug. This should be the verbatim days_supply as
-given on the prescription. If the drug is physician administered use
-duration end date if given or set to 1 as default if duration is not
-available.
+The field should be left empty if the source data does not contain a
+verbatim days_supply, and should not be calculated from other
+fields.Negative values are not allowed. Several actions are possible: 1)
+record is not trustworthy and we remove the record entirely. 2) we trust
+the record and leave days_supply empty or 3) record needs to be combined
+with other record (e.g. reversal of prescription). High values (&gt;365
+days) should be investigated. If considered an error in the source data
+(e.g. typo), the value needs to be excluded to prevent creation of
+unrealistic long eras.
 </td>
 <td style="text-align:left;">
 integer
@@ -8847,7 +8858,7 @@ Source value representing the validation status of the survey.
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-integer
+varchar(100)
 </td>
 <td style="text-align:left;">
 No

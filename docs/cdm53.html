@@ -497,10 +497,13 @@ v5.3 (previously v5.3.1). Each table is represented with a high-level
 description and ETL conventions that should be followed. This is
 continued with a discussion of each field in each table, any conventions
 related to the field, and constraints that should be followed (like
-primary key, foreign key, etc). Should you have questions please feel
-free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the
-<a href="https://github.com/ohdsi/CommonDataModel/issues">github
-issue</a> page.</p>
+primary key, foreign key, etc). All tables should be instantiated in a
+CDM instance but do not need to be populated. Similarly, fields that are
+not required should exist in the CDM table but do not need to be
+populated. Should you have questions please feel free to visit the <a
+href="https://forums.ohdsi.org/">forums</a> or the <a
+href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a>
+page.</p>
 <p><em><strong>Special Note</strong> This documentation previously
 referenced v5.3.1. During the OHDSI/CommonDataModel Hack-A-Thon that
 occurred on August 18, 2021 the decision was made to align documentation
@@ -3754,12 +3757,22 @@ No
 days_supply
 </td>
 <td style="text-align:left;">
+The number of days of supply of the medication as recorded in the
+original prescription or dispensing record. Days supply can differ from
+actual drug duration (i.e. prescribed days supply vs actual exposure).
 </td>
 <td style="text-align:left;">
-Days supply of the drug. This should be the verbatim days_supply as
-given on the prescription. If the drug is physician administered use
-duration end date if given or set to 1 as default if duration is not
-available.
+The field should be left empty if the source data does not contain a
+verbatim days_supply, and should not be calculated from other
+fields.<br><br>Negative values are not allowed. If the source has
+negative days supply the record should be dropped as it is unknown if
+the patient actually took the drug. Several actions are possible: 1)
+record is not trustworthy and we remove the record entirely. 2) we trust
+the record and leave days_supply empty or 3) record needs to be combined
+with other record (e.g. reversal of prescription). High values (&gt;365
+days) should be investigated. If considered an error in the source data
+(e.g. typo), the value needs to be excluded to prevent creation of
+unrealistic long eras.
 </td>
 <td style="text-align:left;">
 integer
@@ -5396,7 +5409,8 @@ from =.
 Operators are =, &gt; and these concepts belong to the ‘Meas Value
 Operator’ domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>.
+Concepts</a>. Leave it NULL if there’s an exact numeric value given
+(instead of putting ‘=’) or there’s no numeric value at all.
 </td>
 <td style="text-align:left;">
 integer
@@ -5476,7 +5490,10 @@ results for measurements, it is a valid ETL choice to preserve both
 values. The continuous value should go in the VALUE_AS_NUMBER field and
 the categorical value should be mapped to a standard concept in the
 ‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is
-also the destination for the ‘Maps to value’ relationship.
+also the destination for the ‘Maps to value’ relationship. If there’s no
+categorial result in a source_data, set value_as_concept_id to NULL, if
+there is a categorial result in a source_data but without mapping, set
+value_as_concept_id to 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -5510,7 +5527,10 @@ data.
 <td style="text-align:left;">
 There is no standardization requirement for units associated with
 MEASUREMENT_CONCEPT_IDs, however, it is the responsibility of the ETL to
-choose the most plausible unit.
+choose the most plausible unit. If the source unit is NULL (applicable
+to cases when there’s no numerical value or when it doesn’t require a
+unit), keep unit_concept_id NULL as well. If there’s no mapping of a
+source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -6149,7 +6169,10 @@ href="https://athena.ohdsi.org/search-terms/terms/4167217">4167217</a>
 ‘Family history of clinical finding’ as well as a ‘Maps to value’ record
 to <a
 href="https://athena.ohdsi.org/search-terms/terms/134057">134057</a>
-‘Disorder of cardiovascular system’.
+‘Disorder of cardiovascular system’. If there’s no categorial result in
+a source_data, set value_as_concept_id to NULL, if there is a categorial
+result in a source_data but without mapping, set value_as_concept_id to
+0.
 </td>
 <td style="text-align:left;">
 Integer
@@ -6214,7 +6237,10 @@ data.
 <td style="text-align:left;">
 There is no standardization requirement for units associated with
 OBSERVATION_CONCEPT_IDs, however, it is the responsibility of the ETL to
-choose the most plausible unit.
+choose the most plausible unit. If the source unit is NULL (applicable
+to cases when there’s no numerical value or when it doesn’t require a
+unit), keep unit_concept_id NULL as well. If there’s no mapping of a
+source unit, populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -7845,7 +7871,10 @@ The unit for the quantity of the specimen.
 <td style="text-align:left;">
 Map the UNIT_SOURCE_VALUE to a Standard Concept in the Unit domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Unit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>
+Concepts</a>. If the source unit is NULL (applicable to cases when
+there’s no numerical value or when it doesn’t require a unit), keep
+unit_concept_id NULL as well. If there’s no mapping of a source unit,
+populate unit_concept_id with 0.
 </td>
 <td style="text-align:left;">
 integer
@@ -10361,7 +10390,8 @@ be exposed to a particular active ingredient. A Drug Era is not the same
 as a Drug Exposure: Exposures are individual records corresponding to
 the source when Drug was delivered to the Person, while successive
 periods of Drug Exposures are combined under certain rules to produce
-continuous Drug Eras.</p>
+continuous Drug Eras. Every record in the DRUG_EXPOSURE table should be
+part of a drug era based on the dates of exposure.</p>
 <p><strong>User Guide</strong></p>
 <p>NA</p>
 <p><strong>ETL Conventions</strong></p>
@@ -10456,7 +10486,9 @@ PERSON
 drug_concept_id
 </td>
 <td style="text-align:left;">
-The Concept Id representing the specific drug ingredient.
+The drug_concept_id should conform to the concept class ‘ingredient’ as
+the drug_era is an era of time where a person is exposed to a particular
+drug ingredient.
 </td>
 <td style="text-align:left;">
 </td>
@@ -10850,8 +10882,9 @@ No
 <p><strong>Table Description</strong></p>
 <p>A Condition Era is defined as a span of time when the Person is
 assumed to have a given condition. Similar to Drug Eras, Condition Eras
-are chronological periods of Condition Occurrence. Combining individual
-Condition Occurrences into a single Condition Era serves two
+are chronological periods of Condition Occurrence and every Condition
+Occurrence record should be part of a Condition Era. Combining
+individual Condition Occurrences into a single Condition Era serves two
 purposes:</p>
 <ul>
 <li>It allows aggregation of chronic conditions that require frequent
@@ -11484,7 +11517,7 @@ cdm_etl_reference
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Put the link to the CDM version used.
+Version of the ETL script used. e.g. link to the Git release
 </td>
 <td style="text-align:left;">
 varchar(255)
@@ -11508,7 +11541,9 @@ No
 source_release_date
 </td>
 <td style="text-align:left;">
-The release date of the source data.
+The date the data was extracted from the source system. In some systems
+that is the same as the date the ETL was run. Typically the latest even
+date in the source is on the source_release_date.
 </td>
 <td style="text-align:left;">
 </td>
@@ -11534,7 +11569,8 @@ No
 cdm_release_date
 </td>
 <td style="text-align:left;">
-The release data of the CDM instance.
+The date the ETL script was completed. Typically this is after the
+source_release_date.
 </td>
 <td style="text-align:left;">
 </td>
@@ -11560,6 +11596,7 @@ No
 cdm_version
 </td>
 <td style="text-align:left;">
+Version of the OMOP CDM used as string. e.g. v5.4
 </td>
 <td style="text-align:left;">
 </td>

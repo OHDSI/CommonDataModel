@@ -23,12 +23,8 @@ library(stringr)
 
 Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the \*_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 was designed with additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our the specifications for [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm54.html) and detailed [changes from CDM v5.3](http://ohdsi.github.io/CommonDataModel/cdm54Changes.html). **For new collaborators to OHDSI, please transform your data to [CDM v5.4](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0) until such time that the v6 series of the CDM is ready for mainstream use.** 
 
-Below is the specification document for the OMOP Common Data Model, v6.0. Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). Should you have questions please feel free to visit the [forums](https://forums.ohdsi.org/) or the [github issue](https://github.com/ohdsi/CommonDataModel/issues) page.
+Below is the specification document for the OMOP Common Data Model, v6.0. Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). All tables should be instantiated in a CDM instance but do not need to be populated. Similarly, fields that are not required should exist in the CDM table but do not need to be populated. Should you have questions please feel free to visit the [forums](https://forums.ohdsi.org/) or the [github issue](https://github.com/ohdsi/CommonDataModel/issues) page.
 
---after regeneration of DDLs
-link to csv of cdm
-link to pdf of cdm documentation
-link to forum on doc page
 
 ## **Changes in v6.0**
 

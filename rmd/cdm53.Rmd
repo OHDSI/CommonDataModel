@@ -23,10 +23,6 @@ Below is the specification document for the OMOP Common Data Model, v5.3 (previo
 
 *__Special Note__ This documentation previously referenced v5.3.1.  During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases.  Hot fixes and minor.minor release can be found through the searching of tags.*
 
---after regeneration of DDLs
-link to csv of cdm
-link to pdf of cdm documentation
-link to forum on doc page
 
 ```{r docLoop53, echo=FALSE, results='asis'}
 tableSpecs <- read.csv("../inst/csv/OMOP_CDMv5.3_Table_Level.csv", stringsAsFactors = FALSE)
