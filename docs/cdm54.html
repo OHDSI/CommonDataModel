@@ -821,15 +821,15 @@ birth_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This field is not required but highly encouraged. For data sources that
-provide the precise datetime of birth, that value should be stored in
-this field. If birth_datetime is not provided in the source, use the
-following logic to infer the date: If day_of_birth is null and
-month_of_birth is not null then use the first of the month in that year.
-If month_of_birth is null or if day_of_birth AND month_of_birth are both
-null and the person has records during their year of birth then use the
-date of the earliest record, otherwise use the 15th of June of that
-year. If time of birth is not given use midnight (00:00:0000).
+This field is not required but highly encouraged for data sources that
+provide the precise datetime of birth. If birth_datetime is not provided
+in the source, use the following logic to infer the date: If
+day_of_birth is null and month_of_birth is not null then use the first
+of the month in that year. If month_of_birth is null or if day_of_birth
+AND month_of_birth are both null and the person has records during their
+year of birth then use the date of the earliest record, otherwise use
+the 15th of June of that year. If time of birth is not given use
+midnight (00:00:0000).
 </td>
 <td style="text-align:left;">
 datetime
@@ -3893,10 +3893,18 @@ days_supply
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Days supply of the drug. This should be the verbatim days_supply as
-given on the prescription. If the drug is physician administered use
-duration end date if given or set to 1 as default if duration is not
-available.
+The number of days of supply of the medication as recorded in the
+original prescription or dispensing record. Days supply can differ from
+actual drug duration (i.e. prescribed days supply vs actual
+exposure).”,“The field should be left empty if the source data does not
+contain a verbatim days_supply, and should not be calculated from other
+fields.<br><br>Negative values are not allowed. Several actions are
+possible: 1) record is not trustworthy and we remove the record
+entirely. 2) we trust the record and leave days_supply empty or 3)
+record needs to be combined with other record (e.g. reversal of
+prescription). High values (&gt;365 days) should be investigated. If
+considered an error in the source data (e.g. typo), the value needs to
+be excluded to prevent creation of unrealistic long eras.
 </td>
 <td style="text-align:left;">
 integer
@@ -14477,14 +14485,19 @@ No
 class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">source_to_concept_map</h3>
 <p><strong>Table Description</strong></p>
-<p>The source to concept map table is a legacy data structure within the
-OMOP Common Data Model, recommended for use in ETL processes to maintain
-local source codes which are not available as Concepts in the
-Standardized Vocabularies, and to establish mappings for each source
-code into a Standard Concept as target_concept_ids that can be used to
-populate the Common Data Model tables. The SOURCE_TO_CONCEPT_MAP table
-is no longer populated with content within the Standardized Vocabularies
-published to the OMOP community.</p>
+<p>The source to concept map table is recommended for use in ETL
+processes to maintain local source codes which are not available as
+Concepts in the Standardized Vocabularies, and to establish mappings for
+each source code into a Standard Concept as target_concept_ids that can
+be used to populate the Common Data Model tables. The
+SOURCE_TO_CONCEPT_MAP table is no longer populated with content within
+the Standardized Vocabularies published to the OMOP community.
+<strong>There are OHDSI tools to help you populate this table; <a
+href="https://github.com/OHDSI/Usagi">Usagi</a> and <a
+href="https://github.com/ohdsi/Perseus">Perseus</a>. You can read more
+about OMOP vocabulary mapping in <a
+href="https://ohdsi.github.io/TheBookOfOhdsi/ExtractTransformLoad.html#step-2-create-the-code-mappings">The
+Book of OHDSI Chapter 6.3</a>.</strong></p>
 <p><strong>User Guide</strong></p>
 <p>NA</p>
 <p><strong>ETL Conventions</strong></p>
