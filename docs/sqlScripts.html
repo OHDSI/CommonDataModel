@@ -11,9 +11,9 @@
 
 
 
-<title>sqlScripts.knit</title>
+<title>SQL Scripts</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -185,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -402,6 +395,9 @@ div.tocify {
         <li>
           <a href="cdm54Changes.html">Changes from CDM v5.3</a>
         </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
+        </li>
       </ul>
     </li>
   </ul>
@@ -491,6 +487,7 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">SQL Scripts</h1>
 
 </div>
 
@@ -908,35 +905,69 @@ SELECT * FROM #tmp_de;</code></pre>
 <p>The script below is an example for how to fill in the CDM_SOURCE
 table. This table is required for the <a
 href="https://github.com/OHDSI/DataQualityDashboard">Data Quality
-Dashboard</a> package to run. This was taken from the <a
+Dashboard</a> package to run.</p>
+<div id="v5.3" class="section level4">
+<h4>v5.3</h4>
+<p>This example was taken from the <a
 href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a
 good example on how to write a complete extract-transform-load script
 from start to finish, including vocabulary import.</p>
-<pre class="sql"><code>insert into @cdm_schema.cdm_source (
-cdm_source_name,
-cdm_source_abbreviation,
-cdm_holder,
-source_description,
-source_documentation_reference,
-cdm_etl_reference,
-source_release_date,
-cdm_release_date,
-cdm_version,
-vocabulary_version
+<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
+    cdm_source_name,
+    cdm_source_abbreviation,
+    cdm_holder,
+    source_description,
+    source_documentation_reference,
+    cdm_etl_reference,
+    source_release_date,
+    cdm_release_date,
+    cdm_version,
+    vocabulary_version
 ) 
-select
-&#39;Synthea synthetic health database&#39;,
-&#39;Synthea&#39;,
-&#39;OHDSI Community&#39;,
-&#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
-&#39;https://synthetichealth.github.io/synthea/&#39;,
-&#39;https://github.com/OHDSI/ETL-Synthea&#39;,
-getdate(), -- NB: Set this value to the day the source data was pulled
-getdate(), 
-&#39;v5.3&#39;,
-vocabulary_version
-from @cdm_schema.vocabulary 
-where vocabulary_id = &#39;None&#39;;</code></pre>
+SELECT
+    &#39;Synthea synthetic health database&#39;,
+    &#39;Synthea&#39;,
+    &#39;OHDSI Community&#39;,
+    &#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
+    &#39;https://synthetichealth.github.io/synthea/&#39;,
+    &#39;https://github.com/OHDSI/ETL-Synthea&#39;,
+    getdate(), -- NB: Set this value to the day the source data was pulled
+    getdate(), 
+    &#39;v5.3&#39;,
+    vocabulary_version
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = &#39;None&#39;;</code></pre>
+</div>
+<div id="v5.4" class="section level4">
+<h4>v5.4</h4>
+<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
+    cdm_source_name,
+    cdm_source_abbreviation,
+    cdm_holder,
+    source_description,
+    source_documentation_reference,
+    cdm_etl_reference,
+    source_release_date,
+    cdm_release_date,
+    cdm_version,
+    vocabulary_version,
+    vocabulary_version_concept_id
+) 
+SELECT
+    &#39;&lt;your_cdm_source_name&gt;&#39;,
+    &#39;&lt;your_cdm_source_abbreviation&gt;&#39;,
+    &#39;&lt;your_cdm_holder&gt;&#39;,
+    &#39;&lt;your_source_description&gt;&#39;,
+    &#39;&lt;your_source_documentation_reference&gt;&#39;,  -- e.g. link to source data dictionary
+    &#39;&lt;your_etl_reference&gt;&#39;,  -- e.g. link to ETL documentation
+    &#39;&lt;your_source_release_date&gt;&#39;,  -- when the source data was pulled
+    getdate(),  -- or the date of ETL run
+    &#39;v5.4&#39;,
+    vocabulary_version,
+    756265  -- &#39;OMOP CDM Version 5.4.0&#39;
+FROM @cdm_schema.vocabulary 
+WHERE vocabulary_id = &#39;None&#39;;</code></pre>
+</div>
 </div>
 </div>
 <div id="bonus-queries" class="section level2">
@@ -955,13 +986,13 @@ Details. For more information on how this can be done, please see the <a
 href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum
 Extended ETL documentation</a>.</p>
 <pre class="sql"><code>SELECT concept_id, concept_name
-  FROM concept 
-  LEFT JOIN concept_ancestor 
-    ON concept_id=descendant_concept_id 
-    AND ancestor_concept_id!=descendant_concept_id
-  WHERE domain_id=&#39;Visit&#39; 
-    AND standard_concept=&#39;S&#39;
-    AND ancestor_concept_id IS NULL</code></pre>
+FROM concept 
+LEFT JOIN concept_ancestor 
+  ON concept_id=descendant_concept_id 
+  AND ancestor_concept_id!=descendant_concept_id
+WHERE domain_id=&#39;Visit&#39; 
+  AND standard_concept=&#39;S&#39;
+  AND ancestor_concept_id IS NULL</code></pre>
 </div>
 </div>
 </div>

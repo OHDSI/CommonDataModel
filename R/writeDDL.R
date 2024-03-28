@@ -20,18 +20,18 @@
 #' dialect. By default the @cdmDatabaseSchema parameter is kept in the SQL file and needs to be replaced before
 #' execution.
 #'
-#' @param targetDialect  The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server",
-#'                       "spark", "snowflake", "synapse"
+#' @param targetDialect  The dialect of the target database. Support dialects are specified by SqlRender::listSupportedDialects
 #' @param cdmVersion The version of the CDM you are creating, e.g. 5.3, 5.4
 #' @param outputfolder The directory or folder where the SQL file should be saved.
 #' @param cdmDatabaseSchema The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 #'                          Defaults to "@cdmDatabaseSchema"
+#' @return Writes SQL file with the OMOP CDM DDL for the specified CDM version and target dialect in the output folder.
 #'
 #' @export
 writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
+  stopifnot(targetDialect %in% listSupportedDialects())
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -51,11 +51,13 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
 }
 
 #' @describeIn writeDdl writePrimaryKeys Write the SQL code that creates the primary keys to a file.
+#' @return Writes a SQL file with the primary keys for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
+#'
 writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
+  stopifnot(targetDialect %in% listSupportedDialects())
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -75,11 +77,12 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 }
 
 #' @describeIn writeDdl writeForeignKeys Write the SQL code that creates the foreign keys to a file.
+#' @return Writes a SQL file with the foreign keys for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
 writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
+  stopifnot(targetDialect %in% listSupportedDialects())
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 
@@ -99,11 +102,12 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
 }
 
 #' @describeIn writeDdl writeIndex Write the rendered and translated sql that creates recommended indexes to a file.
+#' @return Writes a SQL file with the indices for the OMOP CDM based on the specified target dialect and CDM version.
 #' @export
 writeIndex <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema  = "@cdmDatabaseSchema") {
 
   # argument checks
-  stopifnot(targetDialect %in% c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse"))
+  stopifnot(targetDialect %in% listSupportedDialects())
   stopifnot(cdmVersion %in% listSupportedVersions())
   stopifnot(is.character(cdmDatabaseSchema))
 

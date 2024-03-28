@@ -1,20 +1,20 @@
 Package: CommonDataModel
 Type: Package
 Title: OMOP CDM DDL and Documentation Generator
-Version: 0.1.0
+Version: 0.2.0
 Author: Clair Blacketer [aut, cre]
 Maintainer: Clair Blacketer <mblacke@its.jnj.com>
-Description: This package uses an input csv file to create the OHDSql version of the DDL as well as the documentation associated. Then it leverages the SqlRender package to convert the DDL script written in OHDSql to the other supported dialects.
+Description: Generates the scripts required to create an Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) database and associated documentation for supported database platforms. Leverages the 'SqlRender' package to convert the Data Definition Language (DDL) script written in parameterized Structured Query Language (SQL) to the other supported dialects.
 License: Apache License 2.0
 Encoding: UTF-8
 LazyData: true
-VignetteBuilder: knitr
+Depends:
+  DatabaseConnector,
+  SqlRender,
+  rJava
 Imports: 
-  SqlRender, 
   rmarkdown,
   stringr,
-  readxl,
-  DatabaseConnector,
   DBI,
   dplyr,
   readr
@@ -24,5 +24,5 @@ Suggests:
     RSQLite,
     withr
 NeedsCompilation: no
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3

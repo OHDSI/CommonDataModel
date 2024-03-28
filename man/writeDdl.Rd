@@ -36,8 +36,7 @@ writeIndex(
 )
 }
 \arguments{
-\item{targetDialect}{The dialect of the target database. Choices are "oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server",
-"spark", "snowflake", "synapse"}
+\item{targetDialect}{The dialect of the target database. Support dialects are specified by SqlRender::listSupportedDialects}
 
 \item{cdmVersion}{The version of the CDM you are creating, e.g. 5.3, 5.4}
 
@@ -45,6 +44,15 @@ writeIndex(
 
 \item{cdmDatabaseSchema}{The schema of the CDM instance where the DDL will be run. For example, this would be "ohdsi.dbo" when testing on sql server.
 Defaults to "@cdmDatabaseSchema"}
+}
+\value{
+Writes SQL file with the OMOP CDM DDL for the specified CDM version and target dialect in the output folder.
+
+Writes a SQL file with the primary keys for the OMOP CDM based on the specified target dialect and CDM version.
+
+Writes a SQL file with the foreign keys for the OMOP CDM based on the specified target dialect and CDM version.
+
+Writes a SQL file with the indices for the OMOP CDM based on the specified target dialect and CDM version.
 }
 \description{
 Write the DDL to a SQL file. The SQL will be rendered (parameters replaced) and translated to the target SQL

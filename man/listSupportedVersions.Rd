@@ -7,7 +7,7 @@
 listSupportedVersions()
 }
 \value{
-A character vector containing the support CDM versions in {major}.{minor} format.
+A character vector containing the supported Common Data Model (CDM) versions in major.minor format.
 }
 \description{
 List CDM versions supported by this package

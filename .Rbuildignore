@@ -3,3 +3,7 @@
 ^LICENSE\.md$
 .github/*
 extras/*
+docs/*
+rmd/*
+^CRAN-SUBMISSION$
+^cran-comments\.md$

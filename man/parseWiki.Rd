@@ -11,6 +11,9 @@ parseWiki(mdFilesLocation, output_file)
 
 \item{output_file}{Path to where the output CSV file should be written.}
 }
+\value{
+CSV files with the OMOP CDM specifications.
+}
 \description{
 Parses all .md files in the specified location (or any subfolders), extracting definitions
 of the Common Data Model.

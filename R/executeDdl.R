@@ -26,6 +26,7 @@
 #' @param executePrimaryKey Should the primary keys be added? TRUE or FALSE
 #' @param executeForeignKey Should the foreign keys be added? TRUE or FALSE
 #' @param ... Other arguments passed on to DatabaseConnector::executeSql. (This allows the user to set the path to errorReportFile.)
+#' @return Writes the fully specified DDLs, primary keys, foreign keys, and indices to a file and then executes on a database.
 #' @export
 #'
 #' @examples
@@ -76,7 +77,7 @@ executeDdl <- function(connectionDetails,
 
   con <- DatabaseConnector::connect(connectionDetails = connectionDetails)
 
-  DatabaseConnector::executeSql(con, sql = sql, ...)
+  DatabaseConnector::executeSql(con, sql = sql, reportOverallTime = FALSE, progressBar = FALSE, ...)
 
   DatabaseConnector::disconnect(con)
 }

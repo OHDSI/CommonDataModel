@@ -17,7 +17,7 @@
 #' Create OMOP CDM SQL files
 #'
 #' Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-#' and targetDialect to the 'ddl' folder in current working directory.
+#' and targetDialect to the 'ddl' folder in specifed output folder.
 #'
 #' @param cdmVersions The versions of the CDM you are creating, e.g. 5.3, 5.4.
 #'                   Defaults to all supported CDM versions.
@@ -25,10 +25,12 @@
 #'                      Defaults to all supported dialects.
 #' @param outputfolder The base folder where the SQL files will be written.
 #'                     Subfolders will be created for each cdmVersion and targetDialect.
+#' @return Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
+#'         and targetDialect to the 'ddl' folder in specifed output folder.
 #' @export
 buildRelease <- function(cdmVersions = listSupportedVersions(),
                          targetDialects = listSupportedDialects(),
-                         outputfolder = file.path(getwd(), "inst", "ddl")){
+                         outputfolder = file.path(tempdir(), "inst", "ddl")){
   basefolder <- outputfolder
   for (cdmVersion in cdmVersions) {
     for (targetDialect in targetDialects) {
@@ -69,11 +71,12 @@ buildRelease <- function(cdmVersions = listSupportedVersions(),
 #' @return A character string containing the OHDSQL DDL
 #' @export
 #' @examples
+#'\dontrun{
 #' buildReleaseZip(cdmVersion='5.3', targetDialect='sql server', outputfolder='.')
-#'
+#'}
 buildReleaseZip <- function(cdmVersion,
                             targetDialect = listSupportedDialects(),
-                            outputfolder = file.path(getwd(), "output")){
+                            outputfolder = file.path(tempdir(), "output")){
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
 

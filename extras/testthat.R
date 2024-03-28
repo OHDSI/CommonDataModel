@@ -14,7 +14,8 @@ sql <- SqlRender::readSql(paste0("output/oracle/OMOP CDM oracle ", cdmVersion," 
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
                               )
 
 ## Run oracle primary keys
@@ -22,7 +23,8 @@ sql <- SqlRender::readSql(paste0("output/oracle/OMOP CDM oracle ", cdmVersion," 
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run oracle constraints
@@ -30,7 +32,8 @@ sql <- SqlRender::readSql(paste0("output/oracle/OMOP CDM oracle ", cdmVersion," 
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run oracle indices
@@ -38,7 +41,8 @@ sql <- SqlRender::readSql(paste0("output/oracle/OMOP CDM oracle ", cdmVersion," 
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Remove oracle tables
@@ -46,7 +50,8 @@ sql <- SqlRender::readSql(paste0("output/oracle/oracle testCleanUp ", "v5_3_1","
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 
@@ -67,7 +72,8 @@ sql <- SqlRender::readSql(paste0("output/postgresql/OMOP CDM postgresql ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run postgres primary keys
@@ -75,7 +81,8 @@ sql <- SqlRender::readSql(paste0("output/postgresql/OMOP CDM postgresql", cdmVer
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run postgres constraints
@@ -83,7 +90,8 @@ sql <- SqlRender::readSql(paste0("output/postgresql/OMOP CDM postgresql ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run postgres indices
@@ -91,7 +99,8 @@ sql <- SqlRender::readSql(paste0("output/postgresql/OMOP CDM postgresql ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Remove postgres tables
@@ -99,7 +108,8 @@ sql <- SqlRender::readSql(paste0("output/postgresql/postgresql testCleanUp ", "v
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 
@@ -119,7 +129,8 @@ sql <- SqlRender::readSql(paste0("output/sql server/OMOP CDM sql server ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run sql server primary keys and indices
@@ -127,7 +138,8 @@ sql <- SqlRender::readSql(paste0("output/sql server/OMOP CDM sql server ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run sql server constraints
@@ -135,7 +147,8 @@ sql <- SqlRender::readSql(paste0("output/sql server/OMOP CDM sql server ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Run sql server indices
@@ -143,7 +156,8 @@ sql <- SqlRender::readSql(paste0("output/sql server/OMOP CDM sql server ", cdmVe
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 ## Remove sql server tables
@@ -151,7 +165,8 @@ sql <- SqlRender::readSql(paste0("output/sql server/sql server testCleanUp ", "v
 
 DatabaseConnector::executeSql(connection = conn,
                               sql = sql,
-                              progressBar = TRUE
+                              progressBar = FALSE,
+                              reportOverallTime = FALSE
 )
 
 

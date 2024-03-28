@@ -29,10 +29,14 @@
 #' @importFrom utils read.csv
 #' @export
 #' @examples
+#'\dontrun{
 #' ddl <- createDdl("5.4")
 #' pk <- createPrimaryKeys("5.4")
 #' fk <- createForeignKeys("5.4")
+#'}
 createDdl <- function(cdmVersion){
+  # prevent check NOTE from occurring due to non-standard evaluation of variables
+  cdmTableName <- cdmFieldName <- isRequired <- cdmDatatype <- NULL
 
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
@@ -93,8 +97,11 @@ createDdl <- function(cdmVersion){
 
 
 #' @describeIn createDdl createPrimaryKeys Returns a string containing the OHDSQL for creation of primary keys in the OMOP CDM.
+#' @return A string containing the OHDSQL for creation of primary keys in the OMOP CDM.
 #' @export
 createPrimaryKeys <- function(cdmVersion){
+  # prevent check NOTE from occurring due to non-standard evaluation of variables
+  isPrimaryKey <- cdmFieldName <- NULL
 
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
@@ -117,8 +124,11 @@ createPrimaryKeys <- function(cdmVersion){
 }
 
 #' @describeIn createDdl createForeignKeys Returns a string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
+#' @return A string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
 #' @export
 createForeignKeys <- function(cdmVersion){
+  # prevent check NOTE from occurring due to non-standard evaluation of variables
+  isForeignKey <- NULL
 
   # argument checks
   stopifnot(is.character(cdmVersion), length(cdmVersion) == 1, cdmVersion %in% listSupportedVersions())
