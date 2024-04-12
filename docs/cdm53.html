@@ -524,7 +524,10 @@ Events should have a record nonetheless. If more than one data source
 contributes Events to the database, Persons must be reconciled, if
 possible, across the sources to create one single record per Person. The
 content of the BIRTH_DATETIME must be equivalent to the content of
-BIRTH_DAY, BIRTH_MONTH and BIRTH_YEAR.</p>
+BIRTH_DAY, BIRTH_MONTH and BIRTH_YEAR.<br><br>For detailed conventions
+for how to populate this table, please refer to the <a
+href="https://ohdsi.github.io/Themis/person.html">THEMIS
+repository</a>.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -604,7 +607,9 @@ gender identity it should be stored in the <a
 href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
 table. <a
 href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-gender concepts</a>
+gender concepts</a>. Please refer to the <a
+href="https://ohdsi.github.io/Themis/tag_gender_concept_id.html">THEMIS
+repository</a> for detailed conventions on how to populate this field.
 </td>
 <td style="text-align:left;">
 integer
@@ -633,11 +638,12 @@ year_of_birth
 Compute age using year_of_birth.
 </td>
 <td style="text-align:left;">
-For data sources with date of birth, the year should be extracted. For
-data sources where the year of birth is not available, the approximate
-year of birth could be derived based on age group categorization, if
-available. If no year of birth is available all the person’s data should
-be dropped from the CDM instance.
+For data sources with date of birth, the year should be extracted. If no
+year of birth is available all the person’s data should be dropped from
+the CDM instance. For additional information on how to populate this
+field, please refer to the <a
+href="https://ohdsi.github.io/Themis/tag_year_of_birth.html">THEMIS
+repository</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -719,13 +725,9 @@ birth_datetime
 <td style="text-align:left;">
 This field is not required but highly encouraged. For data sources that
 provide the precise datetime of birth, that value should be stored in
-this field. If birth_datetime is not provided in the source, use the
-following logic to infer the date: If day_of_birth is null and
-month_of_birth is not null then use the first of the month in that year.
-If month_of_birth is null or if day_of_birth AND month_of_birth are both
-null and the person has records during their year of birth then use the
-date of the earliest record, otherwise use the 15th of June of that
-year. If time of birth is not given use midnight (00:00:0000).
+this field. For more information on how to populate this field, please
+refer to the <a href="https://ohdsi.github.io/Themis/person.html">THEMIS
+repository</a>.
 </td>
 <td style="text-align:left;">
 datetime
@@ -828,11 +830,10 @@ should capture the last known location of the person.
 Put the location_id from the <a
 href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a>
 table here that represents the most granular location information for
-the person. This could represent anything from postal code or parts
-thereof, state, or county for example. Since many databases contain
-deidentified data, it is common that the precision of the location is
-reduced to prevent re-identification. This field should capture the last
-known location.
+the person. For additional information on how to populate this field,
+please refer to the <a
+href="https://ohdsi.github.io/Themis/populate_person_location_id.html">THEMIS
+repository</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -3311,7 +3312,10 @@ administered may have a separate meaning from quantity for prescriptions
 dispensed. If a patient has multiple records on the same day for the
 same drug or procedures the ETL should not de-dupe them unless there is
 probable reason to believe the item is a true data duplicate. Take note
-on how to handle refills for prescriptions written.</p>
+on how to handle refills for prescriptions written.<br><br>For detailed
+conventions on how to populate this table, please refer to the <a
+href="https://ohdsi.github.io/Themis/drug_exposure.html">THEMIS
+repository</a>.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -3545,7 +3549,10 @@ oral solution concept tells us this is oral solution. Calculate duration
 as quantity (200 example) * daily dose (5mL) /concentration (20mg/mL)
 200*5/20 = 50 days. <a
 href="https://ohdsi.github.io/CommonDataModel/drug_dose.html">Examples
-by dose form</a>
+by dose form</a><br><br>For detailed conventions for how to populate
+this field, please see the <a
+href="https://ohdsi.github.io/Themis/tag_drug_exposure.html">THEMIS
+repository</a>.
 </td>
 <td style="text-align:left;">
 date
@@ -6509,7 +6516,9 @@ explicit record in EHR data.</p>
 <p><strong>User Guide</strong></p>
 <p>NA</p>
 <p><strong>ETL Conventions</strong></p>
-<p>NA</p>
+<p>For specific conventions on how to populate this table, please refer
+to the <a href="https://ohdsi.github.io/Themis/death.html">THEMIS
+repository</a>.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -6579,7 +6588,10 @@ The date the person was deceased.
 <td style="text-align:left;">
 If the precise date include day or month is not known or not allowed,
 December is used as the default month, and the last day of the month the
-default day.
+default day. For additional conventions related to this field, please
+refer to the <a
+href="https://ohdsi.github.io/Themis/tag_death_date.html">THEMIS
+repository</a>.
 </td>
 <td style="text-align:left;">
 date
@@ -8567,7 +8579,10 @@ hierarchical and business relationships between Care Sites. For example,
 wards can belong to clinics or departments, which can in turn belong to
 hospitals, which in turn can belong to hospital systems, which in turn
 can belong to HMOs.The relationships between Care Sites are defined in
-the FACT_RELATIONSHIP table.</p>
+the FACT_RELATIONSHIP table.<br><br>For additional detailed conventions
+on how to populate this table, please refer to <a
+href="https://ohdsi.github.io/Themis/care_site.html">THEMIS
+repository</a>.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -8670,7 +8685,10 @@ Care Site are Inpatient, then the place_of_service_concept_id should
 represent Inpatient. If information is present about a unique Care Site
 (e.g. Pharmacy) then a Care Site record should be created. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Visit&amp;standardConcept=Standard&amp;page=2&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>.
+Concepts</a>. For information about how to populate this field please
+see the <a
+href="https://ohdsi.github.io/Themis/tag_place_of_service.html">THEMIS
+Conventions</a>.
 </td>
 <td style="text-align:left;">
 integer
