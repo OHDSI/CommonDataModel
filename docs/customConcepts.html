@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Clair Blacketer" />
 
-<meta name="date" content="2020-09-29" />
 
-<title>Example_Queries</title>
+<title>Custom Concepts</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -416,31 +414,290 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Example_Queries</h1>
-<h4 class="author">Clair Blacketer</h4>
-<h4 class="date">September 29, 2020</h4>
+<h1 class="title toc-ignore"><strong>Custom Concepts</strong></h1>
 
 </div>
 
 
-<p>The query below will find all standard concepts in the Visit domain
-that do not have any ancestors. These are considered “top-level” visit
-concepts and can be used to define categories of visits in cohort
-definitions. For example, the Inpatient Visit concept <a
-href="https://athena.ohdsi.org/search-terms/terms/9201">9201</a>
-subsumes the concepts for Inpatient Hospital and Inpatient in
-Psychiatric Facility. Instead of creating a concept set with all of
-these terms to define an inpatient visit you can use 9201 and all of
-it’s descendants, a concept found using the top-level query.</p>
-<p>WITH top_level AS (SELECT concept_id, concept_name FROM concept LEFT
-JOIN concept_ancestor ON concept_id=descendant_concept_id AND
-ancestor_concept_id!=descendant_concept_id WHERE domain_id=‘Visit’ AND
-standard_concept=‘S’ AND ancestor_concept_id IS NULL ) SELECT
-top_level.concept_id, top_level.concept_name, descendant.concept_id,
-descendant.concept_name FROM concept_ancestor JOIN top_level ON
-top_level.concept_id = ancestor_concept_id JOIN concept descendant ON
-descendant.concept_id = descendant_concept_id WHERE descendant.domain_id
-= ‘Visit’;</p>
+<p><em>By Maxim Moinat and the Themis Working Group</em></p>
+<p>The Themis Working Group convened on October 6th and December 7th
+2023 to discuss the creation this convention for creating custom
+concepts.</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>While the OMOP vocabularies are very comprehensive, it is not always
+possible to use concepts existing in the OMOP vocabularies. For example,
+when using a vocabulary that is only used in your institution or having
+custom defined variables. In these cases, custom concepts can be used.
+Custom concepts are concepts that are not part of the OMOP vocabularies,
+and are only used in your institution. There are two main reasons to
+define custom concepts in your local OMOP CDM vocabulary. The first is
+that they are available in your local Atlas instance, which has several
+use cases: - When viewing a standard concept, you can see which custom
+concepts are mapped to it. This allows you to better understand what the
+standard concept represents in your institution. - You can search for a
+custom concept and find which standard concepts it is mapped to, to
+include in your standard concept set. - For studies only using your
+local data, you can define cohorts using custom concepts (through ‘Add
+attribute’-&gt;‘Add … Source Concept’). The second reason is using the
+custom concepts in your ETL. By creating both the custom concept, and
+the ‘Maps to’ relationship (example below), we can use this in the same
+way as mapping other source vocabularies.</p>
+<p><strong>Custom concepts are only defined locally. These cannot be
+used for network research. Therefore it remains very important to map to
+standard concepts.</strong></p>
+</div>
+<div id="conventions" class="section level2">
+<h2>Conventions</h2>
+<p>It is important to follow a set of conventions when creating custom
+concepts, to avoid negatively impacting network studies. The conventions
+are as follows:</p>
+<ul>
+<li>Custom concepts have a <code>concept_id</code> larger than
+2,000,000,000. This is to avoid clashes with existing
+concepts.<sup>†</sup></li>
+<li>Custom concepts are always non-standard
+(<code>concept.standard_concept = NULL</code>).</li>
+<li>Custom concepts can only be used in the
+<code>_source_concept_id</code> fields
+(e.g. <code>procedure_source_concept_id</code>)</li>
+<li>If the field <code>_source_concept_id</code> does not exist, add a
+custom column to your table (e.g. a
+<code>drug_exposure.route_source_concept_id</code>)<sup>1</sup>. If
+there is a wide need in the community, a proposal can be submitted to
+the CDM Working Group to add these fields in a future OMOP CDM
+version.</li>
+<li>Always add custom concepts to a new vocabulary specifically for your
+source (see example below). If you have a need to add concepts to an
+existing vocabulary, please contact the OHDSI Vocabulary Working
+Group.</li>
+<li>Do NOT add custom concepts to the hierarchy of existing vocabularies
+(either in the <code>concept_ancestor</code> table or
+<code>subsumes</code>/<code>is a</code> relations in the
+<code>concept_relationship</code> table). This is to avoid descendant
+concepts to differ between sites.</li>
+</ul>
+<p>In addition, it is recommended to follow these suggestions:</p>
+<ul>
+<li>For the <code>domain_id</code>, choose an appropriate existing value
+from the domain table (‘Condition’, ‘Drug’, ‘Procedure’, etc.). Note
+that this determines the target table the concept can be used in.</li>
+<li>For the <code>concept_class_id</code>, it is not required to create
+new classes for your source vocabulary. To leave the class empty
+explicitly, use class ‘Undefined’. It is also allowed to reuse existing
+concept classes (e.g. SNOMED’s ‘Clinical Finding’ for conditions or
+RxNorm drug classes ‘Ingredient’, ‘Clinical Drug’, ‘Branded Drug’
+etc.).</li>
+<li>In the new vocabulary record, the <code>vocabulary_concept_id</code>
+can be set to 0, as this is often not used in the OMOP CDM.</li>
+<li>Create mappings between custom concepts and standard concepts. This
+can be done by adding rows to the <code>concept_relationship</code>
+table, with the <code>Maps to</code> relation. The reverse relation,
+<code>Mapped from</code>, should also be added. This allows for easy
+navigation between custom and standard concepts<sup>2</sup>. The ‘mapped
+to’ concept should be a standard concept.</li>
+<li>Officially, <code>concept_hierarchy</code> is only for standard
+concepts. However, if you local use case requires this (e.g. for
+selection of descendants of custom concepts), the custom concepts can be
+added into their own, isolated, hierarchy. ## Example In this example,
+we will add one custom concept for the ‘DHD Diagnose Thesaurus’. This is
+a Dutch vocabulary, which is not part of the OMOP vocabularies. We will
+add the concept ‘diabetes mellitus type 1’. This concept has a mapping
+to the standard concept ‘Diabetes mellitus type 1 (disorder)’,
+concept_id 3341872.</li>
+</ul>
+<p>After creating these records, we can use the custom concept in our
+ETL to populate the <code>condition_source_concept_id</code> field.</p>
+<div id="custom-vocabulary" class="section level3">
+<h3>Custom vocabulary</h3>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>vocabulary_id</td>
+<td>DHD Diagnose Thesaurus</td>
+</tr>
+<tr class="even">
+<td>vocabulary_name</td>
+<td>Dutch Hospital Data Diagnosethesaurus</td>
+</tr>
+<tr class="odd">
+<td>vocabulary_reference</td>
+<td><a
+href="https://www.dhd.nl/producten-diensten/diagnosethesaurus/Paginas/diagnosethesaurus.asp"
+class="uri">https://www.dhd.nl/producten-diensten/diagnosethesaurus/Paginas/diagnosethesaurus.asp</a></td>
+</tr>
+<tr class="even">
+<td>vocabulary_version</td>
+<td>2023-04-20</td>
+</tr>
+<tr class="odd">
+<td>vocabulary_concept_id</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="custom-concept" class="section level3">
+<h3>Custom concept</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>concept_id</td>
+<td>2 000 000 001</td>
+</tr>
+<tr class="even">
+<td>concept_name</td>
+<td>diabetes mellitus type 1</td>
+</tr>
+<tr class="odd">
+<td>domain_id</td>
+<td>Condition</td>
+</tr>
+<tr class="even">
+<td>vocabulary_id</td>
+<td>DHD Diagnose Thesaurus</td>
+</tr>
+<tr class="odd">
+<td>concept_class_id</td>
+<td>Undefined</td>
+</tr>
+<tr class="even">
+<td>standard_concept</td>
+<td><code>NULL</code></td>
+</tr>
+<tr class="odd">
+<td>concept_code</td>
+<td>0000002630</td>
+</tr>
+<tr class="even">
+<td>valid_start_date</td>
+<td>2017-08-01</td>
+</tr>
+<tr class="odd">
+<td>valid_end_date</td>
+<td>2099-12-31</td>
+</tr>
+<tr class="even">
+<td>invalid_reason</td>
+<td><code>NULL</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="mapping-relationship" class="section level3">
+<h3>Mapping relationship</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>concept_id_1</td>
+<td>2 000 000 001</td>
+</tr>
+<tr class="even">
+<td>concept_id_2</td>
+<td>3341872</td>
+</tr>
+<tr class="odd">
+<td>relationship_id</td>
+<td>Maps to</td>
+</tr>
+<tr class="even">
+<td>valid_start_date</td>
+<td>2017-08-01</td>
+</tr>
+<tr class="odd">
+<td>valid_end_date</td>
+<td>2099-12-31</td>
+</tr>
+<tr class="even">
+<td>invalid_reason</td>
+<td><code>NULL</code></td>
+</tr>
+<tr class="odd">
+<td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>——-</td>
+<td>——-</td>
+</tr>
+<tr class="odd">
+<td>concept_id_1</td>
+<td>3341872</td>
+</tr>
+<tr class="even">
+<td>concept_id_2</td>
+<td>2 000 000 001</td>
+</tr>
+<tr class="odd">
+<td>relationship_id</td>
+<td>Mapped from</td>
+</tr>
+<tr class="even">
+<td>valid_start_date</td>
+<td>2017-08-01</td>
+</tr>
+<tr class="odd">
+<td>valid_end_date</td>
+<td>2099-12-31</td>
+</tr>
+<tr class="even">
+<td>invalid_reason</td>
+<td><code>NULL</code></td>
+</tr>
+</tbody>
+</table>
+<p>See the <a
+href="https://ohdsi.github.io/CommonDataModel/sqlScripts.html#Source_to_Standard">Source
+To Standard query</a> to map a code in the source data to a standard
+concept.</p>
+</div>
+</div>
+<div id="getting-your-vocabulary-into-the-omop-vocabularies"
+class="section level2">
+<h2>Getting your vocabulary into the OMOP vocabularies</h2>
+<p>If you think your custom concepts are useful for others, you can
+submit them to the OMOP vocabularies. This could be as a supported
+source vocabulary (like ICD) or a new vocabulary with standard concepts
+(like LOINC). This is a separate process from the conventions described
+above. Please see the <a
+href="https://ohdsi.github.io/CommonDataModel/vocabRequest.html">this
+support page</a>.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p><sup>1</sup><a
+href="https://www.ohdsi.org/2021-global-symposium-showcase-18/">Melanie
+Philofsky; Implementing &amp; adopting a customized OMOP Common Data
+Model; OHDSI Symposium 2021</a></p>
+<p><sup>2</sup><a
+href="https://www.ohdsi.org/wp-content/uploads/2020/10/Melanie-Philofsky-Philofsky-Mapping-Source-Codes-Poster.pdf">Melanie
+Philofsky; Mapping Custom Source Codes to Standard Concepts: A
+Comparison of Two Approaches; OHDSI Symposium 2020</a> </br>
+<sup>†</sup>this is why custom concepts are sometimes referred to as
+“2B+” or “2billionaires”.</p>
+</div>
 
 
 
