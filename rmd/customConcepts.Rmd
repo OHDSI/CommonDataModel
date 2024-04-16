@@ -11,9 +11,11 @@ The Themis Working Group convened on October 6th and December 7th 2023 to discus
 
 While the OMOP vocabularies are very comprehensive, it is not always possible to use concepts existing in the OMOP vocabularies. For example, when using a vocabulary that is only used in your institution or having custom defined variables. In these cases, custom concepts can be used. Custom concepts are concepts that are not part of the OMOP vocabularies, and are only used in your institution.
 There are two main reasons to define custom concepts in your local OMOP CDM vocabulary. The first is that they are available in your local Atlas instance, which has several use cases:
+
  - When viewing a standard concept, you can see which custom concepts are mapped to it. This allows you to better understand what the standard concept represents in your institution.
  - You can search for a custom concept and find which standard concepts it is mapped to, to include in your standard concept set.
  - For studies only using your local data, you can define cohorts using custom concepts (through 'Add attribute'->'Add ... Source Concept').
+ 
 The second reason is using the custom concepts in your ETL. By creating both the custom concept, and the 'Maps to' relationship (example below), we can use this in the same way as mapping other source vocabularies.
 
 **Custom concepts are only defined locally. These cannot be used for network research. Therefore it remains very important to map to standard concepts.**
@@ -36,7 +38,9 @@ In addition, it is recommended to follow these suggestions:
 - In the new vocabulary record, the `vocabulary_concept_id` can be set to 0, as this is often not used in the OMOP CDM.
 - Create mappings between custom concepts and standard concepts. This can be done by adding rows to the `concept_relationship` table, with the `Maps to` relation. The reverse relation, `Mapped from`, should also be added. This allows for easy navigation between custom and standard concepts<sup>2</sup>. The 'mapped to' concept should be a standard concept.
 - Officially, `concept_hierarchy` is only for standard concepts. However, if you local use case requires this (e.g. for selection of descendants of custom concepts), the custom concepts can be added into their own, isolated, hierarchy.
+
 ## Example
+
 In this example, we will add one custom concept for the 'DHD Diagnose Thesaurus'. This is a Dutch vocabulary, which is not part of the OMOP vocabularies. We will add the concept 'diabetes mellitus type 1'. This concept has a mapping to the standard concept 'Diabetes mellitus type 1 (disorder)', concept_id 3341872.
 
 After creating these records, we can use the custom concept in our ETL to populate the `condition_source_concept_id` field.
