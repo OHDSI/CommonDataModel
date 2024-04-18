@@ -4596,9 +4596,11 @@ CONCEPT
 modifier_source_value
 </td>
 <td style="text-align:left;">
+This field houses the verbatim value from the source data representing
+the modifier code for the procedure that occurred.
 </td>
 <td style="text-align:left;">
-The original modifier code from the source is stored here for reference.
+The value stored here is mapped to a MODIFIER_CONCEPT_ID.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5712,14 +5714,14 @@ VISIT_DETAIL
 measurement_source_value
 </td>
 <td style="text-align:left;">
-This field houses the verbatim value from the source data representing
-the Measurement that occurred. For example, this could be an ICD10 or
-Read code.
+This field contains the exact value from the source data that represents
+the measurement that occurred.
 </td>
 <td style="text-align:left;">
-This code is mapped to a Standard Measurement Concept in the
-Standardized Vocabularies and the original code is stored here for
-reference.
+This value corresponds to a standardized CONCEPT_ID found in
+MEASUREMENT_CONCEPT_ID and in the ‘Measurement’ domain within the
+Standardized Vocabularies. The original code is retained here for
+reference purposes.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5753,9 +5755,9 @@ MEASUREMENT_CONCEPT_ID instead to enable standardized analytics that can
 be consistent across the network.
 </td>
 <td style="text-align:left;">
-If the MEASUREMENT_SOURCE_VALUE is coded in the source data using an
-OMOP supported vocabulary put the concept id representing the source
-value here.
+If the MEASUREMENT_SOURCE_VALUE is coded in the source data using a
+vocabulary supported by OMOP Standardized Vocabularies, insert the
+CONCEPT_ID representing the source value here.
 </td>
 <td style="text-align:left;">
 integer
