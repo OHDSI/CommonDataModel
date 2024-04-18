@@ -4596,9 +4596,11 @@ CONCEPT
 modifier_source_value
 </td>
 <td style="text-align:left;">
+This field houses the verbatim value from the source data representing
+the modifier code for the procedure that occurred.
 </td>
 <td style="text-align:left;">
-The original modifier code from the source is stored here for reference.
+The value stored here is mapped to a MODIFIER_CONCEPT_ID.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5484,15 +5486,10 @@ If the raw data gives a categorial result for measurements those values
 are captured and mapped to standard concepts in the ‘Meas Value’ domain.
 </td>
 <td style="text-align:left;">
-If the raw data provides categorial results as well as continuous
-results for measurements, it is a valid ETL choice to preserve both
-values. The continuous value should go in the VALUE_AS_NUMBER field and
-the categorical value should be mapped to a standard concept in the
-‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is
-also the destination for the ‘Maps to value’ relationship. If there’s no
-categorial result in a source_data, set value_as_concept_id to NULL, if
-there is a categorial result in a source_data but without mapping, set
-value_as_concept_id to 0.
+If there is no categorial result in the source data, set
+VALUE_AS_CONCEPT_ID to NULL, if there is a categorial result in a source
+data but without mapping, set VALUE_AS_CONCEPT_ID to 0, else map to a
+CONCEPT_ID.
 </td>
 <td style="text-align:left;">
 integer
@@ -5712,14 +5709,14 @@ VISIT_DETAIL
 measurement_source_value
 </td>
 <td style="text-align:left;">
-This field houses the verbatim value from the source data representing
-the Measurement that occurred. For example, this could be an ICD10 or
-Read code.
+This field contains the exact value from the source data that represents
+the measurement that occurred.
 </td>
 <td style="text-align:left;">
-This code is mapped to a Standard Measurement Concept in the
-Standardized Vocabularies and the original code is stored here for
-reference.
+This value corresponds to a standardized CONCEPT_ID found in
+MEASUREMENT_CONCEPT_ID and in the ‘Measurement’ domain within the
+Standardized Vocabularies. The original code is retained here for
+reference purposes.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5753,9 +5750,9 @@ MEASUREMENT_CONCEPT_ID instead to enable standardized analytics that can
 be consistent across the network.
 </td>
 <td style="text-align:left;">
-If the MEASUREMENT_SOURCE_VALUE is coded in the source data using an
-OMOP supported vocabulary put the concept id representing the source
-value here.
+If the MEASUREMENT_SOURCE_VALUE is coded in the source data using a
+vocabulary supported by OMOP Standardized Vocabularies, insert the
+CONCEPT_ID representing the source value here.
 </td>
 <td style="text-align:left;">
 integer
