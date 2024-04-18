@@ -5820,15 +5820,10 @@ If the raw data gives a categorial result for measurements those values
 are captured and mapped to standard concepts in the ‘Meas Value’ domain.
 </td>
 <td style="text-align:left;">
-If the raw data provides categorial results as well as continuous
-results for measurements, it is a valid ETL choice to preserve both
-values. The continuous value should go in the VALUE_AS_NUMBER field and
-the categorical value should be mapped to a standard concept in the
-‘Meas Value’ domain and put in the VALUE_AS_CONCEPT_ID field. This is
-also the destination for the ‘Maps to value’ relationship. If there’s no
-categorial result in a source_data, set value_as_concept_id to NULL, if
-there is a categorial result in a source_data but without mapping, set
-value_as_concept_id to 0.
+If there is no categorial result in the source data, set
+VALUE_AS_CONCEPT_ID to NULL, if there is a categorial result in a source
+data but without mapping, set VALUE_AS_CONCEPT_ID to 0, else map to a
+CONCEPT_ID.
 </td>
 <td style="text-align:left;">
 integer
