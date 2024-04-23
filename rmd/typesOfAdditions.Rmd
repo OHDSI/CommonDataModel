@@ -26,9 +26,9 @@ These are typically sets of tables created by working groups to model a specific
   - GIS
     - Github: https://ohdsi.github.io/GIS/
     
-## CDM Addition or Change
+## Change to Canonical CDM
 
-Please see the [full process](/cdmRequestProcess.html) for how to request changes to the CDM. These change requests MUST be backed by network uses cases and MUST be approved by the CDM working group. Overall these are typically small changes or additions that make the CDM more usable from a network perspective or fulfill a clearly demonstrated need. Good examples are the recently ratified [NOTE_NLP updates](https://github.com/OHDSI/CommonDataModel/tree/NLP_Proposal_2023) and presentation by the vocabulary team to add [value_source_concept_id](https://ohdsiorg.sharepoint.com/:v:/s/Workgroup-CommonDataModel/EcMaYjUPeSVMrmSozflBsmQBNEtPpiCJ9AfZ3QQtGHIuFg?e=UnVgIh&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) to measurement and observation.
+Please see the [full process](/CommonDataModel/cdmRequestProcess.html) for how to request changes to the current version of the OMOP CDM. These change requests MUST be backed by network uses cases and MUST be approved by the [CDM working group](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu). Overall these are typically small changes or additions that make the CDM more usable from a network perspective or fulfill a clearly demonstrated need. Good examples are the recently ratified [NOTE_NLP updates](https://github.com/OHDSI/CommonDataModel/tree/NLP_Proposal_2023) and presentation by the vocabulary team to add [value_source_concept_id](https://ohdsiorg.sharepoint.com/:v:/s/Workgroup-CommonDataModel/EcMaYjUPeSVMrmSozflBsmQBNEtPpiCJ9AfZ3QQtGHIuFg?e=UnVgIh&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) to the measurement and observation tables.
 
 
 
