@@ -1708,7 +1708,8 @@ When populating VISIT_START_DATE, you should think about the patient
 experience to make decisions on how to define visits. In the case of an
 inpatient visit this should be the date the patient was admitted to the
 hospital or institution. In all other cases this should be the date of
-the patient-provider interaction.
+the patient-provider interaction. If this information is not available
+the record should be dropped.
 </td>
 <td style="text-align:left;">
 date
@@ -5171,6 +5172,8 @@ quantity
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+If there is a record of device exposure in the source but no quantity
+value, then set to 1.
 </td>
 <td style="text-align:left;">
 integer
@@ -9495,14 +9498,14 @@ No
 <h3 class="tabset tabset-pills">provider</h3>
 <p><strong>Table Description</strong></p>
 <p>The PROVIDER table contains a list of uniquely identified healthcare
-providers. These are individuals providing hands-on healthcare to
-patients, such as physicians, nurses, midwives, physical therapists
-etc.</p>
+providers; duplication is not allowed. These are individuals providing
+hands-on healthcare to patients, such as physicians, nurses, midwives,
+physical therapists etc.</p>
 <p><strong>User Guide</strong></p>
 <p>Many sources do not make a distinction between individual and
 institutional providers. The PROVIDER table contains the individual
-providers. If the source, instead of uniquely identifying individual
-providers, only provides limited information such as specialty, generic
+providers. If the source only provides limited information such as
+specialty instead of uniquely identifying individual providers, generic
 or ‘pooled’ Provider records are listed in the PROVIDER table.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>NA</p>
