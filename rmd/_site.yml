@@ -27,10 +27,10 @@ navbar:
     - text: "Conventions"
       icon: fa-list-alt
       menu:
+        - text: "THEMIS Convention Library"
+          href: https://ohdsi.github.io/Themis
         - text: "General Conventions"
           href: dataModelConventions.html
-        - text: "Observation Periods for EHR Data"
-          href: ehrObsPeriods.html
         - text: "Patient Privacy and OMOP"
           href: cdmPrivacy.html
         - text: "Custom Concepts"
