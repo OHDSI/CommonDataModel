@@ -5,3 +5,5 @@
 extras/*
 docs/*
 rmd/*
+^CRAN-SUBMISSION$
+^cran-comments\.md$

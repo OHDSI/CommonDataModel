@@ -13,7 +13,7 @@
 
 <title>SQL Scripts</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -358,13 +358,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
+    </li>
+    <li>
       <a href="dataModelConventions.html">General Conventions</a>
     </li>
     <li>
-      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
     </li>
     <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+      <a href="customConcepts.html">Custom Concepts</a>
     </li>
   </ul>
 </li>
@@ -381,13 +384,10 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
-    </li>
-    <li>
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -398,6 +398,9 @@ div.tocify {
         <li>
           <a href="cdm54erd.html">Entity Relationships</a>
         </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
+        </li>
       </ul>
     </li>
   </ul>
@@ -406,22 +409,22 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    CDM Proposals
+    CDM Additions
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+      <a href="typesOfAdditions.html">Types of CDM Additions</a>
     </li>
     <li>
-      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
         </li>
       </ul>
     </li>
@@ -487,6 +490,7 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">SQL Scripts</h1>
 
 </div>
 
@@ -507,7 +511,7 @@ were to map source codes on the fly. It is important to note that this
 script will show ALL mappings, not just those to Standard, Valid
 Concepts. Be sure to add a filter that will only grab the correct
 Standard, Valid codes.</p>
-<pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.concept_name AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.INVALID_REASON AS SOURCE_INVALID_REASON, c1.concept_id AS TARGET_CONCEPT_ID, c1.concept_name AS TARGET_CONCEPT_NAME, c1.VOCABULARY_ID AS TARGET_VOCABUALRY_ID, c1.domain_id AS TARGET_DOMAIN_ID, c1.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c1.INVALID_REASON AS TARGET_INVALID_REASON, c1.standard_concept AS TARGET_STANDARD_CONCEPT
+<pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.concept_name AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.INVALID_REASON AS SOURCE_INVALID_REASON, c1.concept_id AS TARGET_CONCEPT_ID, c1.concept_name AS TARGET_CONCEPT_NAME, c1.VOCABULARY_ID AS TARGET_VOCABULARY_ID, c1.domain_id AS TARGET_DOMAIN_ID, c1.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c1.INVALID_REASON AS TARGET_INVALID_REASON, c1.standard_concept AS TARGET_STANDARD_CONCEPT
        FROM CONCEPT C
              JOIN CONCEPT_RELATIONSHIP CR
                         ON C.CONCEPT_ID = CR.CONCEPT_ID_1
@@ -973,7 +977,7 @@ WHERE vocabulary_id = &#39;None&#39;;</code></pre>
 <h2><strong>Bonus Queries</strong></h2>
 <div id="visit-concept-roll-up" class="section level3">
 <h3>Visit Concept Roll-up</h3>
-<p>The query below will utilize the Visit Concept hierarcy to find the
+<p>The query below will utilize the Visit Concept hierarchy to find the
 highest-level ancestors. In the case that both the VISIT_OCCURRENCE and
 VISIT_DETAIL tables are populated, it is good practice (though not
 required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in

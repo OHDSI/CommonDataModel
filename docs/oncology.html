@@ -13,7 +13,7 @@
 
 <title>Oncology Extension</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -185,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -365,13 +358,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
+    </li>
+    <li>
       <a href="dataModelConventions.html">General Conventions</a>
     </li>
     <li>
-      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
     </li>
     <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+      <a href="customConcepts.html">Custom Concepts</a>
     </li>
   </ul>
 </li>
@@ -388,19 +384,22 @@ div.tocify {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
-    </li>
-    <li>
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
         </li>
         <li>
           <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
+        </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
         </li>
       </ul>
     </li>
@@ -410,22 +409,22 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    CDM Proposals
+    CDM Additions
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+      <a href="typesOfAdditions.html">Types of CDM Additions</a>
     </li>
     <li>
-      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
         </li>
       </ul>
     </li>
@@ -512,17 +511,15 @@ site</a>.</p>
 detailed in the <a
 href="https://github.com/OHDSI/OncologyWG/wiki/Oncology-CDM-Extension-Installation">installation
 instructions</a>.</p>
-<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, : incomplete final line found by
-## readTableHeader on &#39;../inst/csv/OMOP_CDM_Oncology_Ex_Table_Level.csv&#39;</code></pre>
 <div id="episode" class="section level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills">EPISODE</h3>
+<h3 class="tabset tabset-pills">episode</h3>
 <p><strong>Table Description</strong></p>
-<p>The EPISODE table aggregates lower-level clinical events
-(VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE)
+<p>The episode table aggregates lower-level clinical events
+(visit_occurrence, drug_exposure, procedure_occurrence, device_exposure)
 into a higher-level abstraction representing clinically and analytically
-relevant disease phases,outcomes and treatments. The EPISODE_EVENT table
-connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE,
-PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry.
+relevant disease phases,outcomes and treatments. The episode_event table
+connects qualifying clinical events (visit_occurrence, drug_exposure,
+procedure_occurrence, device_exposure) to the appropriate episode entry.
 For example cancers including their development over time, their
 treatment, and final resolution.</p>
 <p><strong>User Guide</strong></p>
@@ -534,33 +531,33 @@ from the data. It is understood that that table is not currently
 expected to be comprehensive.</p>
 </div>
 <div id="episode_event" class="section level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills">EPISODE_EVENT</h3>
+<h3 class="tabset tabset-pills">episode_event</h3>
 <p><strong>Table Description</strong></p>
-<p>The EPISODE_EVENT table connects qualifying clinical events (such as
-CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, MEASUREMENT)
-to the appropriate EPISODE entry. For example, linking the precise
-location of the metastasis (cancer modifier in MEASUREMENT) to the
+<p>The episode_event table connects qualifying clinical events (such as
+condition_occurrence, drug_exposure, procedure_occurrence, measurement)
+to the appropriate episode entry. For example, linking the precise
+location of the metastasis (cancer modifier in measurement) to the
 disease episode.</p>
 <p><strong>User Guide</strong></p>
-<p>This connecting table is used instead of the FACT_RELATIONSHIP table
+<p>This connecting table is used instead of the fact_relationship table
 for linking low-level events to abstracted Episodes.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>Some episodes may not have links to any underlying clinical events.
-For such episodes, the EPISODE_EVENT table is not populated.</p>
+For such episodes, the episode_event table is not populated.</p>
 </div>
 <div id="measurement" class="section level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills">MEASUREMENT</h3>
+<h3 class="tabset tabset-pills">measurement</h3>
 <p><strong>Table Description</strong></p>
-<p>The MEASUREMENT table contains records of Measurement,
+<p>The measurement table contains records of Measurement,
 i.e. structured values (numerical or categorical) obtained through
 systematic and standardized examination or testing of a Person or
-Person’s sample. The MEASUREMENT table contains both orders and results
+Person’s sample. The measurement table contains both orders and results
 of such Measurements as laboratory tests, vital signs, quantitative
 findings from pathology reports, etc. Measurements are stored as
 attribute value pairs, with the attribute as the Measurement Concept and
 the value representing the result. The value can be a Concept (stored in
-VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit
-(UNIT_CONCEPT_ID).</p>
+value_as_concept), or a numerical value (value_as_number) with a Unit
+(unit_concept_id).</p>
 <p><strong>User Guide</strong></p>
 <p>Measurements differ from Observations in that they require a
 standardized test or some other activity to generate a quantitative or

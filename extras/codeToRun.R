@@ -2,12 +2,12 @@
 
 # For a given cdmVersion, create all ddl sql files for every sql dialect
 # Results are written to inst/ddl/cdm_version/dialect.
-cdmVersion <- "5.4"
+cdmVersion <- "5.3"
 
 supportedVersions <- CommonDataModel::listSupportedVersions()
 
 for (cdmVersion in supportedVersions) {
-  for (targetDialect in c("oracle", "postgresql", "pdw", "redshift", "impala", "netezza", "bigquery", "sql server", "spark", "snowflake", "synapse")) {
+  for (targetDialect in CommonDataModel::listSupportedDialects()) {
     CommonDataModel::writeDdl(targetDialect = targetDialect,
                               cdmVersion = cdmVersion)
 

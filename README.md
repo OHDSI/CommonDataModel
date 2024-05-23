@@ -51,7 +51,7 @@ CommonDataModel::buildRelease(cdmVersions = "5.4",
 If you have an empty schema ready to go, the package will connect and instantiate the tables for you. To start, you need to download DatabaseConnector in order to connect to your database.
 
 ```   
-devtools::install_github("DatabaseConnector")
+devtools::install_github("ohdsi/DatabaseConnector")
 
 cd <- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
                                                  server = "localhost/ohdsi",

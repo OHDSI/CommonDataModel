@@ -13,7 +13,7 @@
 
 <title> OMOP Common Data Model</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,11 +32,11 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="site_libs/calendar-binding-0.2.1/calendar.js"></script>
-<link href="site_libs/font-awesome-6.1.1/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.1.1/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/calendar-binding-0.3.0/calendar.js"></script>
 <link href="site_libs/bttn-0.2.4/bttn.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -185,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -292,13 +285,16 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
+    </li>
+    <li>
       <a href="dataModelConventions.html">General Conventions</a>
     </li>
     <li>
-      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
     </li>
     <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+      <a href="customConcepts.html">Custom Concepts</a>
     </li>
   </ul>
 </li>
@@ -315,13 +311,10 @@ $(document).ready(function () {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
-    </li>
-    <li>
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
@@ -332,6 +325,9 @@ $(document).ready(function () {
         <li>
           <a href="cdm54erd.html">Entity Relationships</a>
         </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
+        </li>
       </ul>
     </li>
   </ul>
@@ -340,22 +336,22 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    CDM Proposals
+    CDM Additions
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+      <a href="typesOfAdditions.html">Types of CDM Additions</a>
     </li>
     <li>
-      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
         </li>
       </ul>
     </li>
@@ -478,21 +474,23 @@ href="mailto:mblacke@its.jnj.com" class="email">mblacke@its.jnj.com</a>
 or fill out <a
 href="https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu">this
 form</a> and check “Common Data Model”</p>
-<div id="htmlwidget-0d8433eac2cd58754f0b_menu">
-<span id="htmlwidget-0d8433eac2cd58754f0b_menu_navi">
-<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_today">Today</button>
-<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_prev">
+<div class="toastui-calendar calendar html-widget html-fill-item-overflow-hidden html-fill-item" style="width:100%;height:600px;">
+<div id="htmlwidget-6f41319b4cc8c2f997a2_menu">
+<span id="htmlwidget-6f41319b4cc8c2f997a2_menu_navi">
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-6f41319b4cc8c2f997a2_today">Today</button>
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-6f41319b4cc8c2f997a2_prev">
 <i class="fa fa-chevron-left"></i>
 </button>
-<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-0d8433eac2cd58754f0b_next">
+<button type="button" class="btn bttn-no-outline action-button" id="htmlwidget-6f41319b4cc8c2f997a2_next">
 <i class="fa fa-chevron-right"></i>
 </button>
 </span>
-<span id="htmlwidget-0d8433eac2cd58754f0b_renderRange" class="render-range"></span>
+<span id="htmlwidget-6f41319b4cc8c2f997a2_renderRange" class="render-range"></span>
 </div>
 <br/>
-<div id="htmlwidget-0d8433eac2cd58754f0b" style="width:100%;height:600px;" class="calendar html-widget" width="100%" height="600px"></div>
-<script type="application/json" data-for="htmlwidget-0d8433eac2cd58754f0b">{"x":{"options":{"defaultView":"month","taskView":false,"scheduleView":true,"useDetailPopup":true,"useCreationPopup":false,"isReadOnly":true,"usageStatistics":false,"month":{"startDayOfWeek":1,"narrowWeekend":true},"calendars":[{"id":1,"name":"PERSO","color":"#000","bgColor":"#c6d19d","borderColor":"forestgreen"},{"id":2,"name":"WORK","color":"#000","bgColor":"#F5A9A9","borderColor":"firebrick"},{"id":3,"name":"COURSES","color":"#000","bgColor":"#c6e2f6","borderColor":"#3b7cc6"}]},"schedules":[{"category":"time","dueDateClass":"","id":"schedule4623ffca46373fe23a740ac5","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-01-03 10:00:00","end":"2023-01-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule6a3d29db21ff91351ca85bfe","calendarId":"2","title":"CDM WG : Pregnancy","body":"The Pregnancy and Maternal Medicine working group will present.","recurrenceRule":null,"start":"2023-01-17 13:00:00","end":"2023-01-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulec4721ce4c700e2855bfe3a28","calendarId":"1","title":"CDM WG Meeting : NLP","body":"The NLP working group will present some potential updates to the NOTE_NLP table.","recurrenceRule":null,"start":"2023-02-07 10:00:00","end":"2023-02-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule58cf83db4adb9b2b1b1ccda9","calendarId":"2","title":"CDM WG Vocabulary Discussion","body":"Anna Ostropolets will join to ask us about our experiences using the OMOP Standard Vocabulary for ETL and other purposes","recurrenceRule":null,"start":"2023-02-21 13:00:00","end":"2023-02-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduleb73c434cac7390d9ad3969a3","calendarId":"1","title":"CDM WG : HADES","body":"Martijn Schuemie will present about the HADES working group and how their work interconnects with the OMOP CDM","recurrenceRule":null,"start":"2023-03-07 9:00:00","end":"2023-03-07 10:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule9fb03989c2471e1ec572ab98","calendarId":"2","title":"CDM WG : Medical Imaging","body":"Paul Nagy will talk to us about the modeling work being done in the Medical Imaging working group","recurrenceRule":null,"start":"2023-03-21 13:00:00","end":"2023-03-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule13cd5963f1cc4da53718b57d","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-04-04 10:00:00","end":"2023-04-04 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule7a760ee97877014c42803e07","calendarId":"2","title":"CDM WG : GIS","body":"The GIS working group will join us to share what they are working on and how we might support them.","recurrenceRule":null,"start":"2023-04-18 13:00:00","end":"2023-04-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule3337a913d2ba0115efafa220","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-02 10:00:00","end":"2023-05-02 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduleaa4e65823e3d11994344e0e5","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-16 13:00:00","end":"2023-05-16 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule9177cc573be10beb8040af62","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-06-06 10:00:00","end":"2023-06-06 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule0f7edbb60d5a23902a30ad82","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-07-18 13:00:00","end":"2023-07-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule84a88b3ac8b2297b348997ce","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-01 10:00:00","end":"2023-08-01 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule68b0b0cc091403a5919cfdbb","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-15 13:00:00","end":"2023-08-15 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule0f26d7085821f13f840670e4","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-05 10:00:00","end":"2023-09-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulea00508730c7dfbaf6db0b98d","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-19 13:00:00","end":"2023-09-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule19c6ee3284f62822113238ba","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-03 10:00:00","end":"2023-10-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4ad783b22af7528a00813a85","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-17 13:00:00","end":"2023-10-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4a12de563539f911b1a09aa3","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-07 10:00:00","end":"2023-11-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulea2a60a4a6b62e3f5ca4fb02a","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-21 13:00:00","end":"2023-11-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule1177a9bf185164e3edf365e6","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-05 10:00:00","end":"2023-12-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduled48c7bd15576300cef37d0e8","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-19 13:00:00","end":"2023-12-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null}],"navigation":true,"defaultDate":"2023-02-21","events":[],"navigationOptions":{"today_label":"Today","prev_label":"<i class=\"fa fa-chevron-left\" role=\"presentation\" aria-label=\"chevron-left icon\"><\/i>","next_label":"<i class=\"fa fa-chevron-right\" role=\"presentation\" aria-label=\"chevron-right icon\"><\/i>","class":" bttn-bordered bttn-sm bttn-primary","fmt_date":"YYYY-MM-DD","sep_date":" ~ "}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6f41319b4cc8c2f997a2" style="width:100%;height:600px;" class="calendar html-widget html-fill-item-overflow-hidden" width="100%" height="600px"></div>
+</div>
+<script type="application/json" data-for="htmlwidget-6f41319b4cc8c2f997a2">{"x":{"options":{"defaultView":"month","useDetailPopup":true,"useFormPopup":false,"isReadOnly":true,"usageStatistics":false,"month":{"startDayOfWeek":1,"narrowWeekend":true},"calendars":[{"id":"1","name":"PERSO","color":"#000","backgroundColor":"#c6d19d","borderColor":"forestgreen"},{"id":"2","name":"WORK","color":"#000","backgroundColor":"#F5A9A9","borderColor":"firebrick"},{"id":"3","name":"COURSES","color":"#000","backgroundColor":"#c6e2f6","borderColor":"#3b7cc6"}]},"schedules":[{"category":"time","dueDateClass":"","id":"schedulef630c4ed99f03a54cd216f41","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-01-03 10:00:00","end":"2023-01-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule319b4cc8c2f997a2276f3e2d","calendarId":"2","title":"CDM WG : Pregnancy","body":"The Pregnancy and Maternal Medicine working group will present.","recurrenceRule":null,"start":"2023-01-17 13:00:00","end":"2023-01-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule8b7050c099a964dff3ba0195","calendarId":"1","title":"CDM WG Meeting : NLP","body":"The NLP working group will present some potential updates to the NOTE_NLP table.","recurrenceRule":null,"start":"2023-02-07 10:00:00","end":"2023-02-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulec06ade6a8eddba65fdcd2f84","calendarId":"2","title":"CDM WG Vocabulary Discussion","body":"Anna Ostropolets will join to ask us about our experiences using the OMOP Standard Vocabulary for ETL and other purposes","recurrenceRule":null,"start":"2023-02-21 13:00:00","end":"2023-02-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduleefc87cbc37001f739cc28abd","calendarId":"1","title":"CDM WG : HADES","body":"Martijn Schuemie will present about the HADES working group and how their work interconnects with the OMOP CDM","recurrenceRule":null,"start":"2023-03-07 9:00:00","end":"2023-03-07 10:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule6ce1bb87cc281461436f9272","calendarId":"2","title":"CDM WG : Medical Imaging","body":"Paul Nagy will talk to us about the modeling work being done in the Medical Imaging working group","recurrenceRule":null,"start":"2023-03-21 13:00:00","end":"2023-03-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduled4c4633456146efc40d80ee6","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-04-04 10:00:00","end":"2023-04-04 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule8bef546db6a6bca4addbdf4e","calendarId":"2","title":"CDM WG : GIS","body":"The GIS working group will join us to share what they are working on and how we might support them.","recurrenceRule":null,"start":"2023-04-18 13:00:00","end":"2023-04-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule83b8ebe48b957986e1f0a710","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-02 10:00:00","end":"2023-05-02 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule6c95b17b9826889aa3f2d198","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-05-16 13:00:00","end":"2023-05-16 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule57a5858f76acbad9ad41c5e3","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-06-06 10:00:00","end":"2023-06-06 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule2227b1a7ffdd9c76e6e73ca5","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-07-18 13:00:00","end":"2023-07-18 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule71a379dac55a83a1dc6f5288","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-01 10:00:00","end":"2023-08-01 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4e4316fa86281ae0bcd13e09","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-08-15 13:00:00","end":"2023-08-15 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulee78c83a5b42362b0543dc387","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-05 10:00:00","end":"2023-09-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule90b7fa3be89eaadbca1b5497","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-09-19 13:00:00","end":"2023-09-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"scheduled5d1bc144191f2b32e240e99","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-03 10:00:00","end":"2023-10-03 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule4b202048b6a0f29f03487628","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-10-17 13:00:00","end":"2023-10-17 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule0bbb17a524c06ac900c06276","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-07 10:00:00","end":"2023-11-07 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule293e04b2127f2068c21692f5","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-11-21 13:00:00","end":"2023-11-21 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedule29ac7db5d04c5ac05506afe3","calendarId":"1","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-05 10:00:00","end":"2023-12-05 11:00:00","location":"Teams: https://tinyurl.com/cdm1sttues","bgColor":null,"color":null,"borderColor":null},{"category":"time","dueDateClass":"","id":"schedulea3a0f6a29c758dad3450081d","calendarId":"2","title":"CDM WG Meeting","body":"","recurrenceRule":null,"start":"2023-12-19 13:00:00","end":"2023-12-19 14:00:00","location":"Teams: https://tinyurl.com/cdm3rdtues","bgColor":null,"color":null,"borderColor":null}],"navigation":true,"defaultDate":"2024-04-29","events":[],"navigationOptions":{"today_label":"Today","prev_label":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\" class=\"phosphor-svg\" height=\"1.33em\" fill=\"currentColor\" style=\"vertical-align:-0.25em;\">\n  <path d=\"M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z\"><\/path>\n  <title>caret-left-light<\/title>\n<\/svg>","next_label":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\" class=\"phosphor-svg\" height=\"1.33em\" fill=\"currentColor\" style=\"vertical-align:-0.25em;\">\n  <path d=\"M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z\"><\/path>\n  <title>caret-right-light<\/title>\n<\/svg>","class":" bttn-bordered bttn-sm bttn-primary","fmt_date":"YYYY-MM-DD","sep_date":" ~ "}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="current-cdm-version" class="section level2">
@@ -527,9 +525,9 @@ to ReadMe for instructions on how to use the R package</a></li>
 two levels of support: legacy support means that the tool supports all
 tables and fields that were present in CDM v5.3 and feature support
 indicates that the tool supports any new tables and fields in CDM v5.4
-that were not present in CDM v5.3. A green check ✅ indicates that the
+that were not present in CDM v5.3. A green check ✔️ indicates that the
 support level for the listed tool is in place, has been tested, and
-released. A warning sign ⚠️ indicates that the support level for the
+released. A warning sign ❗ indicates that the support level for the
 listed tool has been initiated but has not yet been tested and released.
 <br></p>
 <table>
@@ -554,8 +552,8 @@ listed tool has been initiated but has not yet been tested and released.
 href="https://github.com/OHDSI/CommonDataModel/">https://github.com/OHDSI/CommonDataModel/</a>.
 It functions to dynamically create the OMOP CDM documentation and DDL
 scripts to instantiate the CDM tables.</td>
-<td>✅</td>
-<td>✅</td>
+<td>✔️</td>
+<td>✔️</td>
 </tr>
 <tr class="even">
 <td><strong>Data Quality Dashboard</strong></td>
@@ -564,17 +562,17 @@ href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/Da
 It runs a set of &gt; 3500 data quality checks against an OMOP CDM
 instance and is required to be run on all databases prior to
 participating in an OHDSI network research study.</td>
-<td>✅</td>
-<td>⚠️</td>
+<td>✔️</td>
+<td>❗</td>
 </tr>
 <tr class="odd">
 <td><strong>Achilles</strong></td>
 <td>This package can be downloaded from <a
 href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>,
-performing a set of broad database characterizations agains an OMOP CDM
+performing a set of broad database characterizations against an OMOP CDM
 instance.</td>
-<td>✅</td>
-<td>⚠️</td>
+<td>✔️</td>
+<td>❗</td>
 </tr>
 <tr class="even">
 <td><strong>ARES</strong></td>
@@ -583,16 +581,16 @@ href="https://github.com/OHDSI/Ares">https://github.com/OHDSI/Ares</a>
 and is designed to display the results from both the ACHILLES and
 DataQualityDashboard packages to support data quality and
 characterization research.</td>
-<td>✅</td>
-<td>⚠️</td>
+<td>✔️</td>
+<td>❗</td>
 </tr>
 <tr class="odd">
 <td><strong>ATLAS</strong></td>
 <td>ATLAS is an open source software tool for researchers to conduct
 scientific analyses on standardized observational data. <a
 href="http://atlas-demo.ohdsi.org/">Demo</a></td>
-<td>✅</td>
-<td>⚠️</td>
+<td>✔️</td>
+<td>❗</td>
 </tr>
 <tr class="even">
 <td><strong>Rabbit-In-A-Hat</strong></td>
@@ -601,8 +599,8 @@ href="https://github.com/OHDSI/WhiteRabbit">https://github.com/OHDSI/WhiteRabbit
 and is an application for interactive design of an ETL to the OMOP
 Common Data Model with the help of the the scan report generated by
 White Rabbit.</td>
-<td>✅</td>
-<td>✅</td>
+<td>✔️</td>
+<td>✔️</td>
 </tr>
 <tr class="odd">
 <td><strong>Feature Extraction</strong></td>
@@ -610,16 +608,16 @@ White Rabbit.</td>
 href="https://github.com/OHDSI/FeatureExtraction">https://github.com/OHDSI/FeatureExtraction</a>.
 It is designed to generate features (covariates) for a cohort generated
 using the OMOP CDM.</td>
-<td>✅</td>
-<td>✅*</td>
+<td>✔️</td>
+<td>✔️*</td>
 </tr>
 <tr class="even">
 <td><strong>Cohort Diagnostics</strong></td>
 <td>This package can be downloaded from <a
 href="https://github.com/OHDSI/CohortDiagnostics">https://github.com/OHDSI/CohortDiagnostics</a>
 and is used to critically evaluate cohort phenotypes.</td>
-<td>✅</td>
-<td>⚠️</td>
+<td>✔️</td>
+<td>❗</td>
 </tr>
 </tbody>
 </table>

@@ -13,7 +13,7 @@
 
 <title>Request Process</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -182,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -191,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -289,13 +282,16 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
+    </li>
+    <li>
       <a href="dataModelConventions.html">General Conventions</a>
     </li>
     <li>
-      <a href="ehrObsPeriods.html">Observation Periods for EHR Data</a>
+      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
     </li>
     <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
+      <a href="customConcepts.html">Custom Concepts</a>
     </li>
   </ul>
 </li>
@@ -312,19 +308,22 @@ $(document).ready(function () {
       <a href="cdm30.html">CDM v3.0</a>
     </li>
     <li>
-      <a href="cdm60.html">CDM v6.0</a>
-    </li>
-    <li>
       <a href="cdm53.html">CDM v5.3</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">NEW CDM v5.4</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="cdm54.html">CDM v5.4</a>
         </li>
         <li>
           <a href="cdm54Changes.html">Changes from CDM v5.3</a>
+        </li>
+        <li>
+          <a href="cdm54erd.html">Entity Relationships</a>
+        </li>
+        <li>
+          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
         </li>
       </ul>
     </li>
@@ -334,22 +333,22 @@ $(document).ready(function () {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-plus-square"></span>
      
-    CDM Proposals
+    CDM Additions
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
+      <a href="typesOfAdditions.html">Types of CDM Additions</a>
     </li>
     <li>
-      <a href="https://github.com/OHDSI/CommonDataModel/issues?q=is%3Aopen+is%3Aissue+label%3AProposal">Under Review</a>
+      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/issues/252">Region_concept_id</a>
+          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
         </li>
       </ul>
     </li>

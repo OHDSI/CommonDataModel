@@ -17,6 +17,10 @@ createForeignKeys(cdmVersion)
 }
 \value{
 A character string containing the OHDSQL DDL
+
+A string containing the OHDSQL for creation of primary keys in the OMOP CDM.
+
+A string containing the OHDSQL for creation of foreign keys in the OMOP CDM.
 }
 \description{
 The createDdl, createForeignKeys, and createPrimaryKeys functions each return a character string

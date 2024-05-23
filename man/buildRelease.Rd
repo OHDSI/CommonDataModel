@@ -7,7 +7,7 @@
 buildRelease(
   cdmVersions = listSupportedVersions(),
   targetDialects = listSupportedDialects(),
-  outputfolder = file.path(getwd(), "inst", "ddl")
+  outputfolder = file.path(tempdir(), "inst", "ddl")
 )
 }
 \arguments{
@@ -20,7 +20,11 @@ Defaults to all supported dialects.}
 \item{outputfolder}{The base folder where the SQL files will be written.
 Subfolders will be created for each cdmVersion and targetDialect.}
 }
+\value{
+Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
+        and targetDialect to the 'ddl' folder in specified output folder.
+}
 \description{
 Writes DDL, ForeignKey, PrimaryKey and index SQL files for given cdmVersion
-and targetDialect to the 'ddl' folder in current working directory.
+and targetDialect to the 'ddl' folder in specified output folder.
 }

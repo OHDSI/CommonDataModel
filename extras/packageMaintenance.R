@@ -31,3 +31,9 @@ file.copy(file.path(currentdir,listFiles), newdir, recursive = TRUE, overwrite =
 
 #rebuild package
 
+
+# CRAN testing
+# For info the token(s) and email(s) are stored at ~/Library/Application Support/rhub/validated_emails.csv
+# devtools::check_rhub()
+
+

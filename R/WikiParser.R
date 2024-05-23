@@ -23,6 +23,7 @@
 #'
 #' @param mdFilesLocation Path to the root folder of the Wiki repository.
 #' @param output_file     Path to where the output CSV file should be written.
+#' @return CSV files with the OMOP CDM specifications.
 #' @importFrom utils write.csv
 #' @export
 parseWiki <- function(mdFilesLocation, output_file) {

@@ -19,16 +19,17 @@ The [community forums](http://forums.ohdsi.org/) are also a great place to ask q
 
 **3. Are any tables or fields optional?**
 
-It is expected that all tables will be present in a CDM though it is not a requirement that they are all populated. The two mandatory tables are:
+It is expected that all tables will be present in a CDM though it is not a requirement that they are all populated. The three mandatory tables are:
 
-* [Person](https://github.com/OHDSI/CommonDataModel/wiki/person): Contains records that uniquely identify each patient in the source data who is at-risk to have clinical observations recorded within the source systems.
-* [Observation_period](https://github.com/OHDSI/CommonDataModel/wiki/observation_period): Contains records which uniquely define the spans of time for which a Person is at-risk to have clinical events recorded within the source systems.
+* [Person](https://ohdsi.github.io/CommonDataModel/cdm54.html#person): Contains records that uniquely identify each patient in the source data who is at-risk to have clinical observations recorded within the source systems.
+* [Observation_period](https://ohdsi.github.io/CommonDataModel/cdm54.html#observation_period): Contains records which uniquely define the spans of time for which a Person is at-risk to have clinical events recorded within the source systems.
+* [CDM_Source](https://ohdsi.github.io/CommonDataModel/cdm54.html#cdm_source): Contains information on the CDM instance including the vocabulary version used, the date the native data were released and the date the CDM was released.
 
-It is then up to you which tables to populate, though the core event tables are generally agreed upon to be [Condition_occurrence](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE), [Procedure_occurrence](https://github.com/OHDSI/CommonDataModel/wiki/PROCEDURE_OCCURRENCE), [Drug_exposure](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE), [Measurement](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT), and [Observation](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION). Each table has certain required fields, a full list of which can be found on the Common Data Model [wiki page](https://github.com/OHDSI/CommonDataModel/wiki/).
+It is then up to you which tables to populate, though the core event tables are generally agreed upon to be [Condition_occurrence](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONDITION_OCCURRENCE), [Procedure_occurrence](https://ohdsi.github.io/CommonDataModel/cdm54.html#PROCEDURE_OCCURRENCE), [Drug_exposure](https://ohdsi.github.io/CommonDataModel/cdm54.html#DRUG_EXPOSURE), [Measurement](https://ohdsi.github.io/CommonDataModel/cdm54.html#MEASUREMENT), and [Observation](https://ohdsi.github.io/CommonDataModel/cdm54.html#OBSERVATION). Each table has certain required fields, a full list of which can be found on the Common Data Model [wiki page](https://ohdsi.github.io/CommonDataModel/cdm54.html#).
 
 **4. Does the data model include any derived information? Which tables or values are derived?**
 
-The common data model stores verbatim data from the source across various clinical domains, such as records for conditions, drugs, procedures, and measurements.  In addition, to assist the analyst, the common data model also provides some derived tables, based on commonly used analytic procedures. For example, the [Condition_era](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_ERA) table is derived from the [Condition_occurrence](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURENCE) table and both the [Drug_era](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_ERA) and [Dose_era](https://github.com/OHDSI/CommonDataModel/wiki/DOSE_ERA) tables are derived from the [Drug_exposure](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE) table. An era is defined as a span of time when a patient is assumed to have a given condition or exposure to a particular active ingredient. Members of the community have written code to create these tables and it is out on the [github](https://github.com/OHDSI/CommonDataModel/tree/master/CodeExcerpts/DerivedTables) if you choose to use it in your CDM build.   It is important to reinforce, the analyst has the opportunity, but not the obligation, to use any of the derived tables and all of the source data is still available for direct use if the analysis calls for different assumptions.
+The common data model stores verbatim data from the source across various clinical domains, such as records for conditions, drugs, procedures, and measurements.  In addition, to assist the analyst, the common data model also provides some derived tables, based on commonly used analytic procedures. For example, the [Condition_era](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONDITION_ERA) table is derived from the [Condition_occurrence](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONDITION_OCCURENCE) table and both the [Drug_era](https://ohdsi.github.io/CommonDataModel/cdm54.html#DRUG_ERA) and [Dose_era](https://ohdsi.github.io/CommonDataModel/cdm54.html#DOSE_ERA) tables are derived from the [Drug_exposure](https://ohdsi.github.io/CommonDataModel/cdm54.html#DRUG_EXPOSURE) table. An era is defined as a span of time when a patient is assumed to have a given condition or exposure to a particular active ingredient. Members of the community have written code to create these tables and it is out on the [github](https://github.com/OHDSI/CommonDataModel/tree/master/CodeExcerpts/DerivedTables) if you choose to use it in your CDM build.   It is important to reinforce, the analyst has the opportunity, but not the obligation, to use any of the derived tables and all of the source data is still available for direct use if the analysis calls for different assumptions.
 
 **5. How is age captured in the model?**
 
@@ -52,11 +53,11 @@ If someone in the community had a use case for time-varying location of residenc
 
 **9. How does the model denote the time period during which a Person’s information is valid?**
 
-The OMOP Common Data Model uses something called observation periods (stored in the [Observation_period](https://github.com/OHDSI/CommonDataModel/wiki/observation_period) table) as a way to define the time span during which a patient is at-risk to have a clinical event recorded. In administrative claims databases, for example, these observation periods are often analogous to the notion of ‘enrollment’. 
+The OMOP Common Data Model uses something called observation periods (stored in the [Observation_period](https://ohdsi.github.io/CommonDataModel/cdm54.html#observation_period) table) as a way to define the time span during which a patient is at-risk to have a clinical event recorded. In administrative claims databases, for example, these observation periods are often analogous to the notion of ‘enrollment’. 
 
 **10. How does the model capture start and stop dates for insurance coverage? What if a person’s coverage changes?**
 
-The [Payer_plan_period](https://github.com/OHDSI/CommonDataModel/wiki/payer_plan_period) table captures details of the period of time that a Person is continuously enrolled under a specific health Plan benefit structure from a given Payer. Payer plan periods, as opposed to observation periods, can overlap so as to denote the time when a Person is enrolled in multiple plans at the same time such as Medicare Part A and Medicare Part D.
+The [Payer_plan_period](https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period) table captures details of the period of time that a Person is continuously enrolled under a specific health Plan benefit structure from a given Payer. Payer plan periods, as opposed to observation periods, can overlap so as to denote the time when a Person is enrolled in multiple plans at the same time such as Medicare Part A and Medicare Part D.
 
 **11. What if I have EHR data? How would I create observation periods?**
 
@@ -66,7 +67,7 @@ An observation period is considered as the time at which a patient is at-risk to
 
 **12. Do I have to map my source codes to Standard Concepts myself? Are there vocabulary mappings that already exist for me to leverage?**
 
-If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://github.com/OHDSI/CommonDataModel/wiki/Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM. 
+If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://ohdsi.github.io/CommonDataModel/cdm54.html#Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM. 
 
 ![](images/Athena_download_box.png)
 
@@ -74,7 +75,7 @@ The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to
 
 **13. If I want to apply the mappings myself, can I do so? Are they transparent to all users?**
 
-Yes, all mappings are available in the [Concept_relationship](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](http://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
+Yes, all mappings are available in the [Concept_relationship](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](http://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
 
 ![](images/Sepsis_to_SNOMED.png)
 
