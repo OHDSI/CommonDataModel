@@ -3552,23 +3552,8 @@ the patient.
 </td>
 <td style="text-align:left;">
 If this information is not explicitly available in the data, infer the
-end date using the following methods:<br><br> 1. Start first with
-duration or days supply using the calculation drug start date + days
-supply -1 day. 2. Use quantity divided by daily dose that you may obtain
-from the sig or a source field (or assumed daily dose of 1) for solid,
-indivisibile, drug products. If quantity represents ingredient amount,
-quantity divided by daily dose * concentration (from drug_strength) drug
-concept id tells you the dose form. 3. If it is an administration
-record, set drug end date equal to drug start date. If the record is a
-written prescription then set end date to start date + 29. If the record
-is a mail-order prescription set end date to start date + 89. The end
-date must be equal to or greater than the start date. Ibuprofen 20mg/mL
-oral solution concept tells us this is oral solution. Calculate duration
-as quantity (200 example) * daily dose (5mL) /concentration (20mg/mL)
-200*5/20 = 50 days. <a
-href="https://ohdsi.github.io/CommonDataModel/drug_dose.html">Examples
-by dose form</a><br><br>For detailed conventions for how to populate
-this field, please see the <a
+end date from start date and duration.<br>For detailed conventions for
+how to populate this field, please see the <a
 href="https://ohdsi.github.io/Themis/tag_drug_exposure.html">THEMIS
 repository</a>.
 </td>
