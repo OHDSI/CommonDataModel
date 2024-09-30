@@ -1,7 +1,7 @@
 Package: CommonDataModel
 Type: Package
 Title: OMOP CDM DDL and Documentation Generator
-Version: 1.0.0
+Version: 1.0.1
 Author: Clair Blacketer [aut, cre]
 Maintainer: Clair Blacketer <mblacke@its.jnj.com>
 Description: Generates the scripts required to create an Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) database and associated documentation for supported database platforms. Leverages the 'SqlRender' package to convert the Data Definition Language (DDL) script written in parameterized Structured Query Language (SQL) to the other supported dialects.
