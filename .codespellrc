@@ -1,4 +1,0 @@
-[codespell]
-skip = .git,*.pdf,*.svg,.*.min.js,*.pdf,site_libs
-ignore-regex = src="data:image/png.*
-ignore-words-list = bu,eacg,ehr,infarction,2rd,aas,ags,alog,bui,caf,eacf,ede,edn,esy,fo,gage,ges,gud,iif,isnt,knwo,mor,nam,nd,ot,slq,tahn,te,tey,thn,tye,ue,vas,wel,whn,wih,wth,yau,pilon
