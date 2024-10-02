@@ -42,7 +42,7 @@ corresponding Concept reference data.
 - The concept_id of a Concept is persistent, i.e. stays the same for the same Concept between releases of
 the Standardized Vocabularies.
 - A descriptive name for each Concept is stored as the Concept Name as part of the CONCEPT table. Additional
-names and descriptions for the Concept are stored as Synonyms in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_synonym)
+names and descriptions for the Concept are stored as Synonyms in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_synonym)
 table.
 - Each Concept is assigned to a Domain. For Standard Concepts, there is always a single Domain. Source
 Concepts can be composite or coordinated entities, and therefore can belong to more than one Domain.
@@ -61,7 +61,7 @@ field and can be used to reference the source vocabulary.
 in all *_concept_id fields, whereas Classification Concepts (‘C’) should not appear in the CDM
 data, but participate in the construction of the CONCEPT_ANCESTOR table and can be used to
 identify Descendants that may appear in the data. See CONCEPT_ANCESTOR table. Non-standard
-Concepts can only appear in *_source_concept_id fields and are not used in [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor)
+Concepts can only appear in *_source_concept_id fields and are not used in [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_ancestor)
 table. Please refer to the Standardized Vocabularies specifications for details of the Standard Concept
 designation.
 - The lifespan of a Concept is recorded through its valid_start_date, valid_end_date and the invalid_
@@ -144,10 +144,10 @@ and the relationship_id replaced by the reverse_relationship_id from the RELATIO
 not necessary to query for the existence of a relationship both in the concept_id_1 and concept_id_2
 fields.
 - Concept Relationships define direct relationships between Concepts. Indirect relationships through 3rd
-Concepts are not captured in this table. However, the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor) table does this for
+Concepts are not captured in this table. However, the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_ancestor) table does this for
 hierarchical relationships over several “generations” of direct relationships.
 - In previous versions of the CDM, the relationship_id used to be a numerical identifier. See the
-[RELATIONSHIP](https://ohdsi.github.io/CommonDataModel/cdm531.html#relationship) table.
+[RELATIONSHIP](https://ohdsi.github.io/CommonDataModel/cdm54.html#relationship) table.
 
 ### Relationship Table
 - There is one record for each Relationship.
@@ -163,7 +163,7 @@ Relationship is provided in the reverse_relationship_id field.
 concept_id field. This is for purposes of creating a closed Information Model, where all entities in
 the OMOP CDM are covered by unique Concepts.
 - Hierarchical Relationships are used to build a hierarchical tree out of the Concepts, which is recorded in
-the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor) table. For example, “has_ingredient” is a Relationship between Concept
+the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_ancestor) table. For example, “has_ingredient” is a Relationship between Concept
 of the Concept Class ‘Clinical Drug’ and those of ‘Ingredient’, and all Ingredients can be classified as
 the “parental” hierarchical Concepts for the drug products they are part of. All ‘Is a’ Relationships are
 hierarchical.
@@ -172,19 +172,19 @@ from different Vocabulary sources.
 
 ### Concept Synonyms
 - The concept_synonym_name field contains a valid Synonym of a concept, including the description in
-the concept_name itself. I.e. each Concept has at least one Synonym in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_synonym)
+the concept_name itself. I.e. each Concept has at least one Synonym in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_synonym)
 table. As an example, for a SNOMED-CT Concept, if the fully specified name is stored as the
-concept_name of the [CONCEPT](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept) table, then the Preferred Term and Synonyms associated with the Concept are stored in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_synonym) table.
-- Only Synonyms that are active and current are stored in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_synonym) table. Tracking
+concept_name of the [CONCEPT](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept) table, then the Preferred Term and Synonyms associated with the Concept are stored in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_synonym) table.
+- Only Synonyms that are active and current are stored in the [CONCEPT_SYNONYM](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_synonym) table. Tracking
 synonym/description history and mapping of obsolete synonyms to current Concepts/Synonyms is out
 of scope for the Standard Vocabularies.
 - Currently, only English Synonyms are included.
 
 ### Concept Ancestor
 - Each concept is also recorded as an ancestor of itself.
-- Only valid and Standard Concepts participate in the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor) table. It is not possible
+- Only valid and Standard Concepts participate in the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_ancestor) table. It is not possible
 to find ancestors or descendants of deprecated or Source Concepts.
-- Usually, only Concepts of the same Domain are connected through records of the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm531.html#concept_ancestor) table, but there might be exceptions.
+- Usually, only Concepts of the same Domain are connected through records of the [CONCEPT_ANCESTOR](https://ohdsi.github.io/CommonDataModel/cdm54.html#concept_ancestor) table, but there might be exceptions.
 
 ### Source to Concept Map
 - This table is no longer used to distribute mapping information between source codes and Standard
