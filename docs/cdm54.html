@@ -715,7 +715,7 @@ Person. This field should not be used to study gender identity issues.
 Use the gender or sex value present in the data under the assumption
 that it is the biological sex at birth. If the source data captures
 gender identity it should be stored in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table. <a
 href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 gender concepts</a>. Please refer to the <a
@@ -939,7 +939,7 @@ should capture the last known location of the person.
 </td>
 <td style="text-align:left;">
 Put the location_id from the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#location">LOCATION</a>
 table here that represents the most granular location information for
 the person. For additional information on how to populate this field,
 please refer to the <a
@@ -974,7 +974,7 @@ Practitioner).
 </td>
 <td style="text-align:left;">
 Put the provider_id from the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#provider">PROVIDER</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#provider">PROVIDER</a>
 table of the last known general practitioner of the person. If there are
 multiple providers, it is up to the ETL to decide which to put here.
 </td>
@@ -1379,7 +1379,7 @@ insurance claim data, the Observation Period can be considered as the
 time period the Person is enrolled with a payer. If a Person switches
 plans but stays with the same payer, and therefore capturing of data
 continues, that change would be captured in <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
 </td>
 <td style="text-align:left;">
 date
@@ -1879,7 +1879,7 @@ PROCEDURE_OCCURRENCE, etc.) or in the VISIT_DETAIL table.
 If there are multiple providers associated with a visit, you will need
 to choose which one to put here. The additional providers can be stored
 in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#visit_detail">VISIT_DETAIL</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#visit_detail">VISIT_DETAIL</a>
 table.
 </td>
 <td style="text-align:left;">
@@ -2858,21 +2858,21 @@ identifying Persons who should suffer from the recorded Condition.
 Record all conditions as they exist in the source data. Any decisions
 about diagnosis/phenotype definitions would be done through cohort
 specifications. These cohorts can be housed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">COHORT</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period">COHORT</a>
 table. Conditions span a time interval from start to end, but are
 typically recorded as single snapshot records with no end date. The
 reason is twofold: (i) At the time of the recording the duration is not
 known and later not recorded, and (ii) the Persons typically cease
 interacting with the healthcare system when they feel better, which
 leads to incomplete capture of resolved Conditions. The <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#condition_era">CONDITION_ERA</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#condition_era">CONDITION_ERA</a>
 table addresses this issue. Family history and past diagnoses (‘history
 of’) are not recorded in this table. Instead, they are listed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table. Codes written in the process of establishing the diagnosis, such
 as ‘question of’ of and ‘rule out’, should not represented here.
 Instead, they should be recorded in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table, if they are used for analyses. However, this information is not
 always available.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -13178,7 +13178,7 @@ domain_id
 </td>
 <td style="text-align:left;">
 A foreign key to the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#domain">DOMAIN</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#domain">DOMAIN</a>
 table the Concept belongs to.
 </td>
 <td style="text-align:left;">
@@ -13207,7 +13207,7 @@ vocabulary_id
 </td>
 <td style="text-align:left;">
 A foreign key to the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#vocabulary">VOCABULARY</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#vocabulary">VOCABULARY</a>
 table indicating from which source the Concept has been adapted.
 </td>
 <td style="text-align:left;">
@@ -14256,7 +14256,7 @@ relationship_concept_id
 </td>
 <td style="text-align:left;">
 A foreign key that refers to an identifier in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#concept">CONCEPT</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#concept">CONCEPT</a>
 table for the unique relationship concept.
 </td>
 <td style="text-align:left;">
