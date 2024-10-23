@@ -54,6 +54,13 @@ getConnectionDetails <- function(dbms) {
       password = Sys.getenv("CDMDDLBASE_ORACLE_PASSWORD"),
       server = Sys.getenv("CDMDDLBASE_ORACLE_SERVER"),
       pathToDriver = jdbcDriverFolder
+    ),
+    "iris" = createConnectionDetails(
+      dbms = "iris",
+      user = Sys.getenv("CDMDDLBASE_IRIS_USER"),
+      password = Sys.getenv("CDMDDLBASE_IRIS_PASSWORD"),
+      connectionString = Sys.getenv("CDMDDLBASE_IRIS_URL"),
+      pathToDriver = jdbcDriverFolder
     )
   )
 }
@@ -64,7 +71,8 @@ getSchema <- function(dbms) {
     "postgresql" = Sys.getenv("CDMDDLBASE_POSTGRESQL_SCHEMA"),
     "redshift" = Sys.getenv("CDMDDLBASE_REDSHIFT_SCHEMA"),
     "sql server" = Sys.getenv("CDMDDLBASE_SQL_SERVER_CDM_SCHEMA"),
-    "oracle" = Sys.getenv("CDMDDLBASE_ORACLE_CDM_SCHEMA")
+    "oracle" = Sys.getenv("CDMDDLBASE_ORACLE_CDM_SCHEMA"),
+    "iris" = Sys.getenv("CDMDDLBASE_IRIS_CDM_SCHEMA")
   )
 }
 
@@ -74,11 +82,11 @@ listTablesInSchema <- function(connectionDetails, schema) {
     class(schema) == "character",
     length(schema) == 1
   )
-  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
+  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle", "iris"))
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
-  if (dbms %in% c("postgresql", "redshift", "sql server")) {
+  if (dbms %in% c("postgresql", "redshift", "sql server", "iris")) {
     tables <-
       dbGetQuery(
         con,
@@ -106,13 +114,13 @@ dropAllTablesFromSchema <- function(connectionDetails, schema) {
     class(schema) == "character",
     length(schema) == 1
   )
-  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
+  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle", "iris"))
   tableNames <- listTablesInSchema(connectionDetails, schema)
 
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
-  if (dbms %in% c("redshift", "postgresql", "sql server")) {
+  if (dbms %in% c("redshift", "postgresql", "sql server", "iris")) {
     for (tableName in tableNames) {
       DBI::dbExecute(con, paste(
         "DROP TABLE IF EXISTS",
