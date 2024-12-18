@@ -1,0 +1,182 @@
+table_name            | column_name                    | v54_nullable | v60_nullable | v54_datatype                | v60_datatype               
+----------------------+--------------------------------+--------------+--------------+-----------------------------+----------------------------
+care_site             | care_site_id                   | YES          | NO           | bigint                      | bigint                     
+care_site             | place_of_service_concept_id    | YES          | NO           | integer                     | integer                    
+cdm_source            | cdm_holder                     | NO           | YES          | character varying           | character varying          
+cdm_source            | cdm_release_date               | NO           | YES          | date                        | date                       
+cdm_source            | cdm_source_abbreviation        | NO           | YES          | character varying           | character varying          
+cdm_source            | source_release_date            | NO           | YES          | date                        | date                       
+cdm_source            | vocabulary_version             | NO           | YES          | character varying           | character varying          
+concept               | concept_class_id               | YES          | NO           | character varying           | character varying          
+concept               | concept_code                   | YES          | NO           | character varying           | character varying          
+concept               | concept_id                     | YES          | NO           | integer                     | integer                    
+concept               | concept_name                   | YES          | NO           | character varying           | character varying          
+concept               | domain_id                      | YES          | NO           | character varying           | character varying          
+concept               | valid_end_date                 | YES          | NO           | date                        | date                       
+concept               | valid_start_date               | YES          | NO           | date                        | date                       
+concept               | vocabulary_id                  | YES          | NO           | character varying           | character varying          
+concept_ancestor      | ancestor_concept_id            | YES          | NO           | integer                     | integer                    
+concept_ancestor      | descendant_concept_id          | YES          | NO           | integer                     | integer                    
+concept_ancestor      | max_levels_of_separation       | YES          | NO           | integer                     | integer                    
+concept_ancestor      | min_levels_of_separation       | YES          | NO           | integer                     | integer                    
+concept_class         | concept_class_concept_id       | YES          | NO           | integer                     | integer                    
+concept_class         | concept_class_id               | YES          | NO           | character varying           | character varying          
+concept_class         | concept_class_name             | YES          | NO           | character varying           | character varying          
+concept_relationship  | concept_id_1                   | YES          | NO           | integer                     | integer                    
+concept_relationship  | concept_id_2                   | YES          | NO           | integer                     | integer                    
+concept_relationship  | relationship_id                | YES          | NO           | character varying           | character varying          
+concept_relationship  | valid_end_date                 | YES          | NO           | date                        | date                       
+concept_relationship  | valid_start_date               | YES          | NO           | date                        | date                       
+concept_synonym       | concept_id                     | YES          | NO           | integer                     | integer                    
+concept_synonym       | concept_synonym_name           | YES          | NO           | character varying           | character varying          
+concept_synonym       | language_concept_id            | YES          | NO           | integer                     | integer                    
+condition_era         | condition_concept_id           | YES          | NO           | integer                     | integer                    
+condition_era         | condition_era_id               | YES          | NO           | bigint                      | bigint                     
+condition_era         | person_id                      | YES          | NO           | bigint                      | bigint                     
+condition_occurrence  | condition_concept_id           | YES          | NO           | integer                     | integer                    
+condition_occurrence  | condition_occurrence_id        | YES          | NO           | bigint                      | bigint                     
+condition_occurrence  | condition_source_concept_id    | YES          | NO           | integer                     | integer                    
+condition_occurrence  | condition_start_date           | YES          | NO           | date                        | date                       
+condition_occurrence  | condition_status_concept_id    | YES          | NO           | integer                     | integer                    
+condition_occurrence  | condition_type_concept_id      | YES          | NO           | integer                     | integer                    
+condition_occurrence  | person_id                      | YES          | NO           | bigint                      | bigint                     
+cost                  | cost_event_id                  | YES          | NO           | bigint                      | bigint                     
+cost                  | cost_id                        | YES          | NO           | bigint                      | bigint                     
+cost                  | payer_plan_period_id           | YES          | YES          | integer                     | bigint                     
+device_exposure       | device_concept_id              | YES          | NO           | integer                     | integer                    
+device_exposure       | device_exposure_id             | YES          | NO           | bigint                      | bigint                     
+device_exposure       | device_exposure_start_date     | YES          | NO           | date                        | date                       
+device_exposure       | device_source_concept_id       | YES          | NO           | integer                     | integer                    
+device_exposure       | device_type_concept_id         | YES          | NO           | integer                     | integer                    
+device_exposure       | person_id                      | YES          | NO           | bigint                      | bigint                     
+domain                | domain_concept_id              | YES          | NO           | integer                     | integer                    
+domain                | domain_id                      | YES          | NO           | character varying           | character varying          
+domain                | domain_name                    | YES          | NO           | character varying           | character varying          
+dose_era              | dose_era_id                    | YES          | NO           | bigint                      | bigint                     
+dose_era              | dose_value                     | YES          | NO           | double precision            | double precision           
+dose_era              | drug_concept_id                | YES          | NO           | integer                     | integer                    
+dose_era              | person_id                      | YES          | NO           | bigint                      | bigint                     
+dose_era              | unit_concept_id                | YES          | NO           | integer                     | integer                    
+drug_era              | drug_concept_id                | YES          | NO           | integer                     | integer                    
+drug_era              | drug_era_id                    | YES          | NO           | bigint                      | bigint                     
+drug_era              | person_id                      | YES          | NO           | bigint                      | bigint                     
+drug_exposure         | drug_concept_id                | YES          | NO           | integer                     | integer                    
+drug_exposure         | drug_exposure_end_date         | YES          | NO           | date                        | date                       
+drug_exposure         | drug_exposure_id               | YES          | NO           | bigint                      | bigint                     
+drug_exposure         | drug_exposure_start_date       | YES          | NO           | date                        | date                       
+drug_exposure         | drug_source_concept_id         | YES          | NO           | integer                     | integer                    
+drug_exposure         | drug_type_concept_id           | YES          | NO           | integer                     | integer                    
+drug_exposure         | person_id                      | YES          | NO           | bigint                      | bigint                     
+drug_strength         | drug_concept_id                | YES          | NO           | integer                     | integer                    
+drug_strength         | ingredient_concept_id          | YES          | NO           | integer                     | integer                    
+drug_strength         | valid_end_date                 | YES          | NO           | date                        | date                       
+drug_strength         | valid_start_date               | YES          | NO           | date                        | date                       
+fact_relationship     | domain_concept_id_1            | YES          | NO           | integer                     | integer                    
+fact_relationship     | domain_concept_id_2            | YES          | NO           | integer                     | integer                    
+fact_relationship     | fact_id_1                      | YES          | NO           | bigint                      | bigint                     
+fact_relationship     | fact_id_2                      | YES          | NO           | bigint                      | bigint                     
+fact_relationship     | relationship_concept_id        | YES          | NO           | integer                     | integer                    
+location              | location_id                    | YES          | NO           | bigint                      | bigint                     
+measurement           | measurement_concept_id         | YES          | NO           | integer                     | integer                    
+measurement           | measurement_date               | YES          | NO           | date                        | date                       
+measurement           | measurement_id                 | YES          | NO           | bigint                      | bigint                     
+measurement           | measurement_source_concept_id  | YES          | NO           | integer                     | integer                    
+measurement           | measurement_time               | YES          | YES          | timestamp without time zone | character varying          
+measurement           | measurement_type_concept_id    | YES          | NO           | integer                     | integer                    
+measurement           | person_id                      | YES          | NO           | bigint                      | bigint                     
+metadata              | metadata_concept_id            | YES          | NO           | integer                     | integer                    
+metadata              | metadata_type_concept_id       | YES          | NO           | integer                     | integer                    
+metadata              | name                           | YES          | NO           | character varying           | character varying          
+note                  | encoding_concept_id            | YES          | NO           | integer                     | integer                    
+note                  | language_concept_id            | YES          | NO           | integer                     | integer                    
+note                  | note_class_concept_id          | YES          | NO           | integer                     | integer                    
+note                  | note_date                      | YES          | NO           | date                        | date                       
+note                  | note_id                        | YES          | NO           | bigint                      | integer                    
+note                  | note_text                      | YES          | NO           | character varying           | character varying          
+note                  | note_type_concept_id           | YES          | NO           | integer                     | integer                    
+note                  | person_id                      | YES          | NO           | bigint                      | bigint                     
+note                  | provider_id                    | YES          | YES          | integer                     | bigint                     
+note_nlp              | lexical_variant                | YES          | NO           | character varying           | character varying          
+note_nlp              | nlp_date                       | YES          | NO           | date                        | date                       
+note_nlp              | note_id                        | YES          | NO           | bigint                      | integer                    
+note_nlp              | note_nlp_id                    | YES          | NO           | bigint                      | bigint                     
+observation           | observation_concept_id         | YES          | NO           | integer                     | integer                    
+observation           | observation_datetime           | YES          | NO           | timestamp without time zone | timestamp without time zone
+observation           | observation_id                 | YES          | NO           | bigint                      | bigint                     
+observation           | observation_source_concept_id  | YES          | NO           | integer                     | integer                    
+observation           | observation_type_concept_id    | YES          | NO           | integer                     | integer                    
+observation           | person_id                      | YES          | NO           | bigint                      | bigint                     
+observation_period    | observation_period_end_date    | YES          | NO           | date                        | date                       
+observation_period    | observation_period_id          | YES          | NO           | bigint                      | bigint                     
+observation_period    | observation_period_start_date  | YES          | NO           | date                        | date                       
+observation_period    | period_type_concept_id         | YES          | NO           | integer                     | integer                    
+observation_period    | person_id                      | YES          | NO           | bigint                      | bigint                     
+payer_plan_period     | payer_concept_id               | YES          | NO           | integer                     | integer                    
+payer_plan_period     | payer_plan_period_end_date     | YES          | NO           | date                        | date                       
+payer_plan_period     | payer_plan_period_id           | YES          | NO           | integer                     | bigint                     
+payer_plan_period     | payer_plan_period_start_date   | YES          | NO           | date                        | date                       
+payer_plan_period     | payer_source_concept_id        | YES          | NO           | integer                     | integer                    
+payer_plan_period     | person_id                      | YES          | NO           | integer                     | bigint                     
+payer_plan_period     | plan_concept_id                | YES          | NO           | integer                     | integer                    
+payer_plan_period     | plan_source_concept_id         | YES          | NO           | integer                     | integer                    
+payer_plan_period     | sponsor_concept_id             | YES          | NO           | integer                     | integer                    
+person                | ethnicity_concept_id           | YES          | NO           | integer                     | integer                    
+person                | ethnicity_source_concept_id    | YES          | NO           | integer                     | integer                    
+person                | gender_concept_id              | YES          | NO           | integer                     | integer                    
+person                | gender_source_concept_id       | YES          | NO           | integer                     | integer                    
+person                | person_id                      | YES          | NO           | bigint                      | bigint                     
+person                | race_concept_id                | YES          | NO           | integer                     | integer                    
+person                | race_source_concept_id         | YES          | NO           | integer                     | integer                    
+person                | year_of_birth                  | YES          | NO           | integer                     | integer                    
+procedure_occurrence  | person_id                      | YES          | NO           | bigint                      | bigint                     
+procedure_occurrence  | procedure_concept_id           | YES          | NO           | integer                     | integer                    
+procedure_occurrence  | procedure_datetime             | YES          | NO           | timestamp without time zone | timestamp without time zone
+procedure_occurrence  | procedure_occurrence_id        | YES          | NO           | bigint                      | bigint                     
+procedure_occurrence  | procedure_source_concept_id    | YES          | NO           | integer                     | integer                    
+procedure_occurrence  | procedure_type_concept_id      | YES          | NO           | integer                     | integer                    
+provider              | gender_concept_id              | YES          | NO           | integer                     | integer                    
+provider              | gender_source_concept_id       | YES          | NO           | integer                     | integer                    
+provider              | provider_id                    | YES          | NO           | bigint                      | bigint                     
+provider              | specialty_concept_id           | YES          | NO           | integer                     | integer                    
+provider              | specialty_source_concept_id    | YES          | NO           | integer                     | integer                    
+provider              | year_of_birth                  | YES          | YES          | bigint                      | integer                    
+relationship          | defines_ancestry               | YES          | NO           | character varying           | character varying          
+relationship          | is_hierarchical                | YES          | NO           | character varying           | character varying          
+relationship          | relationship_concept_id        | YES          | NO           | integer                     | integer                    
+relationship          | relationship_id                | YES          | NO           | character varying           | character varying          
+relationship          | relationship_name              | YES          | NO           | character varying           | character varying          
+relationship          | reverse_relationship_id        | YES          | NO           | character varying           | character varying          
+source_to_concept_map | source_code                    | YES          | NO           | character varying           | character varying          
+source_to_concept_map | source_concept_id              | YES          | NO           | integer                     | integer                    
+source_to_concept_map | source_vocabulary_id           | YES          | NO           | character varying           | character varying          
+source_to_concept_map | target_concept_id              | YES          | NO           | integer                     | integer                    
+source_to_concept_map | target_vocabulary_id           | YES          | NO           | character varying           | character varying          
+source_to_concept_map | valid_end_date                 | YES          | NO           | date                        | date                       
+source_to_concept_map | valid_start_date               | YES          | NO           | date                        | date                       
+specimen              | person_id                      | YES          | NO           | bigint                      | bigint                     
+specimen              | specimen_concept_id            | YES          | NO           | integer                     | integer                    
+specimen              | specimen_date                  | YES          | NO           | date                        | date                       
+specimen              | specimen_id                    | YES          | NO           | bigint                      | bigint                     
+specimen              | specimen_type_concept_id       | YES          | NO           | integer                     | integer                    
+visit_detail          | admitted_from_concept_id       | YES          | YES          | integer                     | character varying          
+visit_detail          | admitted_from_source_value     | YES          | NO           | character varying           | integer                    
+visit_detail          | care_site_id                   | YES          | YES          | integer                     | bigint                     
+visit_detail          | person_id                      | YES          | NO           | bigint                      | bigint                     
+visit_detail          | preceding_visit_detail_id      | YES          | YES          | integer                     | bigint                     
+visit_detail          | provider_id                    | YES          | YES          | integer                     | bigint                     
+visit_detail          | visit_detail_concept_id        | YES          | NO           | integer                     | integer                    
+visit_detail          | visit_detail_end_date          | YES          | NO           | date                        | date                       
+visit_detail          | visit_detail_id                | YES          | NO           | bigint                      | bigint                     
+visit_detail          | visit_detail_source_concept_id | YES          | NO           | integer                     | integer                    
+visit_detail          | visit_detail_start_date        | YES          | NO           | date                        | date                       
+visit_detail          | visit_detail_type_concept_id   | YES          | NO           | integer                     | integer                    
+visit_detail          | visit_occurrence_id            | YES          | NO           | bigint                      | bigint                     
+visit_occurrence      | admitted_from_concept_id       | YES          | NO           | integer                     | integer                    
+visit_occurrence      | person_id                      | YES          | NO           | bigint                      | bigint                     
+visit_occurrence      | visit_concept_id               | YES          | NO           | integer                     | integer                    
+visit_occurrence      | visit_end_datetime             | YES          | NO           | timestamp without time zone | timestamp without time zone
+visit_occurrence      | visit_occurrence_id            | YES          | NO           | bigint                      | bigint                     
+visit_occurrence      | visit_source_concept_id        | YES          | NO           | integer                     | integer                    
+visit_occurrence      | visit_start_datetime           | YES          | NO           | timestamp without time zone | timestamp without time zone
+visit_occurrence      | visit_type_concept_id          | YES          | NO           | integer                     | integer                    
+vocabulary            | vocabulary_reference           | YES          | NO           | character varying           | character varying          
