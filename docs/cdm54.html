@@ -14410,18 +14410,26 @@ CONCEPT
 <p>The CONCEPT_ANCESTOR table is designed to simplify observational
 analysis by providing the complete hierarchical relationships between
 Concepts. Only direct parent-child relationships between Concepts are
-stored in the CONCEPT_RELATIONSHIP table. To determine higher level
+stored in the CONCEPT_RELATIONSHIP table. To determine higher-level
 ancestry connections, all individual direct relationships would have to
 be navigated at analysis time. The CONCEPT_ANCESTOR table includes
 records for all parent-child relationships, as well as
 grandparent-grandchild relationships and those of any other level of
-lineage. Using the CONCEPT_ANCESTOR table allows for querying for all
-descendants of a hierarchical concept. For example, drug ingredients and
-drug products are all descendants of a drug class ancestor. This table
-is entirely derived from the CONCEPT, CONCEPT_RELATIONSHIP and
-RELATIONSHIP tables.</p>
+lineage for Standard or Classification concepts. Using the
+CONCEPT_ANCESTOR table allows for querying for all descendants of a
+hierarchical concept, and the other way around. For example, drug
+ingredients and drug products, beneath them in the hierarchy, are all
+descendants of a drug class ancestor. This table is entirely derived
+from the CONCEPT, CONCEPT_RELATIONSHIP, and RELATIONSHIP tables.</p>
 <p><strong>User Guide</strong></p>
-<p>NA</p>
+<p>The CONCEPT_ANCESTOR table can be used to explore the hierarchical
+relationships captured in the table to gain insights into the
+hierarchical structure of clinical concepts. Understanding the
+hierarchical relationships of concepts can facilitate accurate
+interpretation and analysis of healthcare data. Also, by incorporating
+hierarchical relationships from the CONCEPT_ANCESTOR table, users can
+create cohorts containing related concepts within a hierarchical
+structure, enabling more comprehensive cohort definitions.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>NA</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
