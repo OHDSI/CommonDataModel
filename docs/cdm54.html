@@ -3579,12 +3579,12 @@ entry is stored with only the corresponding SOURCE_CONCEPT_ID and
 DRUG_SOURCE_VALUE and a DRUG_CONCEPT_ID of 0. The Drug Concept with the
 most detailed content of information is preferred during the mapping
 process. These are indicated in the CONCEPT_CLASS_ID field of the
-Concept and are recorded in the following order of precedence: �Marketed
-Product�, �Branded Pack�, �Clinical Pack�, �Branded Drug�, �Clinical
-Drug�, �Branded Drug Component�, �Clinical Drug Component�, �Branded
-Drug Form�, �Clinical Drug Form�, and only if no other information is
-available �Ingredient�. Note: If only the drug class is known, the
-DRUG_CONCEPT_ID field should contain 0. <a
+Concept and are recorded in the following order of precedence: Marketed
+Product, Branded Pack, Clinical Pack, Branded Drug, Clinical Drug,
+Branded Drug Component, Clinical Drug Component, Branded Drug Form,
+Clinical Drug Form, and only if no other information is available
+�Ingredient�. Note: If only the drug class is known, the DRUG_CONCEPT_ID
+field should contain 0. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>.
 </td>
@@ -3965,7 +3965,10 @@ route_concept_id
 </td>
 <td style="text-align:left;">
 The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route
-domain.
+domain. This is meant to represent the route of administration of the
+drug. <a
+href="https://athena.ohdsi.org/search-terms/terms?domain=Route&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
+Concepts</a>
 </td>
 <td style="text-align:left;">
 integer
