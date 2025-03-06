@@ -396,7 +396,7 @@ cdm_source,cdm_source_name,Yes,varchar(255),The name of the CDM instance.,NA,No,
 cdm_source,cdm_source_abbreviation,Yes,varchar(25),The abbreviation of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,cdm_holder,Yes,varchar(255),The holder of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,source_description,No,varchar(MAX),The description of the CDM instance.,NA,No,No,NA,NA,NA,NA,NA
-cdm_source,source_documentation_reference,No,varchar(255),NA,NA,No,No,NA,NA,NA,NA,NA
+cdm_source,source_documentation_reference,No,varchar(255),Refers to a publication or web resource describing the source data, e.g. a data dictionary.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,cdm_etl_reference,No,varchar(255),NA,Version of the ETL script used. e.g. link to the Git release,No,No,NA,NA,NA,NA,NA
 cdm_source,source_release_date,Yes,date,The date the data was extracted from the source system. In some systems that is the same as the date the ETL was run. Typically the latest even date in the source is on the source_release_date.,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,cdm_release_date,Yes,date,The date the ETL script was completed. Typically this is after the source_release_date.,NA,No,No,NA,NA,NA,NA,NA
