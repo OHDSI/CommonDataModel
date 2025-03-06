@@ -4250,18 +4250,20 @@ expected resulting amount and unit then it should be a measurement.
 Phlebotomy is a procedure but so trivial that it tends to be rarely
 captured. It can be assumed that there is a phlebotomy procedure
 associated with many lab tests, therefore it is unnecessary to add them
-as separate procedures. If the user finds the same procedure over
-concurrent days, it is assumed those records are part of a procedure
-lasting more than a day. This logic is in lieu of the
-procedure_end_date, which will be added in a future version of the
-CDM.</p>
+as separate procedures.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>When dealing with duplicate records, the ETL must determine whether
 to sum them up into one record or keep them separate. Things to consider
-are: - Same Procedure - Same PROCEDURE_DATETIME - Same Visit Occurrence
-or Visit Detail - Same Provider - Same Modifier for Procedures. Source
-codes and source text fields mapped to Standard Concepts of the
-Procedure Domain have to be recorded here.</p>
+are:</p>
+<ul>
+<li>Same Procedure</li>
+<li>Same procedure_datetime</li>
+<li>Same Visit Occurrence or Visit Detail</li>
+<li>Same Provider</li>
+<li>Same Modifier for Procedures.</li>
+</ul>
+<p>Source codes and source text fields mapped to Standard Concepts of
+the Procedure Domain have to be recorded here.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
