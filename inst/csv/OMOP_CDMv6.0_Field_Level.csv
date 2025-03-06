@@ -406,8 +406,8 @@ cdm_source,cdm_version,No,varchar(10),NA,NA,No,No,NA,NA,NA,NA,NA
 cdm_source,vocabulary_version,No,varchar(20),NA,NA,No,No,NA,NA,NA,NA,NA
 concept,concept_id,Yes,integer,A unique identifier for each Concept across all domains.,NA,Yes,No,NA,NA,NA,NA,NA
 concept,concept_name,Yes,varchar(255),"An unambiguous, meaningful and descriptive name for the Concept.",NA,No,No,NA,NA,NA,NA,NA
-concept,domain_id,Yes,varchar(20),A foreign key to the [DOMAIN](https://ohdsi.github.io/CommonDataModel/cdm531.html#domain) table the Concept belongs to.,NA,No,Yes,DOMAIN,DOMAIN_ID,NA,NA,NA
-concept,vocabulary_id,Yes,varchar(20),"A foreign key to the [VOCABULARY](https://ohdsi.github.io/CommonDataModel/cdm531.html#vocabulary)
+concept,domain_id,Yes,varchar(20),A foreign key to the [DOMAIN](https://ohdsi.github.io/CommonDataModel/cdm60.html#domain) table the Concept belongs to.,NA,No,Yes,DOMAIN,DOMAIN_ID,NA,NA,NA
+concept,vocabulary_id,Yes,varchar(20),"A foreign key to the [VOCABULARY](https://ohdsi.github.io/CommonDataModel/cdm60.html#vocabulary)
 table indicating from which source the
 Concept has been adapted.",NA,No,Yes,VOCABULARY,VOCABULARY_ID,NA,NA,NA
 concept,concept_class_id,Yes,varchar(20),"The attribute or concept class of the
