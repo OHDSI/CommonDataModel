@@ -215,7 +215,7 @@ create table @cdmDatabaseSchema.note_nlp (
 			note_id INT64 not null,
 			section_concept_id INT64,
 			snippet STRING,
-			"offset" STRING,
+			`offset` STRING,
 			lexical_variant STRING not null,
 			note_nlp_concept_id INT64,
 			note_nlp_source_concept_id INT64,
