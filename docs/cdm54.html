@@ -639,6 +639,7 @@ BIRTH_DAY, BIRTH_MONTH and BIRTH_YEAR.<br><br>For detailed conventions
 for how to populate this table, please refer to the <a
 href="https://ohdsi.github.io/Themis/person.html">THEMIS
 repository</a>.</p>
+
 </div>
 <div id="observation_period" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">observation_period</h3>
@@ -837,21 +838,21 @@ identifying Persons who should suffer from the recorded Condition.
 Record all conditions as they exist in the source data. Any decisions
 about diagnosis/phenotype definitions would be done through cohort
 specifications. These cohorts can be housed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">COHORT</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period">COHORT</a>
 table. Conditions span a time interval from start to end, but are
 typically recorded as single snapshot records with no end date. The
 reason is twofold: (i) At the time of the recording the duration is not
 known and later not recorded, and (ii) the Persons typically cease
 interacting with the healthcare system when they feel better, which
 leads to incomplete capture of resolved Conditions. The <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#condition_era">CONDITION_ERA</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#condition_era">CONDITION_ERA</a>
 table addresses this issue. Family history and past diagnoses (‘history
 of’) are not recorded in this table. Instead, they are listed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table. Codes written in the process of establishing the diagnosis, such
 as ‘question of’ of and ‘rule out’, should not represented here.
 Instead, they should be recorded in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table, if they are used for analyses. However, this information is not
 always available.</p>
 <p><strong>ETL Conventions</strong></p>
