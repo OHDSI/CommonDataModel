@@ -3583,7 +3583,7 @@ Concept and are recorded in the following order of precedence: Marketed
 Product, Branded Pack, Clinical Pack, Branded Drug, Clinical Drug,
 Branded Drug Component, Clinical Drug Component, Branded Drug Form,
 Clinical Drug Form, and only if no other information is available
-�Ingredient�. Note: If only the drug class is known, the DRUG_CONCEPT_ID
+Ingredient. Note: If only the drug class is known, the DRUG_CONCEPT_ID
 field should contain 0. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>.
@@ -5750,7 +5750,8 @@ from =.
 Operators are =, &gt; and these concepts belong to the ‘Meas Value
 Operator’ domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>. Leave it NULL if there’s an exact numeric value given
+Concepts</a>. The operator_concept_id explictly refers to the value of
+the measurement. Leave it NULL if there’s an exact numeric value given
 (instead of putting ‘=’) or there’s no numeric value at all.
 </td>
 <td style="text-align:left;">
