@@ -1,4 +1,4 @@
-testDatabases <- c("postgresql")
+testDatabases <- c("postgres","iris")
 
 if (Sys.getenv("CDM5_POSTGRESQL_SERVER") != "") {
   library(DatabaseConnector)
@@ -57,9 +57,9 @@ getConnectionDetails <- function(dbms) {
     ),
     "iris" = createConnectionDetails(
       dbms = "iris",
-      user = Sys.getenv("CDMDDLBASE_IRIS_USER"),
-      password = Sys.getenv("CDMDDLBASE_IRIS_PASSWORD"),
-      connectionString = Sys.getenv("CDMDDLBASE_IRIS_URL"),
+      user = Sys.getenv("CDM_IRIS_USER"),
+      password = Sys.getenv("CDM_IRIS_PASSWORD"),
+      connectionString = Sys.getenv("CDM_IRIS_CONNECTION_STRING"),
       pathToDriver = jdbcDriverFolder
     )
   )
@@ -72,7 +72,7 @@ getSchema <- function(dbms) {
     "redshift" = Sys.getenv("CDMDDLBASE_REDSHIFT_SCHEMA"),
     "sql server" = Sys.getenv("CDMDDLBASE_SQL_SERVER_CDM_SCHEMA"),
     "oracle" = Sys.getenv("CDMDDLBASE_ORACLE_CDM_SCHEMA"),
-    "iris" = Sys.getenv("CDMDDLBASE_IRIS_CDM_SCHEMA")
+    "iris" = Sys.getenv("CDM_IRIS_CDM_SCHEMA")
   )
 }
 
@@ -82,7 +82,7 @@ listTablesInSchema <- function(connectionDetails, schema) {
     class(schema) == "character",
     length(schema) == 1
   )
-  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle", "iris"))
+  stopifnot(connectionDetails$dbms %in% testDatabases)
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
@@ -114,7 +114,7 @@ dropAllTablesFromSchema <- function(connectionDetails, schema) {
     class(schema) == "character",
     length(schema) == 1
   )
-  stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle", "iris"))
+  stopifnot(connectionDetails$dbms %in% testDatabases)
   tableNames <- listTablesInSchema(connectionDetails, schema)
 
   con <- DatabaseConnector::connect(connectionDetails)
