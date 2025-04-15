@@ -1,4 +1,4 @@
-testDatabases <- c("postgres","iris")
+testDatabases <- c("postgresql","iris")
 
 if (Sys.getenv("CDM5_POSTGRESQL_SERVER") != "") {
   library(DatabaseConnector)
