@@ -495,7 +495,6 @@ div.tocify {
 </div>
 
 
-<p><img src="images/Santa-George-A.png" /></p>
 <p>This is the specification document for the OMOP Common Data Model,
 v5.4. <strong>This is the latest version of the OMOP CDM.</strong> Each
 table is represented with a high-level description and ETL conventions
@@ -716,7 +715,7 @@ Person. This field should not be used to study gender identity issues.
 Use the gender or sex value present in the data under the assumption
 that it is the biological sex at birth. If the source data captures
 gender identity it should be stored in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table. <a
 href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 gender concepts</a>. Please refer to the <a
@@ -940,7 +939,7 @@ should capture the last known location of the person.
 </td>
 <td style="text-align:left;">
 Put the location_id from the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#location">LOCATION</a>
 table here that represents the most granular location information for
 the person. For additional information on how to populate this field,
 please refer to the <a
@@ -975,7 +974,7 @@ Practitioner).
 </td>
 <td style="text-align:left;">
 Put the provider_id from the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#provider">PROVIDER</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#provider">PROVIDER</a>
 table of the last known general practitioner of the person. If there are
 multiple providers, it is up to the ETL to decide which to put here.
 </td>
@@ -1094,7 +1093,7 @@ gender_source_concept_id
 Due to the small number of options, this tends to be zero.
 </td>
 <td style="text-align:left;">
-If the source data codes asigned sex at birth in a non-standard
+If the source data codes assigned sex at birth in a non-standard
 vocabulary, store the concept_id here.
 </td>
 <td style="text-align:left;">
@@ -1267,7 +1266,7 @@ occurrence or the first high quality occurrence of a Clinical Event
 (Condition, Drug, Procedure, Device, Measurement, Visit) is defined as
 the start of the OBSERVATION_PERIOD record, and the end date of the last
 occurrence of last high quality occurrence of a Clinical Event, or the
-end of the database period becomes the end of the OBSERVATOIN_PERIOD for
+end of the database period becomes the end of the OBSERVATION_PERIOD for
 each Person. If a Person only has a single Clinical Event the
 OBSERVATION_PERIOD record can be as short as one day. Depending on these
 definitions it is possible that Clinical Events fall outside the time
@@ -1380,7 +1379,7 @@ insurance claim data, the Observation Period can be considered as the
 time period the Person is enrolled with a payer. If a Person switches
 plans but stays with the same payer, and therefore capturing of data
 continues, that change would be captured in <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
 </td>
 <td style="text-align:left;">
 date
@@ -1880,7 +1879,7 @@ PROCEDURE_OCCURRENCE, etc.) or in the VISIT_DETAIL table.
 If there are multiple providers associated with a visit, you will need
 to choose which one to put here. The additional providers can be stored
 in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#visit_detail">VISIT_DETAIL</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#visit_detail">VISIT_DETAIL</a>
 table.
 </td>
 <td style="text-align:left;">
@@ -2595,7 +2594,7 @@ OMOP supported vocabulary put the concept id representing the source
 value here.
 </td>
 <td style="text-align:left;">
-Integer
+integer
 </td>
 <td style="text-align:left;">
 No
@@ -2629,7 +2628,7 @@ Concepts</a>. If a person was admitted from home or was self-referred,
 set this to 0.
 </td>
 <td style="text-align:left;">
-Integer
+integer
 </td>
 <td style="text-align:left;">
 No
@@ -2859,21 +2858,21 @@ identifying Persons who should suffer from the recorded Condition.
 Record all conditions as they exist in the source data. Any decisions
 about diagnosis/phenotype definitions would be done through cohort
 specifications. These cohorts can be housed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">COHORT</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#payer_plan_period">COHORT</a>
 table. Conditions span a time interval from start to end, but are
 typically recorded as single snapshot records with no end date. The
 reason is twofold: (i) At the time of the recording the duration is not
 known and later not recorded, and (ii) the Persons typically cease
 interacting with the healthcare system when they feel better, which
 leads to incomplete capture of resolved Conditions. The <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#condition_era">CONDITION_ERA</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#condition_era">CONDITION_ERA</a>
 table addresses this issue. Family history and past diagnoses (‘history
 of’) are not recorded in this table. Instead, they are listed in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table. Codes written in the process of establishing the diagnosis, such
 as ‘question of’ of and ‘rule out’, should not represented here.
 Instead, they should be recorded in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">OBSERVATION</a>
 table, if they are used for analyses. However, this information is not
 always available.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -3580,16 +3579,14 @@ entry is stored with only the corresponding SOURCE_CONCEPT_ID and
 DRUG_SOURCE_VALUE and a DRUG_CONCEPT_ID of 0. The Drug Concept with the
 most detailed content of information is preferred during the mapping
 process. These are indicated in the CONCEPT_CLASS_ID field of the
-Concept and are recorded in the following order of precedence:
-<d2>Marketed Product<d3>, <d2>Branded Pack<d3>, <d2>Clinical Pack<d3>,
-<d2>Branded Drug<d3>, <d2>Clinical Drug<d3>, <d2>Branded Drug
-Component<d3>, <d2>Clinical Drug Component<d3>, <d2>Branded Drug
-Form<d3>, <d2>Clinical Drug Form<d3>, and only if no other information
-is available <d2>Ingredient<d3>. Note: If only the drug class is known,
-the DRUG_CONCEPT_ID field should contain 0. <a
+Concept and are recorded in the following order of precedence: Marketed
+Product, Branded Pack, Clinical Pack, Branded Drug, Clinical Drug,
+Branded Drug Component, Clinical Drug Component, Branded Drug Form,
+Clinical Drug Form, and only if no other information is available
+Ingredient. Note: If only the drug class is known, the DRUG_CONCEPT_ID
+field should contain 0. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>.
-</d3></d2></d3></d2></d3></d2></d3></d2></d3></d2></d3></d2></d3></d2></d3></d2></d3></d2></d3></d2>
 </td>
 <td style="text-align:left;">
 integer
@@ -3677,23 +3674,8 @@ the patient.
 </td>
 <td style="text-align:left;">
 If this information is not explicitly available in the data, infer the
-end date using the following methods:<br><br> 1. Start first with
-duration or days supply using the calculation drug start date + days
-supply -1 day. 2. Use quantity divided by daily dose that you may obtain
-from the sig or a source field (or assumed daily dose of 1) for solid,
-indivisibile, drug products. If quantity represents ingredient amount,
-quantity divided by daily dose * concentration (from drug_strength) drug
-concept id tells you the dose form. 3. If it is an administration
-record, set drug end date equal to drug start date. If the record is a
-written prescription then set end date to start date + 29. If the record
-is a mail-order prescription set end date to start date + 89. The end
-date must be equal to or greater than the start date. Ibuprofen 20mg/mL
-oral solution concept tells us this is oral solution. Calculate duration
-as quantity (200 example) * daily dose (5mL) /concentration (20mg/mL)
-200*5/20 = 50 days. <a
-href="https://ohdsi.github.io/CommonDataModel/drug_dose.html">Examples
-by dose form</a><br><br>For detailed conventions for how to populate
-this field, please see the <a
+end date from start date and duration.<br>For detailed conventions for
+how to populate this field, please see the <a
 href="https://ohdsi.github.io/Themis/tag_drug_exposure.html">THEMIS
 repository</a>.
 </td>
@@ -3983,7 +3965,10 @@ route_concept_id
 </td>
 <td style="text-align:left;">
 The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route
-domain.
+domain. This is meant to represent the route of administration of the
+drug. <a
+href="https://athena.ohdsi.org/search-terms/terms?domain=Route&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
+Concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -4268,18 +4253,20 @@ expected resulting amount and unit then it should be a measurement.
 Phlebotomy is a procedure but so trivial that it tends to be rarely
 captured. It can be assumed that there is a phlebotomy procedure
 associated with many lab tests, therefore it is unnecessary to add them
-as separate procedures. If the user finds the same procedure over
-concurrent days, it is assumed those records are part of a procedure
-lasting more than a day. This logic is in lieu of the
-procedure_end_date, which will be added in a future version of the
-CDM.</p>
+as separate procedures.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>When dealing with duplicate records, the ETL must determine whether
 to sum them up into one record or keep them separate. Things to consider
-are: - Same Procedure - Same PROCEDURE_DATETIME - Same Visit Occurrence
-or Visit Detail - Same Provider - Same Modifier for Procedures. Source
-codes and source text fields mapped to Standard Concepts of the
-Procedure Domain have to be recorded here.</p>
+are:</p>
+<ul>
+<li>Same Procedure</li>
+<li>Same procedure_datetime</li>
+<li>Same Visit Occurrence or Visit Detail</li>
+<li>Same Provider</li>
+<li>Same Modifier for Procedures.</li>
+</ul>
+<p>Source codes and source text fields mapped to Standard Concepts of
+the Procedure Domain have to be recorded here.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -5081,9 +5068,8 @@ You can use the TYPE_CONCEPT_ID to denote the provenance of the record,
 as in whether the record is from administrative claims or EHR.
 </td>
 <td style="text-align:left;">
-Choose the drug_type_concept_id that best represents the provenance of
-the record, for example whether it came from a record of a prescription
-written or physician administered drug. <a
+Choose the device_type_concept_id that best represents the provenance of
+the record. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>. A more detailed explanation of each Type Concept can be
 found on the <a
@@ -5605,8 +5591,8 @@ concept mapped from the source value which represents a measurement.
 </td>
 <td style="text-align:left;">
 The CONCEPT_ID that the MEASUREMENT_SOURCE_VALUE maps to. Only records
-whose source values map to concepts with a domain of <d2>Measurement<d3>
-should go in this table. </d3></d2>
+whose source values map to concepts with a domain of �Measurement�
+should go in this table.
 </td>
 <td style="text-align:left;">
 integer
@@ -5764,7 +5750,8 @@ from =.
 Operators are =, &gt; and these concepts belong to the ‘Meas Value
 Operator’ domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
-Concepts</a>. Leave it NULL if there’s an exact numeric value given
+Concepts</a>. The operator_concept_id explictly refers to the value of
+the measurement. Leave it NULL if there’s an exact numeric value given
 (instead of putting ‘=’) or there’s no numeric value at all.
 </td>
 <td style="text-align:left;">
@@ -6305,13 +6292,13 @@ Procedure, Drug, Specimen, Measurement or Device should be stored in the
 Observation table. Observations can be stored as attribute value pairs,
 with the attribute as the Observation Concept and the value representing
 the clinical fact. This fact can be a Concept (stored in
-VALUE_AS_CONCEPT), a numerical value (VALUE_AS_NUMBER), a verbatim
-string (VALUE_AS_STRING), or a datetime (VALUE_AS_DATETIME). Even though
-Observations do not have an explicit result, the clinical fact can be
-stated separately from the type of Observation in the VALUE_AS_* fields.
-It is recommended for Observations that are suggestive statements of
-positive assertion should have a value of ‘Yes’ (concept_id=4188539),
-recorded, even though the null value is the equivalent.</p>
+VALUE_AS_CONCEPT), a numerical value (VALUE_AS_NUMBER) or a verbatim
+string (VALUE_AS_STRING). Even though Observations do not have an
+explicit result, the clinical fact can be stated separately from the
+type of Observation in the VALUE_AS_* fields. It is recommended for
+Observations that are suggestive statements of positive assertion should
+have a value of ‘Yes’ (concept_id=4188539), recorded, even though the
+null value is the equivalent.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -6617,7 +6604,7 @@ result in a source_data but without mapping, set value_as_concept_id to
 0.
 </td>
 <td style="text-align:left;">
-Integer
+integer
 </td>
 <td style="text-align:left;">
 No
@@ -6972,7 +6959,7 @@ this field is the primary key of the linked record.
 <td style="text-align:left;">
 Put the primary key of the linked record, if applicable, here. See the
 <a
-href="https://ohdsi.github.io/CommonDataModel/cdm60.html#observation">ETL
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#observation">ETL
 Conventions for the OBSERVATION</a> table for more details.
 </td>
 <td style="text-align:left;">
@@ -12868,8 +12855,10 @@ No
 source_documentation_reference
 </td>
 <td style="text-align:left;">
+Refers to a publication or web resource describing the source data
 </td>
 <td style="text-align:left;">
+e.g. a data dictionary.
 </td>
 <td style="text-align:left;">
 varchar(255)
@@ -12878,12 +12867,12 @@ varchar(255)
 No
 </td>
 <td style="text-align:left;">
-No
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
+No
 </td>
 <td style="text-align:left;">
 </td>
@@ -13179,7 +13168,7 @@ domain_id
 </td>
 <td style="text-align:left;">
 A foreign key to the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#domain">DOMAIN</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#domain">DOMAIN</a>
 table the Concept belongs to.
 </td>
 <td style="text-align:left;">
@@ -13208,7 +13197,7 @@ vocabulary_id
 </td>
 <td style="text-align:left;">
 A foreign key to the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#vocabulary">VOCABULARY</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#vocabulary">VOCABULARY</a>
 table indicating from which source the Concept has been adapted.
 </td>
 <td style="text-align:left;">
@@ -14079,10 +14068,18 @@ No
 <h3 class="tabset tabset-pills">relationship</h3>
 <p><strong>Table Description</strong></p>
 <p>The RELATIONSHIP table provides a reference list of all types of
-relationships that can be used to associate any two concepts in the
-CONCEPT_RELATIONSHP table.</p>
+relationships that can be used to associate any two Concepts in the
+CONCEPT_RELATIONSHIP table, the respective reverse relationships, and
+their hierarchical characteristics. Note, that Concepts representing
+relationships between the clinical facts, used for filling in the
+FACT_RELATIONSHIP table are stored in the CONCEPT table and belong to
+the Relationship Domain.</p>
 <p><strong>User Guide</strong></p>
-<p>NA</p>
+<p>Users can leverage the RELATIONSHIP table to explore the full list of
+direct and reverse relationships within the OMOP vocabulary system.
+Also, users can get insight into how these relationships can be used in
+ETL, cohort creation, and other tasks according to their ancestral
+characteristics.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>NA</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -14257,7 +14254,7 @@ relationship_concept_id
 </td>
 <td style="text-align:left;">
 A foreign key that refers to an identifier in the <a
-href="https://ohdsi.github.io/CommonDataModel/cdm531.html#concept">CONCEPT</a>
+href="https://ohdsi.github.io/CommonDataModel/cdm54.html#concept">CONCEPT</a>
 table for the unique relationship concept.
 </td>
 <td style="text-align:left;">
@@ -14286,10 +14283,17 @@ CONCEPT
 <div id="concept_synonym" class="section level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills">concept_synonym</h3>
 <p><strong>Table Description</strong></p>
-<p>The CONCEPT_SYNONYM table is used to store alternate names and
-descriptions for Concepts.</p>
+<p>The CONCEPT_SYNONYM table captures alternative terms, synonyms, and
+translations of Concept Name into various languages linked to specific
+concepts, providing users with a comprehensive view of how Concepts may
+be expressed or referenced.</p>
 <p><strong>User Guide</strong></p>
-<p>NA</p>
+<p>Users can leverage the CONCEPT_SYNONYM table to expand search
+capabilities and improve query accuracy by incorporating synonymous
+terms into data analysis and retrieval processes. Also, users can
+enhance their mapping efforts between local terminologies and
+standardized concepts by identifying synonymous terms associated with
+concepts in the CONCEPT_SYNONYM table.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>NA</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -14411,18 +14415,26 @@ CONCEPT
 <p>The CONCEPT_ANCESTOR table is designed to simplify observational
 analysis by providing the complete hierarchical relationships between
 Concepts. Only direct parent-child relationships between Concepts are
-stored in the CONCEPT_RELATIONSHIP table. To determine higher level
+stored in the CONCEPT_RELATIONSHIP table. To determine higher-level
 ancestry connections, all individual direct relationships would have to
 be navigated at analysis time. The CONCEPT_ANCESTOR table includes
 records for all parent-child relationships, as well as
 grandparent-grandchild relationships and those of any other level of
-lineage. Using the CONCEPT_ANCESTOR table allows for querying for all
-descendants of a hierarchical concept. For example, drug ingredients and
-drug products are all descendants of a drug class ancestor.</p>
-<p>This table is entirely derived from the CONCEPT, CONCEPT_RELATIONSHIP
-and RELATIONSHIP tables.</p>
+lineage for Standard or Classification concepts. Using the
+CONCEPT_ANCESTOR table allows for querying for all descendants of a
+hierarchical concept, and the other way around. For example, drug
+ingredients and drug products, beneath them in the hierarchy, are all
+descendants of a drug class ancestor. This table is entirely derived
+from the CONCEPT, CONCEPT_RELATIONSHIP, and RELATIONSHIP tables.</p>
 <p><strong>User Guide</strong></p>
-<p>NA</p>
+<p>The CONCEPT_ANCESTOR table can be used to explore the hierarchical
+relationships captured in the table to gain insights into the
+hierarchical structure of clinical concepts. Understanding the
+hierarchical relationships of concepts can facilitate accurate
+interpretation and analysis of healthcare data. Also, by incorporating
+hierarchical relationships from the CONCEPT_ANCESTOR table, users can
+create cohorts containing related concepts within a hierarchical
+structure, enabling more comprehensive cohort definitions.</p>
 <p><strong>ETL Conventions</strong></p>
 <p>NA</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
