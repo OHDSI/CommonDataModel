@@ -452,8 +452,8 @@ INSERT INTO @cdm_schema.cdm_source (
 	source_release_date,
 	cdm_release_date,
 	cdm_version,
-	vocabulary_version,
-	vocabulary_version_concept_id
+	cdm_version_concept_id,
+	vocabulary_version
 ) 
 SELECT
 	'<your_cdm_source_name>',
@@ -465,8 +465,8 @@ SELECT
 	'<your_source_release_date>',  -- when the source data was pulled
 	getdate(),  -- or the date of ETL run
 	'v5.4',
-	vocabulary_version,
-	756265  -- 'OMOP CDM Version 5.4.0'
+	756265,  -- 'OMOP CDM Version 5.4.0'
+	vocabulary_version	
 FROM @cdm_schema.vocabulary 
 WHERE vocabulary_id = 'None';
 ```
