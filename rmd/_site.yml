@@ -5,6 +5,7 @@ output:
     theme: cosmo
     css: style.css
     includes:
+      in_header: "GA_analytics.html"
       in_header: "favicon.html"
 exclude: ["extras"]
 navbar:
