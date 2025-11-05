@@ -5,7 +5,9 @@ output:
     theme: cosmo
     css: style.css
     includes:
-      in_header: "favicon.html"
+      in_header:
+      - "GA_analytics.html"
+      - "favicon.html"
 exclude: ["extras"]
 navbar:
   title: '<div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div>'
