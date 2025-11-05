@@ -13,7 +13,7 @@
 
 <title>OMOP CDM v6.0</title>
 
-<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -35,8 +35,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-37JJNBGH0H');
+</script>
 <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
 <style type="text/css">
@@ -3518,11 +3527,11 @@ entry is stored with only the corresponding SOURCE_CONCEPT_ID and
 DRUG_SOURCE_VALUE and a DRUG_CONCEPT_ID of 0. The Drug Concept with the
 most detailed content of information is preferred during the mapping
 process. These are indicated in the CONCEPT_CLASS_ID field of the
-Concept and are recorded in the following order of precedence: ‘Branded
-Pack’, ‘Clinical Pack’, ‘Branded Drug’, ‘Clinical Drug’, ‘Branded Drug
-Component’, ‘Clinical Drug Component’, ‘Branded Drug Form’, ‘Clinical
-Drug Form’, and only if no other information is available ‘Ingredient’.
-Note: If only the drug class is known, the DRUG_CONCEPT_ID field should
+Concept and are recorded in the following order of precedence: Branded
+Pack, Clinical Pack, Branded Drug, Clinical Drug, Branded Drug
+Component, Clinical Drug Component, Branded Drug Form, Clinical Drug
+Form, and only if no other information is available ‘Ingredient’. Note:
+If only the drug class is known, the DRUG_CONCEPT_ID field should
 contain 0. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>.
@@ -3899,7 +3908,10 @@ route_concept_id
 </td>
 <td style="text-align:left;">
 The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route
-domain.
+domain. This is meant to represent the route of administration of the
+drug. <a
+href="https://athena.ohdsi.org/search-terms/terms?domain=Route&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
+Concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -5478,8 +5490,9 @@ not to forget testing for the content of this field for values different
 from =.
 </td>
 <td style="text-align:left;">
-Operators are &lt;, &lt;=, =, &gt;=, &gt; and these concepts belong to
-the ‘Meas Value Operator’ domain. <a
+The operator_concept_id explictly refers to the value of the
+measurement. Operators are &lt;, &lt;=, =, &gt;=, &gt; and these
+concepts belong to the ‘Meas Value Operator’ domain. <a
 href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted
 Concepts</a>.
 </td>

@@ -1,0 +1,110 @@
+---
+title: "**OMOP CDM v5.4 Detailed Tooling Support**"
+output:
+  html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+# Introduction
+This tables below contain an overview of which standard OHDSI tools make use of which OMOP CDM fields.
+The goal is to inform ETL developers, tooling developers and CDM extensions.
+
+- For ETL developers it helps to have guidance on which fields to prioritise in the mapping. Most value will be gained from populating fields support across the OHDSI tooling.
+- For OHDSI tooling developers, this page provides insight in the gaps of support and can drive future development efforts.
+- For CDM extensions, it helps to known what it means for an OMOP CDM table/field to be part of the standard. In other words: what OHDSI tooling do we at least expect to support the new extensions?
+
+Currently four OHDSI tools have been evaluated: DataQualityDashboard, Achilles, Atlas (Data Sources and Cohort creation) and Feature Extraction.
+
+## Criteria
+Tool | Supports CDM Field if | Link to resource used
+--- | --- | ---
+DataQualityDashboard | Part of Field Level checks | https://github.com/OHDSI/DataQualityDashboard/blob/main/inst/csv/OMOP_CDMv5.4_Field_Level.csv
+Achilles | Covered by at least one Achilles analysis | https://github.com/OHDSI/Achilles/blob/main/inst/csv/achilles/achilles_analysis_details.csv
+Atlas Data Sources | A statistic based on the field is shown in a 'Data Sources' visualisation | https://atlas-demo.ohdsi.org/
+Atlas Cohort | Used in te Atlas User Interface for cohort definition criteria (directly, or via 'Add attribute') | https://atlas-demo.ohdsi.org/
+Feature Extraction | Used in one of the Feature Extraction analyses | https://github.com/OHDSI/FeatureExtraction/blob/main/inst/csv/
+
+General	criteria:
+- `r emoji::emoji("heavy_check_mark")` if the field essential for OMOP CDM definition (Primary Key, Foreign Key) e.g. person_id not explicitly used, but essential. (if the PK is marked as False, it typically means the whole table is not used in the tool	e.g. `_source_value` fields that are used for traceability in ETL)
+- `r emoji::emoji("exclamation")` if field is used by the tool, but not in a meaningful way. e.g. `provider_id` in Achilles only checked for a valid foreign key to the provider table.
+
+# Tooling Support for OMOP fields
+ **Abbreviations** | &nbsp;
+--- | ---
+**PK** | Primary Key
+**SV** | Source Value (for data quality / etl validation)
+**BC** | Backwards Compatibility, to support CDM <v5.4
+**FC** | Forwards Compatibility, to easy support for CDM v6 in the future.
+
+## Person
+cdmTableName | cdmFieldName | Special Fields | DQD (v1.0) | Achilles (v1.7) | Atlas Cohort (v2.10) | Atlas Cohort (v2.12) | Atlas Data Sources (v2.12) | Feature Extraction (v3.2) | Comment
+--- | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- 
+PERSON | person_id | PK | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+PERSON | gender_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+PERSON | year_of_birth |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+PERSON | month_of_birth |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | day_of_birth |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | birth_datetime | FC | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | race_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+PERSON | ethnicity_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+PERSON | location_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles only does FK check
+PERSON | provider_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles only does FK check
+PERSON | care_site_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles only does FK check
+PERSON | person_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | gender_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | gender_source_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | race_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | race_source_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | ethnicity_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+PERSON | ethnicity_source_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+
+## Observation Period
+cdmTableName | cdmFieldName | Special Fields | DQD (v1.0) | Achilles (v1.7) | Atlas Cohort (v2.10) | Atlas Cohort (v2.12) | Atlas Data Sources (v2.12) | Feature Extraction (v3.2) | Comment
+--- | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- 
+OBSERVATION_PERIOD | observation_period_id | PK | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+OBSERVATION_PERIOD | person_id | Pid | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+OBSERVATION_PERIOD | observation_period_start_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+OBSERVATION_PERIOD | observation_period_end_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+OBSERVATION_PERIOD | period_type_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+
+## Visit Occurrence
+cdmTableName | cdmFieldName | Special Fields | DQD (v1.0) | Achilles (v1.7) | Atlas Cohort (v2.10) | Atlas Cohort (v2.12) | Atlas Data Sources (v2.12) | Feature Extraction (v3.2) | Comment
+--- | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- 
+VISIT_OCCURRENCE | visit_occurrence_id | PK | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+VISIT_OCCURRENCE | person_id | Pid | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+VISIT_OCCURRENCE | visit_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | 
+VISIT_OCCURRENCE | visit_source_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | visit_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | visit_start_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | Achilles check 1900
+VISIT_OCCURRENCE | visit_start_datetime | FC | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | visit_end_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("heavy_check_mark")` | 
+VISIT_OCCURRENCE | visit_end_datetime | FC | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | visit_type_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | provider_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Atlas uses provider.specialty_concept_id
+VISIT_OCCURRENCE | care_site_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles only does FK check, Atlas uses care_site.place_of_service_concept_id
+VISIT_OCCURRENCE | admitted_from_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | admitted_from_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles check 1900
+VISIT_OCCURRENCE | discharged_to_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+VISIT_OCCURRENCE | discharged_to_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | Achilles check 1900
+VISIT_OCCURRENCE | preceding_visit_occurrence_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+
+## Episode
+cdmTableName | cdmFieldName | Special Fields | DQD (v1.0) | Achilles (v1.7) | Atlas Cohort (v2.10) | Atlas Cohort (v2.12) | Atlas Data Sources (v2.12) | Feature Extraction (v3.2) | Comment
+--- | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | --- 
+EPISODE | episode_id | PK | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | person_id | Pid | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_start_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_start_datetime | FC | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_end_date |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_end_datetime | FC | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_parent_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_number |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_object_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_type_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_source_value | SV | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+EPISODE | episode_source_concept_id |  | `r emoji::emoji("heavy_check_mark")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | `r emoji::emoji("exclamation")` | 
+
+This was an effort by the CDM Working Group in 2022.
+*Credits: Clair Blacketer, Maxim Moinat, Nitin Park
