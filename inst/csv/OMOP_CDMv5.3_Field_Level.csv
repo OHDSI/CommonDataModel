@@ -204,7 +204,7 @@ note_nlp,note_nlp_id,Yes,integer,A unique identifier for the NLP record.,NA,Yes,
 note_nlp,note_id,Yes,integer,This is the NOTE_ID for the NOTE record the NLP record is associated to.,NA,No,No,NA,NA,NA,NA,NA
 note_nlp,section_concept_id,No,integer,NA,"The SECTION_CONCEPT_ID should be used to represent the note section contained in the NOTE_NLP record. These concepts can be found as parts of document panels and are based on the type of note written, i.e. a discharge summary. These panels can be found as concepts with the relationship 'Subsumes' to CONCEPT_ID [45875957](https://athena.ohdsi.org/search-terms/terms/45875957).",No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
 note_nlp,snippet,No,varchar(250),A small window of text surrounding the term,NA,No,No,NA,NA,NA,NA,NA
-note_nlp,"""offset""",No,varchar(50),Character offset of the extracted term in the input note,NA,No,No,NA,NA,NA,NA,NA
+note_nlp,offset,No,varchar(50),Character offset of the extracted term in the input note,NA,No,No,NA,NA,NA,NA,NA
 note_nlp,lexical_variant,Yes,varchar(250),Raw text extracted from the NLP tool.,NA,No,No,NA,NA,NA,NA,NA
 note_nlp,note_nlp_concept_id,No,integer,NA,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
 note_nlp,note_nlp_source_concept_id,No,integer,NA,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
@@ -512,4 +512,5 @@ attribute_definition,attribute_definition_id,Yes,integer,NA,NA,No,No,NA,NA,NA,NA
 attribute_definition,attribute_name,Yes,varchar(255),NA,NA,No,No,NA,NA,NA,NA,NA
 attribute_definition,attribute_description,No,varchar(MAX),NA,NA,No,No,NA,NA,NA,NA,NA
 attribute_definition,attribute_type_concept_id,Yes,integer,NA,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA
+
 attribute_definition,attribute_syntax,No,varchar(MAX),NA,NA,No,No,NA,NA,NA,NA,NA
