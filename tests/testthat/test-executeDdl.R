@@ -1,7 +1,7 @@
 
 # connection based tests required environment variables be configured
 test_that("CommonDataModel Execution Test", {
-  if (Sys.getenv("CDM5_POSTGRESQL_SERVER") != "") {
+  if (Sys.getenv("CDMDDLBASE_POSTGRESQL_SERVER") != "") {
     test_that("getConnectionDetails works", {
       for (dbms in testDatabases) {
         expect_s3_class(getConnectionDetails(dbms), "ConnectionDetails")
