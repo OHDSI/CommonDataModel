@@ -15,7 +15,7 @@ During the extract, transform, load (ETL) process of converting a data source in
 
 You or someone in your organization will need to create a process to build your CDM. Don’t worry though, you are not alone! The open nature of the community means that much of the code that other participants have written to transform their own data is available for you to use. If you have a data license for a large administrative claims database like IBM MarketScan® or Optum’s Clinformatics® Extended Data Mart, chances are that someone has already done the legwork. Here is one example of a full builder freely available on [github](https://github.com/OHDSI/ETL-CDMBuilder) that has been written for a variety of data sources.
 
-The [community forums](http://forums.ohdsi.org/) are also a great place to ask questions if you are stuck or need guidance on how to represent your data in the common data model. Members are usually very responsive!
+The [community forums](https://forums.ohdsi.org/) are also a great place to ask questions if you are stuck or need guidance on how to represent your data in the common data model. Members are usually very responsive!
 
 **3. Are any tables or fields optional?**
 

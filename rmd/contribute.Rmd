@@ -8,7 +8,7 @@ output:
 
 # Check the Forum
 
-Chances are someone else has already asked your question on the [forum](https:\\forums.ohdsi.org) and it has been answered. 
+Chances are someone else has already asked your question on the [forum](https://forums.ohdsi.org) and it has been answered. 
 
 # Check the Issue Log
 
