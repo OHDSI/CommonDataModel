@@ -9,7 +9,7 @@ visit_occurrence,CDM,No,VISIT_,Yes,0,NA,"This table contains Events where Person
 - [Non-hospital institution Visit](https://athena.ohdsi.org/search-terms/terms/42898160): Person visiting dedicated institution for reasons of poor health, at a Care Site, long-term or permanently, with no physician but possibly other Providers permanently available to deliver service around the clock
 - [Outpatient Visit](https://athena.ohdsi.org/search-terms/terms/9202): Person visiting dedicated ambulatory healthcare institution, at a Care Site, within one day, without bed, with physicians or medical Providers delivering service during Visit
 - [Home Visit](https://athena.ohdsi.org/search-terms/terms/581476): Provider visiting Person, without a Care Site, within one day, delivering service
-- [Telehealth Visit](https://athena.ohdsi.org/search-terms/terms/5083): Patient engages with Provider through communication media
+- [Telehealth Visit](https://athena.ohdsi.org/search-terms/terms/722455): Patient engages with Provider through communication media
 - [Pharmacy Visit](https://athena.ohdsi.org/search-terms/terms/581458): Person visiting pharmacy for dispensing of Drug, at a Care Site, within one day
 - [Laboratory Visit](https://athena.ohdsi.org/search-terms/terms/32036): Patient visiting dedicated institution, at a Care Site, within one day, for the purpose of a Measurement.
 - [Ambulance Visit](https://athena.ohdsi.org/search-terms/terms/581478): Person using transportation service for the purpose of initiating one of the other Visits, without a Care Site, within one day, potentially with Providers accompanying the Visit and delivering service
