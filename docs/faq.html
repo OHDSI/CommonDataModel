@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./favicon.ico" rel="icon">
+<link href="./man/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -82,10 +82,10 @@ ul.task-list li input[type="checkbox"] {
 
   gtag('config', 'G-37JJNBGH0H');
 </script>
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="man/favicon.ico">
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="man/style.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -258,8 +258,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./ohdsi16x16.png" alt="" class="navbar-logo light-content">
-    <img src="./ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">OMOP Common Data Model</span>
@@ -512,11 +512,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="vocabulary-mapping">Vocabulary Mapping</h2>
 <p><strong>12. Do I have to map my source codes to Standard Concepts myself? Are there vocabulary mappings that already exist for me to leverage?</strong></p>
 <p>If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source <a href="http://athena.ohdsi.org/search-terms/terms">ATHENA</a> tool under the download tab (see below). You can choose to download the ten <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html#Standardized-Vocabularies">vocabulary tables</a> from there as well – you will need a copy in your environment if you plan on building a CDM.</p>
-<p><img src="images/Athena_download_box.png" class="img-fluid"></p>
+<p><img src="man/images/Athena_download_box.png" class="img-fluid"></p>
 <p>The <a href="http://athena.ohdsi.org/search-terms/terms">ATHENA</a> tool also allows you to explore the vocabulary before downloading it if you are curious about the mappings or if you have a specific code in mind and would like to know which standard concept it is associated with; just click on the search tab and type in a keyword to begin searching.</p>
 <p><strong>13. If I want to apply the mappings myself, can I do so? Are they transparent to all users?</strong></p>
 <p>Yes, all mappings are available in the <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html#CONCEPT_RELATIONSHIP">Concept_relationship</a> table (which can be downloaded from <a href="http://athena.ohdsi.org/search-terms/terms">ATHENA</a>). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:</p>
-<p><img src="images/Sepsis_to_SNOMED.png" class="img-fluid"></p>
+<p><img src="man/images/Sepsis_to_SNOMED.png" class="img-fluid"></p>
 <p>In this case the standard SNOMED concept 201826 for type 2 diabetes mellitus would be stored in the Condition_occurrence table as the Condition_concept_id and the ICD10CM concept 1567956 for type 2 diabetes mellitus would be stored as the Condition_source_concept_id.</p>
 <p><strong>14. Can RXNorm codes be stored in the model? Can I store multiple levels if I so choose? What if one collaborator uses a different level of RXNorm than I use when transforming their database?</strong></p>
 <p>In the OMOP Common Data Model RXNorm is considered the standard vocabulary for representing drug exposures. One of the great things about the Standardized Vocabulary is that the hierarchical nature of RXNorm is preserved to enable efficient querying. It is agreed upon best practice to store the lowest level RXNorm available and then use the Vocabulary to explore any pertinent relationships. Drug ingredients are the highest-level ancestors so a query for the descendants of an ingredient should turn up all drug products (Clinical Drug or Branded Drug) containing that ingredient. A query designed in this way will find drugs of interest in any CDM regardless of the level of RXNorm used.</p>
@@ -524,7 +524,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Yes, that is the beauty of the community! If you find a mapping in the vocabulary that doesn’t seem to belong or that you think could be better, feel free to write a note on the <a href="https://forums.ohdsi.org/">forums</a> or on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/issues">vocabulary github</a>. If the community agrees with your assessment it will be addressed in the next vocabulary version.</p>
 <p><strong>16. What if I have source codes that are specific to my site? How would these be mapped?</strong></p>
 <p>In the OMOP Vocabulary there is an empty table called the Source_to_concept_map. It is a simple table structure that allows you to establish mapping(s) for each source code with a standard concept in the OMOP Vocabulary (TARGET_CONCEPT_ID). This work can be facilitated by the OHDSI tool <a href="https://github.com/OHDSI/Usagi">Usagi</a> (pictured below) which searches for text similarity between your source code descriptions and the OMOP Vocabulary and exports mappings in a SOURCE_TO_CONCEPT_MAP table structure. Example Source_to_concept_map files can be found <a href="https://github.com/OHDSI/ETL-CDMBuilder/tree/master/man/VOCABULARY_ADDITIONS">here</a>. These generated Source_to_concept_map files are then loaded into the OMOP Vocabulary’s empty Source_to_concept_map prior to processing the native data into the CDM so that the CDM builder can use them in a build.</p>
-<p><img src="images/Usagi.png" class="img-fluid"></p>
+<p><img src="man/images/Usagi.png" class="img-fluid"></p>
 <p>If an source code is not supported by the OMOP Vocabulary, one can create a new records in the CONCEPT table, however the CONCEPT_IDs should start &gt;2000000000 so that it is easy to tell between the OMOP Vocabulary concepts and the site specific concepts. Once those concepts exist CONCEPT_RELATIONSHIPS can be generated to assign them to a standard terminologies, USAGI can facilitate this process as well (<a href="https://github.com/OHDSI/Themis/issues/22">THEMIS issue #22</a>).</p>
 <p><strong>17. How are one-to-many mappings applied?</strong></p>
 <p>If one source code maps to two Standard Concepts then two rows are stored in the corresponding clinical event table.</p>
@@ -558,7 +558,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The community! All the tools are open source meaning that anyone can submit an issue they have found, offer suggestions, and write code to fix the problem.</p>
 <p><strong>25. Do the current tools allow a user to define a treatment gap (persistence window) of any value when creating treatment episodes?</strong></p>
 <p>Yes – the ATLAS tool allows you to specify a persistence window between drug exposures when defining a cohort (see image below).</p>
-<p><img src="images/ATLAS_Persistence_Window.png" class="img-fluid"></p>
+<p><img src="man/images/ATLAS_Persistence_Window.png" class="img-fluid"></p>
 <p><strong>26. Can the current tools identify medication use during pregnancy?</strong></p>
 <p>Yes, you can identify pregnancy markers from various clinical domains, including conditions and procedures, for example ‘live birth’, and then define temporal logic to look for drug exposure records in some interval prior to the pregnancy end. In addition, members of the community have built an advanced logic to define pregnancy episodes with all pregnancy outcomes represented, which can be useful for this type of research.</p>
 <p><strong>27. Do the current tools execute against the mapped values or source values?</strong></p>
@@ -597,7 +597,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Recommend
 <ul>
 <li>Cloud-based infrastructure like multiple AWS Redshift clusters, for example:</li>
-<li><img src="images/AWS_clusters.png" class="img-fluid"></li>
+<li><img src="man/images/AWS_clusters.png" class="img-fluid"></li>
 </ul></li>
 </ul>
 

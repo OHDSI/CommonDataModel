@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/vocabulary.html</loc>
-    <lastmod>2026-07-21T19:39:01.441Z</lastmod>
+    <lastmod>2026-07-21T19:56:35.115Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/vocabRequest.html</loc>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/typesOfAdditions.html</loc>
-    <lastmod>2026-07-21T19:39:01.439Z</lastmod>
+    <lastmod>2026-07-21T19:56:34.809Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/reviewProposals.html</loc>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/faq.html</loc>
-    <lastmod>2026-07-21T19:39:01.432Z</lastmod>
+    <lastmod>2026-07-21T19:56:35.265Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/drug_dose.html</loc>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRequestProcess.html</loc>
-    <lastmod>2026-07-21T19:39:01.427Z</lastmod>
+    <lastmod>2026-07-21T19:56:34.649Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRPackage.html</loc>
@@ -58,11 +58,11 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmDecisionTree.html</loc>
-    <lastmod>2026-07-21T19:39:01.425Z</lastmod>
+    <lastmod>2026-07-21T19:56:34.335Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm54erd.html</loc>
-    <lastmod>2026-07-21T19:39:01.424Z</lastmod>
+    <lastmod>2026-07-21T19:56:35.422Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm54Changes.html</loc>
@@ -78,7 +78,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/background.html</loc>
-    <lastmod>2026-07-21T19:39:01.422Z</lastmod>
+    <lastmod>2026-07-21T19:56:34.963Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm53.html</loc>
@@ -102,7 +102,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html</loc>
-    <lastmod>2026-07-21T19:39:01.427Z</lastmod>
+    <lastmod>2026-07-21T19:56:34.490Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/contactVocab.html</loc>
@@ -122,7 +122,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/index.html</loc>
-    <lastmod>2026-07-21T19:39:01.432Z</lastmod>
+    <lastmod>2026-07-21T20:00:49.418Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/leaveAsIs.html</loc>

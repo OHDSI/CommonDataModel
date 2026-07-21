@@ -1,5 +1,5 @@
 ---
-title: '<div><img src="ohdsi40x40.png"></img> OMOP Common Data Model</div>'
+title: '<div><img src="man/ohdsi40x40.png"></img> OMOP Common Data Model</div>'
 format: html
 ---
 ```{r setup, include=FALSE}
@@ -20,13 +20,13 @@ The CDM is managed by the OHDSI CDM Working Group. If you would like to join our
 
 This is the calendar of events for the CDM Working Group, including upcoming topics and links to meetings. If you would like to present to the group regarding a new use case for the OMOP CDM or if you would like the group's assistance with a problem you are having, please fill out our sign-up form.
 
-[![Sign Up](images/sign-up.png){width=15%}](https://www.signupgenius.com/go/10C0948AEAD28A4F9CF8-workgroup)
+[![Sign Up](man/images/sign-up.png){width=15%}](https://www.signupgenius.com/go/10C0948AEAD28A4F9CF8-workgroup)
 
 **Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-calendarData <- read.csv("images/cdm_wg_calendar.csv")
+calendarData <- read.csv("man/images/cdm_wg_calendar.csv")
 
 calendar(calendarData, navigation = TRUE, defaultDate = Sys.Date()) %>%
   cal_month_options(
@@ -43,7 +43,7 @@ The current CDM version is [CDM v5.4](http://ohdsi.github.io/CommonDataModel/cdm
 - [Link to DDLs for CDM v5.4](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4)
 - [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)
 
-![](images/cdm54.png)
+![](man/images/cdm54.png)
 <br>
 
 ### Current Support for CDM v5.4

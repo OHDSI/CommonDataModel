@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./favicon.ico" rel="icon">
+<link href="./man/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -82,10 +82,10 @@ ul.task-list li input[type="checkbox"] {
 
   gtag('config', 'G-37JJNBGH0H');
 </script>
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="man/favicon.ico">
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="man/style.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -258,8 +258,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./ohdsi16x16.png" alt="" class="navbar-logo light-content">
-    <img src="./ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">OMOP Common Data Model</span>
@@ -939,9 +939,9 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>1. The hierarchical discrepancy between Source and Standard Vocabularies</strong></p>
 <p>It is not uncommon for heavily pre-coordinated Concepts (complex and fine-grained Concepts that are combinations of different dimensions). The coordination depends on the structure of the topology of the vocabularies from and to which the Concept is mapped. If they are not equivalent, no direct mapping can be established. But in order to maintain the ability to retrieve these Concepts when searching using hierarchical Concepts, two or more mappings are provided instead.</p>
 <p>For example, in ICD-10-CM diabetic complications are a part of the disorder of Diabetes Mellitus, while in SNOMED Diabetes Mellitus and its complications reside in distinct hierarchical branches.</p>
-<p><img src="images/diabetes-related_case.png" class="img-fluid"></p>
+<p><img src="man/images/diabetes-related_case.png" class="img-fluid"></p>
 <p>As another example, ICD-10 codes indicating complications of pregnancy are in the chapter of “Pregnancy, childbirth and the puerperium” that has a semantic relation to the fact of pregnancy, while in SNOMED denoting pregnancy conditions and their complications are in the separate hierarchical branches.</p>
-<p><img src="images/pregnancy-related_case.png" class="img-fluid"></p>
+<p><img src="man/images/pregnancy-related_case.png" class="img-fluid"></p>
 <p>The solution for both examples is to map Non-standard concepts to several standard ones. Even though there is no distinct equivalent in SNOMED, hierarchical queries will retrieve the correct records.</p>
 <p><strong>2. Missing Source Concept equivalent</strong></p>
 <p>This is possible due to the following reasons:</p>
@@ -1147,7 +1147,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="condition-mapping-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="condition-mapping-algorithm">CONDITION MAPPING ALGORITHM</h2>
-<p><img src="images/mapping_of_concepts.png" class="img-fluid"></p>
+<p><img src="man/images/mapping_of_concepts.png" class="img-fluid"></p>
 
 
 </section>

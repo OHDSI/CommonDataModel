@@ -111,11 +111,11 @@ It is not uncommon for heavily pre-coordinated Concepts (complex and fine-graine
 
 For example, in ICD-10-CM diabetic complications are a part of the disorder of Diabetes Mellitus, while in SNOMED Diabetes Mellitus and its complications reside in distinct hierarchical branches.
 
-![](images/diabetes-related_case.png)
+![](man/images/diabetes-related_case.png)
 
 As another example, ICD-10 codes indicating complications of pregnancy are in the chapter of "Pregnancy, childbirth and the puerperium" that has a semantic relation to the fact of pregnancy, while in SNOMED denoting pregnancy conditions and their complications are in the separate hierarchical branches.
 
-![](images/pregnancy-related_case.png)
+![](man/images/pregnancy-related_case.png)
 
 The solution for both examples is to map Non-standard concepts to several standard ones. Even though there is no distinct equivalent in SNOMED, hierarchical queries will retrieve the correct records.
 
@@ -210,4 +210,4 @@ Adverse or other outcomes of the exposure to a device are mapped to 473023007 "C
 
 ## CONDITION MAPPING ALGORITHM
 
-![](images/mapping_of_concepts.png)
+![](man/images/mapping_of_concepts.png)

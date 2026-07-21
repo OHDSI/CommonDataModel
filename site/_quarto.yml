@@ -4,20 +4,20 @@ project:
   render:
     - "*.qmd"
   resources:
-    - "GA_analytics.html"
-    - "favicon.html"
-    - "favicon.ico"
-    - "ohdsi16x16.png"
-    - "ohdsi40x40.png"
-    - "images/"
-    - "style.css"
+    - "man/GA_analytics.html"
+    - "man/favicon.html"
+    - "man/favicon.ico"
+    - "man/ohdsi16x16.png"
+    - "man/ohdsi40x40.png"
+    - "man/images/"
+    - "man/style.css"
 
 website:
   title: "OMOP Common Data Model"
   site-url: "https://ohdsi.github.io/CommonDataModel/"
-  favicon: favicon.ico
+  favicon: man/favicon.ico
   navbar:
-    logo: ohdsi16x16.png
+    logo: man/ohdsi16x16.png
     title: "OMOP Common Data Model"
     left:
       - icon: house
@@ -95,7 +95,7 @@ format:
     theme:
       light: cosmo
       dark: darkly
-    css: style.css
+    css: man/style.css
     include-in-header:
-      - GA_analytics.html
-      - favicon.html
+      - man/GA_analytics.html
+      - man/favicon.html

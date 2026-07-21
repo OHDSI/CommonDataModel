@@ -1,5 +1,5 @@
 ---
-title: '<div><img src="ohdsi40x40.png"></img> How to Request Changes to the CDM </div>'
+title: '<div><img src="man/ohdsi40x40.png"></img> How to Request Changes to the CDM </div>'
 format:
   html:
     toc: true
@@ -86,4 +86,3 @@ The change should initiate requests for features in tools. The end of this proce
 ### Resources
 
 “Implementing & adopting a customized OMOP Common Data Model” (Melany Philofsky, OHDSI Symposium 2021) https://www.ohdsi.org/2021-global-symposium-showcase-18/
-

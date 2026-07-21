@@ -1,5 +1,5 @@
 ---
-title: '<div><img src="ohdsi40x40.png"></img> CDM Refresh Process </div>'
+title: '<div><img src="man/ohdsi40x40.png"></img> CDM Refresh Process </div>'
 format:
   html:
     toc: true
@@ -11,7 +11,7 @@ Looking to make a change or addition to the OMOP CDM? Please answer the question
 
 ## CDM Refresh Cycle
 
-![](images/CDM_refresh_cycle.png)
+![](man/images/CDM_refresh_cycle.png)
 
 ### 1. Define New Version
 
@@ -50,4 +50,3 @@ The CDM working group meets the first and third Tuesday of the month. See below 
 - [Google Drive Location](https://drive.google.com/open?id=1DaNKe6ivIAZPJeI31VJ-pzNB9wS9hDqu)
 - [Running Agenda](https://docs.google.com/document/d/1WgKePjrI_cGdqn2XQCe1JdGaTzdMqU4p5ihkMt8fcAc/edit?usp=sharing)
 - [CDM Github](https://github.com/OHDSI/CommonDataModel)
-

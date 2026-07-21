@@ -1,5 +1,5 @@
 ---
-title: '<div><img src="ohdsi40x40.png"></img> OMOP CDM Background</div>'
+title: '<div><img src="man/ohdsi40x40.png"></img> OMOP CDM Background</div>'
 format:
   html:
     toc: true
