@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/sqlScripts.html</loc>
-    <lastmod>2026-07-21T18:50:04.762Z</lastmod>
+    <lastmod>2026-07-21T19:21:03.761Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/useCaseN.html</loc>
@@ -43,5 +43,9 @@
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/background.html</loc>
     <lastmod>2026-07-21T18:29:58.711Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html</loc>
+    <lastmod>2026-07-21T18:29:58.714Z</lastmod>
   </url>
 </urlset>
