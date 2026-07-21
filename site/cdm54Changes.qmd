@@ -7,7 +7,7 @@ format:
 ---
 *from CDM v5.3 -> CDM v5.4*
 
-For a full description of each table and field listed here, please see the [CDM specification](http://ohdsi.github.io/CommonDataModel/cdm54.html).
+For a full description of each table and field listed here, please see the [CDM specification](https://ohdsi.github.io/CommonDataModel/cdm54.html).
 
 Notation:
 
@@ -183,4 +183,3 @@ Notation:
 |     subject_id                     |
 |     cohort_start_date              |
 |     cohort_end_date                |
-

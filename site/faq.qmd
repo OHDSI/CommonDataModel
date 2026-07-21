@@ -14,7 +14,7 @@ During the extract, transform, load (ETL) process of converting a data source in
 
 You or someone in your organization will need to create a process to build your CDM. Don’t worry though, you are not alone! The open nature of the community means that much of the code that other participants have written to transform their own data is available for you to use. If you have a data license for a large administrative claims database like IBM MarketScan® or Optum’s Clinformatics® Extended Data Mart, chances are that someone has already done the legwork. Here is one example of a full builder freely available on [github](https://github.com/OHDSI/ETL-CDMBuilder) that has been written for a variety of data sources.
 
-The [community forums](http://forums.ohdsi.org/) are also a great place to ask questions if you are stuck or need guidance on how to represent your data in the common data model. Members are usually very responsive!
+The [community forums](https://forums.ohdsi.org/) are also a great place to ask questions if you are stuck or need guidance on how to represent your data in the common data model. Members are usually very responsive!
 
 **3. Are any tables or fields optional?**
 
@@ -66,15 +66,15 @@ An observation period is considered as the time at which a patient is at-risk to
 
 **12. Do I have to map my source codes to Standard Concepts myself? Are there vocabulary mappings that already exist for me to leverage?**
 
-If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://ohdsi.github.io/CommonDataModel/cdm54.html#Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM.
+If your data use any of the 55 source vocabularies that are currently supported, the mappings have been done for you. The full list is available from the open-source [ATHENA](https://athena.ohdsi.org/search-terms/terms) tool under the download tab (see below). You can choose to download the ten [vocabulary tables](https://ohdsi.github.io/CommonDataModel/cdm54.html#Standardized-Vocabularies) from there as well – you will need a copy in your environment if you plan on building a CDM.
 
 ![](man/images/Athena_download_box.png)
 
-The [ATHENA](http://athena.ohdsi.org/search-terms/terms) tool also allows you to explore the vocabulary before downloading it if you are curious about the mappings or if you have a specific code in mind and would like to know which standard concept it is associated with; just click on the search tab and type in a keyword to begin searching.
+The [ATHENA](https://athena.ohdsi.org/search-terms/terms) tool also allows you to explore the vocabulary before downloading it if you are curious about the mappings or if you have a specific code in mind and would like to know which standard concept it is associated with; just click on the search tab and type in a keyword to begin searching.
 
 **13. If I want to apply the mappings myself, can I do so? Are they transparent to all users?**
 
-Yes, all mappings are available in the [Concept_relationship](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](http://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
+Yes, all mappings are available in the [Concept_relationship](https://ohdsi.github.io/CommonDataModel/cdm54.html#CONCEPT_RELATIONSHIP) table (which can be downloaded from [ATHENA](https://athena.ohdsi.org/search-terms/terms)). Each value in a supported source terminology is assigned a Concept_id (which is considered non-standard). Each Source_concept_id will have a mapping to a Standard_concept_id. For example:
 
 ![](man/images/Sepsis_to_SNOMED.png)
 
@@ -128,8 +128,8 @@ Changes are first listed in the release notes on the [github](https://github.com
 
 While there are a variety of tools freely available from the community, these are the most widely used:
 
-* [ACHILLES](http://www.github.com/ohdsi/achilles) – a stand-alone tool for database characterization
-* [ATLAS](http://www.ohdsi.org/web/atlas/#/home) - an integrated platform for vocabulary exploration, cohort definition, case review, clinical characterization, incidence estimation, population-level effect estimation design, and patient-level prediction design ([link to github](http://www.github.com/ohdsi/atlas))
+* [ACHILLES](https://github.com/OHDSI/Achilles) – a stand-alone tool for database characterization
+* [ATLAS](https://www.ohdsi.org/web/atlas/#/home) - an integrated platform for vocabulary exploration, cohort definition, case review, clinical characterization, incidence estimation, population-level effect estimation design, and patient-level prediction design ([link to github](https://github.com/OHDSI/Atlas))
 * [ARACHNE](https://github.com/OHDSI/ArachneUI) – a tool to facilitate distributed network analyses
 * [WhiteRabbit](https://github.com/OHDSI/whiterabbit) - an application that can be used to analyse the structure and contents of a database as preparation for designing an ETL
 * [RabbitInAHat](https://github.com/OHDSI/whiterabbit) - an application for interactive design of an ETL to the OMOP Common Data Model with the help of the the scan report generated by White Rabbit

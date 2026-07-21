@@ -16,7 +16,7 @@ The results of OMOP's research has been widely published and presented at scient
 
 The OMOP Legacy continues...
 
-The community is actively using the OMOP Common Data Model for their various research purposes. Those tools will continue to be maintained and supported, and information about this work is available in the [public domain](http://www.github.com/ohdsi).
+The community is actively using the OMOP Common Data Model for their various research purposes. Those tools will continue to be maintained and supported, and information about this work is available in the [public domain](https://github.com/OHDSI).
 
 The OMOP Common Data Model will continue to be an open-source community standard for observational healthcare data. The model specifications and associated work products will be placed in the public domain, and the entire research community is encouraged to use these tools to support everybody's own research activities.
 

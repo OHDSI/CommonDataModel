@@ -18,6 +18,6 @@ format: html
   });
 </script>
 
-Late in 2022 we held a community contest to find the best entity-relationship diagram and we crowned two winners! Martijn Schuemie and Renske Los created the best printable version and Vishnu Chandrabalan created the best [interactive version](http://omop-erd.surge.sh/).
+Late in 2022 we held a community contest to find the best entity-relationship diagram and we crowned two winners! Martijn Schuemie and Renske Los created the best printable version and Vishnu Chandrabalan created the best [interactive version](https://omop-erd.surge.sh/).
 
 ![CDM v5.4 Printable ERD - [click here to download](https://github.com/OHDSI/CommonDataModel/raw/main/rmd/images/erd.jpg)](man/images/erd.jpg){width=150%}

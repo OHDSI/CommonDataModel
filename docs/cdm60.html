@@ -516,7 +516,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="note-about-cdm-v6.0" class="level2">
 <h2 class="anchored" data-anchor-id="note-about-cdm-v6.0">NOTE ABOUT CDM v6.0</h2>
-<p>Please be aware that v6.0 of the OMOP CDM is <strong>not</strong> fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the *_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 was designed with additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our the specifications for <a href="http://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a> and detailed <a href="http://ohdsi.github.io/CommonDataModel/cdm54Changes.html">changes from CDM v5.3</a>. <strong>For new collaborators to OHDSI, please transform your data to <a href="https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0">CDM v5.4</a> until such time that the v6 series of the CDM is ready for mainstream use.</strong></p>
+<p>Please be aware that v6.0 of the OMOP CDM is <strong>not</strong> fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the *_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, CDM v5.4 was designed with additions to the model that have been requested by the community while retaining the date structure of medical events in v5.3. Please see our the specifications for <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html">CDM v5.4</a> and detailed <a href="https://ohdsi.github.io/CommonDataModel/cdm54Changes.html">changes from CDM v5.3</a>. <strong>For new collaborators to OHDSI, please transform your data to <a href="https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0">CDM v5.4</a> until such time that the v6 series of the CDM is ready for mainstream use.</strong></p>
 <p>Below is the specification document for the OMOP Common Data Model, v6.0. Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). All tables should be instantiated in a CDM instance but do not need to be populated. Similarly, fields that are not required should exist in the CDM table but do not need to be populated. Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
 </section>
 <section id="changes-in-v6.0" class="level2">
@@ -606,7 +606,7 @@ gender_concept_id
 This field is meant to capture the biological sex at birth of the Person. This field should not be used to study gender identity issues.
 </td>
 <td style="text-align:left;">
-Use the gender or sex value present in the data under the assumption that it is the biological sex at birth. If the source data captures gender identity it should be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#observation">OBSERVATION</a> table. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted gender concepts</a>
+Use the gender or sex value present in the data under the assumption that it is the biological sex at birth. If the source data captures gender identity it should be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#observation">OBSERVATION</a> table. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted gender concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -765,7 +765,7 @@ race_concept_id
 This field captures race or ethnic background of the person.
 </td>
 <td style="text-align:left;">
-Only use this field if you have information about race or ethnic background. The Vocabulary contains Concepts about the main races and ethnic backgrounds in a hierarchical system. Due to the imprecise nature of human races and ethnic backgrounds, this is not a perfect system. Mixed races are not supported. If a clear race or ethnic background cannot be established, use Concept_Id 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Race&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Race Concepts</a>.
+Only use this field if you have information about race or ethnic background. The Vocabulary contains Concepts about the main races and ethnic backgrounds in a hierarchical system. Due to the imprecise nature of human races and ethnic backgrounds, this is not a perfect system. Mixed races are not supported. If a clear race or ethnic background cannot be established, use Concept_Id 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Race&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Race Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -794,7 +794,7 @@ ethnicity_concept_id
 This field captures Ethnicity as defined by the Office of Management and Budget (OMB) of the US Government: it distinguishes only between “Hispanic” and “Not Hispanic”. Races and ethnic backgrounds are not stored here.
 </td>
 <td style="text-align:left;">
-Only use this field if you have US-based data and a source of this information. Do not attempt to infer Ethnicity from the race or ethnic background of the Person. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Ethnicity&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted ethnicity concepts</a>
+Only use this field if you have US-based data and a source of this information. Do not attempt to infer Ethnicity from the race or ethnic background of the Person. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Ethnicity&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted ethnicity concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -8654,7 +8654,7 @@ specialty_concept_id
 This field either represents the most common specialty that occurs in the data or the most specific concept that represents all specialties listed, should the provider have more than one. This includes physician specialties such as internal medicine, emergency medicine, etc. and allied health professionals such as nurses, midwives, and pharmacists.
 </td>
 <td style="text-align:left;">
-If a Provider has more than one Specialty, there are two options: 1. Choose a concept_id which is a common ancestor to the multiple specialties, or, 2. Choose the specialty that occurs most often for the provider. Concepts in this field should be Standard with a domain of Provider. If not available, set to 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Provider&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+If a Provider has more than one Specialty, there are two options: 1. Choose a concept_id which is a common ancestor to the multiple specialties, or, 2. Choose the specialty that occurs most often for the provider. Concepts in this field should be Standard with a domain of Provider. If not available, set to 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Provider&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -8735,7 +8735,7 @@ gender_concept_id
 This field represents the recorded gender of the provider in the source data.
 </td>
 <td style="text-align:left;">
-If given, put a concept from the gender domain representing the recorded gender of the provider. If not available, set to 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+If given, put a concept from the gender domain representing the recorded gender of the provider. If not available, set to 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -9078,7 +9078,7 @@ payer_concept_id
 This field represents the organization who reimburses the provider which administers care to the Person.
 </td>
 <td style="text-align:left;">
-Map the Payer directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same payer, though the name of the Payer is not necessary. If not available, set to 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Payer&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Map the Payer directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same payer, though the name of the Payer is not necessary. If not available, set to 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Payer&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -9159,7 +9159,7 @@ plan_concept_id
 This field represents the specific health benefit Plan the Person is enrolled in.
 </td>
 <td style="text-align:left;">
-Map the Plan directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same health benefit Plan though the name of the Plan is not necessary. If not available, set to 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Plan&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Map the Plan directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same health benefit Plan though the name of the Plan is not necessary. If not available, set to 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Plan&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -9321,7 +9321,7 @@ sponsor_concept_id
 This field represents the sponsor of the Plan who finances the Plan. This includes self-insured, small group health plan and large group health plan.
 </td>
 <td style="text-align:left;">
-Map the sponsor directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same sponsor though the name of the sponsor is not necessary. If not available, set to 0. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Sponsor&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Map the sponsor directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. The point is to stratify on this information and identify if Persons have the same sponsor though the name of the sponsor is not necessary. If not available, set to 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Sponsor&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -9429,7 +9429,7 @@ stop_reason_concept_id
 This field represents the reason the Person left the Plan, if known.
 </td>
 <td style="text-align:left;">
-Map the stop reason directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Plan+Stop+Reason&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Map the stop reason directly to a standard CONCEPT_ID. If one does not exists please contact the vocabulary team. There is no global controlled vocabulary available for this information. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Plan+Stop+Reason&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer

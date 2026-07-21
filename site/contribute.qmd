@@ -7,7 +7,7 @@ format:
 ---
 # Check the Forum
 
-Chances are someone else has already asked your question on the [forum](https:\\forums.ohdsi.org) and it has been answered.
+Chances are someone else has already asked your question on the [forum](https://forums.ohdsi.org) and it has been answered.
 
 # Check the Issue Log
 
@@ -16,4 +16,3 @@ If you think you've found a bug you can check to see if someone also had that sa
 # Join meetings
 
 Please come to meetings, ask your question and contribute to the discussion! All details can be found on our [home page](https://ohdsi.github.io/CommonDataModel/).
-
