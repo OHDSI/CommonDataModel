@@ -1,8 +1,9 @@
 ---
 title: "Custom Concepts"
+author: "Maxim Moinat"
+date: "Apr 12, 2024"
 format: html
 ---
-*By Maxim Moinat and the Themis Working Group*
 
 The Themis Working Group convened on October 6th and December 7th 2023 to discuss the creation this convention for creating custom concepts.
 

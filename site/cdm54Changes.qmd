@@ -3,7 +3,7 @@ title: "Changes by Table"
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 *from CDM v5.3 -> CDM v5.4*
 

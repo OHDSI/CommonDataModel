@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/vocabulary.html</loc>
-    <lastmod>2026-07-21T19:56:35.115Z</lastmod>
+    <lastmod>2026-07-21T21:32:07.132Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/vocabRequest.html</loc>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/typesOfAdditions.html</loc>
-    <lastmod>2026-07-21T19:56:34.809Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/reviewProposals.html</loc>
@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/oncology.html</loc>
-    <lastmod>2026-07-21T19:41:28.074Z</lastmod>
+    <lastmod>2026-07-21T21:06:41.287Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/localChange.html</loc>
@@ -30,11 +30,11 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/indices-primary-foreign.html</loc>
-    <lastmod>2026-07-21T19:39:01.433Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/faq.html</loc>
-    <lastmod>2026-07-21T20:18:43.109Z</lastmod>
+    <lastmod>2026-07-21T21:31:47.229Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/drug_dose.html</loc>
@@ -42,15 +42,15 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/dataModelConventions.html</loc>
-    <lastmod>2026-07-21T20:18:42.953Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/contribute.html</loc>
-    <lastmod>2026-07-21T20:18:42.798Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.485Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRequestProcess.html</loc>
-    <lastmod>2026-07-21T19:56:34.649Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRPackage.html</loc>
@@ -66,43 +66,43 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm54Changes.html</loc>
-    <lastmod>2026-07-21T20:18:42.189Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm531.html</loc>
-    <lastmod>2026-07-21T19:39:01.423Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm30.html</loc>
-    <lastmod>2026-07-21T19:39:01.422Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/background.html</loc>
-    <lastmod>2026-07-21T20:18:41.881Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm53.html</loc>
-    <lastmod>2026-07-21T19:44:23.266Z</lastmod>
+    <lastmod>2026-07-21T21:01:10.436Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm54.html</loc>
-    <lastmod>2026-07-21T20:18:42.035Z</lastmod>
+    <lastmod>2026-07-21T21:30:16.812Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm54ToolingSupport.html</loc>
-    <lastmod>2026-07-21T19:39:13.747Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm60.html</loc>
-    <lastmod>2026-07-21T20:18:42.490Z</lastmod>
+    <lastmod>2026-07-21T21:01:29.297Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmPrivacy.html</loc>
-    <lastmod>2026-07-21T20:18:42.641Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.485Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmRefreshProcess.html</loc>
-    <lastmod>2026-07-21T19:56:34.490Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.520Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/contactVocab.html</loc>
@@ -110,19 +110,19 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/customConcepts.html</loc>
-    <lastmod>2026-07-21T19:39:01.429Z</lastmod>
+    <lastmod>2026-07-21T20:35:05.053Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/download.html</loc>
-    <lastmod>2026-07-21T19:39:01.430Z</lastmod>
+    <lastmod>2026-07-21T20:44:31.497Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/ehrObsPeriods.html</loc>
-    <lastmod>2026-07-21T19:39:01.431Z</lastmod>
+    <lastmod>2026-07-21T20:40:57.262Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/index.html</loc>
-    <lastmod>2026-07-21T20:18:43.266Z</lastmod>
+    <lastmod>2026-07-21T20:24:56.733Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/leaveAsIs.html</loc>
@@ -138,7 +138,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/sqlScripts.html</loc>
-    <lastmod>2026-07-21T19:40:21.395Z</lastmod>
+    <lastmod>2026-07-21T21:31:53.506Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/useCaseN.html</loc>

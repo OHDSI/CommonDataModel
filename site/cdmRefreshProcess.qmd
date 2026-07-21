@@ -3,7 +3,7 @@ title: '<div><img src="man/ohdsi40x40.png"></img> CDM Refresh Process </div>'
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 The OMOP Common Data Model is managed by the OHDSI CDM Working Group. The formal remit of the CDM Working Group (WG) is to hear proposals for change, ratifying only those with valid use cases and data to support them. Then, once ratified, these proposals are incorporated into the next version of the CDM. In the past, this was done by the WG alone. The group would invite others from around the community to present use cases for change and suggestions for improvement. The WG would then vote on the proposals and a new CDM version would be released after a certain period of time or if enough proposals were voted in. This approach worked when the community was smaller but as it is growing rapidly the CDM WG needed to adapt the refresh cycle such that everyone has an opportunity to weigh in on the proposed changes.
 

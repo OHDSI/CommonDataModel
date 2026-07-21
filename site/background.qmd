@@ -3,7 +3,7 @@ title: '<div><img src="man/ohdsi40x40.png"></img> OMOP CDM Background</div>'
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 ## Background
 The Observational Medical Outcomes Partnership (OMOP) was a public-private partnership established to inform the appropriate use of observational healthcare databases for studying the effects of medical products. Over the course of the 5-year project and through its community of researchers from industry, government, and academia, OMOP successfully achieved its aims to:

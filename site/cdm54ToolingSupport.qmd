@@ -3,7 +3,7 @@ title: "OMOP CDM v5.4 Detailed Tooling Support"
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 # Introduction
 This tables below contain an overview of which standard OHDSI tools make use of which OMOP CDM fields.

@@ -3,7 +3,7 @@ title: "Ask A Question"
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 # Check the Forum
 

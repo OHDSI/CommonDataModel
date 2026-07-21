@@ -3,7 +3,7 @@ title: "Download"
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 All code for the ddls, constraints and indices are available on our [github](https://github.com/OHDSI/CommonDataModel). Each version of the Common Data Model is denoted by a [release](https://github.com/OHDSI/CommonDataModel/tags). The OHDSI community supports the database management systems (dbms) Sql Server, Postgresql, Oracle, Redshift, Parallel Data Warehouse, BigQuery, Impala, and Netezza. Included in each release is a folder for each dbms. After downloading, choose the folder for your specific system and you will see all necessary files. For example the Sql Server folder has the ddl, primary key constraints, indices, and foreign key constraints. In contrast, the redshift folder only has a ddl.
 

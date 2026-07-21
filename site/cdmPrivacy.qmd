@@ -1,11 +1,12 @@
 ---
 title: "Preserving Privacy in an OMOP CDM Implementation"
+author: "Kristin Kostka"
+date: "Sep 22, 2021"
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
-*By Kristin Kostka*
 
 # Background
 The OMOP CDM is a person-centric model. Being person-centric means the model can retain attributes that may be considered personal identified information (PII) or protected health information (PHI). There are many different ways a site may treat their OMOP CDM to uphold their privacy protocols. In this article we provide guidance on overall process and the potential fields that should be monitored to adhere to these various privacy preserving protocols.

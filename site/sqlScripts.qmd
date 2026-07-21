@@ -3,8 +3,7 @@ title: 'SQL Scripts'
 format:
   html:
     toc: true
-    toc-depth: 5
-    toc-location: right
+    toc-location: left
 ---
 
 These SQL scripts have been developed by the community to facilitate the Extract, Transform, and Load (ETL) process from source data to the OMOP CDM.

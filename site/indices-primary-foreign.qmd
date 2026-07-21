@@ -3,8 +3,7 @@ title: "Indices, Primary Keys and Foreign Key Constraints"
 format:
   html:
     toc: true
-    toc-depth: 5
-    toc-location: right
+    toc-location: left
 ---
 ## Overview
 Database indices improve the performance of queries against a database by organizing the data in a way that increase query execution.

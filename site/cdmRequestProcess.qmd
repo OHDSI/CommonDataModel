@@ -3,7 +3,7 @@ title: '<div><img src="man/ohdsi40x40.png"></img> How to Request Changes to the 
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 Are you in the right place? Please answer the questions in the [decision tree](cdmDecisionTree.html) prior to beginning a CDM Request to make sure you aren't missing something.
 

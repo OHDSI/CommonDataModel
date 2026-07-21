@@ -3,7 +3,7 @@ title: '<div><img src="man/ohdsi40x40.png"></img> Types of OMOP CDM Additions </
 format:
   html:
     toc: true
-    toc-location: right
+    toc-location: left
 ---
 While the OMOP CDM supports a diverse set of use cases and data types, we acknowledge that not all can be represented in the CDM in its current form. Based on your use case it may be necessary to modify just your database, create an expansion, or suggest changes to the model that will be incorporated into the next official version. This document describes the types of additions that can be made to the CDM and how they should be utilized by the community.
 

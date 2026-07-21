@@ -1,8 +1,9 @@
 ---
 title: "Observation Period Considerations for EHR Data"
+author: "Melanie Philofsky"
+date: "Sep 22, 2021"
 format: html
 ---
-*By Melanie Philofsky and the EHR Working Group*
 
 The EHR WG convened on July 24, August 7, and August 21, 2020 to discuss the creation of an Observation Period from EHR data. The current and future conventions are not prescriptive enough and leave room for various ways of interpretation. The goals of our discussions were to increase the standardization for the implementation of the OBSERVATION_PERIOD table by providing some general guidelines for determining the start, end, and gaps in Observation Periods. The suggestions we came up with are only “suggestions” at this point. More research should be done to understand how these choices might impact evidence generated using these data. All of these decisions should be tempered by local understanding of patients in the EHR you are ETLing.
 

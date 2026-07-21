@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="man/style.css">
 </head>
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -440,9 +440,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -454,6 +453,10 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   </ul>
 </nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -518,9 +521,6 @@ FK Table
 <th style="text-align:left;">
 FK Domain
 </th>
-<th style="text-align:left;">
-FK Class
-</th>
 </tr>
 </thead>
 <tbody>
@@ -544,8 +544,6 @@ Yes
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -578,8 +576,6 @@ person
 </td>
 <td style="text-align:left;">
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -608,8 +604,6 @@ Yes
 <td style="text-align:left;">
 Episode
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -632,8 +626,6 @@ No
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -665,8 +657,6 @@ No
 </td>
 <td style="text-align:left;">
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -683,8 +673,6 @@ date
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -720,8 +708,6 @@ No
 </td>
 <td style="text-align:left;">
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -749,8 +735,6 @@ No
 </td>
 <td style="text-align:left;">
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -773,8 +757,6 @@ No
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -809,8 +791,6 @@ concept
 <td style="text-align:left;">
 Procedure, Regimen
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -840,8 +820,6 @@ concept
 <td style="text-align:left;">
 Type Concept
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -863,8 +841,6 @@ No
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -895,8 +871,6 @@ Yes
 </td>
 <td style="text-align:left;">
 concept
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -942,9 +916,6 @@ FK Table
 <th style="text-align:left;">
 FK Domain
 </th>
-<th style="text-align:left;">
-FK Class
-</th>
 </tr>
 </thead>
 <tbody>
@@ -975,8 +946,6 @@ episode
 </td>
 <td style="text-align:left;">
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
@@ -999,8 +968,6 @@ No
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -1034,8 +1001,6 @@ concept
 </td>
 <td style="text-align:left;">
 Metadata
-</td>
-<td style="text-align:left;">
 </td>
 </tr>
 </tbody>
@@ -1077,9 +1042,6 @@ FK Table
 <th style="text-align:left;">
 FK Domain
 </th>
-<th style="text-align:left;">
-FK Class
-</th>
 </tr>
 </thead>
 <tbody>
@@ -1104,8 +1066,6 @@ No
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -1139,8 +1099,6 @@ concept
 </td>
 <td style="text-align:left;">
 Metadata
-</td>
-<td style="text-align:left;">
 </td>
 </tr>
 </tbody>
