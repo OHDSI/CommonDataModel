@@ -1,0 +1,4 @@
+/.quarto/
+**/*.quarto_ipynb
+.DS_Store
+.Rapp.history

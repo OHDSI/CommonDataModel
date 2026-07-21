@@ -1,0 +1,101 @@
+project:
+  type: website
+  output-dir: ../docs
+  render:
+    - "*.qmd"
+  resources:
+    - "GA_analytics.html"
+    - "favicon.html"
+    - "favicon.ico"
+    - "ohdsi16x16.png"
+    - "ohdsi40x40.png"
+    - "images/"
+    - "style.css"
+
+website:
+  title: "OMOP Common Data Model"
+  site-url: "https://ohdsi.github.io/CommonDataModel/"
+  favicon: favicon.ico
+  navbar:
+    logo: ohdsi16x16.png
+    title: "OMOP Common Data Model"
+    left:
+      - icon: house
+        href: index.html
+      - text: "Background"
+        icon: bank
+        menu:
+          - text: "Model Background"
+            href: background.html
+          - text: "CDM Refresh Process"
+            href: cdmRefreshProcess.html
+          - text: "How the Vocabulary is Built"
+            href: vocabulary.html
+      - text: "Conventions"
+        icon: card-list
+        menu:
+          - text: "THEMIS Convention Library"
+            href: https://ohdsi.github.io/Themis
+          - text: "General Conventions"
+            href: dataModelConventions.html
+          - text: "Patient Privacy and OMOP"
+            href: cdmPrivacy.html
+          - text: "Custom Concepts"
+            href: customConcepts.html
+      - text: "CDM Versions"
+        icon: clock-history
+        menu:
+          - text: "CDM v3.0"
+            href: cdm30.html
+          - text: "CDM v5.3"
+            href: cdm53.html
+          - text: "CDM v5.4"
+            href: cdm54.html
+          - text: " - Changes from CDM v5.3"
+            href: cdm54Changes.html
+          - text: " - CDM v5.4 Entity Relationships"
+            href: cdm54erd.html
+          - text: " - CDM v5.4 Tooling Support"
+            href: cdm54ToolingSupport.html
+      - text: "CDM Additions"
+        icon: plus-square
+        menu:
+          - text: "Types of CDM Additions"
+            href: typesOfAdditions.html
+          - text: "How to Propose Changes to the CDM"
+            href: cdmRequestProcess.html
+          - text: "Accepted Changes"
+            href: https://github.com/OHDSI/CommonDataModel/tree/develop
+      - text: "How to"
+        icon: question-circle
+        menu:
+          - text: "Download the DDL"
+            href: download.html
+          - text: "Use the CDM R Package"
+            href: cdmRPackage.html
+          - text: "Calculate Drug Dose"
+            href: drug_dose.html
+      - text: "Support"
+        icon: life-preserver
+        menu:
+          - text: "Help! My Data Doesn't Fit!"
+            href: cdmDecisionTree.html
+          - text: "FAQ"
+            href: faq.html
+          - text: "SQL Scripts"
+            href: sqlScripts.html
+          - text: "Ask a Question"
+            href: contribute.html
+    right:
+      - icon: github
+        href: https://github.com/OHDSI/CommonDataModel
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: style.css
+    include-in-header:
+      - GA_analytics.html
+      - favicon.html

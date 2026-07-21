@@ -10,15 +10,12 @@ output:
 ---
 
 ```{r setup, include=FALSE, eval=TRUE}
-
-#todo figure out how to get the document dynamically without specifying the name
 library(rmarkdown)
 library(knitr)
 library(kableExtra)
 library(magrittr)
 library(dplyr)
 library(stringr)
-
 ```
 
 ## OMOP Common Data Model Documentation
