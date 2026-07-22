@@ -1,44 +1,115 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
 
-<head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
+<title>SQL Scripts – OMOP Common Data Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
 
-<title>SQL Scripts</title>
-
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./man/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -46,1044 +117,1415 @@
 
   gtag('config', 'G-37JJNBGH0H');
 </script>
-<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
+<link rel="shortcut icon" type="image/x-icon" href="man/favicon.ico">
 
 
-
-
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
-</style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
-
+<link rel="stylesheet" href="man/style.css">
 </head>
 
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-house"></span>
-     
-  </a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-landmark"></span>
-     
-    Background
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="background.html">Model Background</a>
-    </li>
-    <li>
-      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
-    </li>
-    <li>
-      <a href="vocabulary.html">How the Vocabulary is Built</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-list-alt"></span>
-     
-    Conventions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
-    </li>
-    <li>
-      <a href="dataModelConventions.html">General Conventions</a>
-    </li>
-    <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
-    </li>
-    <li>
-      <a href="customConcepts.html">Custom Concepts</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-history"></span>
-     
-    CDM Versions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdm30.html">CDM v3.0</a>
-    </li>
-    <li>
-      <a href="cdm53.html">CDM v5.3</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="cdm54.html">CDM v5.4</a>
-        </li>
-        <li>
-          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
-        </li>
-        <li>
-          <a href="cdm54erd.html">Entity Relationships</a>
-        </li>
-        <li>
-          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-plus-square"></span>
-     
-    CDM Additions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="typesOfAdditions.html">Types of CDM Additions</a>
-    </li>
-    <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-question"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="cdmRPackage.html">Use the CDM R Package</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-life-ring"></span>
-     
-    Support
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
-    </li>
-    <li>
-      <a href="faq.html">FAQ</a>
-    </li>
-    <li>
-      <a href="sqlScripts.html">SQL Scripts</a>
-    </li>
-    <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">SQL Scripts</h1>
-
-</div>
-
-
-<div id="sql-scripts" class="section level1">
-<h1><strong>SQL Scripts</strong></h1>
-<p>These SQL scripts have been developed by the community to facilitate
-the Extract, Transform, and Load (ETL) process from source data to the
-OMOP CDM.</p>
-<div id="vocabulary-mapping" class="section level2">
-<h2><strong>Vocabulary Mapping</strong></h2>
-<div id="source-to-standard" class="section level3">
-<h3>Source to Standard</h3>
-<p>This script will create a large table containing all source codes and
-the Standard Concepts they map to. By creating this table ahead of time
-and referencing it during ETL, you can save processing time than if you
-were to map source codes on the fly. It is important to note that this
-script will show ALL mappings, not just those to Standard, Valid
-Concepts. Be sure to add a filter that will only grab the correct
-Standard, Valid codes.</p>
-<pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.concept_name AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.INVALID_REASON AS SOURCE_INVALID_REASON, c1.concept_id AS TARGET_CONCEPT_ID, c1.concept_name AS TARGET_CONCEPT_NAME, c1.VOCABULARY_ID AS TARGET_VOCABULARY_ID, c1.domain_id AS TARGET_DOMAIN_ID, c1.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c1.INVALID_REASON AS TARGET_INVALID_REASON, c1.standard_concept AS TARGET_STANDARD_CONCEPT
-       FROM CONCEPT C
-             JOIN CONCEPT_RELATIONSHIP CR
-                        ON C.CONCEPT_ID = CR.CONCEPT_ID_1
-                        AND CR.invalid_reason IS NULL
-                        AND lower(cr.relationship_id) = &#39;maps to&#39;
-              JOIN CONCEPT C1
-                        ON CR.CONCEPT_ID_2 = C1.CONCEPT_ID
-                        AND C1.INVALID_REASON IS NULL
-       UNION
-       SELECT source_code, SOURCE_CONCEPT_ID, SOURCE_CODE_DESCRIPTION, source_vocabulary_id, c1.domain_id AS SOURCE_DOMAIN_ID, c2.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c1.VALID_START_DATE AS SOURCE_VALID_START_DATE, c1.VALID_END_DATE AS SOURCE_VALID_END_DATE, stcm.INVALID_REASON AS SOURCE_INVALID_REASON,target_concept_id, c2.CONCEPT_NAME AS TARGET_CONCEPT_NAME, target_vocabulary_id, c2.domain_id AS TARGET_DOMAIN_ID, c2.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c2.INVALID_REASON AS TARGET_INVALID_REASON, c2.standard_concept AS TARGET_STANDARD_CONCEPT
-       FROM source_to_concept_map stcm
-              LEFT OUTER JOIN CONCEPT c1
-                     ON c1.concept_id = stcm.source_concept_id
-              LEFT OUTER JOIN CONCEPT c2
-                     ON c2.CONCEPT_ID = stcm.target_concept_id
-       WHERE stcm.INVALID_REASON IS NULL
-</code></pre>
-</div>
-<div id="source-to-source" class="section level3">
-<h3>Source to Source</h3>
-<p>This script will create a large table containing all source codes and
-their referent Concepts. While you may be tempted to use the Source to
-Standard query to find these, it is important to use this one instead to
-populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple
-Standard Concepts though they have only one source Concept. By using the
-Source to Standard query you may inadvertently create duplicate records
-in your CDM instance.</p>
-<pre class="sql"><code>SELECT c.concept_code AS SOURCE_CODE, c.concept_id AS SOURCE_CONCEPT_ID, c.CONCEPT_NAME AS SOURCE_CODE_DESCRIPTION, c.vocabulary_id AS SOURCE_VOCABULARY_ID, c.domain_id AS SOURCE_DOMAIN_ID, c.concept_class_id AS SOURCE_CONCEPT_CLASS_ID, c.VALID_START_DATE AS SOURCE_VALID_START_DATE, c.VALID_END_DATE AS SOURCE_VALID_END_DATE, c.invalid_reason AS SOURCE_INVALID_REASON, c.concept_ID as TARGET_CONCEPT_ID, c.concept_name AS TARGET_CONCEPT_NAME, c.vocabulary_id AS TARGET_VOCABULARY_ID, c.domain_id AS TARGET_DOMAIN_ID, c.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c.INVALID_REASON AS TARGET_INVALID_REASON, c.STANDARD_CONCEPT AS TARGET_STANDARD_CONCEPT
-       FROM CONCEPT c
-       UNION
-       SELECT source_code, SOURCE_CONCEPT_ID, SOURCE_CODE_DESCRIPTION, source_vocabulary_id, c1.domain_id AS SOURCE_DOMAIN_ID, c2.CONCEPT_CLASS_ID AS SOURCE_CONCEPT_CLASS_ID, c1.VALID_START_DATE AS SOURCE_VALID_START_DATE, c1.VALID_END_DATE AS SOURCE_VALID_END_DATE,stcm.INVALID_REASON AS SOURCE_INVALID_REASON, target_concept_id, c2.CONCEPT_NAME AS TARGET_CONCEPT_NAME, target_vocabulary_id, c2.domain_id AS TARGET_DOMAIN_ID, c2.concept_class_id AS TARGET_CONCEPT_CLASS_ID, c2.INVALID_REASON AS TARGET_INVALID_REASON, c2.standard_concept AS TARGET_STANDARD_CONCEPT
-       FROM source_to_concept_map stcm
-              LEFT OUTER JOIN CONCEPT c1
-                     ON c1.concept_id = stcm.source_concept_id
-              LEFT OUTER JOIN CONCEPT c2
-                     ON c2.CONCEPT_ID = stcm.target_concept_id
-       WHERE stcm.INVALID_REASON IS NULL</code></pre>
-</div>
-</div>
-<div id="era-tables" class="section level2">
-<h2><strong>Era Tables</strong></h2>
-<div id="condition-eras" class="section level3">
-<h3>Condition Eras</h3>
-<p>This script will insert values into the CONDITION_ERA table given
-that the CONDITION_OCCURRENCE table is populated. It will string
-together condition records that have &lt;= 30 days between them into
-eras during which the Person is assumed to have the given condition.
-<strong>NOTE</strong> This query only works with 5.3 and below.</p>
-<pre class="sql"><code>/****************************************************
-OHDSI-SQL File Instructions
------------------------------
- 1. Set parameter name of schema that contains CDMv4 instance
-    (@SOURCE_CDMV4, @SOURCE_CDMV4_SCHEMA)
- 2. Set parameter name of schema that contains CDMv5 instance
-    (@TARGET_CDMV5, @TARGET_CDMV5_SCHEMA)
- 3. Run this script through SqlRender to produce a script that will work in your
-    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender
- 4. Run the script produced by SQL Render on your target RDBDMS.
-&lt;RDBMS&gt; File Instructions
--------------------------
- 1. This script will hold a number of placeholders for your CDM V4 and CDMV5
-    database/schema. In order to make this file work in your environment, you
-    should plan to do a global &quot;FIND AND REPLACE&quot; on this file to fill in the
-    file with values that pertain to your environment. The following are the
-    tokens you should use when doing your &quot;FIND AND REPLACE&quot; operation:
-    
-     [CDM]
-     [CDM].[CDMSCHEMA]
-    
-*********************************************************************************/
-/* SCRIPT PARAMETERS */
-
-    
-    {DEFAULT @TARGET_CDMV5 = &#39;[CDM]&#39; } -- The target CDMv5 database name
-    {DEFAULT @TARGET_CDMV5_SCHEMA = &#39;[CDM].[CDMSCHEMA]&#39; } -- the target CDMv5 database plus schema
-
-USE @TARGET_CDMV5;
-
-
-
-/****
-CONDITION ERA
-Note: Eras derived from CONDITION_OCCURRENCE table, using 30d gap
- ****/
-IF OBJECT_ID(&#39;tempdb..#condition_era_phase_1&#39;, &#39;U&#39;) IS NOT NULL
-    DROP TABLE #condition_era_phase_1;
-
-/* / */
-
-IF OBJECT_ID(&#39;tempdb..#cteConditionTarget&#39;, &#39;U&#39;) IS NOT NULL
-    DROP TABLE #cteConditionTarget;
-
-/* / */
-
--- create base eras from the concepts found in condition_occurrence
-SELECT co.PERSON_ID
-    ,co.condition_concept_id
-    ,co.CONDITION_START_DATE
-    ,COALESCE(co.CONDITION_END_DATE, DATEADD(day, 1, CONDITION_START_DATE)) AS CONDITION_END_DATE
-INTO #cteConditionTarget
-FROM @TARGET_CDMV5_SCHEMA.CONDITION_OCCURRENCE co;
-
-/* / */
-
-IF OBJECT_ID(&#39;tempdb..#cteCondEndDates&#39;, &#39;U&#39;) IS NOT NULL
-    DROP TABLE #cteCondEndDates;
-
-/* / */
-
-SELECT PERSON_ID
-    ,CONDITION_CONCEPT_ID
-    ,DATEADD(day, - 30, EVENT_DATE) AS END_DATE -- unpad the end date
-INTO #cteCondEndDates
-FROM (
-    SELECT E1.PERSON_ID
-        ,E1.CONDITION_CONCEPT_ID
-        ,E1.EVENT_DATE
-        ,COALESCE(E1.START_ORDINAL, MAX(E2.START_ORDINAL)) START_ORDINAL
-        ,E1.OVERALL_ORD
-    FROM (
-        SELECT PERSON_ID
-            ,CONDITION_CONCEPT_ID
-            ,EVENT_DATE
-            ,EVENT_TYPE
-            ,START_ORDINAL
-            ,ROW_NUMBER() OVER (
-                PARTITION BY PERSON_ID
-                ,CONDITION_CONCEPT_ID ORDER BY EVENT_DATE
-                    ,EVENT_TYPE
-                ) AS OVERALL_ORD -- this re-numbers the inner UNION so all rows are numbered ordered by the event date
-        FROM (
-            -- select the start dates, assigning a row number to each
-            SELECT PERSON_ID
-                ,CONDITION_CONCEPT_ID
-                ,CONDITION_START_DATE AS EVENT_DATE
-                ,- 1 AS EVENT_TYPE
-                ,ROW_NUMBER() OVER (
-                    PARTITION BY PERSON_ID
-                    ,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
-                    ) AS START_ORDINAL
-            FROM #cteConditionTarget
-
-            UNION ALL
-
-            -- pad the end dates by 30 to allow a grace period for overlapping ranges.
-            SELECT PERSON_ID
-                ,CONDITION_CONCEPT_ID
-                ,DATEADD(day, 30, CONDITION_END_DATE)
-                ,1 AS EVENT_TYPE
-                ,NULL
-            FROM #cteConditionTarget
-            ) RAWDATA
-        ) E1
-    INNER JOIN (
-        SELECT PERSON_ID
-            ,CONDITION_CONCEPT_ID
-            ,CONDITION_START_DATE AS EVENT_DATE
-            ,ROW_NUMBER() OVER (
-                PARTITION BY PERSON_ID
-                ,CONDITION_CONCEPT_ID ORDER BY CONDITION_START_DATE
-                ) AS START_ORDINAL
-        FROM #cteConditionTarget
-        ) E2 ON E1.PERSON_ID = E2.PERSON_ID
-        AND E1.CONDITION_CONCEPT_ID = E2.CONDITION_CONCEPT_ID
-        AND E2.EVENT_DATE &lt;= E1.EVENT_DATE
-    GROUP BY E1.PERSON_ID
-        ,E1.CONDITION_CONCEPT_ID
-        ,E1.EVENT_DATE
-        ,E1.START_ORDINAL
-        ,E1.OVERALL_ORD
-    ) E
-WHERE (2 * E.START_ORDINAL) - E.OVERALL_ORD = 0;
-
-/* / */
-
-IF OBJECT_ID(&#39;tempdb..#cteConditionEnds&#39;, &#39;U&#39;) IS NOT NULL
-    DROP TABLE #cteConditionEnds;
-
-/* / */
-
-SELECT c.PERSON_ID
-    ,c.CONDITION_CONCEPT_ID
-    ,c.CONDITION_START_DATE
-    ,MIN(e.END_DATE) AS ERA_END_DATE
-INTO #cteConditionEnds
-FROM #cteConditionTarget c
-INNER JOIN #cteCondEndDates e ON c.PERSON_ID = e.PERSON_ID
-    AND c.CONDITION_CONCEPT_ID = e.CONDITION_CONCEPT_ID
-    AND e.END_DATE &gt;= c.CONDITION_START_DATE
-GROUP BY c.PERSON_ID
-    ,c.CONDITION_CONCEPT_ID
-    ,c.CONDITION_START_DATE;
-
-/* / */
-
-INSERT INTO @TARGET_CDMV5_SCHEMA.condition_era (
-    condition_era_id
-    ,person_id
-    ,condition_concept_id
-    ,condition_era_start_date
-    ,condition_era_end_date
-    ,condition_occurrence_count
-    )
-SELECT row_number() OVER (
-        ORDER BY person_id
-        ) AS condition_era_id
-    ,person_id
-    ,CONDITION_CONCEPT_ID
-    ,min(CONDITION_START_DATE) AS CONDITION_ERA_START_DATE
-    ,ERA_END_DATE AS CONDITION_ERA_END_DATE
-    ,COUNT(*) AS CONDITION_OCCURRENCE_COUNT
-FROM #cteConditionEnds
-GROUP BY person_id
-    ,CONDITION_CONCEPT_ID
-    ,ERA_END_DATE;</code></pre>
-</div>
-<div id="drug-eras" class="section level3">
-<h3>Drug Eras</h3>
-<p>If the DRUG_EXPOSURE table is populated this script will string
-together periods of time that a person is exposed to an active drug
-ingredient, allowing for 30 gaps in between. It will then insert the
-resulting era records into the DRUG_ERA table. <strong>NOTE</strong>
-This query only works with the <strong>version 5</strong> series and
-below.</p>
-<pre class="sql"><code>
--- Code taken from:
--- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql
-
-
-if object_id(&#39;tempdb..#tmp_de&#39;, &#39;U&#39;) is not null drop table #tmp_de;
-
-WITH
-ctePreDrugTarget(drug_exposure_id, person_id, ingredient_concept_id, drug_exposure_start_date, days_supply, drug_exposure_end_date) AS
-(-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date
-    SELECT
-        d.drug_exposure_id
-        , d.person_id
-        , c.concept_id AS ingredient_concept_id
-        , d.drug_exposure_start_date AS drug_exposure_start_date
-        , d.days_supply AS days_supply
-        , COALESCE(
-            ---NULLIF returns NULL if both values are the same, otherwise it returns the first parameter
-            NULLIF(drug_exposure_end_date, NULL),
-            ---If drug_exposure_end_date != NULL, return drug_exposure_end_date, otherwise go to next case
-            NULLIF(dateadd(day,days_supply,drug_exposure_start_date), drug_exposure_start_date),
-            ---If days_supply != NULL or 0, return drug_exposure_start_date + days_supply, otherwise go to next case
-            dateadd(day,1,drug_exposure_start_date)
-            ---Add 1 day to the drug_exposure_start_date since there is no end_date or INTERVAL for the days_supply
-        ) AS drug_exposure_end_date
-    FROM @cdm_schema.drug_exposure d
-        JOIN @cdm_schema.concept_ancestor ca ON ca.descendant_concept_id = d.drug_concept_id
-        JOIN @cdm_schema.concept c ON ca.ancestor_concept_id = c.concept_id
-        WHERE c.vocabulary_id = &#39;RxNorm&#39; ---8 selects RxNorm from the vocabulary_id
-        AND c.concept_class_id = &#39;Ingredient&#39;
-        AND d.drug_concept_id != 0 ---Our unmapped drug_concept_id&#39;s are set to 0, so we don&#39;t want different drugs wrapped up in the same era
-        AND coalesce(d.days_supply,0) &gt;= 0 ---We have cases where days_supply is negative, and this can set the end_date before the start_date, which we don&#39;t want. So we&#39;re just looking over those rows. This is a data-quality issue.
-)
-
-, cteSubExposureEndDates (person_id, ingredient_concept_id, end_date) AS --- A preliminary sorting that groups all of the overlapping exposures into one exposure so that we don&#39;t double-count non-gap-days
-(
-    SELECT person_id, ingredient_concept_id, event_date AS end_date
-    FROM
-    (
-        SELECT person_id, ingredient_concept_id, event_date, event_type,
-        MAX(start_ordinal) OVER (PARTITION BY person_id, ingredient_concept_id
-            ORDER BY event_date, event_type ROWS unbounded preceding) AS start_ordinal,
-        -- this pulls the current START down from the prior rows so that the NULLs
-        -- from the END DATES will contain a value we can compare with
-            ROW_NUMBER() OVER (PARTITION BY person_id, ingredient_concept_id
-                ORDER BY event_date, event_type) AS overall_ord
-            -- this re-numbers the inner UNION so all rows are numbered ordered by the event date
-        FROM (
-            -- select the start dates, assigning a row number to each
-            SELECT person_id, ingredient_concept_id, drug_exposure_start_date AS event_date,
-            -1 AS event_type,
-            ROW_NUMBER() OVER (PARTITION BY person_id, ingredient_concept_id
-                ORDER BY drug_exposure_start_date) AS start_ordinal
-            FROM ctePreDrugTarget
-
-            UNION ALL
-
-            SELECT person_id, ingredient_concept_id, drug_exposure_end_date, 1 AS event_type, NULL
-            FROM ctePreDrugTarget
-        ) RAWDATA
-    ) e
-    WHERE (2 * e.start_ordinal) - e.overall_ord = 0
-)
-
-, cteDrugExposureEnds (person_id, drug_concept_id, drug_exposure_start_date, drug_sub_exposure_end_date) AS
-(
-SELECT
-    dt.person_id
-    , dt.ingredient_concept_id
-    , dt.drug_exposure_start_date
-    , MIN(e.end_date) AS drug_sub_exposure_end_date
-FROM ctePreDrugTarget dt
-JOIN cteSubExposureEndDates e ON dt.person_id = e.person_id AND dt.ingredient_concept_id = e.ingredient_concept_id AND e.end_date &gt;= dt.drug_exposure_start_date
-GROUP BY
-        dt.drug_exposure_id
-        , dt.person_id
-    , dt.ingredient_concept_id
-    , dt.drug_exposure_start_date
-)
---------------------------------------------------------------------------------------------------------------
-, cteSubExposures(row_number, person_id, drug_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count) AS
-(
-    SELECT ROW_NUMBER() OVER (PARTITION BY person_id, drug_concept_id, drug_sub_exposure_end_date ORDER BY person_id)
-        , person_id, drug_concept_id, MIN(drug_exposure_start_date) AS drug_sub_exposure_start_date, drug_sub_exposure_end_date, COUNT(*) AS drug_exposure_count
-    FROM cteDrugExposureEnds
-    GROUP BY person_id, drug_concept_id, drug_sub_exposure_end_date
-    --ORDER BY person_id, drug_concept_id
-)
---------------------------------------------------------------------------------------------------------------
-/*Everything above grouped exposures into sub_exposures if there was overlap between exposures.
- *So there was no persistence window. Now we can add the persistence window to calculate eras.
- */
---------------------------------------------------------------------------------------------------------------
-, cteFinalTarget(row_number, person_id, ingredient_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count, days_exposed) AS
-(
-    SELECT row_number, person_id, drug_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count
-        , datediff(day,drug_sub_exposure_start_date,drug_sub_exposure_end_date) AS days_exposed
-    FROM cteSubExposures
-)
---------------------------------------------------------------------------------------------------------------
-, cteEndDates (person_id, ingredient_concept_id, end_date) AS -- the magic
-(
-    SELECT person_id, ingredient_concept_id, dateadd(day,-30,event_date) AS end_date -- unpad the end date
-    FROM
-    (
-        SELECT person_id, ingredient_concept_id, event_date, event_type,
-        MAX(start_ordinal) OVER (PARTITION BY person_id, ingredient_concept_id
-            ORDER BY event_date, event_type ROWS UNBOUNDED PRECEDING) AS start_ordinal,
-        -- this pulls the current START down from the prior rows so that the NULLs
-        -- from the END DATES will contain a value we can compare with
-            ROW_NUMBER() OVER (PARTITION BY person_id, ingredient_concept_id
-                ORDER BY event_date, event_type) AS overall_ord
-            -- this re-numbers the inner UNION so all rows are numbered ordered by the event date
-        FROM (
-            -- select the start dates, assigning a row number to each
-            SELECT person_id, ingredient_concept_id, drug_sub_exposure_start_date AS event_date,
-            -1 AS event_type,
-            ROW_NUMBER() OVER (PARTITION BY person_id, ingredient_concept_id
-                ORDER BY drug_sub_exposure_start_date) AS start_ordinal
-            FROM cteFinalTarget
-
-            UNION ALL
-
-            -- pad the end dates by 30 to allow a grace period for overlapping ranges.
-            SELECT person_id, ingredient_concept_id, dateadd(day,30,drug_sub_exposure_end_date), 1 AS event_type, NULL
-            FROM cteFinalTarget
-        ) RAWDATA
-    ) e
-    WHERE (2 * e.start_ordinal) - e.overall_ord = 0
-
-)
-, cteDrugEraEnds (person_id, drug_concept_id, drug_sub_exposure_start_date, drug_era_end_date, drug_exposure_count, days_exposed) AS
-(
-SELECT
-    ft.person_id
-    , ft.ingredient_concept_id
-    , ft.drug_sub_exposure_start_date
-    , MIN(e.end_date) AS era_end_date
-    , drug_exposure_count
-    , days_exposed
-FROM cteFinalTarget ft
-JOIN cteEndDates e ON ft.person_id = e.person_id AND ft.ingredient_concept_id = e.ingredient_concept_id AND e.end_date &gt;= ft.drug_sub_exposure_start_date
-GROUP BY
-        ft.person_id
-    , ft.ingredient_concept_id
-    , ft.drug_sub_exposure_start_date
-    , drug_exposure_count
-    , days_exposed
-)
-SELECT
-    row_number()over(order by person_id) drug_era_id
-    , person_id
-    , drug_concept_id
-    , MIN(drug_sub_exposure_start_date) AS drug_era_start_date
-    , drug_era_end_date
-    , SUM(drug_exposure_count) AS drug_exposure_count
-    , datediff(day,MIN(drug_sub_exposure_start_date),drug_era_end_date)-SUM(days_exposed) as gap_days
-INTO #tmp_de
-FROM cteDrugEraEnds dee
-GROUP BY person_id, drug_concept_id, drug_era_end_date;
-
-INSERT INTO @cdm_schema.drug_era(drug_era_id,person_id, drug_concept_id, drug_era_start_date, drug_era_end_date, drug_exposure_count, gap_days)
-SELECT * FROM #tmp_de;</code></pre>
-</div>
-</div>
-<div id="example-etl-script" class="section level2">
-<h2><strong>Example ETL Script</strong></h2>
-<div id="cdm_source-table" class="section level3">
-<h3>CDM_SOURCE Table</h3>
-<p>The script below is an example for how to fill in the CDM_SOURCE
-table. This table is required for the <a
-href="https://github.com/OHDSI/DataQualityDashboard">Data Quality
-Dashboard</a> package to run.</p>
-<div id="v5.3" class="section level4">
-<h4>v5.3</h4>
-<p>This example was taken from the <a
-href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a
-good example on how to write a complete extract-transform-load script
-from start to finish, including vocabulary import.</p>
-<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
-    cdm_source_name,
-    cdm_source_abbreviation,
-    cdm_holder,
-    source_description,
-    source_documentation_reference,
-    cdm_etl_reference,
-    source_release_date,
-    cdm_release_date,
-    cdm_version,
-    vocabulary_version
-) 
-SELECT
-    &#39;Synthea synthetic health database&#39;,
-    &#39;Synthea&#39;,
-    &#39;OHDSI Community&#39;,
-    &#39;SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.&#39;,
-    &#39;https://synthetichealth.github.io/synthea/&#39;,
-    &#39;https://github.com/OHDSI/ETL-Synthea&#39;,
-    getdate(), -- NB: Set this value to the day the source data was pulled
-    getdate(), 
-    &#39;v5.3&#39;,
-    vocabulary_version
-FROM @cdm_schema.vocabulary 
-WHERE vocabulary_id = &#39;None&#39;;</code></pre>
-</div>
-<div id="v5.4" class="section level4">
-<h4>v5.4</h4>
-<pre class="sql"><code>INSERT INTO @cdm_schema.cdm_source (
-    cdm_source_name,
-    cdm_source_abbreviation,
-    cdm_holder,
-    source_description,
-    source_documentation_reference,
-    cdm_etl_reference,
-    source_release_date,
-    cdm_release_date,
-    cdm_version,
-    vocabulary_version,
-    vocabulary_version_concept_id
-) 
-SELECT
-    &#39;&lt;your_cdm_source_name&gt;&#39;,
-    &#39;&lt;your_cdm_source_abbreviation&gt;&#39;,
-    &#39;&lt;your_cdm_holder&gt;&#39;,
-    &#39;&lt;your_source_description&gt;&#39;,
-    &#39;&lt;your_source_documentation_reference&gt;&#39;,  -- e.g. link to source data dictionary
-    &#39;&lt;your_etl_reference&gt;&#39;,  -- e.g. link to ETL documentation
-    &#39;&lt;your_source_release_date&gt;&#39;,  -- when the source data was pulled
-    getdate(),  -- or the date of ETL run
-    &#39;v5.4&#39;,
-    vocabulary_version,
-    756265  -- &#39;OMOP CDM Version 5.4.0&#39;
-FROM @cdm_schema.vocabulary 
-WHERE vocabulary_id = &#39;None&#39;;</code></pre>
-</div>
-</div>
-</div>
-<div id="bonus-queries" class="section level2">
-<h2><strong>Bonus Queries</strong></h2>
-<div id="visit-concept-roll-up" class="section level3">
-<h3>Visit Concept Roll-up</h3>
-<p>The query below will utilize the Visit Concept hierarchy to find the
-highest-level ancestors. In the case that both the VISIT_OCCURRENCE and
-VISIT_DETAIL tables are populated, it is good practice (though not
-required) to use the highest-level ancestors as the VISIT_CONCEPT_IDs in
-the VISIT_OCCURRENCE table and their children as the
-VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship
-between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for
-standardized Visit logic to be written, building Visits from Visit
-Details. For more information on how this can be done, please see the <a
-href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum
-Extended ETL documentation</a>.</p>
-<pre class="sql"><code>SELECT concept_id, concept_name
-FROM concept 
-LEFT JOIN concept_ancestor 
-  ON concept_id=descendant_concept_id 
-  AND ancestor_concept_id!=descendant_concept_id
-WHERE domain_id=&#39;Visit&#39; 
-  AND standard_concept=&#39;S&#39;
-  AND ancestor_concept_id IS NULL</code></pre>
-</div>
-</div>
-</div>
-
-
-
-</div>
-</div>
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4,h5",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
     };
-    options.showAndHide = true;
-    options.smoothScroll = true;
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OMOP Common Data Model</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-background" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bank" role="img">
+</i> 
+ <span class="menu-text">Background</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-background">    
+        <li>
+    <a class="dropdown-item" href="./background.html">
+ <span class="dropdown-text">Model Background</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRefreshProcess.html">
+ <span class="dropdown-text">CDM Refresh Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./vocabulary.html">
+ <span class="dropdown-text">How the Vocabulary is Built</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conventions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-card-list" role="img">
+</i> 
+ <span class="menu-text">Conventions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conventions">    
+        <li>
+    <a class="dropdown-item" href="https://ohdsi.github.io/Themis"><i class="bi bi-box-arrow-up-right" role="img">
+</i> 
+ <span class="dropdown-text">THEMIS Convention Library</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./dataModelConventions.html">
+ <span class="dropdown-text">General Conventions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmPrivacy.html">
+ <span class="dropdown-text">Patient Privacy and OMOP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./customConcepts.html">
+ <span class="dropdown-text">Custom Concepts</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-versions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="menu-text">CDM Versions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-versions">    
+        <li>
+    <a class="dropdown-item" href="./cdm30.html">
+ <span class="dropdown-text">CDM v3.0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm53.html">
+ <span class="dropdown-text">CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54.html">
+ <span class="dropdown-text">CDM v5.4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54erd.html">
+ <span class="dropdown-text">- CDM v5.4 Entity Relationships</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54ToolingSupport.html">
+ <span class="dropdown-text">- CDM v5.4 Tooling Support</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-additions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-plus-square" role="img">
+</i> 
+ <span class="menu-text">CDM Additions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-additions">    
+        <li>
+    <a class="dropdown-item" href="./typesOfAdditions.html">
+ <span class="dropdown-text">Types of CDM Additions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRequestProcess.html">
+ <span class="dropdown-text">How to Propose Changes to the CDM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/OHDSI/CommonDataModel/tree/develop">
+ <span class="dropdown-text">Accepted Changes</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="menu-text">How to</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="./download.html">
+ <span class="dropdown-text">Download the DDL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRPackage.html">
+ <span class="dropdown-text">Use the CDM R Package</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">Calculate Drug Dose</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-life-preserver" role="img">
+</i> 
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="./cdmDecisionTree/cdmDecisionTree.html">
+ <span class="dropdown-text">Help! My Data Doesn’t Fit!</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./faq.html">
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sqlScripts.html">
+ <span class="dropdown-text">SQL Scripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./contribute.html">
+ <span class="dropdown-text">Ask a Question</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/OHDSI/CommonDataModel"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#vocabulary-mapping" id="toc-vocabulary-mapping" class="nav-link active" data-scroll-target="#vocabulary-mapping">Vocabulary Mapping</a>
+  <ul class="collapse">
+  <li><a href="#source-to-standard" id="toc-source-to-standard" class="nav-link" data-scroll-target="#source-to-standard">Source to Standard</a></li>
+  <li><a href="#source-to-source" id="toc-source-to-source" class="nav-link" data-scroll-target="#source-to-source">Source to Source</a></li>
+  </ul></li>
+  <li><a href="#era-tables" id="toc-era-tables" class="nav-link" data-scroll-target="#era-tables">Era Tables</a>
+  <ul class="collapse">
+  <li><a href="#condition-eras" id="toc-condition-eras" class="nav-link" data-scroll-target="#condition-eras">Condition Eras</a></li>
+  <li><a href="#drug-eras" id="toc-drug-eras" class="nav-link" data-scroll-target="#drug-eras">Drug Eras</a></li>
+  </ul></li>
+  <li><a href="#example-etl-script" id="toc-example-etl-script" class="nav-link" data-scroll-target="#example-etl-script">Example ETL Script</a>
+  <ul class="collapse">
+  <li><a href="#cdm_source-table" id="toc-cdm_source-table" class="nav-link" data-scroll-target="#cdm_source-table">CDM_SOURCE Table</a></li>
+  </ul></li>
+  <li><a href="#bonus-queries" id="toc-bonus-queries" class="nav-link" data-scroll-target="#bonus-queries">Bonus Queries</a>
+  <ul class="collapse">
+  <li><a href="#visit-concept-roll-up" id="toc-visit-concept-roll-up" class="nav-link" data-scroll-target="#visit-concept-roll-up">Visit Concept Roll-up</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SQL Scripts</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>These SQL scripts have been developed by the community to facilitate the Extract, Transform, and Load (ETL) process from source data to the OMOP CDM.</p>
+<section id="vocabulary-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="vocabulary-mapping">Vocabulary Mapping</h2>
+<section id="source-to-standard" class="level3">
+<h3 class="anchored" data-anchor-id="source-to-standard">Source to Standard</h3>
+<p>This script will create a large table containing all source codes and the Standard Concepts they map to. By creating this table ahead of time and referencing it during ETL, you can save processing time than if you were to map source codes on the fly. It is important to note that this script will show ALL mappings, not just those to Standard, Valid Concepts. Be sure to add a filter that will only grab the correct Standard, Valid codes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  c.concept_code <span class="kw">AS</span> source_code,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  c.concept_id <span class="kw">AS</span> source_concept_id,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  c.concept_name <span class="kw">AS</span> source_code_description,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  c.vocabulary_id <span class="kw">AS</span> source_vocabulary_id,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  c.domain_id <span class="kw">AS</span> source_domain_id,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  c.concept_class_id <span class="kw">AS</span> source_concept_class_id,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  c.valid_start_date <span class="kw">AS</span> source_valid_start_date,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  c.valid_end_date <span class="kw">AS</span> source_valid_end_date,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  c.invalid_reason <span class="kw">AS</span> source_invalid_reason,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  c1.concept_id <span class="kw">AS</span> target_concept_id,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  c1.concept_name <span class="kw">AS</span> target_concept_name,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  c1.vocabulary_id <span class="kw">AS</span> target_vocabulary_id,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  c1.domain_id <span class="kw">AS</span> target_domain_id,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  c1.concept_class_id <span class="kw">AS</span> target_concept_class_id,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  c1.invalid_reason <span class="kw">AS</span> target_invalid_reason,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  c1.standard_concept <span class="kw">AS</span> target_standard_concept</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> concept c</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> concept_relationship cr</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c.concept_id <span class="op">=</span> cr.concept_id_1</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> cr.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> cr.relationship_id <span class="op">=</span> <span class="st">'Maps to'</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> concept c1</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> cr.concept_id_2 <span class="op">=</span> c1.concept_id</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> c1.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">UNION</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  stcm.source_code,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  stcm.source_concept_id,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  stcm.source_code_description,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  stcm.source_vocabulary_id,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  c1.domain_id <span class="kw">AS</span> source_domain_id,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  c1.concept_class_id <span class="kw">AS</span> source_concept_class_id,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  c1.valid_start_date <span class="kw">AS</span> source_valid_start_date,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  c1.valid_end_date <span class="kw">AS</span> source_valid_end_date,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  stcm.invalid_reason <span class="kw">AS</span> source_invalid_reason,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  stcm.target_concept_id,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  c2.concept_name <span class="kw">AS</span> target_concept_name,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  stcm.target_vocabulary_id,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  c2.domain_id <span class="kw">AS</span> target_domain_id,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  c2.concept_class_id <span class="kw">AS</span> target_concept_class_id,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  c2.invalid_reason <span class="kw">AS</span> target_invalid_reason,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  c2.standard_concept <span class="kw">AS</span> target_standard_concept</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> source_to_concept_map stcm</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> concept c1</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c1.concept_id <span class="op">=</span> stcm.source_concept_id</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> concept c2</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c2.concept_id <span class="op">=</span> stcm.target_concept_id</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="source-to-source" class="level3">
+<h3 class="anchored" data-anchor-id="source-to-source">Source to Source</h3>
+<p>This script will create a large table containing all source codes and their referent Concepts. While you may be tempted to use the Source to Standard query to find these, it is important to use this one instead to populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple Standard Concepts though they have only one source Concept. By using the Source to Standard query you may inadvertently create duplicate records in your CDM instance.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  c.concept_code <span class="kw">AS</span> source_code,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  c.concept_id <span class="kw">AS</span> source_concept_id,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  c.concept_name <span class="kw">AS</span> source_code_description,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  c.vocabulary_id <span class="kw">AS</span> source_vocabulary_id,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  c.domain_id <span class="kw">AS</span> source_domain_id,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  c.concept_class_id <span class="kw">AS</span> source_concept_class_id,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  c.valid_start_date <span class="kw">AS</span> source_valid_start_date,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  c.valid_end_date <span class="kw">AS</span> source_valid_end_date,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  c.invalid_reason <span class="kw">AS</span> source_invalid_reason,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  c.concept_id <span class="kw">AS</span> target_concept_id,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  c.concept_name <span class="kw">AS</span> target_concept_name,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  c.vocabulary_id <span class="kw">AS</span> target_vocabulary_id,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  c.domain_id <span class="kw">AS</span> target_domain_id,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  c.concept_class_id <span class="kw">AS</span> target_concept_class_id,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  c.invalid_reason <span class="kw">AS</span> target_invalid_reason,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  c.standard_concept <span class="kw">AS</span> target_standard_concept</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> concept c</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">UNION</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  source_code,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  source_concept_id,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  source_code_description,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  source_vocabulary_id,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  c1.domain_id <span class="kw">AS</span> source_domain_id,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  c1.concept_class_id <span class="kw">AS</span> source_concept_class_id,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  c1.valid_start_date <span class="kw">AS</span> source_valid_start_date,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  c1.valid_end_date <span class="kw">AS</span> source_valid_end_date,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  stcm.invalid_reason <span class="kw">AS</span> source_invalid_reason,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  stcm.target_concept_id,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  c2.concept_name <span class="kw">AS</span> target_concept_name,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  stcm.target_vocabulary_id <span class="kw">AS</span> target_vocabulary_id,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  c2.domain_id <span class="kw">AS</span> target_domain_id,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  c2.concept_class_id <span class="kw">AS</span> target_concept_class_id,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  c2.invalid_reason <span class="kw">AS</span> target_invalid_reason,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  c2.standard_concept <span class="kw">AS</span> target_standard_concept</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> source_to_concept_map stcm</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> concept c1</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c1.concept_id <span class="op">=</span> stcm.source_concept_id</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> concept c2</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c2.concept_id <span class="op">=</span> stcm.target_concept_id</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="era-tables" class="level2">
+<h2 class="anchored" data-anchor-id="era-tables">Era Tables</h2>
+<section id="condition-eras" class="level3">
+<h3 class="anchored" data-anchor-id="condition-eras">Condition Eras</h3>
+<p>This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have &lt;= 30 days between them into eras during which the Person is assumed to have the given condition. <strong>NOTE</strong> This query only works with 5.3 and below.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/****************************************************</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">OHDSI-SQL File Instructions</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">-----------------------------</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> 1. Set parameter name of schema that contains CDMv4 instance</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">    (@SOURCE_CDMV4, @SOURCE_CDMV4_SCHEMA)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"> 2. Set parameter name of schema that contains CDMv5 instance</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    (@TARGET_CDMV5, @TARGET_CDMV5_SCHEMA)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"> 3. Run this script through SqlRender to produce a script that will work in your</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    source dialect. SqlRender can be found here: https://github.com/OHDSI/SqlRender</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"> 4. Run the script produced by SQL Render on your target RDBDMS.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;RDBMS&gt; File Instructions</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">-------------------------</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"> 1. This script will hold a number of placeholders for your CDM V4 and CDMV5</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">    database/schema. In order to make this file work in your environment, you</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">    should plan to do a global "FIND AND REPLACE" on this file to fill in the</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">    file with values that pertain to your environment. The following are the</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">    tokens you should use when doing your "FIND AND REPLACE" operation:</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">     [CDM]</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">     [CDM].[CDMSCHEMA]</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">*********************************************************************************/</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">/* SCRIPT PARAMETERS */</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    {<span class="kw">DEFAULT</span> @TARGET_CDMV5 <span class="op">=</span> <span class="st">'[CDM]'</span> } <span class="co">-- The target CDMv5 database name</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    {<span class="kw">DEFAULT</span> @TARGET_CDMV5_SCHEMA <span class="op">=</span> <span class="st">'[CDM].[CDMSCHEMA]'</span> } <span class="co">-- the target CDMv5 database plus schema</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">USE</span> @TARGET_CDMV5;</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">/****</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">CONDITION ERA</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">Note: Eras derived from CONDITION_OCCURRENCE table, using 30d gap</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"> ****/</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="cf">IF</span> OBJECT_ID(<span class="st">'tempdb..#condition_era_phase_1'</span>, <span class="st">'U'</span>) <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> #condition_era_phase_1;</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="cf">IF</span> OBJECT_ID(<span class="st">'tempdb..#cteConditionTarget'</span>, <span class="st">'U'</span>) <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> #cteConditionTarget;</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">-- create base eras from the concepts found in condition_occurrence</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  co.person_id,</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  co.condition_concept_id,</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  co.condition_start_date,</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COALESCE</span>(co.condition_end_date, DATEADD(<span class="dt">day</span>, <span class="dv">1</span>, condition_start_date)) <span class="kw">AS</span> condition_end_date</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #cteConditionTarget</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> @TARGET_CDMV5_SCHEMA.CONDITION_OCCURRENCE co;</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="cf">IF</span> OBJECT_ID(<span class="st">'tempdb..#cteCondEndDates'</span>, <span class="st">'U'</span>) <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> #cteCondEndDates;</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  person_id,</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  condition_concept_id,</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  DATEADD(<span class="dt">day</span>, <span class="op">-</span> <span class="dv">30</span>, event_date) <span class="kw">AS</span> end_date <span class="co">-- unpad the end date</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #cteCondEndDates</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> (</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    e1.person_id,</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    e1.condition_concept_id,</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    e1.event_date,</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COALESCE</span>(e1.start_ordinal, <span class="fu">MAX</span>(e2.start_ordinal)) start_ordinal,</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    e1.overall_ord</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> (</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>      condition_concept_id,</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>      start_ordinal,</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> person_id</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        ,condition_concept_id <span class="kw">ORDER</span> <span class="kw">BY</span> event_date</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>          ,event_type</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        ) <span class="kw">AS</span> overall_ord <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        condition_concept_id,</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>        condition_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>          <span class="kw">PARTITION</span> <span class="kw">BY</span> person_id</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>          ,condition_concept_id <span class="kw">ORDER</span> <span class="kw">BY</span> condition_start_date</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>          ) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> #cteConditionTarget</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- pad the end dates by 30 to allow a grace period for overlapping ranges.</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>        condition_concept_id,</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>        DATEADD(<span class="dt">day</span>, <span class="dv">30</span>, condition_end_date),</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> #cteConditionTarget</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>  ) e1</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">INNER</span> <span class="kw">JOIN</span> (</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>      condition_concept_id,</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>      condition_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> person_id</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>        ,condition_concept_id <span class="kw">ORDER</span> <span class="kw">BY</span> condition_start_date</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>        ) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> #cteConditionTarget</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  ) e2 <span class="kw">ON</span> e1.person_id <span class="op">=</span> e2.person_id</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> e1.condition_concept_id <span class="op">=</span> e2.condition_concept_id</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> e2.event_date <span class="op">&lt;=</span> e1.event_date</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> e1.person_id</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>    ,e1.condition_concept_id</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    ,e1.event_date</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>    ,e1.start_ordinal</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    ,e1.overall_ord</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>) e</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span>;</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="cf">IF</span> OBJECT_ID(<span class="st">'tempdb..#cteConditionEnds'</span>, <span class="st">'U'</span>) <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> #cteConditionEnds;</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>  c.person_id,</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>  c.condition_concept_id,</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>  c.condition_start_date,</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> era_end_date</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #cteConditionEnds</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #cteConditionTarget c</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="kw">INNER</span> <span class="kw">JOIN</span> #cteCondEndDates e <span class="kw">ON</span> c.person_id <span class="op">=</span> e.person_id</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> c.condition_concept_id <span class="op">=</span> e.condition_concept_id</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> c.condition_start_date</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> c.person_id</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>  ,c.condition_concept_id</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>  ,c.condition_start_date;</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="co">/* / */</span></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @TARGET_CDMV5_SCHEMA.condition_era (</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>  condition_era_id</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>  ,person_id</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>  ,condition_concept_id</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>  ,condition_era_start_date</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>  ,condition_era_end_date</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>  ,condition_occurrence_count</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_number</span>() <span class="kw">OVER</span> (</span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> person_id</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>  ) <span class="kw">AS</span> condition_era_id,</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>  person_id,</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>  condition_concept_id,</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min</span>(condition_start_date) <span class="kw">AS</span> condition_era_start_date,</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>  era_end_date <span class="kw">AS</span> condition_era_end_date,</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> condition_occurrence_count</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #cteConditionEnds</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>  ,condition_concept_id</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>  ,era_end_date;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="drug-eras" class="level3">
+<h3 class="anchored" data-anchor-id="drug-eras">Drug Eras</h3>
+<p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. <strong>NOTE</strong> This query only works with the <strong>version 5</strong> series and below.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Code taken from:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> object_id(<span class="st">'tempdb..#tmp_de'</span>, <span class="st">'U'</span>) <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">drop</span> <span class="kw">table</span> #tmp_de;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ctePreDrugTarget(drug_exposure_id, person_id, ingredient_concept_id, drug_exposure_start_date, days_supply, drug_exposure_end_date) <span class="kw">AS</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>(<span class="co">-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_id,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    d.person_id,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    c.concept_id <span class="kw">AS</span> ingredient_concept_id,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_start_date <span class="kw">AS</span> drug_exposure_start_date,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    d.days_supply <span class="kw">AS</span> days_supply,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COALESCE</span>(</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="co">---NULLIF returns NULL if both values are the same, otherwise it returns the first parameter</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(drug_exposure_end_date, <span class="kw">NULL</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If drug_exposure_end_date != NULL, return drug_exposure_end_date, otherwise go to next case</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(dateadd(<span class="dt">day</span>,days_supply,drug_exposure_start_date), drug_exposure_start_date),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If days_supply != NULL or 0, return drug_exposure_start_date + days_supply, otherwise go to next case</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      dateadd(<span class="dt">day</span>,<span class="dv">1</span>,drug_exposure_start_date)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      <span class="co">---Add 1 day to the drug_exposure_start_date since there is no end_date or INTERVAL for the days_supply</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    ) <span class="kw">AS</span> drug_exposure_end_date</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> @cdm_schema.drug_exposure d</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept_ancestor ca <span class="kw">ON</span> ca.descendant_concept_id <span class="op">=</span> d.drug_concept_id</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept c <span class="kw">ON</span> ca.ancestor_concept_id <span class="op">=</span> c.concept_id</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> c.vocabulary_id <span class="op">=</span> <span class="st">'RxNorm'</span> <span class="co">---8 selects RxNorm from the vocabulary_id</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> c.concept_class_id <span class="op">=</span> <span class="st">'Ingredient'</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> d.drug_concept_id <span class="op">!=</span> <span class="dv">0</span> <span class="co">---Our unmapped drug_concept_id's are set to 0, so we don't want different drugs wrapped up in the same era</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> <span class="fu">coalesce</span>(d.days_supply,<span class="dv">0</span>) <span class="op">&gt;=</span> <span class="dv">0</span> <span class="co">---We have cases where days_supply is negative, and this can set the end_date before the start_date, which we don't want. So we're just looking over those rows. This is a data-quality issue.</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>, cteSubExposureEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">--- A preliminary sorting that groups all of the overlapping exposures into one exposure so that we don't double-count non-gap-days</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    event_date <span class="kw">AS</span> end_date</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  (</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">unbounded</span> <span class="kw">preceding</span>) <span class="kw">AS</span> start_ordinal,</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        drug_exposure_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        drug_exposure_end_date,</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  ) e</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>, cteDrugExposureEnds (person_id, drug_concept_id, drug_exposure_start_date, drug_sub_exposure_end_date) <span class="kw">AS</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  dt.person_id,</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  dt.ingredient_concept_id,</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_start_date,</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> drug_sub_exposure_end_date</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ctePreDrugTarget dt</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> cteSubExposureEndDates e <span class="kw">ON</span> dt.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> dt.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> dt.drug_exposure_start_date</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_id</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  , dt.person_id</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  , dt.ingredient_concept_id</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  , dt.drug_exposure_start_date</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>, cteSubExposures(<span class="fu">row_number</span>, person_id, drug_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count) <span class="kw">AS</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date <span class="kw">ORDER</span> <span class="kw">BY</span> person_id),</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(drug_exposure_start_date) <span class="kw">AS</span> drug_sub_exposure_start_date,</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> drug_exposure_count</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteDrugExposureEnds</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>  <span class="co">--ORDER BY person_id, drug_concept_id</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co">/*Everything above grouped exposures into sub_exposures if there was overlap between exposures.</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="co"> *So there was no persistence window. Now we can add the persistence window to calculate eras.</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>, cteFinalTarget(<span class="fu">row_number</span>, person_id, ingredient_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">row_number</span>,</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_start_date,</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    datediff(<span class="dt">day</span>,drug_sub_exposure_start_date,drug_sub_exposure_end_date) <span class="kw">AS</span> days_exposed</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteSubExposures</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>, cteEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">-- the magic</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>    dateadd(<span class="dt">day</span>,<span class="op">-</span><span class="dv">30</span>,event_date) <span class="kw">AS</span> end_date <span class="co">-- unpad the end date</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>  (</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">UNBOUNDED</span> <span class="kw">PRECEDING</span>) <span class="kw">AS</span> start_ordinal,</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>        drug_sub_exposure_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_sub_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- pad the end dates by 30 to allow a grace period for overlapping ranges.</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>        dateadd(<span class="dt">day</span>,<span class="dv">30</span>,drug_sub_exposure_end_date),</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>  ) e</span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>, cteDrugEraEnds (person_id, drug_concept_id, drug_sub_exposure_start_date, drug_era_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    ft.person_id,</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>    ft.ingredient_concept_id,</span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>    ft.drug_sub_exposure_start_date,</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> era_end_date,</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>    days_exposed</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteFinalTarget ft</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> cteEndDates e <span class="kw">ON</span> ft.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> ft.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> ft.drug_sub_exposure_start_date</span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>    ft.person_id</span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>    , ft.ingredient_concept_id</span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>    , ft.drug_sub_exposure_start_date</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>    , drug_exposure_count</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>    , days_exposed</span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_number</span>()<span class="kw">over</span>(<span class="kw">order</span> <span class="kw">by</span> person_id) drug_era_id,</span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a>  person_id,</span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>  drug_concept_id,</span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(drug_sub_exposure_start_date) <span class="kw">AS</span> drug_era_start_date,</span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>  drug_era_end_date,</span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SUM</span>(drug_exposure_count) <span class="kw">AS</span> drug_exposure_count,</span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>  datediff(<span class="dt">day</span>,<span class="fu">MIN</span>(drug_sub_exposure_start_date),drug_era_end_date)<span class="op">-</span><span class="fu">SUM</span>(days_exposed) <span class="kw">AS</span> gap_days</span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #tmp_de</span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> cteDrugEraEnds dee</span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_era_end_date;</span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.drug_era(drug_era_id,person_id, drug_concept_id, drug_era_start_date, drug_era_end_date, drug_exposure_count, gap_days)</span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #tmp_de;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="example-etl-script" class="level2">
+<h2 class="anchored" data-anchor-id="example-etl-script">Example ETL Script</h2>
+<section id="cdm_source-table" class="level3">
+<h3 class="anchored" data-anchor-id="cdm_source-table">CDM_SOURCE Table</h3>
+<p>The script below is an example for how to fill in the CDM_SOURCE table. This table is required for the <a href="https://github.com/OHDSI/DataQualityDashboard">Data Quality Dashboard</a> package to run.</p>
+<section id="v5.3" class="level4">
+<h4 class="anchored" data-anchor-id="v5.3">v5.3</h4>
+<p>This example was taken from the <a href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  cdm_source_name,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  cdm_source_abbreviation,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  cdm_holder,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  source_description,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  source_documentation_reference,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  cdm_etl_reference,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  source_release_date,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  cdm_release_date,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  cdm_version,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  vocabulary_version</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Synthea synthetic health database'</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Synthea'</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">'OHDSI Community'</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">'SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.'</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://synthetichealth.github.io/synthea/'</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://github.com/OHDSI/ETL-Synthea'</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  getdate(), <span class="co">-- NB: Set this value to the day the source data was pulled</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  getdate(),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">'v5.3'</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  vocabulary_version</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> @cdm_schema.vocabulary</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="v5.4" class="level4">
+<h4 class="anchored" data-anchor-id="v5.4">v5.4</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  cdm_source_name,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  cdm_source_abbreviation,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  cdm_holder,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  source_description,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  source_documentation_reference,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  cdm_etl_reference,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  source_release_date,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  cdm_release_date,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  cdm_version,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  vocabulary_version,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  vocabulary_version_concept_id</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_cdm_source_name&gt;'</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_cdm_source_abbreviation&gt;'</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_cdm_holder&gt;'</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_source_description&gt;'</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_source_documentation_reference&gt;'</span>,  <span class="co">-- e.g. link to source data dictionary</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_etl_reference&gt;'</span>,  <span class="co">-- e.g. link to ETL documentation</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_source_release_date&gt;'</span>,  <span class="co">-- when the source data was pulled</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  getdate(),  <span class="co">-- or the date of ETL run</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">'v5.4'</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  vocabulary_version,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="dv">756265</span>  <span class="co">-- 'OMOP CDM Version 5.4.0'</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> @cdm_schema.vocabulary</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="bonus-queries" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-queries">Bonus Queries</h2>
+<section id="visit-concept-roll-up" class="level3">
+<h3 class="anchored" data-anchor-id="visit-concept-roll-up">Visit Concept Roll-up</h3>
+<p>The query below will utilize the Visit Concept hierarchy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors AS the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children AS the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the <a href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum Extended ETL documentation</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  concept_id,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  concept_name</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> concept</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> concept_ancestor</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> concept_id<span class="op">=</span>descendant_concept_id</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> ancestor_concept_id<span class="op">!=</span>descendant_concept_id</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> domain_id<span class="op">=</span><span class="st">'Visit'</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> standard_concept<span class="op">=</span><span class="st">'S'</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> ancestor_concept_id <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ohdsi\.github\.io\/CommonDataModel\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

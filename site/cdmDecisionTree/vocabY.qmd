@@ -1,0 +1,7 @@
+---
+title: "Request Process"
+format: html
+---
+Great, so you have a network use case and an existing OMOP Vocabulary! **From here, please follow the steps to formally request a change to the OMOP Common Data Model.**
+
+[CDM Request Process](../cdmRequestProcess.html)
