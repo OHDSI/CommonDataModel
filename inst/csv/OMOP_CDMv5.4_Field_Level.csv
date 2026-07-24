@@ -542,7 +542,7 @@ cohort,cohort_definition_id,Yes,integer,NA,NA,No,No,NA,NA,NA,NA,NA
 cohort,subject_id,Yes,integer,NA,NA,No,No,NA,NA,NA,NA,NA
 cohort,cohort_start_date,Yes,date,NA,NA,No,No,NA,NA,NA,NA,NA
 cohort,cohort_end_date,Yes,date,NA,NA,No,No,NA,NA,NA,NA,NA
-cohort_definition,cohort_definition_id,Yes,integer,"This is the identifier given to the cohort, usually by the ATLAS application",NA,No,No,NA,NA,NA,NA,NA
+cohort_definition,cohort_definition_id,Yes,integer,"This is the identifier given to the cohort, usually by the ATLAS application",NA,Yes,No,NA,NA,NA,NA,NA
 cohort_definition,cohort_definition_name,Yes,varchar(255),A short description of the cohort,NA,No,No,NA,NA,NA,NA,NA
 cohort_definition,cohort_definition_description,No,varchar(MAX),A complete description of the cohort.,NA,No,No,NA,NA,NA,NA,NA
 cohort_definition,definition_type_concept_id,Yes,integer,Type defining what kind of Cohort Definition the record represents and how the syntax may be executed.,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA

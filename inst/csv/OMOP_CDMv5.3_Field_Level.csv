@@ -501,7 +501,7 @@ recorded. The default value is
 1-Jan-1970.",NA,No,No,NA,NA,NA,NA,NA
 drug_strength,valid_end_date,Yes,date,The date when then Concept became invalid.,NA,No,No,NA,NA,NA,NA,NA
 drug_strength,invalid_reason,No,varchar(1),"Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value.",NA,No,No,NA,NA,NA,NA,NA
-cohort_definition,cohort_definition_id,Yes,integer,"This is the identifier given to the cohort, usually by the ATLAS application",NA,No,No,NA,NA,NA,NA,NA
+cohort_definition,cohort_definition_id,Yes,integer,"This is the identifier given to the cohort, usually by the ATLAS application",NA,Yes,No,NA,NA,NA,NA,NA
 cohort_definition,cohort_definition_name,Yes,varchar(255),A short description of the cohort,NA,No,No,NA,NA,NA,NA,NA
 cohort_definition,cohort_definition_description,No,varchar(MAX),A complete description of the cohort.,NA,No,No,NA,NA,NA,NA,NA
 cohort_definition,definition_type_concept_id,Yes,integer,Type defining what kind of Cohort Definition the record represents and how the syntax may be executed.,NA,No,Yes,CONCEPT,CONCEPT_ID,NA,NA,NA

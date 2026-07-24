@@ -27,3 +27,4 @@ ALTER TABLE @cdmDatabaseSchema.vocabulary ADD CONSTRAINT xpk_vocabulary PRIMARY 
 ALTER TABLE @cdmDatabaseSchema.domain ADD CONSTRAINT xpk_domain PRIMARY KEY (domain_id);
 ALTER TABLE @cdmDatabaseSchema.concept_class ADD CONSTRAINT xpk_concept_class PRIMARY KEY (concept_class_id);
 ALTER TABLE @cdmDatabaseSchema.relationship ADD CONSTRAINT xpk_relationship PRIMARY KEY (relationship_id);
+ALTER TABLE @cdmDatabaseSchema.cohort_definition ADD CONSTRAINT xpk_cohort_definition PRIMARY KEY (cohort_definition_id);
