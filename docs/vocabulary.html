@@ -1,44 +1,80 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
 
-<head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
+<title>How the Vocabulary is Built – OMOP Common Data Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
 
-<title>How the Vocabulary is Built</title>
-
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./man/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -46,481 +82,416 @@
 
   gtag('config', 'G-37JJNBGH0H');
 </script>
-<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
+<link rel="shortcut icon" type="image/x-icon" href="man/favicon.ico">
 
 
-
-
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
-</style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
-
+<link rel="stylesheet" href="man/style.css">
 </head>
 
-<body>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
-
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OMOP Common Data Model</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-background" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bank" role="img">
+</i> 
+ <span class="menu-text">Background</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-background">    
+        <li>
+    <a class="dropdown-item" href="./background.html">
+ <span class="dropdown-text">Model Background</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRefreshProcess.html">
+ <span class="dropdown-text">CDM Refresh Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./vocabulary.html">
+ <span class="dropdown-text">How the Vocabulary is Built</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conventions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-card-list" role="img">
+</i> 
+ <span class="menu-text">Conventions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conventions">    
+        <li>
+    <a class="dropdown-item" href="https://ohdsi.github.io/Themis"><i class="bi bi-box-arrow-up-right" role="img">
+</i> 
+ <span class="dropdown-text">THEMIS Convention Library</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./dataModelConventions.html">
+ <span class="dropdown-text">General Conventions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmPrivacy.html">
+ <span class="dropdown-text">Patient Privacy and OMOP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./customConcepts.html">
+ <span class="dropdown-text">Custom Concepts</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-versions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="menu-text">CDM Versions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-versions">    
+        <li>
+    <a class="dropdown-item" href="./cdm30.html">
+ <span class="dropdown-text">CDM v3.0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm53.html">
+ <span class="dropdown-text">CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54.html">
+ <span class="dropdown-text">CDM v5.4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54erd.html">
+ <span class="dropdown-text">- CDM v5.4 Entity Relationships</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54ToolingSupport.html">
+ <span class="dropdown-text">- CDM v5.4 Tooling Support</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-additions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-plus-square" role="img">
+</i> 
+ <span class="menu-text">CDM Additions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-additions">    
+        <li>
+    <a class="dropdown-item" href="./typesOfAdditions.html">
+ <span class="dropdown-text">Types of CDM Additions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRequestProcess.html">
+ <span class="dropdown-text">How to Propose Changes to the CDM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/OHDSI/CommonDataModel/tree/develop">
+ <span class="dropdown-text">Accepted Changes</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="menu-text">How to</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="./download.html">
+ <span class="dropdown-text">Download the DDL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRPackage.html">
+ <span class="dropdown-text">Use the CDM R Package</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">Calculate Drug Dose</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-life-preserver" role="img">
+</i> 
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="./cdmDecisionTree/cdmDecisionTree.html">
+ <span class="dropdown-text">Help! My Data Doesn’t Fit!</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./faq.html">
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sqlScripts.html">
+ <span class="dropdown-text">SQL Scripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./contribute.html">
+ <span class="dropdown-text">Ask a Question</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/OHDSI/CommonDataModel"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#mapping-of-concepts" id="toc-mapping-of-concepts" class="nav-link active" data-scroll-target="#mapping-of-concepts">Mapping of Concepts</a>
+  <ul class="collapse">
+  <li><a href="#maps-to-relationships" id="toc-maps-to-relationships" class="nav-link" data-scroll-target="#maps-to-relationships">“Maps to” Relationships</a>
+  <ul class="collapse">
+  <li><a href="#examples-of-usage" id="toc-examples-of-usage" class="nav-link" data-scroll-target="#examples-of-usage">Examples of usage:</a></li>
+  </ul></li>
+  <li><a href="#maps-to-value-relationships" id="toc-maps-to-value-relationships" class="nav-link" data-scroll-target="#maps-to-value-relationships">“Maps to value” Relationships</a></li>
+  <li><a href="#losses-in-mapping" id="toc-losses-in-mapping" class="nav-link" data-scroll-target="#losses-in-mapping">“Losses” in Mapping</a></li>
+  <li><a href="#rules-for-condition-mapping" id="toc-rules-for-condition-mapping" class="nav-link" data-scroll-target="#rules-for-condition-mapping">RULES FOR CONDITION MAPPING</a></li>
+  <li><a href="#condition-mapping-algorithm" id="toc-condition-mapping-algorithm" class="nav-link" data-scroll-target="#condition-mapping-algorithm">CONDITION MAPPING ALGORITHM</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-house"></span>
-     
-  </a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-landmark"></span>
-     
-    Background
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="background.html">Model Background</a>
-    </li>
-    <li>
-      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
-    </li>
-    <li>
-      <a href="vocabulary.html">How the Vocabulary is Built</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-list-alt"></span>
-     
-    Conventions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
-    </li>
-    <li>
-      <a href="dataModelConventions.html">General Conventions</a>
-    </li>
-    <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
-    </li>
-    <li>
-      <a href="customConcepts.html">Custom Concepts</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-history"></span>
-     
-    CDM Versions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdm30.html">CDM v3.0</a>
-    </li>
-    <li>
-      <a href="cdm53.html">CDM v5.3</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="cdm54.html">CDM v5.4</a>
-        </li>
-        <li>
-          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
-        </li>
-        <li>
-          <a href="cdm54erd.html">Entity Relationships</a>
-        </li>
-        <li>
-          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-plus-square"></span>
-     
-    CDM Additions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="typesOfAdditions.html">Types of CDM Additions</a>
-    </li>
-    <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-question"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="cdmRPackage.html">Use the CDM R Package</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-life-ring"></span>
-     
-    Support
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
-    </li>
-    <li>
-      <a href="faq.html">FAQ</a>
-    </li>
-    <li>
-      <a href="sqlScripts.html">SQL Scripts</a>
-    </li>
-    <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
 
-
-<h1 class="title toc-ignore">How the Vocabulary is Built</h1>
-
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">How the Vocabulary is Built</h1>
 </div>
 
 
-<div id="mapping-of-concepts" class="section level1">
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="mapping-of-concepts" class="level1">
 <h1>Mapping of Concepts</h1>
-<p><strong>Mapping</strong>, also known as <strong>a map</strong>, is an
-association between a particular concept in one code system or dataset
-and code in another, rarely the same, code system that has the same (or
-similar) meaning. Also, <strong>Mapping</strong> is the process to
-transform one concept into a Standard one. The Standardized Clinical
-Data Tables allow only Standard Concepts, thus all other codes used in
-the source databases have to be translated to Standard Concepts. Mapping
-is done through records in the CONCEPT_RELATIONSHIP table. They connect
-each Concept to a Standard Concept through a number of special
-RELATIONSHIP_IDs:</p>
-<table>
+<p><strong>Mapping</strong>, also known as <strong>a map</strong>, is an association between a particular concept in one code system or dataset and code in another, rarely the same, code system that has the same (or similar) meaning. Also, <strong>Mapping</strong> is the process to transform one concept into a Standard one. The Standardized Clinical Data Tables allow only Standard Concepts, thus all other codes used in the source databases have to be translated to Standard Concepts. Mapping is done through records in the CONCEPT_RELATIONSHIP table. They connect each Concept to a Standard Concept through a number of special RELATIONSHIP_IDs:</p>
+<table class="caption-top table">
 <colgroup>
-<col width="16%" />
-<col width="38%" />
-<col width="44%" />
+<col style="width: 16%">
+<col style="width: 38%">
+<col style="width: 44%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -532,76 +503,39 @@ RELATIONSHIP_IDs:</p>
 <tbody>
 <tr class="odd">
 <td><strong>Maps to</strong></td>
-<td>Mapping a Source Concept to a Standard Concept to be placed into the
-following fields of Standardized Clinical Data Tables <br>
-<strong>condition_concept_id</strong><br>
-<strong>observation_concept_id</strong><br><strong>measurement_concept_id</strong><br><strong>drug_concept_id</strong><br><strong>procedure_concept_id</strong><br><strong>device_concept_id</strong>
-Note, that this relationship is also used for mapping of concepts to
-populate <strong>value_as_concept_id</strong></td>
-<td>- Stands for either a full equivalence or an “uphill” mapping
-(mapping to a more general semantic category)<br><br>- Can be single or
-multiple for each Source Concept</td>
+<td>Mapping a Source Concept to a Standard Concept to be placed into the following fields of Standardized Clinical Data Tables <br> <strong>condition_concept_id</strong><br> <strong>observation_concept_id</strong><br><strong>measurement_concept_id</strong><br><strong>drug_concept_id</strong><br><strong>procedure_concept_id</strong><br><strong>device_concept_id</strong> Note, that this relationship is also used for mapping of concepts to populate <strong>value_as_concept_id</strong></td>
+<td>- Stands for either a full equivalence or an “uphill” mapping (mapping to a more general semantic category)<br><br>- Can be single or multiple for each Source Concept</td>
 </tr>
 <tr class="even">
 <td><strong>Maps to value</strong></td>
-<td>A special mapping between a Source Concept and a Standard Concept to
-be placed into the <strong>value_as_concept_id</strong> field of the
-MEASUREMENT and OBSERVATION tables</td>
-<td>- Points to a concept, indicating the value of Measurements or
-content of Observations<br><br> - Is used only in combination with a
-single “Maps to”</td>
+<td>A special mapping between a Source Concept and a Standard Concept to be placed into the <strong>value_as_concept_id</strong> field of the MEASUREMENT and OBSERVATION tables</td>
+<td>- Points to a concept, indicating the value of Measurements or content of Observations<br><br> - Is used only in combination with a single “Maps to”</td>
 </tr>
 </tbody>
 </table>
-<div id="maps-to-relationships" class="section level2">
-<h2>“Maps to” Relationships</h2>
+<section id="maps-to-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="maps-to-relationships">“Maps to” Relationships</h2>
 <ul>
-<li>Concepts participating in the “Maps to” mapping are Source
-(Non-standard) Concepts and Standard Concepts.</li>
-<li>The mapping always attempts to reflect the semantics of a Source
-Concept by an Equivalent Standard Concept.</li>
-<li>Equivalent carries the same meaning, covers the same semantic space,
-and, importantly, has the same parents and children in the hierarchy (if
-there are any) as well. If an equivalent Concept is not available, the
-mapping matches to a more generic Standard Concept(s). This ensures that
-a query in the target vocabulary will retrieve the same records as if
-they were queried in the original source vocabulary.</li>
-<li>Source Concepts are mapped or may be mapped to one or several
-Standard Concepts. If they are mapped to more than one Standard Concept,
-in the resulting CDM table, there is more than one record for each
-record in the source.</li>
-<li>Standard Concepts are also mapped to Standard Concepts via “Maps
-to”, this is a mapping to itself.</li>
-<li>If there are 2 or more similar Standard concepts in the OMOP
-vocabulary, please, report about it at the <a
-href="https://forums.ohdsi.org/c/vocabulary-users">OHDSI Forum</a> and
-unless it is fixed, as the first-line choice, use LOINC for Measurements
-and SNOMED for everything else.</li>
-<li>If there are 2 similar Standard concepts within SNOMED, look at the
-domain (Morphologic abnormality is an Observation, Clinical finding is a
-Condition), revise attributes and hierarchy of both concepts (its
-number, fullness, and correctness). It is not necessary to compare the
-amount of relationships/children precisely, just verify that all seems
-appropriate and the hierarchy is rich enough. If it does for both
-concepts, then choose concepts belonging to SNOMED International (short
-concept codes) rather than SNOMED US/UK Editions (long concept codes).
-If the length of concept codes is identical, then choose the one with a
-smaller number of concept_id.</li>
+<li>Concepts participating in the “Maps to” mapping are Source (Non-standard) Concepts and Standard Concepts.</li>
+<li>The mapping always attempts to reflect the semantics of a Source Concept by an Equivalent Standard Concept.</li>
+<li>Equivalent carries the same meaning, covers the same semantic space, and, importantly, has the same parents and children in the hierarchy (if there are any) as well. If an equivalent Concept is not available, the mapping matches to a more generic Standard Concept(s). This ensures that a query in the target vocabulary will retrieve the same records as if they were queried in the original source vocabulary.</li>
+<li>Source Concepts are mapped or may be mapped to one or several Standard Concepts. If they are mapped to more than one Standard Concept, in the resulting CDM table, there is more than one record for each record in the source.</li>
+<li>Standard Concepts are also mapped to Standard Concepts via “Maps to”, this is a mapping to itself.</li>
+<li>If there are 2 or more similar Standard concepts in the OMOP vocabulary, please, report about it at the <a href="https://forums.ohdsi.org/c/vocabulary-users">OHDSI Forum</a> and unless it is fixed, as the first-line choice, use LOINC for Measurements and SNOMED for everything else.</li>
+<li>If there are 2 similar Standard concepts within SNOMED, look at the domain (Morphologic abnormality is an Observation, Clinical finding is a Condition), revise attributes and hierarchy of both concepts (its number, fullness, and correctness). It is not necessary to compare the amount of relationships/children precisely, just verify that all seems appropriate and the hierarchy is rich enough. If it does for both concepts, then choose concepts belonging to SNOMED International (short concept codes) rather than SNOMED US/UK Editions (long concept codes). If the length of concept codes is identical, then choose the one with a smaller number of concept_id.</li>
 </ul>
-<p><strong>Note!</strong> Classification Concepts (standard_concept=‘C’)
-do not have a mapping to a Standard Concept.</p>
-<div id="examples-of-usage" class="section level3">
-<h3>Examples of usage:</h3>
-<p><strong>Single “Maps to” for mapping to an Equivalent Standard
-Concept</strong></p>
-<table>
+<p><strong>Note!</strong> Classification Concepts (standard_concept=‘C’) do not have a mapping to a Standard Concept.</p>
+<section id="examples-of-usage" class="level3">
+<h3 class="anchored" data-anchor-id="examples-of-usage">Examples of usage:</h3>
+<p><strong>Single “Maps to” for mapping to an Equivalent Standard Concept</strong></p>
+<table class="caption-top table">
 <colgroup>
-<col width="13%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-<col width="13%" />
-<col width="18%" />
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -632,16 +566,15 @@ Concept</strong></p>
 </tr>
 </tbody>
 </table>
-<p><strong>Single “Maps to” for mapping to a Non-equivalent Standard
-Concept</strong></p>
-<table>
+<p><strong>Single “Maps to” for mapping to a Non-equivalent Standard Concept</strong></p>
+<table class="caption-top table">
 <colgroup>
-<col width="13%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-<col width="13%" />
-<col width="18%" />
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -672,16 +605,15 @@ Concept</strong></p>
 </tr>
 </tbody>
 </table>
-<p><strong>Multiple “Maps to” for mapping to several Standard Concepts
-fully covering semantic space of a Source Concept</strong></p>
-<table>
+<p><strong>Multiple “Maps to” for mapping to several Standard Concepts fully covering semantic space of a Source Concept</strong></p>
+<table class="caption-top table">
 <colgroup>
-<col width="13%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-<col width="13%" />
-<col width="18%" />
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -744,16 +676,15 @@ fully covering semantic space of a Source Concept</strong></p>
 </tr>
 </tbody>
 </table>
-<p><strong>Multiple “Maps to” for mapping to several Standard Concepts
-partially covering semantic space of a Source Concept</strong></p>
-<table>
+<p><strong>Multiple “Maps to” for mapping to several Standard Concepts partially covering semantic space of a Source Concept</strong></p>
+<table class="caption-top table">
 <colgroup>
-<col width="13%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
-<col width="13%" />
-<col width="18%" />
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -768,13 +699,11 @@ partially covering semantic space of a Source Concept</strong></p>
 <tbody>
 <tr class="odd">
 <td>V01.11</td>
-<td>Pedestrian on roller-skates injured in collision with pedal cycle in
-traffic accident</td>
+<td>Pedestrian on roller-skates injured in collision with pedal cycle in traffic accident</td>
 <td>Maps to</td>
 <td>442247</td>
 <td>215142005</td>
-<td>Pedal cycle accident involving collision between pedal cycle and
-pedestrian, pedestrian injured</td>
+<td>Pedal cycle accident involving collision between pedal cycle and pedestrian, pedestrian injured</td>
 </tr>
 <tr class="even">
 <td></td>
@@ -786,8 +715,7 @@ pedestrian, pedestrian injured</td>
 </tr>
 <tr class="odd">
 <td>T36.1x4</td>
-<td>Poisoning by cephalosporins and other beta-lactam antibiotics,
-undetermined</td>
+<td>Poisoning by cephalosporins and other beta-lactam antibiotics, undetermined</td>
 <td>Maps to</td>
 <td>4303975</td>
 <td>419347003</td>
@@ -803,15 +731,11 @@ undetermined</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div id="maps-to-value-relationships" class="section level2">
-<h2>“Maps to value” Relationships</h2>
-<p>To preserve the meaning of Source concepts indicating values of
-Measurements or content of Observations, “Maps to” are complemented with
-a comprehensive set of “Maps to value” relationships. Such mappings are
-considered to be equivalent. There are the following semantic groups of
-Source concepts which are mapped in such a way:</p>
+</section>
+</section>
+<section id="maps-to-value-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="maps-to-value-relationships">“Maps to value” Relationships</h2>
+<p>To preserve the meaning of Source concepts indicating values of Measurements or content of Observations, “Maps to” are complemented with a comprehensive set of “Maps to value” relationships. Such mappings are considered to be equivalent. There are the following semantic groups of Source concepts which are mapped in such a way:</p>
 <ul>
 <li>Conditions indicating abnormal levels of tests</li>
 <li>Encounter for a procedure and an aftercare</li>
@@ -824,15 +748,15 @@ Source concepts which are mapped in such a way:</p>
 <li>Patient encounter procedures, not carried out</li>
 </ul>
 <p><strong>Examples of usage:</strong></p>
-<table>
+<table class="caption-top table">
 <colgroup>
-<col width="12%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
-<col width="12%" />
-<col width="15%" />
-<col width="12%" />
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -867,8 +791,7 @@ Source concepts which are mapped in such a way:</p>
 <tr class="odd">
 <td>2</td>
 <td>Z47.0</td>
-<td>Follow-up care involving removal of fracture plate and other
-internal fixation device</td>
+<td>Follow-up care involving removal of fracture plate and other internal fixation device</td>
 <td>Maps to</td>
 <td>390906007</td>
 <td>Follow-up encounter</td>
@@ -958,8 +881,7 @@ internal fixation device</td>
 <tr class="odd">
 <td>7</td>
 <td>Z92.2</td>
-<td>Personal history of long-term (current) use of other
-medicaments</td>
+<td>Personal history of long-term (current) use of other medicaments</td>
 <td>Maps to</td>
 <td>416940007</td>
 <td>Past history of procedure</td>
@@ -995,8 +917,7 @@ medicaments</td>
 <tr class="odd">
 <td>9</td>
 <td>Z53.2</td>
-<td>Procedure not carried out because of patient’s decision for other
-and unspecified reasons</td>
+<td>Procedure not carried out because of patient’s decision for other and unspecified reasons</td>
 <td>Maps to</td>
 <td>416237000</td>
 <td>Procedure not done</td>
@@ -1013,42 +934,27 @@ and unspecified reasons</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="losses-in-mapping" class="section level2">
-<h2>“Losses” in Mapping</h2>
-<p><strong>1. The hierarchical discrepancy between Source and Standard
-Vocabularies</strong></p>
-<p>It is not uncommon for heavily pre-coordinated Concepts (complex and
-fine-grained Concepts that are combinations of different dimensions).
-The coordination depends on the structure of the topology of the
-vocabularies from and to which the Concept is mapped. If they are not
-equivalent, no direct mapping can be established. But in order to
-maintain the ability to retrieve these Concepts when searching using
-hierarchical Concepts, two or more mappings are provided instead.</p>
-<p>For example, in ICD-10-CM diabetic complications are a part of the
-disorder of Diabetes Mellitus, while in SNOMED Diabetes Mellitus and its
-complications reside in distinct hierarchical branches.</p>
-<p><img src="images/diabetes-related_case.png" /></p>
-<p>As another example, ICD-10 codes indicating complications of
-pregnancy are in the chapter of “Pregnancy, childbirth and the
-puerperium” that has a semantic relation to the fact of pregnancy, while
-in SNOMED denoting pregnancy conditions and their complications are in
-the separate hierarchical branches.</p>
-<p><img src="images/pregnancy-related_case.png" /></p>
-<p>The solution for both examples is to map Non-standard concepts to
-several standard ones. Even though there is no distinct equivalent in
-SNOMED, hierarchical queries will retrieve the correct records.</p>
+</section>
+<section id="losses-in-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="losses-in-mapping">“Losses” in Mapping</h2>
+<p><strong>1. The hierarchical discrepancy between Source and Standard Vocabularies</strong></p>
+<p>It is not uncommon for heavily pre-coordinated Concepts (complex and fine-grained Concepts that are combinations of different dimensions). The coordination depends on the structure of the topology of the vocabularies from and to which the Concept is mapped. If they are not equivalent, no direct mapping can be established. But in order to maintain the ability to retrieve these Concepts when searching using hierarchical Concepts, two or more mappings are provided instead.</p>
+<p>For example, in ICD-10-CM diabetic complications are a part of the disorder of Diabetes Mellitus, while in SNOMED Diabetes Mellitus and its complications reside in distinct hierarchical branches.</p>
+<p><img src="man/images/diabetes-related_case.png" class="img-fluid"></p>
+<p>As another example, ICD-10 codes indicating complications of pregnancy are in the chapter of “Pregnancy, childbirth and the puerperium” that has a semantic relation to the fact of pregnancy, while in SNOMED denoting pregnancy conditions and their complications are in the separate hierarchical branches.</p>
+<p><img src="man/images/pregnancy-related_case.png" class="img-fluid"></p>
+<p>The solution for both examples is to map Non-standard concepts to several standard ones. Even though there is no distinct equivalent in SNOMED, hierarchical queries will retrieve the correct records.</p>
 <p><strong>2. Missing Source Concept equivalent</strong></p>
 <p>This is possible due to the following reasons:</p>
 <p><strong>Vague formulation of a Source Concept</strong></p>
-<table style="width:100%;">
+<table class="caption-top table">
 <colgroup>
-<col width="12%" />
-<col width="16%" />
-<col width="16%" />
-<col width="19%" />
-<col width="19%" />
-<col width="16%" />
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1080,14 +986,14 @@ SNOMED, hierarchical queries will retrieve the correct records.</p>
 </tbody>
 </table>
 <p><strong>Source Concept excessive granularity</strong></p>
-<table style="width:100%;">
+<table class="caption-top table">
 <colgroup>
-<col width="12%" />
-<col width="16%" />
-<col width="16%" />
-<col width="19%" />
-<col width="19%" />
-<col width="16%" />
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1118,8 +1024,7 @@ SNOMED, hierarchical queries will retrieve the correct records.</p>
 </tr>
 <tr class="odd">
 <td>S06.4x9</td>
-<td>Epidural hemorrhage with loss of consciousness of unspecified
-duration</td>
+<td>Epidural hemorrhage with loss of consciousness of unspecified duration</td>
 <td>Maps to</td>
 <td>4306943</td>
 <td>82999001</td>
@@ -1151,16 +1056,15 @@ duration</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Classification difference between Source and Standard
-Vocabularies</strong></p>
-<table style="width:100%;">
+<p><strong>Classification difference between Source and Standard Vocabularies</strong></p>
+<table class="caption-top table">
 <colgroup>
-<col width="12%" />
-<col width="16%" />
-<col width="16%" />
-<col width="19%" />
-<col width="19%" />
-<col width="16%" />
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1209,218 +1113,464 @@ Vocabularies</strong></p>
 </table>
 <p><strong>Other possible issues that one could encounter:</strong></p>
 <ul>
-<li>Mapping has to exist and it can be built, but it is missing. Please
-report to <a href="https://forums.ohdsi.org/">the OHDSI Forum</a>, so it
-can be added.</li>
-<li>Code irrelevant to the patient, for example, ICD-9-CM V65 “Other
-persons seeking consultation”</li>
-<li>Source code is ill-defined, for example, ICD-9-CM 799 “Other
-ill-defined and unknown causes of morbidity and mortality”</li>
+<li>Mapping has to exist and it can be built, but it is missing. Please report to <a href="https://forums.ohdsi.org/">the OHDSI Forum</a>, so it can be added.</li>
+<li>Code irrelevant to the patient, for example, ICD-9-CM V65 “Other persons seeking consultation”</li>
+<li>Source code is ill-defined, for example, ICD-9-CM 799 “Other ill-defined and unknown causes of morbidity and mortality”</li>
 </ul>
-</div>
-<div id="rules-for-condition-mapping" class="section level2">
-<h2>RULES FOR CONDITION MAPPING</h2>
-<p>In general, Conditions are records suggesting the presence of a
-disease or medical condition stated as a diagnosis, a sign or a symptom.
-However, there are a lot of conditions that are not originating in the
-biological function of the human body but still require medical
-attention. Or they are true Conditions, but not at the time of the
-recording (History of) or in the person itself (Family history of). The
-mapping rules for these are as follows:</p>
-<p><strong>Aftercare after procedures.</strong> Those are mapped to a
-single concept 413467001 “Aftercare”, and with a second “Maps to value”
-relationship to the adequate procedure. For example, ICD10CM Z47.1
-“Aftercare following joint replacement surgery” maps to both 413467001
-“Aftercare” and to the procedure 4189532 “Implantation of joint
-prosthesis”. Note that “Aftercare” is itself not a condition, but
-belongs to the Observation Domain.</p>
-<p><strong>Late effects or sequelae of other conditions.</strong> If
-possible, these are mapped to single concepts describing them as such
-late effects. For example, ICD10CM S82.874S concept_id 45589204
-“Nondisplaced pilon fracture of right tibia, sequela” is mapped to
-197150 “Late effect of fracture of lower extremities”. The Domain is
-Condition.</p>
-<p><strong>History of a condition.</strong> These are conditions, but
-not at the time of the condition_start_date. Therefore, they are mapped
-to the Concept 4214956 “History of clinical finding in subject”, which
-is in the Observation Domain. The condition itself is recorded through
-the “Maps to value” relationship. For example, ICD10CM Z87.820
-concept_id “Personal history of traumatic brain injury” maps to 4214956
-“History of clinical finding in subject” and with “Maps to value”
-4132546 “Traumatic brain injury”.</p>
-<p><strong>Family history of a condition.</strong> These, too, have a
-dual mapping to 4167217 “Family history of clinical finding” and a to
-the actual condition through a “Maps to value” relationship. For
-example, ICD10/ICD10CM Z80.0 concept_id 45542462 “Family history of
-malignant neoplasm of digestive organs” maps to 4167217 “Family history
-of clinical finding” as well as 443568 “Malignant neoplasm of the
-gastrointestinal tract”.</p>
-<p><strong>History of medical treatment.</strong> Similarly, these are
-mapped to Observation Concept 4207283 “History of drug therapy”, and
-through a “Maps to value” link to the actual therapy. For example, ICD10
-Z92.0 concept_id 45605174 “Personal history of contraception” goes to
-4207283 “History of drug therapy” history of drug therapy and 4027509
-“Contraception”. If the exact Ingredient or Clinical/Branded Drug is
-known, the map would direct to these Drug Concepts. But that is not
-typical.</p>
-<p><strong>Adverse effect of medication.</strong> If possible, these are
-mapped to a direct equivalent. However, that usually does not exist, and
-then they are treated as the above history of medical treatments. For
-example, both ICD10CM T36.8X5A concept_id 45551127 “Adverse effect of
-other systemic antibiotics, initial encounter” and T36.8X5D “Adverse
-effect of other systemic antibiotics, subsequent encounter” map to
-437191 “Antibacterial drug adverse reaction”, while ICD10CM T36.8X5S
-concept_id 45560654 “Adverse effect of other systemic antibiotics,
-sequela” maps to 4207283 “History of drug therapy”.</p>
-<p><strong>Underdosing of medication.</strong> This information is
-handled similarly to the adverse effects, and the equivalent SNOMED
-concepts generally do not exist. For example, ICD10CM T36.0X6A
-concept_id 45565479 “Underdosing of penicillins, initial encounter” and
-T36.0X6D concept_id 45565480 “Underdosing of penicillins, subsequent
-encounter” go to 40488434 “Medication dose too low”, while T36.0X6S
-concept_id 45565481 “Underdosing of penicillins, sequela” points at
-4207283 “History of drug therapy”.</p>
-<p><strong>Status of organ absence or transplant/prosthetic
-presence.</strong> Absent organs are due to a procedure having removed
-them (unless they are inborn conditions, which are mapped as such).
-Therefore, they are mapped to 4215685 “Past history of procedure” and
-the appropriate procedure that removed the organ through a “Maps to
-value” link. For example, ICD10CM Z94.0 concept_id 35225404 “Kidney
-transplant status” maps to 4215685 “Past history of procedure” and
-4322471 “Transplant of kidney”. Z95.5 concept_id 35225418 “Presence of
-coronary angioplasty implant and graft” is pointed to 4215685 “Past
-history of procedure” and 4184832 “Coronary angioplasty”.</p>
-<p><strong>Pre-coordinated Concepts listing two or more semantic
-components through AND or OR.</strong> These concepts are treated with
-the following order of precedence:</p>
+</section>
+<section id="rules-for-condition-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="rules-for-condition-mapping">RULES FOR CONDITION MAPPING</h2>
+<p>In general, Conditions are records suggesting the presence of a disease or medical condition stated as a diagnosis, a sign or a symptom. However, there are a lot of conditions that are not originating in the biological function of the human body but still require medical attention. Or they are true Conditions, but not at the time of the recording (History of) or in the person itself (Family history of). The mapping rules for these are as follows:</p>
+<p><strong>Aftercare after procedures.</strong> Those are mapped to a single concept 413467001 “Aftercare”, and with a second “Maps to value” relationship to the adequate procedure. For example, ICD10CM Z47.1 “Aftercare following joint replacement surgery” maps to both 413467001 “Aftercare” and to the procedure 4189532 “Implantation of joint prosthesis”. Note that “Aftercare” is itself not a condition, but belongs to the Observation Domain.</p>
+<p><strong>Late effects or sequelae of other conditions.</strong> If possible, these are mapped to single concepts describing them as such late effects. For example, ICD10CM S82.874S concept_id 45589204 “Nondisplaced pilon fracture of right tibia, sequela” is mapped to 197150 “Late effect of fracture of lower extremities”. The Domain is Condition.</p>
+<p><strong>History of a condition.</strong> These are conditions, but not at the time of the condition_start_date. Therefore, they are mapped to the Concept 4214956 “History of clinical finding in subject”, which is in the Observation Domain. The condition itself is recorded through the “Maps to value” relationship. For example, ICD10CM Z87.820 concept_id “Personal history of traumatic brain injury” maps to 4214956 “History of clinical finding in subject” and with “Maps to value” 4132546 “Traumatic brain injury”.</p>
+<p><strong>Family history of a condition.</strong> These, too, have a dual mapping to 4167217 “Family history of clinical finding” and a to the actual condition through a “Maps to value” relationship. For example, ICD10/ICD10CM Z80.0 concept_id 45542462 “Family history of malignant neoplasm of digestive organs” maps to 4167217 “Family history of clinical finding” as well as 443568 “Malignant neoplasm of the gastrointestinal tract”.</p>
+<p><strong>History of medical treatment.</strong> Similarly, these are mapped to Observation Concept 4207283 “History of drug therapy”, and through a “Maps to value” link to the actual therapy. For example, ICD10 Z92.0 concept_id 45605174 “Personal history of contraception” goes to 4207283 “History of drug therapy” history of drug therapy and 4027509 “Contraception”. If the exact Ingredient or Clinical/Branded Drug is known, the map would direct to these Drug Concepts. But that is not typical.</p>
+<p><strong>Adverse effect of medication.</strong> If possible, these are mapped to a direct equivalent. However, that usually does not exist, and then they are treated as the above history of medical treatments. For example, both ICD10CM T36.8X5A concept_id 45551127 “Adverse effect of other systemic antibiotics, initial encounter” and T36.8X5D “Adverse effect of other systemic antibiotics, subsequent encounter” map to 437191 “Antibacterial drug adverse reaction”, while ICD10CM T36.8X5S concept_id 45560654 “Adverse effect of other systemic antibiotics, sequela” maps to 4207283 “History of drug therapy”.</p>
+<p><strong>Underdosing of medication.</strong> This information is handled similarly to the adverse effects, and the equivalent SNOMED concepts generally do not exist. For example, ICD10CM T36.0X6A concept_id 45565479 “Underdosing of penicillins, initial encounter” and T36.0X6D concept_id 45565480 “Underdosing of penicillins, subsequent encounter” go to 40488434 “Medication dose too low”, while T36.0X6S concept_id 45565481 “Underdosing of penicillins, sequela” points at 4207283 “History of drug therapy”.</p>
+<p><strong>Status of organ absence or transplant/prosthetic presence.</strong> Absent organs are due to a procedure having removed them (unless they are inborn conditions, which are mapped as such). Therefore, they are mapped to 4215685 “Past history of procedure” and the appropriate procedure that removed the organ through a “Maps to value” link. For example, ICD10CM Z94.0 concept_id 35225404 “Kidney transplant status” maps to 4215685 “Past history of procedure” and 4322471 “Transplant of kidney”. Z95.5 concept_id 35225418 “Presence of coronary angioplasty implant and graft” is pointed to 4215685 “Past history of procedure” and 4184832 “Coronary angioplasty”.</p>
+<p><strong>Pre-coordinated Concepts listing two or more semantic components through AND or OR.</strong> These concepts are treated with the following order of precedence:</p>
 <ul>
-<li>To an equivalent combination concept that is also hierarchically
-well connected</li>
+<li>To an equivalent combination concept that is also hierarchically well connected</li>
 <li>To both components separately</li>
 <li>To the most common ancestor</li>
 </ul>
 <p>Examples for these 3 possibilities are:</p>
 <ul>
-<li>ICD10 A01 concept_id 45576225 “Typhoid and paratyphoid fevers” has a
-single “Maps to” relationship to 4022808 “Human typhoid AND/OR
-paratyphoid fever”.</li>
-<li>IC10CM F12.22 concept_id 45591098 “Cannabis dependence with
-intoxication” has two “Maps to” relationships to 4052690 “Cannabis
-intoxication” and 440387 “Cannabis dependence”.</li>
-<li>ICD10 L02.0 concept_id 45596354 “Cutaneous abscess, furuncle and
-carbuncle of face” has a single “Maps to” relationship_id to 400082007
-Disorder of skin of head.</li>
+<li>ICD10 A01 concept_id 45576225 “Typhoid and paratyphoid fevers” has a single “Maps to” relationship to 4022808 “Human typhoid AND/OR paratyphoid fever”.</li>
+<li>IC10CM F12.22 concept_id 45591098 “Cannabis dependence with intoxication” has two “Maps to” relationships to 4052690 “Cannabis intoxication” and 440387 “Cannabis dependence”.</li>
+<li>ICD10 L02.0 concept_id 45596354 “Cutaneous abscess, furuncle and carbuncle of face” has a single “Maps to” relationship_id to 400082007 Disorder of skin of head.</li>
 </ul>
-<p><strong>Maternal care.</strong> Many conditions require attention not
-because of a condition of a pregnant woman but of the fetus. However,
-all such conditions are being mapped to the mother anyway. For example,
-ICD10 O35.6 concept_id 45567927 “Maternal care for (suspected) damage to
-fetus by radiation” has two “Maps to” relationships to 199553006 “Fetus
-with radiation damage” and 289908002 “pregnancy”. Both conditions are
-recorded with the mother.</p>
-<p><strong>Need for immunization.</strong> These Concepts are mapped to
-an Observation indicating such an immunity gap. A second mapping with
-the relationship_id “Maps to value” is then directed to the Condition
-(represented as a SNOMED Concept) the immunization is inoculating
-against. Note that it is not mapped to the vaccine itself (which would
-be represented as a RxNorm Concept). For example, ICD10 Z23 concept_id
-45556822 “Need for immunization against single bacterial diseases” maps
-to 170536002 “Vaccination required” and maps to value 87628006
-“Bacterial infectious disease”.</p>
-<p><strong>Conditions indicating abnormal levels of a test.</strong>
-These are split into the Measurement and result Concepts. For example,
-ICD10 R77.1 concept_id 45553745 “Abnormality of globulin” has a “Maps
-to” relationship to the Measurement 4353510 “Globulin measurement” and a
-“Maps to value” relationship to 4135493 “Abnormal”.</p>
-<p><strong>Conditions resulting from the use of Devices.</strong>
-Adverse or other outcomes of the exposure to a device are mapped to
-473023007 “Complication associated with device and with another”Maps to
-value” relationship to the device itself, if possible. For example,
-ICD10 Y73.0 concept_id 45590664 “Gastroenterology and urology devices
-associated with adverse incidents, diagnostic and monitoring devices”
-has a “Maps to value” link to 45767866 “Gastro-urological device”.</p>
-</div>
-<div id="condition-mapping-algorithm" class="section level2">
-<h2>CONDITION MAPPING ALGORITHM</h2>
-<p><img src="images/mapping_of_concepts.png" /></p>
-</div>
-</div>
+<p><strong>Maternal care.</strong> Many conditions require attention not because of a condition of a pregnant woman but of the fetus. However, all such conditions are being mapped to the mother anyway. For example, ICD10 O35.6 concept_id 45567927 “Maternal care for (suspected) damage to fetus by radiation” has two “Maps to” relationships to 199553006 “Fetus with radiation damage” and 289908002 “pregnancy”. Both conditions are recorded with the mother.</p>
+<p><strong>Need for immunization.</strong> These Concepts are mapped to an Observation indicating such an immunity gap. A second mapping with the relationship_id “Maps to value” is then directed to the Condition (represented as a SNOMED Concept) the immunization is inoculating against. Note that it is not mapped to the vaccine itself (which would be represented as a RxNorm Concept). For example, ICD10 Z23 concept_id 45556822 “Need for immunization against single bacterial diseases” maps to 170536002 “Vaccination required” and maps to value 87628006 “Bacterial infectious disease”.</p>
+<p><strong>Conditions indicating abnormal levels of a test.</strong> These are split into the Measurement and result Concepts. For example, ICD10 R77.1 concept_id 45553745 “Abnormality of globulin” has a “Maps to” relationship to the Measurement 4353510 “Globulin measurement” and a “Maps to value” relationship to 4135493 “Abnormal”.</p>
+<p><strong>Conditions resulting from the use of Devices.</strong> Adverse or other outcomes of the exposure to a device are mapped to 473023007 “Complication associated with device and with another”Maps to value” relationship to the device itself, if possible. For example, ICD10 Y73.0 concept_id 45590664 “Gastroenterology and urology devices associated with adverse incidents, diagnostic and monitoring devices” has a “Maps to value” link to 45767866 “Gastro-urological device”.</p>
+</section>
+<section id="condition-mapping-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="condition-mapping-algorithm">CONDITION MAPPING ALGORITHM</h2>
+<p><img src="man/images/mapping_of_concepts.png" class="img-fluid"></p>
 
 
+</section>
+</section>
 
-</div>
-</div>
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4,h5",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    options.showAndHide = true;
-    options.smoothScroll = true;
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ohdsi\.github\.io\/CommonDataModel\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
 
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+
+</body></html>

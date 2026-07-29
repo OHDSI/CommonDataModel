@@ -1,44 +1,82 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
 
-<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="author" content="Kristin Kostka">
+<meta name="dcterms.date" content="2021-09-22">
+
+<title>Preserving Privacy in an OMOP CDM Implementation – OMOP Common Data Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
 
-
-
-<title>Preserving Privacy in an OMOP CDM Implementation</title>
-
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./man/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-37JJNBGH0H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -46,881 +84,968 @@
 
   gtag('config', 'G-37JJNBGH0H');
 </script>
-<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
+<link rel="shortcut icon" type="image/x-icon" href="man/favicon.ico">
 
 
-
-
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
-</style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
-
+<link rel="stylesheet" href="man/style.css">
 </head>
 
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"><div><img src="ohdsi16x16.png"></img> OMOP Common Data Model </div></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">
-    <span class="fa fa-house"></span>
-     
-  </a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-landmark"></span>
-     
-    Background
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="background.html">Model Background</a>
-    </li>
-    <li>
-      <a href="cdmRefreshProcess.html">CDM Refresh Process</a>
-    </li>
-    <li>
-      <a href="vocabulary.html">How the Vocabulary is Built</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-list-alt"></span>
-     
-    Conventions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="https://ohdsi.github.io/Themis">THEMIS Convention Library</a>
-    </li>
-    <li>
-      <a href="dataModelConventions.html">General Conventions</a>
-    </li>
-    <li>
-      <a href="cdmPrivacy.html">Patient Privacy and OMOP</a>
-    </li>
-    <li>
-      <a href="customConcepts.html">Custom Concepts</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-history"></span>
-     
-    CDM Versions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdm30.html">CDM v3.0</a>
-    </li>
-    <li>
-      <a href="cdm53.html">CDM v5.3</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CDM v5.4</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="cdm54.html">CDM v5.4</a>
-        </li>
-        <li>
-          <a href="cdm54Changes.html">Changes from CDM v5.3</a>
-        </li>
-        <li>
-          <a href="cdm54erd.html">Entity Relationships</a>
-        </li>
-        <li>
-          <a href="cdm54ToolingSupport.html">Detailed tooling support per CDM field</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-plus-square"></span>
-     
-    CDM Additions
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="typesOfAdditions.html">Types of CDM Additions</a>
-    </li>
-    <li>
-      <a href="cdmRequestProcess.html">How to Propose Changes to the CDM</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accepted Changes</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="https://github.com/OHDSI/CommonDataModel/tree/develop">CDM version in development</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-question"></span>
-     
-    How to
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="download.html">Download the DDL</a>
-    </li>
-    <li>
-      <a href="cdmRPackage.html">Use the CDM R Package</a>
-    </li>
-    <li>
-      <a href="drug_dose.html">Calculate Drug Dose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fa fa-life-ring"></span>
-     
-    Support
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="cdmDecisionTree.html">Help! My Data Doesn't Fit!</a>
-    </li>
-    <li>
-      <a href="faq.html">FAQ</a>
-    </li>
-    <li>
-      <a href="sqlScripts.html">SQL Scripts</a>
-    </li>
-    <li>
-      <a href="contribute.html">Ask a Question</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/OHDSI/CommonDataModel">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore"><strong>Preserving Privacy in an OMOP CDM
-Implementation</strong></h1>
-
-</div>
-
-
-<p><em>By Kristin Kostka</em></p>
-<div id="background" class="section level1">
-<h1>Background</h1>
-<p>The OMOP CDM is a person-centric model. Being person-centric means
-the model can retain attributes that may be considered personal
-identified information (PII) or protected health information (PHI).
-There are many different ways a site may treat their OMOP CDM to uphold
-their privacy protocols. In this article we provide guidance on overall
-process and the potential fields that should be monitored to adhere to
-these various privacy preserving protocols.</p>
-<div id="defining-pii-and-phi" class="section level3">
-<h3>Defining PII and PHI</h3>
-<ul>
-<li>PII is defined as any representation of information that permits the
-identity of an individual to whom the information applies to be
-reasonably inferred to either direct or indirect means [1].</li>
-<li>The United States Department of Health &amp; Human Services´ Office
-for Civil Rights has defined PHI as any Personal Identifying Information
-(PII) that – individually or combined – could potentially identify a
-specific individual, their past, present or future healthcare, or the
-method of payment. There are eighteen unique identifiers considered to
-be PHI: 1) names, 2) geographic data, 3) all elements of dates, 4)
-telephone numbers, 5) FAX numbers, 6) email addresses, 7) Social
-Security numbers (SSN), 8) medical record numbers (MRN), 9) health plan
-beneficiary numbers, 10) account numbers, 11) certificate/license
-numbers, 12) vehicle identifiers and serial numbers including license
-places, 13) device identifiers and serial numbers, 14) web URLs, 15)
-internet protocol addresses, 16) biometric identifiers (i.e. retinal
-scan, fingerprints), 17) full face photos and comparable images, and 18)
-any unique identifying number, characteristic or code. PHI is no longer
-considered PHI when it de-identified of these unique attributes. PHI is
-commonly referred to in relation to the Health Insurance Portability and
-Accountability Act (HIPAA) and associated legislation such as the Health
-Information Technology for Economic and Clinical Health Act (HITECH)
-[2].</li>
-</ul>
-</div>
-</div>
-<div id="the-data-holders-responsibility" class="section level1">
-<h1>The Data Holder’s Responsibility</h1>
-<p>In OHDSI, it is the responsibility of each data holder to know,
-understand and follow local data governance processes related to use of
-the OMOP CDM. In the United States, these processes will follow your
-organization’s local interpretation for maintaining compliance to PII
-and PHI protection. In OMOP CDM implementations containing European
-Union citizen data, local governance processes will include measures to
-comply with General Data Protection Regulation (GDPR) [3]. As a
-community, the OHDSI data network covers more than 330 databases from 34
-countries. There is extensive community knowledge on the interpretation
-of rule sets and exemplar IRB and local governance workflows that can be
-made available to institutions navigating these processes for the first
-time. If your organization does not have an established data governance
-process, please reach out on the <a href="forums.ohdsi.org">OHDSI
-Forums</a> under “Implementers” and the community can respond with
-shared guidance from their own deployments. As a community, we aim to
-conduct research that keeps patient-level data local and share only
-aggregate results.</p>
-</div>
-<div id="complying-with-privacy-preservation" class="section level1">
-<h1>Complying with Privacy Preservation</h1>
-<p>Complying with local governance processes depends on the rule set
-being used. There may be allowable times when data use agreements and
-data transfer agreements exist between collaborating institutions to
-facilitate sharing of PII and PHI. In this section we will discuss
-common rule sets that organizations adhere to.</p>
-<div id="limited-data-sets" class="section level2">
-<h2>Limited Data Sets</h2>
-<p>A limited data set (LDS) is defined as protected health information
-that excludes certain direct identifiers of an individual or of
-relatives, employers or household members of the individual — but may
-include city, state, ZIP code and elements of dates. A LDS can be
-disclosed only for purposes of research, public health or health care
-operations. LDS requirements are dictated by the HIPAA Privacy Rule.</p>
-</div>
-<div id="de-identified-data-sets" class="section level2">
-<h2>De-identified Data Sets</h2>
-<p>A de-identified data, as defined by Section 164.514(a) of the HIPAA
-Privacy rule, is health information that does not identify an individual
-and with respect to which there is no reasonable basis to believe that
-the information can be used to identify an individual is not
-individually identifiable health information. There are two methods for
-achieving de-identification in accordance with HIPAA [4].</p>
-<ol style="list-style-type: decimal">
-<li>Expert Determination (§164.514(a))- Implementation specifications:
-requirements for de-identification of protected health information. A
-covered entity may determine that health information is not individually
-identifiable health information only if:</li>
-</ol>
-<ol style="list-style-type: decimal">
-<li>A person with appropriate knowledge of and experience with generally
-accepted statistical and scientific principles and methods for rendering
-information not individually identifiable:</li>
-</ol>
-<ol style="list-style-type: lower-roman">
-<li>Applying such principles and methods, determines that the risk is
-very small that the information could be used, alone or in combination
-with other reasonably available information, by an anticipated recipient
-to identify an individual who is a subject of the information; and</li>
-<li>Documents the methods and results of the analysis that justify such
-determination.</li>
-</ol>
-<ol start="2" style="list-style-type: decimal">
-<li>Safe Harbor (§164.514(b)) The eighteen unique identifiers are
-obfuscated. This includes processes such as:</li>
-</ol>
-<ol style="list-style-type: upper-alpha">
-<li>Dates of service are algorithmically shifted to protect patient
-privacy.</li>
-<li>Patient ZIP codes are truncated to the first three digits or removed
-entirely if the ZIP code represents fewer than 20,000 individuals.</li>
-<li>Removing and, when necessary, replacing unique identifiers AND The
-entity does not have actual knowledge that the information could be used
-alone or in combination with other information to identify an individual
-who is a subject of the information.</li>
-</ol>
-</div>
-<div id="field-level-implications-of-de-identification-processes"
-class="section level2">
-<h2>Field-level Implications of De-identification Processes</h2>
-<div id="person-table-attributes" class="section level3">
-<h3>PERSON Table Attributes</h3>
-<p>In the OMOP CDM, the PERSON table serves as the central identity
-management for all Persons in the database. It contains records that
-uniquely identify each person or patient, and some demographic
-information. It is a table that has a number of field-level implications
-for privacy preserving protocols.</p>
-<p>Considerations include: - PERSON.person_id should never contain
-Medical Record Number, Social Security Number or similar uniquely
-identifiable number. This should be a number that is essentially
-meaningless but has the ability to be a primary key across tables. -
-PERSON.year_of_birth, PERSON.month_of_birth and PERSON.date_of_birth,
-PERSON.birth_datetime may require some redaction or modification
-depending on interpretation of rule set. Consult local guidance on the
-need to modify these fields when creating compliant views of
-de-identified data. - PERSON.person_source_value may contain sensitive
-information used to generate the person_id field. It is advised to
-practice caution when creating views of these data. It would be wise to
-obfuscate or redact this field if you are not sure what is contained in
-the raw information being extracted, transformed and loaded into the
-CDM.</p>
-</div>
-</div>
-<div id="date-fields-across-domains" class="section level2">
-<h2>Date Fields Across Domains</h2>
-<p>Date fields are used across many OMOP domains including:
-OBSERVATION_PERIOD, VISIT_OCCURRENCE, VISIT_DETAIL,
-CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE,
-DEVICE_EXPOSURE, MEASUREMENT, OBSERVATION, DEATH, NOTE, NOTE_NLP,
-SPECIMEN, PAYER_PLAN_PERIOD, DRUG_ERA, DOSE_ERA, and CONDITION_ERA.</p>
-<p>As discussed previously, some rule sets may require algorithmically
-shifting dates. It is advised that when date shifting is applied, it is
-done holistically. This means that when shifting dates, you should not
-treat each record independently. Instead, a robust date shifting
-algorithm will link off the <em>.person_id (where </em> is the domain
-name such as CONDITION_OCCURRENCE, etc) and apply the same offset to all
-events. This allows researchers to have the ability to understand the
-sequence of events while preserving patient privacy.</p>
-<p>The implications of not holistically shifting all events together by
-the same offset means that information may be out of sequence or
-illogical. An example would be a death record that happens prior to
-other event records (conditions, drugs, procedures, etc). When applying
-an algorithmic shift of dates, it is important to educate your OMOP CDM
-user group of the known offset. This is especially important in temporal
-studies which may be looking to make statements about disease history
-relative to the time when an event is observed.</p>
-<p>Some rule sets do not require algorithmic shifting of dates, such as
-Limited Data Sets. In these situations, a user of a LDS OMOP CDM would
-not be expecting dates to the shifted. If a shift is applied, it should
-be disclosed and the offset amount (e.g. +/- 7 days, +/- 30 days, etc)
-should be made available to those who have received permission to use a
-LDS dataset. Otherwise, these data are not upholding the assumptions of
-the rule set applied.</p>
-</div>
-<div id="location-table-attributes" class="section level2">
-<h2>LOCATION Table Attributes</h2>
-<p>The LOCATION table represents a generic way to capture physical
-location or address information of Persons and Care Sites. When applying
-privacy preserving procedures, this table should be reviewed and
-scrubbed relative to the rule set. The LOCATION.zip field should be
-redacted relative to the type of process applied (e.g. 3-digit zip for
-de-identified data). The LOCATION.location_source_value should be
-reviewed for potential PII/PHI. It would be wise to obfuscate or redact
-this field if you are not sure what is contained in the raw information
-being extracted, transformed and loaded into the CDM.</p>
-</div>
-<div id="provider-table-attributes" class="section level2">
-<h2>PROVIDER Table Attributes</h2>
-<p>The PROVIDER table contains a list of uniquely identified healthcare
-providers. These are individuals providing hands-on healthcare to
-patients, such as physicians, nurses, midwives, physical therapists etc.
-In some privacy preserving processes, the PROVIDER.npi and PROVIDER.dea
-fields may be redacted. Please review this field and confirm that you
-are adhering to privacy rule sets. The PROVIDER.year_of_birth field is
-an optional field that may also require treatment in certain rule
-sets.</p>
-</div>
-<div id="observation-table-attributes" class="section level2">
-<h2>OBSERVATION Table Attributes</h2>
-<p>The OBSERVATION table captures clinical facts about a Person obtained
-in the context of examination, questioning or a procedure. Any data that
-cannot be represented by any other domains, such as social and lifestyle
-facts, medical history, family history, etc. are recorded here.</p>
-<p>We strongly caution ETL teams to review the OBSERVATION table for
-potential PII/PHI. In some source systems, there can be information
-coming in these vocabularies that are not laboratory or clinical
-observations but instead are patient identifiers. If you search in
-ATHENA, you will find there are a number of standard terms in the SNOMED
-and LOINC vocabularies that can represent phone numbers, emails, and
-other PII information.</p>
-<p>It is difficult to create an exhaustive list of terms because these
-ontologies do not maintain or publish lists of terms that may contain
-patient identifiers. It is, therefore, up to data holders to perform a
-review of this domain with an eye for these potential privacy issues.
-The National COVID Cohort Collaborative, a NIH consortium which uses the
-OMOP CDM, has published a resource for sites needing assistance with
-identifying these potentially problematic records. A “live” version of
-this table that will track updates over time is hosted at <a
-href="https://github.com/data2health/next-gen-data-sharing/blob/master/CodesWithPPIPotential.csv"
-class="uri">https://github.com/data2health/next-gen-data-sharing/blob/master/CodesWithPPIPotential.csv</a>.
-We welcome additions to this list from the community.</p>
-</div>
-<div id="scrutinizing-_source_value" class="section level2">
-<h2>Scrutinizing *_source_value</h2>
-<p>The *_source_value (where * is the domain name such as
-CONDITION_OCCURRENCE, etc) fields present an opportunity for sites to
-carry forward potential PII/PHI in ETL processes. Because the convention
-of the OMOP CDM has minimal boundaries on what are retained in these
-fields, it is important to treat all source_value fields as potentially
-containing PII/PHI. We highly advise all data holders to scrutinize
-these fields when applying privacy preserving processes. It is not
-uncommon for fields to be overloaded and contain potential patient
-identifiers. Please use caution when transmitting or making views of
-these fields available to users.</p>
-</div>
-<div id="scrutinizing-string-fields" class="section level2">
-<h2>Scrutinizing String Fields</h2>
-<p>Across OMOP Domains, there are many fields which permit the use of
-strings (e.g. DRUG_EXPOSURE.sig, MEASUREMENT.value_as_string,
-OBSERVATION.value_as_string, We’ve discussed some of these in prior
-sections. It is advised that fields with strings often have the
-potential to contain unintentional PII/PHI. Targeted regular expressions
-can be built into ETL processes in order to “sniff” out any additional
-PII (or potential PII)–such as any data in the format of a phone number,
-or a person or place name. (E.g., the regular expression “Mr.|Mrs.|Dr.|,
-M.?D.?” will find any string with an English name prefix.) Depending on
-risk tolerance, the expressions could err toward sensitivity or
-specificity, and could be tweaked over time to meet different rule
-sets.</p>
-<p>Extensive regular expression matching during ETL may add significant
-processing time and should therefore not be relied upon as a sole
-solution, but rather an extra protection against edge cases. Other
-algorithmic rules may also prove useful, such as automatically
-quarantining records with lengthy string values (which could signal the
-presence of free text). If these approaches are implemented, records
-that match the regular expressions or rules can be quarantined in a
-separate table or staging area to be manually reviewed by a data broker.
-Thus, in addition to adding another layer of PII protection, another
-advantage of these approaches is the potential to uncover ways that
-underlying vocabularies may be contributing to unintentional sharing of
-PII and create awareness for future privacy preserving processes shared
-across the community.</p>
-</div>
-<div id="note-and-note_nlp-table-attributes" class="section level2">
-<h2>NOTE and NOTE_NLP Table Attributes</h2>
-<p>The NOTE table captures unstructured information that was recorded by
-a provider about a patient in free text (in ASCII, or preferably in UTF8
-format) notes on a given date. The NOTE_NLP table encodes all output of
-NLP on clinical notes. Each row represents a single extracted term from
-a note. There is a high potential these tables may retain information
-that is considered PII/PHI. In addition to overall string searching,
-these tables are likely to be dropped altogether to adhere to the most
-stringent rule sets.</p>
-<p>It is highly advised that if you are conducting a study with NOTE and
-NOTE_NLP table information, please consult with your local governance
-and privacy officers to ensure compliance with local rule sets.</p>
-</div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
-<p>Privacy preserving processes are not one-size fits all. There are
-many different rule sets that can be applied to datasets. Data holders
-are recommended to consult with their local privacy officer(s) to ensure
-all processes applied to a database are compliant with local
-interpretation of the selected rule set.</p>
-</div>
-</div>
-<div id="references" class="section level1">
-<h1>References</h1>
-<ol style="list-style-type: decimal">
-<li>BibText version: <span
-class="citation">@MISC</span>{noauthor_undated-mg, title = “Guidance on
-the Protection of Personal Identifiable Information”, abstract =
-“Personal Identifiable Information (PII) is defined as:”, howpublished =
-“”, note = “Accessed: 2021-8-18” }</li>
-</ol>
-<p>Regular citation: Guidance on the Protection of Personal Identifiable
-Information. [cited 18 Aug 2021]. Available: <a
-href="https://www.dol.gov/general/ppii"
-class="uri">https://www.dol.gov/general/ppii</a></p>
-<ol start="2" style="list-style-type: decimal">
-<li>BibText version: <span
-class="citation">@MISC</span>{HIPAA_Journal2017-yo, title = “What Does
-{PHI} Stand For?”, author = “{HIPAA Journal}”, abstract = “PHI is a term
-used in connection with health data, but what does PHI stand for? What
-information is included in the definition of PHI.”, month = dec, year =
-2017, howpublished = “”, note = “Accessed: 2021-8-18”, language = “en”
-}</li>
-</ol>
-<p>Regular citation: HIPAA Journal. What Does PHI Stand For? 23 Dec 2017
-[cited 18 Aug 2021]. Available: <a
-href="https://www.hipaajournal.com/what-does-phi-stand-for/"
-class="uri">https://www.hipaajournal.com/what-does-phi-stand-for/</a></p>
-<ol start="3" style="list-style-type: decimal">
-<li>BibText version:</li>
-</ol>
-<p><span class="citation">@MISC</span>{noauthor_2018-mt, title =
-“General Data Protection Regulation ({GDPR}) Compliance Guidelines”,
-abstract = “The EU General Data Protection Regulation went into effect
-on May 25, 2018, replacing the Data Protection Directive 95/46/EC.
-Designed to increase data privacy for EU citizens, the regulation levies
-steep fines on organizations that don’t follow the law.”, month = jun,
-year = 2018, howpublished = “”, note = “Accessed: 2021-8-18”, language =
-“en” }</p>
-<p>Regular citation: General Data Protection Regulation (GDPR)
-Compliance Guidelines. 18 Jun 2018 [cited 18 Aug 2021]. Available: <a
-href="https://gdpr.eu/" class="uri">https://gdpr.eu/</a></p>
-<ol start="4" style="list-style-type: decimal">
-<li>BibText version:</li>
-</ol>
-<p><span
-class="citation">@MISC</span>{Office_for_Civil_Rights_OCR_undated-zy,
-title = “Methods for De-identification of {PHI}”, author = “{Office for
-Civil Rights (OCR)}”, abstract = “Guidance about methods and approaches
-to achieve de-identification in accordance with the Health Insurance
-Portability and Accountability Act of 1996.”, howpublished = “”, note =
-“Accessed: 2021-8-19” }</p>
-<p>Regular citation: Office for Civil Rights (OCR). Methods for
-De-identification of PHI. [cited 19 Aug 2021]. Available: <a
-href="https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html"
-class="uri">https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html</a></p>
-</div>
-
-
-
-</div>
-</div>
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
     };
-    options.showAndHide = true;
-    options.smoothScroll = true;
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OMOP Common Data Model</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-background" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bank" role="img">
+</i> 
+ <span class="menu-text">Background</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-background">    
+        <li>
+    <a class="dropdown-item" href="./background.html">
+ <span class="dropdown-text">Model Background</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRefreshProcess.html">
+ <span class="dropdown-text">CDM Refresh Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./vocabulary.html">
+ <span class="dropdown-text">How the Vocabulary is Built</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conventions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-card-list" role="img">
+</i> 
+ <span class="menu-text">Conventions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-conventions">    
+        <li>
+    <a class="dropdown-item" href="https://ohdsi.github.io/Themis"><i class="bi bi-box-arrow-up-right" role="img">
+</i> 
+ <span class="dropdown-text">THEMIS Convention Library</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./dataModelConventions.html">
+ <span class="dropdown-text">General Conventions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmPrivacy.html">
+ <span class="dropdown-text">Patient Privacy and OMOP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./customConcepts.html">
+ <span class="dropdown-text">Custom Concepts</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-versions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="menu-text">CDM Versions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-versions">    
+        <li>
+    <a class="dropdown-item" href="./cdm30.html">
+ <span class="dropdown-text">CDM v3.0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm53.html">
+ <span class="dropdown-text">CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54.html">
+ <span class="dropdown-text">CDM v5.4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54erd.html">
+ <span class="dropdown-text">- CDM v5.4 Entity Relationships</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm54ToolingSupport.html">
+ <span class="dropdown-text">- CDM v5.4 Tooling Support</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cdm-additions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-plus-square" role="img">
+</i> 
+ <span class="menu-text">CDM Additions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cdm-additions">    
+        <li>
+    <a class="dropdown-item" href="./typesOfAdditions.html">
+ <span class="dropdown-text">Types of CDM Additions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRequestProcess.html">
+ <span class="dropdown-text">How to Propose Changes to the CDM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/OHDSI/CommonDataModel/tree/develop">
+ <span class="dropdown-text">Accepted Changes</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-how-to" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="menu-text">How to</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-how-to">    
+        <li>
+    <a class="dropdown-item" href="./download.html">
+ <span class="dropdown-text">Download the DDL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdmRPackage.html">
+ <span class="dropdown-text">Use the CDM R Package</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">Calculate Drug Dose</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-support" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-life-preserver" role="img">
+</i> 
+ <span class="menu-text">Support</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-support">    
+        <li>
+    <a class="dropdown-item" href="./cdmDecisionTree/cdmDecisionTree.html">
+ <span class="dropdown-text">Help! My Data Doesn’t Fit!</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./faq.html">
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sqlScripts.html">
+ <span class="dropdown-text">SQL Scripts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./contribute.html">
+ <span class="dropdown-text">Ask a Question</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/OHDSI/CommonDataModel"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a>
+  <ul class="collapse">
+  <li><a href="#defining-pii-and-phi" id="toc-defining-pii-and-phi" class="nav-link" data-scroll-target="#defining-pii-and-phi">Defining PII and PHI</a></li>
+  </ul></li>
+  <li><a href="#the-data-holders-responsibility" id="toc-the-data-holders-responsibility" class="nav-link" data-scroll-target="#the-data-holders-responsibility">The Data Holder’s Responsibility</a></li>
+  <li><a href="#complying-with-privacy-preservation" id="toc-complying-with-privacy-preservation" class="nav-link" data-scroll-target="#complying-with-privacy-preservation">Complying with Privacy Preservation</a>
+  <ul class="collapse">
+  <li><a href="#limited-data-sets" id="toc-limited-data-sets" class="nav-link" data-scroll-target="#limited-data-sets">Limited Data Sets</a></li>
+  <li><a href="#de-identified-data-sets" id="toc-de-identified-data-sets" class="nav-link" data-scroll-target="#de-identified-data-sets">De-identified Data Sets</a></li>
+  <li><a href="#field-level-implications-of-de-identification-processes" id="toc-field-level-implications-of-de-identification-processes" class="nav-link" data-scroll-target="#field-level-implications-of-de-identification-processes">Field-level Implications of De-identification Processes</a>
+  <ul class="collapse">
+  <li><a href="#person-table-attributes" id="toc-person-table-attributes" class="nav-link" data-scroll-target="#person-table-attributes">PERSON Table Attributes</a></li>
+  </ul></li>
+  <li><a href="#date-fields-across-domains" id="toc-date-fields-across-domains" class="nav-link" data-scroll-target="#date-fields-across-domains">Date Fields Across Domains</a></li>
+  <li><a href="#location-table-attributes" id="toc-location-table-attributes" class="nav-link" data-scroll-target="#location-table-attributes">LOCATION Table Attributes</a></li>
+  <li><a href="#provider-table-attributes" id="toc-provider-table-attributes" class="nav-link" data-scroll-target="#provider-table-attributes">PROVIDER Table Attributes</a></li>
+  <li><a href="#observation-table-attributes" id="toc-observation-table-attributes" class="nav-link" data-scroll-target="#observation-table-attributes">OBSERVATION Table Attributes</a></li>
+  <li><a href="#scrutinizing-_source_value" id="toc-scrutinizing-_source_value" class="nav-link" data-scroll-target="#scrutinizing-_source_value">Scrutinizing *_source_value</a></li>
+  <li><a href="#scrutinizing-string-fields" id="toc-scrutinizing-string-fields" class="nav-link" data-scroll-target="#scrutinizing-string-fields">Scrutinizing String Fields</a></li>
+  <li><a href="#note-and-note_nlp-table-attributes" id="toc-note-and-note_nlp-table-attributes" class="nav-link" data-scroll-target="#note-and-note_nlp-table-attributes">NOTE and NOTE_NLP Table Attributes</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Preserving Privacy in an OMOP CDM Implementation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Kristin Kostka </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 22, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>The OMOP CDM is a person-centric model. Being person-centric means the model can retain attributes that may be considered personal identified information (PII) or protected health information (PHI). There are many different ways a site may treat their OMOP CDM to uphold their privacy protocols. In this article we provide guidance on overall process and the potential fields that should be monitored to adhere to these various privacy preserving protocols.</p>
+<section id="defining-pii-and-phi" class="level3">
+<h3 class="anchored" data-anchor-id="defining-pii-and-phi">Defining PII and PHI</h3>
+<ul>
+<li>PII is defined as any representation of information that permits the identity of an individual to whom the information applies to be reasonably inferred to either direct or indirect means [1].</li>
+<li>The United States Department of Health &amp; Human Services´ Office for Civil Rights has defined PHI as any Personal Identifying Information (PII) that – individually or combined – could potentially identify a specific individual, their past, present or future healthcare, or the method of payment. There are eighteen unique identifiers considered to be PHI: 1) names, 2) geographic data, 3) all elements of dates, 4) telephone numbers, 5) FAX numbers, 6) email addresses, 7) Social Security numbers (SSN), 8) medical record numbers (MRN), 9) health plan beneficiary numbers, 10) account numbers, 11) certificate/license numbers, 12) vehicle identifiers and serial numbers including license places, 13) device identifiers and serial numbers, 14) web URLs, 15) internet protocol addresses, 16) biometric identifiers (i.e.&nbsp;retinal scan, fingerprints), 17) full face photos and comparable images, and 18) any unique identifying number, characteristic or code. PHI is no longer considered PHI when it de-identified of these unique attributes. PHI is commonly referred to in relation to the Health Insurance Portability and Accountability Act (HIPAA) and associated legislation such as the Health Information Technology for Economic and Clinical Health Act (HITECH) [2].</li>
+</ul>
+</section>
+</section>
+<section id="the-data-holders-responsibility" class="level1">
+<h1>The Data Holder’s Responsibility</h1>
+<p>In OHDSI, it is the responsibility of each data holder to know, understand and follow local data governance processes related to use of the OMOP CDM. In the United States, these processes will follow your organization’s local interpretation for maintaining compliance to PII and PHI protection. In OMOP CDM implementations containing European Union citizen data, local governance processes will include measures to comply with General Data Protection Regulation (GDPR) [3]. As a community, the OHDSI data network covers more than 330 databases from 34 countries. There is extensive community knowledge on the interpretation of rule sets and exemplar IRB and local governance workflows that can be made available to institutions navigating these processes for the first time. If your organization does not have an established data governance process, please reach out on the <a href="https://forums.ohdsi.org">OHDSI Forums</a> under “Implementers” and the community can respond with shared guidance from their own deployments. As a community, we aim to conduct research that keeps patient-level data local and share only aggregate results.</p>
+</section>
+<section id="complying-with-privacy-preservation" class="level1">
+<h1>Complying with Privacy Preservation</h1>
+<p>Complying with local governance processes depends on the rule set being used. There may be allowable times when data use agreements and data transfer agreements exist between collaborating institutions to facilitate sharing of PII and PHI. In this section we will discuss common rule sets that organizations adhere to.</p>
+<section id="limited-data-sets" class="level2">
+<h2 class="anchored" data-anchor-id="limited-data-sets">Limited Data Sets</h2>
+<p>A limited data set (LDS) is defined as protected health information that excludes certain direct identifiers of an individual or of relatives, employers or household members of the individual — but may include city, state, ZIP code and elements of dates. A LDS can be disclosed only for purposes of research, public health or health care operations. LDS requirements are dictated by the HIPAA Privacy Rule.</p>
+</section>
+<section id="de-identified-data-sets" class="level2">
+<h2 class="anchored" data-anchor-id="de-identified-data-sets">De-identified Data Sets</h2>
+<p>A de-identified data, as defined by Section 164.514(a) of the HIPAA Privacy rule, is health information that does not identify an individual and with respect to which there is no reasonable basis to believe that the information can be used to identify an individual is not individually identifiable health information. There are two methods for achieving de-identification in accordance with HIPAA [4].</p>
+<ol type="1">
+<li>Expert Determination (§164.514(a))- Implementation specifications: requirements for de-identification of protected health information. A covered entity may determine that health information is not individually identifiable health information only if:</li>
+</ol>
+<ol type="1">
+<li>A person with appropriate knowledge of and experience with generally accepted statistical and scientific principles and methods for rendering information not individually identifiable:</li>
+</ol>
+<ol type="i">
+<li>Applying such principles and methods, determines that the risk is very small that the information could be used, alone or in combination with other reasonably available information, by an anticipated recipient to identify an individual who is a subject of the information; and</li>
+<li>Documents the methods and results of the analysis that justify such determination.</li>
+</ol>
+<ol start="2" type="1">
+<li>Safe Harbor (§164.514(b)) The eighteen unique identifiers are obfuscated. This includes processes such as:</li>
+</ol>
+<ol type="A">
+<li>Dates of service are algorithmically shifted to protect patient privacy.</li>
+<li>Patient ZIP codes are truncated to the first three digits or removed entirely if the ZIP code represents fewer than 20,000 individuals.</li>
+<li>Removing and, when necessary, replacing unique identifiers AND The entity does not have actual knowledge that the information could be used alone or in combination with other information to identify an individual who is a subject of the information.</li>
+</ol>
+</section>
+<section id="field-level-implications-of-de-identification-processes" class="level2">
+<h2 class="anchored" data-anchor-id="field-level-implications-of-de-identification-processes">Field-level Implications of De-identification Processes</h2>
+<section id="person-table-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="person-table-attributes">PERSON Table Attributes</h3>
+<p>In the OMOP CDM, the PERSON table serves as the central identity management for all Persons in the database. It contains records that uniquely identify each person or patient, and some demographic information. It is a table that has a number of field-level implications for privacy preserving protocols.</p>
+<p>Considerations include: - PERSON.person_id should never contain Medical Record Number, Social Security Number or similar uniquely identifiable number. This should be a number that is essentially meaningless but has the ability to be a primary key across tables. - PERSON.year_of_birth, PERSON.month_of_birth and PERSON.date_of_birth, PERSON.birth_datetime may require some redaction or modification depending on interpretation of rule set. Consult local guidance on the need to modify these fields when creating compliant views of de-identified data. - PERSON.person_source_value may contain sensitive information used to generate the person_id field. It is advised to practice caution when creating views of these data. It would be wise to obfuscate or redact this field if you are not sure what is contained in the raw information being extracted, transformed and loaded into the CDM.</p>
+</section>
+</section>
+<section id="date-fields-across-domains" class="level2">
+<h2 class="anchored" data-anchor-id="date-fields-across-domains">Date Fields Across Domains</h2>
+<p>Date fields are used across many OMOP domains including: OBSERVATION_PERIOD, VISIT_OCCURRENCE, VISIT_DETAIL, CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE, MEASUREMENT, OBSERVATION, DEATH, NOTE, NOTE_NLP, SPECIMEN, PAYER_PLAN_PERIOD, DRUG_ERA, DOSE_ERA, and CONDITION_ERA.</p>
+<p>As discussed previously, some rule sets may require algorithmically shifting dates. It is advised that when date shifting is applied, it is done holistically. This means that when shifting dates, you should not treat each record independently. Instead, a robust date shifting algorithm will link off the <em>.person_id (where </em> is the domain name such as CONDITION_OCCURRENCE, etc) and apply the same offset to all events. This allows researchers to have the ability to understand the sequence of events while preserving patient privacy.</p>
+<p>The implications of not holistically shifting all events together by the same offset means that information may be out of sequence or illogical. An example would be a death record that happens prior to other event records (conditions, drugs, procedures, etc). When applying an algorithmic shift of dates, it is important to educate your OMOP CDM user group of the known offset. This is especially important in temporal studies which may be looking to make statements about disease history relative to the time when an event is observed.</p>
+<p>Some rule sets do not require algorithmic shifting of dates, such as Limited Data Sets. In these situations, a user of a LDS OMOP CDM would not be expecting dates to the shifted. If a shift is applied, it should be disclosed and the offset amount (e.g.&nbsp;+/- 7 days, +/- 30 days, etc) should be made available to those who have received permission to use a LDS dataset. Otherwise, these data are not upholding the assumptions of the rule set applied.</p>
+</section>
+<section id="location-table-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="location-table-attributes">LOCATION Table Attributes</h2>
+<p>The LOCATION table represents a generic way to capture physical location or address information of Persons and Care Sites. When applying privacy preserving procedures, this table should be reviewed and scrubbed relative to the rule set. The LOCATION.zip field should be redacted relative to the type of process applied (e.g.&nbsp;3-digit zip for de-identified data). The LOCATION.location_source_value should be reviewed for potential PII/PHI. It would be wise to obfuscate or redact this field if you are not sure what is contained in the raw information being extracted, transformed and loaded into the CDM.</p>
+</section>
+<section id="provider-table-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="provider-table-attributes">PROVIDER Table Attributes</h2>
+<p>The PROVIDER table contains a list of uniquely identified healthcare providers. These are individuals providing hands-on healthcare to patients, such as physicians, nurses, midwives, physical therapists etc. In some privacy preserving processes, the PROVIDER.npi and PROVIDER.dea fields may be redacted. Please review this field and confirm that you are adhering to privacy rule sets. The PROVIDER.year_of_birth field is an optional field that may also require treatment in certain rule sets.</p>
+</section>
+<section id="observation-table-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="observation-table-attributes">OBSERVATION Table Attributes</h2>
+<p>The OBSERVATION table captures clinical facts about a Person obtained in the context of examination, questioning or a procedure. Any data that cannot be represented by any other domains, such as social and lifestyle facts, medical history, family history, etc. are recorded here.</p>
+<p>We strongly caution ETL teams to review the OBSERVATION table for potential PII/PHI. In some source systems, there can be information coming in these vocabularies that are not laboratory or clinical observations but instead are patient identifiers. If you search in ATHENA, you will find there are a number of standard terms in the SNOMED and LOINC vocabularies that can represent phone numbers, emails, and other PII information.</p>
+<p>It is difficult to create an exhaustive list of terms because these ontologies do not maintain or publish lists of terms that may contain patient identifiers. It is, therefore, up to data holders to perform a review of this domain with an eye for these potential privacy issues. The National COVID Cohort Collaborative, a NIH consortium which uses the OMOP CDM, has published a resource for sites needing assistance with identifying these potentially problematic records. A “live” version of this table that will track updates over time is hosted at https://github.com/data2health/next-gen-data-sharing/blob/master/CodesWithPPIPotential.csv. We welcome additions to this list from the community.</p>
+</section>
+<section id="scrutinizing-_source_value" class="level2">
+<h2 class="anchored" data-anchor-id="scrutinizing-_source_value">Scrutinizing *_source_value</h2>
+<p>The *_source_value (where * is the domain name such as CONDITION_OCCURRENCE, etc) fields present an opportunity for sites to carry forward potential PII/PHI in ETL processes. Because the convention of the OMOP CDM has minimal boundaries on what are retained in these fields, it is important to treat all source_value fields as potentially containing PII/PHI. We highly advise all data holders to scrutinize these fields when applying privacy preserving processes. It is not uncommon for fields to be overloaded and contain potential patient identifiers. Please use caution when transmitting or making views of these fields available to users.</p>
+</section>
+<section id="scrutinizing-string-fields" class="level2">
+<h2 class="anchored" data-anchor-id="scrutinizing-string-fields">Scrutinizing String Fields</h2>
+<p>Across OMOP Domains, there are many fields which permit the use of strings (e.g.&nbsp;DRUG_EXPOSURE.sig, MEASUREMENT.value_as_string, OBSERVATION.value_as_string, We’ve discussed some of these in prior sections. It is advised that fields with strings often have the potential to contain unintentional PII/PHI. Targeted regular expressions can be built into ETL processes in order to “sniff” out any additional PII (or potential PII)–such as any data in the format of a phone number, or a person or place name. (E.g., the regular expression “Mr.|Mrs.|Dr.|, M.?D.?” will find any string with an English name prefix.) Depending on risk tolerance, the expressions could err toward sensitivity or specificity, and could be tweaked over time to meet different rule sets.</p>
+<p>Extensive regular expression matching during ETL may add significant processing time and should therefore not be relied upon as a sole solution, but rather an extra protection against edge cases. Other algorithmic rules may also prove useful, such as automatically quarantining records with lengthy string values (which could signal the presence of free text). If these approaches are implemented, records that match the regular expressions or rules can be quarantined in a separate table or staging area to be manually reviewed by a data broker. Thus, in addition to adding another layer of PII protection, another advantage of these approaches is the potential to uncover ways that underlying vocabularies may be contributing to unintentional sharing of PII and create awareness for future privacy preserving processes shared across the community.</p>
+</section>
+<section id="note-and-note_nlp-table-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="note-and-note_nlp-table-attributes">NOTE and NOTE_NLP Table Attributes</h2>
+<p>The NOTE table captures unstructured information that was recorded by a provider about a patient in free text (in ASCII, or preferably in UTF8 format) notes on a given date. The NOTE_NLP table encodes all output of NLP on clinical notes. Each row represents a single extracted term from a note. There is a high potential these tables may retain information that is considered PII/PHI. In addition to overall string searching, these tables are likely to be dropped altogether to adhere to the most stringent rule sets.</p>
+<p>It is highly advised that if you are conducting a study with NOTE and NOTE_NLP table information, please consult with your local governance and privacy officers to ensure compliance with local rule sets.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Privacy preserving processes are not one-size fits all. There are many different rule sets that can be applied to datasets. Data holders are recommended to consult with their local privacy officer(s) to ensure all processes applied to a database are compliant with local interpretation of the selected rule set.</p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ol type="1">
+<li>BibText version: <span class="citation" data-cites="MISC">@MISC</span>{noauthor_undated-mg, title = “Guidance on the Protection of Personal Identifiable Information”, abstract = “Personal Identifiable Information (PII) is defined as:”, howpublished = “”, note = “Accessed: 2021-8-18” }</li>
+</ol>
+<p>Regular citation: Guidance on the Protection of Personal Identifiable Information. [cited 18 Aug 2021]. Available: https://www.dol.gov/general/ppii</p>
+<ol start="2" type="1">
+<li>BibText version: <span class="citation" data-cites="MISC">@MISC</span>{HIPAA_Journal2017-yo, title = “What Does {PHI} Stand For?”, author = “{HIPAA Journal}”, abstract = “PHI is a term used in connection with health data, but what does PHI stand for? What information is included in the definition of PHI.”, month = dec, year = 2017, howpublished = “”, note = “Accessed: 2021-8-18”, language = “en” }</li>
+</ol>
+<p>Regular citation: HIPAA Journal. What Does PHI Stand For? 23 Dec 2017 [cited 18 Aug 2021]. Available: https://www.hipaajournal.com/what-does-phi-stand-for/</p>
+<ol start="3" type="1">
+<li>BibText version:</li>
+</ol>
+<p><span class="citation" data-cites="MISC">@MISC</span>{noauthor_2018-mt, title = “General Data Protection Regulation ({GDPR}) Compliance Guidelines”, abstract = “The EU General Data Protection Regulation went into effect on May 25, 2018, replacing the Data Protection Directive 95/46/EC. Designed to increase data privacy for EU citizens, the regulation levies steep fines on organizations that don’t follow the law.”, month = jun, year = 2018, howpublished = “”, note = “Accessed: 2021-8-18”, language = “en” }</p>
+<p>Regular citation: General Data Protection Regulation (GDPR) Compliance Guidelines. 18 Jun 2018 [cited 18 Aug 2021]. Available: https://gdpr.eu/</p>
+<ol start="4" type="1">
+<li>BibText version:</li>
+</ol>
+<p><span class="citation" data-cites="MISC">@MISC</span>{Office_for_Civil_Rights_OCR_undated-zy, title = “Methods for De-identification of {PHI}”, author = “{Office for Civil Rights (OCR)}”, abstract = “Guidance about methods and approaches to achieve de-identification in accordance with the Health Insurance Portability and Accountability Act of 1996.”, howpublished = “”, note = “Accessed: 2021-8-19” }</p>
+<p>Regular citation: Office for Civil Rights (OCR). Methods for De-identification of PHI. [cited 19 Aug 2021]. Available: https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ohdsi\.github\.io\/CommonDataModel\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
