@@ -66,7 +66,7 @@ createDdl <- function(cdmVersion){
     n_fields <- length(fieldNames)
     for(fieldName in fieldNames) {
 
-      if (subset(fields, cdmFieldName == fieldName, isRequired) == "Yes") {
+      if (subset(fields, cdmFieldName == fieldName, isRequired) == "Yes" || subset(fields, cdmFieldName == fieldName, isRequired) == "true") {
         nullable_sql <- (" NOT NULL")
       } else {
         nullable_sql <- (" NULL")
@@ -109,7 +109,7 @@ createPrimaryKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "Yes")
+  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "true" | isPrimaryKey == "Yes")
   pkFields <- primaryKeys$cdmFieldName
 
   sql_result <- c(paste0("--@targetDialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
@@ -136,7 +136,7 @@ createForeignKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  foreignKeys <- subset(cdmSpecs, isForeignKey == "Yes")
+  foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes")
   foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
 
   sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))

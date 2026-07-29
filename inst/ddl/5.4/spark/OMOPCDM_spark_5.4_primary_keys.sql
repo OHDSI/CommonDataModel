@@ -22,7 +22,6 @@ ALTER TABLE @cdmDatabaseSchema.condition_era ADD CONSTRAINT xpk_condition_era  (
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT xpk_episode  (episode_id);
 ALTER TABLE @cdmDatabaseSchema.metadata ADD CONSTRAINT xpk_metadata  (metadata_id);
 ALTER TABLE @cdmDatabaseSchema.concept ADD CONSTRAINT xpk_concept  (concept_id);
-ALTER TABLE @cdmDatabaseSchema.vocabulary ADD CONSTRAINT xpk_vocabulary  (vocabulary_id);
 ALTER TABLE @cdmDatabaseSchema.domain ADD CONSTRAINT xpk_domain  (domain_id);
 ALTER TABLE @cdmDatabaseSchema.concept_class ADD CONSTRAINT xpk_concept_class  (concept_class_id);
 ALTER TABLE @cdmDatabaseSchema.relationship ADD CONSTRAINT xpk_relationship  (relationship_id);

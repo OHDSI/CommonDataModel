@@ -1,4 +1,4 @@
---sqlite CDM Primary Key Constraints for OMOP Common Data Model 5.4
+--iris CDM Primary Key Constraints for OMOP Common Data Model 5.4
 ALTER TABLE @cdmDatabaseSchema.person ADD CONSTRAINT xpk_person PRIMARY KEY (person_id);
 ALTER TABLE @cdmDatabaseSchema.observation_period ADD CONSTRAINT xpk_observation_period PRIMARY KEY (observation_period_id);
 ALTER TABLE @cdmDatabaseSchema.visit_occurrence ADD CONSTRAINT xpk_visit_occurrence PRIMARY KEY (visit_occurrence_id);
@@ -23,6 +23,6 @@ ALTER TABLE @cdmDatabaseSchema.condition_era ADD CONSTRAINT xpk_condition_era PR
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT xpk_episode PRIMARY KEY (episode_id);
 ALTER TABLE @cdmDatabaseSchema.metadata ADD CONSTRAINT xpk_metadata PRIMARY KEY (metadata_id);
 ALTER TABLE @cdmDatabaseSchema.concept ADD CONSTRAINT xpk_concept PRIMARY KEY (concept_id);
-ALTER TABLE @cdmDatabaseSchema.domain ADD CONSTRAINT xpk_domain PRIMARY KEY (domain_id);
+ALTER TABLE @cdmDatabaseSchema."DOMAIN"  ADD CONSTRAINT xpk_domain PRIMARY KEY (domain_id);
 ALTER TABLE @cdmDatabaseSchema.concept_class ADD CONSTRAINT xpk_concept_class PRIMARY KEY (concept_class_id);
 ALTER TABLE @cdmDatabaseSchema.relationship ADD CONSTRAINT xpk_relationship PRIMARY KEY (relationship_id);

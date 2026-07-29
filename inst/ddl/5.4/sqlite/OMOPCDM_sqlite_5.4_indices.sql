@@ -71,7 +71,7 @@ Standardized vocabularies
 ***************************/
 CREATE INDEX idx_concept_concept_id   ON concept   (concept_id ASC);
 CREATE INDEX idx_concept_code  ON concept  (concept_code ASC);
-CREATE INDEX idx_concept_vocabluary_id  ON concept  (vocabulary_id ASC);
+CREATE INDEX idx_concept_vocabulary_id  ON concept  (vocabulary_id ASC);
 CREATE INDEX idx_concept_domain_id  ON concept  (domain_id ASC);
 CREATE INDEX idx_concept_class_id  ON concept  (concept_class_id ASC);
 CREATE INDEX idx_vocabulary_vocabulary_id   ON vocabulary   (vocabulary_id ASC);
