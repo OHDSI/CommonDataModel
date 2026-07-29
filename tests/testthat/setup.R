@@ -1,6 +1,6 @@
 testDatabases <- c("postgresql")
 
-if (Sys.getenv("CDM5_POSTGRESQL_SERVER") != "") {
+if (Sys.getenv("CDMDDLBASE_POSTGRESQL_SERVER") != "") {
   library(DatabaseConnector)
 
   if (dir.exists(Sys.getenv("DATABASECONNECTOR_JAR_FOLDER"))) {

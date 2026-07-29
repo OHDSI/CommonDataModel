@@ -1,0 +1,605 @@
+erDiagram
+  PERSON {
+    person_id integer
+    gender_concept_id integer
+    year_of_birth integer
+    month_of_birth integer
+    day_of_birth integer
+    birth_datetime datetime
+    race_concept_id integer
+    ethnicity_concept_id integer
+    location_id integer
+    provider_id integer
+    care_site_id integer
+    person_source_value varchar
+    gender_source_value varchar
+    gender_source_concept_id integer
+    race_source_value varchar
+    race_source_concept_id integer
+    ethnicity_source_value varchar
+    ethnicity_source_concept_id integer
+  }
+  OBSERVATION_PERIOD {
+    observation_period_id integer
+    person_id integer
+    observation_period_start_date date
+    observation_period_end_date date
+    period_type_concept_id integer
+  }
+  VISIT_OCCURRENCE {
+    visit_occurrence_id integer
+    person_id integer
+    visit_concept_id integer
+    visit_start_date date
+    visit_start_datetime datetime
+    visit_end_date date
+    visit_end_datetime datetime
+    visit_type_concept_id Integer
+    provider_id integer
+    care_site_id integer
+    visit_source_value varchar
+    visit_source_concept_id integer
+    admitted_from_concept_id integer
+    admitted_from_source_value varchar
+    discharged_to_concept_id integer
+    discharged_to_source_value varchar
+    preceding_visit_occurrence_id integer
+  }
+  VISIT_DETAIL {
+    visit_detail_id integer
+    person_id integer
+    visit_detail_concept_id integer
+    visit_detail_start_date date
+    visit_detail_start_datetime datetime
+    visit_detail_end_date date
+    visit_detail_end_datetime datetime
+    visit_detail_type_concept_id integer
+    provider_id integer
+    care_site_id integer
+    visit_detail_source_value varchar
+    visit_detail_source_concept_id Integer
+    admitted_from_concept_id Integer
+    admitted_from_source_value varchar
+    discharged_to_source_value varchar
+    discharged_to_concept_id integer
+    preceding_visit_detail_id integer
+    parent_visit_detail_id integer
+    visit_occurrence_id integer
+  }
+  CONDITION_OCCURRENCE {
+    condition_occurrence_id integer
+    person_id integer
+    condition_concept_id integer
+    condition_start_date date
+    condition_start_datetime datetime
+    condition_end_date date
+    condition_end_datetime datetime
+    condition_type_concept_id integer
+    condition_status_concept_id integer
+    stop_reason varchar
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    condition_source_value varchar
+    condition_source_concept_id integer
+    condition_status_source_value varchar
+  }
+  DRUG_EXPOSURE {
+    drug_exposure_id integer
+    person_id integer
+    drug_concept_id integer
+    drug_exposure_start_date date
+    drug_exposure_start_datetime datetime
+    drug_exposure_end_date date
+    drug_exposure_end_datetime datetime
+    verbatim_end_date date
+    drug_type_concept_id integer
+    stop_reason varchar
+    refills integer
+    quantity float
+    days_supply integer
+    sig varchar
+    route_concept_id integer
+    lot_number varchar
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    drug_source_value varchar
+    drug_source_concept_id integer
+    route_source_value varchar
+    dose_unit_source_value varchar
+  }
+  PROCEDURE_OCCURRENCE {
+    procedure_occurrence_id integer
+    person_id integer
+    procedure_concept_id integer
+    procedure_date date
+    procedure_datetime datetime
+    procedure_end_date date
+    procedure_end_datetime datetime
+    procedure_type_concept_id integer
+    modifier_concept_id integer
+    quantity integer
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    procedure_source_value varchar
+    procedure_source_concept_id integer
+    modifier_source_value varchar
+  }
+  DEVICE_EXPOSURE {
+    device_exposure_id integer
+    person_id integer
+    device_concept_id integer
+    device_exposure_start_date date
+    device_exposure_start_datetime datetime
+    device_exposure_end_date date
+    device_exposure_end_datetime datetime
+    device_type_concept_id integer
+    unique_device_id varchar
+    production_id varchar
+    quantity integer
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    device_source_value varchar
+    device_source_concept_id integer
+    unit_concept_id integer
+    unit_source_value varchar
+    unit_source_concept_id integer
+  }
+  MEASUREMENT {
+    measurement_id integer
+    person_id integer
+    measurement_concept_id integer
+    measurement_date date
+    measurement_datetime datetime
+    measurement_time varchar
+    measurement_type_concept_id integer
+    operator_concept_id integer
+    value_as_number float
+    value_as_concept_id integer
+    unit_concept_id integer
+    range_low float
+    range_high float
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    measurement_source_value varchar
+    measurement_source_concept_id integer
+    unit_source_value varchar
+    unit_source_concept_id integer
+    value_source_value varchar
+    measurement_event_id integer
+    meas_event_field_concept_id integer
+  }
+  OBSERVATION {
+    observation_id integer
+    person_id integer
+    observation_concept_id integer
+    observation_date date
+    observation_datetime datetime
+    observation_type_concept_id integer
+    value_as_number float
+    value_as_string varchar
+    value_as_concept_id Integer
+    qualifier_concept_id integer
+    unit_concept_id integer
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    observation_source_value varchar
+    observation_source_concept_id integer
+    unit_source_value varchar
+    qualifier_source_value varchar
+    value_source_value varchar
+    observation_event_id integer
+    obs_event_field_concept_id integer
+  }
+  DEATH {
+    person_id integer
+    death_date date
+    death_datetime datetime
+    death_type_concept_id integer
+    cause_concept_id integer
+    cause_source_value varchar
+    cause_source_concept_id integer
+  }
+  NOTE {
+    note_id integer
+    person_id integer
+    note_date date
+    note_datetime datetime
+    note_type_concept_id integer
+    note_class_concept_id integer
+    note_title varchar
+    note_text varchar
+    encoding_concept_id integer
+    language_concept_id integer
+    provider_id integer
+    visit_occurrence_id integer
+    visit_detail_id integer
+    note_source_value varchar
+    note_event_id integer
+    note_event_field_concept_id integer
+  }
+  NOTE_NLP {
+    note_nlp_id integer
+    note_id integer
+    section_concept_id integer
+    snippet varchar
+    offset varchar
+    lexical_variant varchar
+    note_nlp_concept_id integer
+    note_nlp_source_concept_id integer
+    nlp_system varchar
+    nlp_date date
+    nlp_datetime datetime
+    term_exists varchar
+    term_temporal varchar
+    term_modifiers varchar
+  }
+  SPECIMEN {
+    specimen_id integer
+    person_id integer
+    specimen_concept_id integer
+    specimen_type_concept_id integer
+    specimen_date date
+    specimen_datetime datetime
+    quantity float
+    unit_concept_id integer
+    anatomic_site_concept_id integer
+    disease_status_concept_id integer
+    specimen_source_id varchar
+    specimen_source_value varchar
+    unit_source_value varchar
+    anatomic_site_source_value varchar
+    disease_status_source_value varchar
+  }
+  FACT_RELATIONSHIP {
+    domain_concept_id_1 integer
+    fact_id_1 integer
+    domain_concept_id_2 integer
+    fact_id_2 integer
+    relationship_concept_id integer
+  }
+  LOCATION {
+    location_id integer
+    address_1 varchar
+    address_2 varchar
+    city varchar
+    state varchar
+    zip varchar
+    county varchar
+    location_source_value varchar
+    country_concept_id integer
+    country_source_value varchar
+    latitude float
+    longitude float
+  }
+  CARE_SITE {
+    care_site_id integer
+    care_site_name varchar
+    place_of_service_concept_id integer
+    location_id integer
+    care_site_source_value varchar
+    place_of_service_source_value varchar
+  }
+  PROVIDER {
+    provider_id integer
+    provider_name varchar
+    npi varchar
+    dea varchar
+    specialty_concept_id integer
+    care_site_id integer
+    year_of_birth integer
+    gender_concept_id integer
+    provider_source_value varchar
+    specialty_source_value varchar
+    specialty_source_concept_id integer
+    gender_source_value varchar
+    gender_source_concept_id integer
+  }
+  PAYER_PLAN_PERIOD {
+    payer_plan_period_id integer
+    person_id integer
+    payer_plan_period_start_date date
+    payer_plan_period_end_date date
+    payer_concept_id integer
+    payer_source_value varchar
+    payer_source_concept_id integer
+    plan_concept_id integer
+    plan_source_value varchar
+    plan_source_concept_id integer
+    sponsor_concept_id integer
+    sponsor_source_value varchar
+    sponsor_source_concept_id integer
+    family_source_value varchar
+    stop_reason_concept_id integer
+    stop_reason_source_value varchar
+    stop_reason_source_concept_id integer
+  }
+  COST {
+    cost_id integer
+    cost_event_id integer
+    cost_domain_id varchar
+    cost_type_concept_id integer
+    currency_concept_id integer
+    total_charge float
+    total_cost float
+    total_paid float
+    paid_by_payer float
+    paid_by_patient float
+    paid_patient_copay float
+    paid_patient_coinsurance float
+    paid_patient_deductible float
+    paid_by_primary float
+    paid_ingredient_cost float
+    paid_dispensing_fee float
+    payer_plan_period_id integer
+    amount_allowed float
+    revenue_code_concept_id integer
+    revenue_code_source_value varchar
+    drg_concept_id integer
+    drg_source_value varchar
+  }
+  DRUG_ERA {
+    drug_era_id integer
+    person_id integer
+    drug_concept_id integer
+    drug_era_start_date date
+    drug_era_end_date date
+    drug_exposure_count integer
+    gap_days integer
+  }
+  DOSE_ERA {
+    dose_era_id integer
+    person_id integer
+    drug_concept_id integer
+    unit_concept_id integer
+    dose_value float
+    dose_era_start_date date
+    dose_era_end_date date
+  }
+  CONDITION_ERA {
+    condition_era_id integer
+    person_id integer
+    condition_concept_id integer
+    condition_era_start_date date
+    condition_era_end_date date
+    condition_occurrence_count integer
+  }
+  EPISODE {
+    episode_id integer
+    person_id integer
+    episode_concept_id integer
+    episode_start_date date
+    episode_start_datetime datetime
+    episode_end_date date
+    episode_end_datetime datetime
+    episode_parent_id integer
+    episode_number integer
+    episode_object_concept_id integer
+    episode_type_concept_id integer
+    episode_source_value varchar
+    episode_source_concept_id integer
+  }
+  EPISODE_EVENT {
+    episode_id integer
+    event_id integer
+    episode_event_field_concept_id integer
+  }
+  METADATA {
+    metadata_id integer
+    metadata_concept_id integer
+    metadata_type_concept_id integer
+    name varchar
+    value_as_string varchar
+    value_as_concept_id integer
+    value_as_number float
+    metadata_date date
+    metadata_datetime datetime
+  }
+  CDM_SOURCE {
+    cdm_source_name varchar
+    cdm_source_abbreviation varchar
+    cdm_holder varchar
+    source_description varchar
+    source_documentation_reference varchar
+    cdm_etl_reference varchar
+    source_release_date date
+    cdm_release_date date
+    cdm_version varchar
+    cdm_version_concept_id integer
+    vocabulary_version varchar
+  }
+  CONCEPT {
+    concept_id integer
+    concept_name varchar
+    domain_id varchar
+    vocabulary_id varchar
+    concept_class_id varchar
+    standard_concept varchar
+    concept_code varchar
+    valid_start_date date
+    valid_end_date date
+    invalid_reason varchar
+  }
+  VOCABULARY {
+    vocabulary_id varchar
+    vocabulary_name varchar
+    vocabulary_reference varchar
+    vocabulary_version varchar
+    vocabulary_concept_id integer
+  }
+  DOMAIN {
+    domain_id varchar
+    domain_name varchar
+    domain_concept_id integer
+  }
+  CONCEPT_CLASS {
+    concept_class_id varchar
+    concept_class_name varchar
+    concept_class_concept_id integer
+  }
+  CONCEPT_RELATIONSHIP {
+    concept_id_1 integer
+    concept_id_2 integer
+    relationship_id varchar
+    valid_start_date date
+    valid_end_date date
+    invalid_reason varchar
+  }
+  RELATIONSHIP {
+    relationship_id varchar
+    relationship_name varchar
+    is_hierarchical varchar
+    defines_ancestry varchar
+    reverse_relationship_id varchar
+    relationship_concept_id integer
+  }
+  CONCEPT_SYNONYM {
+    concept_id integer
+    concept_synonym_name varchar
+    language_concept_id integer
+  }
+  CONCEPT_ANCESTOR {
+    ancestor_concept_id integer
+    descendant_concept_id integer
+    min_levels_of_separation integer
+    max_levels_of_separation integer
+  }
+  SOURCE_TO_CONCEPT_MAP {
+    source_code varchar
+    source_concept_id integer
+    source_vocabulary_id varchar
+    source_code_description varchar
+    target_concept_id integer
+    target_vocabulary_id varchar
+    valid_start_date date
+    valid_end_date date
+    invalid_reason varchar
+  }
+  DRUG_STRENGTH {
+    drug_concept_id integer
+    ingredient_concept_id integer
+    amount_value float
+    amount_unit_concept_id integer
+    numerator_value float
+    numerator_unit_concept_id integer
+    denominator_value float
+    denominator_unit_concept_id integer
+    box_size integer
+    valid_start_date date
+    valid_end_date date
+    invalid_reason varchar
+  }
+  COHORT {
+    cohort_definition_id integer
+    subject_id integer
+    cohort_start_date date
+    cohort_end_date date
+  }
+  COHORT_DEFINITION {
+    cohort_definition_id integer
+    cohort_definition_name varchar
+    cohort_definition_description varchar
+    definition_type_concept_id integer
+    cohort_definition_syntax varchar
+    subject_concept_id integer
+    cohort_initiation_date date
+  }
+  PERSON ||--o{ CONCEPT : ""
+  PERSON ||--o{ LOCATION : ""
+  PERSON ||--o{ PROVIDER : ""
+  PERSON ||--o{ CARE_SITE : ""
+  OBSERVATION_PERIOD ||--o{ PERSON : ""
+  OBSERVATION_PERIOD ||--o{ CONCEPT : ""
+  VISIT_OCCURRENCE ||--o{ PERSON : ""
+  VISIT_OCCURRENCE ||--o{ CONCEPT : ""
+  VISIT_OCCURRENCE ||--o{ PROVIDER : ""
+  VISIT_OCCURRENCE ||--o{ CARE_SITE : ""
+  VISIT_OCCURRENCE ||--o{ VISIT_OCCURRENCE : ""
+  VISIT_DETAIL ||--o{ PERSON : ""
+  VISIT_DETAIL ||--o{ CONCEPT : ""
+  VISIT_DETAIL ||--o{ PROVIDER : ""
+  VISIT_DETAIL ||--o{ CARE_SITE : ""
+  VISIT_DETAIL ||--o{ VISIT_DETAIL : ""
+  VISIT_DETAIL ||--o{ VISIT_OCCURRENCE : ""
+  CONDITION_OCCURRENCE ||--o{ PERSON : ""
+  CONDITION_OCCURRENCE ||--o{ CONCEPT : ""
+  CONDITION_OCCURRENCE ||--o{ PROVIDER : ""
+  CONDITION_OCCURRENCE ||--o{ VISIT_OCCURRENCE : ""
+  CONDITION_OCCURRENCE ||--o{ VISIT_DETAIL : ""
+  DRUG_EXPOSURE ||--o{ PERSON : ""
+  DRUG_EXPOSURE ||--o{ CONCEPT : ""
+  DRUG_EXPOSURE ||--o{ PROVIDER : ""
+  DRUG_EXPOSURE ||--o{ VISIT_OCCURRENCE : ""
+  DRUG_EXPOSURE ||--o{ VISIT_DETAIL : ""
+  PROCEDURE_OCCURRENCE ||--o{ PERSON : ""
+  PROCEDURE_OCCURRENCE ||--o{ CONCEPT : ""
+  PROCEDURE_OCCURRENCE ||--o{ PROVIDER : ""
+  PROCEDURE_OCCURRENCE ||--o{ VISIT_OCCURRENCE : ""
+  PROCEDURE_OCCURRENCE ||--o{ VISIT_DETAIL : ""
+  DEVICE_EXPOSURE ||--o{ PERSON : ""
+  DEVICE_EXPOSURE ||--o{ CONCEPT : ""
+  DEVICE_EXPOSURE ||--o{ PROVIDER : ""
+  DEVICE_EXPOSURE ||--o{ VISIT_OCCURRENCE : ""
+  DEVICE_EXPOSURE ||--o{ VISIT_DETAIL : ""
+  MEASUREMENT ||--o{ PERSON : ""
+  MEASUREMENT ||--o{ CONCEPT : ""
+  MEASUREMENT ||--o{ PROVIDER : ""
+  MEASUREMENT ||--o{ VISIT_OCCURRENCE : ""
+  MEASUREMENT ||--o{ VISIT_DETAIL : ""
+  OBSERVATION ||--o{ PERSON : ""
+  OBSERVATION ||--o{ CONCEPT : ""
+  OBSERVATION ||--o{ PROVIDER : ""
+  OBSERVATION ||--o{ VISIT_OCCURRENCE : ""
+  OBSERVATION ||--o{ VISIT_DETAIL : ""
+  DEATH ||--o{ PERSON : ""
+  DEATH ||--o{ CONCEPT : ""
+  NOTE ||--o{ PERSON : ""
+  NOTE ||--o{ CONCEPT : ""
+  NOTE ||--o{ PROVIDER : ""
+  NOTE ||--o{ VISIT_OCCURRENCE : ""
+  NOTE ||--o{ VISIT_DETAIL : ""
+  NOTE_NLP ||--o{ CONCEPT : ""
+  SPECIMEN ||--o{ PERSON : ""
+  SPECIMEN ||--o{ CONCEPT : ""
+  FACT_RELATIONSHIP ||--o{ CONCEPT : ""
+  LOCATION ||--o{ CONCEPT : ""
+  CARE_SITE ||--o{ CONCEPT : ""
+  CARE_SITE ||--o{ LOCATION : ""
+  PROVIDER ||--o{ CONCEPT : ""
+  PROVIDER ||--o{ CARE_SITE : ""
+  PAYER_PLAN_PERIOD ||--o{ PERSON : ""
+  PAYER_PLAN_PERIOD ||--o{ CONCEPT : ""
+  COST ||--o{ DOMAIN : ""
+  COST ||--o{ CONCEPT : ""
+  DRUG_ERA ||--o{ PERSON : ""
+  DRUG_ERA ||--o{ CONCEPT : ""
+  DOSE_ERA ||--o{ PERSON : ""
+  DOSE_ERA ||--o{ CONCEPT : ""
+  CONDITION_ERA ||--o{ PERSON : ""
+  CONDITION_ERA ||--o{ CONCEPT : ""
+  EPISODE ||--o{ PERSON : ""
+  EPISODE ||--o{ CONCEPT : ""
+  EPISODE_EVENT ||--o{ EPISODE : ""
+  EPISODE_EVENT ||--o{ CONCEPT : ""
+  METADATA ||--o{ CONCEPT : ""
+  CDM_SOURCE ||--o{ CONCEPT : ""
+  CONCEPT ||--o{ DOMAIN : ""
+  CONCEPT ||--o{ VOCABULARY : ""
+  CONCEPT ||--o{ CONCEPT_CLASS : ""
+  VOCABULARY ||--o{ CONCEPT : ""
+  DOMAIN ||--o{ CONCEPT : ""
+  CONCEPT_CLASS ||--o{ CONCEPT : ""
+  CONCEPT_RELATIONSHIP ||--o{ CONCEPT : ""
+  CONCEPT_RELATIONSHIP ||--o{ RELATIONSHIP : ""
+  RELATIONSHIP ||--o{ CONCEPT : ""
+  CONCEPT_SYNONYM ||--o{ CONCEPT : ""
+  CONCEPT_ANCESTOR ||--o{ CONCEPT : ""
+  SOURCE_TO_CONCEPT_MAP ||--o{ CONCEPT : ""
+  SOURCE_TO_CONCEPT_MAP ||--o{ VOCABULARY : ""
+  DRUG_STRENGTH ||--o{ CONCEPT : ""
+  COHORT_DEFINITION ||--o{ CONCEPT : ""

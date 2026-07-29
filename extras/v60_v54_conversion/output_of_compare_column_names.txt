@@ -1,0 +1,481 @@
+
+table_name            | column_name                    | status             
+----------------------+--------------------------------+--------------------
+care_site             | care_site_id                   | IN BOTH            
+care_site             | place_of_service_concept_id    | IN BOTH            
+care_site             | location_id                    | IN BOTH            
+care_site             | care_site_name                 | IN BOTH            
+care_site             | care_site_source_value         | IN BOTH            
+care_site             | place_of_service_source_value  | IN BOTH            
+cdm_source            | cdm_source_name                | IN BOTH            
+cdm_source            | cdm_source_abbreviation        | IN BOTH            
+cdm_source            | cdm_holder                     | IN BOTH            
+cdm_source            | source_description             | IN BOTH            
+cdm_source            | source_documentation_reference | IN BOTH            
+cdm_source            | cdm_etl_reference              | IN BOTH            
+cdm_source            | source_release_date            | IN BOTH            
+cdm_source            | cdm_release_date               | IN BOTH            
+cdm_source            | cdm_version                    | IN BOTH            
+cdm_source            | vocabulary_version             | IN BOTH            
+cdm_source            | cdm_version_concept_id         | MISSING FROM v6.0.1
+concept               | concept_id                     | IN BOTH            
+concept               | valid_start_date               | IN BOTH            
+concept               | valid_end_date                 | IN BOTH            
+concept               | concept_name                   | IN BOTH            
+concept               | domain_id                      | IN BOTH            
+concept               | vocabulary_id                  | IN BOTH            
+concept               | concept_class_id               | IN BOTH            
+concept               | standard_concept               | IN BOTH            
+concept               | concept_code                   | IN BOTH            
+concept               | invalid_reason                 | IN BOTH            
+concept_ancestor      | ancestor_concept_id            | IN BOTH            
+concept_ancestor      | descendant_concept_id          | IN BOTH            
+concept_ancestor      | min_levels_of_separation       | IN BOTH            
+concept_ancestor      | max_levels_of_separation       | IN BOTH            
+concept_class         | concept_class_concept_id       | IN BOTH            
+concept_class         | concept_class_id               | IN BOTH            
+concept_class         | concept_class_name             | IN BOTH            
+concept_relationship  | concept_id_1                   | IN BOTH            
+concept_relationship  | concept_id_2                   | IN BOTH            
+concept_relationship  | valid_start_date               | IN BOTH            
+concept_relationship  | valid_end_date                 | IN BOTH            
+concept_relationship  | relationship_id                | IN BOTH            
+concept_relationship  | invalid_reason                 | IN BOTH            
+concept_synonym       | concept_id                     | IN BOTH            
+concept_synonym       | language_concept_id            | IN BOTH            
+concept_synonym       | concept_synonym_name           | IN BOTH            
+condition_era         | condition_era_id               | IN BOTH            
+condition_era         | person_id                      | IN BOTH            
+condition_era         | condition_concept_id           | IN BOTH            
+condition_era         | condition_occurrence_count     | IN BOTH            
+condition_era         | condition_era_start_datetime   | MISSING FROM v5.4.0
+condition_era         | condition_era_end_datetime     | MISSING FROM v5.4.0
+condition_era         | condition_era_start_date       | MISSING FROM v6.0.1
+condition_era         | condition_era_end_date         | MISSING FROM v6.0.1
+condition_occurrence  | condition_occurrence_id        | IN BOTH            
+condition_occurrence  | person_id                      | IN BOTH            
+condition_occurrence  | condition_concept_id           | IN BOTH            
+condition_occurrence  | condition_start_date           | IN BOTH            
+condition_occurrence  | condition_start_datetime       | IN BOTH            
+condition_occurrence  | condition_end_date             | IN BOTH            
+condition_occurrence  | condition_end_datetime         | IN BOTH            
+condition_occurrence  | condition_type_concept_id      | IN BOTH            
+condition_occurrence  | provider_id                    | IN BOTH            
+condition_occurrence  | visit_occurrence_id            | IN BOTH            
+condition_occurrence  | visit_detail_id                | IN BOTH            
+condition_occurrence  | condition_source_concept_id    | IN BOTH            
+condition_occurrence  | condition_status_concept_id    | IN BOTH            
+condition_occurrence  | stop_reason                    | IN BOTH            
+condition_occurrence  | condition_source_value         | IN BOTH            
+condition_occurrence  | condition_status_source_value  | IN BOTH            
+cost                  | cost_id                        | IN BOTH            
+cost                  | cost_event_id                  | IN BOTH            
+cost                  | cost_type_concept_id           | IN BOTH            
+cost                  | currency_concept_id            | IN BOTH            
+cost                  | payer_plan_period_id           | IN BOTH            
+cost                  | revenue_code_concept_id        | IN BOTH            
+cost                  | drg_concept_id                 | IN BOTH            
+cost                  | drg_source_value               | IN BOTH            
+cost                  | person_id                      | MISSING FROM v5.4.0
+cost                  | cost_event_field_concept_id    | MISSING FROM v5.4.0
+cost                  | cost_concept_id                | MISSING FROM v5.4.0
+cost                  | cost_source_concept_id         | MISSING FROM v5.4.0
+cost                  | cost_source_value              | MISSING FROM v5.4.0
+cost                  | cost                           | MISSING FROM v5.4.0
+cost                  | incurred_date                  | MISSING FROM v5.4.0
+cost                  | billed_date                    | MISSING FROM v5.4.0
+cost                  | paid_date                      | MISSING FROM v5.4.0
+cost                  | revenue_code_source_value      | MISSING FROM v5.4.0
+cost                  | total_charge                   | MISSING FROM v6.0.1
+cost                  | total_cost                     | MISSING FROM v6.0.1
+cost                  | total_paid                     | MISSING FROM v6.0.1
+cost                  | paid_by_payer                  | MISSING FROM v6.0.1
+cost                  | paid_by_patient                | MISSING FROM v6.0.1
+cost                  | paid_patient_copay             | MISSING FROM v6.0.1
+cost                  | paid_patient_coinsurance       | MISSING FROM v6.0.1
+cost                  | paid_patient_deductible        | MISSING FROM v6.0.1
+cost                  | paid_by_primary                | MISSING FROM v6.0.1
+cost                  | paid_ingredient_cost           | MISSING FROM v6.0.1
+cost                  | paid_dispensing_fee            | MISSING FROM v6.0.1
+cost                  | amount_allowed                 | MISSING FROM v6.0.1
+cost                  | cost_domain_id                 | MISSING FROM v6.0.1
+cost                  | reveue_code_source_value       | MISSING FROM v6.0.1
+death                 | person_id                      | MISSING FROM v6.0.1
+death                 | death_date                     | MISSING FROM v6.0.1
+death                 | death_datetime                 | MISSING FROM v6.0.1
+death                 | death_type_concept_id          | MISSING FROM v6.0.1
+death                 | cause_concept_id               | MISSING FROM v6.0.1
+death                 | cause_source_concept_id        | MISSING FROM v6.0.1
+death                 | cause_source_value             | MISSING FROM v6.0.1
+device_exposure       | device_exposure_id             | IN BOTH            
+device_exposure       | person_id                      | IN BOTH            
+device_exposure       | device_concept_id              | IN BOTH            
+device_exposure       | device_exposure_start_date     | IN BOTH            
+device_exposure       | device_exposure_start_datetime | IN BOTH            
+device_exposure       | device_exposure_end_date       | IN BOTH            
+device_exposure       | device_exposure_end_datetime   | IN BOTH            
+device_exposure       | device_type_concept_id         | IN BOTH            
+device_exposure       | quantity                       | IN BOTH            
+device_exposure       | provider_id                    | IN BOTH            
+device_exposure       | visit_occurrence_id            | IN BOTH            
+device_exposure       | visit_detail_id                | IN BOTH            
+device_exposure       | device_source_concept_id       | IN BOTH            
+device_exposure       | device_source_value            | IN BOTH            
+device_exposure       | unique_device_id               | IN BOTH            
+device_exposure       | production_id                  | MISSING FROM v6.0.1
+device_exposure       | unit_concept_id                | MISSING FROM v6.0.1
+device_exposure       | unit_source_value              | MISSING FROM v6.0.1
+device_exposure       | unit_source_concept_id         | MISSING FROM v6.0.1
+domain                | domain_concept_id              | IN BOTH            
+domain                | domain_id                      | IN BOTH            
+domain                | domain_name                    | IN BOTH            
+dose_era              | dose_era_id                    | IN BOTH            
+dose_era              | person_id                      | IN BOTH            
+dose_era              | drug_concept_id                | IN BOTH            
+dose_era              | unit_concept_id                | IN BOTH            
+dose_era              | dose_value                     | IN BOTH            
+dose_era              | dose_era_start_datetime        | MISSING FROM v5.4.0
+dose_era              | dose_era_end_datetime          | MISSING FROM v5.4.0
+dose_era              | dose_era_start_date            | MISSING FROM v6.0.1
+dose_era              | dose_era_end_date              | MISSING FROM v6.0.1
+drug_era              | drug_era_id                    | IN BOTH            
+drug_era              | person_id                      | IN BOTH            
+drug_era              | drug_concept_id                | IN BOTH            
+drug_era              | drug_exposure_count            | IN BOTH            
+drug_era              | gap_days                       | IN BOTH            
+drug_era              | drug_era_start_datetime        | MISSING FROM v5.4.0
+drug_era              | drug_era_end_datetime          | MISSING FROM v5.4.0
+drug_era              | drug_era_start_date            | MISSING FROM v6.0.1
+drug_era              | drug_era_end_date              | MISSING FROM v6.0.1
+drug_exposure         | drug_exposure_id               | IN BOTH            
+drug_exposure         | person_id                      | IN BOTH            
+drug_exposure         | drug_concept_id                | IN BOTH            
+drug_exposure         | drug_exposure_start_date       | IN BOTH            
+drug_exposure         | drug_exposure_start_datetime   | IN BOTH            
+drug_exposure         | drug_exposure_end_date         | IN BOTH            
+drug_exposure         | drug_exposure_end_datetime     | IN BOTH            
+drug_exposure         | verbatim_end_date              | IN BOTH            
+drug_exposure         | drug_type_concept_id           | IN BOTH            
+drug_exposure         | refills                        | IN BOTH            
+drug_exposure         | quantity                       | IN BOTH            
+drug_exposure         | days_supply                    | IN BOTH            
+drug_exposure         | route_concept_id               | IN BOTH            
+drug_exposure         | provider_id                    | IN BOTH            
+drug_exposure         | visit_occurrence_id            | IN BOTH            
+drug_exposure         | visit_detail_id                | IN BOTH            
+drug_exposure         | drug_source_concept_id         | IN BOTH            
+drug_exposure         | stop_reason                    | IN BOTH            
+drug_exposure         | sig                            | IN BOTH            
+drug_exposure         | lot_number                     | IN BOTH            
+drug_exposure         | drug_source_value              | IN BOTH            
+drug_exposure         | route_source_value             | IN BOTH            
+drug_exposure         | dose_unit_source_value         | IN BOTH            
+drug_strength         | drug_concept_id                | IN BOTH            
+drug_strength         | ingredient_concept_id          | IN BOTH            
+drug_strength         | amount_value                   | IN BOTH            
+drug_strength         | amount_unit_concept_id         | IN BOTH            
+drug_strength         | numerator_value                | IN BOTH            
+drug_strength         | numerator_unit_concept_id      | IN BOTH            
+drug_strength         | denominator_value              | IN BOTH            
+drug_strength         | denominator_unit_concept_id    | IN BOTH            
+drug_strength         | box_size                       | IN BOTH            
+drug_strength         | valid_start_date               | IN BOTH            
+drug_strength         | valid_end_date                 | IN BOTH            
+drug_strength         | invalid_reason                 | IN BOTH            
+episode               | episode_id                     | MISSING FROM v6.0.1
+episode               | person_id                      | MISSING FROM v6.0.1
+episode               | episode_concept_id             | MISSING FROM v6.0.1
+episode               | episode_start_date             | MISSING FROM v6.0.1
+episode               | episode_start_datetime         | MISSING FROM v6.0.1
+episode               | episode_end_date               | MISSING FROM v6.0.1
+episode               | episode_end_datetime           | MISSING FROM v6.0.1
+episode               | episode_parent_id              | MISSING FROM v6.0.1
+episode               | episode_number                 | MISSING FROM v6.0.1
+episode               | episode_object_concept_id      | MISSING FROM v6.0.1
+episode               | episode_type_concept_id        | MISSING FROM v6.0.1
+episode               | episode_source_value           | MISSING FROM v6.0.1
+episode               | episode_source_concept_id      | MISSING FROM v6.0.1
+episode_event         | episode_id                     | MISSING FROM v6.0.1
+episode_event         | event_id                       | MISSING FROM v6.0.1
+episode_event         | episode_event_field_concept_id | MISSING FROM v6.0.1
+fact_relationship     | domain_concept_id_1            | IN BOTH            
+fact_relationship     | fact_id_1                      | IN BOTH            
+fact_relationship     | domain_concept_id_2            | IN BOTH            
+fact_relationship     | fact_id_2                      | IN BOTH            
+fact_relationship     | relationship_concept_id        | IN BOTH            
+location              | location_id                    | IN BOTH            
+location              | address_1                      | IN BOTH            
+location              | address_2                      | IN BOTH            
+location              | city                           | IN BOTH            
+location              | state                          | IN BOTH            
+location              | zip                            | IN BOTH            
+location              | county                         | IN BOTH            
+location              | location_source_value          | IN BOTH            
+location              | latitude                       | IN BOTH            
+location              | longitude                      | IN BOTH            
+location              | country_concept_id             | MISSING FROM v6.0.1
+location              | country_source_value           | MISSING FROM v6.0.1
+location_history      | location_id                    | MISSING FROM v5.4.0
+location_history      | relationship_type_concept_id   | MISSING FROM v5.4.0
+location_history      | domain_id                      | MISSING FROM v5.4.0
+location_history      | entity_id                      | MISSING FROM v5.4.0
+location_history      | start_date                     | MISSING FROM v5.4.0
+location_history      | end_date                       | MISSING FROM v5.4.0
+measurement           | measurement_id                 | IN BOTH            
+measurement           | person_id                      | IN BOTH            
+measurement           | measurement_concept_id         | IN BOTH            
+measurement           | measurement_date               | IN BOTH            
+measurement           | measurement_datetime           | IN BOTH            
+measurement           | measurement_time               | IN BOTH            
+measurement           | measurement_type_concept_id    | IN BOTH            
+measurement           | operator_concept_id            | IN BOTH            
+measurement           | value_as_number                | IN BOTH            
+measurement           | value_as_concept_id            | IN BOTH            
+measurement           | unit_concept_id                | IN BOTH            
+measurement           | range_low                      | IN BOTH            
+measurement           | range_high                     | IN BOTH            
+measurement           | provider_id                    | IN BOTH            
+measurement           | visit_occurrence_id            | IN BOTH            
+measurement           | visit_detail_id                | IN BOTH            
+measurement           | measurement_source_concept_id  | IN BOTH            
+measurement           | measurement_source_value       | IN BOTH            
+measurement           | unit_source_value              | IN BOTH            
+measurement           | value_source_value             | IN BOTH            
+measurement           | unit_source_id                 | MISSING FROM v6.0.1
+measurement           | measurement_event_id           | MISSING FROM v6.0.1
+measurement           | meas_event_field_concept_id    | MISSING FROM v6.0.1
+metadata              | metadata_concept_id            | IN BOTH            
+metadata              | metadata_type_concept_id       | IN BOTH            
+metadata              | value_as_concept_id            | IN BOTH            
+metadata              | metadata_date                  | IN BOTH            
+metadata              | metadata_datetime              | IN BOTH            
+metadata              | name                           | IN BOTH            
+metadata              | value_as_string                | IN BOTH            
+metadata              | metadata_id                    | MISSING FROM v6.0.1
+metadata              | value_as_number                | MISSING FROM v6.0.1
+note                  | note_id                        | IN BOTH            
+note                  | person_id                      | IN BOTH            
+note                  | note_date                      | IN BOTH            
+note                  | note_datetime                  | IN BOTH            
+note                  | note_type_concept_id           | IN BOTH            
+note                  | note_class_concept_id          | IN BOTH            
+note                  | encoding_concept_id            | IN BOTH            
+note                  | language_concept_id            | IN BOTH            
+note                  | provider_id                    | IN BOTH            
+note                  | visit_occurrence_id            | IN BOTH            
+note                  | visit_detail_id                | IN BOTH            
+note                  | note_title                     | IN BOTH            
+note                  | note_text                      | IN BOTH            
+note                  | note_source_value              | IN BOTH            
+note                  | note_event_id                  | IN BOTH            
+note                  | note_event_field_concept_id    | IN BOTH            
+note_nlp              | note_nlp_id                    | IN BOTH            
+note_nlp              | note_id                        | IN BOTH            
+note_nlp              | section_concept_id             | IN BOTH            
+note_nlp              | note_nlp_concept_id            | IN BOTH            
+note_nlp              | note_nlp_source_concept_id     | IN BOTH            
+note_nlp              | nlp_date                       | IN BOTH            
+note_nlp              | nlp_datetime                   | IN BOTH            
+note_nlp              | snippet                        | IN BOTH            
+note_nlp              | offset                         | IN BOTH            
+note_nlp              | lexical_variant                | IN BOTH            
+note_nlp              | nlp_system                     | IN BOTH            
+note_nlp              | term_exists                    | IN BOTH            
+note_nlp              | term_temporal                  | IN BOTH            
+note_nlp              | term_modifiers                 | IN BOTH            
+observation           | observation_id                 | IN BOTH            
+observation           | person_id                      | IN BOTH            
+observation           | observation_concept_id         | IN BOTH            
+observation           | observation_date               | IN BOTH            
+observation           | observation_datetime           | IN BOTH            
+observation           | observation_type_concept_id    | IN BOTH            
+observation           | value_as_number                | IN BOTH            
+observation           | value_as_concept_id            | IN BOTH            
+observation           | qualifier_concept_id           | IN BOTH            
+observation           | unit_concept_id                | IN BOTH            
+observation           | provider_id                    | IN BOTH            
+observation           | visit_occurrence_id            | IN BOTH            
+observation           | visit_detail_id                | IN BOTH            
+observation           | observation_source_concept_id  | IN BOTH            
+observation           | value_as_string                | IN BOTH            
+observation           | observation_source_value       | IN BOTH            
+observation           | unit_source_value              | IN BOTH            
+observation           | qualifier_source_value         | IN BOTH            
+observation           | observation_event_id           | IN BOTH            
+observation           | obs_event_field_concept_id     | IN BOTH            
+observation           | value_as_datetime              | MISSING FROM v5.4.0
+observation           | value_source_value             | MISSING FROM v6.0.1
+observation_period    | observation_period_id          | IN BOTH            
+observation_period    | person_id                      | IN BOTH            
+observation_period    | observation_period_start_date  | IN BOTH            
+observation_period    | observation_period_end_date    | IN BOTH            
+observation_period    | period_type_concept_id         | IN BOTH            
+payer_plan_period     | payer_plan_period_id           | IN BOTH            
+payer_plan_period     | person_id                      | IN BOTH            
+payer_plan_period     | payer_plan_period_start_date   | IN BOTH            
+payer_plan_period     | payer_plan_period_end_date     | IN BOTH            
+payer_plan_period     | payer_concept_id               | IN BOTH            
+payer_plan_period     | payer_source_concept_id        | IN BOTH            
+payer_plan_period     | plan_concept_id                | IN BOTH            
+payer_plan_period     | plan_source_concept_id         | IN BOTH            
+payer_plan_period     | sponsor_concept_id             | IN BOTH            
+payer_plan_period     | sponsor_source_concept_id      | IN BOTH            
+payer_plan_period     | stop_reason_concept_id         | IN BOTH            
+payer_plan_period     | stop_reason_source_concept_id  | IN BOTH            
+payer_plan_period     | payer_source_value             | IN BOTH            
+payer_plan_period     | plan_source_value              | IN BOTH            
+payer_plan_period     | sponsor_source_value           | IN BOTH            
+payer_plan_period     | family_source_value            | IN BOTH            
+payer_plan_period     | stop_reason_source_value       | IN BOTH            
+payer_plan_period     | contract_person_id             | MISSING FROM v5.4.0
+payer_plan_period     | contract_concept_id            | MISSING FROM v5.4.0
+payer_plan_period     | contract_source_value          | MISSING FROM v5.4.0
+payer_plan_period     | contract_source_concept_id     | MISSING FROM v5.4.0
+person                | person_id                      | IN BOTH            
+person                | gender_concept_id              | IN BOTH            
+person                | year_of_birth                  | IN BOTH            
+person                | month_of_birth                 | IN BOTH            
+person                | day_of_birth                   | IN BOTH            
+person                | birth_datetime                 | IN BOTH            
+person                | race_concept_id                | IN BOTH            
+person                | ethnicity_concept_id           | IN BOTH            
+person                | location_id                    | IN BOTH            
+person                | provider_id                    | IN BOTH            
+person                | care_site_id                   | IN BOTH            
+person                | gender_source_concept_id       | IN BOTH            
+person                | race_source_concept_id         | IN BOTH            
+person                | ethnicity_source_concept_id    | IN BOTH            
+person                | person_source_value            | IN BOTH            
+person                | gender_source_value            | IN BOTH            
+person                | race_source_value              | IN BOTH            
+person                | ethnicity_source_value         | IN BOTH            
+person                | death_datetime                 | MISSING FROM v5.4.0
+procedure_occurrence  | procedure_occurrence_id        | IN BOTH            
+procedure_occurrence  | person_id                      | IN BOTH            
+procedure_occurrence  | procedure_concept_id           | IN BOTH            
+procedure_occurrence  | procedure_date                 | IN BOTH            
+procedure_occurrence  | procedure_datetime             | IN BOTH            
+procedure_occurrence  | procedure_type_concept_id      | IN BOTH            
+procedure_occurrence  | modifier_concept_id            | IN BOTH            
+procedure_occurrence  | quantity                       | IN BOTH            
+procedure_occurrence  | provider_id                    | IN BOTH            
+procedure_occurrence  | visit_occurrence_id            | IN BOTH            
+procedure_occurrence  | visit_detail_id                | IN BOTH            
+procedure_occurrence  | procedure_source_concept_id    | IN BOTH            
+procedure_occurrence  | procedure_source_value         | IN BOTH            
+procedure_occurrence  | modifier_source_value          | IN BOTH            
+procedure_occurrence  | procedure_end_date             | MISSING FROM v6.0.1
+procedure_occurrence  | procedure_end_datetime         | MISSING FROM v6.0.1
+provider              | provider_id                    | IN BOTH            
+provider              | specialty_concept_id           | IN BOTH            
+provider              | care_site_id                   | IN BOTH            
+provider              | year_of_birth                  | IN BOTH            
+provider              | gender_concept_id              | IN BOTH            
+provider              | specialty_source_concept_id    | IN BOTH            
+provider              | gender_source_concept_id       | IN BOTH            
+provider              | provider_name                  | IN BOTH            
+provider              | npi                            | IN BOTH            
+provider              | dea                            | IN BOTH            
+provider              | provider_source_value          | IN BOTH            
+provider              | specialty_source_value         | IN BOTH            
+provider              | gender_source_value            | IN BOTH            
+relationship          | relationship_concept_id        | IN BOTH            
+relationship          | relationship_id                | IN BOTH            
+relationship          | relationship_name              | IN BOTH            
+relationship          | is_hierarchical                | IN BOTH            
+relationship          | defines_ancestry               | IN BOTH            
+relationship          | reverse_relationship_id        | IN BOTH            
+source_to_concept_map | source_concept_id              | IN BOTH            
+source_to_concept_map | target_concept_id              | IN BOTH            
+source_to_concept_map | valid_start_date               | IN BOTH            
+source_to_concept_map | valid_end_date                 | IN BOTH            
+source_to_concept_map | source_code                    | IN BOTH            
+source_to_concept_map | source_vocabulary_id           | IN BOTH            
+source_to_concept_map | source_code_description        | IN BOTH            
+source_to_concept_map | target_vocabulary_id           | IN BOTH            
+source_to_concept_map | invalid_reason                 | IN BOTH            
+specimen              | specimen_id                    | IN BOTH            
+specimen              | person_id                      | IN BOTH            
+specimen              | specimen_concept_id            | IN BOTH            
+specimen              | specimen_type_concept_id       | IN BOTH            
+specimen              | specimen_date                  | IN BOTH            
+specimen              | specimen_datetime              | IN BOTH            
+specimen              | quantity                       | IN BOTH            
+specimen              | unit_concept_id                | IN BOTH            
+specimen              | anatomic_site_concept_id       | IN BOTH            
+specimen              | disease_status_concept_id      | IN BOTH            
+specimen              | specimen_source_id             | IN BOTH            
+specimen              | specimen_source_value          | IN BOTH            
+specimen              | unit_source_value              | IN BOTH            
+specimen              | anatomic_site_source_value     | IN BOTH            
+specimen              | disease_status_source_value    | IN BOTH            
+survey_conduct        | survey_conduct_id              | MISSING FROM v5.4.0
+survey_conduct        | person_id                      | MISSING FROM v5.4.0
+survey_conduct        | survey_concept_id              | MISSING FROM v5.4.0
+survey_conduct        | survey_start_date              | MISSING FROM v5.4.0
+survey_conduct        | survey_start_datetime          | MISSING FROM v5.4.0
+survey_conduct        | survey_end_date                | MISSING FROM v5.4.0
+survey_conduct        | survey_end_datetime            | MISSING FROM v5.4.0
+survey_conduct        | provider_id                    | MISSING FROM v5.4.0
+survey_conduct        | assisted_concept_id            | MISSING FROM v5.4.0
+survey_conduct        | respondent_type_concept_id     | MISSING FROM v5.4.0
+survey_conduct        | timing_concept_id              | MISSING FROM v5.4.0
+survey_conduct        | collection_method_concept_id   | MISSING FROM v5.4.0
+survey_conduct        | assisted_source_value          | MISSING FROM v5.4.0
+survey_conduct        | respondent_type_source_value   | MISSING FROM v5.4.0
+survey_conduct        | timing_source_value            | MISSING FROM v5.4.0
+survey_conduct        | collection_method_source_value | MISSING FROM v5.4.0
+survey_conduct        | survey_source_value            | MISSING FROM v5.4.0
+survey_conduct        | survey_source_concept_id       | MISSING FROM v5.4.0
+survey_conduct        | survey_source_identifier       | MISSING FROM v5.4.0
+survey_conduct        | validated_survey_concept_id    | MISSING FROM v5.4.0
+survey_conduct        | validated_survey_source_value  | MISSING FROM v5.4.0
+survey_conduct        | survey_version_number          | MISSING FROM v5.4.0
+survey_conduct        | visit_occurrence_id            | MISSING FROM v5.4.0
+survey_conduct        | response_visit_occurrence_id   | MISSING FROM v5.4.0
+visit_detail          | visit_detail_id                | IN BOTH            
+visit_detail          | person_id                      | IN BOTH            
+visit_detail          | visit_detail_concept_id        | IN BOTH            
+visit_detail          | visit_detail_start_date        | IN BOTH            
+visit_detail          | visit_detail_start_datetime    | IN BOTH            
+visit_detail          | visit_detail_end_date          | IN BOTH            
+visit_detail          | visit_detail_end_datetime      | IN BOTH            
+visit_detail          | visit_detail_type_concept_id   | IN BOTH            
+visit_detail          | provider_id                    | IN BOTH            
+visit_detail          | care_site_id                   | IN BOTH            
+visit_detail          | preceding_visit_detail_id      | IN BOTH            
+visit_detail          | visit_detail_source_concept_id | IN BOTH            
+visit_detail          | visit_occurrence_id            | IN BOTH            
+visit_detail          | visit_detail_source_value      | IN BOTH            
+visit_detail          | admitted_from_concept_id       | IN BOTH            
+visit_detail          | admitted_from_source_value     | IN BOTH            
+visit_detail          | discharge_to_source_value      | MISSING FROM v5.4.0
+visit_detail          | discharge_to_concept_id        | MISSING FROM v5.4.0
+visit_detail          | visit_detail_parent_id         | MISSING FROM v5.4.0
+visit_detail          | discharged_to_concept_id       | MISSING FROM v6.0.1
+visit_detail          | discharged_to_source_value     | MISSING FROM v6.0.1
+visit_detail          | parent_visit_detail_id         | MISSING FROM v6.0.1
+visit_occurrence      | visit_occurrence_id            | IN BOTH            
+visit_occurrence      | person_id                      | IN BOTH            
+visit_occurrence      | visit_concept_id               | IN BOTH            
+visit_occurrence      | visit_start_date               | IN BOTH            
+visit_occurrence      | visit_start_datetime           | IN BOTH            
+visit_occurrence      | visit_end_date                 | IN BOTH            
+visit_occurrence      | visit_end_datetime             | IN BOTH            
+visit_occurrence      | visit_type_concept_id          | IN BOTH            
+visit_occurrence      | provider_id                    | IN BOTH            
+visit_occurrence      | care_site_id                   | IN BOTH            
+visit_occurrence      | visit_source_concept_id        | IN BOTH            
+visit_occurrence      | preceding_visit_occurrence_id  | IN BOTH            
+visit_occurrence      | visit_source_value             | IN BOTH            
+visit_occurrence      | admitted_from_concept_id       | IN BOTH            
+visit_occurrence      | admitted_from_source_value     | IN BOTH            
+visit_occurrence      | discharge_to_concept_id        | MISSING FROM v5.4.0
+visit_occurrence      | discharge_to_source_value      | MISSING FROM v5.4.0
+visit_occurrence      | discharged_to_concept_id       | MISSING FROM v6.0.1
+visit_occurrence      | discharged_to_source_value     | MISSING FROM v6.0.1
+vocabulary            | vocabulary_id                  | IN BOTH            
+vocabulary            | vocabulary_name                | IN BOTH            
+vocabulary            | vocabulary_reference           | IN BOTH            
+vocabulary            | vocabulary_version             | IN BOTH            
+vocabulary            | vocabulary_concept_id          | IN BOTH            
