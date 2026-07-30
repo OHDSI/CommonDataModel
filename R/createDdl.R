@@ -49,18 +49,43 @@ createDdl <- function(cdmVersion){
 
   tableList <- tableSpecs$cdmTableName
 
+  # Define sort keys for major tables
+  sortKeyMap <- list(
+    visit = "visit_concept_id,person_id",
+    visit_detail = "visit_detail_concept_id,person_id",
+    condition_occurrence = "condition_concept_id,person_id",
+    drug_exposure = "drug_concept_id,person_id",
+    device_exposure = "device_concept_id,person_id",
+    procedure_occurrence = "procedure_concept_id,person_id",
+    observation = "observation_concept_id,person_id",
+    drug_era = "drug_concept_id,person_id"
+  )
+
   sql_result <- c()
   sql_result <- c(paste0("--@targetDialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
   for (tableName in tableList){
     fields <- subset(cdmSpecs, cdmTableName == tableName)
     fieldNames <- fields$cdmFieldName
 
+    # Build HINT statement with DISTRIBUTE_ON_KEY
     if ('person_id' %in% fieldNames){
-      query <- "\n\n--HINT DISTRIBUTE ON KEY (person_id)\n"
+      hint <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
     } else {
-      query <- "\n\n--HINT DISTRIBUTE ON RANDOM\n"
+      hint <- "--HINT DISTRIBUTE_ON_KEY(RANDOM)"
     }
 
+    # Add SORT_ON_KEY if table is in sortKeyMap and has all the sort fields
+    if (tableName %in% names(sortKeyMap)){
+      sortFieldStr <- sortKeyMap[[tableName]]
+      # Split by comma to get individual fields
+      sortFields <- trimws(strsplit(sortFieldStr, ",")[[1]])
+      # Check if all sort fields exist in the table
+      if (all(sortFields %in% fieldNames)){
+        hint <- paste0(hint, " SORT_ON_KEY(INTERLEAVED:", sortFieldStr, ")")
+      }
+    }
+
+    query <- paste0("\n\n", hint, "\n")
     sql_result <- c(sql_result, query, paste0("CREATE TABLE @cdmDatabaseSchema.", tableName, " ("))
 
     n_fields <- length(fieldNames)
