@@ -99,6 +99,7 @@ alter table @cdmDatabaseSchema.note add constraint fpk_note_provider_id foreign 
 alter table @cdmDatabaseSchema.note add constraint fpk_note_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
 alter table @cdmDatabaseSchema.note add constraint fpk_note_visit_detail_id foreign key (visit_detail_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
 alter table @cdmDatabaseSchema.note add constraint fpk_note_note_event_field_concept_id foreign key (note_event_field_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_id foreign key (note_id) references @cdmDatabaseSchema.note (note_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_section_concept_id foreign key (section_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_concept_id foreign key (note_nlp_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_source_concept_id foreign key (note_nlp_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
@@ -142,6 +143,7 @@ alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_pe
 alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_condition_concept_id foreign key (condition_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_concept_id foreign key (episode_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_parent_id foreign key (episode_parent_id) references @cdmDatabaseSchema.episode (episode_id);
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_object_concept_id foreign key (episode_object_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_type_concept_id foreign key (episode_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.episode add constraint fpk_episode_episode_source_concept_id foreign key (episode_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
