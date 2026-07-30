@@ -270,7 +270,7 @@ location,state,false,varchar(2),NA,NA,false,false,NA,NA,NA,NA,NA
 location,zip,false,varchar(9),NA,"Zip codes are handled as strings of up to 9 characters length. For US addresses, these represent either a 3-digit abbreviated Zip code as provided by many sources for patient protection reasons, the full 5-digit Zip or the 9-digit (ZIP + 4) codes. Unless for specific reasons analytical methods should expect and utilize only the first 3 digits. For international addresses, different rules apply.",false,false,NA,NA,NA,NA,NA
 location,county,false,varchar(20),NA,NA,false,false,NA,NA,NA,NA,NA
 location,location_source_value,false,varchar(50),NA,"Put the verbatim value for the location here, as it shows up in the source.",false,false,NA,NA,NA,NA,NA
-location,country_concept_id,false,integer,The Concept Id representing the country. Values should conform to the [Geography](https://athena.ohdsi.org/search-terms/terms?domain=Geography&standardConcept=Standard&page=1&pageSize=15&query=&boosts) domain.,NA,false,true,CONCEPT,CONCEPT_ID,NA,NA,NA
+location,country_concept_id,false,integer,The Concept Id representing the country. Values should conform to the [Geography](https://athena.ohdsi.org/search-terms/terms?domain=Geography&standardConcept=Standard&vocabulary=OSM&vocabulary=SNOMED&conceptClass=2nd+level&conceptClass=Location&page=1&pageSize=500&query=) domain.,NA,false,true,CONCEPT,CONCEPT_ID,NA,NA,NA
 location,country_source_value,false,varchar(80),The name of the country.,NA,false,false,NA,NA,NA,NA,NA
 location,latitude,false,float,NA,Must be between -90 and 90.,false,false,NA,NA,NA,NA,NA
 location,longitude,false,float,NA,Must be between -180 and 180.,false,false,NA,NA,NA,NA,NA
