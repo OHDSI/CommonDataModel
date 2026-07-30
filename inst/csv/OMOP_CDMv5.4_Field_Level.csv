@@ -215,7 +215,7 @@ note,note_source_value,false,varchar(50),NA,The source value mapped to the NOTE_
 note,note_event_id,false,integer,"If the Note record is related to another record in the database, this field is the primary key of the linked record.","Put the primary key of the linked record, if applicable, here.",false,false,NA,NA,NA,NA,NA
 note,note_event_field_concept_id,false,integer,"If the Note record is related to another record in the database, this field is the CONCEPT_ID that identifies which table the primary key of the linked record came from.",Put the CONCEPT_ID that identifies which table and field the NOTE_EVENT_ID came from.,false,true,CONCEPT,CONCEPT_ID,NA,NA,NA
 note_nlp,note_nlp_id,true,integer,A unique identifier for the NLP record.,NA,true,false,NA,NA,NA,NA,NA
-note_nlp,note_id,true,integer,This is the NOTE_ID for the NOTE record the NLP record is associated to.,NA,false,false,NA,NA,NA,NA,NA
+note_nlp,note_id,true,integer,This is the NOTE_ID for the NOTE record the NLP record is associated to.,NA,false,true,NOTE,NOTE_ID,NA,NA,NA
 note_nlp,section_concept_id,false,integer,NA,"The SECTION_CONCEPT_ID should be used to represent the note section contained in the NOTE_NLP record. These concepts can be found as parts of document panels and are based on the type of note written, i.e. a discharge summary. These panels can be found as concepts with the relationship 'Subsumes' to CONCEPT_ID [45875957](https://athena.ohdsi.org/search-terms/terms/45875957).",false,true,CONCEPT,CONCEPT_ID,NA,NA,NA
 note_nlp,snippet,false,varchar(250),A small window of text surrounding the term,NA,false,false,NA,NA,NA,NA,NA
 note_nlp,"""offset""",false,varchar(50),Character offset of the extracted term in the input note,NA,false,false,NA,NA,NA,NA,NA
