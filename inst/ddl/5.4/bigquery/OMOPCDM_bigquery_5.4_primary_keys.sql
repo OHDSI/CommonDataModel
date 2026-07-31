@@ -26,3 +26,4 @@ alter table @cdmDatabaseSchema.concept add constraint xpk_concept primary key no
 alter table @cdmDatabaseSchema.domain add constraint xpk_domain primary key nonclustered (domain_id);
 alter table @cdmDatabaseSchema.concept_class add constraint xpk_concept_class primary key nonclustered (concept_class_id);
 alter table @cdmDatabaseSchema.relationship add constraint xpk_relationship primary key nonclustered (relationship_id);
+

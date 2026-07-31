@@ -156,3 +156,4 @@ ALTER TABLE @cdmDatabaseSchema.drug_strength  ADD CONSTRAINT fpk_drug_strength_d
 ALTER TABLE @cdmDatabaseSchema.cohort_definition  ADD CONSTRAINT fpk_cohort_definition_definition_type_concept_id FOREIGN KEY (definition_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.cohort_definition  ADD CONSTRAINT fpk_cohort_definition_subject_concept_id FOREIGN KEY (subject_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.attribute_definition  ADD CONSTRAINT fpk_attribute_definition_attribute_type_concept_id FOREIGN KEY (attribute_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+

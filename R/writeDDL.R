@@ -59,7 +59,8 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
   sql <- paste(lines, collapse = "\n")
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "ddl.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping that breaks SQL
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -85,7 +86,8 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "primary", "keys.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -110,7 +112,8 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "constraints.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -136,6 +139,7 @@ writeIndex <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchem
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "indices.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
