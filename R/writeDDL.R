@@ -45,6 +45,19 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  # Post-processing: remove conditional markers and handle dialects
+  lines <- strsplit(sql, "\n")[[1]]
+  
+  if (tolower(targetDialect) == "redshift") {
+    # For Redshift: remove conditional markers but keep the HINT lines
+    lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  } else {
+    # For non-Redshift: remove HINT directives and conditional markers
+    lines <- lines[!grepl("--HINT|\\{#?if|\\{/if\\}", lines)]
+  }
+  
+  sql <- paste(lines, collapse = "\n")
+
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "ddl.sql", sep = "_")
   SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
   invisible(filename)

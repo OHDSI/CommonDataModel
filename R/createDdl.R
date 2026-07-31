@@ -68,7 +68,6 @@ createDdl <- function(cdmVersion){
     fieldNames <- fields$cdmFieldName
 
     # Build HINT statement with DISTRIBUTE_ON_KEY (Redshift only)
-    # Note: HINT syntax is only valid in Redshift and will be stripped by SqlRender for other dialects
     if ('person_id' %in% fieldNames){
       hintContent <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
     } else {
@@ -88,7 +87,7 @@ createDdl <- function(cdmVersion){
 
     # Use HINT as a single-line comment
     # Redshift will recognize and apply --HINT directives
-    # Other dialects (PostgreSQL, SQL Server) will treat it as a regular comment and ignore it safely
+    # Non-Redshift dialects will have these removed in writeDdl()
     hint <- hintContent
 
     query <- paste0("\n", hint, "\n")

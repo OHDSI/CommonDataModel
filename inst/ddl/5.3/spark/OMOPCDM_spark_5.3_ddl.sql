@@ -1,4 +1,3 @@
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.person  
 USING DELTA
 AS
@@ -22,7 +21,6 @@ CAST(NULL AS integer) AS person_id,
 	CAST(NULL AS STRING) AS ethnicity_source_value,
 	CAST(NULL AS integer) AS ethnicity_source_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.person   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.observation_period  
 USING DELTA
 AS
@@ -33,7 +31,6 @@ CAST(NULL AS integer) AS observation_period_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS observation_period_end_date,
 	CAST(NULL AS integer) AS period_type_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.observation_period   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.visit_occurrence  
 USING DELTA
 AS
@@ -56,7 +53,6 @@ CAST(NULL AS integer) AS visit_occurrence_id,
 	CAST(NULL AS STRING) AS discharge_to_source_value,
 	CAST(NULL AS integer) AS preceding_visit_occurrence_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.visit_occurrence   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:visit_detail_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.visit_detail  
 USING DELTA
  AS
@@ -80,7 +76,6 @@ CAST(NULL AS integer) AS visit_detail_id,
 	CAST(NULL AS integer) AS preceding_visit_detail_id,
 	CAST(NULL AS integer) AS visit_detail_parent_id,
 	CAST(NULL AS integer) AS visit_occurrence_id  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:condition_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.condition_occurrence  
 USING DELTA
  AS
@@ -101,7 +96,6 @@ CAST(NULL AS integer) AS condition_occurrence_id,
 	CAST(NULL AS STRING) AS condition_source_value,
 	CAST(NULL AS integer) AS condition_source_concept_id,
 	CAST(NULL AS STRING) AS condition_status_source_value  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:drug_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.drug_exposure  
 USING DELTA
  AS
@@ -129,7 +123,6 @@ CAST(NULL AS integer) AS drug_exposure_id,
 	CAST(NULL AS integer) AS drug_source_concept_id,
 	CAST(NULL AS STRING) AS route_source_value,
 	CAST(NULL AS STRING) AS dose_unit_source_value  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:procedure_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.procedure_occurrence  
 USING DELTA
  AS
@@ -148,7 +141,6 @@ CAST(NULL AS integer) AS procedure_occurrence_id,
 	CAST(NULL AS STRING) AS procedure_source_value,
 	CAST(NULL AS integer) AS procedure_source_concept_id,
 	CAST(NULL AS STRING) AS modifier_source_value  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:device_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.device_exposure  
 USING DELTA
  AS
@@ -168,7 +160,6 @@ CAST(NULL AS integer) AS device_exposure_id,
 	CAST(NULL AS integer) AS visit_detail_id,
 	CAST(NULL AS STRING) AS device_source_value,
 	CAST(NULL AS integer) AS device_source_concept_id  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.measurement  
 USING DELTA
 AS
@@ -194,7 +185,6 @@ CAST(NULL AS integer) AS measurement_id,
 	CAST(NULL AS STRING) AS unit_source_value,
 	CAST(NULL AS STRING) AS value_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.measurement   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:observation_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.observation  
 USING DELTA
  AS
@@ -217,7 +207,6 @@ CAST(NULL AS integer) AS observation_id,
 	CAST(NULL AS integer) AS observation_source_concept_id,
 	CAST(NULL AS STRING) AS unit_source_value,
 	CAST(NULL AS STRING) AS qualifier_source_value  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.death  
 USING DELTA
 AS
@@ -230,7 +219,6 @@ CAST(NULL AS integer) AS person_id,
 	CAST(NULL AS STRING) AS cause_source_value,
 	CAST(NULL AS integer) AS cause_source_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.death   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.note  
 USING DELTA
 AS
@@ -250,7 +238,6 @@ CAST(NULL AS integer) AS note_id,
 	CAST(NULL AS integer) AS visit_detail_id,
 	CAST(NULL AS STRING) AS note_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.note   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.note_nlp  
 USING DELTA
 AS
@@ -270,7 +257,6 @@ CAST(NULL AS integer) AS note_nlp_id,
 	CAST(NULL AS STRING) AS term_temporal,
 	CAST(NULL AS STRING) AS term_modifiers  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.note_nlp   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.specimen  
 USING DELTA
 AS
@@ -291,7 +277,6 @@ CAST(NULL AS integer) AS specimen_id,
 	CAST(NULL AS STRING) AS anatomic_site_source_value,
 	CAST(NULL AS STRING) AS disease_status_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.specimen   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.fact_relationship  
 USING DELTA
 AS
@@ -302,7 +287,6 @@ CAST(NULL AS integer) AS domain_concept_id_1,
 	CAST(NULL AS integer) AS fact_id_2,
 	CAST(NULL AS integer) AS relationship_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.fact_relationship   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.location  
 USING DELTA
 AS
@@ -316,7 +300,6 @@ CAST(NULL AS integer) AS location_id,
 	CAST(NULL AS STRING) AS county,
 	CAST(NULL AS STRING) AS location_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.location   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.care_site  
 USING DELTA
 AS
@@ -328,7 +311,6 @@ CAST(NULL AS integer) AS care_site_id,
 	CAST(NULL AS STRING) AS care_site_source_value,
 	CAST(NULL AS STRING) AS place_of_service_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.care_site   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.provider  
 USING DELTA
 AS
@@ -347,7 +329,6 @@ CAST(NULL AS integer) AS provider_id,
 	CAST(NULL AS STRING) AS gender_source_value,
 	CAST(NULL AS integer) AS gender_source_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.provider   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.payer_plan_period  
 USING DELTA
 AS
@@ -370,7 +351,6 @@ CAST(NULL AS integer) AS payer_plan_period_id,
 	CAST(NULL AS STRING) AS stop_reason_source_value,
 	CAST(NULL AS integer) AS stop_reason_source_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.payer_plan_period   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.cost  
 USING DELTA
 AS
@@ -398,7 +378,6 @@ CAST(NULL AS integer) AS cost_id,
 	CAST(NULL AS integer) AS drg_concept_id,
 	CAST(NULL AS STRING) AS drg_source_value  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.cost   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(person_id) SORT_ON_KEY(INTERLEAVED:drug_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.drug_era  
 USING DELTA
  AS
@@ -410,7 +389,6 @@ CAST(NULL AS integer) AS drug_era_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS drug_era_end_date,
 	CAST(NULL AS integer) AS drug_exposure_count,
 	CAST(NULL AS integer) AS gap_days  WHERE 1 = 0;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.dose_era  
 USING DELTA
 AS
@@ -423,7 +401,6 @@ CAST(NULL AS integer) AS dose_era_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS dose_era_start_date,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS dose_era_end_date  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.dose_era   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(person_id) 
 CREATE TABLE @cdmDatabaseSchema.condition_era  
 USING DELTA
 AS
@@ -435,7 +412,6 @@ CAST(NULL AS integer) AS condition_era_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS condition_era_end_date,
 	CAST(NULL AS integer) AS condition_occurrence_count  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.condition_era   ZORDER BY person_id;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.metadata  
 USING DELTA
 AS
@@ -448,7 +424,6 @@ CAST(NULL AS integer) AS metadata_concept_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS metadata_date,
 	CAST(NULL AS TIMESTAMP) AS metadata_datetime  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.metadata   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.cdm_source  
 USING DELTA
 AS
@@ -464,7 +439,6 @@ CAST(NULL AS STRING) AS cdm_source_name,
 	CAST(NULL AS STRING) AS cdm_version,
 	CAST(NULL AS STRING) AS vocabulary_version  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.cdm_source   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.concept  
 USING DELTA
 AS
@@ -480,7 +454,6 @@ CAST(NULL AS integer) AS concept_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS valid_end_date,
 	CAST(NULL AS STRING) AS invalid_reason  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.concept   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.vocabulary  
 USING DELTA
 AS
@@ -491,7 +464,6 @@ CAST(NULL AS STRING) AS vocabulary_id,
 	CAST(NULL AS STRING) AS vocabulary_version,
 	CAST(NULL AS integer) AS vocabulary_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.vocabulary   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.domain  
 USING DELTA
 AS
@@ -500,7 +472,6 @@ CAST(NULL AS STRING) AS domain_id,
 	CAST(NULL AS STRING) AS domain_name,
 	CAST(NULL AS integer) AS domain_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.domain   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.concept_class  
 USING DELTA
 AS
@@ -509,7 +480,6 @@ CAST(NULL AS STRING) AS concept_class_id,
 	CAST(NULL AS STRING) AS concept_class_name,
 	CAST(NULL AS integer) AS concept_class_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.concept_class   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.concept_relationship  
 USING DELTA
 AS
@@ -521,7 +491,6 @@ CAST(NULL AS integer) AS concept_id_1,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS valid_end_date,
 	CAST(NULL AS STRING) AS invalid_reason  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.concept_relationship   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.relationship  
 USING DELTA
 AS
@@ -533,7 +502,6 @@ CAST(NULL AS STRING) AS relationship_id,
 	CAST(NULL AS STRING) AS reverse_relationship_id,
 	CAST(NULL AS integer) AS relationship_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.relationship   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.concept_synonym  
 USING DELTA
 AS
@@ -542,7 +510,6 @@ CAST(NULL AS integer) AS concept_id,
 	CAST(NULL AS STRING) AS concept_synonym_name,
 	CAST(NULL AS integer) AS language_concept_id  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.concept_synonym   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.concept_ancestor  
 USING DELTA
 AS
@@ -552,7 +519,6 @@ CAST(NULL AS integer) AS ancestor_concept_id,
 	CAST(NULL AS integer) AS min_levels_of_separation,
 	CAST(NULL AS integer) AS max_levels_of_separation  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.concept_ancestor   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.source_to_concept_map  
 USING DELTA
 AS
@@ -567,7 +533,6 @@ CAST(NULL AS STRING) AS source_code,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS valid_end_date,
 	CAST(NULL AS STRING) AS invalid_reason  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.source_to_concept_map   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.drug_strength  
 USING DELTA
 AS
@@ -585,7 +550,6 @@ CAST(NULL AS integer) AS drug_concept_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS valid_end_date,
 	CAST(NULL AS STRING) AS invalid_reason  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.drug_strength   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.cohort_definition  
 USING DELTA
 AS
@@ -598,7 +562,6 @@ CAST(NULL AS integer) AS cohort_definition_id,
 	CAST(NULL AS integer) AS subject_concept_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS cohort_initiation_date  WHERE 1 = 0;
 OPTIMIZE @cdmDatabaseSchema.cohort_definition   ZORDER BY RANDOM;
---HINT DISTRIBUTE_ON_KEY(RANDOM) 
 CREATE TABLE @cdmDatabaseSchema.attribute_definition  
 USING DELTA
 AS

@@ -1,5 +1,4 @@
 --netezza CDM DDL Specification for OMOP Common Data Model 5.4
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.person (
 			person_id integer NOT NULL,
 			gender_concept_id integer NOT NULL,
@@ -20,7 +19,6 @@ CREATE TABLE @cdmDatabaseSchema.person (
 			ethnicity_source_value varchar(50) NULL,
 			ethnicity_source_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.observation_period (
 			observation_period_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -28,7 +26,6 @@ CREATE TABLE @cdmDatabaseSchema.observation_period (
 			observation_period_end_date date NOT NULL,
 			period_type_concept_id integer NOT NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.visit_occurrence (
 			visit_occurrence_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -48,7 +45,6 @@ CREATE TABLE @cdmDatabaseSchema.visit_occurrence (
 			discharged_to_source_value varchar(50) NULL,
 			preceding_visit_occurrence_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:visit_detail_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.visit_detail (
 			visit_detail_id integer NOT NULL,
@@ -71,7 +67,6 @@ CREATE TABLE @cdmDatabaseSchema.visit_detail (
 			parent_visit_detail_id integer NULL,
 			visit_occurrence_id integer NOT NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:condition_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.condition_occurrence (
 			condition_occurrence_id integer NOT NULL,
@@ -91,7 +86,6 @@ CREATE TABLE @cdmDatabaseSchema.condition_occurrence (
 			condition_source_concept_id integer NULL,
 			condition_status_source_value varchar(50) NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:drug_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.drug_exposure (
 			drug_exposure_id integer NOT NULL,
@@ -118,7 +112,6 @@ CREATE TABLE @cdmDatabaseSchema.drug_exposure (
 			route_source_value varchar(50) NULL,
 			dose_unit_source_value varchar(50) NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:procedure_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.procedure_occurrence (
 			procedure_occurrence_id integer NOT NULL,
@@ -138,7 +131,6 @@ CREATE TABLE @cdmDatabaseSchema.procedure_occurrence (
 			procedure_source_concept_id integer NULL,
 			modifier_source_value varchar(50) NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:device_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.device_exposure (
 			device_exposure_id integer NOT NULL,
@@ -161,7 +153,6 @@ CREATE TABLE @cdmDatabaseSchema.device_exposure (
 			unit_source_value varchar(50) NULL,
 			unit_source_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.measurement (
 			measurement_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -187,7 +178,6 @@ CREATE TABLE @cdmDatabaseSchema.measurement (
 			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:observation_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.observation (
 			observation_id integer NOT NULL,
@@ -212,7 +202,6 @@ CREATE TABLE @cdmDatabaseSchema.observation (
 			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.death (
 			person_id integer NOT NULL,
 			death_date date NOT NULL,
@@ -222,7 +211,6 @@ CREATE TABLE @cdmDatabaseSchema.death (
 			cause_source_value varchar(50) NULL,
 			cause_source_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.note (
 			note_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -241,7 +229,6 @@ CREATE TABLE @cdmDatabaseSchema.note (
 			note_event_id integer NULL,
 			note_event_field_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.note_nlp (
 			note_nlp_id integer NOT NULL,
 			note_id integer NOT NULL,
@@ -258,7 +245,6 @@ CREATE TABLE @cdmDatabaseSchema.note_nlp (
 			term_temporal varchar(50) NULL,
 			term_modifiers varchar(2000) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.specimen (
 			specimen_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -276,7 +262,6 @@ CREATE TABLE @cdmDatabaseSchema.specimen (
 			anatomic_site_source_value varchar(50) NULL,
 			disease_status_source_value varchar(50) NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.fact_relationship (
 			domain_concept_id_1 integer NOT NULL,
 			fact_id_1 integer NOT NULL,
@@ -284,7 +269,6 @@ CREATE TABLE @cdmDatabaseSchema.fact_relationship (
 			fact_id_2 integer NOT NULL,
 			relationship_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.location (
 			location_id integer NOT NULL,
 			address_1 varchar(50) NULL,
@@ -299,7 +283,6 @@ CREATE TABLE @cdmDatabaseSchema.location (
 			latitude FLOAT(6) NULL,
 			longitude FLOAT(6) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.care_site (
 			care_site_id integer NOT NULL,
 			care_site_name varchar(255) NULL,
@@ -308,7 +291,6 @@ CREATE TABLE @cdmDatabaseSchema.care_site (
 			care_site_source_value varchar(50) NULL,
 			place_of_service_source_value varchar(50) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.provider (
 			provider_id integer NOT NULL,
 			provider_name varchar(255) NULL,
@@ -324,7 +306,6 @@ CREATE TABLE @cdmDatabaseSchema.provider (
 			gender_source_value varchar(50) NULL,
 			gender_source_concept_id integer NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.payer_plan_period (
 			payer_plan_period_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -344,7 +325,6 @@ CREATE TABLE @cdmDatabaseSchema.payer_plan_period (
 			stop_reason_source_value varchar(50) NULL,
 			stop_reason_source_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.cost (
 			cost_id integer NOT NULL,
 			cost_event_id integer NOT NULL,
@@ -369,7 +349,6 @@ CREATE TABLE @cdmDatabaseSchema.cost (
 			drg_concept_id integer NULL,
 			drg_source_value varchar(3) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(person_id)
 SORT_ON_KEY(INTERLEAVED:drug_concept_id,person_id)
 CREATE TABLE @cdmDatabaseSchema.drug_era (
 			drug_era_id integer NOT NULL,
@@ -380,7 +359,6 @@ CREATE TABLE @cdmDatabaseSchema.drug_era (
 			drug_exposure_count integer NULL,
 			gap_days integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.dose_era (
 			dose_era_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -390,7 +368,6 @@ CREATE TABLE @cdmDatabaseSchema.dose_era (
 			dose_era_start_date date NOT NULL,
 			dose_era_end_date date NOT NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.condition_era (
 			condition_era_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -399,7 +376,6 @@ CREATE TABLE @cdmDatabaseSchema.condition_era (
 			condition_era_end_date date NOT NULL,
 			condition_occurrence_count integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(person_id)
 CREATE TABLE @cdmDatabaseSchema.episode (
 			episode_id integer NOT NULL,
 			person_id integer NOT NULL,
@@ -415,13 +391,11 @@ CREATE TABLE @cdmDatabaseSchema.episode (
 			episode_source_value varchar(50) NULL,
 			episode_source_concept_id integer NULL )
 DISTRIBUTE ON (person_id);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.episode_event (
 			episode_id integer NOT NULL,
 			event_id integer NOT NULL,
 			episode_event_field_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.metadata (
 			metadata_id integer NOT NULL,
 			metadata_concept_id integer NOT NULL,
@@ -433,7 +407,6 @@ CREATE TABLE @cdmDatabaseSchema.metadata (
 			metadata_date date NULL,
 			metadata_datetime TIMESTAMP NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NOT NULL,
@@ -447,7 +420,6 @@ CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			cdm_version_concept_id integer NOT NULL,
 			vocabulary_version varchar(20) NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.concept (
 			concept_id integer NOT NULL,
 			concept_name varchar(255) NOT NULL,
@@ -460,7 +432,6 @@ CREATE TABLE @cdmDatabaseSchema.concept (
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.vocabulary (
 			vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
@@ -468,19 +439,16 @@ CREATE TABLE @cdmDatabaseSchema.vocabulary (
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.domain (
 			domain_id varchar(20) NOT NULL,
 			domain_name varchar(255) NOT NULL,
 			domain_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.concept_class (
 			concept_class_id varchar(20) NOT NULL,
 			concept_class_name varchar(255) NOT NULL,
 			concept_class_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.concept_relationship (
 			concept_id_1 integer NOT NULL,
 			concept_id_2 integer NOT NULL,
@@ -489,7 +457,6 @@ CREATE TABLE @cdmDatabaseSchema.concept_relationship (
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.relationship (
 			relationship_id varchar(20) NOT NULL,
 			relationship_name varchar(255) NOT NULL,
@@ -498,20 +465,17 @@ CREATE TABLE @cdmDatabaseSchema.relationship (
 			reverse_relationship_id varchar(20) NOT NULL,
 			relationship_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.concept_synonym (
 			concept_id integer NOT NULL,
 			concept_synonym_name varchar(1000) NOT NULL,
 			language_concept_id integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.concept_ancestor (
 			ancestor_concept_id integer NOT NULL,
 			descendant_concept_id integer NOT NULL,
 			min_levels_of_separation integer NOT NULL,
 			max_levels_of_separation integer NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.source_to_concept_map (
 			source_code varchar(50) NOT NULL,
 			source_concept_id integer NOT NULL,
@@ -523,7 +487,6 @@ CREATE TABLE @cdmDatabaseSchema.source_to_concept_map (
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.drug_strength (
 			drug_concept_id integer NOT NULL,
 			ingredient_concept_id integer NOT NULL,
@@ -538,14 +501,12 @@ CREATE TABLE @cdmDatabaseSchema.drug_strength (
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.cohort (
 			cohort_definition_id integer NOT NULL,
 			subject_id integer NOT NULL,
 			cohort_start_date date NOT NULL,
 			cohort_end_date date NOT NULL )
 DISTRIBUTE ON (RANDOM);
---HINT DISTRIBUTE_ON_KEY(RANDOM)
 CREATE TABLE @cdmDatabaseSchema.cohort_definition (
 			cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
