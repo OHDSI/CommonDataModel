@@ -112,58 +112,71 @@ dropAllTablesFromSchema <- function(connectionDetails, schema) {
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
   
-  # Get table names using the same connection
-  if (dbms %in% c("postgresql", "redshift", "sql server")) {
-    tables <- DBI::dbGetQuery(
-      con,
-      paste0(
-        "select table_name from information_schema.tables where table_schema = '",
-        schema,
-        "'"
-      )
-    )[[1]]
-  } else if (dbms == "oracle") {
-    query <- paste0(
-      "select table_name from all_tables where owner = '",
-      toupper(schema),
-      "' and tablespace_name = 'USERS'"
-    )
-    tables <- DBI::dbGetQuery(con, query)[[1]]
-  }
-  
-  if (length(tables) == 0) {
-    return(invisible(NULL))  # No tables to drop
-  }
-  
-  # Now drop all tables with proper CASCADE handling
   if (dbms %in% c("postgresql", "redshift")) {
-    # PostgreSQL/Redshift: Disable constraints and drop all tables
+    # PostgreSQL/Redshift: Use DROP SCHEMA CASCADE - most reliable approach
+    # This drops the schema and recreates it empty
     tryCatch({
-      # Set constraints to deferred mode
-      DBI::dbExecute(con, "SET CONSTRAINTS ALL DEFERRED")
-      # Drop all tables with CASCADE
-      for (tableName in tables) {
-        DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS "', schema, '"."', tableName, '" CASCADE'))
-      }
+      # Drop the schema and all its objects
+      DBI::dbExecute(con, paste0('DROP SCHEMA IF EXISTS "', schema, '" CASCADE'))
+      # Recreate the empty schema
+      DBI::dbExecute(con, paste0('CREATE SCHEMA IF NOT EXISTS "', schema, '"'))
     }, error = function(e) {
-      # Silent fallback - the for loop above still attempts drops
-      invisible(NULL)
+      # Fallback: try to list and drop tables individually
+      tryCatch({
+        tables <- DBI::dbGetQuery(
+          con,
+          paste0(
+            "SELECT table_name FROM information_schema.tables ",
+            "WHERE lower(table_schema) = lower('", schema, "')"
+          )
+        )[[1]]
+        
+        if (length(tables) > 0 && !is.null(tables)) {
+          for (tableName in tables) {
+            tryCatch({
+              DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS "', schema, '"."', tableName, '" CASCADE'))
+            }, error = function(e2) invisible(NULL))
+          }
+        }
+      }, error = function(e2) invisible(NULL))
     })
   } else if (dbms == "sql server") {
-    # SQL Server: drop each table
-    for (tableName in tables) {
-      tryCatch(
-        DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS [', schema, '].[', tableName, ']')),
-        error = function(e2) invisible(NULL)
-      )
-    }
+    # SQL Server: List and drop each table
+    tryCatch({
+      tables <- DBI::dbGetQuery(
+        con,
+        paste0(
+          "SELECT table_name FROM information_schema.tables ",
+          "WHERE table_schema = '", schema, "'"
+        )
+      )[[1]]
+      
+      if (length(tables) > 0 && !is.null(tables)) {
+        for (tableName in tables) {
+          tryCatch({
+            DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS [', schema, '].[', tableName, ']'))
+          }, error = function(e2) invisible(NULL))
+        }
+      }
+    }, error = function(e2) invisible(NULL))
   } else if (dbms == "oracle") {
-    # Oracle: drop each table with CASCADE CONSTRAINTS
-    for (tableName in tables) {
-      tryCatch(
-        DBI::dbExecute(con, paste0('DROP TABLE "', tableName, '" CASCADE CONSTRAINTS')),
-        error = function(e2) invisible(NULL)
-      )
-    }
+    # Oracle: List and drop each table
+    tryCatch({
+      tables <- DBI::dbGetQuery(
+        con,
+        paste0(
+          "SELECT table_name FROM all_tables ",
+          "WHERE owner = '", toupper(schema), "'"
+        )
+      )[[1]]
+      
+      if (length(tables) > 0 && !is.null(tables)) {
+        for (tableName in tables) {
+          tryCatch({
+            DBI::dbExecute(con, paste0('DROP TABLE "', tableName, '" CASCADE CONSTRAINTS'))
+          }, error = function(e2) invisible(NULL))
+        }
+      }
+    }, error = function(e2) invisible(NULL))
   }
 }
