@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,19 +68,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./man/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -277,7 +276,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
     };
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
@@ -293,8 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
-    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">OMOP Common Data Model</span>
@@ -535,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="source-to-standard" class="level3">
 <h3 class="anchored" data-anchor-id="source-to-standard">Source to Standard</h3>
 <p>This script will create a large table containing all source codes and the Standard Concepts they map to. By creating this table ahead of time and referencing it during ETL, you can save processing time than if you were to map source codes on the fly. It is important to note that this script will show ALL mappings, not just those to Standard, Valid Concepts. Be sure to add a filter that will only grab the correct Standard, Valid codes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  c.concept_code <span class="kw">AS</span> source_code,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  c.concept_id <span class="kw">AS</span> source_concept_id,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  c.concept_name <span class="kw">AS</span> source_code_description,</span>
@@ -585,12 +582,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c1.concept_id <span class="op">=</span> stcm.source_concept_id</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> concept c2</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c2.concept_id <span class="op">=</span> stcm.target_concept_id</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="source-to-source" class="level3">
 <h3 class="anchored" data-anchor-id="source-to-source">Source to Source</h3>
 <p>This script will create a large table containing all source codes and their referent Concepts. While you may be tempted to use the Source to Standard query to find these, it is important to use this one instead to populate *_SOURCE_CONCEPT_ID fields. Some source codes map to multiple Standard Concepts though they have only one source Concept. By using the Source to Standard query you may inadvertently create duplicate records in your CDM instance.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  c.concept_code <span class="kw">AS</span> source_code,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  c.concept_id <span class="kw">AS</span> source_concept_id,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  c.concept_name <span class="kw">AS</span> source_code_description,</span>
@@ -631,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c1.concept_id <span class="op">=</span> stcm.source_concept_id</span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> concept c2</span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> c2.concept_id <span class="op">=</span> stcm.target_concept_id</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stcm.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="era-tables" class="level2">
@@ -639,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="condition-eras" class="level3">
 <h3 class="anchored" data-anchor-id="condition-eras">Condition Eras</h3>
 <p>This script will insert values into the CONDITION_ERA table given that the CONDITION_OCCURRENCE table is populated. It will string together condition records that have &lt;= 30 days between them into eras during which the Person is assumed to have the given condition. <strong>NOTE</strong> This query only works with 5.3 and below.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/****************************************************</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/****************************************************</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">OHDSI-SQL File Instructions</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">-----------------------------</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> 1. Set parameter name of schema that contains CDMv4 instance</span></span>
@@ -811,12 +808,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #cteConditionEnds</span>
 <span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id</span>
 <span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>  ,condition_concept_id</span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>  ,era_end_date;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>  ,era_end_date;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="drug-eras" class="level3">
 <h3 class="anchored" data-anchor-id="drug-eras">Drug Eras</h3>
 <p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. <strong>NOTE</strong> This query only works with the <strong>version 5</strong> series and below.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Code taken from:</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1020,7 +1017,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.drug_era(drug_era_id,person_id, drug_concept_id, drug_era_start_date, drug_era_end_date, drug_exposure_count, gap_days)</span>
 <span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span></span>
-<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #tmp_de;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #tmp_de;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="example-etl-script" class="level2">
@@ -1031,7 +1028,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="v5.3" class="level4">
 <h4 class="anchored" data-anchor-id="v5.3">v5.3</h4>
 <p>This example was taken from the <a href="https://github.com/OHDSI/ETL-Synthea">ETL-Synthea</a> package, a good example on how to write a complete extract-transform-load script from start to finish, including vocabulary import.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  cdm_source_name,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  cdm_source_abbreviation,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  cdm_holder,</span>
@@ -1055,11 +1052,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">'v5.3'</span>,</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  vocabulary_version</span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> @cdm_schema.vocabulary</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="v5.4" class="level4">
 <h4 class="anchored" data-anchor-id="v5.4">v5.4</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.cdm_source (</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  cdm_source_name,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  cdm_source_abbreviation,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  cdm_holder,</span>
@@ -1069,8 +1066,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  source_release_date,</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  cdm_release_date,</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  cdm_version,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  vocabulary_version,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  vocabulary_version_concept_id</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  cdm_version_concept_id,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  vocabulary_version</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_cdm_source_name&gt;'</span>,</span>
@@ -1082,10 +1079,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">'&lt;your_source_release_date&gt;'</span>,  <span class="co">-- when the source data was pulled</span></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  getdate(),  <span class="co">-- or the date of ETL run</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">'v5.4'</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  vocabulary_version,</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="dv">756265</span>  <span class="co">-- 'OMOP CDM Version 5.4.0'</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="dv">756265</span>,  <span class="co">-- 'OMOP CDM Version 5.4.0'</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  vocabulary_version</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> @cdm_schema.vocabulary</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> vocabulary_id <span class="op">=</span> <span class="st">'None'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 </section>
@@ -1094,7 +1091,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="visit-concept-roll-up" class="level3">
 <h3 class="anchored" data-anchor-id="visit-concept-roll-up">Visit Concept Roll-up</h3>
 <p>The query below will utilize the Visit Concept hierarchy to find the highest-level ancestors. In the case that both the VISIT_OCCURRENCE and VISIT_DETAIL tables are populated, it is good practice (though not required) to use the highest-level ancestors AS the VISIT_CONCEPT_IDs in the VISIT_OCCURRENCE table and their children AS the VISIT_DETAIL_CONCEPT_IDs in the VISIT_DETAIL table. This relationship between the VISIT_OCCURRENCE and VISIT_DETAIL tables allow for standardized Visit logic to be written, building Visits from Visit Details. For more information on how this can be done, please see the <a href="https://ohdsi.github.io/ETL-LambdaBuilder/Optum%20Clinformatics/Optum_visit_occurrence.html">Optum Extended ETL documentation</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  concept_id,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  concept_name</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> concept</span>
@@ -1103,7 +1100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> ancestor_concept_id<span class="op">!=</span>descendant_concept_id</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> domain_id<span class="op">=</span><span class="st">'Visit'</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> standard_concept<span class="op">=</span><span class="st">'S'</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> ancestor_concept_id <span class="kw">IS</span> <span class="kw">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> ancestor_concept_id <span class="kw">IS</span> <span class="kw">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -1174,14 +1171,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
