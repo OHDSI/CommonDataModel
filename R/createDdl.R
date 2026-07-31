@@ -162,15 +162,19 @@ createForeignKeys <- function(cdmVersion){
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
   foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes")
-  foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
-
+  
   sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
-  for (foreignKey in foreignKeys$key){
-
-    subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
+  
+  # Only process if there are foreign keys
+  if (nrow(foreignKeys) > 0) {
+    foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
+    
+    for (foreignKey in foreignKeys$key){
+      subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
 
     sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT fpk_", subquery$cdmTableName, "_", subquery$cdmFieldName, " FOREIGN KEY (", subquery$cdmFieldName , ") REFERENCES @cdmDatabaseSchema.", subquery$fkTableName, " (", subquery$fkFieldName, ");\n"))
 
+    }
   }
   return(paste0(sql_result, collapse = ""))
 }
