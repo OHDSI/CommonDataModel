@@ -85,6 +85,11 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  # Post-processing: remove any conditional markers that may have been added
+  lines <- strsplit(sql, "\n")[[1]]
+  lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  sql <- paste(lines, collapse = "\n")
+
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "primary", "keys.sql", sep = "_")
   # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
   writeLines(sql, con = file.path(outputfolder, filename))
@@ -110,6 +115,11 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- createForeignKeys(cdmVersion)
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
+
+  # Post-processing: remove any conditional markers that may have been added
+  lines <- strsplit(sql, "\n")[[1]]
+  lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  sql <- paste(lines, collapse = "\n")
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "constraints.sql", sep = "_")
   # Use writeLines instead of SqlRender::writeSql to avoid line wrapping

@@ -202,7 +202,7 @@ CREATE TABLE @cdmDatabaseSchema.note_nlp (
 			note_id integer NOT NULL,
 			section_concept_id integer NULL,
 			snippet TEXT NULL,
-			\offset\ TEXT NULL,
+			"offset" TEXT NULL,
 			lexical_variant TEXT NOT NULL,
 			note_nlp_concept_id integer NULL,
 			note_nlp_source_concept_id integer NULL,

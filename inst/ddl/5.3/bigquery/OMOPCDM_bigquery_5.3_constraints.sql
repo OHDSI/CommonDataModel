@@ -156,4 +156,3 @@ alter table @cdmDatabaseSchema.drug_strength add constraint fpk_drug_strength_de
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_definition_type_concept_id foreign key (definition_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_subject_concept_id foreign key (subject_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.attribute_definition add constraint fpk_attribute_definition_attribute_type_concept_id foreign key (attribute_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
-
