@@ -109,20 +109,33 @@ dropAllTablesFromSchema <- function(connectionDetails, schema) {
   stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
   tableNames <- listTablesInSchema(connectionDetails, schema)
 
+  if (length(tableNames) == 0) {
+    return(invisible(NULL))  # No tables to drop
+  }
+
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
-  if (dbms %in% c("redshift", "postgresql", "sql server")) {
+  
+  # For all databases, use DROP TABLE IF EXISTS ... CASCADE
+  # but quote schema and table names properly
+  if (dbms %in% c("postgresql", "redshift")) {
+    # PostgreSQL/Redshift: quote identifiers
     for (tableName in tableNames) {
-      DBI::dbExecute(con, paste(
-        "DROP TABLE IF EXISTS",
-        paste(schema, tableName, sep = "."),
-        "CASCADE"
-      ))
+      sql <- paste0('DROP TABLE IF EXISTS "', schema, '"."', tableName, '" CASCADE')
+      DBI::dbExecute(con, sql)
+    }
+  } else if (dbms == "sql server") {
+    # SQL Server: use brackets for identifiers
+    for (tableName in tableNames) {
+      sql <- paste0('DROP TABLE IF EXISTS [', schema, '].[', tableName, ']')
+      DBI::dbExecute(con, sql)
     }
   } else if (dbms == "oracle") {
+    # Oracle: drop each table individually
     for (tableName in tableNames) {
-      DBI::dbExecute(con, paste("DROP TABLE IF EXISTS", tableName, "CASCADE"))
+      sql <- paste0('DROP TABLE "', tableName, '" CASCADE CONSTRAINTS')
+      DBI::dbExecute(con, sql)
     }
   }
 }
