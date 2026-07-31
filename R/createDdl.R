@@ -67,11 +67,12 @@ createDdl <- function(cdmVersion){
     fields <- subset(cdmSpecs, cdmTableName == tableName)
     fieldNames <- fields$cdmFieldName
 
-    # Build HINT statement with DISTRIBUTE_ON_KEY
+    # Build HINT statement with DISTRIBUTE_ON_KEY (Redshift only)
+    # Note: HINT syntax is only valid in Redshift and will be stripped by SqlRender for other dialects
     if ('person_id' %in% fieldNames){
-      hint <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
+      hintContent <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
     } else {
-      hint <- "--HINT DISTRIBUTE_ON_KEY(RANDOM)"
+      hintContent <- "--HINT DISTRIBUTE_ON_KEY(RANDOM)"
     }
 
     # Add SORT_ON_KEY if table is in sortKeyMap and has all the sort fields
@@ -81,17 +82,23 @@ createDdl <- function(cdmVersion){
       sortFields <- trimws(strsplit(sortFieldStr, ",")[[1]])
       # Check if all sort fields exist in the table
       if (all(sortFields %in% fieldNames)){
-        hint <- paste0(hint, " SORT_ON_KEY(INTERLEAVED:", sortFieldStr, ")")
+        hintContent <- paste0(hintContent, " SORT_ON_KEY(INTERLEAVED:", sortFieldStr, ")")
       }
     }
 
-    query <- paste0("\n\n", hint, "\n")
+    # Use HINT as a single-line comment
+    # Redshift will recognize and apply --HINT directives
+    # Other dialects (PostgreSQL, SQL Server) will treat it as a regular comment and ignore it safely
+    hint <- hintContent
+
+    query <- paste0("\n", hint, "\n")
     sql_result <- c(sql_result, query, paste0("CREATE TABLE @cdmDatabaseSchema.", tableName, " ("))
 
     n_fields <- length(fieldNames)
     for(fieldName in fieldNames) {
 
-      if (subset(fields, cdmFieldName == fieldName, isRequired) == "Yes" || subset(fields, cdmFieldName == fieldName, isRequired) == "true") {
+      req_val <- subset(fields, cdmFieldName == fieldName, isRequired)
+      if (req_val == "Yes" || req_val == "true" || req_val == TRUE) {
         nullable_sql <- (" NOT NULL")
       } else {
         nullable_sql <- (" NULL")
@@ -134,7 +141,7 @@ createPrimaryKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "true" | isPrimaryKey == "Yes")
+  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "true" | isPrimaryKey == "Yes" | isPrimaryKey == TRUE)
   pkFields <- primaryKeys$cdmFieldName
 
   sql_result <- c(paste0("--@targetDialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
@@ -161,7 +168,7 @@ createForeignKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes")
+  foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes" | isForeignKey == TRUE)
   
   sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
   

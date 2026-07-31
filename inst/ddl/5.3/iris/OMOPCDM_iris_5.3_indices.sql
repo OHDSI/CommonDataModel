@@ -1,4 +1,4 @@
-/*duckdb OMOP CDM Indices
+/*iris OMOP CDM Indices
   There are no unique indices created because it is assumed that the primary key constraints have been run prior to
   implementing indices.
 */
@@ -75,7 +75,7 @@ CREATE INDEX idx_concept_vocabulary_id ON @cdmDatabaseSchema.concept (vocabulary
 CREATE INDEX idx_concept_domain_id ON @cdmDatabaseSchema.concept (domain_id ASC);
 CREATE INDEX idx_concept_class_id ON @cdmDatabaseSchema.concept (concept_class_id ASC);
 CREATE INDEX idx_vocabulary_vocabulary_id  ON @cdmDatabaseSchema.vocabulary  (vocabulary_id ASC);
-CREATE INDEX idx_domain_domain_id  ON @cdmDatabaseSchema.domain  (domain_id ASC);
+CREATE INDEX idx_domain_domain_id  ON @cdmDatabaseSchema."DOMAIN"   (domain_id ASC);
 CREATE INDEX idx_concept_class_class_id  ON @cdmDatabaseSchema.concept_class  (concept_class_id ASC);
 CREATE INDEX idx_concept_relationship_id_1  ON @cdmDatabaseSchema.concept_relationship  (concept_id_1 ASC);
 CREATE INDEX idx_concept_relationship_id_2 ON @cdmDatabaseSchema.concept_relationship (concept_id_2 ASC);
