@@ -71,7 +71,7 @@ Standardized vocabularies
 ***************************/
 CREATE INDEX idx_concept_concept_id   ON concept   (concept_id ASC);
 CREATE INDEX idx_concept_code  ON concept  (concept_code ASC);
-CREATE INDEX idx_concept_vocabluary_id  ON concept  (vocabulary_id ASC);
+CREATE INDEX idx_concept_vocabulary_id  ON concept  (vocabulary_id ASC);
 CREATE INDEX idx_concept_domain_id  ON concept  (domain_id ASC);
 CREATE INDEX idx_concept_class_id  ON concept  (concept_class_id ASC);
 CREATE INDEX idx_vocabulary_vocabulary_id   ON vocabulary   (vocabulary_id ASC);
@@ -96,3 +96,4 @@ CREATE INDEX idx_drug_strength_id_2  ON drug_strength  (ingredient_concept_id AS
 --CREATE INDEX idx_episode_concept_id_1 ON @cdmDatabaseSchema.episode (episode_concept_id ASC);
 --CREATE CLUSTERED INDEX idx_episode_event_id_1 ON @cdmDatabaseSchema.episode_event (episode_id ASC);
 --CREATE INDEX idx_ee_field_concept_id_1 ON @cdmDatabaseSchema.episode_event (event_field_concept_id ASC);
+

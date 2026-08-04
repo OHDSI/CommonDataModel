@@ -49,24 +49,55 @@ createDdl <- function(cdmVersion){
 
   tableList <- tableSpecs$cdmTableName
 
+  # Define sort keys for major tables
+  sortKeyMap <- list(
+    visit = "visit_concept_id,person_id",
+    visit_detail = "visit_detail_concept_id,person_id",
+    condition_occurrence = "condition_concept_id,person_id",
+    drug_exposure = "drug_concept_id,person_id",
+    device_exposure = "device_concept_id,person_id",
+    procedure_occurrence = "procedure_concept_id,person_id",
+    observation = "observation_concept_id,person_id",
+    drug_era = "drug_concept_id,person_id"
+  )
+
   sql_result <- c()
   sql_result <- c(paste0("--@targetDialect CDM DDL Specification for OMOP Common Data Model ", cdmVersion))
   for (tableName in tableList){
     fields <- subset(cdmSpecs, cdmTableName == tableName)
     fieldNames <- fields$cdmFieldName
 
+    # Build HINT statement with DISTRIBUTE_ON_KEY (Redshift only)
     if ('person_id' %in% fieldNames){
-      query <- "\n\n--HINT DISTRIBUTE ON KEY (person_id)\n"
+      hintContent <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
     } else {
-      query <- "\n\n--HINT DISTRIBUTE ON RANDOM\n"
+      hintContent <- "--HINT DISTRIBUTE_ON_KEY(RANDOM)"
     }
 
+    # Add SORT_ON_KEY if table is in sortKeyMap and has all the sort fields
+    if (tableName %in% names(sortKeyMap)){
+      sortFieldStr <- sortKeyMap[[tableName]]
+      # Split by comma to get individual fields
+      sortFields <- trimws(strsplit(sortFieldStr, ",")[[1]])
+      # Check if all sort fields exist in the table
+      if (all(sortFields %in% fieldNames)){
+        hintContent <- paste0(hintContent, " SORT_ON_KEY(INTERLEAVED:", sortFieldStr, ")")
+      }
+    }
+
+    # Use HINT as a single-line comment
+    # Redshift will recognize and apply --HINT directives
+    # Non-Redshift dialects will have these removed in writeDdl()
+    hint <- hintContent
+
+    query <- paste0("\n", hint, "\n")
     sql_result <- c(sql_result, query, paste0("CREATE TABLE @cdmDatabaseSchema.", tableName, " ("))
 
     n_fields <- length(fieldNames)
     for(fieldName in fieldNames) {
 
-      if (subset(fields, cdmFieldName == fieldName, isRequired) == "Yes") {
+      req_val <- subset(fields, cdmFieldName == fieldName, isRequired)
+      if (req_val == "Yes" || req_val == "true" || req_val == TRUE) {
         nullable_sql <- (" NOT NULL")
       } else {
         nullable_sql <- (" NULL")
@@ -109,7 +140,7 @@ createPrimaryKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "Yes")
+  primaryKeys <- subset(cdmSpecs, isPrimaryKey == "true" | isPrimaryKey == "Yes" | isPrimaryKey == TRUE)
   pkFields <- primaryKeys$cdmFieldName
 
   sql_result <- c(paste0("--@targetDialect CDM Primary Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
@@ -136,16 +167,20 @@ createForeignKeys <- function(cdmVersion){
   cdmFieldCsvLoc <- system.file(file.path("csv", paste0("OMOP_CDMv", cdmVersion, "_Field_Level.csv")), package = "CommonDataModel", mustWork = TRUE)
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
-  foreignKeys <- subset(cdmSpecs, isForeignKey == "Yes")
-  foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
-
+  foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes" | isForeignKey == TRUE)
+  
   sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
-  for (foreignKey in foreignKeys$key){
-
-    subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
+  
+  # Only process if there are foreign keys
+  if (nrow(foreignKeys) > 0) {
+    foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
+    
+    for (foreignKey in foreignKeys$key){
+      subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
 
     sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT fpk_", subquery$cdmTableName, "_", subquery$cdmFieldName, " FOREIGN KEY (", subquery$cdmFieldName , ") REFERENCES @cdmDatabaseSchema.", subquery$fkTableName, " (", subquery$fkFieldName, ");\n"))
 
+    }
   }
   return(paste0(sql_result, collapse = ""))
 }

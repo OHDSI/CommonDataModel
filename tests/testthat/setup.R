@@ -107,22 +107,76 @@ dropAllTablesFromSchema <- function(connectionDetails, schema) {
     length(schema) == 1
   )
   stopifnot(connectionDetails$dbms %in% c("postgresql", "redshift", "sql server", "oracle"))
-  tableNames <- listTablesInSchema(connectionDetails, schema)
-
+  
   con <- DatabaseConnector::connect(connectionDetails)
   on.exit(DatabaseConnector::disconnect(con))
   dbms <- connectionDetails$dbms
-  if (dbms %in% c("redshift", "postgresql", "sql server")) {
-    for (tableName in tableNames) {
-      DBI::dbExecute(con, paste(
-        "DROP TABLE IF EXISTS",
-        paste(schema, tableName, sep = "."),
-        "CASCADE"
-      ))
-    }
+  
+  if (dbms %in% c("postgresql", "redshift")) {
+    # PostgreSQL/Redshift: Use DROP SCHEMA CASCADE - most reliable approach
+    # This drops the schema and recreates it empty
+    tryCatch({
+      # Drop the schema and all its objects
+      DBI::dbExecute(con, paste0('DROP SCHEMA IF EXISTS "', schema, '" CASCADE'))
+      # Recreate the empty schema
+      DBI::dbExecute(con, paste0('CREATE SCHEMA IF NOT EXISTS "', schema, '"'))
+    }, error = function(e) {
+      # Fallback: try to list and drop tables individually
+      tryCatch({
+        tables <- DBI::dbGetQuery(
+          con,
+          paste0(
+            "SELECT table_name FROM information_schema.tables ",
+            "WHERE lower(table_schema) = lower('", schema, "')"
+          )
+        )[[1]]
+        
+        if (length(tables) > 0 && !is.null(tables)) {
+          for (tableName in tables) {
+            tryCatch({
+              DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS "', schema, '"."', tableName, '" CASCADE'))
+            }, error = function(e2) invisible(NULL))
+          }
+        }
+      }, error = function(e2) invisible(NULL))
+    })
+  } else if (dbms == "sql server") {
+    # SQL Server: List and drop each table
+    tryCatch({
+      tables <- DBI::dbGetQuery(
+        con,
+        paste0(
+          "SELECT table_name FROM information_schema.tables ",
+          "WHERE table_schema = '", schema, "'"
+        )
+      )[[1]]
+      
+      if (length(tables) > 0 && !is.null(tables)) {
+        for (tableName in tables) {
+          tryCatch({
+            DBI::dbExecute(con, paste0('DROP TABLE IF EXISTS [', schema, '].[', tableName, ']'))
+          }, error = function(e2) invisible(NULL))
+        }
+      }
+    }, error = function(e2) invisible(NULL))
   } else if (dbms == "oracle") {
-    for (tableName in tableNames) {
-      DBI::dbExecute(con, paste("DROP TABLE IF EXISTS", tableName, "CASCADE"))
-    }
+    # Oracle: List and drop each table
+    tryCatch({
+      tables <- DBI::dbGetQuery(
+        con,
+        paste0(
+          "SELECT table_name FROM all_tables ",
+          "WHERE owner = '", toupper(schema), "'"
+        )
+      )[[1]]
+      
+      if (length(tables) > 0 && !is.null(tables)) {
+        for (tableName in tables) {
+          tryCatch({
+            DBI::dbExecute(con, paste0('DROP TABLE "', tableName, '" CASCADE CONSTRAINTS'))
+          }, error = function(e2) invisible(NULL))
+        }
+      }
+    }, error = function(e2) invisible(NULL))
   }
 }

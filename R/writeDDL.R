@@ -45,8 +45,22 @@ writeDdl <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchema 
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  # Post-processing: remove conditional markers and handle dialects
+  lines <- strsplit(sql, "\n")[[1]]
+  
+  if (tolower(targetDialect) == "redshift") {
+    # For Redshift: remove conditional markers but keep the HINT lines
+    lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  } else {
+    # For non-Redshift: remove HINT directives and conditional markers
+    lines <- lines[!grepl("--HINT|\\{#?if|\\{/if\\}", lines)]
+  }
+  
+  sql <- paste(lines, collapse = "\n")
+
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "ddl.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping that breaks SQL
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -71,8 +85,14 @@ writePrimaryKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  # Post-processing: remove any conditional markers that may have been added
+  lines <- strsplit(sql, "\n")[[1]]
+  lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  sql <- paste(lines, collapse = "\n")
+
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "primary", "keys.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -96,8 +116,14 @@ writeForeignKeys <- function(targetDialect, cdmVersion, outputfolder, cdmDatabas
   sql <- SqlRender::render(sql = sql, cdmDatabaseSchema = cdmDatabaseSchema, targetDialect = targetDialect)
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
+  # Post-processing: remove any conditional markers that may have been added
+  lines <- strsplit(sql, "\n")[[1]]
+  lines <- lines[!grepl("\\{#?if|\\{/if\\}", lines)]
+  sql <- paste(lines, collapse = "\n")
+
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "constraints.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }
 
@@ -123,6 +149,7 @@ writeIndex <- function(targetDialect, cdmVersion, outputfolder, cdmDatabaseSchem
   sql <- SqlRender::translate(sql, targetDialect = targetDialect)
 
   filename <- paste("OMOPCDM", gsub(" ", "_", targetDialect), cdmVersion, "indices.sql", sep = "_")
-  SqlRender::writeSql(sql = sql, targetFile = file.path(outputfolder, filename))
+  # Use writeLines instead of SqlRender::writeSql to avoid line wrapping
+  writeLines(sql, con = file.path(outputfolder, filename))
   invisible(filename)
 }

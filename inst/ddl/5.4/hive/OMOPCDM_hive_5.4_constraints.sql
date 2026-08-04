@@ -99,6 +99,7 @@ ALTER TABLE @cdmDatabaseSchema.note ADD CONSTRAINT fpk_note_provider_id FOREIGN 
 ALTER TABLE @cdmDatabaseSchema.note ADD CONSTRAINT fpk_note_visit_occurrence_id FOREIGN KEY (visit_occurrence_id) REFERENCES @cdmDatabaseSchema.VISIT_OCCURRENCE (VISIT_OCCURRENCE_ID);
 ALTER TABLE @cdmDatabaseSchema.note ADD CONSTRAINT fpk_note_visit_detail_id FOREIGN KEY (visit_detail_id) REFERENCES @cdmDatabaseSchema.VISIT_DETAIL (VISIT_DETAIL_ID);
 ALTER TABLE @cdmDatabaseSchema.note ADD CONSTRAINT fpk_note_note_event_field_concept_id FOREIGN KEY (note_event_field_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+ALTER TABLE @cdmDatabaseSchema.note_nlp ADD CONSTRAINT fpk_note_nlp_note_id FOREIGN KEY (note_id) REFERENCES @cdmDatabaseSchema.NOTE (NOTE_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp ADD CONSTRAINT fpk_note_nlp_section_concept_id FOREIGN KEY (section_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp ADD CONSTRAINT fpk_note_nlp_note_nlp_concept_id FOREIGN KEY (note_nlp_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp ADD CONSTRAINT fpk_note_nlp_note_nlp_source_concept_id FOREIGN KEY (note_nlp_source_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
@@ -142,6 +143,7 @@ ALTER TABLE @cdmDatabaseSchema.condition_era ADD CONSTRAINT fpk_condition_era_pe
 ALTER TABLE @cdmDatabaseSchema.condition_era ADD CONSTRAINT fpk_condition_era_condition_concept_id FOREIGN KEY (condition_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_episode_concept_id FOREIGN KEY (episode_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_episode_parent_id FOREIGN KEY (episode_parent_id) REFERENCES @cdmDatabaseSchema.EPISODE (EPISODE_ID);
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_episode_object_concept_id FOREIGN KEY (episode_object_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_episode_type_concept_id FOREIGN KEY (episode_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.episode ADD CONSTRAINT fpk_episode_episode_source_concept_id FOREIGN KEY (episode_source_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);

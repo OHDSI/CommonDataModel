@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -33,19 +33,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="./man/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-748b535e376f14d4692bf2b2e5fd6380.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0d4a9d19931feb4fee1ddab4b2489000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ccd81253fefb92e9cd3f9eb5b5d87b54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -242,7 +241,6 @@ ul.task-list li input[type="checkbox"] {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
     };
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
@@ -258,8 +256,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
-    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">OMOP Common Data Model</span>
@@ -451,7 +448,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">person</a></li>
   <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">observation_period</a></li>
   <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">visit_occurrence</a></li>
-  <li><a href="#visit_detail" id="toc-visit_detail" class="nav-link" data-scroll-target="#visit_detail">visit_detail</a></li>
   <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">condition_occurrence</a></li>
   <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">drug_exposure</a></li>
   <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">procedure_occurrence</a></li>
@@ -611,7 +607,7 @@ gender_concept_id
 This field is meant to capture the biological sex at birth of the Person. This field should not be used to study gender identity issues.
 </td>
 <td style="text-align:left;">
-Use the gender or sex value present in the data under the assumption that it is the biological sex at birth. If the source data captures gender identity it should be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#observation">OBSERVATION</a> table. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted gender concepts</a>. Please refer to the <a href="https://ohdsi.github.io/Themis/tag_gender_concept_id.html">THEMIS repository</a> for detailed conventions on how to populate this field.
+Use the gender or sex value present in the data under the assumption that it is the biological sex at birth. If the source data captures gender identity it should be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#observation">OBSERVATION</a> table. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Gender&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted gender concepts</a>. Please refer to the <a href="https://ohdsi.github.io/Themis/tag_gender_concept_id.html">THEMIS repository</a> for detailed conventions on how to populate this field.
 </td>
 <td style="text-align:left;">
 integer
@@ -771,7 +767,7 @@ Race
 ethnicity_concept_id
 </td>
 <td style="text-align:left;">
-This field captures Ethnicity as defined by the Office of Management and Budget (OMB) of the US Government: it distinguishes only between “Hispanic” and “Not Hispanic”. Races and ethnic backgrounds are not stored here.
+This field captures Ethnicity as defined by the Office of Management and Budget (OMB) of the US Government: it distinguishes only between &nbsp;and Hispanic. Races and ethnic backgrounds are not stored here.
 </td>
 <td style="text-align:left;">
 Only use this field if you have US-based data and a source of this information. Do not attempt to infer Ethnicity from the race or ethnic background of the Person. <a href="http://athena.ohdsi.org/search-terms/terms?domain=Ethnicity&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted ethnicity concepts</a>
@@ -803,7 +799,7 @@ location_id
 The location refers to the physical address of the person. This field should capture the last known location of the person.
 </td>
 <td style="text-align:left;">
-Put the location_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#location">LOCATION</a> table here that represents the most granular location information for the person. For additional information on how to populate this field, please refer to the <a href="https://ohdsi.github.io/Themis/populate_person_location_id.html">THEMIS repository</a>.
+Put the location_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#location">LOCATION</a> table here that represents the most granular location information for the person. For additional information on how to populate this field, please refer to the <a href="https://ohdsi.github.io/Themis/populate_person_location_id.html">THEMIS repository</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -831,7 +827,7 @@ provider_id
 The Provider refers to the last known primary care provider (General Practitioner).
 </td>
 <td style="text-align:left;">
-Put the provider_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#provider">PROVIDER</a> table of the last known general practitioner of the person. If there are multiple providers, it is up to the ETL to decide which to put here.
+Put the provider_id from the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#provider">PROVIDER</a> table of the last known general practitioner of the person. If there are multiple providers, it is up to the ETL to decide which to put here.
 </td>
 <td style="text-align:left;">
 integer
@@ -1023,7 +1019,7 @@ ethnicity_source_value
 This field is used to store the ethnicity of the person from the source data. It is not intended for use in standard analytics but for reference only.
 </td>
 <td style="text-align:left;">
-If the person has an ethnicity other than the OMB standard of “Hispanic” or “Not Hispanic” store that value from the source data here.
+If the person has an ethnicity other than the OMB standard of &nbsp;or Hispanic&nbsp;store that value from the source data here.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -1176,7 +1172,7 @@ observation_period_start_date
 Use this date to determine the start date of the Observation Period.
 </td>
 <td style="text-align:left;">
-It is often the case that the idea of Observation Periods does not exist in source data. In those cases, the observation_period_start_date can be inferred as the earliest Event date available for the Person. In insurance claim data, the Observation Period can be considered as the time period the Person is enrolled with a payer. If a Person switches plans but stays with the same payer, and therefore capturing of data continues, that change would be captured in <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
+It is often the case that the idea of Observation Periods does not exist in source data. In those cases, the observation_period_start_date can be inferred as the earliest Event date available for the Person. In insurance claim data, the Observation Period can be considered as the time period the Person is enrolled with a payer. If a Person switches plans but stays with the same payer, and therefore capturing of data continues, that change would be captured in <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#payer_plan_period">PAYER_PLAN_PERIOD</a>.
 </td>
 <td style="text-align:left;">
 date
@@ -1370,7 +1366,7 @@ visit_concept_id
 This field contains a concept id representing the kind of visit, like inpatient or outpatient. All concepts in this field should be standard and belong to the Visit domain.
 </td>
 <td style="text-align:left;">
-Populate this field based on the kind of visit that took place for the person. For example this could be “Inpatient Visit”, “Outpatient Visit”, “Ambulatory Visit”, etc. This table will contain standard concepts in the Visit domain. These concepts are arranged in a hierarchical structure to facilitate cohort definitions by rolling up to generally familiar Visits adopted in most healthcare systems worldwide. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Visit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Populate this field based on the kind of visit that took place for the person. For example this could be Visit, Visit, Visit, etc. This table will contain standard concepts in the Visit domain. These concepts are arranged in a hierarchical structure to facilitate cohort definitions by rolling up to generally familiar Visits adopted in most healthcare systems worldwide. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Visit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -1425,7 +1421,7 @@ visit_start_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If no time is given for the start date of a visit, set it to midnight (00:00:0000).
+If no time is given for the start date of a visit, set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -1449,11 +1445,18 @@ No
 visit_end_date
 </td>
 <td style="text-align:left;">
-For inpatient visits the end date is typically the discharge date.
+For inpatient visits the end date is typically the discharge date. If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_date, then set the visit_end_date to the date of the data pull.
 </td>
 <td style="text-align:left;">
-Visit end dates are mandatory. If end dates are not provided in the source there are three ways in which to derive them: - Outpatient Visit: visit_end_datetime = visit_start_datetime - Emergency Room Visit: visit_end_datetime = visit_start_datetime - Inpatient Visit: Usually there is information about discharge. If not, you should be able to derive the end date from the sudden decline of activity or from the absence of inpatient procedures/drugs. - Non-hospital institution Visits: Particularly for claims data, if end dates are not provided assume the visit is for the duration of month that it occurs. For Inpatient Visits ongoing at the date of ETL, put date of processing the data into visit_end_datetime and visit_type_concept_id with 32220 “Still patient” to identify the visit as incomplete. - All other Visits: visit_end_datetime = visit_start_datetime. If this is a one-day visit the end date should match the start date.
-</td>
+<p>Visit end dates are mandatory. If end dates are not provided in the source there are three ways in which to derive them:</p>
+<ul>
+<li>Outpatient Visit: visit_end_datetime = visit_start_datetime</li>
+<li>Emergency Room Visit: visit_end_datetime = visit_start_datetime</li>
+<li>Inpatient Visit: Usually there is information about discharge. If not, you should be able to derive the end date from the sudden decline of activity or from the absence of inpatient procedures/drugs.</li>
+<li>Non-hospital institution Visits: Particularly for claims data, if end dates are not provided assume the visit is for the duration of month that it occurs.</li>
+<li>For Inpatient Visits ongoing at the date of ETL, put date of processing the data into visit_end_datetime</li>
+<li>All other Visits: visit_end_datetime = visit_start_datetime. If this is a one-day visit the end date should match the start date.
+</li></ul></td>
 <td style="text-align:left;">
 date
 </td>
@@ -1476,9 +1479,10 @@ No
 visit_end_datetime
 </td>
 <td style="text-align:left;">
+If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_datetime, then set the visit_end_datetime to the datetime of the data pull.
 </td>
 <td style="text-align:left;">
-If no time is given for the end date of a visit, set it to midnight (00:00:0000).
+If no time is given for the end date of a visit, set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -1534,7 +1538,7 @@ provider_id
 There will only be one provider per visit record and the ETL document should clearly state how they were chosen (attending, admitting, etc.). If there are multiple providers associated with a visit in the source, this can be reflected in the event tables (CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE, etc.) or in the VISIT_DETAIL table.
 </td>
 <td style="text-align:left;">
-If there are multiple providers associated with a visit, you will need to choose which one to put here. The additional providers can be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#visit_detail">VISIT_DETAIL</a> table.
+If there are multiple providers associated with a visit, you will need to choose which one to put here. The additional providers can be stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#visit_detail">VISIT_DETAIL</a> table.
 </td>
 <td style="text-align:left;">
 integer
@@ -1754,7 +1758,7 @@ preceding_visit_occurrence_id
 Use this field to find the visit that occurred for the person prior to the given visit. There could be a few days or a few years in between.
 </td>
 <td style="text-align:left;">
-This field can be used to link a visit immediately preceding the current visit. Note this is not symmetrical, and there is no such thing as a “following_visit_id”.
+This field can be used to link a visit immediately preceding the current visit. Note this is not symmetrical, and there is no such thing as a _visit_id.
 </td>
 <td style="text-align:left;">
 integer
@@ -1776,9 +1780,8 @@ VISIT_OCCURRENCE
 </tr>
 </tbody>
 </table>
-</section>
-<section id="visit_detail" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="visit_detail">visit_detail</h3>
+<h3 id="visit_detail" class="tabset tabset-pills anchored">visit_detail</h3>
+
 <p><strong>Table Description</strong></p>
 <p>The VISIT_DETAIL table is an optional table used to represents details of each record in the parent VISIT_OCCURRENCE table. A good example of this would be the movement between units in a hospital during an inpatient stay or claim lines associated with a one insurance claim. For every record in the VISIT_OCCURRENCE table there may be 0 or more records in the VISIT_DETAIL table with a 1:n relationship where n may be 0. The VISIT_DETAIL table is structurally very similar to VISIT_OCCURRENCE table and belongs to the visit domain.</p>
 <p><strong>User Guide</strong></p>
@@ -1879,7 +1882,7 @@ visit_detail_concept_id
 This field contains a concept id representing the kind of visit detail, like inpatient or outpatient. All concepts in this field should be standard and belong to the Visit domain.
 </td>
 <td style="text-align:left;">
-Populate this field based on the kind of visit that took place for the person. For example this could be “Inpatient Visit”, “Outpatient Visit”, “Ambulatory Visit”, etc. This table will contain standard concepts in the Visit domain. These concepts are arranged in a hierarchical structure to facilitate cohort definitions by rolling up to generally familiar Visits adopted in most healthcare systems worldwide. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Visit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+Populate this field based on the kind of visit that took place for the person. For example this could be Visit, Visit, Visit, etc. This table will contain standard concepts in the Visit domain. These concepts are arranged in a hierarchical structure to facilitate cohort definitions by rolling up to generally familiar Visits adopted in most healthcare systems worldwide. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Visit&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -1934,7 +1937,7 @@ visit_detail_start_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If no time is given for the start date of a visit, set it to midnight (00:00:0000).
+If no time is given for the start date of a visit, set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -1958,10 +1961,10 @@ No
 visit_detail_end_date
 </td>
 <td style="text-align:left;">
-This the end date of the patient-provider interaction.
+This the end date of the patient-provider interaction. If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_date, then set the visit_end_date to the date of the data pull.
 </td>
 <td style="text-align:left;">
-Visit Detail end dates are mandatory. If end dates are not provided in the source there are three ways in which to derive them:<br> - Outpatient Visit Detail: visit_detail_end_datetime = visit_detail_start_datetime - Emergency Room Visit Detail: visit_detail_end_datetime = visit_detail_start_datetime - Inpatient Visit Detail: Usually there is information about discharge. If not, you should be able to derive the end date from the sudden decline of activity or from the absence of inpatient procedures/drugs. - Non-hospital institution Visit Details: Particularly for claims data, if end dates are not provided assume the visit is for the duration of month that it occurs.<br> For Inpatient Visit Details ongoing at the date of ETL, put date of processing the data into visit_detai_end_datetime and visit_detail_type_concept_id with 32220 “Still patient” to identify the visit as incomplete. All other Visits Details: visit_detail_end_datetime = visit_detail_start_datetime.
+Visit Detail end dates are mandatory. If end dates are not provided in the source there are three ways in which to derive them:<br> - Outpatient Visit Detail: visit_detail_end_datetime = visit_detail_start_datetime - Emergency Room Visit Detail: visit_detail_end_datetime = visit_detail_start_datetime - Inpatient Visit Detail: Usually there is information about discharge. If not, you should be able to derive the end date from the sudden decline of activity or from the absence of inpatient procedures/drugs. - Non-hospital institution Visit Details: Particularly for claims data, if end dates are not provided assume the visit is for the duration of month that it occurs.<br> For Inpatient Visit Details ongoing at the date of ETL, put date of processing the data into visit_detai_end_datetime and visit_detail_type_concept_id with 32220 patient&nbsp;to identify the visit as incomplete. All other Visits Details: visit_detail_end_datetime = visit_detail_start_datetime.
 </td>
 <td style="text-align:left;">
 date
@@ -1985,9 +1988,10 @@ No
 visit_detail_end_datetime
 </td>
 <td style="text-align:left;">
+If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_datetime, then set the visit_end_datetime to the datetime of the data pull.
 </td>
 <td style="text-align:left;">
-If no time is given for the end date of a visit, set it to midnight (00:00:0000).
+If no time is given for the end date of a visit, set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -2263,7 +2267,7 @@ preceding_visit_detail_id
 Use this field to find the visit detail that occurred for the person prior to the given visit detail record. There could be a few days or a few years in between.
 </td>
 <td style="text-align:left;">
-The PRECEDING_VISIT_DETAIL_ID can be used to link a visit immediately preceding the current Visit Detail. Note this is not symmetrical, and there is no such thing as a “following_visit_id”.
+The PRECEDING_VISIT_DETAIL_ID can be used to link a visit immediately preceding the current Visit Detail. Note this is not symmetrical, and there is no such thing as a _visit_id.
 </td>
 <td style="text-align:left;">
 integer
@@ -2445,7 +2449,7 @@ condition_concept_id
 The CONDITION_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies. This is the standard concept mapped from the source value which represents a condition
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the CONDITION_SOURCE_VALUE maps to. Only records whose source values map to concepts with a domain of “Condition” should go in this table. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Condition&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+The standard CONCEPT_ID that represents the CONDITION_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the condition concept representing the most amount of detail you have. Only records whose source values map to concepts with a domain of &nbsp;should go in this table. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Condition&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -2500,7 +2504,7 @@ condition_start_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+If a source does not specify datetime the convention is to set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -2553,7 +2557,7 @@ condition_end_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+If a source does not specify datetime the convention is to set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -2929,7 +2933,7 @@ drug_concept_id
 The DRUG_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies. This is the standard concept mapped from the source concept id which represents a drug product or molecule otherwise introduced to the body. The drug concepts can have a varying degree of information about drug strength and dose. This information is relevant in the context of quantity and administration information in the subsequent fields plus strength information from the DRUG_STRENGTH table, provided as part of the standard vocabulary download.
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the DRUG_SOURCE_VALUE maps to. The concept id should be derived either from mapping from the source concept id or by picking the drug concept representing the most amount of detail you have. Records whose source values map to standard concepts with a domain of Drug should go in this table. When the Drug Source Value of the code cannot be translated into Standard Drug Concept IDs, a Drug exposure entry is stored with only the corresponding SOURCE_CONCEPT_ID and DRUG_SOURCE_VALUE and a DRUG_CONCEPT_ID of 0. The Drug Concept with the most detailed content of information is preferred during the mapping process. These are indicated in the CONCEPT_CLASS_ID field of the Concept and are recorded in the following order of precedence: �Marketed Product�, �Branded Pack�, �Clinical Pack�, �Branded Drug�, �Clinical Drug�, �Branded Drug Component�, �Clinical Drug Component�, �Branded Drug Form�, �Clinical Drug Form�, and only if no other information is available �Ingredient�. Note: If only the drug class is known, the DRUG_CONCEPT_ID field should contain 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+The standard CONCEPT_ID that represents the DRUG_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the drug concept representing the most amount of detail you have. Records whose source values map to standard concepts with a domain of Drug should go in this table. When the Drug Source Value of the code cannot be translated into Standard Drug Concept IDs, a Drug exposure entry is stored with only the corresponding SOURCE_CONCEPT_ID and DRUG_SOURCE_VALUE and a DRUG_CONCEPT_ID of 0. The Drug Concept with the most detailed content of information is preferred during the mapping process. These are indicated in the CONCEPT_CLASS_ID field of the Concept and are recorded in the following order of precedence: Marketed Product, Branded Pack, Clinical Pack, Branded Drug, Clinical Drug, Branded Drug Component, Clinical Drug Component, Branded Drug Form, Clinical Drug Form, and only if no other information is available Ingredient. Note: If only the drug class is known, the DRUG_CONCEPT_ID field should contain 0. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Drug&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -2984,7 +2988,7 @@ drug_exposure_start_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+This is not required. If a source does not specify datetime the convention is to set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -3037,7 +3041,7 @@ drug_exposure_end_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+This is not required. If a source does not specify datetime the convention is to set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -3196,10 +3200,9 @@ No
 days_supply
 </td>
 <td style="text-align:left;">
-The number of days of supply of the medication as recorded in the original prescription or dispensing record. Days supply can differ from actual drug duration (i.e.&nbsp;prescribed days supply vs actual exposure).
 </td>
 <td style="text-align:left;">
-The field should be left empty if the source data does not contain a verbatim days_supply, and should not be calculated from other fields.<br><br>Negative values are not allowed. If the source has negative days supply the record should be dropped as it is unknown if the patient actually took the drug. Several actions are possible: 1) record is not trustworthy and we remove the record entirely. 2) we trust the record and leave days_supply empty or 3) record needs to be combined with other record (e.g.&nbsp;reversal of prescription). High values (&gt;365 days) should be investigated. If considered an error in the source data (e.g.&nbsp;typo), the value needs to be excluded to prevent creation of unrealistic long eras.
+The number of days of supply of the medication as recorded in the original prescription or dispensing record. Days supply can differ from actual drug duration (i.e.&nbsp;prescribed days supply vs actual exposure).&nbsp;
 </td>
 <td style="text-align:left;">
 integer
@@ -3208,12 +3211,13 @@ integer
 No
 </td>
 <td style="text-align:left;">
-No
+field should be left empty if the source data does not contain a verbatim days_supply, and should not be calculated from other fields.<br><br>Negative values are not allowed. If the source has negative days supply the record should be dropped as it is unknown if the patient actually took the drug. Several actions are possible: 1) record is not trustworthy and we remove the record entirely. 2) we trust the record and leave days_supply empty or 3) record needs to be combined with other record (e.g.&nbsp;reversal of prescription). High values (&gt;365 days) should be investigated. If considered an error in the source data (e.g.&nbsp;typo), the value needs to be excluded to prevent creation of unrealistic long eras.
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
+No
 </td>
 <td style="text-align:left;">
 </td>
@@ -3252,7 +3256,7 @@ route_concept_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain.
+The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain. This is meant to represent the route of administration of the drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Route&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -3278,6 +3282,7 @@ Route
 lot_number
 </td>
 <td style="text-align:left;">
+An identifier assigned to a particular quantity or lot of drug product from the manufacturer.
 </td>
 <td style="text-align:left;">
 </td>
@@ -3472,7 +3477,7 @@ dose_unit_source_value
 This field houses the verbatim value from the source data representing the dose unit of the drug given.
 </td>
 <td style="text-align:left;">
-This information may be called something different in the source data but the field is meant to contain a value indicating the unit of dosage of drug given to the patient. This is an older column and will be deprecated in an upcoming version.
+This information may be called something different in the source data but the field is meant to contain a value indicating the unit of dosage of drug given to the patient. <strong>This is an older column and will be deprecated in an upcoming version.</strong>
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -3597,7 +3602,7 @@ procedure_concept_id
 The PROCEDURE_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies. This is the standard concept mapped from the source value which represents a procedure
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the PROCEDURE_SOURCE_VALUE maps to. Only records whose source values map to standard concepts with a domain of “Procedure” should go in this table. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Procedure&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
+The standard CONCEPT_ID that represents the PROCEDURE_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the procedure concept representing the most amount of detail you have. Only records whose source values map to standard concepts with a domain of &nbsp;should go in this table. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Procedure&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -3623,10 +3628,10 @@ Procedure
 procedure_date
 </td>
 <td style="text-align:left;">
-Use this date to determine the date the procedure occurred.
+Use this date to determine the date the procedure started.
 </td>
 <td style="text-align:left;">
-If a procedure lasts more than a day, then it should be recorded as a separate record for each day the procedure occurred, this logic is in lieu of the procedure_end_date, which will be added in a future version of the CDM.
+This is meant to be the <strong>start date</strong> of the procedure. It will be renamed in a future version to <strong>PROCEDURE_START_DATE</strong>.
 </td>
 <td style="text-align:left;">
 date
@@ -3652,7 +3657,7 @@ procedure_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+If the procedure has a start time in the native date, use this field to house that information. This will be renamed in a future version to <strong>PROCEDURE_START_DATETIME</strong>.
 </td>
 <td style="text-align:left;">
 datetime
@@ -4026,7 +4031,7 @@ device_concept_id
 The DEVICE_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies. This is the standard concept mapped from the source concept id which represents a foreign object or instrument the person was exposed to.
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the DEVICE_SOURCE_VALUE maps to.
+The standard CONCEPT_ID that represents the DEVICE_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the device concept representing the most amount of detail you have. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Device%2FDrug&amp;domain=Device&amp;domain=Device%2FProcedure&amp;page=1&amp;pageSize=15&amp;query=">Accepted concepts</a>
 </td>
 <td style="text-align:left;">
 integer
@@ -4081,7 +4086,6 @@ device_exposure_start_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
 </td>
 <td style="text-align:left;">
 datetime
@@ -4134,7 +4138,6 @@ device_exposure_end_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
 </td>
 <td style="text-align:left;">
 datetime
@@ -4161,7 +4164,7 @@ device_type_concept_id
 You can use the TYPE_CONCEPT_ID to denote the provenance of the record, as in whether the record is from administrative claims or EHR.
 </td>
 <td style="text-align:left;">
-Choose the drug_type_concept_id that best represents the provenance of the record, for example whether it came from a record of a prescription written or physician administered drug. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
+Choose the device_type_concept_id that best represents the provenance of the record. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. A more detailed explanation of each Type Concept can be found on the <a href="https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT">vocabulary wiki</a>.
 </td>
 <td style="text-align:left;">
 integer
@@ -4187,7 +4190,7 @@ Type Concept
 unique_device_id
 </td>
 <td style="text-align:left;">
-This is the Unique Device Identification number for devices regulated by the FDA, if given.
+This is the Unique Device Identification (UDI-DI) number for devices regulated by the FDA, if given.
 </td>
 <td style="text-align:left;">
 For medical devices that are regulated by the FDA, a Unique Device Identification (UDI) is provided if available in the data source and is recorded in the UNIQUE_DEVICE_ID field.
@@ -4480,7 +4483,7 @@ measurement_concept_id
 The MEASUREMENT_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies. This is the standard concept mapped from the source value which represents a measurement.
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the MEASUREMENT_SOURCE_VALUE maps to. Only records whose source values map to concepts with a domain of �Measurement� should go in this table.
+The standard CONCEPT_ID that represents the MEASUREMENT_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the measurement concept representing the most amount of detail you have. Only records whose source values map to concepts with a domain of Measurement should go in this table.
 </td>
 <td style="text-align:left;">
 integer
@@ -4535,7 +4538,7 @@ measurement_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000)
+This is not required. If a source does not specify datetime the convention is to set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -4617,7 +4620,7 @@ operator_concept_id
 The meaning of Concept <a href="https://athena.ohdsi.org/search-terms/terms/4172703">4172703</a> for ‘=’ is identical to omission of a OPERATOR_CONCEPT_ID value. Since the use of this field is rare, it’s important when devising analyses to not to forget testing for the content of this field for values different from =.
 </td>
 <td style="text-align:left;">
-Operators are &lt;, &lt;=, =, &gt;=, &gt; and these concepts belong to the ‘Meas Value Operator’ domain. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. Leave it NULL if there’s an exact numeric value given (instead of putting ‘=’) or there’s no numeric value at all.
+Operators are &lt;, &lt;=, =, &gt;=, &gt; and these concepts belong to the ‘Meas Value Operator’ domain. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Meas+Value+Operator&amp;standardConcept=Standard&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>. The operator_concept_id explictly refers to the value of the measurement. Leave it NULL if there’s an exact numeric value given (instead of putting ‘=’) or there’s no numeric value at all.
 </td>
 <td style="text-align:left;">
 integer
@@ -4669,10 +4672,10 @@ No
 value_as_concept_id
 </td>
 <td style="text-align:left;">
-If the raw data gives a categorial result for measurements those values are captured and mapped to standard concepts in the ‘Meas Value’ domain.
+If the raw data gives a categorial result for measurements those values are captured and mapped to standard concepts. This can be done manually or using the to value&nbsp;relationship in the vocabulary.
 </td>
 <td style="text-align:left;">
-If there is no categorial result in the source data, set VALUE_AS_CONCEPT_ID to NULL, if there is a categorial result in a source data but without mapping, set VALUE_AS_CONCEPT_ID to 0, else map to a CONCEPT_ID.
+If there is no categorial result in the source data, set VALUE_AS_CONCEPT_ID to NULL, if there is a categorial result in a source data but without mapping, set VALUE_AS_CONCEPT_ID to 0, else map to a CONCEPT_ID. These are also mapped using the to value&nbsp;relationship in the vocabulary.
 </td>
 <td style="text-align:left;">
 integer
@@ -5074,7 +5077,7 @@ observation_concept_id
 The OBSERVATION_CONCEPT_ID field is recommended for primary use in analyses, and must be used for network studies.
 </td>
 <td style="text-align:left;">
-The CONCEPT_ID that the OBSERVATION_SOURCE_CONCEPT_ID maps to. There is no specified domain that the Concepts in this table must adhere to. The only rule is that records with Concepts in the Condition, Procedure, Drug, Measurement, or Device domains MUST go to the corresponding table.
+The standard CONCEPT_ID that represents the OBSERVATION_SOURCE_VALUE. The concept id should be derived either from mapping from the source concept id or by picking the concept representing the most amount of detail you have. There is no specified domain that the Concepts in this table must adhere to. The only rule is that records with Concepts in the Condition, Procedure, Drug, Measurement, or Device domains MUST go to the corresponding table.
 </td>
 <td style="text-align:left;">
 integer
@@ -5128,7 +5131,7 @@ observation_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If no time is given set to midnight (00:00:00).
+If no time is given set to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -5460,7 +5463,7 @@ unit_source_value
 This field houses the verbatim value from the source data representing the unit of the Observation that occurred.
 </td>
 <td style="text-align:left;">
-This code is mapped to a Standard Condition Concept in the Standardized Vocabularies and the original code is stored here for reference.
+This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is stored here for reference.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5487,7 +5490,7 @@ qualifier_source_value
 This field houses the verbatim value from the source data representing the qualifier of the Observation that occurred.
 </td>
 <td style="text-align:left;">
-This code is mapped to a Standard Condition Concept in the Standardized Vocabularies and the original code is stored here for reference.
+This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is stored here for reference.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -5664,7 +5667,7 @@ cause_concept_id
 This is the Standard Concept representing the Person’s cause of death, if available.
 </td>
 <td style="text-align:left;">
-There is no specified domain for this concept, just choose the Standard Concept Id that best represents the person’s cause of death.
+There is no specified domain for this concept, just choose the Standard Concept Id that the Source Concept Id maps to.
 </td>
 <td style="text-align:left;">
 integer
@@ -5872,7 +5875,7 @@ note_datetime
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-If time is not given set the time to midnight.
+If time is not given set the time to NULL.
 </td>
 <td style="text-align:left;">
 datetime
@@ -6311,7 +6314,7 @@ No
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-“offset”
+offset
 </td>
 <td style="text-align:left;">
 Character offset of the extracted term in the input note
@@ -7476,7 +7479,7 @@ care_site_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Assign an id to each unique combination of location_id and place_of_service_source_value
+Assign an ID to each combination of a location and nature of the site - the latter could be the Place of Service, name or another characteristic in your source data.
 </td>
 <td style="text-align:left;">
 integer
@@ -7918,7 +7921,7 @@ No
 specialty_source_value
 </td>
 <td style="text-align:left;">
-This refers to the specific type of healthcare provider or field of expertise listed in the source data, encompassing physician specialties like internal medicine, emergency medicine, etc., as well as allied health professionals such as nurses, midwives, and pharmacists. It covers medical specialties like surgery, internal medicine, and radiology, while other services like prosthetics, acupuncture, and physical therapy fall under the domain of “Service.”
+This refers to the specific type of healthcare provider or field of expertise listed in the source data, encompassing physician specialties like internal medicine, emergency medicine, etc., as well as allied health professionals such as nurses, midwives, and pharmacists. It covers medical specialties like surgery, internal medicine, and radiology, while other services like prosthetics, acupuncture, and physical therapy fall under the domain of .&nbsp;
 </td>
 <td style="text-align:left;">
 The type of provider and their specialty should be entered as they appear in the source data. The decision to use either the coded value or the text description is left to the discretion of the ETL-er.
@@ -8577,6 +8580,7 @@ cost_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+A unique identifier for each COST record.
 </td>
 <td style="text-align:left;">
 integer
@@ -8602,6 +8606,7 @@ cost_event_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+A foreign key identifier to the event (e.g.&nbsp;Measurement, Procedure, Visit, Drug Exposure, etc) record for which cost data are recorded.
 </td>
 <td style="text-align:left;">
 integer
@@ -8627,6 +8632,7 @@ cost_domain_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+The concept representing the domain of the cost event, from which the corresponding table can be inferred that contains the entity for which cost information is recorded.
 </td>
 <td style="text-align:left;">
 varchar(20)
@@ -8651,8 +8657,10 @@ DOMAIN
 cost_type_concept_id
 </td>
 <td style="text-align:left;">
+The concept referenced in this field defines the source of the cost information, and therefore the perspective. It could be from the perspective of the payer, or the perspective of the provider. Therefore, cost really means either cost or revenue, and the direction of funds (incoming and outgoing) as well as the modus of its calculation is defined by this field.
 </td>
 <td style="text-align:left;">
+A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data: Calculated from insurance claim information, provider revenue, calculated from cost-to-charge ratio, reported from accounting database, etc.
 </td>
 <td style="text-align:left;">
 integer
@@ -8679,6 +8687,7 @@ currency_concept_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar.
 </td>
 <td style="text-align:left;">
 integer
@@ -8705,6 +8714,7 @@ total_charge
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+The total amount charged by some provider of goods or services (e.g.&nbsp;hospital, physician pharmacy, dme provider) to payers (insurance companies, the patient).
 </td>
 <td style="text-align:left;">
 float
@@ -8728,8 +8738,10 @@ No
 total_cost
 </td>
 <td style="text-align:left;">
+The cost of the goods or services the provider provides is often not known directly, but derived from the hospital charges multiplied by an average cost-to-charge ratio. This data is currently available for NIS datasets, or any other HCUP datasets.
 </td>
 <td style="text-align:left;">
+The cost of the goods or services the provider provides is often not known directly, but derived from the hospital charges multiplied by an average cost-to-charge ratio. This data is currently available for NIS datasets, or any other HCUP datasets.
 </td>
 <td style="text-align:left;">
 float
@@ -8753,8 +8765,10 @@ No
 total_paid
 </td>
 <td style="text-align:left;">
+This field is calculated using the following formula: paid_by_payer + paid_by_patient + paid_by_primary. In claims data, this field is considered the calculated field the payer expects the provider to get reimbursed for goods and services, based on the payer’s contractual obligations.
 </td>
 <td style="text-align:left;">
+The total amount actually paid from all payers for goods or services of the provider.
 </td>
 <td style="text-align:left;">
 float
@@ -8778,8 +8792,10 @@ No
 paid_by_payer
 </td>
 <td style="text-align:left;">
+In claims data, generally there is one field representing the total payment from the payer for the service/device/drug. However, this field could be a calculated field if the source data provides separate payment information for the ingredient cost and the dispensing fee in case of prescription benefits. If there is more than one Payer in the source data, several cost records indicate that fact. The Payer reporting this reimbursement should be indicated under the payer_plan_id field.
 </td>
 <td style="text-align:left;">
+The amount paid by the Payer for the goods or services.
 </td>
 <td style="text-align:left;">
 float
@@ -8803,8 +8819,10 @@ No
 paid_by_patient
 </td>
 <td style="text-align:left;">
+This field is most often used in claims data to report the contracted amount the patient is responsible for reimbursing the provider for the goods and services she received. This is a calculated field using the following formula: paid_patient_copay + paid_patient_coinsurance + paid_patient_deductible.
 </td>
 <td style="text-align:left;">
+The total amount paid by the Person as a share of the expenses.
 </td>
 <td style="text-align:left;">
 float
@@ -8828,8 +8846,10 @@ No
 paid_patient_copay
 </td>
 <td style="text-align:left;">
+The paid_patient_copay field is only used for reporting a patient’s copay amount reported on an insurance claim. This field contributes to the paid_by_patient variable.
 </td>
 <td style="text-align:left;">
+The amount paid by the Person as a fixed contribution to the expenses.
 </td>
 <td style="text-align:left;">
 float
@@ -8853,8 +8873,10 @@ No
 paid_patient_coinsurance
 </td>
 <td style="text-align:left;">
+The paid_patient_coinsurance field is only used for reporting a patient’s coinsurance amount reported on an insurance claim. This field contributes to the paid_by_patient variable.
 </td>
 <td style="text-align:left;">
+The amount paid by the Person as a joint assumption of risk. Typically, this is a percentage of the expenses defined by the Payer Plan after the Person’s deductible is exceeded.
 </td>
 <td style="text-align:left;">
 float
@@ -8878,8 +8900,10 @@ No
 paid_patient_deductible
 </td>
 <td style="text-align:left;">
+The paid_patient_deductible field is only used for reporting a patient’s deductible amount reported on an insurance claim. This field contributes to the paid_by_patient variable.
 </td>
 <td style="text-align:left;">
+The amount paid by the Person that is counted toward the deductible defined by the Payer Plan. paid_patient_deductible does contribute to the paid_by_patient variable.
 </td>
 <td style="text-align:left;">
 float
@@ -8903,8 +8927,10 @@ No
 paid_by_primary
 </td>
 <td style="text-align:left;">
+The paid_by_primary field is only used for reporting a patient’s primary insurance payment amount reported on the secondary payer insurance claim. If the source data has actual primary insurance payments, then the primary insurance payment should have its own cost record with a payer_plan_id set to the applicable payer.
 </td>
 <td style="text-align:left;">
+The amount paid by a primary Payer through the coordination of benefits.
 </td>
 <td style="text-align:left;">
 float
@@ -8930,6 +8956,7 @@ paid_ingredient_cost
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+Drug costs are composed of ingredient cost (the amount charged by the wholesale distributor or manufacturer), the dispensing fee (the amount charged by the pharmacy) and the sales tax.
 </td>
 <td style="text-align:left;">
 float
@@ -8955,6 +8982,7 @@ paid_dispensing_fee
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+Drug costs are composed of ingredient cost (the amount charged by the wholesale distributor or manufacturer), the dispensing fee (the amount charged by the pharmacy) and the sales tax.
 </td>
 <td style="text-align:left;">
 float
@@ -8980,6 +9008,7 @@ payer_plan_period_id
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored. Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field.
 </td>
 <td style="text-align:left;">
 integer
@@ -9003,8 +9032,10 @@ No
 amount_allowed
 </td>
 <td style="text-align:left;">
+This information is generally available in claims data. This is similar to the total_paid amount in that it shows what the payer expects the provider to be reimbursed after the payer and patient pay. This differs from the total_paid amount in that it is not a calculated field, but a field available directly in claims data. The field is payer-specific and the payer should be indicated by the payer_plan_id field.
 </td>
 <td style="text-align:left;">
+The contracted amount agreed between the payer and provider.
 </td>
 <td style="text-align:left;">
 float
@@ -9028,8 +9059,10 @@ No
 revenue_code_concept_id
 </td>
 <td style="text-align:left;">
+Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system.
 </td>
 <td style="text-align:left;">
+A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes.
 </td>
 <td style="text-align:left;">
 integer
@@ -9057,6 +9090,7 @@ revenue_code_source_value
 Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system.
 </td>
 <td style="text-align:left;">
+The source code for the Revenue code as it appears in the source data, stored here for reference.
 </td>
 <td style="text-align:left;">
 varchar(50)
@@ -9080,8 +9114,10 @@ No
 drg_concept_id
 </td>
 <td style="text-align:left;">
+DRG is a system to classify hospital cases into one of approximately 500 groups for reimbursement purposes. They have been used in the United States since 1983.
 </td>
 <td style="text-align:left;">
+A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for DRG codes.
 </td>
 <td style="text-align:left;">
 integer
@@ -9109,6 +9145,7 @@ drg_source_value
 Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups.
 </td>
 <td style="text-align:left;">
+The source code for the 3-digit DRG source code as it appears in the source data, stored here for reference.
 </td>
 <td style="text-align:left;">
 varchar(3)
@@ -9336,7 +9373,7 @@ gap_days
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-The Gap Days determine how many total drug-free days are observed between all Drug Exposure events that contribute to a DRUG_ERA record. It is assumed that the drugs are “not stockpiled” by the patient, i.e.&nbsp;that if a new drug prescription or refill is observed (a new DRUG_EXPOSURE record is written), the remaining supply from the previous events is abandoned. The difference between Persistence Window and Gap Days is that the former is the maximum drug-free time allowed between two subsequent DRUG_EXPOSURE records, while the latter is the sum of actual drug-free days for the given Drug Era under the above assumption of non-stockpiling.
+The Gap Days determine how many total drug-free days are observed between all Drug Exposure events that contribute to a DRUG_ERA record. It is assumed that the drugs are stockpiled&nbsp;by the patient, i.e.&nbsp;that if a new drug prescription or refill is observed (a new DRUG_EXPOSURE record is written), the remaining supply from the previous events is abandoned. The difference between Persistence Window and Gap Days is that the former is the maximum drug-free time allowed between two subsequent DRUG_EXPOSURE records, while the latter is the sum of actual drug-free days for the given Drug Era under the above assumption of non-stockpiling.
 </td>
 <td style="text-align:left;">
 integer
@@ -10155,6 +10192,7 @@ No
 source_documentation_reference
 </td>
 <td style="text-align:left;">
+Refers to a publication or web resource describing the source data, e.g.&nbsp;a data dictionary.
 </td>
 <td style="text-align:left;">
 </td>
@@ -10284,8 +10322,10 @@ No
 vocabulary_version
 </td>
 <td style="text-align:left;">
+Version of the OMOP standardised vocabularies loaded
 </td>
 <td style="text-align:left;">
+You can find the version of your Vocabulary using the query: <code>SELECT vocabulary_version from vocabulary  where vocabulary_id = 'None'</code>
 </td>
 <td style="text-align:left;">
 varchar(20)
@@ -10406,7 +10446,7 @@ No
 domain_id
 </td>
 <td style="text-align:left;">
-A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#domain">DOMAIN</a> table the Concept belongs to.
+A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#domain">DOMAIN</a> table the Concept belongs to.
 </td>
 <td style="text-align:left;">
 </td>
@@ -10433,7 +10473,7 @@ DOMAIN
 vocabulary_id
 </td>
 <td style="text-align:left;">
-A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#vocabulary">VOCABULARY</a> table indicating from which source the Concept has been adapted.
+A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#vocabulary">VOCABULARY</a> table indicating from which source the Concept has been adapted.
 </td>
 <td style="text-align:left;">
 </td>
@@ -11400,7 +11440,7 @@ No
 relationship_concept_id
 </td>
 <td style="text-align:left;">
-A foreign key that refers to an identifier in the <a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#concept">CONCEPT</a> table for the unique relationship concept.
+A foreign key that refers to an identifier in the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#concept">CONCEPT</a> table for the unique relationship concept.
 </td>
 <td style="text-align:left;">
 </td>
@@ -12784,14 +12824,13 @@ No
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
