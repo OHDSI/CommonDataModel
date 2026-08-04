@@ -554,3 +554,7 @@ cohort_definition,definition_type_concept_id,TRUE,integer,Type defining what kin
 cohort_definition,cohort_definition_syntax,FALSE,varchar(MAX),Syntax or code to operationalize the Cohort Definition.,NA,FALSE,FALSE,NA,NA,NA,NA
 cohort_definition,subject_concept_id,TRUE,integer,"This field contains a Concept that represents the domain of the subjects that are members of the cohort (e.g., Person, Provider, Visit).",NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 cohort_definition,cohort_initiation_date,FALSE,date,A date to indicate when the Cohort was initiated in the COHORT table.,NA,FALSE,FALSE,NA,NA,NA,NA
+pack_content,pack_concept_id,TRUE,integer,The concept representing the pack,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
+pack_content,drug_concept_id,TRUE,integer,The concept representing the individual drug component inside the pack,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
+pack_content,amount,FALSE,integer,The number of the above Drug components in the Pack.,NA,FALSE,FALSE,NA,NA,NA,NA
+pack_content,box_size,FALSE,integer,The number of Packs in a Drug Box.,NA,FALSE,FALSE,NA,NA,NA,NA
