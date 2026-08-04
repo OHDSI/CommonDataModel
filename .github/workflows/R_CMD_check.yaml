@@ -25,7 +25,7 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest, r: 'release'}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-22.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"}
           - {os: windows-latest, r: 'release'}  # Does not appear to have Java 32-bit, hence the --no-multiarch
 
     env:
@@ -79,7 +79,7 @@ jobs:
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "22.04"))')
 
       - name: Install libssh
         if: runner.os == 'Linux'
