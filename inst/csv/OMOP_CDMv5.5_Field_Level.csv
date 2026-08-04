@@ -564,15 +564,15 @@ pack_content,box_size,FALSE,integer,The number of Packs in a Drug Box.,NA,FALSE,
 concept_metadata,concept_id,FALSE,integer,Foreign key to the concept table,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 concept_metadata,concept_category,FALSE,varchar(20),"Accepted values: NULL, A, SA, SC, M, V
 
-A – attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.
+A √ê attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.
 
-SA – attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.
+SA √ê attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.
 
-SC – source classification term in traditionally non-standard vocabularies.
+SC √ê source classification term in traditionally non-standard vocabularies.
 
-M – metadata (e.g. SNOMED relationships and models).
+M √ê metadata (e.g. SNOMED relationships and models).
 
-V – void (formerly 'junk') codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
+V √ê void (formerly 'junk') codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
 concept_metadata,reuse_status,FALSE,varchar(20),"Determines if code is reused or not; Reuse can be a complete change of semantics of code depending on its utilization time.  Accepted values: NULL, R, RF, RP
 
 NULL - reuse either not assessed or not detected
