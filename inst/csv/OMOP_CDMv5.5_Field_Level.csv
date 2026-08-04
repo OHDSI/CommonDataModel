@@ -558,3 +558,50 @@ pack_content,pack_concept_id,TRUE,integer,The concept representing the pack,NA,F
 pack_content,drug_concept_id,TRUE,integer,The concept representing the individual drug component inside the pack,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 pack_content,amount,FALSE,integer,The number of the above Drug components in the Pack.,NA,FALSE,FALSE,NA,NA,NA,NA
 pack_content,box_size,FALSE,integer,The number of Packs in a Drug Box.,NA,FALSE,FALSE,NA,NA,NA,NA
+concept_metadata,concept_id,FALSE,integer,Foreign key to the concept table,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
+concept_metadata,concept_category,FALSE,varchar(20),"Accepted values: NULL, A, SA, SC, M, V
+
+A Ð attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.
+
+SA Ð attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.
+
+SC Ð source classification term in traditionally non-standard vocabularies.
+
+M Ð metadata (e.g. SNOMED relationships and models).
+
+V Ð void (formerly 'junk') codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_metadata,reuse_status,FALSE,varchar(20),"Determines if code is reused or not; Reuse can be a complete change of semantics of code depending on its utilization time.  Accepted values: NULL, R, RF, RP
+
+NULL - reuse either not assessed or not detected
+
+R - Designates that code is Reusable; no information available on temporal context of Reuse; state of name in concept table is undetermined;
+
+RF -Designates that code is Reused in Future; current state of concept in concept table displays historically valid attributes (name, validity dates) provided by source
+
+RP - Designates that code is Reused in Past; current state of concept in concept table displays actual valid attributes (name, validity dates) provided by source",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,concept_id_1,TRUE,integer,,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
+concept_relationship_metadata,concept_id_2,TRUE,integer,,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
+concept_relationship_metadata,relationship_id,TRUE,varchar(20),"concept_id_1, concept_id_2, and relationship_id should be used together as the foreign key to the concept_relationship table as all three values are needed to identify a singular concept relationship.",NA,FALSE,TRUE,RELATIONSHIP,RELATIONSHIP_ID,NA,NA
+concept_relationship_metadata,relationship_predicate_id,FALSE,varchar(20),"This is the measure of mapping precision. Accepted values are exactMatch, broadMatch, narrowMatch",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,relationship_group,FALSE,integer,"Accepted values: 1, 2, 3, NULL
+
+An indicator of a logical group of relationships designed to minimize unnecessary Variable-Value permutations or strictly link several Variables(Events);",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,mapping_source,FALSE,varchar(50),"Indicator of what library(-ies) and/or tool(s) was/were used to automate mapping. This is typically libraries and reference sets (UMLS, MEDDRA - SNOMED, OHDSI; etc) or tools (USAGI, BuilderRxE, LLM; etc).",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,confidence,FALSE,float,This is a number from 0-1 that indicates the strength of the mapping. ,NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,mapping_tool,FALSE,varchar(50),"This is the indicator of mapping approach with its curation status (controlled/curated or uncontrolled/uncurated). 
+
+AM-lib_C - stands for automapping via library, curated
+
+AM-lib_U - stands for automapping via library, uncurated
+
+AM-tool_C - stands for automapping via tool, curated
+
+AM-tool_U - stands for automapping via tool, uncurated
+
+MM_C - stands for manual mapping, curated
+
+MM_U - stands for manual mapping, uncurated
+
+NULL- mapping approach is not specified, likely manual;",NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,mapper,FALSE,varchar(50),The initials of the person who performed the mapping.,NA,FALSE,FALSE,NA,NA,NA,NA
+concept_relationship_metadata,reviewer,FALSE,varchar(50),The initials of the person who performed the review,NA,FALSE,FALSE,NA,NA,NA,NA
