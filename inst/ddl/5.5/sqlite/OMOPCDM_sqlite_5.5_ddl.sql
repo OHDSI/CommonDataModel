@@ -388,7 +388,7 @@ CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			source_documentation_reference TEXT NULL,
 			cdm_etl_reference TEXT NULL,
 			source_release_date date NOT NULL,
-			source_release_version TEXT NULL,
+			cdm_release_identifier TEXT NULL,
 			cdm_release_date date NOT NULL,
 			cdm_version TEXT NULL,
 			cdm_version_concept_id integer NOT NULL,

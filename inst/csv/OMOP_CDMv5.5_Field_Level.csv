@@ -406,7 +406,7 @@ cdm_source,source_description,FALSE,varchar(MAX),The description of the CDM inst
 cdm_source,source_documentation_reference,FALSE,varchar(255),"Refers to a publication or web resource describing the source data, e.g. a data dictionary.",NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_etl_reference,FALSE,varchar(255),NA,Version of the ETL script used. e.g. link to the Git release,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,source_release_date,TRUE,date,The date the data was extracted from the source system. In some systems that is the same as the date the ETL was run. Typically the latest even date in the source is on the source_release_date.,NA,FALSE,FALSE,NA,NA,NA,NA
-cdm_source,source_release_version,FALSE,varchar(255),The version number or version reference value for the cdm release. ,NA,FALSE,FALSE,NA,NA,NA,NA
+cdm_source,cdm_release_identifier,FALSE,varchar(255),The version number or version reference value for the cdm release. ,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_release_date,TRUE,date,The date the ETL script was completed. Typically this is after the source_release_date.,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_version,FALSE,varchar(10),Version of the OMOP CDM used as string. e.g. v5.4,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_version_concept_id,TRUE,integer,The Concept Id representing the version of the CDM.,You can find all concepts that represent the CDM versions using the query: `SELECT * FROM CONCEPT WHERE   VOCABULARY_ID = 'CDM' AND CONCEPT_CLASS = 'CDM'`,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
@@ -564,15 +564,15 @@ pack_content,box_size,FALSE,integer,The number of Packs in a Drug Box.,NA,FALSE,
 concept_metadata,concept_id,FALSE,integer,Foreign key to the concept table,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 concept_metadata,concept_category,FALSE,varchar(20),"Accepted values: NULL, A, SA, SC, M, V
 
-A Ð attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.
+A - attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.
 
-SA Ð attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.
+SA - attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.
 
-SC Ð source classification term in traditionally non-standard vocabularies.
+SC - source classification term in traditionally non-standard vocabularies.
 
-M Ð metadata (e.g. SNOMED relationships and models).
+M - metadata (e.g. SNOMED relationships and models).
 
-V Ð void (formerly 'junk') codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
+V - void (formerly 'junk') codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
 concept_metadata,reuse_status,FALSE,varchar(20),"Determines if code is reused or not; Reuse can be a complete change of semantics of code depending on its utilization time.  Accepted values: NULL, R, RF, RP
 
 NULL - reuse either not assessed or not detected

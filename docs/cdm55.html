@@ -11367,7 +11367,7 @@ FALSE
 <section id="cdm_source" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="cdm_source">cdm_source</h3>
 <p><strong>Table Description</strong></p>
-<p>The CDM_SOURCE table contains detail about the source database and the process used to transform the data into the OMOP Common Data Model.</p>
+<p>The CDM_SOURCE table contains details about your CDM instance. Most OHDSI tooling expects one record in this table to get the name of your cdm, release date, and vocabulary version. Multiple records are allowed in the cdm_source table, but tooling will typically only read the first record.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -11585,7 +11585,7 @@ FALSE
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-source_release_version
+cdm_release_identifier
 </td>
 <td style="text-align:left;">
 The version number or version reference value for the cdm release.
@@ -13962,11 +13962,11 @@ concept_category
 </td>
 <td style="text-align:left;">
 <p>Accepted values: NULL, A, SA, SC, M, V</p>
-<p>A Ð attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.</p>
-<p>SA Ð attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.</p>
-<p>SC Ð source classification term in traditionally non-standard vocabularies.</p>
-<p>M Ð metadata (e.g.&nbsp;SNOMED relationships and models).</p>
-V Ð void (formerly ‘junk’) codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.
+<p>A - attribute of a clinical event rather than the event itself (e.g., Dose Form, Brand Name) in a reference terminology (e.g., RxNorm Extension). Non-standard by design.</p>
+<p>SA - attribute of a clinical event in a source vocabulary. Should be mapped to A in the reference terminology.</p>
+<p>SC - source classification term in traditionally non-standard vocabularies.</p>
+<p>M - metadata (e.g.&nbsp;SNOMED relationships and models).</p>
+V - void (formerly ‘junk’) codes (cannot be mapped due to incompatibility with OMOP model). Include flavors of NULL, codes not in scope, etc.
 </td>
 <td style="text-align:left;">
 </td>

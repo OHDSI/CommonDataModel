@@ -415,7 +415,7 @@ CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			source_documentation_reference varchar(255) NULL,
 			cdm_etl_reference varchar(255) NULL,
 			source_release_date date NOT NULL,
-			source_release_version varchar(255) NULL,
+			cdm_release_identifier varchar(255) NULL,
 			cdm_release_date date NOT NULL,
 			cdm_version varchar(10) NULL,
 			cdm_version_concept_id integer NOT NULL,
