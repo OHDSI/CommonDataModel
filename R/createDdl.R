@@ -148,8 +148,15 @@ createPrimaryKeys <- function(cdmVersion){
 
     subquery <- subset(primaryKeys, cdmFieldName==pkField)
 
-    sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT xpk_", subquery$cdmTableName, " PRIMARY KEY NONCLUSTERED (", subquery$cdmFieldName , ");\n"))
-
+    # allow nullable columns to be referenced in FKs
+    # by using UNIQUE constraint instead of PK
+    # this is particularly needed for vocabulary.vocabulary_id column
+    # to maintain convention that vocabulary version is stored in a row with vocabulary_id = NULL
+    if (subquery$isRequired == "true" || subquery$isRequired == "Yes" || subquery$isRequired == TRUE) {
+      sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT xpk_", subquery$cdmTableName, " PRIMARY KEY NONCLUSTERED (", subquery$cdmFieldName , ");\n"))
+    } else {
+      sql_result <- c(sql_result, paste0("\nALTER TABLE @cdmDatabaseSchema.", subquery$cdmTableName, " ADD CONSTRAINT unq_", subquery$cdmTableName, " UNIQUE (", subquery$cdmFieldName, ");\n"))
+    }
   }
   return(paste0(sql_result, collapse = ""))
 }
@@ -168,13 +175,13 @@ createForeignKeys <- function(cdmVersion){
   cdmSpecs <- read.csv(cdmFieldCsvLoc, stringsAsFactors = FALSE)
 
   foreignKeys <- subset(cdmSpecs, isForeignKey == "true" | isForeignKey == "Yes" | isForeignKey == TRUE)
-  
+
   sql_result <- c(paste0("--@targetDialect CDM Foreign Key Constraints for OMOP Common Data Model ", cdmVersion, "\n"))
-  
+
   # Only process if there are foreign keys
   if (nrow(foreignKeys) > 0) {
     foreignKeys$key <- paste0(foreignKeys$cdmTableName, "_", foreignKeys$cdmFieldName)
-    
+
     for (foreignKey in foreignKeys$key){
       subquery <- subset(foreignKeys, foreignKeys$key==foreignKey)
 

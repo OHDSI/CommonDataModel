@@ -434,7 +434,7 @@ CREATE TABLE @cdmDatabaseSchema.concept (
 			invalid_reason varchar(1) NULL );
  -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.vocabulary (
-			vocabulary_id varchar(20) NOT NULL,
+			vocabulary_id varchar(20) NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,
