@@ -412,7 +412,7 @@ CREATE TABLE @cdmDatabaseSchema.concept (
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL );
 CREATE TABLE @cdmDatabaseSchema.vocabulary (
-			vocabulary_id varchar(20) NOT NULL,
+			vocabulary_id varchar(20) NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,

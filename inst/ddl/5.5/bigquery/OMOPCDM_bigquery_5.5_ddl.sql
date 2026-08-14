@@ -405,7 +405,7 @@ create table @cdmDatabaseSchema.concept (
 			valid_end_date date not null,
 			invalid_reason STRING );
 create table @cdmDatabaseSchema.vocabulary (
-			vocabulary_id STRING not null,
+			vocabulary_id STRING,
 			vocabulary_name STRING not null,
 			vocabulary_reference STRING,
 			vocabulary_version STRING,

@@ -446,8 +446,8 @@ concept,invalid_reason,FALSE,varchar(1),"Reason the Concept was invalidated.
 Possible values are D (deleted), U
 (replaced with an update) or NULL when
 valid_end_date has the default value.",NA,FALSE,FALSE,NA,NA,NA,NA
-vocabulary,vocabulary_id,TRUE,varchar(20),"A unique identifier for each Vocabulary, such
-as ICD9CM, SNOMED, Visit.",NA,FALSE,FALSE,NA,NA,NA,NA
+vocabulary,vocabulary_id,FALSE,varchar(20),"A unique identifier for each Vocabulary, such
+as ICD9CM, SNOMED, Visit.",NA,TRUE,FALSE,NA,NA,NA,NA
 vocabulary,vocabulary_name,TRUE,varchar(255),"The name describing the vocabulary, for
 example, International Classification of
 Diseases, Ninth Revision, Clinical

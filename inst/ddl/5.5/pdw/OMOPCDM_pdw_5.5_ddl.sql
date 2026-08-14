@@ -404,7 +404,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept  (concept_id
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
 WITH (DISTRIBUTION = HASH(RANDOM));
-IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.vocabulary  (vocabulary_id varchar(20) NOT NULL,
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.vocabulary  (vocabulary_id varchar(20) NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,
