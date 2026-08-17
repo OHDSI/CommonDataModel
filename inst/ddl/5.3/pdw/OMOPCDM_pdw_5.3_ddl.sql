@@ -211,7 +211,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.note_nlp  (note_nlp_
 			term_exists varchar(1) NULL,
 			term_temporal varchar(50) NULL,
 			term_modifiers varchar(2000) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.specimen  (specimen_id integer NOT NULL,
 			person_id integer NOT NULL,
 			specimen_concept_id integer NOT NULL,
@@ -233,7 +233,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.fact_relationship  (
 			domain_concept_id_2 integer NOT NULL,
 			fact_id_2 integer NOT NULL,
 			relationship_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.location  (location_id integer NOT NULL,
 			address_1 varchar(50) NULL,
 			address_2 varchar(50) NULL,
@@ -242,14 +242,14 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.location  (location_
 			zip varchar(9) NULL,
 			county varchar(20) NULL,
 			location_source_value varchar(50) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.care_site  (care_site_id integer NOT NULL,
 			care_site_name varchar(255) NULL,
 			place_of_service_concept_id integer NULL,
 			location_id integer NULL,
 			care_site_source_value varchar(50) NULL,
 			place_of_service_source_value varchar(50) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.provider  (provider_id integer NOT NULL,
 			provider_name varchar(255) NULL,
 			npi varchar(20) NULL,
@@ -263,7 +263,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.provider  (provider_
 			specialty_source_concept_id integer NULL,
 			gender_source_value varchar(50) NULL,
 			gender_source_concept_id integer NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.payer_plan_period  (payer_plan_period_id integer NOT NULL,
 			person_id integer NOT NULL,
 			payer_plan_period_start_date date NOT NULL,
@@ -304,7 +304,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cost  (cost_id integ
 			revenue_code_source_value varchar(50) NULL,
 			drg_concept_id integer NULL,
 			drg_source_value varchar(3) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_era  (drug_era_id integer NOT NULL,
 			person_id integer NOT NULL,
 			drug_concept_id integer NOT NULL,
@@ -335,7 +335,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.metadata  (metadata_
 			value_as_concept_id integer NULL,
 			metadata_date date NULL,
 			metadata_datetime datetime NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cdm_source  (cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NULL,
 			cdm_holder varchar(255) NULL,
@@ -346,7 +346,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cdm_source  (cdm_sou
 			cdm_release_date date NULL,
 			cdm_version varchar(10) NULL,
 			vocabulary_version varchar(20) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept  (concept_id integer NOT NULL,
 			concept_name varchar(255) NOT NULL,
 			domain_id varchar(20) NOT NULL,
@@ -357,44 +357,44 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept  (concept_id
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.vocabulary  (vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NOT NULL,
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.domain  (domain_id varchar(20) NOT NULL,
 			domain_name varchar(255) NOT NULL,
 			domain_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_class  (concept_class_id varchar(20) NOT NULL,
 			concept_class_name varchar(255) NOT NULL,
 			concept_class_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_relationship  (concept_id_1 integer NOT NULL,
 			concept_id_2 integer NOT NULL,
 			relationship_id varchar(20) NOT NULL,
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.relationship  (relationship_id varchar(20) NOT NULL,
 			relationship_name varchar(255) NOT NULL,
 			is_hierarchical varchar(1) NOT NULL,
 			defines_ancestry varchar(1) NOT NULL,
 			reverse_relationship_id varchar(20) NOT NULL,
 			relationship_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_synonym  (concept_id integer NOT NULL,
 			concept_synonym_name varchar(1000) NOT NULL,
 			language_concept_id integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.concept_ancestor  (ancestor_concept_id integer NOT NULL,
 			descendant_concept_id integer NOT NULL,
 			min_levels_of_separation integer NOT NULL,
 			max_levels_of_separation integer NOT NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.source_to_concept_map  (source_code varchar(50) NOT NULL,
 			source_concept_id integer NOT NULL,
 			source_vocabulary_id varchar(20) NOT NULL,
@@ -404,7 +404,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.source_to_concept_ma
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_strength  (drug_concept_id integer NOT NULL,
 			ingredient_concept_id integer NOT NULL,
 			amount_value float NULL,
@@ -417,7 +417,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.drug_strength  (drug
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cohort_definition  (cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,
 			cohort_definition_description VARCHAR(1000) NULL,
@@ -425,10 +425,10 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.cohort_definition  (
 			cohort_definition_syntax VARCHAR(1000) NULL,
 			subject_concept_id integer NOT NULL,
 			cohort_initiation_date date NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.attribute_definition  (attribute_definition_id integer NOT NULL,
 			attribute_name varchar(255) NOT NULL,
 			attribute_description VARCHAR(1000) NULL,
 			attribute_type_concept_id integer NOT NULL,
 			attribute_syntax VARCHAR(1000) NULL )
-WITH (DISTRIBUTION = HASH(RANDOM));
+WITH (DISTRIBUTION = ROUND_ROBIN);

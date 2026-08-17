@@ -71,7 +71,7 @@ createDdl <- function(cdmVersion){
     if ('person_id' %in% fieldNames){
       hintContent <- "--HINT DISTRIBUTE_ON_KEY(person_id)"
     } else {
-      hintContent <- "--HINT DISTRIBUTE_ON_KEY(RANDOM)"
+      hintContent <- "--HINT DISTRIBUTE_ON_RANDOM"
     }
 
     # Add SORT_ON_KEY if table is in sortKeyMap and has all the sort fields
