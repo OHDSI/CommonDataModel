@@ -5,25 +5,26 @@
 -- VISIT_DETAIL
 
 create table @cdmDatabaseSchema.visit_detail (
-            visit_detail_id integer NOT NULL,
-            person_id integer NOT NULL,
-            visit_detail_concept_id integer NOT NULL,
-            visit_detail_start_date date NOT NULL,
-            visit_detail_start_datetime datetime NULL,
-            visit_detail_end_date date NOT NULL,
-            visit_detail_end_datetime datetime NULL,
-            visit_detail_type_concept_id integer NOT NULL,
-            provider_id integer NULL,
-            care_site_id integer NULL,
-            visit_detail_source_value varchar(50) NULL,
-            visit_detail_source_concept_id integer NULL,
-            admitting_source_value varchar(50) NULL,
-            admitting_source_concept_id integer NULL,
-            discharge_to_source_value varchar(50) NULL,
-            discharge_to_concept_id integer NULL,
-            preceding_visit_detail_id integer NULL,
-            visit_detail_parent_id integer NULL,
-            visit_occurrence_id integer NOT NULL );
+    visit_detail_id integer NOT NULL,
+    person_id integer NOT NULL,
+    visit_detail_concept_id integer NOT NULL,
+    visit_detail_start_date date NOT NULL,
+    visit_detail_start_datetime datetime NULL,
+    visit_detail_end_date date NOT NULL,
+    visit_detail_end_datetime datetime NULL,
+    visit_detail_type_concept_id integer NOT NULL,
+    provider_id integer NULL,
+    care_site_id integer NULL,
+    visit_detail_source_value varchar(50) NULL,
+    visit_detail_source_concept_id integer NULL,
+    admitting_source_value varchar(50) NULL,
+    admitting_source_concept_id integer NULL,
+    discharge_to_source_value varchar(50) NULL,
+    discharge_to_concept_id integer NULL,
+    preceding_visit_detail_id integer NULL,
+    visit_detail_parent_id integer NULL,
+    visit_occurrence_id integer NOT NULL
+);
 
 -- CONDITION_OCCURRENCE
 alter table @cdmDatabaseSchema.condition_occurrence alter column condition_start_datetime datetime null;
@@ -77,13 +78,14 @@ EXEC sp_rename '@cdmDatabaseSchema.cost.reveue_code_source_value', 'revenue_code
 
 -- METADATA
 create table @cdmDatabaseSchema.metadata (
-            metadata_concept_id integer NOT NULL,
-            metadata_type_concept_id integer NOT NULL,
-            name varchar(250) NOT NULL,
-            value_as_string varchar(250) NULL,
-            value_as_concept_id integer NULL,
-            metadata_date date NULL,
-            metadata_datetime datetime NULL );
+    metadata_concept_id integer NOT NULL,
+    metadata_type_concept_id integer NOT NULL,
+    name varchar(250) NOT NULL,
+    value_as_string varchar(250) NULL,
+    value_as_concept_id integer NULL,
+    metadata_date date NULL,
+    metadata_datetime datetime NULL
+);
 
 -- VOCABULARY
 update @cdmDatabaseSchema.vocabulary

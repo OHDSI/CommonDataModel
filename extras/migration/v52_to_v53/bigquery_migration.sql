@@ -5,25 +5,26 @@
 -- VISIT_DETAIL
 
 create table @cdmDatabaseSchema.visit_detail (
-            visit_detail_id INT64 not null,
-            person_id INT64 not null,
-            visit_detail_concept_id INT64 not null,
-            visit_detail_start_date date not null,
-            visit_detail_start_datetime DATETIME,
-            visit_detail_end_date date not null,
-            visit_detail_end_datetime DATETIME,
-            visit_detail_type_concept_id INT64 not null,
-            provider_id INT64,
-            care_site_id INT64,
-            visit_detail_source_value STRING,
-            visit_detail_source_concept_id INT64,
-            admitting_source_value STRING,
-            admitting_source_concept_id INT64,
-            discharge_to_source_value STRING,
-            discharge_to_concept_id INT64,
-            preceding_visit_detail_id INT64,
-            visit_detail_parent_id INT64,
-            visit_occurrence_id INT64 not null );
+    visit_detail_id INT64 not null,
+    person_id INT64 not null,
+    visit_detail_concept_id INT64 not null,
+    visit_detail_start_date date not null,
+    visit_detail_start_datetime DATETIME,
+    visit_detail_end_date date not null,
+    visit_detail_end_datetime DATETIME,
+    visit_detail_type_concept_id INT64 not null,
+    provider_id INT64,
+    care_site_id INT64,
+    visit_detail_source_value STRING,
+    visit_detail_source_concept_id INT64,
+    admitting_source_value STRING,
+    admitting_source_concept_id INT64,
+    discharge_to_source_value STRING,
+    discharge_to_concept_id INT64,
+    preceding_visit_detail_id INT64,
+    visit_detail_parent_id INT64,
+    visit_occurrence_id INT64 not null
+);
 
 -- CONDITION_OCCURRENCE
 alter table @cdmDatabaseSchema.condition_occurrence alter column condition_start_datetime drop not null;
@@ -81,13 +82,14 @@ from @cdmDatabaseSchema.cost_v52;
 
 -- METADATA
 create table @cdmDatabaseSchema.metadata (
-            metadata_concept_id INT64 not null,
-            metadata_type_concept_id INT64 not null,
-            name STRING not null,
-            value_as_string STRING,
-            value_as_concept_id INT64,
-            metadata_date DATE,
-            metadata_datetime DATETIME );
+    metadata_concept_id INT64 not null,
+    metadata_type_concept_id INT64 not null,
+    name STRING not null,
+    value_as_string STRING,
+    value_as_concept_id INT64,
+    metadata_date DATE,
+    metadata_datetime DATETIME
+);
 
 -- TABLES REMOVED IN v5.3
 drop table @cdmDatabaseSchema.cohort_attribute;

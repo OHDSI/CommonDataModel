@@ -30,26 +30,29 @@ alter table @cdmDatabaseSchema.cdm_source add column cdm_release_identifier stri
 
 -- PACK_CONTENT
 create table @cdmDatabaseSchema.pack_content (
-            pack_concept_id INT64 not null,
-            drug_concept_id INT64 not null,
-            amount INT64,
-            box_size INT64 );
+    pack_concept_id INT64 not null,
+    drug_concept_id INT64 not null,
+    amount INT64,
+    box_size INT64
+);
 
 -- CONCEPT_METADATA
 create table @cdmDatabaseSchema.concept_metadata (
-            concept_id INT64,
-            concept_category STRING,
-            reuse_status STRING );
+    concept_id INT64,
+    concept_category STRING,
+    reuse_status STRING
+);
 
 -- CONCEPT_RELATIONSHIP_METADATA
 create table @cdmDatabaseSchema.concept_relationship_metadata (
-            concept_id_1 INT64 not null,
-            concept_id_2 INT64 not null,
-            relationship_id STRING not null,
-            relationship_predicate_id STRING,
-            relationship_group INT64,
-            mapping_source STRING,
-            confidence FLOAT64,
-            mapping_tool STRING,
-            mapper STRING,
-            reviewer STRING );
+    concept_id_1 INT64 not null,
+    concept_id_2 INT64 not null,
+    relationship_id STRING not null,
+    relationship_predicate_id STRING,
+    relationship_group INT64,
+    mapping_source STRING,
+    confidence FLOAT64,
+    mapping_tool STRING,
+    mapper STRING,
+    reviewer STRING
+);

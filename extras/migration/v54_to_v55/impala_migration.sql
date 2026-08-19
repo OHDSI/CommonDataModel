@@ -5,7 +5,7 @@
 -- MEASUREMENT
 -- + value_as_source_concept_id
 
-alter table @cdmDatabaseSchema.measurement add columns (value_as_source_concept_Id int);
+alter table @cdmDatabaseSchema.measurement add columns (value_as_source_concept_id int);
 
 -- OBSERVATION
 -- + value_as_date
@@ -14,7 +14,7 @@ alter table @cdmDatabaseSchema.measurement add columns (value_as_source_concept_
 
 alter table @cdmDatabaseSchema.observation add columns (value_as_date timestamp);
 alter table @cdmDatabaseSchema.observation add columns (unit_source_concept_id int);
-alter table @cdmDatabaseSchema.observation add columns (value_as_source_concept_Id int);
+alter table @cdmDatabaseSchema.observation add columns (value_as_source_concept_id int);
 
 -- SPECIMEN
 -- + visit_occurrence_id
@@ -30,26 +30,29 @@ alter table @cdmDatabaseSchema.cdm_source add columns (cdm_release_identifier va
 
 -- PACK_CONTENT
 create table @cdmDatabaseSchema.pack_content (
-            pack_concept_id int,
-            drug_concept_id int,
-            amount int,
-            box_size int );
+    pack_concept_id int,
+    drug_concept_id int,
+    amount int,
+    box_size int
+);
 
 -- CONCEPT_METADATA
 create table @cdmDatabaseSchema.concept_metadata (
-            concept_id int,
-            concept_category varchar(20),
-            reuse_status varchar(20) );
+    concept_id int,
+    concept_category varchar(20),
+    reuse_status varchar(20)
+);
 
 -- CONCEPT_RELATIONSHIP_METADATA
 create table @cdmDatabaseSchema.concept_relationship_metadata (
-            concept_id_1 int,
-            concept_id_2 int,
-            relationship_id varchar(20),
-            relationship_predicate_id varchar(20),
-            relationship_group int,
-            mapping_source varchar(50),
-            confidence float,
-            mapping_tool varchar(50),
-            mapper varchar(50),
-            reviewer varchar(50) );
+    concept_id_1 int,
+    concept_id_2 int,
+    relationship_id varchar(20),
+    relationship_predicate_id varchar(20),
+    relationship_group int,
+    mapping_source varchar(50),
+    confidence float,
+    mapping_tool varchar(50),
+    mapper varchar(50),
+    reviewer varchar(50)
+);

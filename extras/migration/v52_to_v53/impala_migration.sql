@@ -5,25 +5,26 @@
 -- VISIT_DETAIL
 
 create table @cdmDatabaseSchema.visit_detail (
-            visit_detail_id INT,
-            person_id INT,
-            visit_detail_concept_id INT,
-            visit_detail_start_date TIMESTAMP,
-            visit_detail_start_datetime TIMESTAMP,
-            visit_detail_end_date TIMESTAMP,
-            visit_detail_end_datetime TIMESTAMP,
-            visit_detail_type_concept_id INT,
-            provider_id integer NULL,
-            care_site_id integer NULL,
-            visit_detail_source_value VARCHAR(50),
-            visit_detail_source_concept_id integer NULL,
-            admitting_source_value VARCHAR(50),
-            admitting_source_concept_id integer NULL,
-            discharge_to_source_value VARCHAR(50),
-            discharge_to_concept_id integer NULL,
-            preceding_visit_detail_id integer NULL,
-            visit_detail_parent_id integer NULL,
-            visit_occurrence_id INT );
+    visit_detail_id INT,
+    person_id INT,
+    visit_detail_concept_id INT,
+    visit_detail_start_date TIMESTAMP,
+    visit_detail_start_datetime TIMESTAMP,
+    visit_detail_end_date TIMESTAMP,
+    visit_detail_end_datetime TIMESTAMP,
+    visit_detail_type_concept_id INT,
+    provider_id integer NULL,
+    care_site_id integer NULL,
+    visit_detail_source_value VARCHAR(50),
+    visit_detail_source_concept_id integer NULL,
+    admitting_source_value VARCHAR(50),
+    admitting_source_concept_id integer NULL,
+    discharge_to_source_value VARCHAR(50),
+    discharge_to_concept_id integer NULL,
+    preceding_visit_detail_id integer NULL,
+    visit_detail_parent_id integer NULL,
+    visit_occurrence_id INT
+);
 
 -- CONDITION_OCCURRENCE
 alter table @cdmDatabaseSchema.condition_occurrence add columns (visit_detail_id int);
@@ -70,13 +71,14 @@ alter table @cdmDatabaseSchema.cost change reveue_code_source_value revenue_code
 
 -- METADATA
 create table @cdmDatabaseSchema.metadata (
-            metadata_concept_id INT,
-            metadata_type_concept_id INT,
-            name VARCHAR(250),
-            value_as_string VARCHAR(250),
-            value_as_concept_id integer NULL,
-            metadata_date TIMESTAMP,
-            metadata_datetime TIMESTAMP );
+    metadata_concept_id INT,
+    metadata_type_concept_id INT,
+    name VARCHAR(250),
+    value_as_string VARCHAR(250),
+    value_as_concept_id integer NULL,
+    metadata_date TIMESTAMP,
+    metadata_datetime TIMESTAMP
+);
 
 -- TABLES REMOVED IN v5.3
 drop table @cdmDatabaseSchema.cohort_attribute;
