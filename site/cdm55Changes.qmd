@@ -1,0 +1,91 @@
+---
+title: "Changes v5.4 -> v5.5"
+format:
+  html:
+    toc: true
+    toc-location: left
+---
+*from OMOP CDM v5.4 -> OMOP CDM v5.5*
+
+For a full description of each table and field listed here, please see the [CDM v5.5 specification](cdm55.qmd).
+
+Notation:
+
+- a **\+** indicates an addition to the model, either a table or field
+- a **->** indicates an alteration either in naming or specification
+- a **-** indicates a subtraction from the model, either a table or field
+
+## Summary
+
+- **7** new fields added to existing OMOP tables, all non-required.
+- **3** new tables for vocabulary metadata
+
+## MEASUREMENT
+- \+ `value_as_source_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| value_as_source_concept_id | integer | No | No | Yes |
+
+## OBSERVATION
+- \+ `value_as_date`
+- \+ `unit_source_concept_id`
+- \+ `value_as_source_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| value_as_date | date | No | No | No |
+| unit_source_concept_id | integer | No | No | Yes |
+| value_as_source_concept_id | integer | No | No | Yes |
+
+## SPECIMEN
+- \+ `visit_occurrence_id`
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_occurrence_id | integer | No | No | Yes |
+| visit_detail_id | integer | No | No | Yes |
+
+## CDM_SOURCE
+- \+ `cdm_release_identifier`
+- `table_description` -> Updated to describe that tooling expects one record with database metadata
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| cdm_release_identifier | varchar(255) | No | No | No |
+
+## VOCABULARY
+- `vocabulary_id` -> **Unique constraint added**
+
+## \+ PACK_CONTENT
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| pack_concept_id | integer | Yes | No | Yes |
+| drug_concept_id | integer | Yes | No | Yes |
+| amount | integer | No | No | No |
+| box_size | integer | No | No | No |
+
+## \+ CONCEPT_METADATA
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| concept_id | integer | No | No | Yes |
+| concept_category | varchar(20) | No | No | No |
+| reuse_status | varchar(20) | No | No | No |
+
+## \+ CONCEPT_RELATIONSHIP_METADATA
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| concept_id_1 | integer | Yes | No | Yes |
+| concept_id_2 | integer | Yes | No | Yes |
+| relationship_id | varchar(20) | Yes | No | Yes |
+| relationship_predicate_id | varchar(20) | No | No | No |
+| relationship_group | integer | No | No | No |
+| mapping_source | varchar(50) | No | No | No |
+| confidence | float | No | No | No |
+| mapping_tool | varchar(50) | No | No | No |
+| mapper | varchar(50) | No | No | No |
+| reviewer | varchar(50) | No | No | No |
