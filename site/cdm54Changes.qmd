@@ -1,44 +1,43 @@
 ---
-title: "Changes by Table"
+title: "Changes v5.3 → v5.4"
 format:
   html:
     toc: true
     toc-location: left
 ---
-*from CDM v5.3 -> CDM v5.4*
 
 For a full description of each table and field listed here, please see the [CDM v5.4 specification](cdm54.qmd).
 
 Notation:
 
-- a **\+** indicates an addition to the model, either a table or field
-- a **->** indicates an alteration either in naming or specification
-- a **-** indicates a subtraction from the model, either a table or field
+- a **+** indicates an **addition** to the model, either a table or field.
+- a **→** indicates an **alteration** either in naming or specification.
+- a **-** indicates a **subtraction** from the model, either a table or field.
 
 ## Summary
 
-- **8** fields renamed
-- **8** field definitions changed
-- **22** fields added to existing tables, all non-required except for on (metadata_id)
+- **8** fields renamed.
+- **8** field definitions changed.
+- **21** fields added to existing tables, all non-required except for one (metadata_id).
 - **3** tables added: `EPISODE`, `EPISODE_EVENT` and `COHORT`.
-- **1** table removed: `ATTRIBUTE_DEFINITION`
+- **1** table removed: `ATTRIBUTE_DEFINITION`.
 
 ## VISIT_OCCURRENCE
-- `admitting_source_concept_id` -> `admitted_from_concept_id`
-- `admitting_source_value` -> `admitted_from_source_value`
-- `discharge_to_concept_id` -> `discharged_to_concept_id`
-- `discharge_to_source_value` -> `discharged_to_source_value`
+- `admitting_source_concept_id` **→** `admitted_from_concept_id`
+- `admitting_source_value` **→** `admitted_from_source_value`
+- `discharge_to_concept_id` **→** `discharged_to_concept_id`
+- `discharge_to_source_value` **→** `discharged_to_source_value`
 
 ## VISIT_DETAIL
-- `admitting_source_concept_id` -> `admitted_from_concept_id`
-- `admitting_source_value` -> `admitted_from_source_value`
-- `discharge_to_concept_id` -> `discharged_to_concept_id`
-- `discharge_to_source_value` -> `discharged_to_source_value`
-- `visit_detail_parent_id` -> `parent_visit_detail_id`
+- `admitting_source_concept_id` **→** `admitted_from_concept_id`
+- `admitting_source_value` **→** `admitted_from_source_value`
+- `discharge_to_concept_id` **→** `discharged_to_concept_id`
+- `discharge_to_source_value` **→** `discharged_to_source_value`
+- `visit_detail_parent_id` **→** `parent_visit_detail_id`
 
 ## PROCEDURE_OCCURRENCE
-- \+ `procedure_end_date`
-- \+ `procedure_end_datetime`
+- **+** `procedure_end_date`
+- **+** `procedure_end_datetime`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -46,11 +45,11 @@ Notation:
 | procedure_end_datetime | datetime | No | No | No |
 
 ## DEVICE_EXPOSURE
-- `unique_device_id` -> Changed to `varchar(255)`
-- \+ `production_id`
-- \+ `unit_concept_id`
-- \+ `unit_source_value`
-- \+ `unit_source_concept_id`
+- `unique_device_id` **→** Changed to `varchar(255)`
+- **+** `production_id`
+- **+** `unit_concept_id`
+- **+** `unit_source_value`
+- **+** `unit_source_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -60,9 +59,9 @@ Notation:
 | unit_source_concept_id | integer | No | No | Yes |
 
 ## MEASUREMENT
-- \+ `unit_source_concept_id`
-- \+ `measurement_event_id`
-- \+ `meas_event_field_concept_id`
+- **+** `unit_source_concept_id`
+- **+** `measurement_event_id`
+- **+** `meas_event_field_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -71,9 +70,9 @@ Notation:
 | meas_event_field_concept_id | integer | No | No | Yes |
 
 ## OBSERVATION
-- \+ `value_source_value`
-- \+ `observation_event_id`
-- \+ `obs_event_field_concept_id`
+- **+** `value_source_value`
+- **+** `observation_event_id`
+- **+** `obs_event_field_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -82,26 +81,19 @@ Notation:
 | obs_event_field_concept_id | integer | No | No | Yes |
 
 ## NOTE
-- \+ `note_event_id`
-- \+ `note_event_field_concept_id`
+- **+** `note_event_id`
+- **+** `note_event_field_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
 | note_event_id | integer | No | No | No |
 | note_event_field_concept_id | integer | No | No | Yes |
 
-## NOTE_NLP
-- \+ `offset`
-
-| Field | Datatype | Required | Primary Key | Foreign Key |
-|---|---|---|---|---|
-| offset | varchar(50) | No | No | No |
-
 ## LOCATION
-- \+ `country_concept_id`
-- \+ `country_source_value`
-- \+ `latitude`
-- \+ `longitude`
+- **+** `country_concept_id`
+- **+** `country_source_value`
+- **+** `latitude`
+- **+** `longitude`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -110,7 +102,7 @@ Notation:
 | latitude | float | No | No | No |
 | longitude | float | No | No | No |
 
-## \+ EPISODE
+## **+** EPISODE
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -128,7 +120,7 @@ Notation:
 | episode_source_value | varchar(50) | No | No | No |
 | episode_source_concept_id | integer | No | No | Yes |
 
-## \+ EPISODE_EVENT
+## **+** EPISODE_EVENT
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -137,8 +129,8 @@ Notation:
 | episode_event_field_concept_id | integer | Yes | No | Yes |
 
 ## METADATA
-- \+ `metadata_id`
-- \+ `value_as_number`
+- **+** `metadata_id`
+- **+** `value_as_number`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -146,24 +138,24 @@ Notation:
 | value_as_number | float | No | No | No |
 
 ## CDM_SOURCE
-- `cdm_source_name` -> Mandatory field
-- `cdm_source_abbreviation` -> Mandatory field
-- `cdm_holder` -> Mandatory field
-- `source_release_date` -> Mandatory field
-- `cdm_release_date` -> Mandatory field
-- \+ `cdm_version_concept_id`
+- `cdm_source_name` **→** Mandatory field
+- `cdm_source_abbreviation` **→** Mandatory field
+- `cdm_holder` **→** Mandatory field
+- `source_release_date` **→** Mandatory field
+- `cdm_release_date` **→** Mandatory field
+- **+** `cdm_version_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
 | cdm_version_concept_id | integer | Yes | No | Yes |
 
 ## VOCABULARY
-- `vocabulary_reference` -> Non-mandatory field
-- `vocabulary_version` -> Non-mandatory field
+- `vocabulary_reference` **→** Non-mandatory field
+- `vocabulary_version` **→** Non-mandatory field
 
-## - ATTRIBUTE_DEFINITION
+## **-** ATTRIBUTE_DEFINITION
 
-## \+ COHORT
+## **+** COHORT
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|

@@ -1,37 +1,37 @@
 ---
-title: "Changes v5.4 -> v5.5"
+title: "Changes v5.4 → v5.5"
 format:
   html:
     toc: true
     toc-location: left
 ---
-*from OMOP CDM v5.4 -> OMOP CDM v5.5*
 
 For a full description of each table and field listed here, please see the [CDM v5.5 specification](cdm55.qmd).
 
 Notation:
 
-- a **\+** indicates an addition to the model, either a table or field
-- a **->** indicates an alteration either in naming or specification
-- a **-** indicates a subtraction from the model, either a table or field
+- a **+** indicates an **addition** to the model, either a table or field.
+- a **→** indicates an **alteration** either in naming or specification.
+- a **-** indicates a **subtraction** from the model, either a table or field.
 
 ## Summary
 
 - **7** fields added to existing OMOP tables, all non-required.
-- **3** tables added for vocabulary metadata
+- **3** tables added, all to store vocabulary metadata.
+- **2** table/field definitions changed.
 - **No** fields or tables have been removed or renamed.
 
 ## MEASUREMENT
-- \+ `value_as_source_concept_id`
+- **+** `value_as_source_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
 | value_as_source_concept_id | integer | No | No | Yes |
 
 ## OBSERVATION
-- \+ `value_as_date`
-- \+ `unit_source_concept_id`
-- \+ `value_as_source_concept_id`
+- **+** `value_as_date`
+- **+** `unit_source_concept_id`
+- **+** `value_as_source_concept_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -40,8 +40,8 @@ Notation:
 | value_as_source_concept_id | integer | No | No | Yes |
 
 ## SPECIMEN
-- \+ `visit_occurrence_id`
-- \+ `visit_detail_id`
+- **+** `visit_occurrence_id`
+- **+** `visit_detail_id`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -49,17 +49,17 @@ Notation:
 | visit_detail_id | integer | No | No | Yes |
 
 ## CDM_SOURCE
-- \+ `cdm_release_identifier`
-- `table_description` -> Updated to describe that tooling expects one record with database metadata
+- **→** Table description updated to describe that tooling expects one record with database metadata
+- **+** `cdm_release_identifier`
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
 | cdm_release_identifier | varchar(255) | No | No | No |
 
 ## VOCABULARY
-- `vocabulary_id` -> **Unique constraint added**
+- `vocabulary_id` **→** Unique constraint added
 
-## \+ PACK_CONTENT
+## **+** PACK_CONTENT
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -68,7 +68,7 @@ Notation:
 | amount | integer | No | No | No |
 | box_size | integer | No | No | No |
 
-## \+ CONCEPT_METADATA
+## **+** CONCEPT_METADATA
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
@@ -76,7 +76,7 @@ Notation:
 | concept_category | varchar(20) | No | No | No |
 | reuse_status | varchar(20) | No | No | No |
 
-## \+ CONCEPT_RELATIONSHIP_METADATA
+## **+** CONCEPT_RELATIONSHIP_METADATA
 
 | Field | Datatype | Required | Primary Key | Foreign Key |
 |---|---|---|---|---|
