@@ -1,0 +1,139 @@
+---
+title: "Changes v5.2 -> v5.3"
+format:
+  html:
+    toc: true
+    toc-location: left
+---
+*from OMOP CDM v5.2 -> OMOP CDM v5.3*
+
+For a full description of each table and field listed here, please see the [CDM v5.3 specification](cdm53.qmd).
+
+Notation:
+
+- a **\+** indicates an addition to the model, either a table or field
+- a **->** indicates an alteration either in naming or specification
+- a **-** indicates a subtraction from the model, either a table or field
+
+## Summary
+
+- **18** fields added to existing OMOP tables, all non-required.
+- **2** tables added to the model: `VISIT_DETAIL` and `METADATA`.
+- Visit-level provenance was expanded across clinical event tables with the addition of `visit_detail_id`.
+
+## PROCEDURE_OCCURRENCE
+- \+ `visit_detail_id`
+- `qualifier_source_value` -> `modifier_source_value`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## DRUG_EXPOSURE
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## DEVICE_EXPOSURE
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## CONDITION_OCCURRENCE
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## MEASUREMENT
+- \+ `measurement_time`
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| measurement_time | varchar(10) | No | No | No |
+| visit_detail_id | integer | No | No | Yes |
+
+## OBSERVATION
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## NOTE
+- \+ `visit_detail_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | No | No | Yes |
+
+## NOTE_NLP
+- `note_nlp_id` -> Changed from `big integer` to `integer`
+- `nlp_date_time` -> `nlp_datetime`
+
+## PAYER_PLAN_PERIOD
+- \+ `payer_concept_id`
+- \+ `payer_source_concept_id`
+- \+ `plan_concept_id`
+- \+ `plan_source_concept_id`
+- \+ `sponsor_concept_id`
+- \+ `sponsor_source_value`
+- \+ `sponsor_source_concept_id`
+- \+ `stop_reason_concept_id`
+- \+ `stop_reason_source_value`
+- \+ `stop_reason_source_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| payer_concept_id | integer | No | No | Yes |
+| payer_source_concept_id | integer | No | No | Yes |
+| plan_concept_id | integer | No | No | Yes |
+| plan_source_concept_id | integer | No | No | Yes |
+| sponsor_concept_id | integer | No | No | Yes |
+| sponsor_source_value | varchar(50) | No | No | No |
+| sponsor_source_concept_id | integer | No | No | Yes |
+| stop_reason_concept_id | integer | No | No | Yes |
+| stop_reason_source_value | varchar(50) | No | No | No |
+| stop_reason_source_concept_id | integer | No | No | Yes |
+
+## \+ VISIT_DETAIL
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| visit_detail_id | integer | Yes | Yes | No |
+| person_id | integer | Yes | No | Yes |
+| visit_detail_concept_id | integer | Yes | No | Yes |
+| visit_detail_start_date | date | Yes | No | No |
+| visit_detail_start_datetime | datetime | No | No | No |
+| visit_detail_end_date | date | Yes | No | No |
+| visit_detail_end_datetime | datetime | No | No | No |
+| visit_detail_type_concept_id | integer | Yes | No | Yes |
+| provider_id | integer | No | No | Yes |
+| care_site_id | integer | No | No | Yes |
+| visit_detail_source_value | varchar(50) | No | No | No |
+| visit_detail_source_concept_id | integer | No | No | Yes |
+| admitting_source_value | varchar(50) | No | No | No |
+| admitting_source_concept_id | integer | No | No | Yes |
+| discharge_to_source_value | varchar(50) | No | No | No |
+| discharge_to_concept_id | integer | No | No | Yes |
+| preceding_visit_detail_id | integer | No | No | Yes |
+| visit_detail_parent_id | integer | No | No | Yes |
+| visit_occurrence_id | integer | Yes | No | Yes |
+
+## \+ METADATA
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| metadata_concept_id | integer | Yes | No | Yes |
+| metadata_type_concept_id | integer | Yes | No | Yes |
+| name | varchar(250) | Yes | No | No |
+| value_as_string | varchar(250) | No | No | No |
+| value_as_concept_id | integer | No | No | Yes |
+| metadata_date | date | No | No | No |
+| metadata_datetime | datetime | No | No | No |

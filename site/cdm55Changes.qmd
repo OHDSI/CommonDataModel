@@ -17,8 +17,9 @@ Notation:
 
 ## Summary
 
-- **7** new fields added to existing OMOP tables, all non-required.
-- **3** new tables for vocabulary metadata
+- **7** fields added to existing OMOP tables, all non-required.
+- **3** tables added for vocabulary metadata
+- **No** fields or tables have been removed or renamed.
 
 ## MEASUREMENT
 - \+ `value_as_source_concept_id`

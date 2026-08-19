@@ -7,7 +7,7 @@ format:
 ---
 *from CDM v5.3 -> CDM v5.4*
 
-For a full description of each table and field listed here, please see the [CDM specification](https://ohdsi.github.io/CommonDataModel/cdm54.html).
+For a full description of each table and field listed here, please see the [CDM v5.4 specification](cdm54.qmd).
 
 Notation:
 
@@ -15,171 +15,159 @@ Notation:
 - a **->** indicates an alteration either in naming or specification
 - a **-** indicates a subtraction from the model, either a table or field
 
-## PERSON
-- No change
+## Summary
 
-## OBSERVATION_PERIOD
-- No change
+- **8** fields renamed
+- **8** field definitions changed
+- **22** fields added to existing tables, all non-required except for on (metadata_id)
+- **3** tables added: `EPISODE`, `EPISODE_EVENT` and `COHORT`.
+- **1** table removed: `ATTRIBUTE_DEFINITION`
 
 ## VISIT_OCCURRENCE
-- Admitting_source_concept_id -> **Admitted_from_concept_id**
-- Admitting_source_value -> **Admitted_from_source_value**
-- Discharge_to_concept_id -> **Discharged_to_concept_id**
-- Discharge_to_source_value -> **Discharged_to_source_value**
+- `admitting_source_concept_id` -> `admitted_from_concept_id`
+- `admitting_source_value` -> `admitted_from_source_value`
+- `discharge_to_concept_id` -> `discharged_to_concept_id`
+- `discharge_to_source_value` -> `discharged_to_source_value`
 
 ## VISIT_DETAIL
-- Admitting_source_concept_id -> **Admitted_from_concept_id**
-- Admitting_source_value -> **Admitted_from_source_value**
-- Discharge_to_concept_id -> **Discharged_to_concept_id**
-- Discharge_to_source_value -> **Discharged_to_source_value**
-- Visit_detail_parent_id -> **Parent_visit_detail_id**
-
-## CONDITION_OCCURRENCE
-- No change
-
-## DRUG_EXPOSURE
-- No change
+- `admitting_source_concept_id` -> `admitted_from_concept_id`
+- `admitting_source_value` -> `admitted_from_source_value`
+- `discharge_to_concept_id` -> `discharged_to_concept_id`
+- `discharge_to_source_value` -> `discharged_to_source_value`
+- `visit_detail_parent_id` -> `parent_visit_detail_id`
 
 ## PROCEDURE_OCCURRENCE
-- \+ **Procedure_end_date**
-- \+ **Procedure_end_datetime**
+- \+ `procedure_end_date`
+- \+ `procedure_end_datetime`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| procedure_end_date | date | No | No | No |
+| procedure_end_datetime | datetime | No | No | No |
 
 ## DEVICE_EXPOSURE
-- Unique_device_id -> **Changed to varchar(255)**
-- \+ **Production_id**
-- \+ **Unit_concept_id**
-- \+ **Unit_source_value**
-- \+ **Unit_source_concept_id**
+- `unique_device_id` -> Changed to `varchar(255)`
+- \+ `production_id`
+- \+ `unit_concept_id`
+- \+ `unit_source_value`
+- \+ `unit_source_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| production_id | varchar(255) | No | No | No |
+| unit_concept_id | integer | No | No | Yes |
+| unit_source_value | varchar(50) | No | No | No |
+| unit_source_concept_id | integer | No | No | Yes |
 
 ## MEASUREMENT
-- \+ **Unit_source_concept_id**
-- \+ **Measurement_event_id**
-- \+ **Meas_event_field_concept_id**
+- \+ `unit_source_concept_id`
+- \+ `measurement_event_id`
+- \+ `meas_event_field_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| unit_source_concept_id | integer | No | No | Yes |
+| measurement_event_id | integer | No | No | No |
+| meas_event_field_concept_id | integer | No | No | Yes |
 
 ## OBSERVATION
-- \+ **Value_source_value**
-- \+ **Observation_event_id**
-- \+ **Obs_event_field_concept_id**
+- \+ `value_source_value`
+- \+ `observation_event_id`
+- \+ `obs_event_field_concept_id`
 
-## DEATH
-- No change
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| value_source_value | varchar(50) | No | No | No |
+| observation_event_id | integer | No | No | No |
+| obs_event_field_concept_id | integer | No | No | Yes |
 
 ## NOTE
-- \+ **Note_event_id**
-- \+ **Note_event_field_concept_id**
+- \+ `note_event_id`
+- \+ `note_event_field_concept_id`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| note_event_id | integer | No | No | No |
+| note_event_field_concept_id | integer | No | No | Yes |
 
 ## NOTE_NLP
-- No change
+- \+ `offset`
 
-## SPECIMEN
-- No change
-
-## FACT_RELATIONSHIP
-- No change
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| offset | varchar(50) | No | No | No |
 
 ## LOCATION
-- \+ **Country_concept_id**
-- \+ **Country_source_value**
-- \+ **Latitude**
-- \+ **Longitude**
+- \+ `country_concept_id`
+- \+ `country_source_value`
+- \+ `latitude`
+- \+ `longitude`
 
-## CARE_SITE
-- No change
-
-## PAYER_PLAN_PERIOD
-- No change
-
-## PROVIDER
-- No change
-
-## COST
-- No change
-
-## DRUG_ERA
-- No change
-
-## DOSE_ERA
-- No change
-
-## CONDITION_ERA
-- No change
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| country_concept_id | integer | No | No | Yes |
+| country_source_value | varchar(80) | No | No | No |
+| latitude | float | No | No | No |
+| longitude | float | No | No | No |
 
 ## \+ EPISODE
 
-|     EPISODE                      |
-|----------------------------------|
-|     episode_id                   |
-|     person_id                    |
-|     episode_concept_id           |
-|     episode_start_date           |
-|     episode_start_datetime       |
-|     episode_end_date             |
-|     episode_end_datetime         |
-|     episode_parent_id            |
-|     episode_number               |
-|     episode_object_concept_id    |
-|     episode_type_concept_id      |
-|     episode_source_value         |
-|     episode_source_concept_id    |
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| episode_id | integer | Yes | Yes | No |
+| person_id | integer | Yes | No | Yes |
+| episode_concept_id | integer | Yes | No | Yes |
+| episode_start_date | date | Yes | No | No |
+| episode_start_datetime | datetime | No | No | No |
+| episode_end_date | date | No | No | No |
+| episode_end_datetime | datetime | No | No | No |
+| episode_parent_id | integer | No | No | Yes |
+| episode_number | integer | No | No | No |
+| episode_object_concept_id | integer | Yes | No | Yes |
+| episode_type_concept_id | integer | Yes | No | Yes |
+| episode_source_value | varchar(50) | No | No | No |
+| episode_source_concept_id | integer | No | No | Yes |
 
 ## \+ EPISODE_EVENT
 
-|     EPISODE_EVENT                  |
-|------------------------------------|
-|     episode_id                     |
-|     event_id                       |
-|     episode_event_field_concept_id |
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| episode_id | integer | Yes | No | Yes |
+| event_id | integer | Yes | No | No |
+| episode_event_field_concept_id | integer | Yes | No | Yes |
 
 ## METADATA
-- \+ **Metadata_id**
-- \+ **Value_as_number**
+- \+ `metadata_id`
+- \+ `value_as_number`
+
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| metadata_id | integer | Yes | Yes | No |
+| value_as_number | float | No | No | No |
 
 ## CDM_SOURCE
-- Cdm_source_name -> **Mandatory field**
-- Cdm_source_abbreviation -> **Mandatory field**
-- Cdm_holder -> **Mandatory field**
-- Source_release_date -> **Mandatory field**
-- Cdm_release_date -> **Mandatory field**
-- \+ **Cdm_version_concept_id**
+- `cdm_source_name` -> Mandatory field
+- `cdm_source_abbreviation` -> Mandatory field
+- `cdm_holder` -> Mandatory field
+- `source_release_date` -> Mandatory field
+- `cdm_release_date` -> Mandatory field
+- \+ `cdm_version_concept_id`
 
-## CONCEPT
-- No change
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| cdm_version_concept_id | integer | Yes | No | Yes |
 
 ## VOCABULARY
-- Vocabulary_reference -> **Non-mandatory field**
-- Vocabulary_version -> **Non-mandatory field**
-
-## DOMAIN
-- No change
-
-## CONCEPT_CLASS
-- No change
-
-## CONCEPT_RELATIONSHIP
-- No change
-
-## RELATIONSHIP
-- No change
-
-## CONCEPT_SYNONYM
-- No change
-
-## CONCEPT_ANCESTOR
-- No change
-
-## SOURCE_TO_CONCEPT_MAP
-- No change
-
-## DRUG_STRENGTH
-- No change
+- `vocabulary_reference` -> Non-mandatory field
+- `vocabulary_version` -> Non-mandatory field
 
 ## - ATTRIBUTE_DEFINITION
 
 ## \+ COHORT
 
-|     COHORT                         |
-|------------------------------------|
-|     cohort_definition_id           |
-|     subject_id                     |
-|     cohort_start_date              |
-|     cohort_end_date                |
+| Field | Datatype | Required | Primary Key | Foreign Key |
+|---|---|---|---|---|
+| cohort_definition_id | integer | Yes | No | No |
+| subject_id | integer | Yes | No | No |
+| cohort_start_date | date | Yes | No | No |
+| cohort_end_date | date | Yes | No | No |
