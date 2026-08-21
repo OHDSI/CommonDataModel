@@ -60,6 +60,8 @@ website:
             href: cdm54ToolingSupport.qmd
           - text: "CDM v5.5"
             href: cdm55.qmd
+          - text: " - Changes from CDM v5.4"
+            href: cdm55Changes.qmd
       - text: "CDM Additions"
         icon: plus-square
         menu:
