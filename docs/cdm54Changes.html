@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Changes by Table – OMOP Common Data Model</title>
+<title>Changes v5.3 → v5.4 – OMOP Common Data Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -318,6 +318,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./customConcepts.html">
  <span class="dropdown-text">Custom Concepts</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">How to Calculate Drug Dose</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ehrObsPeriods.html">
+ <span class="dropdown-text">Observation Period Considerations for EHR Data</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -354,6 +362,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./cdm55.html">
  <span class="dropdown-text">CDM v5.5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm55Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.4</span></a>
   </li>  
     </ul>
   </li>
@@ -447,45 +459,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#person" id="toc-person" class="nav-link active" data-scroll-target="#person">PERSON</a></li>
-  <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">OBSERVATION_PERIOD</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">VISIT_OCCURRENCE</a></li>
   <li><a href="#visit_detail" id="toc-visit_detail" class="nav-link" data-scroll-target="#visit_detail">VISIT_DETAIL</a></li>
-  <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">CONDITION_OCCURRENCE</a></li>
-  <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">DRUG_EXPOSURE</a></li>
   <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">PROCEDURE_OCCURRENCE</a></li>
   <li><a href="#device_exposure" id="toc-device_exposure" class="nav-link" data-scroll-target="#device_exposure">DEVICE_EXPOSURE</a></li>
   <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">MEASUREMENT</a></li>
   <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">OBSERVATION</a></li>
-  <li><a href="#death" id="toc-death" class="nav-link" data-scroll-target="#death">DEATH</a></li>
   <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">NOTE</a></li>
-  <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">NOTE_NLP</a></li>
-  <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">SPECIMEN</a></li>
-  <li><a href="#fact_relationship" id="toc-fact_relationship" class="nav-link" data-scroll-target="#fact_relationship">FACT_RELATIONSHIP</a></li>
   <li><a href="#location" id="toc-location" class="nav-link" data-scroll-target="#location">LOCATION</a></li>
-  <li><a href="#care_site" id="toc-care_site" class="nav-link" data-scroll-target="#care_site">CARE_SITE</a></li>
-  <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">PAYER_PLAN_PERIOD</a></li>
-  <li><a href="#provider" id="toc-provider" class="nav-link" data-scroll-target="#provider">PROVIDER</a></li>
-  <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">COST</a></li>
-  <li><a href="#drug_era" id="toc-drug_era" class="nav-link" data-scroll-target="#drug_era">DRUG_ERA</a></li>
-  <li><a href="#dose_era" id="toc-dose_era" class="nav-link" data-scroll-target="#dose_era">DOSE_ERA</a></li>
-  <li><a href="#condition_era" id="toc-condition_era" class="nav-link" data-scroll-target="#condition_era">CONDITION_ERA</a></li>
-  <li><a href="#episode" id="toc-episode" class="nav-link" data-scroll-target="#episode">+ EPISODE</a></li>
-  <li><a href="#episode_event" id="toc-episode_event" class="nav-link" data-scroll-target="#episode_event">+ EPISODE_EVENT</a></li>
+  <li><a href="#episode" id="toc-episode" class="nav-link" data-scroll-target="#episode"><strong>+</strong> EPISODE</a></li>
+  <li><a href="#episode_event" id="toc-episode_event" class="nav-link" data-scroll-target="#episode_event"><strong>+</strong> EPISODE_EVENT</a></li>
   <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">METADATA</a></li>
   <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">CDM_SOURCE</a></li>
-  <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">CONCEPT</a></li>
   <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">VOCABULARY</a></li>
-  <li><a href="#domain" id="toc-domain" class="nav-link" data-scroll-target="#domain">DOMAIN</a></li>
-  <li><a href="#concept_class" id="toc-concept_class" class="nav-link" data-scroll-target="#concept_class">CONCEPT_CLASS</a></li>
-  <li><a href="#concept_relationship" id="toc-concept_relationship" class="nav-link" data-scroll-target="#concept_relationship">CONCEPT_RELATIONSHIP</a></li>
-  <li><a href="#relationship" id="toc-relationship" class="nav-link" data-scroll-target="#relationship">RELATIONSHIP</a></li>
-  <li><a href="#concept_synonym" id="toc-concept_synonym" class="nav-link" data-scroll-target="#concept_synonym">CONCEPT_SYNONYM</a></li>
-  <li><a href="#concept_ancestor" id="toc-concept_ancestor" class="nav-link" data-scroll-target="#concept_ancestor">CONCEPT_ANCESTOR</a></li>
-  <li><a href="#source_to_concept_map" id="toc-source_to_concept_map" class="nav-link" data-scroll-target="#source_to_concept_map">SOURCE_TO_CONCEPT_MAP</a></li>
-  <li><a href="#drug_strength" id="toc-drug_strength" class="nav-link" data-scroll-target="#drug_strength">DRUG_STRENGTH</a></li>
-  <li><a href="#attribute_definition" id="toc-attribute_definition" class="nav-link" data-scroll-target="#attribute_definition">- ATTRIBUTE_DEFINITION</a></li>
-  <li><a href="#cohort" id="toc-cohort" class="nav-link" data-scroll-target="#cohort">+ COHORT</a></li>
+  <li><a href="#attribute_definition" id="toc-attribute_definition" class="nav-link" data-scroll-target="#attribute_definition"><strong>-</strong> ATTRIBUTE_DEFINITION</a></li>
+  <li><a href="#cohort" id="toc-cohort" class="nav-link" data-scroll-target="#cohort"><strong>+</strong> COHORT</a></li>
   </ul>
 </nav>
 </nav>
@@ -499,7 +488,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Changes by Table</h1>
+<h1 class="title">Changes v5.3 → v5.4</h1>
 </div>
 
 
@@ -516,240 +505,435 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>from CDM v5.3 -&gt; CDM v5.4</em></p>
-<p>For a full description of each table and field listed here, please see the <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html">CDM specification</a>.</p>
+<p>For a full description of each table and field listed here, please see the <a href="./cdm54.html">CDM v5.4 specification</a>.</p>
 <p>Notation:</p>
 <ul>
-<li>a <strong>+</strong> indicates an addition to the model, either a table or field</li>
-<li>a <strong>-&gt;</strong> indicates an alteration either in naming or specification</li>
-<li>a <strong>-</strong> indicates a subtraction from the model, either a table or field</li>
+<li>a <strong>+</strong> indicates an <strong>addition</strong> to the model, either a table or field.</li>
+<li>a <strong>→</strong> indicates an <strong>alteration</strong> either in naming or specification.</li>
+<li>a <strong>-</strong> indicates a <strong>subtraction</strong> from the model, either a table or field.</li>
 </ul>
-<section id="person" class="level2">
-<h2 class="anchored" data-anchor-id="person">PERSON</h2>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="observation_period" class="level2">
-<h2 class="anchored" data-anchor-id="observation_period">OBSERVATION_PERIOD</h2>
-<ul>
-<li>No change</li>
+<li><strong>8</strong> fields renamed.</li>
+<li><strong>8</strong> field definitions changed.</li>
+<li><strong>21</strong> fields added to existing tables, all non-required except for one (metadata_id).</li>
+<li><strong>3</strong> tables added: <code>EPISODE</code>, <code>EPISODE_EVENT</code> and <code>COHORT</code>.</li>
+<li><strong>1</strong> table removed: <code>ATTRIBUTE_DEFINITION</code>.</li>
 </ul>
 </section>
 <section id="visit_occurrence" class="level2">
 <h2 class="anchored" data-anchor-id="visit_occurrence">VISIT_OCCURRENCE</h2>
 <ul>
-<li>Admitting_source_concept_id -&gt; <strong>Admitted_from_concept_id</strong></li>
-<li>Admitting_source_value -&gt; <strong>Admitted_from_source_value</strong></li>
-<li>Discharge_to_concept_id -&gt; <strong>Discharged_to_concept_id</strong></li>
-<li>Discharge_to_source_value -&gt; <strong>Discharged_to_source_value</strong></li>
+<li><code>admitting_source_concept_id</code> <strong>→</strong> <code>admitted_from_concept_id</code></li>
+<li><code>admitting_source_value</code> <strong>→</strong> <code>admitted_from_source_value</code></li>
+<li><code>discharge_to_concept_id</code> <strong>→</strong> <code>discharged_to_concept_id</code></li>
+<li><code>discharge_to_source_value</code> <strong>→</strong> <code>discharged_to_source_value</code></li>
 </ul>
 </section>
 <section id="visit_detail" class="level2">
 <h2 class="anchored" data-anchor-id="visit_detail">VISIT_DETAIL</h2>
 <ul>
-<li>Admitting_source_concept_id -&gt; <strong>Admitted_from_concept_id</strong></li>
-<li>Admitting_source_value -&gt; <strong>Admitted_from_source_value</strong></li>
-<li>Discharge_to_concept_id -&gt; <strong>Discharged_to_concept_id</strong></li>
-<li>Discharge_to_source_value -&gt; <strong>Discharged_to_source_value</strong></li>
-<li>Visit_detail_parent_id -&gt; <strong>Parent_visit_detail_id</strong></li>
-</ul>
-</section>
-<section id="condition_occurrence" class="level2">
-<h2 class="anchored" data-anchor-id="condition_occurrence">CONDITION_OCCURRENCE</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="drug_exposure" class="level2">
-<h2 class="anchored" data-anchor-id="drug_exposure">DRUG_EXPOSURE</h2>
-<ul>
-<li>No change</li>
+<li><code>admitting_source_concept_id</code> <strong>→</strong> <code>admitted_from_concept_id</code></li>
+<li><code>admitting_source_value</code> <strong>→</strong> <code>admitted_from_source_value</code></li>
+<li><code>discharge_to_concept_id</code> <strong>→</strong> <code>discharged_to_concept_id</code></li>
+<li><code>discharge_to_source_value</code> <strong>→</strong> <code>discharged_to_source_value</code></li>
+<li><code>visit_detail_parent_id</code> <strong>→</strong> <code>parent_visit_detail_id</code></li>
 </ul>
 </section>
 <section id="procedure_occurrence" class="level2">
 <h2 class="anchored" data-anchor-id="procedure_occurrence">PROCEDURE_OCCURRENCE</h2>
 <ul>
-<li>+ <strong>Procedure_end_date</strong></li>
-<li>+ <strong>Procedure_end_datetime</strong></li>
+<li><strong>+</strong> <code>procedure_end_date</code></li>
+<li><strong>+</strong> <code>procedure_end_datetime</code></li>
 </ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>procedure_end_date</td>
+<td>date</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>procedure_end_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="device_exposure" class="level2">
 <h2 class="anchored" data-anchor-id="device_exposure">DEVICE_EXPOSURE</h2>
 <ul>
-<li>Unique_device_id -&gt; <strong>Changed to varchar(255)</strong></li>
-<li>+ <strong>Production_id</strong></li>
-<li>+ <strong>Unit_concept_id</strong></li>
-<li>+ <strong>Unit_source_value</strong></li>
-<li>+ <strong>Unit_source_concept_id</strong></li>
+<li><code>unique_device_id</code> <strong>→</strong> Changed to <code>varchar(255)</code></li>
+<li><strong>+</strong> <code>production_id</code></li>
+<li><strong>+</strong> <code>unit_concept_id</code></li>
+<li><strong>+</strong> <code>unit_source_value</code></li>
+<li><strong>+</strong> <code>unit_source_concept_id</code></li>
 </ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>production_id</td>
+<td>varchar(255)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>unit_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>unit_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>unit_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="measurement" class="level2">
 <h2 class="anchored" data-anchor-id="measurement">MEASUREMENT</h2>
 <ul>
-<li>+ <strong>Unit_source_concept_id</strong></li>
-<li>+ <strong>Measurement_event_id</strong></li>
-<li>+ <strong>Meas_event_field_concept_id</strong></li>
+<li><strong>+</strong> <code>unit_source_concept_id</code></li>
+<li><strong>+</strong> <code>measurement_event_id</code></li>
+<li><strong>+</strong> <code>meas_event_field_concept_id</code></li>
 </ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>unit_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>measurement_event_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>meas_event_field_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="observation" class="level2">
 <h2 class="anchored" data-anchor-id="observation">OBSERVATION</h2>
 <ul>
-<li>+ <strong>Value_source_value</strong></li>
-<li>+ <strong>Observation_event_id</strong></li>
-<li>+ <strong>Obs_event_field_concept_id</strong></li>
+<li><strong>+</strong> <code>value_source_value</code></li>
+<li><strong>+</strong> <code>observation_event_id</code></li>
+<li><strong>+</strong> <code>obs_event_field_concept_id</code></li>
 </ul>
-</section>
-<section id="death" class="level2">
-<h2 class="anchored" data-anchor-id="death">DEATH</h2>
-<ul>
-<li>No change</li>
-</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>value_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>observation_event_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>obs_event_field_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="note" class="level2">
 <h2 class="anchored" data-anchor-id="note">NOTE</h2>
 <ul>
-<li>+ <strong>Note_event_id</strong></li>
-<li>+ <strong>Note_event_field_concept_id</strong></li>
+<li><strong>+</strong> <code>note_event_id</code></li>
+<li><strong>+</strong> <code>note_event_field_concept_id</code></li>
 </ul>
-</section>
-<section id="note_nlp" class="level2">
-<h2 class="anchored" data-anchor-id="note_nlp">NOTE_NLP</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="specimen" class="level2">
-<h2 class="anchored" data-anchor-id="specimen">SPECIMEN</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="fact_relationship" class="level2">
-<h2 class="anchored" data-anchor-id="fact_relationship">FACT_RELATIONSHIP</h2>
-<ul>
-<li>No change</li>
-</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>note_event_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>note_event_field_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="location" class="level2">
 <h2 class="anchored" data-anchor-id="location">LOCATION</h2>
 <ul>
-<li>+ <strong>Country_concept_id</strong></li>
-<li>+ <strong>Country_source_value</strong></li>
-<li>+ <strong>Latitude</strong></li>
-<li>+ <strong>Longitude</strong></li>
+<li><strong>+</strong> <code>country_concept_id</code></li>
+<li><strong>+</strong> <code>country_source_value</code></li>
+<li><strong>+</strong> <code>latitude</code></li>
+<li><strong>+</strong> <code>longitude</code></li>
 </ul>
-</section>
-<section id="care_site" class="level2">
-<h2 class="anchored" data-anchor-id="care_site">CARE_SITE</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="payer_plan_period" class="level2">
-<h2 class="anchored" data-anchor-id="payer_plan_period">PAYER_PLAN_PERIOD</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="provider" class="level2">
-<h2 class="anchored" data-anchor-id="provider">PROVIDER</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="cost" class="level2">
-<h2 class="anchored" data-anchor-id="cost">COST</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="drug_era" class="level2">
-<h2 class="anchored" data-anchor-id="drug_era">DRUG_ERA</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="dose_era" class="level2">
-<h2 class="anchored" data-anchor-id="dose_era">DOSE_ERA</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="condition_era" class="level2">
-<h2 class="anchored" data-anchor-id="condition_era">CONDITION_ERA</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="episode" class="level2">
-<h2 class="anchored" data-anchor-id="episode">+ EPISODE</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>EPISODE</th>
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>country_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>country_source_value</td>
+<td>varchar(80)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>latitude</td>
+<td>float</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>longitude</td>
+<td>float</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="episode" class="level2">
+<h2 class="anchored" data-anchor-id="episode"><strong>+</strong> EPISODE</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>episode_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>person_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="odd">
 <td>episode_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
 <td>episode_start_date</td>
+<td>date</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="odd">
 <td>episode_start_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>episode_end_date</td>
+<td>date</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="odd">
 <td>episode_end_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>episode_parent_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="odd">
 <td>episode_number</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>episode_object_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="odd">
 <td>episode_type_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
 <td>episode_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="odd">
 <td>episode_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="episode_event" class="level2">
-<h2 class="anchored" data-anchor-id="episode_event">+ EPISODE_EVENT</h2>
+<h2 class="anchored" data-anchor-id="episode_event"><strong>+</strong> EPISODE_EVENT</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>EPISODE_EVENT</th>
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>episode_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
 <td>event_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="odd">
 <td>episode_event_field_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
@@ -757,105 +941,118 @@ ul.task-list li input[type="checkbox"] {
 <section id="metadata" class="level2">
 <h2 class="anchored" data-anchor-id="metadata">METADATA</h2>
 <ul>
-<li>+ <strong>Metadata_id</strong></li>
-<li>+ <strong>Value_as_number</strong></li>
+<li><strong>+</strong> <code>metadata_id</code></li>
+<li><strong>+</strong> <code>value_as_number</code></li>
 </ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metadata_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>value_as_number</td>
+<td>float</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="cdm_source" class="level2">
 <h2 class="anchored" data-anchor-id="cdm_source">CDM_SOURCE</h2>
 <ul>
-<li>Cdm_source_name -&gt; <strong>Mandatory field</strong></li>
-<li>Cdm_source_abbreviation -&gt; <strong>Mandatory field</strong></li>
-<li>Cdm_holder -&gt; <strong>Mandatory field</strong></li>
-<li>Source_release_date -&gt; <strong>Mandatory field</strong></li>
-<li>Cdm_release_date -&gt; <strong>Mandatory field</strong></li>
-<li>+ <strong>Cdm_version_concept_id</strong></li>
+<li><code>cdm_source_name</code> <strong>→</strong> Mandatory field</li>
+<li><code>cdm_source_abbreviation</code> <strong>→</strong> Mandatory field</li>
+<li><code>cdm_holder</code> <strong>→</strong> Mandatory field</li>
+<li><code>source_release_date</code> <strong>→</strong> Mandatory field</li>
+<li><code>cdm_release_date</code> <strong>→</strong> Mandatory field</li>
+<li><strong>+</strong> <code>cdm_version_concept_id</code></li>
 </ul>
-</section>
-<section id="concept" class="level2">
-<h2 class="anchored" data-anchor-id="concept">CONCEPT</h2>
-<ul>
-<li>No change</li>
-</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cdm_version_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="vocabulary" class="level2">
 <h2 class="anchored" data-anchor-id="vocabulary">VOCABULARY</h2>
 <ul>
-<li>Vocabulary_reference -&gt; <strong>Non-mandatory field</strong></li>
-<li>Vocabulary_version -&gt; <strong>Non-mandatory field</strong></li>
-</ul>
-</section>
-<section id="domain" class="level2">
-<h2 class="anchored" data-anchor-id="domain">DOMAIN</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="concept_class" class="level2">
-<h2 class="anchored" data-anchor-id="concept_class">CONCEPT_CLASS</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="concept_relationship" class="level2">
-<h2 class="anchored" data-anchor-id="concept_relationship">CONCEPT_RELATIONSHIP</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="relationship" class="level2">
-<h2 class="anchored" data-anchor-id="relationship">RELATIONSHIP</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="concept_synonym" class="level2">
-<h2 class="anchored" data-anchor-id="concept_synonym">CONCEPT_SYNONYM</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="concept_ancestor" class="level2">
-<h2 class="anchored" data-anchor-id="concept_ancestor">CONCEPT_ANCESTOR</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="source_to_concept_map" class="level2">
-<h2 class="anchored" data-anchor-id="source_to_concept_map">SOURCE_TO_CONCEPT_MAP</h2>
-<ul>
-<li>No change</li>
-</ul>
-</section>
-<section id="drug_strength" class="level2">
-<h2 class="anchored" data-anchor-id="drug_strength">DRUG_STRENGTH</h2>
-<ul>
-<li>No change</li>
+<li><code>vocabulary_reference</code> <strong>→</strong> Non-mandatory field</li>
+<li><code>vocabulary_version</code> <strong>→</strong> Non-mandatory field</li>
 </ul>
 </section>
 <section id="attribute_definition" class="level2">
-<h2 class="anchored" data-anchor-id="attribute_definition">- ATTRIBUTE_DEFINITION</h2>
+<h2 class="anchored" data-anchor-id="attribute_definition"><strong>-</strong> ATTRIBUTE_DEFINITION</h2>
 </section>
 <section id="cohort" class="level2">
-<h2 class="anchored" data-anchor-id="cohort">+ COHORT</h2>
+<h2 class="anchored" data-anchor-id="cohort"><strong>+</strong> COHORT</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>COHORT</th>
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>cohort_definition_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>subject_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="odd">
 <td>cohort_start_date</td>
+<td>date</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 <tr class="even">
 <td>cohort_end_date</td>
+<td>date</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>

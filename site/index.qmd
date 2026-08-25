@@ -9,21 +9,17 @@ This website is meant to serve as a resource describing the specification of the
 
 If not otherwise specified, all OHDSI content is subject to the [Creative Commons CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1) license.
 
-![](man/images/cdm54.png)
+![](man/images/cdm55.png)
 
 ## The CDM Working Group
 
 The CDM is managed by the OHDSI CDM Working Group. If you would like to join our group please fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model" to be added to our Microsoft Teams environment. This working group endeavors to maintain the OMOP CDM as a living model by soliciting and responding to requests from the community based on use cases and research purposes. For more information on the CDM refresh process please see the description [here](cdmRefreshProcess.html). You will find information on our meetings and links to join at the end of this page.
 
-If you would like to present to the group regarding a new use case for the OMOP CDM or if you would like the group's assistance with a problem you are having, please fill out our sign-up form.
-
-[![](man/images/sign-up.png){width=15%}](https://www.signupgenius.com/go/10C0948AEAD28A4F9CF8-workgroup)
-
 **Note** If you do you have access to the OHDSI Teams Tenet, either contact Clair Blacketer at mblacke@its.jnj.com or fill out [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=lAAPoyCRq0q6TOVQkCOy1ZyG6Ud_r2tKuS0HcGnqiQZUOVJFUzBFWE1aSVlLN0ozR01MUVQ4T0RGNyQlQCN0PWcu) and check "Common Data Model"
 
 ## Current CDM Version
 
-The current OMOP CDM version is [CDM v5.5](cdm55.html). This CDM version was developed over the course of a year by considering requests that were sent via our [issues page](https://github.com/OHDSI/CommonDataModel/issues). The list of proposed changes was then shared with the community in multiple ways: through discussions at the weekly OHDSI Community calls, discussions with the OHDSI Steering Committee, and discussions with all potentially affected workgroups. The final ratified changes compared to v5.5 can be found [here](cdm55Changes.html). DDLs for all supported SQL dialects is provided in the Github repository.
+The current OMOP CDM version is [CDM v5.5](cdm55.html). This CDM version was developed over the course of a year by considering requests that were sent via our [issues page](https://github.com/OHDSI/CommonDataModel/issues). The list of proposed changes was then shared with the community in multiple ways: through discussions at the weekly OHDSI Community calls, discussions with the OHDSI Steering Committee, and discussions with all potentially affected workgroups. The final ratified changes compared to v5.4 can be found [here](cdm55Changes.html). DDLs for all supported SQL dialects is provided in the Github repository.
 
 - [Link to DDLs for CDM v5.5](https://github.com/OHDSI/CommonDataModel/tree/main/inst/ddl/5.5)
 - [Link to ReadMe for instructions on how to use the R package](https://github.com/OHDSI/CommonDataModel/tree/master#readme)

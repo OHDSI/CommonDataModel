@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OMOP CDM v5.3.1 – OMOP Common Data Model</title>
+<title>Changes v5.4 → v5.5 – OMOP Common Data Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -455,7 +455,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">MEASUREMENT</a></li>
+  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">OBSERVATION</a></li>
+  <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">SPECIMEN</a></li>
+  <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">CDM_SOURCE</a></li>
+  <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">VOCABULARY</a></li>
+  <li><a href="#pack_content" id="toc-pack_content" class="nav-link" data-scroll-target="#pack_content"><strong>+</strong> PACK_CONTENT</a></li>
+  <li><a href="#concept_metadata" id="toc-concept_metadata" class="nav-link" data-scroll-target="#concept_metadata"><strong>+</strong> CONCEPT_METADATA</a></li>
+  <li><a href="#concept_relationship_metadata" id="toc-concept_relationship_metadata" class="nav-link" data-scroll-target="#concept_relationship_metadata"><strong>+</strong> CONCEPT_RELATIONSHIP_METADATA</a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -467,7 +481,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">OMOP CDM v5.3.1</h1>
+<h1 class="title">Changes v5.4 → v5.5</h1>
 </div>
 
 
@@ -484,9 +498,326 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>This documentation previously referenced v5.3.1. During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases. This is because only major and minor releases include changes to the model itself while bug fixes address issues with SQL incompatibility, problems in the code, etc. Hot fixes and minor.micro release can be found through the searching of tags. For the CDM v5.3 specification please see the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html">5.3 page</a>.</strong></p>
+<p>For a full description of each table and field listed here, please see the <a href="./cdm55.html">CDM v5.5 specification</a>.</p>
+<p>Notation:</p>
+<ul>
+<li>a <strong>+</strong> indicates an <strong>addition</strong> to the model, either a table or field.</li>
+<li>a <strong>→</strong> indicates an <strong>alteration</strong> either in naming or specification.</li>
+<li>a <strong>-</strong> indicates a <strong>subtraction</strong> from the model, either a table or field.</li>
+</ul>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><strong>7</strong> fields added to existing OMOP tables, all non-required.</li>
+<li><strong>3</strong> tables added, all to store vocabulary metadata.</li>
+<li><strong>2</strong> table/field definitions changed.</li>
+<li><strong>No</strong> fields or tables have been removed or renamed.</li>
+</ul>
+</section>
+<section id="measurement" class="level2">
+<h2 class="anchored" data-anchor-id="measurement">MEASUREMENT</h2>
+<ul>
+<li><strong>+</strong> <code>value_as_source_concept_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>value_as_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="observation" class="level2">
+<h2 class="anchored" data-anchor-id="observation">OBSERVATION</h2>
+<ul>
+<li><strong>+</strong> <code>value_as_date</code></li>
+<li><strong>+</strong> <code>unit_source_concept_id</code></li>
+<li><strong>+</strong> <code>value_as_source_concept_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>value_as_date</td>
+<td>date</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>unit_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>value_as_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="specimen" class="level2">
+<h2 class="anchored" data-anchor-id="specimen">SPECIMEN</h2>
+<ul>
+<li><strong>+</strong> <code>visit_occurrence_id</code></li>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_occurrence_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cdm_source" class="level2">
+<h2 class="anchored" data-anchor-id="cdm_source">CDM_SOURCE</h2>
+<ul>
+<li><strong>→</strong> Table description updated to describe that tooling expects one record with database metadata</li>
+<li><strong>+</strong> <code>cdm_release_identifier</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cdm_release_identifier</td>
+<td>varchar(255)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vocabulary" class="level2">
+<h2 class="anchored" data-anchor-id="vocabulary">VOCABULARY</h2>
+<ul>
+<li><code>vocabulary_id</code> <strong>→</strong> Unique constraint added</li>
+</ul>
+</section>
+<section id="pack_content" class="level2">
+<h2 class="anchored" data-anchor-id="pack_content"><strong>+</strong> PACK_CONTENT</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pack_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>drug_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>amount</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>box_size</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concept_metadata" class="level2">
+<h2 class="anchored" data-anchor-id="concept_metadata"><strong>+</strong> CONCEPT_METADATA</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>concept_category</td>
+<td>varchar(20)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>reuse_status</td>
+<td>varchar(20)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concept_relationship_metadata" class="level2">
+<h2 class="anchored" data-anchor-id="concept_relationship_metadata"><strong>+</strong> CONCEPT_RELATIONSHIP_METADATA</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>concept_id_1</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>concept_id_2</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>relationship_id</td>
+<td>varchar(20)</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>relationship_predicate_id</td>
+<td>varchar(20)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>relationship_group</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>mapping_source</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>confidence</td>
+<td>float</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>mapping_tool</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>mapper</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>reviewer</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

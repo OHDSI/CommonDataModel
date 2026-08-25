@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>OMOP CDM v5.3.1 – OMOP Common Data Model</title>
+<title>Changes v5.2 → v5.3 – OMOP Common Data Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -455,7 +455,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">PROCEDURE_OCCURRENCE</a></li>
+  <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">DRUG_EXPOSURE</a></li>
+  <li><a href="#device_exposure" id="toc-device_exposure" class="nav-link" data-scroll-target="#device_exposure">DEVICE_EXPOSURE</a></li>
+  <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">CONDITION_OCCURRENCE</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">MEASUREMENT</a></li>
+  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">OBSERVATION</a></li>
+  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">NOTE</a></li>
+  <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">NOTE_NLP</a></li>
+  <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">PAYER_PLAN_PERIOD</a></li>
+  <li><a href="#visit_detail" id="toc-visit_detail" class="nav-link" data-scroll-target="#visit_detail"><strong>+</strong> VISIT_DETAIL</a></li>
+  <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata"><strong>+</strong> METADATA</a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -467,7 +484,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">OMOP CDM v5.3.1</h1>
+<h1 class="title">Changes v5.2 → v5.3</h1>
 </div>
 
 
@@ -484,9 +501,533 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>This documentation previously referenced v5.3.1. During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases. This is because only major and minor releases include changes to the model itself while bug fixes address issues with SQL incompatibility, problems in the code, etc. Hot fixes and minor.micro release can be found through the searching of tags. For the CDM v5.3 specification please see the <a href="https://ohdsi.github.io/CommonDataModel/cdm53.html">5.3 page</a>.</strong></p>
+<p>For a full description of each table and field listed here, please see the <a href="./cdm53.html">CDM v5.3 specification</a>.</p>
+<p>Notation:</p>
+<ul>
+<li>a <strong>+</strong> indicates an <strong>addition</strong> to the model, either a table or field.</li>
+<li>a <strong>→</strong> indicates an <strong>alteration</strong> either in naming or specification.</li>
+<li>a <strong>-</strong> indicates a <strong>subtraction</strong> from the model, either a table or field.</li>
+</ul>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><strong>18</strong> fields added to existing OMOP tables, all non-required.</li>
+<li><strong>2</strong> tables added to the model: <code>VISIT_DETAIL</code> and <code>METADATA</code>.</li>
+<li>Visit-level provenance was expanded across clinical event tables with the addition of <code>visit_detail_id</code>.</li>
+</ul>
+</section>
+<section id="procedure_occurrence" class="level2">
+<h2 class="anchored" data-anchor-id="procedure_occurrence">PROCEDURE_OCCURRENCE</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+<li><code>qualifier_source_value</code> <strong>→</strong> <code>modifier_source_value</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="drug_exposure" class="level2">
+<h2 class="anchored" data-anchor-id="drug_exposure">DRUG_EXPOSURE</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="device_exposure" class="level2">
+<h2 class="anchored" data-anchor-id="device_exposure">DEVICE_EXPOSURE</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="condition_occurrence" class="level2">
+<h2 class="anchored" data-anchor-id="condition_occurrence">CONDITION_OCCURRENCE</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="measurement" class="level2">
+<h2 class="anchored" data-anchor-id="measurement">MEASUREMENT</h2>
+<ul>
+<li><strong>+</strong> <code>measurement_time</code></li>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>measurement_time</td>
+<td>varchar(10)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="observation" class="level2">
+<h2 class="anchored" data-anchor-id="observation">OBSERVATION</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="note" class="level2">
+<h2 class="anchored" data-anchor-id="note">NOTE</h2>
+<ul>
+<li><strong>+</strong> <code>visit_detail_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="note_nlp" class="level2">
+<h2 class="anchored" data-anchor-id="note_nlp">NOTE_NLP</h2>
+<ul>
+<li><code>note_nlp_id</code> <strong>→</strong> Changed from <code>big integer</code> to <code>integer</code></li>
+<li><code>nlp_date_time</code> <strong>→</strong> <code>nlp_datetime</code></li>
+</ul>
+</section>
+<section id="payer_plan_period" class="level2">
+<h2 class="anchored" data-anchor-id="payer_plan_period">PAYER_PLAN_PERIOD</h2>
+<ul>
+<li><strong>+</strong> <code>payer_concept_id</code></li>
+<li><strong>+</strong> <code>payer_source_concept_id</code></li>
+<li><strong>+</strong> <code>plan_concept_id</code></li>
+<li><strong>+</strong> <code>plan_source_concept_id</code></li>
+<li><strong>+</strong> <code>sponsor_concept_id</code></li>
+<li><strong>+</strong> <code>sponsor_source_value</code></li>
+<li><strong>+</strong> <code>sponsor_source_concept_id</code></li>
+<li><strong>+</strong> <code>stop_reason_concept_id</code></li>
+<li><strong>+</strong> <code>stop_reason_source_value</code></li>
+<li><strong>+</strong> <code>stop_reason_source_concept_id</code></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>payer_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>payer_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>plan_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>plan_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>sponsor_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>sponsor_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>sponsor_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>stop_reason_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>stop_reason_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>stop_reason_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visit_detail" class="level2">
+<h2 class="anchored" data-anchor-id="visit_detail"><strong>+</strong> VISIT_DETAIL</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>visit_detail_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>person_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>visit_detail_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>visit_detail_start_date</td>
+<td>date</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>visit_detail_start_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>visit_detail_end_date</td>
+<td>date</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>visit_detail_end_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>visit_detail_type_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>provider_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>care_site_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>visit_detail_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>visit_detail_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>admitting_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>admitting_source_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>discharge_to_source_value</td>
+<td>varchar(50)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>discharge_to_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>preceding_visit_detail_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>visit_detail_parent_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>visit_occurrence_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metadata" class="level2">
+<h2 class="anchored" data-anchor-id="metadata"><strong>+</strong> METADATA</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Primary Key</th>
+<th>Foreign Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metadata_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>metadata_type_concept_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>name</td>
+<td>varchar(250)</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>value_as_string</td>
+<td>varchar(250)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>value_as_concept_id</td>
+<td>integer</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>metadata_date</td>
+<td>date</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>metadata_datetime</td>
+<td>datetime</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

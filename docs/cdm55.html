@@ -318,6 +318,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./customConcepts.html">
  <span class="dropdown-text">Custom Concepts</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">How to Calculate Drug Dose</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ehrObsPeriods.html">
+ <span class="dropdown-text">Observation Period Considerations for EHR Data</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -354,6 +362,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./cdm55.html">
  <span class="dropdown-text">CDM v5.5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm55Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.4</span></a>
   </li>  
     </ul>
   </li>
@@ -447,8 +459,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#current-support-for-cdm-v5.5" id="toc-current-support-for-cdm-v5.5" class="nav-link active" data-scroll-target="#current-support-for-cdm-v5.5">Current Support for CDM v5.5</a></li>
-  <li><a href="#clinical-data-tables" id="toc-clinical-data-tables" class="nav-link" data-scroll-target="#clinical-data-tables">Clinical Data Tables</a>
+  <li><a href="#current-support-for-cdm-v5.5" id="toc-current-support-for-cdm-v5.5" class="nav-link active" data-scroll-target="#current-support-for-cdm-v5.5">Current Support for CDM v5.5</a>
   <ul class="collapse">
   <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">person</a></li>
   <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">observation_period</a></li>
@@ -464,33 +475,18 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">note_nlp</a></li>
   <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">specimen</a></li>
   <li><a href="#fact_relationship" id="toc-fact_relationship" class="nav-link" data-scroll-target="#fact_relationship">fact_relationship</a></li>
-  </ul></li>
-  <li><a href="#health-system-data-tables" id="toc-health-system-data-tables" class="nav-link" data-scroll-target="#health-system-data-tables">Health System Data Tables</a>
-  <ul class="collapse">
   <li><a href="#location" id="toc-location" class="nav-link" data-scroll-target="#location">location</a></li>
   <li><a href="#care_site" id="toc-care_site" class="nav-link" data-scroll-target="#care_site">care_site</a></li>
   <li><a href="#provider" id="toc-provider" class="nav-link" data-scroll-target="#provider">provider</a></li>
-  </ul></li>
-  <li><a href="#health-economics-data-tables" id="toc-health-economics-data-tables" class="nav-link" data-scroll-target="#health-economics-data-tables">Health Economics Data Tables</a>
-  <ul class="collapse">
   <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">payer_plan_period</a></li>
   <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">cost</a></li>
-  </ul></li>
-  <li><a href="#standardized-derived-elements" id="toc-standardized-derived-elements" class="nav-link" data-scroll-target="#standardized-derived-elements">Standardized Derived Elements</a>
-  <ul class="collapse">
   <li><a href="#drug_era" id="toc-drug_era" class="nav-link" data-scroll-target="#drug_era">drug_era</a></li>
   <li><a href="#dose_era" id="toc-dose_era" class="nav-link" data-scroll-target="#dose_era">dose_era</a></li>
   <li><a href="#condition_era" id="toc-condition_era" class="nav-link" data-scroll-target="#condition_era">condition_era</a></li>
   <li><a href="#episode" id="toc-episode" class="nav-link" data-scroll-target="#episode">episode</a></li>
   <li><a href="#episode_event" id="toc-episode_event" class="nav-link" data-scroll-target="#episode_event">episode_event</a></li>
-  </ul></li>
-  <li><a href="#metadata-tables" id="toc-metadata-tables" class="nav-link" data-scroll-target="#metadata-tables">Metadata Tables</a>
-  <ul class="collapse">
   <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">metadata</a></li>
   <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">cdm_source</a></li>
-  </ul></li>
-  <li><a href="#vocabulary-tables" id="toc-vocabulary-tables" class="nav-link" data-scroll-target="#vocabulary-tables">Vocabulary Tables</a>
-  <ul class="collapse">
   <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">concept</a></li>
   <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">vocabulary</a></li>
   <li><a href="#domain" id="toc-domain" class="nav-link" data-scroll-target="#domain">domain</a></li>
@@ -537,10 +533,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the specification document for the OMOP Common Data Model, v5.5. <strong>This is the latest version of the OMOP CDM.</strong> Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). All tables should be instantiated in a CDM instance but do not need to be populated. Similarly, fields that are not required should exist in the CDM table but do not need to be populated. Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
+<p>This is the specification document for the OMOP Common Data Model, v5.5. <strong>This is the latest version of the OMOP CDM.</strong> Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). All tables should be instantiated in a CDM instance but do not need to be populated. Similarly, fields that are not required should exist in the CDM table but do not need to be populated. Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">OHDSI forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">Github issue</a> page.</p>
 <section id="current-support-for-cdm-v5.5" class="level2">
 <h2 class="anchored" data-anchor-id="current-support-for-cdm-v5.5">Current Support for CDM v5.5</h2>
-<p>The table below details which OHDSI tools support CDM v5.5. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.4 and feature support indicates that the tool supports any new tables and fields in CDM v5.5 that were not present in CDM v5.4. A green check ✔️ indicates that the support level for the listed tool is in place, has been tested, and released. A warning sign ❗ indicates that the support level for the listed tool has been initiated but has not yet been tested and released.</p>
+<p>The table below details which OHDSI tools support CDM v5.5. There are two levels of support: legacy support means that the tool supports all tables and fields that were present in CDM v5.4 and feature support indicates that the tool supports any new tables and fields in CDM v5.5 that were not present in CDM v5.4. A green check ✔️ indicates that the support level for the listed tool is in place, has been tested, and released. A warning sign ❗️ indicates that the support level for the listed tool has been initiated but has not yet been tested and released.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -561,51 +557,47 @@ ul.task-list li input[type="checkbox"] {
 <td><strong>Data Quality Dashboard</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/DataQualityDashboard">https://github.com/OHDSI/DataQualityDashboard</a>. It runs a set of &gt; 3500 data quality checks against an OMOP CDM instance and is required to be run on all databases prior to participating in an OHDSI network research study.</td>
 <td>✔️</td>
-<td>❗</td>
+<td>❗️</td>
 </tr>
 <tr class="odd">
 <td><strong>Achilles</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/Achilles">https://github.com/OHDSI/Achilles</a>, performing a set of broad database characterizations against an OMOP CDM instance.</td>
 <td>✔️</td>
-<td>❗</td>
+<td>❗️</td>
 </tr>
 <tr class="even">
 <td><strong>ARES</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/Ares">https://github.com/OHDSI/Ares</a> and is designed to display the results from both the ACHILLES and DataQualityDashboard packages to support data quality and characterization research.</td>
 <td>✔️</td>
-<td>❗</td>
+<td>❗️</td>
 </tr>
 <tr class="odd">
 <td><strong>ATLAS</strong></td>
 <td>ATLAS is an open source software tool for researchers to conduct scientific analyses on standardized observational data. <a href="https://atlas-demo.ohdsi.org/">Demo</a></td>
 <td>✔️</td>
-<td>❗</td>
+<td>❗️</td>
 </tr>
 <tr class="even">
 <td><strong>Rabbit-In-A-Hat</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/WhiteRabbit">https://github.com/OHDSI/WhiteRabbit</a> and is an application for interactive design of an ETL to the OMOP Common Data Model with the help of the the scan report generated by White Rabbit.</td>
 <td>✔️</td>
-<td>✔️</td>
+<td>❗️</td>
 </tr>
 <tr class="odd">
 <td><strong>Feature Extraction</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/FeatureExtraction">https://github.com/OHDSI/FeatureExtraction</a>. It is designed to generate features (covariates) for a cohort generated using the OMOP CDM.</td>
 <td>✔️</td>
-<td>✔️*</td>
+<td>❗️</td>
 </tr>
 <tr class="even">
 <td><strong>Cohort Diagnostics</strong></td>
 <td>This package can be downloaded from <a href="https://github.com/OHDSI/CohortDiagnostics">https://github.com/OHDSI/CohortDiagnostics</a> and is used to critically evaluate cohort phenotypes.</td>
 <td>✔️</td>
-<td>❗</td>
+<td>❗️</td>
 </tr>
 </tbody>
 </table>
-<p>* The <strong>Feature Extraction</strong> package supports all relevant new features in CDM v5.5. Any new tables and fields in CDM v5.5 are evaluated methodologically for potential inclusion as covariates in future releases.</p>
 <p>Looking to send us a pull request for a bug fix? Please see the <a href="https://github.com/OHDSI/CommonDataModel#readme">readme</a> on the main github page.</p>
-</section>
-<section id="clinical-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="clinical-data-tables">Clinical Data Tables</h2>
 <section id="person" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="person">person</h3>
 <p><strong>Table Description</strong></p>
@@ -661,13 +653,13 @@ Any person linkage that needs to occur to uniquely identify Persons ought to be 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -688,13 +680,13 @@ Use the gender or sex value present in the data under the assumption that it is 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -717,13 +709,13 @@ For data sources with date of birth, the year should be extracted. If no year of
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -743,13 +735,13 @@ For data sources that provide the precise date of birth, the month should be ext
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -769,13 +761,13 @@ For data sources that provide the precise date of birth, the day should be extra
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -795,13 +787,13 @@ This field is not required but highly encouraged. For data sources that provide 
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -822,13 +814,13 @@ Only use this field if you have information about race or ethnic background. The
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -851,13 +843,13 @@ Only use this field if you have US-based data and a source of this information. 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -880,13 +872,13 @@ Put the location_id from the <a href="https://ohdsi.github.io/CommonDataModel/cd
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 LOCATION
@@ -908,13 +900,13 @@ Put the provider_id from the <a href="https://ohdsi.github.io/CommonDataModel/cd
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -935,13 +927,13 @@ The Care Site refers to where the Provider typically provides the primary care.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CARE_SITE
@@ -963,13 +955,13 @@ Some use cases require the ability to link back to persons in the source data. T
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -990,13 +982,13 @@ Put the assigned sex at birth of the person as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1017,13 +1009,13 @@ If the source data codes assigned sex at birth in a non-standard vocabulary, sto
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1045,13 +1037,13 @@ Put the race of the person as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1072,13 +1064,13 @@ If the source data codes race in an OMOP supported vocabulary store the concept_
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1100,13 +1092,13 @@ If the person has an ethnicity other than the OMB standard of “Hispanic” or 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1127,13 +1119,13 @@ If the source data codes ethnicity in an OMOP supported vocabulary, store the co
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1199,13 +1191,13 @@ Assign a unique observation_period_id to each discrete Observation Period for a 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1225,13 +1217,13 @@ The Person ID of the PERSON record for which the Observation Period is recorded.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -1253,13 +1245,13 @@ It is often the case that the idea of Observation Periods does not exist in sour
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1280,13 +1272,13 @@ It is often the case that the idea of Observation Periods does not exist in sour
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1307,13 +1299,13 @@ Choose the observation_period_type_concept_id that best represents how the perio
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1394,13 +1386,13 @@ This should be populated by creating a unique identifier for each unique interac
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1419,13 +1411,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -1447,13 +1439,13 @@ Populate this field based on the kind of visit that took place for the person. F
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1476,13 +1468,13 @@ When populating VISIT_START_DATE, you should think about the patient experience 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1502,13 +1494,13 @@ If no time is given for the start date of a visit, set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1536,13 +1528,13 @@ For inpatient visits the end date is typically the discharge date. If a Person i
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1563,13 +1555,13 @@ If no time is given for the end date of a visit, set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1590,13 +1582,13 @@ Populate this field based on the provenance of the visit record, as in whether i
 Integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1619,13 +1611,13 @@ If there are multiple providers associated with a visit, you will need to choose
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -1647,13 +1639,13 @@ There should only be one Care Site associated with a Visit.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CARE_SITE
@@ -1675,13 +1667,13 @@ If there is information about the kind of visit in the source data that value sh
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1701,13 +1693,13 @@ If the visit source value is coded in the source data using an OMOP supported vo
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1729,13 +1721,13 @@ If available, map the admitted_from_source_value to a standard concept in the vi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1757,13 +1749,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1784,13 +1776,13 @@ If available, map the discharged_to_source_value to a standard concept in the vi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1812,13 +1804,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1839,13 +1831,13 @@ This field can be used to link a visit immediately preceding the current visit. 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -1910,13 +1902,13 @@ This should be populated by creating a unique identifier for each unique interac
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -1935,13 +1927,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -1963,13 +1955,13 @@ Populate this field based on the kind of visit that took place for the person. F
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -1992,13 +1984,13 @@ When populating VISIT_DETAIL_START_DATE, you should think about the patient expe
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2018,13 +2010,13 @@ If no time is given for the start date of a visit, set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2045,13 +2037,13 @@ Visit Detail end dates are mandatory. If end dates are not provided in the sourc
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2072,13 +2064,13 @@ If no time is given for the end date of a visit, set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2099,13 +2091,13 @@ Populate this field based on the provenance of the visit detail record, as in wh
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2128,13 +2120,13 @@ The additional providers associated to a Visit can be stored in this table where
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -2156,13 +2148,13 @@ There should only be one Care Site associated with a Visit Detail.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CARE_SITE
@@ -2184,13 +2176,13 @@ If there is information about the kind of visit detail in the source data that v
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2210,13 +2202,13 @@ If the VISIT_DETAIL_SOURCE_VALUE is coded in the source data using an OMOP suppo
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2238,13 +2230,13 @@ If available, map the admitted_from_source_value to a standard concept in the vi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2266,13 +2258,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2292,13 +2284,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2319,13 +2311,13 @@ If available, map the DISCHARGE_TO_SOURCE_VALUE to a Standard Concept in the Vis
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2348,13 +2340,13 @@ The PRECEDING_VISIT_DETAIL_ID can be used to link a visit immediately preceding 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -2376,13 +2368,13 @@ If there are multiple nested levels to how Visits are represented in the source,
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -2404,13 +2396,13 @@ Put the VISIT_OCCURRENCE_ID that subsumes the VISIT_DETAIL record here.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -2476,13 +2468,13 @@ Each instance of a condition present in the source data should be assigned this 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2502,13 +2494,13 @@ The PERSON_ID of the PERSON for whom the condition is recorded.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -2530,13 +2522,13 @@ The standard CONCEPT_ID that represents the CONDITION_SOURCE_VALUE. The concept 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2559,13 +2551,13 @@ Most often data sources do not have the idea of a start date for a condition. Ra
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2585,13 +2577,13 @@ If a source does not specify datetime the convention is to set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2612,13 +2604,13 @@ Most often data sources do not have the idea of a start date for a condition. Ra
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2638,13 +2630,13 @@ If a source does not specify datetime the convention is to set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2665,13 +2657,13 @@ Choose the CONDITION_TYPE_CONCEPT_ID that best represents the provenance of the 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2694,13 +2686,13 @@ Choose the Concept in the Condition Status domain that best represents the point
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2723,13 +2715,13 @@ This information is often not populated in source data and it is a valid etl cho
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2750,13 +2742,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -2778,13 +2770,13 @@ Depending on the structure of the source data, this may have to be determined ba
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -2806,13 +2798,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -2834,13 +2826,13 @@ This code is mapped to a Standard Condition Concept in the Standardized Vocabula
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2861,13 +2853,13 @@ If the CONDITION_SOURCE_VALUE is coded in the source data using an OMOP supporte
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -2889,13 +2881,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2960,13 +2952,13 @@ Each instance of a drug dispensing or administration present in the source data 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -2986,13 +2978,13 @@ The PERSON_ID of the PERSON for whom the drug dispensing or administration is re
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -3014,13 +3006,13 @@ The standard CONCEPT_ID that represents the DRUG_SOURCE_VALUE. The concept id sh
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3043,13 +3035,13 @@ Valid entries include a start date of a prescription, the date a prescription wa
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3069,13 +3061,13 @@ This is not required. If a source does not specify datetime the convention is to
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3096,13 +3088,13 @@ If this information is not explicitly available in the data, infer the end date 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3122,13 +3114,13 @@ This is not required. If a source does not specify datetime the convention is to
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3149,13 +3141,13 @@ Put the end date or discontinuation date as it appears from the source data or l
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3176,13 +3168,13 @@ Choose the drug_type_concept_id that best represents the provenance of the recor
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3205,13 +3197,13 @@ This information is often not populated in source data and it is a valid etl cho
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3231,13 +3223,13 @@ This is only filled in when the record is coming from a prescription written thi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3257,13 +3249,13 @@ To find the dose form of a drug the RELATIONSHIP table can be used where the rel
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3283,13 +3275,13 @@ The number of days of supply of the medication as recorded in the original presc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3310,13 +3302,13 @@ Put the written out instructions for the drug as it is verbatim in the source, i
 varchar(MAX)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3336,13 +3328,13 @@ The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3364,13 +3356,13 @@ An identifier assigned to a particular quantity or lot of drug product from the 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3391,13 +3383,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -3419,13 +3411,13 @@ To populate this field drug exposures must be explicitly initiated in the visit.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -3447,13 +3439,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -3475,13 +3467,13 @@ This code is mapped to a Standard Drug Concept in the Standardized Vocabularies 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3502,13 +3494,13 @@ If the DRUG_SOURCE_VALUE is coded in the source data using an OMOP supported voc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3530,13 +3522,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3557,13 +3549,13 @@ This information may be called something different in the source data but the fi
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3636,13 +3628,13 @@ Each instance of a procedure occurrence in the source data should be assigned th
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3662,13 +3654,13 @@ The PERSON_ID of the PERSON for whom the procedure is recorded. This may be a sy
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -3690,13 +3682,13 @@ The standard CONCEPT_ID that represents the PROCEDURE_SOURCE_VALUE. The concept 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3719,13 +3711,13 @@ This is meant to be the <strong>start date</strong> of the procedure. It will be
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3745,13 +3737,13 @@ If the procedure has a start time in the native date, use this field to house th
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3772,13 +3764,13 @@ This is meant to be the end date of the procedure. It is not required and for mo
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3799,13 +3791,13 @@ This is meant to house the end datetime of the procedure and will most often be 
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3826,13 +3818,13 @@ Choose the PROCEDURE_TYPE_CONCEPT_ID that best represents the provenance of the 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3855,13 +3847,13 @@ It is up to the ETL to choose how to map modifiers if they exist in source data.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -3883,13 +3875,13 @@ If a Procedure has a quantity of ‘0’ in the source, this should default to �
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -3910,13 +3902,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -3938,13 +3930,13 @@ Depending on the structure of the source data, this may have to be determined ba
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -3966,13 +3958,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -3994,13 +3986,13 @@ Use this value to look up the source concept id and then map the source concept 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4021,13 +4013,13 @@ If the PROCEDURE_SOURCE_VALUE is coded in the source data using an OMOP supporte
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4049,13 +4041,13 @@ The value stored here is mapped to a MODIFIER_CONCEPT_ID.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4120,13 +4112,13 @@ Each instance of an exposure to a foreign object or device present in the source
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4145,13 +4137,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -4173,13 +4165,13 @@ The standard CONCEPT_ID that represents the DEVICE_SOURCE_VALUE. The concept id 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4202,13 +4194,13 @@ Valid entries include a start date of a procedure to implant a device, the date 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4227,13 +4219,13 @@ device_exposure_start_datetime
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4254,13 +4246,13 @@ Put the end date or discontinuation date as it appears from the source data or l
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4279,13 +4271,13 @@ device_exposure_end_datetime
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4306,13 +4298,13 @@ Choose the device_type_concept_id that best represents the provenance of the rec
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4335,13 +4327,13 @@ For medical devices that are regulated by the FDA, a Unique Device Identificatio
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4361,13 +4353,13 @@ This is the Production Identifier (UDI-PI) portion of the Unique Device Identifi
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4387,13 +4379,13 @@ If there is a record of device exposure in the source but no quantity value, the
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4414,13 +4406,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -4442,13 +4434,13 @@ To populate this field device exposures must be explicitly initiated in the visi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -4470,13 +4462,13 @@ To populate this field device exposures must be explicitly initiated in the visi
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -4498,13 +4490,13 @@ This code is mapped to a Standard Device Concept in the Standardized Vocabularie
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4525,13 +4517,13 @@ If the DEVICE_SOURCE_VALUE is coded in the source data using an OMOP supported v
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4553,13 +4545,13 @@ There is no standardization requirement for units associated with DEVICE_CONCEPT
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4582,13 +4574,13 @@ This code is mapped to a Standard Unit Concept in the Standardized Vocabularies 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4609,13 +4601,13 @@ If the UNIT_SOURCE_VALUE is coded in the source data using an OMOP supported voc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4681,13 +4673,13 @@ Each instance of a measurement present in the source data should be assigned thi
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4707,13 +4699,13 @@ The PERSON_ID of the Person for whom the Measurement is recorded. This may be a 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -4735,13 +4727,13 @@ The standard CONCEPT_ID that represents the MEASUREMENT_SOURCE_VALUE. The concep
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4764,13 +4756,13 @@ If there are multiple dates in the source data associated with a record such as 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4790,13 +4782,13 @@ This is not required. If a source does not specify datetime the convention is to
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4816,13 +4808,13 @@ This is present for backwards compatibility and will be deprecated in an upcomin
 varchar(10)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4843,13 +4835,13 @@ Choose the MEASUREMENT_TYPE_CONCEPT_ID that best represents the provenance of th
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4872,13 +4864,13 @@ Operators are &lt;, &lt;=, =, &gt;=, &gt; and these concepts belong to the ‘Me
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4900,13 +4892,13 @@ This is the numerical value of the Result of the Measurement, if available. Note
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -4927,13 +4919,13 @@ If there is no categorial result in the source data, set VALUE_AS_CONCEPT_ID to 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4955,13 +4947,13 @@ If the source data does not include units, set UNIT_CONCEPT_ID to NULL. If units
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -4984,13 +4976,13 @@ If reference ranges for upper and lower limit of normal as provided (typically b
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5011,13 +5003,13 @@ If reference ranges for upper and lower limit of normal as provided (typically b
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5038,13 +5030,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -5066,13 +5058,13 @@ Depending on the structure of the source data, this may have to be determined ba
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -5094,13 +5086,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -5122,13 +5114,13 @@ This value corresponds to a standardized CONCEPT_ID found in MEASUREMENT_CONCEPT
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5149,13 +5141,13 @@ If the MEASUREMENT_SOURCE_VALUE is coded in the source data using a vocabulary s
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5177,13 +5169,13 @@ This value corresponds to a standardized CONCEPT_ID found in UNIT_CONCEPT_ID and
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5195,7 +5187,7 @@ FALSE
 unit_source_concept_id
 </td>
 <td style="text-align:left;">
-“This is the concept representing the UNIT_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Measurement necessary for a given analytic use case. Consider using UNIT_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.”
+This is the concept representing the UNIT_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Measurement necessary for a given analytic use case. Consider using UNIT_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
 </td>
 <td style="text-align:left;">
 If the UNIT_SOURCE_VALUE is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
@@ -5204,13 +5196,13 @@ If the UNIT_SOURCE_VALUE is coded in the source data using an OMOP supported voc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5232,13 +5224,13 @@ If both a continuous and categorical result are given in the source data such th
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5247,10 +5239,10 @@ FALSE
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-value_as_source_concept_Id
+value_as_source_concept_id
 </td>
 <td style="text-align:left;">
-This is the concept representing the VALUE_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using VALUE_AS_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.”
+This is the concept representing the VALUE_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using VALUE_AS_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
 </td>
 <td style="text-align:left;">
 If the VALUE_SOURCE_VALUE is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
@@ -5259,13 +5251,13 @@ If the VALUE_SOURCE_VALUE is coded in the source data using an OMOP supported vo
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5287,13 +5279,13 @@ Put the primary key of the linked record, if applicable, here.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5314,13 +5306,13 @@ Put the CONCEPT_ID that identifies which table and field the MEASUREMENT_EVENT_I
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5386,13 +5378,13 @@ Each instance of an observation present in the source data should be assigned th
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5412,13 +5404,13 @@ The PERSON_ID of the Person for whom the Observation is recorded. This may be a 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -5440,13 +5432,13 @@ The standard CONCEPT_ID that represents the OBSERVATION_SOURCE_VALUE. The concep
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5468,13 +5460,13 @@ For some observations the ETL may need to make a choice as to which date to choo
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5494,13 +5486,13 @@ If no time is given set to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5521,13 +5513,13 @@ Choose the OBSERVATION_TYPE_CONCEPT_ID that best represents the provenance of th
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5549,13 +5541,13 @@ This is the numerical value of the Result of the Observation, if applicable and 
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5575,13 +5567,13 @@ This is the categorical value of the Result of the Observation, if applicable an
 varchar(60)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5602,13 +5594,13 @@ Note that the value of VALUE_AS_CONCEPT_ID may be provided through mapping from 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5629,13 +5621,13 @@ This is the date value of the Result of the Observation, if applicable and avail
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5656,13 +5648,13 @@ Use your best judgement as to what Concepts to use here and if they are necessar
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5684,13 +5676,13 @@ There is no standardization requirement for units associated with OBSERVATION_CO
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5713,13 +5705,13 @@ The ETL may need to make a choice as to which PROVIDER_ID to put here. Based on 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -5741,13 +5733,13 @@ Depending on the structure of the source data, this may have to be determined ba
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -5769,13 +5761,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -5797,13 +5789,13 @@ This code is mapped to a Standard Concept in the Standardized Vocabularies and t
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5824,13 +5816,13 @@ If the OBSERVATION_SOURCE_VALUE is coded in the source data using an OMOP suppor
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5852,13 +5844,13 @@ This code is mapped to a Standard Concept in the Standardized Vocabularies and t
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5870,7 +5862,7 @@ FALSE
 unit_source_concept_id
 </td>
 <td style="text-align:left;">
-“This is the concept representing the UNIT_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using UNIT_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.”
+This is the concept representing the UNIT_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using UNIT_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
 </td>
 <td style="text-align:left;">
 If the UNIT_SOURCE_VALUE is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
@@ -5879,13 +5871,13 @@ If the UNIT_SOURCE_VALUE is coded in the source data using an OMOP supported voc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5907,13 +5899,13 @@ This code is mapped to a Standard Concept in the Standardized Vocabularies and t
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5934,13 +5926,13 @@ If the observation_source_value was a question, for example, or an observation t
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -5949,10 +5941,10 @@ FALSE
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-value_as_source_concept_Id
+value_as_source_concept_id
 </td>
 <td style="text-align:left;">
-This is the concept representing the VALUE_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using VALUE_AS_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.”
+This is the concept representing the VALUE_SOURCE_VALUE and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Observation necessary for a given analytic use case. Consider using VALUE_AS_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
 </td>
 <td style="text-align:left;">
 If the VALUE_SOURCE_VALUE is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
@@ -5961,13 +5953,13 @@ If the VALUE_SOURCE_VALUE is coded in the source data using an OMOP supported vo
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -5989,13 +5981,13 @@ Put the primary key of the linked record, if applicable, here. See the <a href="
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6016,13 +6008,13 @@ Put the CONCEPT_ID that identifies which table and field the OBSERVATION_EVENT_I
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6084,13 +6076,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -6112,13 +6104,13 @@ If the precise date include day or month is not known or not allowed, December i
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6138,13 +6130,13 @@ If you have date and time of death, populate death_datetime, otherwise leave NUL
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6165,13 +6157,13 @@ Use the type concept that reflects the source of the death record. <a href="http
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6194,13 +6186,13 @@ There is no specified domain for this concept, just choose the Standard Concept 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6221,13 +6213,13 @@ If available, put the source code representing the cause of death here.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6247,13 +6239,13 @@ If the cause of death was coded using a Vocabulary present in the OMOP Vocabular
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6324,13 +6316,13 @@ A unique identifier for each note.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6349,13 +6341,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -6376,13 +6368,13 @@ The date the note was recorded.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6402,13 +6394,13 @@ If time is not given set the time to NULL.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6429,13 +6421,13 @@ Put the source system of the note, as in EHR record. <a href="https://athena.ohd
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6458,13 +6450,13 @@ Map the note classification to a Standard Concept. For more information see the 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6485,13 +6477,13 @@ The title of the note.
 varchar(250)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6511,13 +6503,13 @@ The content of the note.
 varchar(MAX)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6538,13 +6530,13 @@ Put the Concept Id that represents the encoding character type here. Currently t
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6566,13 +6558,13 @@ Use Concepts that are descendants of the concept <a href="https://athena.ohdsi.o
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6594,13 +6586,13 @@ The ETL may need to make a determination on which provider to put here.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PROVIDER
@@ -6621,13 +6613,13 @@ The Visit during which the note was written.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -6648,13 +6640,13 @@ The Visit Detail during which the note was written.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -6675,13 +6667,13 @@ The source value mapped to the NOTE_CLASS_CONCEPT_ID.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6702,13 +6694,13 @@ Put the primary key of the linked record, if applicable, here.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6729,13 +6721,13 @@ Put the CONCEPT_ID that identifies which table and field the NOTE_EVENT_ID came 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6796,13 +6788,13 @@ A unique identifier for the NLP record.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6822,13 +6814,13 @@ This is the NOTE_ID for the NOTE record the NLP record is associated to.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 NOTE
@@ -6849,13 +6841,13 @@ The SECTION_CONCEPT_ID should be used to represent the note section contained in
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6876,13 +6868,13 @@ A small window of text surrounding the term
 varchar(250)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6902,13 +6894,13 @@ Character offset of the extracted term in the input note
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6928,13 +6920,13 @@ Raw text extracted from the NLP tool.
 varchar(250)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -6953,13 +6945,13 @@ note_nlp_concept_id
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -6979,13 +6971,13 @@ note_nlp_source_concept_id
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7006,13 +6998,13 @@ Name and version of the NLP system that extracted the term. Useful for data prov
 varchar(250)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7032,13 +7024,13 @@ The date of the note processing.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7058,13 +7050,13 @@ The date and time of the note processing.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7084,13 +7076,13 @@ Term_exists is defined as a flag that indicates if the patient actually has or h
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7110,13 +7102,13 @@ Term_temporal is to indicate if a condition is present or just in the past. The 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7136,13 +7128,13 @@ For the modifiers that are there, they would have to have these values:<br><br> 
 varchar(2000)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7204,13 +7196,13 @@ Unique identifier for each specimen.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7230,13 +7222,13 @@ The person from whom the specimen is collected.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -7257,13 +7249,13 @@ The standard CONCEPT_ID that the SPECIMEN_SOURCE_VALUE maps to in the specimen d
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7284,13 +7276,13 @@ Put the source of the specimen record, as in an EHR system. <a href="https://ath
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7312,13 +7304,13 @@ The date the specimen was collected.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7337,13 +7329,13 @@ specimen_datetime
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7363,13 +7355,13 @@ The amount of specimen collected from the person.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7390,13 +7382,13 @@ Map the UNIT_SOURCE_VALUE to a Standard Concept in the Unit domain. <a href="htt
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7418,13 +7410,13 @@ Map the ANATOMIC_SITE_SOURCE_VALUE to a Standard Concept in the Spec Anatomic Si
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7444,13 +7436,13 @@ disease_status_concept_id
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7471,13 +7463,13 @@ This is the identifier for the specimen from the source system.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7496,13 +7488,13 @@ specimen_source_value
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7522,13 +7514,13 @@ This unit for the quantity of the specimen, as represented in the source.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7548,13 +7540,13 @@ This is the site on the body where the specimen was taken from, as represented i
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7573,13 +7565,13 @@ disease_status_source_value
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7600,13 +7592,13 @@ Depending on the structure of the source data, this may have to be determined ba
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_OCCURRENCE
@@ -7628,13 +7620,13 @@ Same rules apply as for the VISIT_OCCURRENCE_ID.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VISIT_DETAIL
@@ -7696,13 +7688,13 @@ domain_concept_id_1
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7722,13 +7714,13 @@ fact_id_1
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7747,13 +7739,13 @@ domain_concept_id_2
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7773,13 +7765,13 @@ fact_id_2
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7798,13 +7790,13 @@ relationship_concept_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -7815,9 +7807,6 @@ CONCEPT
 </tbody>
 </table>
 </section>
-</section>
-<section id="health-system-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="health-system-data-tables">Health System Data Tables</h2>
 <section id="location" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="location">location</h3>
 <p><strong>Table Description</strong></p>
@@ -7873,13 +7862,13 @@ Each instance of a Location in the source data should be assigned this unique ke
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7899,13 +7888,13 @@ This is the first line of the address.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7925,13 +7914,13 @@ This is the second line of the address
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7950,13 +7939,13 @@ city
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -7975,13 +7964,13 @@ state
 varchar(2)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8001,13 +7990,13 @@ Zip codes are handled as strings of up to 9 characters length. For US addresses,
 varchar(9)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8026,13 +8015,13 @@ county
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8052,13 +8041,13 @@ Put the verbatim value for the location here, as it shows up in the source.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8078,13 +8067,13 @@ The Concept Id representing the country. Values should conform to the <a href="h
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8105,13 +8094,13 @@ The name of the country.
 varchar(80)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8131,13 +8120,13 @@ Must be between -90 and 90.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8157,13 +8146,13 @@ Must be between -180 and 180.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8225,13 +8214,13 @@ Assign an ID to each combination of a location and nature of the site - the latt
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8251,13 +8240,13 @@ The name of the care_site as it appears in the source data
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8278,13 +8267,13 @@ Choose the concept in the visit domain that best represents the setting in which
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8305,13 +8294,13 @@ The location_id from the LOCATION table representing the physical location of th
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 LOCATION
@@ -8332,13 +8321,13 @@ The identifier of the care_site as it appears in the source data. This could be 
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8358,13 +8347,13 @@ Put the place of service of the care_site as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8427,13 +8416,13 @@ This identifier can be the original id from the source data provided it is an in
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8454,13 +8443,13 @@ This field is not required for identifying the Provider’s actual identity. Ins
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8480,13 +8469,13 @@ This is the National Provider Number issued to health care providers in the US b
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8506,13 +8495,13 @@ This is the identifier issued by the DEA, a US federal agency, that allows a pro
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8533,13 +8522,13 @@ If a Provider has more than one Specialty, there are two options: 1. Choose a co
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8561,13 +8550,13 @@ If a Provider has more than one Care Site, the main or most often exerted CARE_S
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CARE_SITE
@@ -8587,13 +8576,13 @@ year_of_birth
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8614,13 +8603,13 @@ If given, put a concept from the gender domain representing the recorded gender 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8643,13 +8632,13 @@ Some use cases require the ability to link back to providers in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8661,7 +8650,7 @@ FALSE
 specialty_source_value
 </td>
 <td style="text-align:left;">
-This refers to the specific type of healthcare provider or field of expertise listed in the source data, encompassing physician specialties like internal medicine, emergency medicine, etc., as well as allied health professionals such as nurses, midwives, and pharmacists. It covers medical specialties like surgery, internal medicine, and radiology, while other services like prosthetics, acupuncture, and physical therapy fall under the domain of “Service.”
+This refers to the specific type of healthcare provider or field of expertise listed in the source data, encompassing physician specialties like internal medicine, emergency medicine, etc., as well as allied health professionals such as nurses, midwives, and pharmacists. It covers medical specialties like surgery, internal medicine, and radiology, while other services like prosthetics, acupuncture, and physical therapy fall under the domain of “Service.
 </td>
 <td style="text-align:left;">
 The type of provider and their specialty should be entered as they appear in the source data. The decision to use either the coded value or the text description is left to the discretion of the ETL-er.
@@ -8670,13 +8659,13 @@ The type of provider and their specialty should be entered as they appear in the
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8697,13 +8686,13 @@ If the source data codes provider specialty in an OMOP supported vocabulary stor
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8725,13 +8714,13 @@ Put the provider’s gender as it appears in the source data. This field is up t
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8752,13 +8741,13 @@ If the source data codes provider gender in an OMOP supported vocabulary store t
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8769,9 +8758,6 @@ CONCEPT
 </tbody>
 </table>
 </section>
-</section>
-<section id="health-economics-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="health-economics-data-tables">Health Economics Data Tables</h2>
 <section id="payer_plan_period" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="payer_plan_period">payer_plan_period</h3>
 <p><strong>Table Description</strong></p>
@@ -8824,13 +8810,13 @@ A unique identifier for each unique combination of a Person, Payer, Plan, and Pe
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8851,13 +8837,13 @@ A single Person can have multiple, overlapping, PAYER_PLAN_PERIOD records
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -8878,13 +8864,13 @@ Start date of Plan coverage.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8904,13 +8890,13 @@ End date of Plan coverage.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8931,13 +8917,13 @@ Map the payer directly to a standard CONCEPT_ID with the domain_id of ‘Payer�
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -8958,13 +8944,13 @@ This is the Payer as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -8984,13 +8970,13 @@ If the source data codes the Payer in an OMOP supported vocabulary store the con
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9012,13 +8998,13 @@ Map the Plan directly to a standard CONCEPT_ID in the ‘Plan’ vocabulary (<a 
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9039,13 +9025,13 @@ This is the health benefit Plan of the Person as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9065,13 +9051,13 @@ If the source data codes the Plan in an OMOP supported vocabulary store the conc
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9093,13 +9079,13 @@ Map the sponsor directly to a standard CONCEPT_ID with the domain_id of ‘Spons
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9120,13 +9106,13 @@ The Plan sponsor as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9146,13 +9132,13 @@ If the source data codes the sponsor in an OMOP supported vocabulary store the c
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9174,13 +9160,13 @@ Often these are the common digits of the enrollment id of the policy members.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9201,13 +9187,13 @@ Map the stop reason directly to a standard CONCEPT_ID with a domain of ‘Plan S
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9228,13 +9214,13 @@ The Plan stop reason as it appears in the source data.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9254,13 +9240,13 @@ If the source data codes the stop reason in an OMOP supported vocabulary store t
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9326,13 +9312,13 @@ A unique identifier for each COST record.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9352,13 +9338,13 @@ A foreign key identifier to the event (e.g.&nbsp;Measurement, Procedure, Visit, 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9378,13 +9364,13 @@ The concept representing the domain of the cost event, from which the correspond
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 DOMAIN
@@ -9406,13 +9392,13 @@ A foreign key identifier to a concept in the CONCEPT table for the provenance or
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9433,13 +9419,13 @@ A foreign key identifier to the concept representing the 3-letter code used to d
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9460,13 +9446,13 @@ The total amount charged by some provider of goods or services (e.g.&nbsp;hospit
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9487,13 +9473,13 @@ The cost of the goods or services the provider provides is often not known direc
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9514,13 +9500,13 @@ The total amount actually paid from all payers for goods or services of the prov
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9541,13 +9527,13 @@ The amount paid by the Payer for the goods or services.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9568,13 +9554,13 @@ The total amount paid by the Person as a share of the expenses.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9595,13 +9581,13 @@ The amount paid by the Person as a fixed contribution to the expenses.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9622,13 +9608,13 @@ The amount paid by the Person as a joint assumption of risk. Typically, this is 
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9649,13 +9635,13 @@ The amount paid by the Person that is counted toward the deductible defined by t
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9676,13 +9662,13 @@ The amount paid by a primary Payer through the coordination of benefits.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9702,13 +9688,13 @@ Drug costs are composed of ingredient cost (the amount charged by the wholesale 
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9728,13 +9714,13 @@ Drug costs are composed of ingredient cost (the amount charged by the wholesale 
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9754,13 +9740,13 @@ A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Pl
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9781,13 +9767,13 @@ The contracted amount agreed between the payer and provider.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9808,13 +9794,13 @@ A foreign key referring to a Standard Concept ID in the Standardized Vocabularie
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9836,13 +9822,13 @@ The source code for the Revenue code as it appears in the source data, stored he
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9863,13 +9849,13 @@ A foreign key referring to a Standard Concept ID in the Standardized Vocabularie
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -9891,13 +9877,13 @@ The source code for the 3-digit DRG source code as it appears in the source data
 varchar(3)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9907,9 +9893,6 @@ FALSE
 </tbody>
 </table>
 </section>
-</section>
-<section id="standardized-derived-elements" class="level2">
-<h2 class="anchored" data-anchor-id="standardized-derived-elements">Standardized Derived Elements</h2>
 <section id="drug_era" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="drug_era">drug_era</h3>
 <p><strong>Table Description</strong></p>
@@ -9961,13 +9944,13 @@ drug_era_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -9986,13 +9969,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -10013,13 +9996,13 @@ The drug_concept_id should conform to the concept class ‘ingredient’ as the 
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10041,13 +10024,13 @@ The Drug Era Start Date is the start date of the first Drug Exposure for a given
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10067,13 +10050,13 @@ The Drug Era End Date is the end date of the last Drug Exposure. The End Date of
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10093,13 +10076,13 @@ The count of grouped DRUG_EXPOSURE records that were included in the DRUG_ERA ro
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10119,13 +10102,13 @@ The Gap Days determine how many total drug-free days are observed between all Dr
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10186,13 +10169,13 @@ dose_era_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10211,13 +10194,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -10238,13 +10221,13 @@ The Concept Id representing the specific drug ingredient.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10266,13 +10249,13 @@ The Concept Id representing the unit of the specific drug ingredient.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10294,13 +10277,13 @@ The numeric value of the dosage of the drug_ingredient.
 float
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10320,13 +10303,13 @@ The date the Person started on the specific dosage, with at least 31 days since 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10346,13 +10329,13 @@ The date the Person was no longer exposed to the dosage of the specific drug ing
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10417,13 +10400,13 @@ condition_era_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10442,13 +10425,13 @@ person_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -10469,13 +10452,13 @@ The Concept Id representing the Condition.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10497,13 +10480,13 @@ The start date for the Condition Era constructed from the individual instances o
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10523,13 +10506,13 @@ The end date for the Condition Era constructed from the individual instances of 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10549,13 +10532,13 @@ The number of individual Condition Occurrences used to construct the condition e
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10617,13 +10600,13 @@ A unique identifier for each Episode.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10643,13 +10626,13 @@ The PERSON_ID of the PERSON for whom the episode is recorded.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 PERSON
@@ -10665,19 +10648,19 @@ episode_concept_id
 The EPISODE_CONCEPT_ID represents the kind abstraction related to the disease phase, outcome or treatment.
 </td>
 <td style="text-align:left;">
-Choose a concept in the Episode domain that best represents the ongoing disease phase, outcome, or treatment. Please see [article] for cancers and [article] for non-cancers describing how these are defined. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Episode&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
+Choose a concept in the Episode domain that best represents the ongoing disease phase, outcome, or treatment. Please see the <a href="https://ohdsi.github.io/OncologyWG/model.html#Episodes">information</a> from the Oncology workgroup describing how these are defined. <a href="https://athena.ohdsi.org/search-terms/terms?domain=Episode&amp;page=1&amp;pageSize=15&amp;query=">Accepted Concepts</a>
 </td>
 <td style="text-align:left;">
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10700,13 +10683,13 @@ Please see [article] for how to define an Episode start date.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10726,13 +10709,13 @@ The date and time when the Episode begins.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10753,13 +10736,13 @@ Please see [article] for how to define an Episode end date.
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10779,13 +10762,13 @@ The date when the instance of the Episode is considered to have ended.
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10806,13 +10789,13 @@ If there are multiple nested levels to how Episodes are represented, the EPISODE
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 EPISODE
@@ -10834,13 +10817,13 @@ Please see [article] for the details of how to count episodes.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10861,13 +10844,13 @@ Episode entries from the ‘Disease Episode’ concept class should have an epis
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10890,13 +10873,13 @@ Choose the EPISODE_TYPE_CONCEPT_ID that best represents the provenance of the re
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -10918,13 +10901,13 @@ The source code for the Episode as it appears in the source data. This code is m
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -10945,13 +10928,13 @@ Given that the Episodes are user-defined it is unlikely that there will be a Sou
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11017,13 +11000,13 @@ Put the EPISODE_ID that subsumes the EPISODE_EVENT record here.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 EPISODE
@@ -11045,13 +11028,13 @@ Put the primary key of the linked record here.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11072,13 +11055,13 @@ Put the CONCEPT_ID that identifies which table and field the EVENT_ID came from.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11090,9 +11073,6 @@ Metadata
 </tbody>
 </table>
 </section>
-</section>
-<section id="metadata-tables" class="level2">
-<h2 class="anchored" data-anchor-id="metadata-tables">Metadata Tables</h2>
 <section id="metadata" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="metadata">metadata</h3>
 <p><strong>Table Description</strong></p>
@@ -11144,13 +11124,13 @@ Attribute value is auto-generated
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11169,13 +11149,13 @@ metadata_concept_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11195,13 +11175,13 @@ metadata_type_concept_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11221,13 +11201,13 @@ name
 varchar(250)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11246,13 +11226,13 @@ value_as_string
 varchar(250)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11271,13 +11251,13 @@ value_as_concept_id
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11298,13 +11278,13 @@ This is the numerical value of the result of the Metadata, if applicable and ava
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11323,13 +11303,13 @@ metadata_date
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11348,13 +11328,13 @@ metadata_datetime
 datetime
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11414,13 +11394,13 @@ The name of the CDM instance.
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11440,13 +11420,13 @@ The abbreviation of the CDM instance.
 varchar(25)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11466,13 +11446,13 @@ The holder of the CDM instance.
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11492,13 +11472,13 @@ The description of the CDM instance.
 varchar(MAX)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11518,13 +11498,13 @@ Refers to a publication or web resource describing the source data, e.g.&nbsp;a 
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11536,21 +11516,21 @@ FALSE
 cdm_etl_reference
 </td>
 <td style="text-align:left;">
+Version of the ETL script used. e.g.&nbsp;link to the Git release
 </td>
 <td style="text-align:left;">
-Version of the ETL script used. e.g.&nbsp;link to the Git release
 </td>
 <td style="text-align:left;">
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11570,13 +11550,13 @@ The date the data was extracted from the source system. In some systems that is 
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11596,13 +11576,13 @@ The version number or version reference value for the cdm release.
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11622,13 +11602,13 @@ The date the ETL script was completed. Typically this is after the source_releas
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11648,13 +11628,13 @@ Version of the OMOP CDM used as string. e.g.&nbsp;v5.4
 varchar(10)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11675,13 +11655,13 @@ You can find all concepts that represent the CDM versions using the query: <code
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -11703,13 +11683,13 @@ You can find the version of your Vocabulary using the query: <code>SELECT vocabu
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11719,9 +11699,6 @@ FALSE
 </tbody>
 </table>
 </section>
-</section>
-<section id="vocabulary-tables" class="level2">
-<h2 class="anchored" data-anchor-id="vocabulary-tables">Vocabulary Tables</h2>
 <section id="concept" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="concept">concept</h3>
 <p><strong>Table Description</strong></p>
@@ -11774,13 +11751,13 @@ A unique identifier for each Concept across all domains.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11800,13 +11777,13 @@ An unambiguous, meaningful and descriptive name for the Concept.
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11826,13 +11803,13 @@ A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 DOMAIN
@@ -11853,13 +11830,13 @@ A foreign key to the <a href="https://ohdsi.github.io/CommonDataModel/cdm54.html
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VOCABULARY
@@ -11880,13 +11857,13 @@ The attribute or concept class of the Concept. Examples are ‘Clinical Drug’,
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT_CLASS
@@ -11907,13 +11884,13 @@ This flag determines where a Concept is a Standard Concept, i.e.&nbsp;is used in
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11933,13 +11910,13 @@ The concept code represents the identifier of the Concept in the source vocabula
 varchar(50)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11959,13 +11936,13 @@ The date when the Concept was first recorded. The default value is 1-Jan-1970, m
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -11985,13 +11962,13 @@ The date when the Concept became invalid because it was deleted or superseded (u
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12011,13 +11988,13 @@ Reason the Concept was invalidated. Possible values are D (deleted), U (replaced
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12079,13 +12056,13 @@ A unique identifier for each Vocabulary, such as ICD9CM, SNOMED, Visit.
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12105,13 +12082,13 @@ The name describing the vocabulary, for example, International Classification of
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12131,13 +12108,13 @@ External reference to documentation or available download of the about the vocab
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12157,13 +12134,13 @@ Version of the Vocabulary as indicated in the source.
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12183,13 +12160,13 @@ A Concept that represents the Vocabulary the VOCABULARY record belongs to.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12252,13 +12229,13 @@ A unique key for each domain.
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12278,13 +12255,13 @@ The name describing the Domain, e.g. Condition, Procedure, Measurement etc.
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12304,13 +12281,13 @@ A Concept representing the Domain Concept the DOMAIN record belongs to.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12373,13 +12350,13 @@ A unique key for each class.
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12399,13 +12376,13 @@ The name describing the Concept Class, e.g. Clinical Finding, Ingredient, etc.
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12425,13 +12402,13 @@ A Concept that represents the Concept Class.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12493,13 +12470,13 @@ concept_id_1
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12519,13 +12496,13 @@ concept_id_2
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12546,13 +12523,13 @@ The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see the <a href="
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 RELATIONSHIP
@@ -12573,13 +12550,13 @@ The date when the relationship is first recorded.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12599,13 +12576,13 @@ The date when the relationship is invalidated.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12625,13 +12602,13 @@ Reason the relationship was invalidated. Possible values are ‘D’ (deleted), 
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12693,13 +12670,13 @@ The type of relationship captured by the relationship record.
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12718,13 +12695,13 @@ relationship_name
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12744,13 +12721,13 @@ Defines whether a relationship defines concepts into classes or hierarchies. Val
 varchar(1)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12770,13 +12747,13 @@ Defines whether a hierarchical relationship contributes to the concept_ancestor 
 varchar(1)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12796,13 +12773,13 @@ The identifier for the relationship used to define the reverse relationship betw
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12822,13 +12799,13 @@ A foreign key that refers to an identifier in the <a href="https://ohdsi.github.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12890,13 +12867,13 @@ concept_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -12916,13 +12893,13 @@ concept_synonym_name
 varchar(1000)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -12941,13 +12918,13 @@ language_concept_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13010,13 +12987,13 @@ The Concept Id for the higher-level concept that forms the ancestor in the relat
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13037,13 +13014,13 @@ The Concept Id for the lower-level concept that forms the descendant in the rela
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13064,13 +13041,13 @@ The minimum separation in number of levels of hierarchy between ancestor and des
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13090,13 +13067,13 @@ The maximum separation in number of levels of hierarchy between ancestor and des
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13156,13 +13133,13 @@ The source code being translated into a Standard Concept.
 varchar(50)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13183,13 +13160,13 @@ This is either 0 or should be a number above 2 billion, which are the Concepts r
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13210,13 +13187,13 @@ A foreign key to the VOCABULARY table defining the vocabulary of the source code
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13236,13 +13213,13 @@ An optional description for the source code. This is included as a convenience t
 varchar(255)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13262,13 +13239,13 @@ The target Concept to which the source code is being mapped.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13289,13 +13266,13 @@ The Vocabulary of the target Concept.
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 VOCABULARY
@@ -13316,13 +13293,13 @@ The date when the mapping instance was first recorded.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13342,13 +13319,13 @@ The date when the mapping instance became invalid because it was deleted or supe
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13368,13 +13345,13 @@ Reason the mapping instance was invalidated. Possible values are D (deleted), U 
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13434,13 +13411,13 @@ The Concept representing the Branded Drug or Clinical Drug Product.
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13462,13 +13439,13 @@ Combination Drugs will have more than one record in this table, one for each act
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13489,13 +13466,13 @@ The numeric value or the amount of active ingredient contained within the drug p
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13515,13 +13492,13 @@ The Concept representing the Unit of measure for the amount of active ingredient
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13542,13 +13519,13 @@ The concentration of the active ingredient contained within the drug product.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13568,13 +13545,13 @@ The Concept representing the Unit of measure for the concentration of active ing
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13595,13 +13572,13 @@ The amount of total liquid (or other divisible product, such as ointment, gel, s
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13621,13 +13598,13 @@ The Concept representing the denominator unit for the concentration of active in
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13648,13 +13625,13 @@ The number of units of Clinical Branded Drug or Quantified Clinical or Branded D
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13674,13 +13651,13 @@ The date when the Concept was first recorded. The default value is 1-Jan-1970.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13700,13 +13677,13 @@ The date when then Concept became invalid.
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13726,13 +13703,13 @@ Reason the concept was invalidated. Possible values are D (deleted), U (replaced
 varchar(1)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13794,13 +13771,13 @@ The concept representing the pack
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13821,13 +13798,13 @@ The concept representing the individual drug component inside the pack
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13848,13 +13825,13 @@ The number of the above Drug components in the Pack.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13874,13 +13851,13 @@ The number of Packs in a Drug Box.
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -13942,13 +13919,13 @@ Foreign key to the concept table
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -13974,13 +13951,13 @@ V - void (formerly ‘junk’) codes (cannot be mapped due to incompatibility wi
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14004,13 +13981,13 @@ RP - Designates that code is Reused in Past; current state of concept in concept
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14071,13 +14048,13 @@ concept_id_1
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -14097,13 +14074,13 @@ concept_id_2
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -14124,13 +14101,13 @@ concept_id_1, concept_id_2, and relationship_id should be used together as the f
 varchar(20)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 RELATIONSHIP
@@ -14151,13 +14128,13 @@ This is the measure of mapping precision. Accepted values are exactMatch, broadM
 varchar(20)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14178,13 +14155,13 @@ An indicator of a logical group of relationships designed to minimize unnecessar
 integer
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14204,13 +14181,13 @@ Indicator of what library(-ies) and/or tool(s) was/were used to automate mapping
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14230,13 +14207,13 @@ This is a number from 0-1 that indicates the strength of the mapping.
 float
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14263,13 +14240,13 @@ NULL- mapping approach is not specified, likely manual;
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14289,13 +14266,13 @@ The initials of the person who performed the mapping.
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14315,13 +14292,13 @@ The initials of the person who performed the review
 varchar(50)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14382,13 +14359,13 @@ cohort_definition_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14407,13 +14384,13 @@ subject_id
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14432,13 +14409,13 @@ cohort_start_date
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14457,13 +14434,13 @@ cohort_end_date
 date
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14523,13 +14500,13 @@ This is the identifier given to the cohort, usually by the ATLAS application
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14549,13 +14526,13 @@ A short description of the cohort
 varchar(255)
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14575,13 +14552,13 @@ A complete description of the cohort.
 varchar(MAX)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14601,13 +14578,13 @@ Type defining what kind of Cohort Definition the record represents and how the s
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -14628,13 +14605,13 @@ Syntax or code to operationalize the Cohort Definition.
 varchar(MAX)
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>
@@ -14654,13 +14631,13 @@ This field contains a Concept that represents the domain of the subjects that ar
 integer
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-TRUE
+true
 </td>
 <td style="text-align:left;">
 CONCEPT
@@ -14681,13 +14658,13 @@ A date to indicate when the Cohort was initiated in the COHORT table.
 date
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
-FALSE
+false
 </td>
 <td style="text-align:left;">
 </td>

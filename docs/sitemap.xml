@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/index.html</loc>
-    <lastmod>2026-07-29T20:07:13.293Z</lastmod>
+    <lastmod>2026-08-25T16:00:00.353Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/ehrObsPeriods.html</loc>
@@ -61,12 +61,16 @@
     <lastmod>2026-07-29T20:07:13.291Z</lastmod>
   </url>
   <url>
-    <loc>https://ohdsi.github.io/CommonDataModel/cdm54erd.html</loc>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm55.html</loc>
+    <lastmod>2026-08-25T15:50:59.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm54ToolingSupport.html</loc>
     <lastmod>2026-07-29T20:07:13.291Z</lastmod>
   </url>
   <url>
-    <loc>https://ohdsi.github.io/CommonDataModel/cdm54Changes.html</loc>
-    <lastmod>2026-07-29T20:07:13.291Z</lastmod>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm54.html</loc>
+    <lastmod>2026-08-05T17:47:51.680Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdm531.html</loc>
@@ -85,16 +89,20 @@
     <lastmod>2026-07-29T20:07:13.290Z</lastmod>
   </url>
   <url>
-    <loc>https://ohdsi.github.io/CommonDataModel/cdm54.html</loc>
-    <lastmod>2026-07-29T20:07:13.290Z</lastmod>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm53Changes.html</loc>
+    <lastmod>2026-08-25T15:50:59.887Z</lastmod>
   </url>
   <url>
-    <loc>https://ohdsi.github.io/CommonDataModel/cdm54ToolingSupport.html</loc>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm54Changes.html</loc>
+    <lastmod>2026-08-25T15:50:59.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm54erd.html</loc>
     <lastmod>2026-07-29T20:07:13.291Z</lastmod>
   </url>
   <url>
-    <loc>https://ohdsi.github.io/CommonDataModel/cdm55.html</loc>
-    <lastmod>2026-08-04T19:52:58.615Z</lastmod>
+    <loc>https://ohdsi.github.io/CommonDataModel/cdm55Changes.html</loc>
+    <lastmod>2026-08-25T15:50:59.888Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/cdmDecisionTree/cdmDecisionTree.html</loc>
@@ -134,7 +142,7 @@
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/drug_dose.html</loc>
-    <lastmod>2026-07-29T20:07:13.292Z</lastmod>
+    <lastmod>2026-08-25T16:07:53.670Z</lastmod>
   </url>
   <url>
     <loc>https://ohdsi.github.io/CommonDataModel/faq.html</loc>
