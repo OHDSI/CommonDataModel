@@ -43,6 +43,10 @@ website:
             href: cdmPrivacy.qmd
           - text: "Custom Concepts"
             href: customConcepts.qmd
+          - text: "How to Calculate Drug Dose"
+            href: drug_dose.qmd
+          - text: "Observation Period Considerations for EHR Data"
+            href: ehrObsPeriods.qmd
       - text: "CDM Versions"
         icon: clock-history
         menu:
