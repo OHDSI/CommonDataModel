@@ -33,7 +33,7 @@ visit_occurrence,visit_end_date,TRUE,date,"For inpatient visits the end date is 
 - Emergency Room Visit: visit_end_datetime = visit_start_datetime
 - Inpatient Visit: Usually there is information about discharge. If not, you should be able to derive the end date from the sudden decline of activity or from the absence of inpatient procedures/drugs.
 - Non-hospital institution Visits: Particularly for claims data, if end dates are not provided assume the visit is for the duration of month that it occurs.
-- For Inpatient Visits ongoing at the date of ETL, put date of processing the data into visit_end_datetime 
+- For Inpatient Visits ongoing at the date of ETL, put date of processing the data into visit_end_datetime
 - All other Visits: visit_end_datetime = visit_start_datetime. If this is a one-day visit the end date should match the start date.",FALSE,FALSE,NA,NA,NA,NA
 visit_occurrence,visit_end_datetime,FALSE,datetime,"If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_datetime, then set the visit_end_datetime to the datetime of the data pull.","If no time is given for the end date of a visit, set to NULL.",FALSE,FALSE,NA,NA,NA,NA
 visit_occurrence,visit_type_concept_id,TRUE,Integer,"Use this field to understand the provenance of the visit record, or where the record comes from.","Populate this field based on the provenance of the visit record, as in whether it came from an EHR record or billing claim. [Accepted Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&standardConcept=Standard&page=1&pageSize=15&query=). A more detailed explanation of each Type Concept can be found on the [vocabulary wiki](https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT).",FALSE,TRUE,CONCEPT,CONCEPT_ID,Type Concept,NA
@@ -398,7 +398,7 @@ cdm_source,cdm_source_abbreviation,TRUE,varchar(25),The abbreviation of the CDM 
 cdm_source,cdm_holder,TRUE,varchar(255),The holder of the CDM instance.,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,source_description,FALSE,varchar(MAX),The description of the CDM instance.,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,source_documentation_reference,FALSE,varchar(255),"Refers to a publication or web resource describing the source data, e.g. a data dictionary.",NA,FALSE,FALSE,NA,NA,NA,NA
-cdm_source,cdm_etl_reference,FALSE,varchar(255),NA,Version of the ETL script used. e.g. link to the Git release,FALSE,FALSE,NA,NA,NA,NA
+cdm_source,cdm_etl_reference,FALSE,varchar(255),Version of the ETL script used. e.g. link to the Git release,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,source_release_date,TRUE,date,The date the data was extracted from the source system. In some systems that is the same as the date the ETL was run. Typically the latest even date in the source is on the source_release_date.,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_release_date,TRUE,date,The date the ETL script was completed. Typically this is after the source_release_date.,NA,FALSE,FALSE,NA,NA,NA,NA
 cdm_source,cdm_version,FALSE,varchar(10),Version of the OMOP CDM used as string. e.g. v5.4,NA,FALSE,FALSE,NA,NA,NA,NA

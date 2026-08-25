@@ -1,22 +1,14 @@
----
-title: "Readme"
-output:
-  pdf_document:
-    toc: yes
-  html_document:
-    toc: yes
-    toc_float: yes
----
+# CommonDataModel
 
-# How to Use this Repository
+## How to Use this Repository
 
-If you are looking for the SQL DDLs and don't wish to generate them through R, they can be accessed [here](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4).
+If you are looking for the SQL DDLs and don't wish to generate them through R, they can be accessed [here](https://github.com/OHDSI/CommonDataModel/tree/main/inst/ddl/5.5).
 
 If you are looking for information on how to submit a bugfix, skip to the [next section](https://github.com/OHDSI/CommonDataModel#bug-fixesmodel-updates)
 
 ## Generating the DDLs
 
-This module will demonstrate two different ways the CDM R package can be used to create the CDM tables in your environment.  First, it uses the `buildRelease` function to create the DDL files on your machine, intended for end users that wish to generate these scripts from R without the need to clone or download the source code from github.  The SQL scripts that are created through this process are available as zip files as part of the [latest release](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0).  They are also available on the master branch [here](https://github.com/OHDSI/CommonDataModel/tree/v5.4.0/inst/ddl/5.4). 
+This module will demonstrate two different ways the CDM R package can be used to create the CDM tables in your environment.  First, it uses the `buildRelease` function to create the DDL files on your machine, intended for end users that wish to generate these scripts from R without the need to clone or download the source code from github.  The SQL scripts that are created through this process are available as zip files as part of the [latest release](https://github.com/OHDSI/CommonDataModel/releases/latest). They are also available on the master branch [here](https://github.com/OHDSI/CommonDataModel/tree/main/inst/ddl/5.5). 
 
 Second, the script shows the `executeDdl` function that will connect up to your SQL client directly (assuming your dbms is one of the supported dialects) and instantiate the tables through R.
 
@@ -40,30 +32,34 @@ devtools::install_github("OHDSI/CommonDataModel")
 ## 1. Use the `buildRelease` function 
 
 This function will generate the text files in the dialect you choose, putting the output files in the folder you specify.
-```
-CommonDataModel::buildRelease(cdmVersions = "5.4",
-                              targetDialects = "postgresql",
-                              outputfolder = "/pathToOutput")
+```R
+CommonDataModel::buildRelease(
+  cdmVersions = "5.5",
+  targetDialects = "postgresql",
+  outputfolder = "/pathToOutput"
+)
 ```
 
 ## 2. Use the `executeDdl` function
 
 If you have an empty schema ready to go, the package will connect and instantiate the tables for you. To start, you need to download DatabaseConnector in order to connect to your database.
 
-```   
+```R
 devtools::install_github("ohdsi/DatabaseConnector")
 
-cd <- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
-                                                 server = "localhost/ohdsi",
-                                                 user = "postgres",
-                                                 password = "postgres",
-                                                 pathToDriver = "/pathToDriver"
-                                                 )
+cd <- DatabaseConnector::createConnectionDetails(
+  dbms = "postgresql",
+  server = "localhost/ohdsi",
+  user = "postgres",
+  password = "postgres",
+  pathToDriver = "/pathToDriver"
+)
 
-CommonDataModel::executeDdl(connectionDetails = cd,
-                            cdmVersion = "5.4",
-                            cdmDatabaseSchema = "ohdsi_demo"
-                            )
+CommonDataModel::executeDdl(
+  connectionDetails = cd,
+  cdmVersion = "5.5",
+  cdmDatabaseSchema = "ohdsi_demo"
+)
 ```
 
 
@@ -73,7 +69,7 @@ CommonDataModel::executeDdl(connectionDetails = cd,
 
 *Just looking for the latest version of the CDM and you don't care about the R package? Please visit the [releases tab](https://github.com/OHDSI/CommonDataModel/tags) and download the latest. It will include the DDLs for all currently supported versions of the CDM for all supported SQL dialects.* 
 
-Typically, new CDM versions and updates are decided by the CDM working group (details to join meetings on [homepage](https://ohdsi.github.io/CommonDataModel/)). These changes are tracked as issues in the [github repo](https://github.com/OHDSI/CommonDataModel/issues). Once the working group decides which changes make up a version, all the corresponding issues should be tagged with a version number, e.g. v5.4, and added to a project board. 
+Typically, new CDM versions and updates are decided by the CDM working group (details to join meetings on [homepage](https://ohdsi.github.io/CommonDataModel/)). These changes are tracked as issues in the [github repo](https://github.com/OHDSI/CommonDataModel/issues). Once the working group decides which changes make up a version, all the corresponding issues should be tagged with a version number, e.g. v5.5, and added to a project board. 
 
 ## Step 0
 
@@ -103,4 +99,4 @@ Once all changes are made to the csvs and package as needed, rebuild the package
 **NOTE ABOUT CDM v6.0**
 ====================
 
-Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the \*_datetime fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, please transform your data to [CDM v5.4](https://github.com/OHDSI/CommonDataModel/releases/tag/v5.4.0) until such time that we as a community have fully defined the role of dates vs datetimes both when it comes to the model and the evidence we generate. 
+Please be aware that v6.0 of the OMOP CDM is **not** fully supported by the OHDSI suite of tools and methods. The major difference in CDM v5.3 and CDM v6.0 involves switching the `\*_datetime` fields to mandatory rather than optional. This switch radically changes the assumptions related to exposure and outcome timing. Rather than move forward with v6.0, please transform your data to CDM v5.5 until such time that we as a community have fully defined the role of dates vs datetimes both when it comes to the model and the evidence we generate. 

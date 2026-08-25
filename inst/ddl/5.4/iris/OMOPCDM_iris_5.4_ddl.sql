@@ -223,7 +223,6 @@ CREATE TABLE @cdmDatabaseSchema.note (
 			note_source_value varchar(50) NULL,
 			note_event_id integer NULL,
 			note_event_field_concept_id integer NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.note_nlp (
 			note_nlp_id integer NOT NULL,
 			note_id integer NOT NULL,
@@ -256,14 +255,12 @@ CREATE TABLE @cdmDatabaseSchema.specimen (
 			unit_source_value varchar(50) NULL,
 			anatomic_site_source_value varchar(50) NULL,
 			disease_status_source_value varchar(50) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.fact_relationship (
 			domain_concept_id_1 integer NOT NULL,
 			fact_id_1 integer NOT NULL,
 			domain_concept_id_2 integer NOT NULL,
 			fact_id_2 integer NOT NULL,
 			relationship_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.location (
 			location_id integer NOT NULL,
 			address_1 varchar(50) NULL,
@@ -277,7 +274,6 @@ CREATE TABLE @cdmDatabaseSchema.location (
 			country_source_value varchar(80) NULL,
 			latitude float NULL,
 			longitude float NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.care_site (
 			care_site_id integer NOT NULL,
 			care_site_name varchar(255) NULL,
@@ -285,7 +281,6 @@ CREATE TABLE @cdmDatabaseSchema.care_site (
 			location_id integer NULL,
 			care_site_source_value varchar(50) NULL,
 			place_of_service_source_value varchar(50) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.provider (
 			provider_id integer NOT NULL,
 			provider_name varchar(255) NULL,
@@ -319,7 +314,6 @@ CREATE TABLE @cdmDatabaseSchema.payer_plan_period (
 			stop_reason_concept_id integer NULL,
 			stop_reason_source_value varchar(50) NULL,
 			stop_reason_source_concept_id integer NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.cost (
 			cost_id integer NOT NULL,
 			cost_event_id integer NOT NULL,
@@ -384,12 +378,10 @@ CREATE TABLE @cdmDatabaseSchema.episode (
 			episode_type_concept_id integer NOT NULL,
 			episode_source_value varchar(50) NULL,
 			episode_source_concept_id integer NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.episode_event (
 			episode_id integer NOT NULL,
 			event_id integer NOT NULL,
 			episode_event_field_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.metadata (
 			metadata_id integer NOT NULL,
 			metadata_concept_id integer NOT NULL,
@@ -400,7 +392,6 @@ CREATE TABLE @cdmDatabaseSchema.metadata (
 			value_as_number float NULL,
 			metadata_date date NULL,
 			metadata_datetime datetime NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			cdm_source_name varchar(255) NOT NULL,
 			cdm_source_abbreviation varchar(25) NOT NULL,
@@ -413,7 +404,6 @@ CREATE TABLE @cdmDatabaseSchema.cdm_source (
 			cdm_version varchar(10) NULL,
 			cdm_version_concept_id integer NOT NULL,
 			vocabulary_version varchar(20) NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.concept (
 			concept_id integer NOT NULL,
 			concept_name varchar(255) NOT NULL,
@@ -425,24 +415,20 @@ CREATE TABLE @cdmDatabaseSchema.concept (
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.vocabulary (
 			vocabulary_id varchar(20) NOT NULL,
 			vocabulary_name varchar(255) NOT NULL,
 			vocabulary_reference varchar(255) NULL,
 			vocabulary_version varchar(255) NULL,
 			vocabulary_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema."DOMAIN"  (
 			domain_id varchar(20) NOT NULL,
 			domain_name varchar(255) NOT NULL,
 			domain_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.concept_class (
 			concept_class_id varchar(20) NOT NULL,
 			concept_class_name varchar(255) NOT NULL,
 			concept_class_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.concept_relationship (
 			concept_id_1 integer NOT NULL,
 			concept_id_2 integer NOT NULL,
@@ -450,7 +436,6 @@ CREATE TABLE @cdmDatabaseSchema.concept_relationship (
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.relationship (
 			relationship_id varchar(20) NOT NULL,
 			relationship_name varchar(255) NOT NULL,
@@ -458,18 +443,15 @@ CREATE TABLE @cdmDatabaseSchema.relationship (
 			defines_ancestry varchar(1) NOT NULL,
 			reverse_relationship_id varchar(20) NOT NULL,
 			relationship_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.concept_synonym (
 			concept_id integer NOT NULL,
 			concept_synonym_name varchar(1000) NOT NULL,
 			language_concept_id integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.concept_ancestor (
 			ancestor_concept_id integer NOT NULL,
 			descendant_concept_id integer NOT NULL,
 			min_levels_of_separation integer NOT NULL,
 			max_levels_of_separation integer NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.source_to_concept_map (
 			source_code varchar(50) NOT NULL,
 			source_concept_id integer NOT NULL,
@@ -480,7 +462,6 @@ CREATE TABLE @cdmDatabaseSchema.source_to_concept_map (
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.drug_strength (
 			drug_concept_id integer NOT NULL,
 			ingredient_concept_id integer NOT NULL,
@@ -494,13 +475,11 @@ CREATE TABLE @cdmDatabaseSchema.drug_strength (
 			valid_start_date date NOT NULL,
 			valid_end_date date NOT NULL,
 			invalid_reason varchar(1) NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.cohort (
 			cohort_definition_id integer NOT NULL,
 			subject_id integer NOT NULL,
 			cohort_start_date date NOT NULL,
 			cohort_end_date date NOT NULL );
- -- "haven't looked into this yet, skip it for now""
 CREATE TABLE @cdmDatabaseSchema.cohort_definition (
 			cohort_definition_id integer NOT NULL,
 			cohort_definition_name varchar(255) NOT NULL,

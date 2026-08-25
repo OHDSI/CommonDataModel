@@ -43,6 +43,10 @@ website:
             href: cdmPrivacy.qmd
           - text: "Custom Concepts"
             href: customConcepts.qmd
+          - text: "How to Calculate Drug Dose"
+            href: drug_dose.qmd
+          - text: "Observation Period Considerations for EHR Data"
+            href: ehrObsPeriods.qmd
       - text: "CDM Versions"
         icon: clock-history
         menu:
@@ -58,6 +62,10 @@ website:
             href: cdm54erd.qmd
           - text: " - CDM v5.4 Tooling Support"
             href: cdm54ToolingSupport.qmd
+          - text: "CDM v5.5"
+            href: cdm55.qmd
+          - text: " - Changes from CDM v5.4"
+            href: cdm55Changes.qmd
       - text: "CDM Additions"
         icon: plus-square
         menu:

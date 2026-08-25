@@ -3,7 +3,7 @@
 #' @return A character vector containing the supported Common Data Model (CDM) versions in major.minor format.
 #' @export
 listSupportedVersions <- function() {
-  supportedVersions <- c("5.3", "5.4")
+  supportedVersions <- c("5.3", "5.4", "5.5")
   return(supportedVersions)
 }
 

@@ -318,6 +318,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./customConcepts.html">
  <span class="dropdown-text">Custom Concepts</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./drug_dose.html">
+ <span class="dropdown-text">How to Calculate Drug Dose</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ehrObsPeriods.html">
+ <span class="dropdown-text">Observation Period Considerations for EHR Data</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -350,6 +358,14 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./cdm54ToolingSupport.html">
  <span class="dropdown-text">- CDM v5.4 Tooling Support</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm55.html">
+ <span class="dropdown-text">CDM v5.5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cdm55Changes.html">
+ <span class="dropdown-text">- Changes from CDM v5.4</span></a>
   </li>  
     </ul>
   </li>
@@ -443,9 +459,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#clinical-data-tables" id="toc-clinical-data-tables" class="nav-link active" data-scroll-target="#clinical-data-tables">Clinical Data Tables</a>
-  <ul class="collapse">
-  <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">person</a></li>
+  <li><a href="#person" id="toc-person" class="nav-link active" data-scroll-target="#person">person</a></li>
   <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">observation_period</a></li>
   <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">visit_occurrence</a></li>
   <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">condition_occurrence</a></li>
@@ -459,31 +473,16 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">note_nlp</a></li>
   <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">specimen</a></li>
   <li><a href="#fact_relationship" id="toc-fact_relationship" class="nav-link" data-scroll-target="#fact_relationship">fact_relationship</a></li>
-  </ul></li>
-  <li><a href="#health-system-data-tables" id="toc-health-system-data-tables" class="nav-link" data-scroll-target="#health-system-data-tables">Health System Data Tables</a>
-  <ul class="collapse">
   <li><a href="#location" id="toc-location" class="nav-link" data-scroll-target="#location">location</a></li>
   <li><a href="#care_site" id="toc-care_site" class="nav-link" data-scroll-target="#care_site">care_site</a></li>
   <li><a href="#provider" id="toc-provider" class="nav-link" data-scroll-target="#provider">provider</a></li>
-  </ul></li>
-  <li><a href="#health-economics-data-tables" id="toc-health-economics-data-tables" class="nav-link" data-scroll-target="#health-economics-data-tables">Health Economics Data Tables</a>
-  <ul class="collapse">
   <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">payer_plan_period</a></li>
   <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">cost</a></li>
-  </ul></li>
-  <li><a href="#standardized-derived-elements" id="toc-standardized-derived-elements" class="nav-link" data-scroll-target="#standardized-derived-elements">Standardized Derived Elements</a>
-  <ul class="collapse">
   <li><a href="#drug_era" id="toc-drug_era" class="nav-link" data-scroll-target="#drug_era">drug_era</a></li>
   <li><a href="#dose_era" id="toc-dose_era" class="nav-link" data-scroll-target="#dose_era">dose_era</a></li>
   <li><a href="#condition_era" id="toc-condition_era" class="nav-link" data-scroll-target="#condition_era">condition_era</a></li>
-  </ul></li>
-  <li><a href="#metadata-tables" id="toc-metadata-tables" class="nav-link" data-scroll-target="#metadata-tables">Metadata Tables</a>
-  <ul class="collapse">
   <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">metadata</a></li>
   <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">cdm_source</a></li>
-  </ul></li>
-  <li><a href="#vocabulary-tables" id="toc-vocabulary-tables" class="nav-link" data-scroll-target="#vocabulary-tables">Vocabulary Tables</a>
-  <ul class="collapse">
   <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">concept</a></li>
   <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">vocabulary</a></li>
   <li><a href="#domain" id="toc-domain" class="nav-link" data-scroll-target="#domain">domain</a></li>
@@ -496,7 +495,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#drug_strength" id="toc-drug_strength" class="nav-link" data-scroll-target="#drug_strength">drug_strength</a></li>
   <li><a href="#cohort_definition" id="toc-cohort_definition" class="nav-link" data-scroll-target="#cohort_definition">cohort_definition</a></li>
   <li><a href="#attribute_definition" id="toc-attribute_definition" class="nav-link" data-scroll-target="#attribute_definition">attribute_definition</a></li>
-  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -529,8 +527,6 @@ ul.task-list li input[type="checkbox"] {
 
 <p>Below is the specification document for the OMOP Common Data Model, v5.3 (previously v5.3.1). Each table is represented with a high-level description and ETL conventions that should be followed. This is continued with a discussion of each field in each table, any conventions related to the field, and constraints that should be followed (like primary key, foreign key, etc). All tables should be instantiated in a CDM instance but do not need to be populated. Similarly, fields that are not required should exist in the CDM table but do not need to be populated. Should you have questions please feel free to visit the <a href="https://forums.ohdsi.org/">forums</a> or the <a href="https://github.com/ohdsi/CommonDataModel/issues">github issue</a> page.</p>
 <p><em><strong>Special Note</strong> This documentation previously referenced v5.3.1. During the OHDSI/CommonDataModel Hack-A-Thon that occurred on August 18, 2021 the decision was made to align documentation with the minor releases. Hot fixes and minor.minor release can be found through the searching of tags.</em></p>
-<section id="clinical-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="clinical-data-tables">Clinical Data Tables</h2>
 <section id="person" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="person">person</h3>
 <p><strong>Table Description</strong></p>
@@ -7182,9 +7178,6 @@ CONCEPT
 </tbody>
 </table>
 </section>
-</section>
-<section id="health-system-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="health-system-data-tables">Health System Data Tables</h2>
 <section id="location" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="location">location</h3>
 <p><strong>Table Description</strong></p>
@@ -8029,9 +8022,6 @@ CONCEPT
 </tbody>
 </table>
 </section>
-</section>
-<section id="health-economics-data-tables" class="level2">
-<h2 class="anchored" data-anchor-id="health-economics-data-tables">Health Economics Data Tables</h2>
 <section id="payer_plan_period" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="payer_plan_period">payer_plan_period</h3>
 <p><strong>Table Description</strong></p>
@@ -9167,9 +9157,6 @@ No
 </tbody>
 </table>
 </section>
-</section>
-<section id="standardized-derived-elements" class="level2">
-<h2 class="anchored" data-anchor-id="standardized-derived-elements">Standardized Derived Elements</h2>
 <section id="drug_era" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="drug_era">drug_era</h3>
 <p><strong>Table Description</strong></p>
@@ -9825,9 +9812,6 @@ No
 </tbody>
 </table>
 </section>
-</section>
-<section id="metadata-tables" class="level2">
-<h2 class="anchored" data-anchor-id="metadata-tables">Metadata Tables</h2>
 <section id="metadata" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="metadata">metadata</h3>
 <p><strong>Table Description</strong></p>
@@ -10218,9 +10202,9 @@ No
 cdm_etl_reference
 </td>
 <td style="text-align:left;">
+Version of the ETL script used. e.g.&nbsp;link to the Git release
 </td>
 <td style="text-align:left;">
-Version of the ETL script used. e.g.&nbsp;link to the Git release
 </td>
 <td style="text-align:left;">
 varchar(255)
@@ -10347,9 +10331,6 @@ No
 </tbody>
 </table>
 </section>
-</section>
-<section id="vocabulary-tables" class="level2">
-<h2 class="anchored" data-anchor-id="vocabulary-tables">Vocabulary Tables</h2>
 <section id="concept" class="level3 tabset tabset-pills">
 <h3 class="tabset tabset-pills anchored" data-anchor-id="concept">concept</h3>
 <p><strong>Table Description</strong></p>
@@ -12756,7 +12737,6 @@ No
 </table>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
