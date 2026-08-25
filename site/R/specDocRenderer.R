@@ -26,7 +26,7 @@ render_spec_doc <- function(table_file,
   for (table_name in table_specs$cdmTableName) {
     # Assume that first table in section is always the same
     section_header <- switch(
-      toupper(table_name),
+      tolower(table_name),
       person = "Clinical Data Tables",
       location = "Health System Data Tables",
       payer_plan_period = "Health Economics Data Tables",
@@ -39,7 +39,7 @@ render_spec_doc <- function(table_file,
       cat("## ", section_header, "\n\n")
     }
 
-    cat("### ", table_name, "{.tabset .tabset-pills}\n\n")
+    cat("### ", toupper(table_name), "{.tabset .tabset-pills}\n\n")
 
     table_info <- subset(table_specs, cdmTableName == table_name)
     cat("**Table Description**\n\n", table_info[, "tableDescription"], "\n\n")
