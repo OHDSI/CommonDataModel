@@ -26,7 +26,7 @@ render_spec_doc <- function(table_file,
   for (table_name in table_specs$cdmTableName) {
     # Assume that first table in section is always the same
     section_header <- switch(
-      tolower(table_name),
+      toupper(table_name),
       person = "Clinical Data Tables",
       location = "Health System Data Tables",
       payer_plan_period = "Health Economics Data Tables",
