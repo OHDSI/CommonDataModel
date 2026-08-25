@@ -241,6 +241,7 @@ ul.task-list li input[type="checkbox"] {
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
@@ -256,7 +257,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo light-content">
+    <img src="./man/ohdsi16x16.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">OMOP Common Data Model</span>
@@ -459,46 +461,62 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#current-support-for-cdm-v5.4" id="toc-current-support-for-cdm-v5.4" class="nav-link active" data-scroll-target="#current-support-for-cdm-v5.4">Current Support for CDM v5.4</a>
+  <li><a href="#current-support-for-cdm-v5.4" id="toc-current-support-for-cdm-v5.4" class="nav-link active" data-scroll-target="#current-support-for-cdm-v5.4">Current Support for CDM v5.4</a></li>
+  <li><a href="#clinical-data-tables" id="toc-clinical-data-tables" class="nav-link" data-scroll-target="#clinical-data-tables">Clinical Data Tables</a>
   <ul class="collapse">
-  <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">person</a></li>
-  <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">observation_period</a></li>
-  <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">visit_occurrence</a></li>
-  <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">condition_occurrence</a></li>
-  <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">drug_exposure</a></li>
-  <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">procedure_occurrence</a></li>
-  <li><a href="#device_exposure" id="toc-device_exposure" class="nav-link" data-scroll-target="#device_exposure">device_exposure</a></li>
-  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">measurement</a></li>
-  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">observation</a></li>
-  <li><a href="#death" id="toc-death" class="nav-link" data-scroll-target="#death">death</a></li>
-  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">note</a></li>
-  <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">note_nlp</a></li>
-  <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">specimen</a></li>
-  <li><a href="#fact_relationship" id="toc-fact_relationship" class="nav-link" data-scroll-target="#fact_relationship">fact_relationship</a></li>
-  <li><a href="#location" id="toc-location" class="nav-link" data-scroll-target="#location">location</a></li>
-  <li><a href="#care_site" id="toc-care_site" class="nav-link" data-scroll-target="#care_site">care_site</a></li>
-  <li><a href="#provider" id="toc-provider" class="nav-link" data-scroll-target="#provider">provider</a></li>
-  <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">payer_plan_period</a></li>
-  <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">cost</a></li>
-  <li><a href="#drug_era" id="toc-drug_era" class="nav-link" data-scroll-target="#drug_era">drug_era</a></li>
-  <li><a href="#dose_era" id="toc-dose_era" class="nav-link" data-scroll-target="#dose_era">dose_era</a></li>
-  <li><a href="#condition_era" id="toc-condition_era" class="nav-link" data-scroll-target="#condition_era">condition_era</a></li>
-  <li><a href="#episode" id="toc-episode" class="nav-link" data-scroll-target="#episode">episode</a></li>
-  <li><a href="#episode_event" id="toc-episode_event" class="nav-link" data-scroll-target="#episode_event">episode_event</a></li>
-  <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">metadata</a></li>
-  <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">cdm_source</a></li>
-  <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">concept</a></li>
-  <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">vocabulary</a></li>
-  <li><a href="#domain" id="toc-domain" class="nav-link" data-scroll-target="#domain">domain</a></li>
-  <li><a href="#concept_class" id="toc-concept_class" class="nav-link" data-scroll-target="#concept_class">concept_class</a></li>
-  <li><a href="#concept_relationship" id="toc-concept_relationship" class="nav-link" data-scroll-target="#concept_relationship">concept_relationship</a></li>
-  <li><a href="#relationship" id="toc-relationship" class="nav-link" data-scroll-target="#relationship">relationship</a></li>
-  <li><a href="#concept_synonym" id="toc-concept_synonym" class="nav-link" data-scroll-target="#concept_synonym">concept_synonym</a></li>
-  <li><a href="#concept_ancestor" id="toc-concept_ancestor" class="nav-link" data-scroll-target="#concept_ancestor">concept_ancestor</a></li>
-  <li><a href="#source_to_concept_map" id="toc-source_to_concept_map" class="nav-link" data-scroll-target="#source_to_concept_map">source_to_concept_map</a></li>
-  <li><a href="#drug_strength" id="toc-drug_strength" class="nav-link" data-scroll-target="#drug_strength">drug_strength</a></li>
-  <li><a href="#cohort" id="toc-cohort" class="nav-link" data-scroll-target="#cohort">cohort</a></li>
-  <li><a href="#cohort_definition" id="toc-cohort_definition" class="nav-link" data-scroll-target="#cohort_definition">cohort_definition</a></li>
+  <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">PERSON</a></li>
+  <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">OBSERVATION_PERIOD</a></li>
+  <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">VISIT_OCCURRENCE</a></li>
+  <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">CONDITION_OCCURRENCE</a></li>
+  <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">DRUG_EXPOSURE</a></li>
+  <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">PROCEDURE_OCCURRENCE</a></li>
+  <li><a href="#device_exposure" id="toc-device_exposure" class="nav-link" data-scroll-target="#device_exposure">DEVICE_EXPOSURE</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">MEASUREMENT</a></li>
+  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">OBSERVATION</a></li>
+  <li><a href="#death" id="toc-death" class="nav-link" data-scroll-target="#death">DEATH</a></li>
+  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">NOTE</a></li>
+  <li><a href="#note_nlp" id="toc-note_nlp" class="nav-link" data-scroll-target="#note_nlp">NOTE_NLP</a></li>
+  <li><a href="#specimen" id="toc-specimen" class="nav-link" data-scroll-target="#specimen">SPECIMEN</a></li>
+  <li><a href="#fact_relationship" id="toc-fact_relationship" class="nav-link" data-scroll-target="#fact_relationship">FACT_RELATIONSHIP</a></li>
+  </ul></li>
+  <li><a href="#health-system-data-tables" id="toc-health-system-data-tables" class="nav-link" data-scroll-target="#health-system-data-tables">Health System Data Tables</a>
+  <ul class="collapse">
+  <li><a href="#location" id="toc-location" class="nav-link" data-scroll-target="#location">LOCATION</a></li>
+  <li><a href="#care_site" id="toc-care_site" class="nav-link" data-scroll-target="#care_site">CARE_SITE</a></li>
+  <li><a href="#provider" id="toc-provider" class="nav-link" data-scroll-target="#provider">PROVIDER</a></li>
+  </ul></li>
+  <li><a href="#health-economics-data-tables" id="toc-health-economics-data-tables" class="nav-link" data-scroll-target="#health-economics-data-tables">Health Economics Data Tables</a>
+  <ul class="collapse">
+  <li><a href="#payer_plan_period" id="toc-payer_plan_period" class="nav-link" data-scroll-target="#payer_plan_period">PAYER_PLAN_PERIOD</a></li>
+  <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">COST</a></li>
+  </ul></li>
+  <li><a href="#standardized-derived-elements" id="toc-standardized-derived-elements" class="nav-link" data-scroll-target="#standardized-derived-elements">Standardized Derived Elements</a>
+  <ul class="collapse">
+  <li><a href="#drug_era" id="toc-drug_era" class="nav-link" data-scroll-target="#drug_era">DRUG_ERA</a></li>
+  <li><a href="#dose_era" id="toc-dose_era" class="nav-link" data-scroll-target="#dose_era">DOSE_ERA</a></li>
+  <li><a href="#condition_era" id="toc-condition_era" class="nav-link" data-scroll-target="#condition_era">CONDITION_ERA</a></li>
+  <li><a href="#episode" id="toc-episode" class="nav-link" data-scroll-target="#episode">EPISODE</a></li>
+  <li><a href="#episode_event" id="toc-episode_event" class="nav-link" data-scroll-target="#episode_event">EPISODE_EVENT</a></li>
+  </ul></li>
+  <li><a href="#metadata-tables" id="toc-metadata-tables" class="nav-link" data-scroll-target="#metadata-tables">Metadata Tables</a>
+  <ul class="collapse">
+  <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">METADATA</a></li>
+  <li><a href="#cdm_source" id="toc-cdm_source" class="nav-link" data-scroll-target="#cdm_source">CDM_SOURCE</a></li>
+  </ul></li>
+  <li><a href="#vocabulary-tables" id="toc-vocabulary-tables" class="nav-link" data-scroll-target="#vocabulary-tables">Vocabulary Tables</a>
+  <ul class="collapse">
+  <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">CONCEPT</a></li>
+  <li><a href="#vocabulary" id="toc-vocabulary" class="nav-link" data-scroll-target="#vocabulary">VOCABULARY</a></li>
+  <li><a href="#domain" id="toc-domain" class="nav-link" data-scroll-target="#domain">DOMAIN</a></li>
+  <li><a href="#concept_class" id="toc-concept_class" class="nav-link" data-scroll-target="#concept_class">CONCEPT_CLASS</a></li>
+  <li><a href="#concept_relationship" id="toc-concept_relationship" class="nav-link" data-scroll-target="#concept_relationship">CONCEPT_RELATIONSHIP</a></li>
+  <li><a href="#relationship" id="toc-relationship" class="nav-link" data-scroll-target="#relationship">RELATIONSHIP</a></li>
+  <li><a href="#concept_synonym" id="toc-concept_synonym" class="nav-link" data-scroll-target="#concept_synonym">CONCEPT_SYNONYM</a></li>
+  <li><a href="#concept_ancestor" id="toc-concept_ancestor" class="nav-link" data-scroll-target="#concept_ancestor">CONCEPT_ANCESTOR</a></li>
+  <li><a href="#source_to_concept_map" id="toc-source_to_concept_map" class="nav-link" data-scroll-target="#source_to_concept_map">SOURCE_TO_CONCEPT_MAP</a></li>
+  <li><a href="#drug_strength" id="toc-drug_strength" class="nav-link" data-scroll-target="#drug_strength">DRUG_STRENGTH</a></li>
+  <li><a href="#cohort" id="toc-cohort" class="nav-link" data-scroll-target="#cohort">COHORT</a></li>
+  <li><a href="#cohort_definition" id="toc-cohort_definition" class="nav-link" data-scroll-target="#cohort_definition">COHORT_DEFINITION</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -596,8 +614,11 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p>* The <strong>Feature Extraction</strong> package supports all relevant new features in CDM v5.4. For example, it was decided that, from a methodological perspective, the EPISODE and EPISODE_EVENT tables should not be included to define cohort covariates because the events that make up episodes are already pulled in as potential covariates.</p>
 <p>Looking to send us a pull request for a bug fix? Please see the <a href="https://github.com/OHDSI/CommonDataModel#readme">readme</a> on the main github page.</p>
+</section>
+<section id="clinical-data-tables" class="level2">
+<h2 class="anchored" data-anchor-id="clinical-data-tables">Clinical Data Tables</h2>
 <section id="person" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="person">person</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="person">PERSON</h3>
 <p><strong>Table Description</strong></p>
 <p>This table serves as the central identity management for all Persons in the database. It contains records that uniquely identify each person or patient, and some demographic information.</p>
 <p><strong>User Guide</strong></p>
@@ -1135,7 +1156,7 @@ CONCEPT
 </table>
 </section>
 <section id="observation_period" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="observation_period">observation_period</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="observation_period">OBSERVATION_PERIOD</h3>
 <p><strong>Table Description</strong></p>
 <p>This table contains records which define spans of time during which two conditions are expected to hold: (i) Clinical Events that happened to the Person are recorded in the Event tables, and (ii) absence of records indicate such Events did not occur during this span of time.</p>
 <p><strong>User Guide</strong></p>
@@ -1316,7 +1337,7 @@ Type Concept
 </table>
 </section>
 <section id="visit_occurrence" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="visit_occurrence">visit_occurrence</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="visit_occurrence">VISIT_OCCURRENCE</h3>
 <p><strong>Table Description</strong></p>
 <p>This table contains Events where Persons engage with the healthcare system for a duration of time. They are often also called “Encounters”. Visits are defined by a configuration of circumstances under which they occur, such as (i) whether the patient comes to a healthcare institution, the other way around, or the interaction is remote, (ii) whether and what kind of trained medical staff is delivering the service during the Visit, and (iii) whether the Visit is transient or for a longer period involving a stay in bed.</p>
 <p><strong>User Guide</strong></p>
@@ -1845,7 +1866,7 @@ VISIT_OCCURRENCE
 </tr>
 </tbody>
 </table>
-<h3 id="visit_detail" class="tabset tabset-pills anchored">visit_detail</h3>
+<h3 id="visit_detail" class="tabset tabset-pills anchored">VISIT_DETAIL</h3>
 
 <p><strong>Table Description</strong></p>
 <p>The VISIT_DETAIL table is an optional table used to represents details of each record in the parent VISIT_OCCURRENCE table. A good example of this would be the movement between units in a hospital during an inpatient stay or claim lines associated with a one insurance claim. For every record in the VISIT_OCCURRENCE table there may be 0 or more records in the VISIT_DETAIL table with a 1:n relationship where n may be 0. The VISIT_DETAIL table is structurally very similar to VISIT_OCCURRENCE table and belongs to the visit domain.</p>
@@ -2412,7 +2433,7 @@ VISIT_OCCURRENCE
 </table>
 </section>
 <section id="condition_occurrence" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="condition_occurrence">condition_occurrence</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="condition_occurrence">CONDITION_OCCURRENCE</h3>
 <p><strong>Table Description</strong></p>
 <p>This table contains records of Events of a Person suggesting the presence of a disease or medical condition stated as a diagnosis, a sign, or a symptom, which is either observed by a Provider or reported by the patient.</p>
 <p><strong>User Guide</strong></p>
@@ -2896,7 +2917,7 @@ FALSE
 </table>
 </section>
 <section id="drug_exposure" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_exposure">drug_exposure</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_exposure">DRUG_EXPOSURE</h3>
 <p><strong>Table Description</strong></p>
 <p>This table captures records about the exposure to a Drug ingested or otherwise introduced into the body. A Drug is a biochemical substance formulated in such a way that when administered to a Person it will exert a certain biochemical effect on the metabolism. Drugs include prescription and over-the-counter medicines, vaccines, and large-molecule biologic therapies. Radiological devices ingested or applied locally do not count as Drugs.</p>
 <p><strong>User Guide</strong></p>
@@ -3564,7 +3585,7 @@ FALSE
 </table>
 </section>
 <section id="procedure_occurrence" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="procedure_occurrence">procedure_occurrence</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="procedure_occurrence">PROCEDURE_OCCURRENCE</h3>
 <p><strong>Table Description</strong></p>
 <p>This table contains records of activities or processes ordered by, or carried out by, a healthcare provider on the patient with a diagnostic or therapeutic purpose.</p>
 <p><strong>User Guide</strong></p>
@@ -4056,7 +4077,7 @@ FALSE
 </table>
 </section>
 <section id="device_exposure" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="device_exposure">device_exposure</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="device_exposure">DEVICE_EXPOSURE</h3>
 <p><strong>Table Description</strong></p>
 <p>The Device domain captures information about a person’s exposure to a foreign physical object or instrument which is used for diagnostic or therapeutic purposes through a mechanism beyond chemical action. Devices include implantable objects (e.g.&nbsp;pacemakers, stents, artificial joints), medical equipment and supplies (e.g.&nbsp;bandages, crutches, syringes), other instruments used in medical procedures (e.g.&nbsp;sutures, defibrillators) and material used in clinical care (e.g.&nbsp;adhesives, body material, dental material, surgical material).</p>
 <p><strong>User Guide</strong></p>
@@ -4617,7 +4638,7 @@ CONCEPT
 </table>
 </section>
 <section id="measurement" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="measurement">measurement</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="measurement">MEASUREMENT</h3>
 <p><strong>Table Description</strong></p>
 <p>The MEASUREMENT table contains records of Measurements, i.e.&nbsp;structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person’s sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID). The Procedure for obtaining the sample is housed in the PROCEDURE_OCCURRENCE table, though it is unnecessary to create a PROCEDURE_OCCURRENCE record for each measurement if one does not exist in the source data. Measurements differ from Observations in that they require a standardized test or some other activity to generate a quantitative or qualitative result. If there is no result, it is assumed that the lab test was conducted but the result was not captured.</p>
 <p><strong>User Guide</strong></p>
@@ -5294,7 +5315,7 @@ CONCEPT
 </table>
 </section>
 <section id="observation" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="observation">observation</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="observation">OBSERVATION</h3>
 <p><strong>Table Description</strong></p>
 <p>The OBSERVATION table captures clinical facts about a Person obtained in the context of examination, questioning or a procedure. Any data that cannot be represented by any other domains, such as social and lifestyle facts, medical history, family history, etc. are recorded here.</p>
 <p><strong>User Guide</strong></p>
@@ -5914,7 +5935,7 @@ CONCEPT
 </table>
 </section>
 <section id="death" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="death">death</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="death">DEATH</h3>
 <p><strong>Table Description</strong></p>
 <p>The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as: Condition in an administrative claim, status of enrollment into a health plan, or explicit record in EHR data.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -6145,7 +6166,7 @@ CONCEPT
 </table>
 </section>
 <section id="note" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="note">note</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="note">NOTE</h3>
 <p><strong>Table Description</strong></p>
 <p>The NOTE table captures unstructured information that was recorded by a provider about a patient in free text (in ASCII, or preferably in UTF8 format) notes on a given date. The type of note_text is CLOB or varchar(MAX) depending on RDBMS.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -6627,7 +6648,7 @@ CONCEPT
 </table>
 </section>
 <section id="note_nlp" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="note_nlp">note_nlp</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="note_nlp">NOTE_NLP</h3>
 <p><strong>Table Description</strong></p>
 <p>The NOTE_NLP table encodes all output of NLP on clinical notes. Each row represents a single extracted term from a note.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -7033,7 +7054,7 @@ FALSE
 </table>
 </section>
 <section id="specimen" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="specimen">specimen</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="specimen">SPECIMEN</h3>
 <p><strong>Table Description</strong></p>
 <p>The specimen domain contains the records identifying biological samples from a person.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -7470,7 +7491,7 @@ FALSE
 </table>
 </section>
 <section id="fact_relationship" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="fact_relationship">fact_relationship</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="fact_relationship">FACT_RELATIONSHIP</h3>
 <p><strong>Table Description</strong></p>
 <p>The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: <a href="https://athena.ohdsi.org/search-terms/terms?domain=Relationship&amp;standardConcept=Standard&amp;page=2&amp;pageSize=15&amp;query=">Person relationships</a> (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).</p>
 <p><strong>ETL Conventions</strong></p>
@@ -7639,8 +7660,11 @@ CONCEPT
 </tbody>
 </table>
 </section>
+</section>
+<section id="health-system-data-tables" class="level2">
+<h2 class="anchored" data-anchor-id="health-system-data-tables">Health System Data Tables</h2>
 <section id="location" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="location">location</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="location">LOCATION</h3>
 <p><strong>Table Description</strong></p>
 <p>The LOCATION table represents a generic way to capture physical location or address information of Persons and Care Sites.</p>
 <p><strong>User Guide</strong></p>
@@ -7995,7 +8019,7 @@ FALSE
 </table>
 </section>
 <section id="care_site" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="care_site">care_site</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="care_site">CARE_SITE</h3>
 <p><strong>Table Description</strong></p>
 <p>The CARE_SITE table contains a list of uniquely identified institutional (physical or organizational) units where healthcare delivery is practiced (offices, wards, hospitals, clinics, etc.).</p>
 <p><strong>ETL Conventions</strong></p>
@@ -8196,7 +8220,7 @@ FALSE
 </table>
 </section>
 <section id="provider" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="provider">provider</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="provider">PROVIDER</h3>
 <p><strong>Table Description</strong></p>
 <p>The PROVIDER table contains a list of uniquely identified healthcare providers; duplication is not allowed. These are individuals providing hands-on healthcare to patients, such as physicians, nurses, midwives, physical therapists etc.</p>
 <p><strong>User Guide</strong></p>
@@ -8590,8 +8614,11 @@ CONCEPT
 </tbody>
 </table>
 </section>
+</section>
+<section id="health-economics-data-tables" class="level2">
+<h2 class="anchored" data-anchor-id="health-economics-data-tables">Health Economics Data Tables</h2>
 <section id="payer_plan_period" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="payer_plan_period">payer_plan_period</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="payer_plan_period">PAYER_PLAN_PERIOD</h3>
 <p><strong>Table Description</strong></p>
 <p>The PAYER_PLAN_PERIOD table captures details of the period of time that a Person is continuously enrolled under a specific health Plan benefit structure from a given Payer. Each Person receiving healthcare is typically covered by a health benefit plan, which pays for (fully or partially), or directly provides, the care. These benefit plans are provided by payers, such as health insurances or state or government agencies. In each plan the details of the health benefits are defined for the Person or her family, and the health benefit Plan might change over time typically with increasing utilization (reaching certain cost thresholds such as deductibles), plan availability and purchasing choices of the Person. The unique combinations of Payer organizations, health benefit Plans and time periods in which they are valid for a Person are recorded in this table.</p>
 <p><strong>User Guide</strong></p>
@@ -9090,7 +9117,7 @@ CONCEPT
 </table>
 </section>
 <section id="cost" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="cost">cost</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="cost">COST</h3>
 <p><strong>Table Description</strong></p>
 <p>The COST table captures records containing the cost of any medical event recorded in one of the OMOP clinical event tables such as DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, VISIT_OCCURRENCE, VISIT_DETAIL, DEVICE_OCCURRENCE, OBSERVATION or MEASUREMENT.</p>
 <p>Each record in the cost table account for the amount of money transacted for the clinical event. So, the COST table may be used to represent both receivables (charges) and payments (paid), each transaction type represented by its COST_CONCEPT_ID. The COST_TYPE_CONCEPT_ID field will use concepts in the Standardized Vocabularies to designate the source (provenance) of the cost data. A reference to the health plan information in the PAYER_PLAN_PERIOD table is stored in the record for information used for the adjudication system to determine the persons benefit for the clinical event.</p>
@@ -9725,8 +9752,11 @@ FALSE
 </tbody>
 </table>
 </section>
+</section>
+<section id="standardized-derived-elements" class="level2">
+<h2 class="anchored" data-anchor-id="standardized-derived-elements">Standardized Derived Elements</h2>
 <section id="drug_era" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_era">drug_era</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_era">DRUG_ERA</h3>
 <p><strong>Table Description</strong></p>
 <p>A Drug Era is defined as a span of time when the Person is assumed to be exposed to a particular active ingredient. A Drug Era is not the same as a Drug Exposure: Exposures are individual records corresponding to the source when Drug was delivered to the Person, while successive periods of Drug Exposures are combined under certain rules to produce continuous Drug Eras. Every record in the DRUG_EXPOSURE table should be part of a drug era based on the dates of exposure.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -9951,7 +9981,7 @@ FALSE
 </table>
 </section>
 <section id="dose_era" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="dose_era">dose_era</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="dose_era">DOSE_ERA</h3>
 <p><strong>Table Description</strong></p>
 <p>A Dose Era is defined as a span of time when the Person is assumed to be exposed to a constant dose of a specific active ingredient.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -10178,7 +10208,7 @@ FALSE
 </table>
 </section>
 <section id="condition_era" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="condition_era">condition_era</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="condition_era">CONDITION_ERA</h3>
 <p><strong>Table Description</strong></p>
 <p>A Condition Era is defined as a span of time when the Person is assumed to have a given condition. Similar to Drug Eras, Condition Eras are chronological periods of Condition Occurrence and every Condition Occurrence record should be part of a Condition Era. Combining individual Condition Occurrences into a single Condition Era serves two purposes:</p>
 <ul>
@@ -10381,7 +10411,7 @@ FALSE
 </table>
 </section>
 <section id="episode" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="episode">episode</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="episode">EPISODE</h3>
 <p><strong>Table Description</strong></p>
 <p>The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases,outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. For example cancers including their development over time, their treatment, and final resolution.</p>
 <p><strong>User Guide</strong></p>
@@ -10778,7 +10808,7 @@ CONCEPT
 </table>
 </section>
 <section id="episode_event" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="episode_event">episode_event</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="episode_event">EPISODE_EVENT</h3>
 <p><strong>Table Description</strong></p>
 <p>The EPISODE_EVENT table connects qualifying clinical events (such as CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, MEASUREMENT) to the appropriate EPISODE entry. For example, linking the precise location of the metastasis (cancer modifier in MEASUREMENT) to the disease episode.</p>
 <p><strong>User Guide</strong></p>
@@ -10905,8 +10935,11 @@ Metadata
 </tbody>
 </table>
 </section>
+</section>
+<section id="metadata-tables" class="level2">
+<h2 class="anchored" data-anchor-id="metadata-tables">Metadata Tables</h2>
 <section id="metadata" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="metadata">metadata</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="metadata">METADATA</h3>
 <p><strong>Table Description</strong></p>
 <p>The METADATA table contains metadata information about a dataset that has been transformed to the OMOP Common Data Model.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -11177,7 +11210,7 @@ FALSE
 </table>
 </section>
 <section id="cdm_source" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="cdm_source">cdm_source</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="cdm_source">CDM_SOURCE</h3>
 <p><strong>Table Description</strong></p>
 <p>The CDM_SOURCE table contains detail about the source database and the process used to transform the data into the OMOP Common Data Model.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -11505,8 +11538,11 @@ FALSE
 </tbody>
 </table>
 </section>
+</section>
+<section id="vocabulary-tables" class="level2">
+<h2 class="anchored" data-anchor-id="vocabulary-tables">Vocabulary Tables</h2>
 <section id="concept" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="concept">concept</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="concept">CONCEPT</h3>
 <p><strong>Table Description</strong></p>
 <p>The Standardized Vocabularies contains records, or Concepts, that uniquely identify each fundamental unit of meaning used to express clinical information in all domain tables of the CDM. Concepts are derived from vocabularies, which represent clinical information across a domain (e.g.&nbsp;conditions, drugs, procedures) through the use of codes and associated descriptions. Some Concepts are designated Standard Concepts, meaning these Concepts can be used as normative expressions of a clinical entity within the OMOP Common Data Model and standardized analytics. Each Standard Concept belongs to one Domain, which defines the location where the Concept would be expected to occur within the data tables of the CDM. Concepts can represent broad categories (‘Cardiovascular disease’), detailed clinical elements (‘Myocardial infarction of the anterolateral wall’), or modifying characteristics and attributes that define Concepts at various levels of detail (severity of a disease, associated morphology, etc.). Records in the Standardized Vocabularies tables are derived from national or international vocabularies such as SNOMED-CT, RxNorm, and LOINC, or custom OMOP Concepts defined to cover various aspects of observational data analysis.</p>
 <p><strong>User Guide</strong></p>
@@ -11811,7 +11847,7 @@ FALSE
 </table>
 </section>
 <section id="vocabulary" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="vocabulary">vocabulary</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="vocabulary">VOCABULARY</h3>
 <p><strong>Table Description</strong></p>
 <p>The VOCABULARY table includes a list of the Vocabularies integrated from various sources or created de novo in OMOP CDM. This reference table contains a single record for each Vocabulary and includes a descriptive name and other associated attributes for the Vocabulary.</p>
 <p><strong>User Guide</strong></p>
@@ -11984,7 +12020,7 @@ CONCEPT
 </table>
 </section>
 <section id="domain" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="domain">domain</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="domain">DOMAIN</h3>
 <p><strong>Table Description</strong></p>
 <p>The DOMAIN table includes a list of OMOP-defined Domains to which the Concepts of the Standardized Vocabularies can belong. A Domain represents a clinical definition whereby we assign matching Concepts for the standardized fields in the CDM tables. For example, the Condition Domain contains Concepts that describe a patient condition, and these Concepts can only be used in the condition_concept_id field of the CONDITION_OCCURRENCE and CONDITION_ERA tables. This reference table is populated with a single record for each Domain, including a Domain ID and a descriptive name for every Domain.</p>
 <p><strong>User Guide</strong></p>
@@ -12105,7 +12141,7 @@ CONCEPT
 </table>
 </section>
 <section id="concept_class" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_class">concept_class</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_class">CONCEPT_CLASS</h3>
 <p><strong>Table Description</strong></p>
 <p>The CONCEPT_CLASS table includes semantic categories that reference the source structure of each Vocabulary. Concept Classes represent so-called horizontal (e.g.&nbsp;MedDRA, RxNorm) or vertical levels (e.g.&nbsp;SNOMED) of the vocabulary structure. Vocabularies without any Concept Classes, such as HCPCS, use the vocabulary_id as the Concept Class. This reference table is populated with a single record for each Concept Class, which includes a Concept Class ID and a fully specified Concept Class name.</p>
 <p><strong>User Guide</strong></p>
@@ -12226,7 +12262,7 @@ CONCEPT
 </table>
 </section>
 <section id="concept_relationship" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_relationship">concept_relationship</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_relationship">CONCEPT_RELATIONSHIP</h3>
 <p><strong>Table Description</strong></p>
 <p>The CONCEPT_RELATIONSHIP table contains records that define relationships between any two Concepts and the nature or type of the relationship. This table captures various types of relationships, including hierarchical, associative, and other semantic connections, enabling comprehensive analysis and interpretation of clinical concepts. Every kind of relationship is defined in the RELATIONSHIP table.</p>
 <p><strong>User Guide</strong></p>
@@ -12425,7 +12461,7 @@ FALSE
 </table>
 </section>
 <section id="relationship" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="relationship">relationship</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="relationship">RELATIONSHIP</h3>
 <p><strong>Table Description</strong></p>
 <p>The RELATIONSHIP table provides a reference list of all types of relationships that can be used to associate any two Concepts in the CONCEPT_RELATIONSHIP table, the respective reverse relationships, and their hierarchical characteristics. Note, that Concepts representing relationships between the clinical facts, used for filling in the FACT_RELATIONSHIP table are stored in the CONCEPT table and belong to the Relationship Domain.</p>
 <p><strong>User Guide</strong></p>
@@ -12623,7 +12659,7 @@ CONCEPT
 </table>
 </section>
 <section id="concept_synonym" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_synonym">concept_synonym</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_synonym">CONCEPT_SYNONYM</h3>
 <p><strong>Table Description</strong></p>
 <p>The CONCEPT_SYNONYM table captures alternative terms, synonyms, and translations of Concept Name into various languages linked to specific concepts, providing users with a comprehensive view of how Concepts may be expressed or referenced.</p>
 <p><strong>User Guide</strong></p>
@@ -12742,7 +12778,7 @@ CONCEPT
 </table>
 </section>
 <section id="concept_ancestor" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_ancestor">concept_ancestor</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="concept_ancestor">CONCEPT_ANCESTOR</h3>
 <p><strong>Table Description</strong></p>
 <p>The CONCEPT_ANCESTOR table is designed to simplify observational analysis by providing the complete hierarchical relationships between Concepts. Only direct parent-child relationships between Concepts are stored in the CONCEPT_RELATIONSHIP table. To determine higher-level ancestry connections, all individual direct relationships would have to be navigated at analysis time. The CONCEPT_ANCESTOR table includes records for all parent-child relationships, as well as grandparent-grandchild relationships and those of any other level of lineage for Standard or Classification concepts. Using the CONCEPT_ANCESTOR table allows for querying for all descendants of a hierarchical concept, and the other way around. For example, drug ingredients and drug products, beneath them in the hierarchy, are all descendants of a drug class ancestor. This table is entirely derived from the CONCEPT, CONCEPT_RELATIONSHIP, and RELATIONSHIP tables.</p>
 <p><strong>User Guide</strong></p>
@@ -12890,7 +12926,7 @@ FALSE
 </table>
 </section>
 <section id="source_to_concept_map" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="source_to_concept_map">source_to_concept_map</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="source_to_concept_map">SOURCE_TO_CONCEPT_MAP</h3>
 <p><strong>Table Description</strong></p>
 <p>The source to concept map table is recommended for use in ETL processes to maintain local source codes which are not available as Concepts in the Standardized Vocabularies, and to establish mappings for each source code into a Standard Concept as target_concept_ids that can be used to populate the Common Data Model tables. The SOURCE_TO_CONCEPT_MAP table is no longer populated with content within the Standardized Vocabularies published to the OMOP community. <strong>There are OHDSI tools to help you populate this table; <a href="https://github.com/OHDSI/Usagi">Usagi</a> and <a href="https://github.com/ohdsi/Perseus">Perseus</a>. You can read more about OMOP vocabulary mapping in <a href="https://ohdsi.github.io/TheBookOfOhdsi/ExtractTransformLoad.html#step-2-create-the-code-mappings">The Book of OHDSI Chapter 6.3</a>.</strong></p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -13168,7 +13204,7 @@ FALSE
 </table>
 </section>
 <section id="drug_strength" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_strength">drug_strength</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="drug_strength">DRUG_STRENGTH</h3>
 <p><strong>Table Description</strong></p>
 <p>The DRUG_STRENGTH table contains structured content about the amount or concentration and associated units of a specific ingredient contained within a particular drug product. This table is supplemental information to support standardized analysis of drug utilization.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -13526,7 +13562,7 @@ FALSE
 </table>
 </section>
 <section id="cohort" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="cohort">cohort</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="cohort">COHORT</h3>
 <p><strong>Table Description</strong></p>
 <p>The subject of a cohort can have multiple, discrete records in the cohort table per cohort_definition_id, subject_id, and non-overlapping time periods. The definition of the cohort is contained within the COHORT_DEFINITION table. It is listed as part of the RESULTS schema because it is a table that users of the database as well as tools such as ATLAS need to be able to write to. The CDM and Vocabulary tables are all read-only so it is suggested that the COHORT and COHORT_DEFINTION tables are kept in a separate schema to alleviate confusion.</p>
 <p><strong>ETL Conventions</strong></p>
@@ -13668,7 +13704,7 @@ FALSE
 </table>
 </section>
 <section id="cohort_definition" class="level3 tabset tabset-pills">
-<h3 class="tabset tabset-pills anchored" data-anchor-id="cohort_definition">cohort_definition</h3>
+<h3 class="tabset tabset-pills anchored" data-anchor-id="cohort_definition">COHORT_DEFINITION</h3>
 <p><strong>Table Description</strong></p>
 <p>The COHORT_DEFINITION table contains records defining a Cohort derived from the data through the associated description and syntax and upon instantiation (execution of the algorithm) placed into the COHORT table. Cohorts are a set of subjects that satisfy a given combination of inclusion criteria for a duration of time. The COHORT_DEFINITION table provides a standardized structure for maintaining the rules governing the inclusion of a subject into a cohort, and can store operational programming code to instantiate the cohort within the OMOP Common Data Model.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
@@ -13960,13 +13996,14 @@ FALSE
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
