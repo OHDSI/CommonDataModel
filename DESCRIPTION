@@ -1,7 +1,7 @@
 Package: CommonDataModel
 Type: Package
 Title: OMOP CDM DDL and Documentation Generator
-Version: 1.0.1
+Version: 5.4.2.9000
 Authors@R: person(given = "Clair",
                     family = "Blacketer",
                     role = c("aut", "cre"),

@@ -192,3 +192,13 @@ It is difficult to recommend what technical capabilities a site needs to set up 
 - Recommend
   - Cloud-based infrastructure like multiple AWS Redshift clusters, for example:
   - ![](man/images/AWS_clusters.png)
+
+## How is OMOP CDM versioning handled?
+
+The OHDSI Common Data Model follows a modified Semantic Versioning scheme (`x.y.z`):
+
+* **Major Releases (`x.0.0`)**: Include breaking schema changes, such as dropping or renaming tables and columns, changing data types, or major architectural restructuring. These releases require ETL code modifications.
+* **Minor Releases (`x.y.0`)**: Include backwards-compatible schema additions, such as introducing new optional tables (e.g., `EPISODE`) or adding nullable columns to existing tables.
+* **Patch / Build Releases (`x.y.z`)**: Strictly **disallow structural database schema changes** (no adding, removing, or renaming tables or columns). Patch releases are reserved for SQL dialect DDL fixes, constraint/index syntax updates, Quarto documentation fixes, website updates, and R package tooling maintenance.
+
+Note: Site documentation pages align with minor versions (`x.y`), while patch updates (`x.y.z`) update repository release tags, DDL files, and `NEWS.md`.

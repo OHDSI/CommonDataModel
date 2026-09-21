@@ -1,3 +1,11 @@
+CommonDataModel (development version)
+======================
+
+Documentation:
+
+1. Clarified OMOP CDM versioning guidelines for Major (`x.0.0`), Minor (`x.y.0`), and Patch (`x.y.z`) releases (#811).
+
+
 CommonDataModel v5.4.2
 ======================
 
