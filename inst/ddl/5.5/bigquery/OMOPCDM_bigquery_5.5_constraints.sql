@@ -137,6 +137,7 @@ alter table @cdmDatabaseSchema.payer_plan_period add constraint fpk_payer_plan_p
 alter table @cdmDatabaseSchema.cost add constraint fpk_cost_cost_domain_id foreign key (cost_domain_id) references @cdmDatabaseSchema.domain (domain_id);
 alter table @cdmDatabaseSchema.cost add constraint fpk_cost_cost_type_concept_id foreign key (cost_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.cost add constraint fpk_cost_currency_concept_id foreign key (currency_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.cost add constraint fpk_cost_payer_plan_period_id foreign key (payer_plan_period_id) references @cdmDatabaseSchema.payer_plan_period (payer_plan_period_id);
 alter table @cdmDatabaseSchema.cost add constraint fpk_cost_revenue_code_concept_id foreign key (revenue_code_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.cost add constraint fpk_cost_drg_concept_id foreign key (drg_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.drug_era add constraint fpk_drug_era_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
