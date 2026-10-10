@@ -72,5 +72,10 @@ render_spec_doc <- function(table_file,
     )
 
     print(table_html)
+    # The printed table does not end with a newline, so without this the next
+    # "###" heading follows "</table>" on the same line. When a cell contains a
+    # markdown list (visit_occurrence.visit_end_date), that heading is then not
+    # parsed as a section and is missing from the table of contents.
+    cat("\n\n")
   }
 }
