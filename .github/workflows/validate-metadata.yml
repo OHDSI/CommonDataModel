@@ -1,0 +1,78 @@
+name: Validate metadata schemas
+
+on:
+  push:
+    paths:
+      - "inst/csv/OMOP_CDMv5.4_Table_Level.csv"
+      - "inst/csv/OMOP_CDMv5.4_Field_Level.csv"
+      - "inst/schema/**"
+      - ".github/workflows/validate-metadata.yml"
+  pull_request:
+    paths:
+      - "inst/csv/OMOP_CDMv5.4_Table_Level.csv"
+      - "inst/csv/OMOP_CDMv5.4_Field_Level.csv"
+      - "inst/schema/**"
+      - ".github/workflows/validate-metadata.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate metadata CSVs against JSON Schemas
+        run: |
+          python - <<'EOF'
+          import csv, json, sys
+          from jsonschema import Draft4Validator
+
+          # CSV line numbers (1-based, header = line 1) with known formatting
+          # issues tracked in separate issues/PRs. Reported as warnings, not
+          # failures, so unrelated changes are not blocked. Remove entries as
+          # the fixes merge.
+          KNOWN_ISSUES = {
+              # Malformed cdm_source row: unquoted comma. See #744/#775, fix in #792.
+              ("inst/csv/OMOP_CDMv5.4_Field_Level.csv", 355),
+          }
+
+          FILES = [
+              ("inst/csv/OMOP_CDMv5.4_Table_Level.csv",
+               "inst/schema/OMOP_CDMv5.4_Table_Level.schema.json"),
+              ("inst/csv/OMOP_CDMv5.4_Field_Level.csv",
+               "inst/schema/OMOP_CDMv5.4_Field_Level.schema.json"),
+          ]
+
+          failures = warnings = 0
+          for csv_path, schema_path in FILES:
+              with open(schema_path) as f:
+                  validator = Draft4Validator(json.load(f))
+              with open(csv_path, newline="", encoding="utf-8-sig") as f:
+                  reader = csv.DictReader(f)
+                  for line, row in enumerate(reader, start=2):
+                      # A row with more cells than headers gets a None key from
+                      # DictReader; surface it as a structural problem.
+                      extra = row.pop(None, None)
+                      errors = [e.message for e in validator.iter_errors(row)]
+                      if extra is not None:
+                          errors.insert(0, f"row has {len(reader.fieldnames) + len(extra)} "
+                                           f"cells but header has {len(reader.fieldnames)}")
+                      if not errors:
+                          continue
+                      known = (csv_path, line) in KNOWN_ISSUES
+                      label = "warning (known issue)" if known else "FAILURE"
+                      warnings += known
+                      failures += not known
+                      print(f"{label}: {csv_path} line {line}")
+                      for e in errors:
+                          print(f"    {e}")
+
+          print(f"\n{failures} failure(s), {warnings} known-issue warning(s)")
+          sys.exit(1 if failures else 0)
+          EOF

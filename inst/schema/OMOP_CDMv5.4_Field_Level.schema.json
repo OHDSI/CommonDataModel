@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://ohdsi.github.io/CommonDataModel/schema/OMOP_CDMv5.4_Field_Level.schema.json",
+  "title": "OMOP CDM v5.4 Field-Level Metadata Row",
+  "description": "Describes one row of inst/csv/OMOP_CDMv5.4_Field_Level.csv represented as a JSON object. Property names match the CSV headers exactly (including 'unique DQ identifiers', which contains spaces), all values are strings, and the literal CSV value NA is preserved as the string \"NA\". The file is the ground truth for DDL generation (isRequired, cdmDatatype, isPrimaryKey, isForeignKey, fkTableName, fkFieldName) and the published CDM documentation (userGuidance, etlConventions); the fkDomain and fkClass columns correspond to the OHDSI DataQualityDashboard field-level checks of the same names.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cdmTableName",
+    "cdmFieldName",
+    "isRequired",
+    "cdmDatatype",
+    "userGuidance",
+    "etlConventions",
+    "isPrimaryKey",
+    "isForeignKey",
+    "fkTableName",
+    "fkFieldName",
+    "fkDomain",
+    "fkClass",
+    "unique DQ identifiers"
+  ],
+  "properties": {
+    "cdmTableName": {
+      "description": "Name of the OMOP CDM table containing the field, in lowercase (e.g. person, visit_occurrence).",
+      "type": "string",
+      "minLength": 1
+    },
+    "cdmFieldName": {
+      "description": "Name of the field described by this row, in lowercase. Reserved words keep literal double quotes as part of the value (e.g. \"offset\" in the note_nlp table).",
+      "type": "string",
+      "minLength": 1
+    },
+    "isRequired": {
+      "description": "Whether the field must be populated. Yes results in a NOT NULL constraint in the generated DDL.",
+      "type": "string",
+      "enum": ["Yes", "No"]
+    },
+    "cdmDatatype": {
+      "description": "Database-neutral datatype used as input to DDL generation (e.g. integer, bigint, float, date, datetime, varchar(50), varchar(MAX)). Rendered to dialect-specific types by SqlRender.",
+      "type": "string",
+      "minLength": 1
+    },
+    "userGuidance": {
+      "description": "Guidance for users interpreting or querying the field, or the literal string NA when none is supplied. Used to generate the published CDM documentation.",
+      "type": "string",
+      "minLength": 1
+    },
+    "etlConventions": {
+      "description": "Conventions for populating the field during ETL, or the literal string NA when none is supplied. Used to generate the published CDM documentation.",
+      "type": "string",
+      "minLength": 1
+    },
+    "isPrimaryKey": {
+      "description": "Whether the field is (part of) the table's primary key. Used for primary-key generation in the DDL.",
+      "type": "string",
+      "enum": ["Yes", "No"]
+    },
+    "isForeignKey": {
+      "description": "Whether the field references a field in another CDM table. Used for foreign-key generation in the DDL.",
+      "type": "string",
+      "enum": ["Yes", "No"]
+    },
+    "fkTableName": {
+      "description": "Name of the referenced table, in uppercase (e.g. CONCEPT, PERSON), when isForeignKey is Yes; the literal string NA otherwise.",
+      "type": "string",
+      "minLength": 1
+    },
+    "fkFieldName": {
+      "description": "Name of the referenced field, in uppercase (e.g. CONCEPT_ID, PERSON_ID), when isForeignKey is Yes; the literal string NA otherwise.",
+      "type": "string",
+      "minLength": 1
+    },
+    "fkDomain": {
+      "description": "For standard concept ID fields: the vocabulary domain that concepts in this field must conform to (e.g. Gender for person.gender_concept_id); the literal string NA when no domain restriction applies. Input to the DataQualityDashboard fkDomain check. See https://ohdsi.github.io/DataQualityDashboard/articles/checks/fkDomain.html",
+      "type": "string",
+      "minLength": 1
+    },
+    "fkClass": {
+      "description": "For standard concept ID fields: the concept class that concepts in this field must conform to, beyond the domain restriction (e.g. Ingredient for drug_era.drug_concept_id); the literal string NA when no class restriction applies. Input to the DataQualityDashboard fkClass check. See https://ohdsi.github.io/DataQualityDashboard/articles/checks/fkClass.html",
+      "type": "string",
+      "minLength": 1
+    },
+    "unique DQ identifiers": {
+      "description": "Reserved column from the DataQualityDashboard threshold-file layout. Currently the literal string NA for every field in v5.4; the exact semantics should be confirmed with the CDM maintainers.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
