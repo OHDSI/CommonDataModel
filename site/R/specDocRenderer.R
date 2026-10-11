@@ -72,5 +72,6 @@ render_spec_doc <- function(table_file,
     )
 
     print(table_html)
+    cat("\n\n")
   }
 }

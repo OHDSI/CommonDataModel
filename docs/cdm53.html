@@ -482,6 +482,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#person" id="toc-person" class="nav-link" data-scroll-target="#person">PERSON</a></li>
   <li><a href="#observation_period" id="toc-observation_period" class="nav-link" data-scroll-target="#observation_period">OBSERVATION_PERIOD</a></li>
   <li><a href="#visit_occurrence" id="toc-visit_occurrence" class="nav-link" data-scroll-target="#visit_occurrence">VISIT_OCCURRENCE</a></li>
+  <li><a href="#visit_detail" id="toc-visit_detail" class="nav-link" data-scroll-target="#visit_detail">VISIT_DETAIL</a></li>
   <li><a href="#condition_occurrence" id="toc-condition_occurrence" class="nav-link" data-scroll-target="#condition_occurrence">CONDITION_OCCURRENCE</a></li>
   <li><a href="#drug_exposure" id="toc-drug_exposure" class="nav-link" data-scroll-target="#drug_exposure">DRUG_EXPOSURE</a></li>
   <li><a href="#procedure_occurrence" id="toc-procedure_occurrence" class="nav-link" data-scroll-target="#procedure_occurrence">PROCEDURE_OCCURRENCE</a></li>
@@ -1814,7 +1815,9 @@ VISIT_OCCURRENCE
 </tr>
 </tbody>
 </table>
-<h3 id="visit_detail" class="tabset tabset-pills anchored">VISIT_DETAIL</h3>
+</section>
+<section id="visit_detail" class="level3 tabset tabset-pills">
+<h3 class="tabset tabset-pills anchored" data-anchor-id="visit_detail">VISIT_DETAIL</h3>
 
 <p><strong>Table Description</strong></p>
 <p>The VISIT_DETAIL table is an optional table used to represents details of each record in the parent VISIT_OCCURRENCE table. A good example of this would be the movement between units in a hospital during an inpatient stay or claim lines associated with a one insurance claim. For every record in the VISIT_OCCURRENCE table there may be 0 or more records in the VISIT_DETAIL table with a 1:n relationship where n may be 0. The VISIT_DETAIL table is structurally very similar to VISIT_OCCURRENCE table and belongs to the visit domain.</p>
