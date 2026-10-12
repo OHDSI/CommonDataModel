@@ -21,7 +21,7 @@ Tool | Supports CDM Field if | Link to resource used
 DataQualityDashboard | Part of Field Level checks | https://github.com/OHDSI/DataQualityDashboard/blob/main/inst/csv/OMOP_CDMv5.4_Field_Level.csv
 Achilles | Covered by at least one Achilles analysis | https://github.com/OHDSI/Achilles/blob/main/inst/csv/achilles/achilles_analysis_details.csv
 Atlas Data Sources | A statistic based on the field is shown in a 'Data Sources' visualisation | https://atlas-demo.ohdsi.org/
-Atlas Cohort | Used in te Atlas User Interface for cohort definition criteria (directly, or via 'Add attribute') | https://atlas-demo.ohdsi.org/
+Atlas Cohort | Used in the Atlas User Interface for cohort definition criteria (directly, or via 'Add attribute') | https://atlas-demo.ohdsi.org/
 Feature Extraction | Used in one of the Feature Extraction analyses | https://github.com/OHDSI/FeatureExtraction/blob/main/inst/csv/
 
 General criteria:
