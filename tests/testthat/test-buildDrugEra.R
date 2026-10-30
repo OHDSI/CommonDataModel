@@ -102,9 +102,11 @@ for (cdmVersion in listSupportedVersions()) {
     expect_equal(eras$drugEraStartDate, scenarioDay(1))
     expect_equal(eras$drugEraEndDate, scenarioDay(20))
     expect_equal(eras$drugExposureCount, 4)
+    # drug-free days are 8, 9, 10, 14 and 15
+    expect_equal(eras$gapDays, 5)
   })
 
-  test_that(paste("buildDrugEra joins consecutive exposures, CDM", cdmVersion), {
+  test_that(paste("buildDrugEra reports no gap days for consecutive exposures, CDM", cdmVersion), {
     # day:        1  2  3  4  5  6  7  8  9 10
     # exposure 1: |-----------|
     # exposure 2:                |-----------|
@@ -122,6 +124,7 @@ for (cdmVersion in listSupportedVersions()) {
     expect_equal(eras$drugEraStartDate, scenarioDay(1))
     expect_equal(eras$drugEraEndDate, scenarioDay(10))
     expect_equal(eras$drugExposureCount, 2)
+    expect_equal(eras$gapDays, 0)
   })
 
   test_that(paste("buildDrugEra starts a new era after more than 30 days, CDM", cdmVersion), {
@@ -140,5 +143,6 @@ for (cdmVersion in listSupportedVersions()) {
     expect_equal(eras$drugEraStartDate, scenarioDay(c(1, 40, 1)))
     expect_equal(eras$drugEraEndDate, scenarioDay(c(5, 45, 1)))
     expect_equal(eras$drugExposureCount, c(1, 1, 1))
+    expect_equal(eras$gapDays, c(0, 0, 0))
   })
 }

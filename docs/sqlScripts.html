@@ -968,7 +968,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_start_date,</span>
 <span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
 <span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    datediff(<span class="dt">day</span>,drug_sub_exposure_start_date,drug_sub_exposure_end_date) <span class="kw">AS</span> days_exposed</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    datediff(<span class="dt">day</span>,drug_sub_exposure_start_date,drug_sub_exposure_end_date) <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> days_exposed</span>
 <span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteSubExposures</span>
 <span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
@@ -1043,7 +1043,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(drug_sub_exposure_start_date) <span class="kw">AS</span> drug_era_start_date,</span>
 <span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>  drug_era_end_date,</span>
 <span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SUM</span>(drug_exposure_count) <span class="kw">AS</span> drug_exposure_count,</span>
-<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>  datediff(<span class="dt">day</span>,<span class="fu">MIN</span>(drug_sub_exposure_start_date),drug_era_end_date)<span class="op">-</span><span class="fu">SUM</span>(days_exposed) <span class="kw">AS</span> gap_days</span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>  datediff(<span class="dt">day</span>,<span class="fu">MIN</span>(drug_sub_exposure_start_date),drug_era_end_date) <span class="op">+</span> <span class="dv">1</span> <span class="op">-</span> <span class="fu">SUM</span>(days_exposed) <span class="kw">AS</span> gap_days</span>
 <span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #tmp_de</span>
 <span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> cteDrugEraEnds dee</span>
 <span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_era_end_date;</span>
