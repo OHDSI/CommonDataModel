@@ -847,211 +847,212 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="drug-eras" class="level3">
 <h3 class="anchored" data-anchor-id="drug-eras">Drug Eras</h3>
 <p>If the DRUG_EXPOSURE table is populated this script will string together periods of time that a person is exposed to an active drug ingredient, allowing for 30 gaps in between. It will then insert the resulting era records into the DRUG_ERA table. <strong>NOTE</strong> This query only works with the <strong>version 5</strong> series and below.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Code taken from:</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> object_id(<span class="st">'tempdb..#tmp_de'</span>, <span class="st">'U'</span>) <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">drop</span> <span class="kw">table</span> #tmp_de;</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ctePreDrugTarget(drug_exposure_id, person_id, ingredient_concept_id, drug_exposure_start_date, days_supply, drug_exposure_end_date) <span class="kw">AS</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>(<span class="co">-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_id,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    d.person_id,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    c.concept_id <span class="kw">AS</span> ingredient_concept_id,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_start_date <span class="kw">AS</span> drug_exposure_start_date,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    d.days_supply <span class="kw">AS</span> days_supply,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COALESCE</span>(</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="co">---NULLIF returns NULL if both values are the same, otherwise it returns the first parameter</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(drug_exposure_end_date, <span class="kw">NULL</span>),</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If drug_exposure_end_date != NULL, return drug_exposure_end_date, otherwise go to next case</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(dateadd(<span class="dt">day</span>,days_supply,drug_exposure_start_date), drug_exposure_start_date),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If days_supply != NULL or 0, return drug_exposure_start_date + days_supply, otherwise go to next case</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      dateadd(<span class="dt">day</span>,<span class="dv">1</span>,drug_exposure_start_date)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      <span class="co">---Add 1 day to the drug_exposure_start_date since there is no end_date or INTERVAL for the days_supply</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    ) <span class="kw">AS</span> drug_exposure_end_date</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> @cdm_schema.drug_exposure d</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept_ancestor ca <span class="kw">ON</span> ca.descendant_concept_id <span class="op">=</span> d.drug_concept_id</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept c <span class="kw">ON</span> ca.ancestor_concept_id <span class="op">=</span> c.concept_id</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> c.vocabulary_id <span class="op">=</span> <span class="st">'RxNorm'</span> <span class="co">---8 selects RxNorm from the vocabulary_id</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> c.concept_class_id <span class="op">=</span> <span class="st">'Ingredient'</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> d.drug_concept_id <span class="op">!=</span> <span class="dv">0</span> <span class="co">---Our unmapped drug_concept_id's are set to 0, so we don't want different drugs wrapped up in the same era</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> <span class="fu">coalesce</span>(d.days_supply,<span class="dv">0</span>) <span class="op">&gt;=</span> <span class="dv">0</span> <span class="co">---We have cases where days_supply is negative, and this can set the end_date before the start_date, which we don't want. So we're just looking over those rows. This is a data-quality issue.</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>, cteSubExposureEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">--- A preliminary sorting that groups all of the overlapping exposures into one exposure so that we don't double-count non-gap-days</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    event_date <span class="kw">AS</span> end_date</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  (</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">unbounded</span> <span class="kw">preceding</span>) <span class="kw">AS</span> start_ordinal,</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        drug_exposure_start_date <span class="kw">AS</span> event_date,</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        drug_exposure_end_date,</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  ) e</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>, cteDrugExposureEnds (person_id, drug_concept_id, drug_exposure_start_date, drug_sub_exposure_end_date) <span class="kw">AS</span></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  dt.person_id,</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  dt.ingredient_concept_id,</span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_start_date,</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> drug_sub_exposure_end_date</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ctePreDrugTarget dt</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> cteSubExposureEndDates e <span class="kw">ON</span> dt.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> dt.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> dt.drug_exposure_start_date</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_id</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  , dt.person_id</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  , dt.ingredient_concept_id</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  , dt.drug_exposure_start_date</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>, cteSubExposures(<span class="fu">row_number</span>, person_id, drug_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count) <span class="kw">AS</span></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date <span class="kw">ORDER</span> <span class="kw">BY</span> person_id),</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(drug_exposure_start_date) <span class="kw">AS</span> drug_sub_exposure_start_date,</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> drug_exposure_count</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteDrugExposureEnds</span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>  <span class="co">--ORDER BY person_id, drug_concept_id</span></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co">/*Everything above grouped exposures into sub_exposures if there was overlap between exposures.</span></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="co"> *So there was no persistence window. Now we can add the persistence window to calculate eras.</span></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>, cteFinalTarget(<span class="fu">row_number</span>, person_id, ingredient_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">row_number</span>,</span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_start_date,</span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    datediff(<span class="dt">day</span>,drug_sub_exposure_start_date,drug_sub_exposure_end_date) <span class="kw">AS</span> days_exposed</span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteSubExposures</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>, cteEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">-- the magic</span></span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>    dateadd(<span class="dt">day</span>,<span class="op">-</span><span class="dv">30</span>,event_date) <span class="kw">AS</span> end_date <span class="co">-- unpad the end date</span></span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>  (</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
-<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
-<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
-<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">UNBOUNDED</span> <span class="kw">PRECEDING</span>) <span class="kw">AS</span> start_ordinal,</span>
-<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
-<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
-<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>        drug_sub_exposure_start_date <span class="kw">AS</span> event_date,</span>
-<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_sub_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
-<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- pad the end dates by 30 to allow a grace period for overlapping ranges.</span></span>
-<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
-<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
-<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
-<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>        dateadd(<span class="dt">day</span>,<span class="dv">30</span>,drug_sub_exposure_end_date),</span>
-<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
-<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>  ) e</span>
-<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>, cteDrugEraEnds (person_id, drug_concept_id, drug_sub_exposure_start_date, drug_era_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
-<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    ft.person_id,</span>
-<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>    ft.ingredient_concept_id,</span>
-<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>    ft.drug_sub_exposure_start_date,</span>
-<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> era_end_date,</span>
-<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
-<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>    days_exposed</span>
-<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteFinalTarget ft</span>
-<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> cteEndDates e <span class="kw">ON</span> ft.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> ft.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> ft.drug_sub_exposure_start_date</span>
-<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>    ft.person_id</span>
-<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>    , ft.ingredient_concept_id</span>
-<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>    , ft.drug_sub_exposure_start_date</span>
-<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>    , drug_exposure_count</span>
-<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>    , days_exposed</span>
-<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_number</span>()<span class="kw">over</span>(<span class="kw">order</span> <span class="kw">by</span> person_id) drug_era_id,</span>
-<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a>  person_id,</span>
-<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>  drug_concept_id,</span>
-<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(drug_sub_exposure_start_date) <span class="kw">AS</span> drug_era_start_date,</span>
-<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>  drug_era_end_date,</span>
-<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SUM</span>(drug_exposure_count) <span class="kw">AS</span> drug_exposure_count,</span>
-<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>  datediff(<span class="dt">day</span>,<span class="fu">MIN</span>(drug_sub_exposure_start_date),drug_era_end_date)<span class="op">-</span><span class="fu">SUM</span>(days_exposed) <span class="kw">AS</span> gap_days</span>
-<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #tmp_de</span>
-<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> cteDrugEraEnds dee</span>
-<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_era_end_date;</span>
-<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.drug_era(drug_era_id,person_id, drug_concept_id, drug_era_start_date, drug_era_end_date, drug_exposure_count, gap_days)</span>
-<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span></span>
-<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #tmp_de;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Code taken from:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://github.com/OHDSI/ETL-CMS/blob/master/SQL/create_CDMv5_drug_era_non_stockpile.sql</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> object_id(<span class="st">'tempdb..#tmp_de'</span>, <span class="st">'U'</span>) <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">drop</span> <span class="kw">table</span> #tmp_de;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ctePreDrugTarget(drug_exposure_id, person_id, ingredient_concept_id, drug_exposure_start_date, days_supply, drug_exposure_end_date) <span class="kw">AS</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>(<span class="co">-- Normalize DRUG_EXPOSURE_END_DATE to either the existing drug exposure end date, or add days supply, or add 1 day to the start date</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_id,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    d.person_id,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    c.concept_id <span class="kw">AS</span> ingredient_concept_id,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    d.drug_exposure_start_date <span class="kw">AS</span> drug_exposure_start_date,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    d.days_supply <span class="kw">AS</span> days_supply,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COALESCE</span>(</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">---NULLIF returns NULL if both values are the same, otherwise it returns the first parameter</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(drug_exposure_end_date, <span class="kw">NULL</span>),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If drug_exposure_end_date != NULL, return drug_exposure_end_date, otherwise go to next case</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">NULLIF</span>(dateadd(<span class="dt">day</span>,days_supply,drug_exposure_start_date), drug_exposure_start_date),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      <span class="co">---If days_supply != NULL or 0, return drug_exposure_start_date + days_supply, otherwise go to next case</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      dateadd(<span class="dt">day</span>,<span class="dv">1</span>,drug_exposure_start_date)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      <span class="co">---Add 1 day to the drug_exposure_start_date since there is no end_date or INTERVAL for the days_supply</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="kw">AS</span> drug_exposure_end_date</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> @cdm_schema.drug_exposure d</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept_ancestor ca <span class="kw">ON</span> ca.descendant_concept_id <span class="op">=</span> d.drug_concept_id</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> @cdm_schema.concept c <span class="kw">ON</span> ca.ancestor_concept_id <span class="op">=</span> c.concept_id</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> c.vocabulary_id <span class="op">=</span> <span class="st">'RxNorm'</span> <span class="co">---8 selects RxNorm from the vocabulary_id</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> c.concept_class_id <span class="op">=</span> <span class="st">'Ingredient'</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> d.drug_concept_id <span class="op">!=</span> <span class="dv">0</span> <span class="co">---Our unmapped drug_concept_id's are set to 0, so we don't want different drugs wrapped up in the same era</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> <span class="fu">coalesce</span>(d.days_supply,<span class="dv">0</span>) <span class="op">&gt;=</span> <span class="dv">0</span> <span class="co">---We have cases where days_supply is negative, and this can set the end_date before the start_date, which we don't want. So we're just looking over those rows. This is a data-quality issue.</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>, cteSubExposureEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">--- A preliminary sorting that groups all of the overlapping exposures into one exposure so that we don't double-count non-gap-days</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    event_date <span class="kw">AS</span> end_date</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  (</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">unbounded</span> <span class="kw">preceding</span>) <span class="kw">AS</span> start_ordinal,</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        drug_exposure_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        drug_exposure_end_date,</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> ctePreDrugTarget</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  ) e</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>, cteDrugExposureEnds (person_id, drug_concept_id, drug_exposure_start_date, drug_sub_exposure_end_date) <span class="kw">AS</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  dt.person_id,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  dt.ingredient_concept_id,</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_start_date,</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> drug_sub_exposure_end_date</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ctePreDrugTarget dt</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> cteSubExposureEndDates e <span class="kw">ON</span> dt.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> dt.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> dt.drug_exposure_start_date</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  dt.drug_exposure_id</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  , dt.person_id</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  , dt.ingredient_concept_id</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  , dt.drug_exposure_start_date</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>, cteSubExposures(<span class="fu">row_number</span>, person_id, drug_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count) <span class="kw">AS</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date <span class="kw">ORDER</span> <span class="kw">BY</span> person_id),</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(drug_exposure_start_date) <span class="kw">AS</span> drug_sub_exposure_start_date,</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> drug_exposure_count</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteDrugExposureEnds</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_sub_exposure_end_date</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>  <span class="co">--ORDER BY person_id, drug_concept_id</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="co">/*Everything above grouped exposures into sub_exposures if there was overlap between exposures.</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co"> *So there was no persistence window. Now we can add the persistence window to calculate eras.</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>, cteFinalTarget(<span class="fu">row_number</span>, person_id, ingredient_concept_id, drug_sub_exposure_start_date, drug_sub_exposure_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">row_number</span>,</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    drug_concept_id,</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_start_date,</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    drug_sub_exposure_end_date,</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    datediff(<span class="dt">day</span>,drug_sub_exposure_start_date,drug_sub_exposure_end_date) <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> days_exposed</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteSubExposures</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>, cteEndDates (person_id, ingredient_concept_id, end_date) <span class="kw">AS</span> <span class="co">-- the magic</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    person_id,</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>    ingredient_concept_id,</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    dateadd(<span class="dt">day</span>,<span class="op">-</span><span class="dv">30</span>,event_date) <span class="kw">AS</span> end_date <span class="co">-- unpad the end date</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>  (</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>      person_id,</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>      ingredient_concept_id,</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>      event_date,</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>      event_type,</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>      <span class="fu">MAX</span>(start_ordinal) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type <span class="kw">ROWS</span> <span class="kw">UNBOUNDED</span> <span class="kw">PRECEDING</span>) <span class="kw">AS</span> start_ordinal,</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this pulls the current START down from the prior rows so that the NULLs</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- from the </span><span class="re">END</span><span class="co"> DATES will contain a value we can compare with</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> event_date, event_type) <span class="kw">AS</span> overall_ord</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- this re-numbers the inner UNION so all rows are numbered ordered by the event date</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> (</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- select the start dates, assigning a row number to each</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>        drug_sub_exposure_start_date <span class="kw">AS</span> event_date,</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> person_id, ingredient_concept_id</span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> drug_sub_exposure_start_date) <span class="kw">AS</span> start_ordinal</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>      <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- pad the end dates by 30 to allow a grace period for overlapping ranges.</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>      <span class="kw">SELECT</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>        person_id,</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>        ingredient_concept_id,</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>        dateadd(<span class="dt">day</span>,<span class="dv">30</span>,drug_sub_exposure_end_date),</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> <span class="kw">AS</span> event_type,</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>        <span class="kw">NULL</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>      <span class="kw">FROM</span> cteFinalTarget</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>    ) RAWDATA</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>  ) e</span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> (<span class="dv">2</span> <span class="op">*</span> e.start_ordinal) <span class="op">-</span> e.overall_ord <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>, cteDrugEraEnds (person_id, drug_concept_id, drug_sub_exposure_start_date, drug_era_end_date, drug_exposure_count, days_exposed) <span class="kw">AS</span></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>    ft.person_id,</span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    ft.ingredient_concept_id,</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>    ft.drug_sub_exposure_start_date,</span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(e.end_date) <span class="kw">AS</span> era_end_date,</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>    drug_exposure_count,</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>    days_exposed</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> cteFinalTarget ft</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> cteEndDates e <span class="kw">ON</span> ft.person_id <span class="op">=</span> e.person_id <span class="kw">AND</span> ft.ingredient_concept_id <span class="op">=</span> e.ingredient_concept_id <span class="kw">AND</span> e.end_date <span class="op">&gt;=</span> ft.drug_sub_exposure_start_date</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>    ft.person_id</span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>    , ft.ingredient_concept_id</span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>    , ft.drug_sub_exposure_start_date</span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>    , drug_exposure_count</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>    , days_exposed</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_number</span>()<span class="kw">over</span>(<span class="kw">order</span> <span class="kw">by</span> person_id) drug_era_id,</span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>  person_id,</span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a>  drug_concept_id,</span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MIN</span>(drug_sub_exposure_start_date) <span class="kw">AS</span> drug_era_start_date,</span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>  drug_era_end_date,</span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SUM</span>(drug_exposure_count) <span class="kw">AS</span> drug_exposure_count,</span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>  datediff(<span class="dt">day</span>,<span class="fu">MIN</span>(drug_sub_exposure_start_date),drug_era_end_date) <span class="op">+</span> <span class="dv">1</span> <span class="op">-</span> <span class="fu">SUM</span>(days_exposed) <span class="kw">AS</span> gap_days</span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> #tmp_de</span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> cteDrugEraEnds dee</span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> person_id, drug_concept_id, drug_era_end_date;</span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> @cdm_schema.drug_era(drug_era_id,person_id, drug_concept_id, drug_era_start_date, drug_era_end_date, drug_exposure_count, gap_days)</span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> #tmp_de;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 <section id="example-etl-script" class="level2">
