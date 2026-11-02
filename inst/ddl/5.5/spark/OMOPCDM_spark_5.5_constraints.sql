@@ -136,6 +136,7 @@ ALTER TABLE @cdmDatabaseSchema.payer_plan_period ADD CONSTRAINT fpk_payer_plan_p
 ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_cost_domain_id FOREIGN KEY (cost_domain_id) REFERENCES @cdmDatabaseSchema.DOMAIN (DOMAIN_ID);
 ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_cost_type_concept_id FOREIGN KEY (cost_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_currency_concept_id FOREIGN KEY (currency_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_payer_plan_period_id FOREIGN KEY (payer_plan_period_id) REFERENCES @cdmDatabaseSchema.PAYER_PLAN_PERIOD (PAYER_PLAN_PERIOD_ID);
 ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_revenue_code_concept_id FOREIGN KEY (revenue_code_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.cost ADD CONSTRAINT fpk_cost_drg_concept_id FOREIGN KEY (drg_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.drug_era ADD CONSTRAINT fpk_drug_era_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
