@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://ohdsi.github.io/CommonDataModel/schema/OMOP_CDMv5.4_Table_Level.schema.json",
+  "title": "OMOP CDM v5.4 Table-Level Metadata Row",
+  "description": "Describes one row of inst/csv/OMOP_CDMv5.4_Table_Level.csv represented as a JSON object. Property names match the CSV headers exactly, all values are strings, and the literal CSV value NA is preserved as the string \"NA\". The file follows the layout of the OHDSI DataQualityDashboard (DQD) table-level threshold files: a data-quality check column (e.g. measurePersonCompleteness) is paired with a companion <checkName>Threshold column.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cdmTableName",
+    "schema",
+    "isRequired",
+    "conceptPrefix",
+    "measurePersonCompleteness",
+    "measurePersonCompletenessThreshold",
+    "validation",
+    "tableDescription",
+    "userGuidance",
+    "etlConventions"
+  ],
+  "properties": {
+    "cdmTableName": {
+      "description": "Name of the OMOP CDM table described by this row, in lowercase (e.g. person, visit_occurrence).",
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "description": "Logical schema group the table belongs to: CDM (clinical event and derived tables), VOCAB (standardized vocabulary tables), or RESULTS (cohort tables).",
+      "type": "string",
+      "enum": ["CDM", "VOCAB", "RESULTS"]
+    },
+    "isRequired": {
+      "description": "Whether the table is required for a conformant OMOP CDM instance.",
+      "type": "string",
+      "enum": ["Yes", "No"]
+    },
+    "conceptPrefix": {
+      "description": "Field-name prefix of the table's concept fields, set only for the clinical event tables (e.g. CONDITION_ for condition_occurrence, whose fields include condition_concept_id and condition_source_concept_id); the literal string NA otherwise. Historically part of the DataQualityDashboard threshold-file scaffolding; the exact downstream semantics should be confirmed with the CDM maintainers.",
+      "type": "string",
+      "minLength": 1
+    },
+    "measurePersonCompleteness": {
+      "description": "Whether the DataQualityDashboard measurePersonCompleteness check runs for this table. The check measures the number and percent of persons in the CDM that do not have at least one record in this table. See https://ohdsi.github.io/DataQualityDashboard/articles/checks/measurePersonCompleteness.html",
+      "type": "string",
+      "enum": ["Yes", "No"]
+    },
+    "measurePersonCompletenessThreshold": {
+      "description": "Failure threshold (percent) for the measurePersonCompleteness check, as a numeric string (e.g. 0); the literal string NA when the check does not apply. Follows the DataQualityDashboard convention that a check column named <checkName> is paired with a <checkName>Threshold column.",
+      "type": "string",
+      "minLength": 1
+    },
+    "validation": {
+      "description": "Reserved column from the DataQualityDashboard threshold-file layout, intended for validation-context data-quality checks. Currently the literal string NA for every table in v5.4; the exact semantics should be confirmed with the CDM maintainers.",
+      "type": "string",
+      "minLength": 1
+    },
+    "tableDescription": {
+      "description": "Description of the table and its role in the OMOP CDM. Used to generate the published CDM documentation.",
+      "type": "string",
+      "minLength": 1
+    },
+    "userGuidance": {
+      "description": "Guidance for users interpreting or querying data in this table, or the literal string NA when none is supplied. Used to generate the published CDM documentation.",
+      "type": "string",
+      "minLength": 1
+    },
+    "etlConventions": {
+      "description": "Conventions for populating this table during ETL, or the literal string NA when none is supplied. Used to generate the published CDM documentation.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
