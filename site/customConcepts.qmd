@@ -89,7 +89,7 @@ After creating these records, we can use the custom concept in our ETL to popula
 | valid_end_date | 2099-12-31 |
 | invalid_reason | `NULL` |
 
-See the [Source To Standard query](https://ohdsi.github.io/CommonDataModel/sqlScripts.html#Source_to_Standard) to map a code in the source data to a standard concept.
+See the [Source To Standard query](https://ohdsi.github.io/CommonDataModel/sqlScripts.html#source-to-standard) to map a code in the source data to a standard concept.
 
 ## Getting your vocabulary into the OMOP vocabularies
 

@@ -535,7 +535,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Indexing on all columns containing an “_id” (e.g.&nbsp;condition_occurrence_id, drug_exposure_id, measurement_id, procedure_occurrence_id, etc.)</li>
 <li>Indexing on primary and foreign keys</li>
 </ul>
-<p>For all databases, regardless of custom indice support, primary and foreign keys should be set. This is a step towards ensuring data integrity. Information on what table level attributes should be set as primary and foreign keys can be found within the *_Field_Level.csv file(s) located in the <a href="https://github.com/OHDSI/CommonDataModel/tree/v5.4/inst/csv">INST/CSV directory</a></p>
+<p>For all databases, regardless of custom indice support, primary and foreign keys should be set. This is a step towards ensuring data integrity. Information on what table level attributes should be set as primary and foreign keys can be found within the *_Field_Level.csv file(s) located in the <a href="https://github.com/OHDSI/CommonDataModel/tree/main/inst/csv">INST/CSV directory</a></p>
 </section>
 <section id="database-support" class="level2">
 <h2 class="anchored" data-anchor-id="database-support">Database support</h2>
@@ -551,7 +551,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="amazon-redshift" class="level3">
 <h3 class="anchored" data-anchor-id="amazon-redshift">Amazon Redshift</h3>
-<p>On AWS Redshift it is important to ensure that your data is properly distributed and sorted across nodes. Compression on certain columns may also help. The designed DDL does set DISTKEYS in an effort to optimize performance. This configuration can be seen within the <a href="https://github.com/OHDSI/CommonDataModel/blob/v5.4/ddl/5.4/redshift/OMOPCDM_redshift_5.4_ddl.sql">Redshift-specific DDL</a>.</p>
+<p>On AWS Redshift it is important to ensure that your data is properly distributed and sorted across nodes. Compression on certain columns may also help. The designed DDL does set DISTKEYS in an effort to optimize performance. This configuration can be seen within the <a href="https://github.com/OHDSI/CommonDataModel/blob/main/inst/ddl/5.4/redshift/OMOPCDM_redshift_5.4_ddl.sql">Redshift-specific DDL</a>.</p>
 </section>
 <section id="impala" class="level3">
 <h3 class="anchored" data-anchor-id="impala">Impala</h3>
