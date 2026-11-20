@@ -161,7 +161,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.measurement  (measur
 			unit_source_value varchar(50) NULL,
 			unit_source_concept_id integer NULL,
 			value_source_value varchar(50) NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));
@@ -186,7 +186,7 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.observation  (observ
 			unit_source_concept_id integer NULL,
 			qualifier_source_value varchar(50) NULL,
 			value_source_value varchar(50) NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL )
 WITH (DISTRIBUTION = HASH(person_id));

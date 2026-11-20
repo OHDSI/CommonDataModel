@@ -171,7 +171,7 @@ CREATE TABLE @cdmDatabaseSchema.measurement (
 			unit_source_value varchar(50) NULL,
 			unit_source_concept_id integer NULL,
 			value_source_value varchar(50) NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL );
  -- "haven't looked into this yet, skip it for now"" SORT_ON_KEY(INTERLEAVED:observation_concept_id,person_id)
@@ -197,7 +197,7 @@ CREATE TABLE @cdmDatabaseSchema.observation (
 			unit_source_concept_id integer NULL,
 			qualifier_source_value varchar(50) NULL,
 			value_source_value varchar(50) NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL );
  -- "haven't looked into this yet, skip it for now""
