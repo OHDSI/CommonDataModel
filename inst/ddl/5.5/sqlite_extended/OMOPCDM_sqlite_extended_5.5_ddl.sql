@@ -162,7 +162,7 @@ CREATE TABLE @cdmDatabaseSchema.measurement (
 			unit_source_value TEXT NULL,
 			unit_source_concept_id integer NULL,
 			value_source_value TEXT NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			measurement_event_id integer NULL,
 			meas_event_field_concept_id integer NULL );
 CREATE TABLE @cdmDatabaseSchema.observation (
@@ -187,7 +187,7 @@ CREATE TABLE @cdmDatabaseSchema.observation (
 			unit_source_concept_id integer NULL,
 			qualifier_source_value TEXT NULL,
 			value_source_value TEXT NULL,
-			value_as_source_concept_Id integer NULL,
+			value_as_source_concept_id integer NULL,
 			observation_event_id integer NULL,
 			obs_event_field_concept_id integer NULL );
 CREATE TABLE @cdmDatabaseSchema.death (
