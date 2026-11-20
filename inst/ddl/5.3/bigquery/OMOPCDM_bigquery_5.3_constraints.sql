@@ -50,6 +50,10 @@ alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure
 alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_procedure_concept_id foreign key (procedure_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_procedure_type_concept_id foreign key (procedure_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_modifier_concept_id foreign key (modifier_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_provider_id foreign key (provider_id) references @cdmDatabaseSchema.provider (provider_id);
+alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
+alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_visit_detail_id foreign key (visit_detail_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
+alter table @cdmDatabaseSchema.procedure_occurrence add constraint fpk_procedure_occurrence_procedure_source_concept_id foreign key (procedure_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.device_exposure add constraint fpk_device_exposure_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.device_exposure add constraint fpk_device_exposure_device_concept_id foreign key (device_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.device_exposure add constraint fpk_device_exposure_device_type_concept_id foreign key (device_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
@@ -127,6 +131,7 @@ alter table @cdmDatabaseSchema.drug_era add constraint fpk_drug_era_drug_concept
 alter table @cdmDatabaseSchema.dose_era add constraint fpk_dose_era_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.dose_era add constraint fpk_dose_era_drug_concept_id foreign key (drug_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.dose_era add constraint fpk_dose_era_unit_concept_id foreign key (unit_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.condition_era add constraint fpk_condition_era_condition_concept_id foreign key (condition_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.metadata add constraint fpk_metadata_metadata_concept_id foreign key (metadata_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.metadata add constraint fpk_metadata_metadata_type_concept_id foreign key (metadata_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
