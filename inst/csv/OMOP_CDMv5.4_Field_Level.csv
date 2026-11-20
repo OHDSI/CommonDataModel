@@ -462,7 +462,7 @@ Clinical Finding, Ingredient, etc.",NA,FALSE,FALSE,NA,NA,NA,NA
 concept_class,concept_class_concept_id,TRUE,integer,A Concept that represents the Concept Class.,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 concept_relationship,concept_id_1,TRUE,integer,NA,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
 concept_relationship,concept_id_2,TRUE,integer,NA,NA,FALSE,TRUE,CONCEPT,CONCEPT_ID,NA,NA
-concept_relationship,relationship_id,TRUE,varchar(20),The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see the [Vocabulary Conventions](https://ohdsi.github.io/CommonDataModel/dataModelConventions.html#concept_relationships). for more information.,NA,FALSE,TRUE,RELATIONSHIP,RELATIONSHIP_ID,NA,NA
+concept_relationship,relationship_id,TRUE,varchar(20),The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see the [Vocabulary Conventions](https://ohdsi.github.io/CommonDataModel/dataModelConventions.html#concept-relationships). for more information.,NA,FALSE,TRUE,RELATIONSHIP,RELATIONSHIP_ID,NA,NA
 concept_relationship,valid_start_date,TRUE,date,The date when the relationship is first recorded.,NA,FALSE,FALSE,NA,NA,NA,NA
 concept_relationship,valid_end_date,TRUE,date,The date when the relationship is invalidated.,NA,FALSE,FALSE,NA,NA,NA,NA
 concept_relationship,invalid_reason,FALSE,varchar(1),"Reason the relationship was invalidated. Possible values are 'D' (deleted), 'U' (updated) or NULL.",NA,FALSE,FALSE,NA,NA,NA,NA

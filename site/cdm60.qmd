@@ -19,7 +19,7 @@ Below is the specification document for the OMOP Common Data Model, v6.0. Each t
 - All primary keys were changed to bigint
 - The name of ADMISSION_SOURCE_CONCEPT_ID was changed to ADMITTED_FROM_CONCEPT_ID in [VISIT_OCCURRENCE](https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_occurrence) and [VISIT_DETAIL](https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_detail)
 - All Concept_Ids are now mandatory except for UNIT_CONCEPT_ID, VALUE_AS_CONCEPT_ID, and OPERATOR_CONCEPT_ID. If there is no value available then a Concept_Id should be set to 0 instead of NULL.
-- [DEATH](https://ohdsi.github.io/CommonDataModel/cdm531.html#death) table removed and DEATH_DATETIME field added to the [PERSON](https://ohdsi.github.io/CommonDataModel/cdm60.html#person) table. Cause of death is stored in the [CONDITION_OCCURRENCE](https://ohdsi.github.io/CommonDataModel/cdm60.html#condition_occurrence)
+- [DEATH](https://ohdsi.github.io/CommonDataModel/cdm53.html#death) table removed and DEATH_DATETIME field added to the [PERSON](https://ohdsi.github.io/CommonDataModel/cdm60.html#person) table. Cause of death is stored in the [CONDITION_OCCURRENCE](https://ohdsi.github.io/CommonDataModel/cdm60.html#condition_occurrence)
 - DATETIME fields were made mandatory and date fields were made optional.
 
 ```{r docLoop60, echo=FALSE, results='asis'}

@@ -469,7 +469,7 @@ Clinical Finding, Ingredient, etc.",NA,false,false,NA,NA,NA,NA
 concept_class,concept_class_concept_id,true,integer,A Concept that represents the Concept Class.,NA,false,true,CONCEPT,CONCEPT_ID,NA,NA
 concept_relationship,concept_id_1,true,integer,NA,NA,false,true,CONCEPT,CONCEPT_ID,NA,NA
 concept_relationship,concept_id_2,true,integer,NA,NA,false,true,CONCEPT,CONCEPT_ID,NA,NA
-concept_relationship,relationship_id,true,varchar(20),"The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see the [Vocabulary Conventions](https://ohdsi.github.io/CommonDataModel/dataModelConventions.html#concept_relationships). for more information.",NA,false,true,RELATIONSHIP,RELATIONSHIP_ID,NA,NA
+concept_relationship,relationship_id,true,varchar(20),"The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see the [Vocabulary Conventions](https://ohdsi.github.io/CommonDataModel/dataModelConventions.html#concept-relationships). for more information.",NA,false,true,RELATIONSHIP,RELATIONSHIP_ID,NA,NA
 concept_relationship,valid_start_date,true,date,The date when the relationship is first recorded.,NA,false,false,NA,NA,NA,NA
 concept_relationship,valid_end_date,true,date,The date when the relationship is invalidated.,NA,false,false,NA,NA,NA,NA
 concept_relationship,invalid_reason,false,varchar(1),"Reason the relationship was invalidated. Possible values are 'D' (deleted), 'U' (updated) or NULL.",NA,false,false,NA,NA,NA,NA

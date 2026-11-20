@@ -578,7 +578,7 @@ ul.task-list li input[type="checkbox"] {
 <li>All primary keys were changed to bigint</li>
 <li>The name of ADMISSION_SOURCE_CONCEPT_ID was changed to ADMITTED_FROM_CONCEPT_ID in <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_occurrence">VISIT_OCCURRENCE</a> and <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#visit_detail">VISIT_DETAIL</a></li>
 <li>All Concept_Ids are now mandatory except for UNIT_CONCEPT_ID, VALUE_AS_CONCEPT_ID, and OPERATOR_CONCEPT_ID. If there is no value available then a Concept_Id should be set to 0 instead of NULL.</li>
-<li><a href="https://ohdsi.github.io/CommonDataModel/cdm531.html#death">DEATH</a> table removed and DEATH_DATETIME field added to the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#person">PERSON</a> table. Cause of death is stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#condition_occurrence">CONDITION_OCCURRENCE</a></li>
+<li><a href="https://ohdsi.github.io/CommonDataModel/cdm53.html#death">DEATH</a> table removed and DEATH_DATETIME field added to the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#person">PERSON</a> table. Cause of death is stored in the <a href="https://ohdsi.github.io/CommonDataModel/cdm60.html#condition_occurrence">CONDITION_OCCURRENCE</a></li>
 <li>DATETIME fields were made mandatory and date fields were made optional.</li>
 </ul>
 </section>
