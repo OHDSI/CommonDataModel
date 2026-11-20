@@ -8,3 +8,4 @@ rmd/*
 site/*
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^\.codespellrc$
