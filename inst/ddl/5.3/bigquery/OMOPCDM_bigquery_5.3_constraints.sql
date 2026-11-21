@@ -93,6 +93,7 @@ alter table @cdmDatabaseSchema.note add constraint fpk_note_language_concept_id 
 alter table @cdmDatabaseSchema.note add constraint fpk_note_provider_id foreign key (provider_id) references @cdmDatabaseSchema.provider (provider_id);
 alter table @cdmDatabaseSchema.note add constraint fpk_note_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
 alter table @cdmDatabaseSchema.note add constraint fpk_note_visit_detail_id foreign key (visit_detail_id) references @cdmDatabaseSchema.visit_detail (visit_detail_id);
+alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_id foreign key (note_id) references @cdmDatabaseSchema.note (note_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_section_concept_id foreign key (section_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_concept_id foreign key (note_nlp_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.note_nlp add constraint fpk_note_nlp_note_nlp_source_concept_id foreign key (note_nlp_source_concept_id) references @cdmDatabaseSchema.concept (concept_id);

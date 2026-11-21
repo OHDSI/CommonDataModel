@@ -93,6 +93,7 @@ ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_language_concept_id
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_provider_id FOREIGN KEY (provider_id) REFERENCES @cdmDatabaseSchema.PROVIDER (PROVIDER_ID);
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_visit_occurrence_id FOREIGN KEY (visit_occurrence_id) REFERENCES @cdmDatabaseSchema.VISIT_OCCURRENCE (VISIT_OCCURRENCE_ID);
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_visit_detail_id FOREIGN KEY (visit_detail_id) REFERENCES @cdmDatabaseSchema.VISIT_DETAIL (VISIT_DETAIL_ID);
+ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_id FOREIGN KEY (note_id) REFERENCES @cdmDatabaseSchema.NOTE (NOTE_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_section_concept_id FOREIGN KEY (section_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_nlp_concept_id FOREIGN KEY (note_nlp_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_nlp_source_concept_id FOREIGN KEY (note_nlp_source_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
