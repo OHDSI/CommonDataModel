@@ -3305,9 +3305,10 @@ FALSE
 days_supply
 </td>
 <td style="text-align:left;">
+The number of days of supply of the medication as recorded in the original prescription or dispensing record. Days supply can differ from actual drug duration (i.e.&nbsp;prescribed days supply vs actual exposure).
 </td>
 <td style="text-align:left;">
-The number of days of supply of the medication as recorded in the original prescription or dispensing record. Days supply can differ from actual drug duration (i.e.&nbsp;prescribed days supply vs actual exposure).”,“The field should be left empty if the source data does not contain a verbatim days_supply, and should not be calculated from other fields.<br><br>Negative values are not allowed. If the source has negative days supply the record should be dropped as it is unknown if the patient actually took the drug. Several actions are possible: 1) record is not trustworthy and we remove the record entirely. 2) we trust the record and leave days_supply empty or 3) record needs to be combined with other record (e.g.&nbsp;reversal of prescription). High values (&gt;365 days) should be investigated. If considered an error in the source data (e.g.&nbsp;typo), the value needs to be excluded to prevent creation of unrealistic long eras.
+The field should be left empty if the source data does not contain a verbatim days_supply, and should not be calculated from other fields.<br><br>Negative values are not allowed. If the source has negative days supply the record should be dropped as it is unknown if the patient actually took the drug. Several actions are possible: 1) record is not trustworthy and we remove the record entirely. 2) we trust the record and leave days_supply empty or 3) record needs to be combined with other record (e.g.&nbsp;reversal of prescription). High values (&gt;365 days) should be investigated. If considered an error in the source data (e.g.&nbsp;typo), the value needs to be excluded to prevent creation of unrealistic long eras.
 </td>
 <td style="text-align:left;">
 integer
