@@ -50,6 +50,10 @@ ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedur
 ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_procedure_concept_id FOREIGN KEY (procedure_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_procedure_type_concept_id FOREIGN KEY (procedure_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_modifier_concept_id FOREIGN KEY (modifier_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_provider_id FOREIGN KEY (provider_id) REFERENCES @cdmDatabaseSchema.PROVIDER (PROVIDER_ID);
+ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_visit_occurrence_id FOREIGN KEY (visit_occurrence_id) REFERENCES @cdmDatabaseSchema.VISIT_OCCURRENCE (VISIT_OCCURRENCE_ID);
+ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_visit_detail_id FOREIGN KEY (visit_detail_id) REFERENCES @cdmDatabaseSchema.VISIT_DETAIL (VISIT_DETAIL_ID);
+ALTER TABLE @cdmDatabaseSchema.procedure_occurrence  ADD CONSTRAINT fpk_procedure_occurrence_procedure_source_concept_id FOREIGN KEY (procedure_source_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.device_exposure  ADD CONSTRAINT fpk_device_exposure_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
 ALTER TABLE @cdmDatabaseSchema.device_exposure  ADD CONSTRAINT fpk_device_exposure_device_concept_id FOREIGN KEY (device_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.device_exposure  ADD CONSTRAINT fpk_device_exposure_device_type_concept_id FOREIGN KEY (device_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
@@ -89,6 +93,7 @@ ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_language_concept_id
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_provider_id FOREIGN KEY (provider_id) REFERENCES @cdmDatabaseSchema.PROVIDER (PROVIDER_ID);
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_visit_occurrence_id FOREIGN KEY (visit_occurrence_id) REFERENCES @cdmDatabaseSchema.VISIT_OCCURRENCE (VISIT_OCCURRENCE_ID);
 ALTER TABLE @cdmDatabaseSchema.note  ADD CONSTRAINT fpk_note_visit_detail_id FOREIGN KEY (visit_detail_id) REFERENCES @cdmDatabaseSchema.VISIT_DETAIL (VISIT_DETAIL_ID);
+ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_id FOREIGN KEY (note_id) REFERENCES @cdmDatabaseSchema.NOTE (NOTE_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_section_concept_id FOREIGN KEY (section_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_nlp_concept_id FOREIGN KEY (note_nlp_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.note_nlp  ADD CONSTRAINT fpk_note_nlp_note_nlp_source_concept_id FOREIGN KEY (note_nlp_source_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
@@ -127,6 +132,7 @@ ALTER TABLE @cdmDatabaseSchema.drug_era  ADD CONSTRAINT fpk_drug_era_drug_concep
 ALTER TABLE @cdmDatabaseSchema.dose_era  ADD CONSTRAINT fpk_dose_era_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
 ALTER TABLE @cdmDatabaseSchema.dose_era  ADD CONSTRAINT fpk_dose_era_drug_concept_id FOREIGN KEY (drug_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.dose_era  ADD CONSTRAINT fpk_dose_era_unit_concept_id FOREIGN KEY (unit_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
+ALTER TABLE @cdmDatabaseSchema.condition_era  ADD CONSTRAINT fpk_condition_era_person_id FOREIGN KEY (person_id) REFERENCES @cdmDatabaseSchema.PERSON (PERSON_ID);
 ALTER TABLE @cdmDatabaseSchema.condition_era  ADD CONSTRAINT fpk_condition_era_condition_concept_id FOREIGN KEY (condition_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.metadata  ADD CONSTRAINT fpk_metadata_metadata_concept_id FOREIGN KEY (metadata_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
 ALTER TABLE @cdmDatabaseSchema.metadata  ADD CONSTRAINT fpk_metadata_metadata_type_concept_id FOREIGN KEY (metadata_type_concept_id) REFERENCES @cdmDatabaseSchema.CONCEPT (CONCEPT_ID);
