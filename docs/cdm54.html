@@ -10004,7 +10004,7 @@ FALSE
 <p><strong>Table Description</strong></p>
 <p>A Dose Era is defined as a span of time when the Person is assumed to be exposed to a constant dose of a specific active ingredient.</p>
 <p><strong>ETL Conventions</strong></p>
-<p>Dose Eras will be derived from records in the DRUG_EXPOSURE table and the Dose information from the DRUG_STRENGTH table using a standardized algorithm. Dose Form information is not taken into account. So, if the patient changes between different formulations, or different manufacturers with the same formulation, the Dose Era is still spanning the entire time of exposure to the Ingredient.</p>
+<p>Dose Eras are derived from records in the DRUG_EXPOSURE table and the Dose information from the DRUG_STRENGTH table. There is currently no standardized OHDSI algorithm for building them, so the method used should be documented. Dose Form information is not taken into account. So, if the patient changes between different formulations, or different manufacturers with the same formulation, the Dose Era is still spanning the entire time of exposure to the Ingredient.</p>
 <table class="table table-condensed table-hover" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
